@@ -1,0 +1,66 @@
+{
+  "built_product_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "only_code_changes_since_built_commit": [
+    "app/test/business_backend_integration_test.dart",
+    "web/office/tests/e2e.cjs"
+  ],
+  "all_product_sources_unchanged": true,
+  "controlled_existing_full_HTTP_offline_case": [
+    {
+      "phase": "before",
+      "exit_code": 1,
+      "UTC_fixture_clock_values": [
+        "2026-11-04T05:30:00.123456Z"
+      ],
+      "seconds_assertions_unchanged": [
+        7200,
+        3600
+      ],
+      "duration_seconds": 4.834,
+      "source_sha256": "cd86f076d1a0da501c69325dc13f3c43c438aa8e51349b62092e2017f83c7e59"
+    },
+    {
+      "phase": "after",
+      "exit_code": 0,
+      "UTC_fixture_clock_values": [
+        "2026-11-04T01:30:00.123456Z",
+        "2026-11-04T05:30:00.123456Z",
+        "2026-11-04T12:30:00.123456Z"
+      ],
+      "seconds_assertions_unchanged": [
+        7200,
+        3600
+      ],
+      "duration_seconds": 8.297,
+      "source_sha256": "de227f3c51911f92df3ce81986257db4a2b7e446f3e6771b8b56d14464441a98"
+    }
+  ],
+  "normal_original_module_passed": true,
+  "flutter_analyze": "No issues found",
+  "assertions_unchanged": [
+    7200,
+    3600
+  ],
+  "production_rounding_changed": false,
+  "historical_time_values_recalculated": false,
+  "known_existing_precision": "Each calendar-day portion is truncated to whole seconds. Fractional intervals crossing midnight can therefore lose a fractional remainder independently per day; this test-fixture correction does not change or claim to solve that policy.",
+  "temporary_fixtures_removed": true,
+  "proof_sha256": {
+    "analyze.txt": "029d658bf10f7c421c9317d9bf6b15e473eb428c2deb7d973052e9ecf829f6c2",
+    "results.json": "d05d275cf1c144adcd0ec59706be19df1168bfa4b0bf973820a83e5befc22a49",
+    "before.txt": "7458834d8312b6d8cf1647d8bb75d6ed7635016a2844a0e9c3698843a09bf942",
+    "normal-module-final.txt": "93d8956a4e2b2e300d6cbb524702ea3b788adbf1916a0a561308f54bdf6daacf",
+    "after.txt": "1dcdfadb9382228763bc1326c35946f2a1a735ac88b3207f92a5ddc3ef376279",
+    "temporary-fixtures-cleaned.json": "8824d60203fc609a358d04959f3f36c544afc9fe60b92e7f5b4186d57e7ae3a7",
+    "format.txt": "e9a9391b45bfc5901988659ff97eb38801bb8be0214866e54bd473032a2ff03e",
+    "README.md": "b9e78f80dd68be55feefa86ac487724956ecf49af9d83e1e1dede375b3aa1f04",
+    "run.py": "0bf61cf7aefb3083db3015401a0b28db89b4a32d8cc210a7473854fc4e500249",
+    "ci-e708-status.json": "d098e790b51a5b0fdd7fcc672731399c8efd3432e85b60b07d940d8a81a10ca4",
+    "native-tool-path-first-attempt-results.json": "afec3d226295196173a559e7148248e3b2f859ed8d4d9fea38695c601a1c8ad6",
+    "server-source-prepared.json": "e2e14238f610ecbac44b306cfb7889a84e77de3ff415d45a0479d56e1e65a133",
+    "native-tool-path-first-attempt-after.txt": "5a0b1c80cfee13c18350eaffe146235e23f02d0e89d986308e35aa07dbd15be0",
+    "normal-module.txt": "93d8956a4e2b2e300d6cbb524702ea3b788adbf1916a0a561308f54bdf6daacf",
+    "native-tool-path-first-attempt-before.txt": "5a0b1c80cfee13c18350eaffe146235e23f02d0e89d986308e35aa07dbd15be0",
+    "ci-flutter-e708.log": "5c5cf3243a8c2a94dfed00f63badad38393a26817396a86b5f9b14009bbf538d"
+  }
+}

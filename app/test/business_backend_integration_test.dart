@@ -106,6 +106,16 @@ app = create_app(""",
           expect(converted['status'], 'draft');
           connection = ImportConnection(base);
           var now = DateTime.now().toUtc();
+          // Exact whole-second assertions need a whole-second fixture clock;
+          // fractional per-day rounding is separate from offline replay.
+          now = DateTime.utc(
+            now.year,
+            now.month,
+            now.day,
+            now.hour,
+            now.minute,
+            now.second,
+          );
           repo = OfflinePlans(
             api: api,
             transport: connection,

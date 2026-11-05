@@ -1,0 +1,12 @@
+{
+  "source": "User screenshot from existing SSH terminal",
+  "checkout_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "checkout_clean": true,
+  "branch": "detached HEAD",
+  "previous_commit": "6371da1ec3641818b158ce3d3e132be674bc397e",
+  "git_warning": "8 commits not connected to local branches; old commit still named in checkout output",
+  "planned_protection_ref": "refs/heads/backup/server-before-0.13-20261105",
+  "protection_ref_creation_observed": false,
+  "installed_source_updated": false,
+  "deployment_execution_by_cloud_assistant": false
+}

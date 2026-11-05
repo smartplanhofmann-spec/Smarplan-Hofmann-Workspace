@@ -1,0 +1,52 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+No compiler configured on host 'linux_x64' with target 'linux_x64'.
+
+Unhandled exception:
+System not configured correctly: No compiler configured on host 'linux_x64' with target 'linux_x64'.
+#0      CompilerResolver.resolveCompiler (package:native_toolchain_c/src/cbuilder/compiler_resolver.dart:70:5)
+<asynchronous suspension>
+#1      RunCBuilder.compiler (package:native_toolchain_c/src/cbuilder/run_cbuilder.dart:106:44)
+<asynchronous suspension>
+#2      RunCBuilder.run (package:native_toolchain_c/src/cbuilder/run_cbuilder.dart:139:27)
+<asynchronous suspension>
+#3      CBuilder.run (package:native_toolchain_c/src/cbuilder/cbuilder.dart:237:5)
+<asynchronous suspension>
+#4      main.<anonymous closure> (file:///workspace/toolchains/pub-cache/hosted/pub.dev/pdfium_dart-0.4.0/hook/build.dart:20:5)
+<asynchronous suspension>
+#5      build (package:hooks/src/api/build_and_link.dart:250:5)
+<asynchronous suspension>
+#6      main (file:///workspace/toolchains/pub-cache/hosted/pub.dev/pdfium_dart-0.4.0/hook/build.dart:14:3)
+<asynchronous suspension>
+
+  Building assets for package:pdfium_dart failed.
+  build.dart returned with exit code: 255.
+  To reproduce run:
+  (cd /workspace/toolchains/pub-cache/hosted/pub.dev/pdfium_dart-0.4.0/; /workspace/toolchains/flutter/bin/cache/dart-sdk/bin/dart --packages=/workspace/Smarplan-Hofmann-Workspace/app/.dart_tool/package_config.json /workspace/Smarplan-Hofmann-Workspace/app/.dart_tool/hooks_runner/pdfium_dart/6b4ebf10e7/hook.dill --config=/workspace/Smarplan-Hofmann-Workspace/app/.dart_tool/hooks_runner/pdfium_dart/6b4ebf10e7/input.json )
+  stderr:
+  No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+No compiler configured on host 'linux_x64' with target 'linux_x64'.
+Unhandled exception:
+System not configured correctly: No compiler configured on host 'linux_x64' with target 'linux_x64'.
+#0      CompilerResolver.resolveCompiler (package:native_toolchain_c/src/cbuilder/compiler_resolver.dart:70:5)
+<asynchronous suspension>
+#1      RunCBuilder.compiler (package:native_toolchain_c/src/cbuilder/run_cbuilder.dart:106:44)
+<asynchronous suspension>
+#2      RunCBuilder.run (package:native_toolchain_c/src/cbuilder/run_cbuilder.dart:139:27)
+<asynchronous suspension>
+#3      CBuilder.run (package:native_toolchain_c/src/cbuilder/cbuilder.dart:237:5)
+<asynchronous suspension>
+#4      main.<anonymous closure> (file:///workspace/toolchains/pub-cache/hosted/pub.dev/pdfium_dart-0.4.0/hook/build.dart:20:5)
+<asynchronous suspension>
+#5      build (package:hooks/src/api/build_and_link.dart:250:5)
+<asynchronous suspension>
+#6      main (file:///workspace/toolchains/pub-cache/hosted/pub.dev/pdfium_dart-0.4.0/hook/build.dart:14:3)
+<asynchronous suspension>
+
+  stdout:
+  Running `which clang`.
+Running `which vswhere.exe`.
+You can install the missing package via
+
+
+Building native assets failed. See the logs for more details.

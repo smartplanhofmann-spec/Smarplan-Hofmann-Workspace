@@ -2348,3 +2348,32 @@ Vor einer koordinierten Serverumschaltung wird der feste Quellstand im
 Servercheckout bereitgestellt. Die vorhandene Aktualisierung nutzt Sicherung,
 Kandidatendatenbank und Wartungsfenster; ein bloßer Checkout schaltet die
 laufende Installation nicht um.
+
+
+## 05.11.2026 – Serverquellstand bestätigt, Updateblock und Testuhr-Nachprüfung
+
+Der Nutzer bestätigt per SSH-Screenshot HEAD a93cb4d mit sauberem Checkout.
+Git weist auf acht Altcommits ohne lokalen Branch hin. Der konkrete
+[Updateblock](CRM_ERP_SERVERUPDATE_0_13.md) verankert deren bisherigen Head
+6371da1e vor der Ausführung ausdrücklich als Sicherungsbranch und pinnt den
+bereits gebauten Zielcommit. Die laufende Installation wurde damit noch
+nicht als aktualisiert bestätigt; ein direkter Cloudzugriff erfolgte nicht.
+
+Auf e7089a6 besteht jetzt auch der vollständige Business-/Browserjob. Alle
+Server-, Windows-, Simulator-, Update-/Recovery- und HTTPS-Jobs sind erfolgreich.
+Der Linux-App-Lauf hat 1620 bestandene Fälle und einen Befund: eine auf
+Mikrosekunden gesetzte Testuhr liefert bei getrennter ganzsekündiger Aufteilung
+über Berliner Mitternacht 7199 statt der fest erwarteten 7200 Sekunden.
+Der vorhandene vollständige HTTP-/Offline-/Cache-/Wiederholungsfall verwendet
+nun eine ganzsekündige Testuhr, passend zu seinen unveränderten Erwartungen.
+Der Befund ist am unveränderten Fall reproduziert; danach bestehen kontrolliert
+01:30, 05:30 und 12:30 UTC sowie derselbe Fall mit aktueller Uhrzeit. Flutter-
+Analyse ohne Befund. Produktberechnung und historische Tageswerte sind
+unverändert. Eine summenerhaltende Subsekundenaufteilung ist dadurch nicht
+implementiert; die bestehende Rundungsgrenze ist ausdrücklich dokumentiert.
+[Originalfehler, Vorher/Nachher, Compilerpfad-Erstfehler und Quellbindungen](evidence/project-time-clock-2026-11-05/verification.json).
+
+Die beiden Codeänderungen nach dem tatsächlich gebauten a93cb4d betreffen nur
+Browser- und App-Testhelfer; sämtliche Produktquellen bleiben bytegleich.
+Der vorbereitete manuelle Updateblock startet eine koordinierte Umschaltung;
+seine Ausführung ist bis zur tatsächlichen Serverausgabe nicht behauptet.

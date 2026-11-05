@@ -1,0 +1,30 @@
+[
+  {
+    "phase": "before",
+    "exit_code": 1,
+    "UTC_fixture_clock_values": [
+      "2026-11-04T05:30:00.123456Z"
+    ],
+    "seconds_assertions_unchanged": [
+      7200,
+      3600
+    ],
+    "duration_seconds": 4.834,
+    "source_sha256": "cd86f076d1a0da501c69325dc13f3c43c438aa8e51349b62092e2017f83c7e59"
+  },
+  {
+    "phase": "after",
+    "exit_code": 0,
+    "UTC_fixture_clock_values": [
+      "2026-11-04T01:30:00.123456Z",
+      "2026-11-04T05:30:00.123456Z",
+      "2026-11-04T12:30:00.123456Z"
+    ],
+    "seconds_assertions_unchanged": [
+      7200,
+      3600
+    ],
+    "duration_seconds": 8.297,
+    "source_sha256": "de227f3c51911f92df3ce81986257db4a2b7e446f3e6771b8b56d14464441a98"
+  }
+]

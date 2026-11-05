@@ -1,0 +1,14 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/clock_probe_before_0.dart
+00:00 +0: before 05:30:00.123456 real HTTP cache and exact offline replay
+00:01 +0 -1: before 05:30:00.123456 real HTTP cache and exact offline replay [E]
+  Expected: <7200>
+    Actual: <7199>
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/clock_probe_before_0.dart 212:11               main.<fn>.<fn>
+  
+00:01 +0 -1: Some tests failed.
+
+Failing tests:
+  /workspace/Smarplan-Hofmann-Workspace/app/test/clock_probe_before_0.dart: before 05:30:00.123456 real HTTP cache and exact offline replay

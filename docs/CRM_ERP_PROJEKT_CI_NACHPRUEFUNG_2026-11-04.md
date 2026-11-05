@@ -328,3 +328,18 @@ geschlossen. Vier bestehende Bedienabläufe einschließlich 18 Accessibility-
 Ansichten sowie 856 Node-Fälle bestehen. [Vollständiger roter CI-Lauf, echter
 Serverstatus, Vorher/Nachher und Quellbindung](evidence/project-browser-navigation-2026-11-05/verification.json).
 Eine neue grüne Remote-Gesamtprüfung wird daraus nicht abgeleitet.
+
+
+## 05.11.2026 – Vollständiger Remote-Browserlauf grün, Testuhr beim Tageswechsel
+
+Der vollständige Business-/Browserjob auf e7089a6 besteht. Der Linux-App-Job
+hat einen auf Mikrosekunden-/Tagesgrenzen beruhenden Fixturebefund (7199 statt
+7200), die übrigen 1620 Fälle bestehen. Der bestehende vollständige HTTP-Fall
+ist mit unveränderten Assertions reproduziert und anschließend mit einer
+explizit ganzsekündigen Testuhr zu drei Zeitpunkten sowie bei aktueller Uhrzeit
+erfolgreich. Analyse ohne Befund. Die produktive Tagesrundung bleibt erhalten;
+dies ist kein Nachweis einer neuen summenerhaltenden Subsekundenberechnung.
+[CI-Log, reale Nachläufe und präzise Grenze](evidence/project-time-clock-2026-11-05/verification.json).
+Der [vorbereitete Serverupdateblock](CRM_ERP_SERVERUPDATE_0_13.md) pinnt den
+bytegleichen tatsächlich gebauten Produktstand a93cb4d und sichert den vom
+Nutzer bestätigten Altcommit vor einer manuellen Umschaltung.

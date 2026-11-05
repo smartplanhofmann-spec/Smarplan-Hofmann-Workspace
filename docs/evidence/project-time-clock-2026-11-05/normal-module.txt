@@ -1,0 +1,3 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_backend_integration_test.dart
+00:00 +0: Real business HTTP preserves draft values and durable own time through the scoped grant
+00:01 +1: All tests passed!

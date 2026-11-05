@@ -70,6 +70,31 @@ verlinkten tatsächlich gebauten Windows-Paket. Die früheren SSH-Ausgaben mit
 Sie sind kein aktueller Arbeitsauftrag. Für den Kundentest ist keine weitere
 Serverumstellung nötig. Der Cloud-Assistent hat den Server nicht direkt bedient.
 
+## Zeiterfassung finden und den eigenen Zugang zuordnen
+
+Die Menünamen unterscheiden sich im aktuellen A93-Stand:
+
+- Browser: Hauptmenü **Personal**, Überschrift **Personal & Zeiten**, Schaltfläche
+  **Zeit starten**. Im Dialog **Zeiterfassung** das Projekt wählen und mit
+  **Zeitereignis speichern** beginnen. Laufende Zeit später über
+  **Laufende Zeit öffnen** pausieren oder beenden.
+- Windows-App: Ein konkretes Projekt öffnen und dort **Arbeitszeit** wählen.
+  Bei schmalem Fenster steht der Eintrag im Auswahlfeld **Projektbereich**;
+  im breiten Fenster in der horizontalen Bereichsleiste.
+- Fehlt im Browser **Zeit starten**, unter **Personal → Mitarbeiterprofil anlegen**
+  das eigene angemeldete **Benutzerkonto** zuordnen und das Profil aktiv lassen.
+  Ein vorhandenes Profil zuerst prüfen statt ein zweites anzulegen. Auch die
+  Geschäftsführung benötigt für ihre eigenen Stempelzeiten eine solche Zuordnung.
+  Mitarbeiterverwaltung setzt die passende Geschäftsführungs-/Personalberechtigung
+  voraus; andere Benutzer können sich diese nicht selbst geben.
+
+Fehlt bereits das gesamte Menü **Personal** oder der Projektbereich
+**Arbeitszeit**, sind Unternehmensmodul, Sichtbarkeit und Berechtigung zu prüfen.
+Das ist von einer fehlenden Mitarbeiterzuordnung zu unterscheiden. Ohne
+tatsächliche Bildschirm-/Kontodaten wird keine dieser Ursachen für einen
+konkreten Zugang behauptet. Die obigen Wege sind im vorhandenen Quellstand
+nachgelesen, noch keine zusätzliche echte Geräteabnahme.
+
 ## Gemeinsame Bedienfolge
 
 1. **Kunde und Projekt:** Im Browser einen Testkunden mit vollständiger

@@ -2539,3 +2539,23 @@ markiert. Signierte iPhone-Verteilung und spätere iPhone-Abnahme bleiben offen.
 Diese Dokumentationsänderung verändert keinen Produktcode und erfordert
 keinen erneuten Serverrollout. Die automatische Parser-Kompatibilitätsprüfung
 vor zukünftigen API-Updates bleibt der nächste unabhängige Operatorpunkt.
+
+
+## 05.11.2026 – Nutzer findet Zeiterfassung nicht: Zugangswege konkretisiert
+
+Der Nutzer berichtet, beim bisherigen Durchsehen keine Zeiterfassung gefunden
+zu haben. Der verwendete Client und seine tatsächliche Ansicht sind noch nicht
+bestätigt. Der installierte A93-Quellstand enthält im Browser den Weg
+Personal → Personal & Zeiten → Zeit starten. Diese Schaltfläche setzt die
+Zuordnung des angemeldeten Kontos zu einem Mitarbeiterprofil und die eigene
+Zeitberechtigung voraus. Mitarbeiterprofile lassen sich mit entsprechender
+Verwaltungsberechtigung im selben Bereich zu vorhandenen Benutzerkonten anlegen.
+Eine fehlende Zuordnung wird nicht als bestätigte Ursache beim Nutzer behauptet.
+
+Die Windows-App öffnet die Stempeluhr innerhalb eines konkreten Projekts unter
+Arbeitszeit. Unter 1000 Layoutpunkten Fensterbreite wird die Bereichswahl als
+Auswahlfeld Projektbereich dargestellt, bei größerer Breite als horizontale
+Bereichsleiste. Die [Kundentestanleitung](CRM_ERP_KUNDENTEST_PROJEKTBETRIEB_0_13.md)
+nennt jetzt beide Wege sowie den Unterschied zwischen fehlender Profilzuordnung
+und fehlendem Menü durch Sichtbarkeit/Modul/Berechtigung. Produktcode wurde
+nicht verändert; keine neue Geräteabnahme oder Serveränderung wird behauptet.

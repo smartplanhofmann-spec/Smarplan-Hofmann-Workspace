@@ -1,3 +1,12 @@
+# Korrektur des Journalpfads
+
+Der zuvor ausgeschriebene Zeitstempel im Journalpfad war eine fehlerhafte
+Transkription aus dem Screenshot. Der Nutzer bestätigt, dass der zusätzliche
+Phasentest deshalb vor dem Importdienst-Stopp, einer Sicherung oder einer
+Paketänderung abgebrochen ist. Die folgende Fassung leitet den Journalnamen
+über readlink vom tatsächlichen aktiven App-Release ab und prüft dessen
+Struktur und Metadatendatei. Keine Auswahl anhand des neuesten Verzeichnisses.
+
 # Planimport nach aktivierter A93-Serverumstellung
 
 Der Nutzer bestätigt jetzt den installierten A93-Commit und /ready mit
@@ -29,7 +38,14 @@ aktive Importwarteschlange wieder auf. Danach sind Zustand und Logs zu prüfen.
   flock -n 9
   test "$(cat /opt/smartplan-online/SOURCE_COMMIT)" = a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5
   test "$(cat /etc/smartplan-online/UPDATE_IN_PROGRESS)" = activating
-  smartplan_repair_journal=/etc/smartplan-online/updates/a93cb4d02eab-20261105T183445-10529
+  smartplan_active_app=$(readlink -e /opt/smartplan-online/app)
+  test "$(basename "$smartplan_active_app")" = app
+  smartplan_active_release=$(dirname "$smartplan_active_app")
+  test "$(dirname "$smartplan_active_release")" = /opt/smartplan-online/releases
+  smartplan_release_id=$(basename "$smartplan_active_release")
+  smartplan_repair_journal="/etc/smartplan-online/updates/$smartplan_release_id"
+  test -f "$smartplan_repair_journal/metadata.json"
+  printf 'Aktives Updatejournal: %s\n' "$smartplan_repair_journal"
   test "$(cat "$smartplan_repair_journal/phase")" = activating
   test -f /opt/smartplan-plan-import/venv/pyvenv.cfg
   systemctl stop smartplan-plan-import.service

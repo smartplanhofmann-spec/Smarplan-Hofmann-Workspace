@@ -1,3 +1,14 @@
+# Aktueller nächster Schritt: Parserreparatur mit automatisch ermitteltem Journal
+
+Der zuletzt verwendete ausgeschriebene Journalpfad war falsch transkribiert.
+Der Phasentest hat die Paket-/Dienständerungen vorher abgebrochen. Die
+[aktualisierte Parserreparatur](CRM_ERP_PLANIMPORT_REPARATUR_0_13.md) ermittelt
+den korrekten Journalpfad jetzt aus dem tatsächlich aktiven App-Release.
+Der neue Serverstand und die Datenbank bleiben erhalten. Keine der darunter
+archivierten API-Updatefolgen erneut starten und das offene Journal nicht löschen.
+
+## Verlauf
+
 # Aktueller Befund: Parser-Pillow passt nicht zum aktivierten Quellstand
 
 Installierter A93-Commit und API-/Datenbankbereitschaft sind inzwischen vom

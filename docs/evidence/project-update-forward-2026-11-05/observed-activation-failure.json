@@ -1,7 +1,7 @@
 {
   "source": "User SSH screenshot",
-  "update_id": "a93cb4d02eab-20261105T183445-10529",
-  "journal": "/etc/smartplan-online/updates/a93cb4d02eab-20261105T183445-10529",
+  "update_id": null,
+  "journal": null,
   "target_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
   "permission_guard_passed": true,
   "printed_candidate_restore_and_migration_check_success": true,
@@ -14,5 +14,9 @@
   "required_strategy": "Keep current database/code and journal, diagnose the worker, verify service/readiness before controlled completion. Do not repeat updater or restore old database.",
   "API_readiness_after_failure_not_yet_observed": true,
   "exact_worker_failure_cause_not_yet_known": true,
-  "cloud_server_access": false
+  "cloud_server_access": false,
+  "original_transcribed_update_id": "a93cb4d02eab-20261105T183445-10529",
+  "original_transcribed_journal": "/etc/smartplan-online/updates/a93cb4d02eab-20261105T183445-10529",
+  "journal_path_verified": false,
+  "correction": "User file-not-found disproves the manually transcribed timestamp. Resolve the actual active app release before journal operations."
 }

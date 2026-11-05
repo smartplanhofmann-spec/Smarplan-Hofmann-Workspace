@@ -2457,3 +2457,21 @@ getrennten Parser-Abhängigkeiten beim API-Update. Diese muss künftig vor der
 Aktivierung abgefangen werden; ein Bereitschaftssignal der API ersetzt den
 Parsertest nicht. Die neue Datenbank und alle möglichen neuen Schreibvorgänge
 werden weiterhin erhalten.
+
+
+## 05.11.2026 – Fehlerhafte Journal-Transkription korrigiert
+
+Der Nutzer meldet beim vorbereiteten Parser-Reparaturblock eine fehlende
+Phasendatei. Der in der Vorlage ausgeschriebene Journal-Zeitstempel war vom
+Assistenten falsch aus dem Screenshot übernommen. Der Block stoppt deshalb
+vor Worker-Stopp, Venv-Sicherung und Paketinstallation; es wird keine solche
+Änderung behauptet. Die ursprüngliche Transkription bleibt separat erhalten,
+ihr Pfad ist ausdrücklich als unbestätigt/ungültig markiert.
+
+Die [korrigierte Reparatur](CRM_ERP_PLANIMPORT_REPARATUR_0_13.md) leitet das
+Journal nun vom aufgelösten tatsächlichen App-Release ab und prüft Struktur,
+Metadatenexistenz, globale und releasebezogene Aktivierungsphase. Ein eigener
+rein lesender Test mit mehreren synthetischen Releases bestätigt, dass der
+aktive Symlink und nicht ein zeitlich späteres fremdes Verzeichnis gewählt
+wird. Shellsyntax geprüft. Die tatsächliche Serverreparatur ist weiterhin
+nicht bestätigt; neuer Datenbestand und Updatejournal bleiben erhalten.

@@ -1,0 +1,6 @@
+{
+  "selected_correct_active_release": true,
+  "later_unrelated_release_not_selected": true,
+  "probe_uses_synthetic_paths_only": true,
+  "temporary_directory_removed_on_exit": true
+}

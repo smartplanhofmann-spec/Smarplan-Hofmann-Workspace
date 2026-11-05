@@ -61,6 +61,20 @@ Erkennungsabnahme auf einem echten Server.
 Die Stubs enthalten nur fiktive Daten. Sie öffnen keine realen Dienstverbindungen
 und lesen keine Zugangsdaten des Hostsystems.
 
+Der gesonderte test_forward_completion.py prüft den kontrollierten Abschluss
+eines bereits aktivierten, vorwärts reparierten Updates mit echten temporären
+Dateien, Symlinks, Rechten, flock und atomaren Schreibfehlern. Falsche Releases,
+Datenbankzuordnung, Prozesswechsel, fehlende aktuelle Sandbox-/Loop-Bestätigung,
+unpassende Parserpakete und fehlgeschlagene Timer erhalten die Updatesperre.
+Ein Teilabbruch beim finalen Schreiben ist vorwärts wiederholbar. Die /proc-
+Bindung wird zusätzlich mit einem echten synthetischen Kindprozess geprüft;
+systemd, HTTPS und Paketabfrage sind Adapter. Dieser Test lässt sich auch
+allein auf dem Host ausführen, da er ausschließlich temporäre Pfade verwendet:
+
+```bash
+python3 -m unittest discover -s tests/update_flow -p test_forward_completion.py -v
+```
+
 
 Der Git-Archivstub bildet den echten Default tar.umask=0002 einschließlich
 0775-Verzeichnisheadern und 0664-Dateien ab und verarbeitet die explizite

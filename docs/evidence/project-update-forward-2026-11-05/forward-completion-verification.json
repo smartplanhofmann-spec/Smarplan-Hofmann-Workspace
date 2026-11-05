@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-05",
+  "helper": "deploy/hetzner/online/complete-online-update.py",
+  "helper_sha256": "8029f47114144924f496d280a6158d9c32d822701ed9131fb7a21c37c1210e91",
+  "expected_deployed_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "targeted_tests": {
+    "command": "python3 -m unittest discover -s tests/update_flow -p test_forward_completion.py -v",
+    "count": 22,
+    "result": "passed",
+    "log": "forward-completion-targeted-tests.txt"
+  },
+  "complete_operator_suite": {
+    "command": "bash scripts/test-update-flow.sh",
+    "container": "python:3.12-slim; local explicit Docker socket; network none; repository read only",
+    "count": 82,
+    "seconds": 231.127,
+    "skips": 0,
+    "result": "passed",
+    "log": "forward-completion-full-operator-tests.txt"
+  },
+  "initial_container_launch": {
+    "result": "blocked by execution sandbox before Docker container launch",
+    "log": "forward-completion-docker-sandbox-block.txt",
+    "resolution": "Allowed local socket access with additional network permission; test container still network none"
+  },
+  "real_boundaries": ["temporary files", "symlinks", "ownership and modes", "flock", "atomic filesystem writes", "interrupted finalization retry", "synthetic child process environment and cwd via proc"],
+  "simulated_boundaries": ["systemd", "journal responses", "HTTP", "installed parser version metadata"],
+  "python_syntax": "passed for helper and test module",
+  "git_diff_check": "passed",
+  "actual_server_parser_repair": "confirmed by user screenshot; see observed-parser-repair-success.json",
+  "actual_server_completion_helper_execution": "not yet observed",
+  "whole_product_acceptance": "not claimed",
+  "remaining_operator_work": "Parser compatibility must be checked before the public activation boundary of future API updates"
+}

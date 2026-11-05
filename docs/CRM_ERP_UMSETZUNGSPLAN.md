@@ -182,6 +182,16 @@ bezeichnet. Unabhängige Entwicklung läuft weiter.
 
 ## Arbeitsregeln und Abschlusskriterium
 
+Aktuelle Betriebsfortsetzung vom 05.11.2026: Der Nutzer hat nach dem
+fehlgeschlagenen Importstart die gezielte Parserreparatur ausgeführt; Sandbox,
+Controller, drei Dienste und Datenbankbereitschaft sind bestätigt. Als nächster
+Schritt wird der [vorbereitete Updateabschluss](CRM_ERP_SERVERUPDATE_ABSCHLUSS_0_13.md)
+auf dem tatsächlichen Server ausgeführt und sein Ergebnis erfasst. Danach
+folgt die vorbereitete Browser-/Windows-Kundenstrecke. Die allgemeine
+Parser-Kompatibilität vor zukünftigen API-Updates wird anschließend im
+Operatorablauf abgesichert. Signierte iPhone-Verteilung und tatsächliche
+Geräteabnahmen bleiben offen; Lohn und Gesamtbuchhaltung bleiben zurückgestellt.
+
 Neue Module werden additiv migriert. Historische Schema-/Quittungsformate bleiben
 prüfbar; aktuelle Restores verlangen den vollständigen installierten Umfang.
 Fehlende Bestände oder ungeprüfte Quellen werden nicht als Null, Gewinn oder

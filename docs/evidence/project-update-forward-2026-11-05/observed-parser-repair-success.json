@@ -1,0 +1,31 @@
+{
+  "source": "User-provided screenshot of the real server SSH terminal; not a direct cloud server request",
+  "server": "smartplan-test",
+  "observed_start_time": "2026-11-05T20:23:01+00:00",
+  "parser_startup": {
+    "ready": true,
+    "sandboxed": true,
+    "languages": ["deu", "eng"],
+    "namespaces": ["net", "pid", "mnt"],
+    "temporary_storage_bounded": true
+  },
+  "controller_pid_observed": 11672,
+  "controller_idle_observed_at": [
+    "2026-11-05T20:23:02+00:00",
+    "2026-11-05T20:23:04+00:00",
+    "2026-11-05T20:23:06+00:00"
+  ],
+  "three_service_checks": ["active", "active", "active"],
+  "ready_response": {
+    "status": "ok",
+    "database": "ok",
+    "schema_version": 7,
+    "compatibility_mode": "business",
+    "version": "0.12.0-online-pilot"
+  },
+  "interpretation": "Parser startup repair succeeded with the existing sandbox. Earlier 18:35 failures in the same log are historical.",
+  "exact_update_id": null,
+  "exact_parser_backup_path": null,
+  "formal_update_completion_observed": false,
+  "remaining": "Verify active release, process/database binding, current service invocation and timers before removing the pending update marker. No rollback."
+}

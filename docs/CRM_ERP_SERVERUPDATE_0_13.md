@@ -1,4 +1,17 @@
-# Aktueller nächster Schritt: Parserreparatur mit automatisch ermitteltem Journal
+# Aktueller Stand: Parser repariert, kontrollierter Updateabschluss vorbereitet
+
+Der Nutzer bestätigt um 20:23 UTC den bestandenen Sandbox-Starttest, den
+anschließend laufenden Importcontroller, drei aktive Dienste und Datenbank ok.
+Die roten Startfehler von 18:35 in demselben Ausschnitt sind historisch.
+Der [kontrollierte Abschlusshelfer](CRM_ERP_SERVERUPDATE_ABSCHLUSS_0_13.md)
+prüft jetzt tatsächliche Code-/Prozess-/Datenbankbindung und Timer, bevor er
+das noch offene Update abschließt. Seine Serverausführung ist noch nicht
+bestätigt. Die neue Datenbank, Releases und Sicherungen bleiben erhalten.
+Die nachfolgenden Update-/Reparaturblöcke sind Verlauf, keine neue Startanweisung.
+
+## Verlauf vor der erfolgreichen Parserreparatur
+
+# Vorheriger nächster Schritt: Parserreparatur mit automatisch ermitteltem Journal
 
 Der zuletzt verwendete ausgeschriebene Journalpfad war falsch transkribiert.
 Der Phasentest hat die Paket-/Dienständerungen vorher abgebrochen. Die

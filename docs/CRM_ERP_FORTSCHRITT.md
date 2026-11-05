@@ -2475,3 +2475,37 @@ rein lesender Test mit mehreren synthetischen Releases bestätigt, dass der
 aktive Symlink und nicht ein zeitlich späteres fremdes Verzeichnis gewählt
 wird. Shellsyntax geprüft. Die tatsächliche Serverreparatur ist weiterhin
 nicht bestätigt; neuer Datenbestand und Updatejournal bleiben erhalten.
+
+
+## 05.11.2026 – Tatsächlicher Parserstart bestätigt; Updateabschluss vorbereitet
+
+Die neue Nutzerausgabe bestätigt um 20:23 UTC die echte Sandbox-Vorprüfung
+mit net/pid/mnt-Isolation, begrenztem temporärem Speicher und OCR-Sprachen
+deu/eng. Controller PID 11672 meldet anschließend mehrfach idle. Alle drei
+Dienste sind aktiv, /ready meldet Datenbank ok, Schema 7 und Businessmodus.
+Die älteren roten Meldungen von 18:35 sind historisch. [Erfasster Befund](evidence/project-update-forward-2026-11-05/observed-parser-repair-success.json).
+Der Cloud-Assistent hat den Server nicht direkt bedient. Exakter Journal-
+und Sicherungsverzeichnisname werden aus dem Ausschnitt nicht behauptet.
+
+Ein [gesonderter Abschlusshelfer](CRM_ERP_SERVERUPDATE_ABSCHLUSS_0_13.md)
+ist vorbereitet: aktives Release statt abgeschriebenem Zeitstempel wählen,
+Commit, Journal, API-Venv und tatsächliche Prozess-/Datenbankbindung prüfen,
+aktuelle Sandbox-/Controllerschleife und HTTPS-Zugriff bestätigen und Timer
+entsprechend belegtem Zustand behandeln. Erst danach wird ein neuer privater
+Prüfnachweis geschrieben und der Aktivierungsmarker kontrolliert entfernt.
+Originale Datenbanken, Migrationsergebnis, Metadaten und Sicherungen bleiben
+erhalten. Der frühere Sicherungstimerzustand ist nicht im alten Journal
+gespeichert und wird nicht erfunden. Ein angenommener neuer Schreibvorgang
+wird ausdrücklich nicht auf den alten Stand zurückgesetzt.
+
+Die gezielten 22 Fälle bestehen mit echten temporären Dateien, flock,
+Dateirechten, atomaren Fehlerpfaden und einem echten synthetischen Prozess
+für die /proc-Bindung. Systemd/HTTP/Paketmetadaten bleiben Testadapter.
+Der zusätzliche gesamte Operatorlauf besteht mit **82 Fällen ohne Skip**
+in 231 Sekunden. [Prüfnachweis und vollständige Protokolle](evidence/project-update-forward-2026-11-05/forward-completion-verification.json).
+Python-Syntax und git diff --check sind ebenfalls bestanden. Der erste
+Dockerstart war an der Socket-Sandbox blockiert; mit zulässiger lokaler
+Socketverbindung und weiterhin netzlosem Testcontainer wird erneut geprüft.
+Die tatsächliche Ausführung des Abschlusshelfers und die Kunden-/Geräteabnahme
+sind noch nicht bestätigt. Die automatische Parser-Kompatibilitätsprüfung
+vor künftiger API-Aktivierung bleibt Entwicklungsarbeit.

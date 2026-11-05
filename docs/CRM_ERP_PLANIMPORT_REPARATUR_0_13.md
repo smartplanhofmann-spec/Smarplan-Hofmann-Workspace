@@ -1,4 +1,13 @@
-# Korrektur des Journalpfads
+# Reparatur inzwischen auf dem Server bestätigt
+
+Der Nutzer bestätigt am 05.11.2026 um 20:23 UTC die bestandene Sandboxprüfung,
+anschließend mehrfach idle im aktuellen Importcontroller, drei aktive Dienste
+und API-/Datenbankbereitschaft ok. [Erfasster Befund](evidence/project-update-forward-2026-11-05/observed-parser-repair-success.json).
+Den nachstehenden Reparaturblock nicht erneut ausführen. Der noch offene
+[Updateabschluss](CRM_ERP_SERVERUPDATE_ABSCHLUSS_0_13.md) wird separat geprüft;
+die Datenbank wird nicht zurückgeschaltet.
+
+# Korrektur des Journalpfads im früheren Reparaturblock
 
 Der zuvor ausgeschriebene Zeitstempel im Journalpfad war eine fehlerhafte
 Transkription aus dem Screenshot. Der Nutzer bestätigt, dass der zusätzliche
@@ -70,10 +79,10 @@ aktive Importwarteschlange wieder auf. Danach sind Zustand und Logs zu prüfen.
 
 ```
 
-Diese Datei und der zugehörige Shellblock sind Vorbereitung, kein Nachweis
-einer ausgeführten Serverreparatur. Der Cloud-Assistent hat den Server nicht
-direkt aufgerufen. Als Erfolg sind eine bestandene Sandbox-Vorprüfung,
-anschließender laufender Controller und drei aktive Dienste zu bestätigen.
+Der Shellblock war zunächst Vorbereitung. Die nachfolgende Nutzerausgabe
+bestätigt inzwischen bestandene Sandbox-Vorprüfung, laufenden Controller und
+drei aktive Dienste; siehe den aktuellen Befund am Dateianfang.
+Der Cloud-Assistent hat den Server nicht direkt aufgerufen.
 Das Updatejournal bleibt offen. Erst nach dem realen Dienst-/Bereitschafts-
 und Datenbank-/Codeabgleich wird der Vorgang kontrolliert abgeschlossen.
 Nicht die API-Aktualisierung wiederholen, keine alte Datenbank wiederherstellen

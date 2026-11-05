@@ -1,0 +1,27 @@
+test_busy_management_lock_blocks_completion (test_forward_completion.CompletionTest.test_busy_management_lock_blocks_completion) ... ok
+test_failed_backup_timer_blocks_completion (test_forward_completion.CompletionTest.test_failed_backup_timer_blocks_completion) ... ok
+test_foreign_journal_is_rejected (test_forward_completion.CompletionTest.test_foreign_journal_is_rejected) ... ok
+test_healthy_completion_preserves_both_databases_and_original_reports (test_forward_completion.CompletionTest.test_healthy_completion_preserves_both_databases_and_original_reports) ... ok
+test_intentionally_inactive_backup_timer_is_preserved (test_forward_completion.CompletionTest.test_intentionally_inactive_backup_timer_is_preserved) ... ok
+test_intentionally_inactive_lead_timer_is_preserved (test_forward_completion.CompletionTest.test_intentionally_inactive_lead_timer_is_preserved) ... ok
+test_interrupted_final_phase_retains_marker_and_is_retryable (test_forward_completion.CompletionTest.test_interrupted_final_phase_retains_marker_and_is_retryable) ... ok
+test_lead_timer_resumes_only_recorded_intent (test_forward_completion.CompletionTest.test_lead_timer_resumes_only_recorded_intent) ... ok
+test_missing_marker_without_proof_is_rejected (test_forward_completion.CompletionTest.test_missing_marker_without_proof_is_rejected) ... ok
+test_nonprivate_metadata_is_rejected (test_forward_completion.CompletionTest.test_nonprivate_metadata_is_rejected) ... ok
+test_other_release_venv_is_rejected (test_forward_completion.CompletionTest.test_other_release_venv_is_rejected) ... ok
+test_pre_activation_phase_is_rejected (test_forward_completion.CompletionTest.test_pre_activation_phase_is_rejected) ... ok
+test_repeat_after_completed_marker_removal_revalidates (test_forward_completion.CompletionTest.test_repeat_after_completed_marker_removal_revalidates) ... ok
+test_symlink_metadata_is_rejected (test_forward_completion.CompletionTest.test_symlink_metadata_is_rejected) ... ok
+test_unhealthy_readiness_and_public_route_are_rejected (test_forward_completion.CompletionTest.test_unhealthy_readiness_and_public_route_are_rejected) ... ok
+test_unhealthy_services_and_process_restart_are_rejected (test_forward_completion.CompletionTest.test_unhealthy_services_and_process_restart_are_rejected) ... ok
+test_unsafe_release_permissions_are_rejected (test_forward_completion.CompletionTest.test_unsafe_release_permissions_are_rejected) ... ok
+test_wrong_candidate_or_running_process_is_rejected (test_forward_completion.CompletionTest.test_wrong_candidate_or_running_process_is_rejected) ... ok
+test_wrong_commit_is_rejected (test_forward_completion.CompletionTest.test_wrong_commit_is_rejected) ... ok
+test_wrong_parser_version_or_missing_loop_proof_is_rejected (test_forward_completion.CompletionTest.test_wrong_parser_version_or_missing_loop_proof_is_rejected) ... ok
+test_current_invocation_and_pid_are_used_and_real_json_is_validated (test_forward_completion.WorkerProofTest.test_current_invocation_and_pid_are_used_and_real_json_is_validated) ... ok
+test_real_process_binding_uses_environment_and_release_directory (test_forward_completion.WorkerProofTest.test_real_process_binding_uses_environment_and_release_directory) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.036s
+
+OK

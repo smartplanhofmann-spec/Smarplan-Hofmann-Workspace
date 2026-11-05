@@ -2419,3 +2419,19 @@ prüft genau diese Variante. Die tatsächliche Wiederholung und erfolgreiche
 Serverumschaltung sind noch nicht beobachtet. Apps und Backend bleiben an
 den bereits gebauten A93-Stand gebunden; geändert werden Operatorpfade und
 Prüfnachweise. Neue externe Remote-CI-Ergebnisse werden nicht vorweggenommen.
+
+
+## 05.11.2026 – Nach Aktivierung vorwärts beheben: Planimport-Dienst
+
+Der Nutzer führt den korrigierten A93-Updateversuch aus. Release-Rechteprüfung,
+getrennte Ownership und die Kandidaten-Restore-/Migrationsprüfung werden
+passiert. Danach scheitert smartplan-plan-import.service beim Start und erneut
+im Abbruchhandler. Die Ausgabe bestätigt ausdrücklich die überschrittene
+Aktivierungsgrenze: neuer Code und neue Datenbank bleiben erhalten; Journal
+unter updates/a93cb4d02eab-20261105T183445-10529. Es wird kein erfolgreicher
+Gesamtabschluss behauptet. Keine Rückkehr auf die alte Datenbank und keine
+blinde Journalbereinigung. Exakte Workerursache, aktueller API-/HTTPS-Zustand
+und installierter Quellstand müssen jetzt mit lesenden Befehlen erfasst werden.
+[Beobachteter Status](evidence/project-update-forward-2026-11-05/observed-activation-failure.json).
+Der Cloud-Assistent hat keine direkten Serveraktionen ausgeführt; die
+Tatsachen stammen aus der vom Nutzer übermittelten SSH-Ausgabe.

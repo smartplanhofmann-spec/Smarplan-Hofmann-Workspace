@@ -1,3 +1,22 @@
+# Aktueller Stand: Aktivierungsgrenze überschritten, Planimport gestört
+
+Der Nutzer bestätigt nach dem erneuten Versuch den Abbruch **nach** der
+Aktivierungsgrenze. Neuer Code und neue Datenbank bleiben erhalten; der
+Planimport-Dienst scheitert beim Start. Journal:
+`/etc/smartplan-online/updates/a93cb4d02eab-20261105T183445-10529`.
+[Beobachtete Ausgabe](evidence/project-update-forward-2026-11-05/observed-activation-failure.json).
+
+**Die folgenden früheren Updateblöcke sind jetzt Verlauf und dürfen nicht
+noch einmal gestartet werden. Kein Rücksprung auf die alte Datenbank und
+UPDATE_IN_PROGRESS nicht löschen.** Zuerst API/HTTPS-Status, installierten
+Quellstand, Bereitschaft und das Journal des fehlgeschlagenen Importdienstes
+lesen. Ursache des Workerfehlers und aktueller API-Zustand sind noch nicht
+über Diagnoseausgaben bestätigt. Keine Sandbox- oder Rechteprüfung umgehen.
+Nach der Reparatur sind die beabsichtigten Dienste/Timer und der neue
+Datenbank-/Codebezug zu prüfen, bevor das Update kontrolliert abgeschlossen wird.
+
+## Verlauf vor dieser Aktivierung
+
 # Aktueller Stand nach dem Berechtigungsabbruch
 
 Das erste Update auf a93cb4d wurde am 05.11.2026 bei der Release-Rechteprüfung

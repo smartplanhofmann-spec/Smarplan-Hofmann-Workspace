@@ -1,0 +1,18 @@
+{
+  "source": "User SSH screenshot",
+  "update_id": "a93cb4d02eab-20261105T183445-10529",
+  "journal": "/etc/smartplan-online/updates/a93cb4d02eab-20261105T183445-10529",
+  "target_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "permission_guard_passed": true,
+  "printed_candidate_restore_and_migration_check_success": true,
+  "activation_boundary_crossed": true,
+  "failed_service": "smartplan-plan-import.service",
+  "systemd_message": "control process exited with error code",
+  "worker_start_failures_visible": 2,
+  "rollback_performed": false,
+  "operator_message": "Neue Datenbank und neuer Code bleiben erhalten. Vorw\u00e4rts beheben.",
+  "required_strategy": "Keep current database/code and journal, diagnose the worker, verify service/readiness before controlled completion. Do not repeat updater or restore old database.",
+  "API_readiness_after_failure_not_yet_observed": true,
+  "exact_worker_failure_cause_not_yet_known": true,
+  "cloud_server_access": false
+}

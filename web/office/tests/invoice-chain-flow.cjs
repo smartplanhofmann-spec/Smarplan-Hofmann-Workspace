@@ -1,3 +1,4 @@
+const {selectProject}=require('./e2e.cjs');
 const assert=require('node:assert/strict');
 const fs=require('node:fs/promises');
 const path=require('node:path');
@@ -19,7 +20,7 @@ async function invoiceChainFlow({page,context,navigate,ready,fixture,screenshots
   async function open(item){await page.locator('.list-row').filter({hasText:item.title}).getByRole('button',{name:'Öffnen',exact:true}).click();await modal().getByRole('heading',{name:item.number,exact:true}).waitFor();}
   async function close(){await modal().getByRole('button',{name:'Dialog schließen',exact:true}).click();}
   try{
-    await page.getByLabel('Aktuelles Projekt').selectOption(chain.project_id);await ready(page);await navigate(page,'Dokumente');
+    await selectProject(page,chain.project_id);await ready(page);await navigate(page,'Dokumente');
     await open(chain.independent);
     assert.equal(await modal().getByRole('button',{name:'→ Rechnung',exact:true}).count(),0);
     await modal().getByRole('button',{name:'→ Kumulierte Rechnung',exact:true}).click();

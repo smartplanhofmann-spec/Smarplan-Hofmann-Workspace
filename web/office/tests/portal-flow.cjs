@@ -1,3 +1,4 @@
+const {selectProject}=require('./e2e.cjs');
 /* Actual staff/customer browsers and real HTTP responses; no portal token injection. */
 const assert=require('node:assert/strict');
 const fs=require('node:fs/promises');
@@ -29,7 +30,7 @@ async function portalFlow({page,context,navigate,ready,fixture,screenshots}){
   });
   async function openOffer(offer){
     if(await page.getByRole('dialog').count())await page.getByRole('dialog').getByRole('button',{name:'Dialog schließen',exact:true}).click();
-    await page.getByLabel('Aktuelles Projekt').selectOption('');await ready(page);await navigate(page,'Dokumente');
+    await selectProject(page,'');await ready(page);await navigate(page,'Dokumente');
     await page.locator('.list-row').filter({has:page.getByRole('heading',{name:offer.title,exact:true})}).getByRole('button',{name:'Öffnen',exact:true}).click();
     await page.getByRole('dialog').getByRole('button',{name:'Kundenportal verwalten',exact:true}).click();
     const modal=page.getByRole('dialog',{name:'Kundenportal · '+offer.number,exact:true});await modal.waitFor();return modal;

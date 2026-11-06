@@ -56,9 +56,15 @@ async function navigate(page,name){
   if(await page.locator('.sidebar').evaluate(sidebar=>sidebar.inert))await page.getByRole('button',{name:'Navigation öffnen',exact:true}).click();
   await page.locator('.navigation').getByRole('button',{name,exact:true}).click();await ready(page);
 }
+async function selectProject(page,id){
+  // Select through an actual project-aware page, never through a hidden
+  // company-wide header control. Current scoped views retain their context.
+  if(await page.locator('.topbar .project-select').count()===0)await navigate(page,'Projekte');
+  await page.locator('.topbar .project-select').selectOption(id);await ready(page);
+}
 async function main(){
   const workflow=process.env.SMARTPLAN_BROWSER_WORKFLOW;
-  assert.ok(workflow===undefined||['time-tracking', 'accounting-open-items', 'company-events', 'catalog-prices', 'historical-assets', 'payroll-multiple-cases', 'catalog-imports', 'accounting-openings', 'payroll-oneoff-cases', 'payroll-zero-account', 'payroll-annual-basis', 'payroll-wage-interruptions', 'payroll-calculation-cases', 'travel-v3', 'payroll-travel-tax-policies', 'payroll-entitlements', 'travel-allowances', 'payroll-statements', 'payroll-periods', 'purchase-changes', 'payroll-transition', 'bank-reconciliation', 'resource-custody', 'accessibility', 'privacy-cases', 'service', 'custom-fields', 'migrations', 'payroll-cash', 'company-handover', 'speech', 'sales', 'company-overview', 'inventory-counts', 'invoice-chain', 'payroll', 'assistant', 'personnel-workflow', 'asset-provenance', 'project-economics', 'accounting-allocation', 'accounting-components', 'accounting-refunds', 'accounting-capacity', 'accounting-refunds-v2', 'accounting-profile', 'inventory-article-refs', 'project-customer', 'purchasing-catalog'].includes(workflow),'Unsupported targeted browser workflow');
+  assert.ok(workflow===undefined||['project-context', 'time-tracking', 'accounting-open-items', 'company-events', 'catalog-prices', 'historical-assets', 'payroll-multiple-cases', 'catalog-imports', 'accounting-openings', 'payroll-oneoff-cases', 'payroll-zero-account', 'payroll-annual-basis', 'payroll-wage-interruptions', 'payroll-calculation-cases', 'travel-v3', 'payroll-travel-tax-policies', 'payroll-entitlements', 'travel-allowances', 'payroll-statements', 'payroll-periods', 'purchase-changes', 'payroll-transition', 'bank-reconciliation', 'resource-custody', 'accessibility', 'privacy-cases', 'service', 'custom-fields', 'migrations', 'payroll-cash', 'company-handover', 'speech', 'sales', 'company-overview', 'inventory-counts', 'invoice-chain', 'payroll', 'assistant', 'personnel-workflow', 'asset-provenance', 'project-economics', 'accounting-allocation', 'accounting-components', 'accounting-refunds', 'accounting-capacity', 'accounting-refunds-v2', 'accounting-profile', 'inventory-article-refs', 'project-customer', 'purchasing-catalog'].includes(workflow),'Unsupported targeted browser workflow');
   const {chromium}=require('playwright');
   const directory=await fs.mkdtemp(path.join(os.tmpdir(),'smartplan-browser-e2e-')),readyFile=path.join(directory,'ready.json');
   const screenshots=process.env.SMARTPLAN_BROWSER_SCREENSHOT_DIR||directory;
@@ -96,6 +102,10 @@ async function main(){
     await page.goto(fixture.base_url+'/office/');
     if(workflow==='accessibility')await require('./accessibility-flow.cjs').audit(page,'login');
     const recovery=await login(page,'owner@browser.example.test');
+    if(workflow==='project-context'){
+      await require('./project-context-flow.cjs').projectContextFlow({page,context,navigate,ready,login,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 project-context browser workflow passed (real MFA/HTTP, global navigation, late response, scoped denial, explicit clock project and mobile layout)');return;
+    }
     if(workflow==='purchasing-catalog'){
       await page.getByRole('button',{name:'Abmelden',exact:true}).click();
       await page.getByRole('heading',{name:'Willkommen im Büro.',exact:true}).waitFor();
@@ -347,7 +357,7 @@ async function main(){
     await require('./profile-flow.cjs').profileFlow({page,context,navigate,ready,login,fixture,screenshots});
     const {purchasingFlow,purchasingReadOnly,purchasingCatalogFlow}=require('./purchasing-flow.cjs');
     const purchaseOrderId=await purchasingFlow({page,context,navigate,ready,fixture,screenshots});
-    await page.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await ready(page);await navigate(page,'Einsatzplanung');
+    await selectProject(page,fixture.project_id);await ready(page);await navigate(page,'Einsatzplanung');
     await page.getByRole('button',{name:'Termin planen',exact:true}).click();let modal=page.getByRole('dialog',{name:'Termin planen',exact:true});
     const monday=await page.evaluate(()=>{const day=new Date();day.setDate(day.getDate()-((day.getDay()+6)%7));return `${day.getFullYear()}-${String(day.getMonth()+1).padStart(2,'0')}-${String(day.getDate()).padStart(2,'0')}`;});
     await modal.getByLabel('Termin',{exact:true}).fill('Synthetic browser schedule');await modal.getByLabel('Beginn (Gerätezeit)',{exact:true}).fill(monday+'T09:00');await modal.getByLabel('Ende (Gerätezeit)',{exact:true}).fill(monday+'T10:00');await modal.getByRole('button',{name:'Speichern',exact:true}).click();await modal.waitFor({state:'detached'});await ready(page);
@@ -355,7 +365,7 @@ async function main(){
     const moved=page.waitForResponse(response=>response.url().includes('/business/appointments/')&&response.request().method()==='POST');
     await appointment.dragTo(page.locator('.day').nth(1));assert.equal((await moved).status(),200);await ready(page);await page.locator('.day').nth(1).locator('.appointment').filter({hasText:'Synthetic browser schedule'}).waitFor();
     console.log('browser: appointment form and drag-and-drop updated the same canonical calendar');
-    await page.getByLabel('Aktuelles Projekt').selectOption('');await ready(page);
+    await selectProject(page,'');await ready(page);
     await page.getByLabel('Planungsansicht',{exact:true}).selectOption('month');await ready(page);
     await page.getByLabel('Monat auswählen',{exact:true}).fill('2030-12');await page.getByLabel('Monat auswählen',{exact:true}).press('Tab');await ready(page);
     assert.equal(await page.locator('.calendar-month .day').count(),31);
@@ -406,7 +416,7 @@ async function main(){
     assert.equal(await page.getByLabel('Planungsansicht',{exact:true}).count(),0);assert.equal(await page.locator('.timeline-row').count(),0);assert.equal(await page.locator('.calendar .day').count(),7);
     await context.unroute(capRoute);await navigate(page,'Einsatzplanung');
     await page.getByLabel('Planungsansicht',{exact:true}).selectOption('week');await ready(page);await page.getByRole('button',{name:'Heute',exact:true}).click();await ready(page);
-    await page.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await ready(page);
+    await selectProject(page,fixture.project_id);await ready(page);
     console.log('browser: real month/year boundary, multi-year project bars, explicit unplanned rows and acknowledged dates persisted after new MFA login');
     await navigate(page,'Projekte');
     await page.getByRole('tab',{name:'Fotos & Doku',exact:true}).click();await ready(page);
@@ -433,8 +443,9 @@ async function main(){
     await page.getByRole('button',{name:'Abmelden',exact:true}).click();await page.getByRole('heading',{name:'Willkommen im Büro.',exact:true}).waitFor();assert.equal(await page.getByText('Synthetic browser diary',{exact:true}).count(),0);
     await login(page,'technician@browser.example.test');assert.equal(await page.locator('.navigation').getByRole('button',{name:'Finanzen',exact:true}).count(),0);
     await purchasingReadOnly({page,navigate,ready,orderId:purchaseOrderId});
-    assert.equal(await page.getByLabel('Aktuelles Projekt').locator('option').filter({hasText:'Private synthetic project'}).count(),0);
-    await page.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await ready(page);await navigate(page,'Projekte');await page.getByRole('tab',{name:'Fotos & Doku',exact:true}).click();await ready(page);assert.equal(await page.getByText('PRIVATE FINANCIAL RECEIPT',{exact:true}).count(),0);
+    await navigate(page,'Projekte');
+    assert.equal(await page.getByLabel('Projekt öffnen',{exact:true}).locator('option').filter({hasText:'Private synthetic project'}).count(),0);
+    await selectProject(page,fixture.project_id);await ready(page);await navigate(page,'Projekte');await page.getByRole('tab',{name:'Fotos & Doku',exact:true}).click();await ready(page);assert.equal(await page.getByText('PRIVATE FINANCIAL RECEIPT',{exact:true}).count(),0);
     await navigate(page,'Einsatzplanung');await page.getByLabel('Planungsansicht',{exact:true}).selectOption('year');await ready(page);await page.getByLabel('Planungsjahr',{exact:true}).fill('2031');await page.getByLabel('Planungsjahr',{exact:true}).press('Tab');await ready(page);
     assert.equal(await page.locator('.timeline-edit').count(),0);assert.equal(await page.locator('.timeline-project-bar').count(),1);assert.equal(await page.getByText('Private synthetic project',{exact:true}).count(),0);
     await navigate(page,'Projekte');await page.getByRole('tab',{name:'Fotos & Doku',exact:true}).click();await ready(page);
@@ -478,5 +489,5 @@ async function main(){
   }
   finally{if(browser)await browser.close();if(server&&server.exitCode===null){server.kill('SIGTERM');await Promise.race([new Promise(resolve=>server.once('exit',resolve)),delay(5000)]);if(server.exitCode===null)server.kill('SIGKILL');}await fs.rm(directory,{recursive:true,force:true});}
 }
-module.exports={compactFailure,namespaceSandboxArguments,assertNamespaceSandbox};
+module.exports={compactFailure,namespaceSandboxArguments,assertNamespaceSandbox,selectProject};
 if(require.main===module)main();

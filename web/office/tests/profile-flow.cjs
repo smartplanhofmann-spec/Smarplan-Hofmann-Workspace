@@ -1,3 +1,4 @@
+const {selectProject}=require('./e2e.cjs');
 /* Real MFA/browser/HTTP profile preparation. No profile is seeded, no financial
  * response is mocked. Fault injection only holds or drops genuine responses.
  * Disposable loopback transport; native TLS/Origin acceptance is separate.
@@ -43,7 +44,7 @@ async function profileFlow({page,context,navigate,ready,login,fixture,screenshot
   async function financeEnabled(enabled){await close();await navigate(page,'Einstellungen');const current=page.locator('form[data-form^="organization-"]'),next=Number((await current.getAttribute('data-form')).split('-').at(-1))+1;await page.getByLabel('Finanzen fachlich aktiv',{exact:true}).setChecked(enabled);await current.getByRole('button',{name:'Bedarf und Module speichern',exact:true}).click();await page.locator(`form[data-form="organization-${next}"]`).waitFor();await ready(page);}
   async function neutral(target){await close(target);await target.getByRole('button',{name:'1 Antwort offen',exact:true}).click();const modal=target.getByRole('dialog',{name:'Unbestätigte Antworten',exact:true});assert.doesNotMatch(await modal.innerText(),/SYN-PROFILE|Synthetic profile|sole_proprietorship|2026-01-01|Kleinunternehmer|Istbesteuerung/);return modal;}
   try {
-    await page.getByLabel('Aktuelles Projekt').selectOption('');await ready(page);await accounting();
+    await selectProject(page,'');await ready(page);await accounting();
     // Removing only the advertised feature proves the old-server entry fallback;
     // all business/profile responses remain genuine product responses.
     const capsPattern='**/api/v1/business/capabilities',before=records.filter(item=>item.path.includes('/accounting/profile')).length;

@@ -1,3 +1,4 @@
+const {selectProject}=require('./e2e.cjs');
 /* Real browser/MFA/HTTP against explicit synthetic legacy invoice archives.
    SQLite transport/source integration; production issuer policy is tested on PG. */
 const assert=require('node:assert/strict');
@@ -41,7 +42,7 @@ async function accountingAllocationFlow({page,context,navigate,ready,login,fixtu
     await close();await navigate(page,'Einstellungen');await page.getByRole('button',{name:'Freigaben ansehen / ändern',exact:true}).click();const modal=page.getByRole('dialog',{name:'Fachrechte',exact:true});await modal.getByLabel('Benutzer',{exact:true}).selectOption({label:'allocator@browser.example.test'});await modal.getByLabel('Fachrecht',{exact:true}).selectOption(permission);await modal.getByLabel('Geltungsbereich',{exact:true}).selectOption(fixture.allocation_target_project);await modal.getByLabel('Entscheidung',{exact:true}).selectOption(effect);await modal.getByRole('button',{name:'Speichern',exact:true}).click();await modal.waitFor({state:'detached'});await ready(page);
   }
   try {
-    await page.getByLabel('Aktuelles Projekt').selectOption('');await ready(page);await payments();
+    await selectProject(page,'');await ready(page);await payments();
     if(bootstrap) {
       // Targeted acceptance still creates the account/import through real UI.
       await page.getByRole('button',{name:'Geldkonten',exact:true}).click();await page.getByRole('button',{name:'Geldkonto anlegen',exact:true}).click();let modal=page.getByRole('dialog',{name:'Geldkonto anlegen',exact:true});

@@ -1,0 +1,34 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+locator.inputValue: Timeout 15000ms exceeded.
+Call log:
+[2m  - waiting for getByLabel('Projekt öffnen', { exact: true })[22m
+
+    at Object.projectContextFlow (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/project-context-flow.cjs:30:71)
+    at async main (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:106:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: []
+Fixture log tail:
+0 -
+127.0.0.1 - - [06/Nov/2026 07:41:39] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:39] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:39] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:39] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:39] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:39] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:39] "GET /api/v1/business/overview/metrics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:39] "GET /api/v1/business/feed HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:39] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:39] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:39] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:39] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:40] "GET /api/v1/business/overview/metrics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:40] "GET /api/v1/business/feed HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:40] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:40] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:40] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:41:40] "GET /api/v1/business/overview HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

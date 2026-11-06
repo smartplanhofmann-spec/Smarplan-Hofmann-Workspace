@@ -1,0 +1,77 @@
+{
+  "date": "2026-11-06",
+  "product_files": [
+    "web/office/office.js",
+    "web/office/office.css"
+  ],
+  "backend_and_native_product_sources_changed": false,
+  "node": {
+    "command": "node --test --test-isolation=none tests/*.test.mjs",
+    "passed": 860,
+    "failed": 0,
+    "skipped": 0,
+    "log": "node-modules.txt"
+  },
+  "browser_workflows": {
+    "project-context": {
+      "result": "passed",
+      "log": "browser-project-context.txt"
+    },
+    "company-overview": {
+      "result": "passed",
+      "log": "browser-company-overview.txt"
+    },
+    "time-tracking": {
+      "result": "passed",
+      "log": "browser-time-tracking.txt"
+    },
+    "project-customer": {
+      "result": "passed",
+      "log": "browser-project-customer.txt"
+    },
+    "invoice-chain": {
+      "result": "passed",
+      "log": "browser-invoice-chain.txt"
+    },
+    "project-economics": {
+      "result": "passed",
+      "log": "browser-project-economics.txt"
+    }
+  },
+  "full_existing_browser_suite": {
+    "result": "in_progress_at_this_commit"
+  },
+  "before_reproduction": {
+    "source_commit": "6fcff2dca8bedb0ea32e533bb7e0b3aff5f99d46",
+    "isolated_source_copy": true,
+    "product_files_identical_to_confirmed_server_A93": true,
+    "result": "expected failure: company overview still has one project selector",
+    "log": "before-browser.txt"
+  },
+  "coverage": [
+    "company areas without a project control",
+    "cleared project defaults and no scoped permission lookup in company areas",
+    "project open versus filter labels",
+    "filters retained across project-aware areas",
+    "return to project list",
+    "late old project response rejected",
+    "global personnel accessible despite project time denial",
+    "denied project clock request still HTTP 403",
+    "hidden company and scoped areas retain proper grants",
+    "390px view without horizontal overflow"
+  ],
+  "browser_isolation": "Real namespace, PID, network and seccomp sandboxes verified before application access; temporary loopback Flask/SQLite with real MFA; no providers",
+  "initial_execution_limits": {
+    "browser": "Host execution sandbox initially prevented Chromium namespaces. The same sandboxed browser passed under approved local execution outside that outer restriction. No Chromium security feature was disabled.",
+    "node": "Calendar subprocesses initially blocked by outer execution sandbox; final full module run includes those subprocess checks."
+  },
+  "implementation_feedback": {
+    "during-implementation-missing-label.txt": "Visible label required explicit matching accessible name on select. Fixed in runtime.",
+    "during-implementation-loading-race.txt": "Rebuilt shell lost loading indicator before view requests completed. Fixed in runtime.",
+    "during-implementation-test-status-correction.txt": "Test expected HTTP 201 for permission update; actual existing endpoint returns 200. Test expectation corrected."
+  },
+  "ci": "New isolated project-context workflow registered; no green remote result claimed",
+  "git_diff_check": "passed",
+  "deployment": "Not applied to the actual server; last user-confirmed source remains a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "customer_device_acceptance": "not claimed"
+}

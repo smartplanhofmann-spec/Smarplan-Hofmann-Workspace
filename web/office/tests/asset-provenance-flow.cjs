@@ -1,3 +1,4 @@
+const {selectProject}=require('./e2e.cjs');
 /* Real C UI: immutable original, explicit device source, lost reply and source links. */
 const assert=require('node:assert/strict');
 const crypto=require('node:crypto');
@@ -23,7 +24,7 @@ async function assetProvenanceFlow({page,context,navigate,ready,fixture,screensh
     }catch(error){errors.push(error.message);await route.abort('failed').catch(()=>{});}
   });
   try{
-    await page.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await ready(page);await navigate(page,'Material');
+    await selectProject(page,fixture.project_id);await ready(page);await navigate(page,'Material');
     const article=await api('/articles',request({code:'SYN-ORIGIN-DEVICE',name:'Synthetisches Herkunftsgerät',kind:'material',unit:'Stk',unit_price_net:'75',cost_price_net:'40',tax_rate:'19',tax_category:'S',currency:'EUR',active:true}));
     const location=await api('/inventory/locations',request({name:'Synthetisches Herkunftslager'}),201);
     const order=await api('/inventory/orders',request({project_id:fixture.project_id,supplier_name:'Synthetischer Herkunftslieferant',status:'approved',items:[{article_id:article.id,quantity:'1'}]}),201);

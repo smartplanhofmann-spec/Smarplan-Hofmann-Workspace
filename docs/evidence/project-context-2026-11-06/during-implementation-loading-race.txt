@@ -1,0 +1,31 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok(overviewReads.some(value=>value.path.endsWith('/feed')&&value.project===null))
+
+    at Object.projectContextFlow (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/project-context-flow.cjs:42:12)
+    at async main (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:106:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: []
+Fixture log tail:
+TTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:43:19] "GET /api/v1/business/resources HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:43:19] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:43:19] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:43:19] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:43:19] "GET /api/v1/business/projects/726b2bfe725b4d93a197f8b18ddde0f6/profile HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:43:19] "GET /api/v1/business/inventory/locations HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:43:19] "GET /api/v1/business/inventory/stock HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:43:19] "GET /api/v1/business/articles HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:43:19] "GET /api/v1/business/inventory/articles?limit=200&project_id=726b2bfe725b4d93a197f8b18ddde0f6 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:43:19] "GET /api/v1/business/inventory/reservations?project_id=726b2bfe725b4d93a197f8b18ddde0f6 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:43:19] "GET /api/v1/business/purchasing/orders?project_id=726b2bfe725b4d93a197f8b18ddde0f6 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:43:21] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:43:21] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:43:21] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:43:21] "GET /api/v1/business/overview HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

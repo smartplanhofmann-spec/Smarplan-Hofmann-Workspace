@@ -2588,3 +2588,43 @@ Rückkehr zur Projektliste und berechtigte globale/projektbezogene Aktionen
 müssen bei einer Implementierung gezielt gegengeprüft werden. Diese Aufnahme
 und Erklärung verändern keinen Produktcode und keine laufende Serveransicht.
 Bis dahin stellt Alle Projekte den allgemeinen Kontext wieder her.
+
+
+## 06.11.2026 – Browser-Projektauswahl auf Nutzerauftrag angepasst
+
+Der Nutzer beauftragt die Anpassung. Im neuen Quellstand zeigen Übersicht,
+Anfragen, Kontakte, Personal und Einstellungen keinen Projektwähler. Ein
+Bereichswechsel dorthin entfernt die Projektkennung auch für Vorbelegungen
+und effektive Rechte. Die Übersicht lädt Kennzahlen und Feed allgemein und
+verweist nicht mehr auf eine dort fehlende Projektauswahl. Projekte öffnet
+eine Projektmappe über Projekt öffnen/Projektübersicht; wirkliche Filter in
+Einsatzplanung, Dokumenten, Material, Finanzen, Assistent und Kundenservice
+heißen Projektfilter/Alle Projekte. Wechsel zwischen diesen Fachbereichen
+erhalten die bewusste Projektwahl. Die [Beschreibung und Vorschau](CRM_ERP_BROWSER_PROJEKTAUSWAHL_2026-11-06.md)
+halten die genaue Bedienung fest.
+
+Allgemeine Navigation und ausgeblendete Bereiche verwenden passende globale
+Rechte; projektbezogene Bereiche behalten ihre effektiven Rechte einschließlich
+projektspezifischer Freigaben. Beim Aufbau des neuen Kopfes bleibt der
+Ladehinweis bis zur fertigen Ansicht sichtbar. Späte Antworten zur alten
+Projektmappe dürfen den inzwischen verlassenen Kontext nicht wieder einführen.
+Produktänderungen sind auf office.js und office.css begrenzt; Backend,
+Datenbankschema und native App-Produktquellen bleiben unverändert.
+
+860 Node-Fälle bestehen ohne Skip. Sechs gezielte tatsächliche Chromium-/
+HTTP-/MFA-Abläufe bestehen: neue Projektnavigation, allgemeine Kennzahlen,
+Zeiterfassung/Korrektur, Kunden-/Projekt-/Angebotsanlage, Rechnungskettenentwürfe
+und Projektwirtschaftlichkeit. Die neue Regression bestätigt ausdrücklich
+einen weiterhin abgelehnten gesperrten Zeit-POST mit HTTP 403 sowie globale
+Personalnavigation, explizite Projektwahl und saubere Mobilansicht. Ein
+getrennter Lauf der alten Produktquellen reproduziert das ursprüngliche
+globale Dropdown; er scheitert genau an dessen noch vorhandener Anzeige.
+Der bestehende umfassende Browserlauf ist zu diesem Zwischenstand noch aktiv.
+[Prüfnachweis und Protokolle](evidence/project-context-2026-11-06/verification.json).
+
+Der neue Browserfall ist im CI eingetragen. Bestehende Bedienabläufe wählen
+Projekte jetzt über echte Projektbereiche; die alte allgemeine Auswahl wird
+nicht durch einen versteckten Ersatz nachgebildet. Eine neue Remote-Gesamtfreigabe
+wird nicht vorweggenommen. Der zuletzt vom Nutzer bestätigte Serverstand bleibt
+A93; die Anpassung ist noch nicht auf diesem Server installiert. Die tatsächlichen
+Gerätefälle bleiben unverändert ungeprüft.

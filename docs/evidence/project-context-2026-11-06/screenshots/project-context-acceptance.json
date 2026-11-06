@@ -1,0 +1,14 @@
+{
+  "company_pages_without_picker": true,
+  "project_and_filter_labels": true,
+  "scoped_selection_preserved": true,
+  "overview_requests_unfiltered": true,
+  "return_opens_project_list": true,
+  "clock_project_explicit": true,
+  "late_profile_cannot_restore_scope": true,
+  "global_personnel_survives_project_denial": true,
+  "server_still_rejects_denied_clock": 403,
+  "mobile_width": 390,
+  "mobile_overflow": false,
+  "fixture": "Disposable loopback SQLite, real HTTP and MFA, actual Chromium sandbox"
+}

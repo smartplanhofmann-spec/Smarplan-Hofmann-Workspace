@@ -1,3 +1,4 @@
+const {selectProject}=require('./e2e.cjs');
 /* Genuine browser and HTTP over disposable synthetic legacy invoice archives. */
 const assert=require('node:assert/strict');
 const path=require('node:path');
@@ -30,7 +31,7 @@ async function componentFlow({page,context,navigate,ready,login,fixture,screensh
   async function confirm(target){const modal=target.getByRole('dialog',{name:'Belegaufteilung prüfen',exact:true});await modal.getByRole('checkbox').check();const reply=wait('POST','/confirm',target);await modal.getByRole('button',{name:'Belegaufteilung verbindlich bestätigen',exact:true}).click();return reply;}
   async function confirmed(target){await target.getByRole('dialog',{name:'Beleganteile',exact:true}).waitFor();await target.getByRole('dialog').getByRole('button',{name:'Aufteilung ansehen',exact:true}).waitFor();}
   try {
-    await page.getByLabel('Aktuelles Projekt').selectOption('');await ready(page);await payments();
+    await selectProject(page,'');await ready(page);await payments();
     if(bootstrap){await page.getByRole('button',{name:'Geldkonten',exact:true}).click();await page.getByRole('button',{name:'Geldkonto anlegen',exact:true}).click();const modal=page.getByRole('dialog',{name:'Geldkonto anlegen',exact:true});await modal.getByLabel('Stabiler Kontocode',{exact:true}).fill('SYN-COMP');await modal.getByLabel('Kontoname',{exact:true}).fill('Synthetic component account');await modal.getByLabel('Ich bestätige diese Kontofassung.',{exact:true}).check();await modal.getByRole('button',{name:'Geldkonto anlegen',exact:true}).click();await modal.waitFor({state:'detached'});await ready(page);}
     for(const payment of fixture.component_payments)await importPayment(payment);
     console.log('components: four actual cash imports completed');

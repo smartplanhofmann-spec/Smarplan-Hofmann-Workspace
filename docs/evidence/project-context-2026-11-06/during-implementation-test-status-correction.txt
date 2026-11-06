@@ -1,0 +1,33 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: /business/settings/permissions {"effect":"deny","id":"4812e2561e994dbb9a885e87d329ffd7","permission":"time.own","revision":1,"scope":"addd96bb06f649dfadfab456b6851aa0","updated_at":"2026-11-06T06:44:02+00:00","updated_by":"c5c2e223174c4434bd813531121d4e4b","user_id":"013b891a7c614a7ba026cd85c9381637"}
+
+
+200 !== 201
+
+    at api (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/project-context-flow.cjs:24:12)
+    at async Object.projectContextFlow (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/project-context-flow.cjs:88:5)
+    at async main (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:106:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: []
+Fixture log tail:
+44:02] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:44:02] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:44:02] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:44:02] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:44:02] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:44:02] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:44:02] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:44:02] "GET /api/v1/business/projects/addd96bb06f649dfadfab456b6851aa0/profile HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:44:02] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:44:02] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:44:02] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:44:02] "GET /api/v1/business/employees HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:44:02] "GET /api/v1/business/time/entries?employee_id=162b5350a32f448bacc309dcb78f54b7&from=2026-11-01&to=2026-11-06 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:44:02] "GET /api/v1/business/time/summary?employee_id=162b5350a32f448bacc309dcb78f54b7&from=2026-11-01&to=2026-11-06 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:44:02] "GET /api/v1/users HTTP/1.1" 200 -
+127.0.0.1 - - [06/Nov/2026 07:44:02] "POST /api/v1/business/settings/permissions HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

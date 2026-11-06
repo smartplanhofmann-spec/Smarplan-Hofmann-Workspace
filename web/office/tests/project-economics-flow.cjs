@@ -1,3 +1,4 @@
+const {selectProject}=require('./e2e.cjs');
 const assert=require('node:assert/strict');
 const fs=require('node:fs/promises');
 const path=require('node:path');
@@ -29,7 +30,7 @@ async function projectEconomicsFlow({page,context,navigate,ready,fixture,screens
     await confirmation.waitFor({state:'detached'});await ready(page);
   }
   try{
-    await page.getByLabel('Aktuelles Projekt').selectOption('');await ready(page);await navigate(page,'Projekte');
+    await selectProject(page,'');await ready(page);await navigate(page,'Projekte');
     await page.getByRole('button',{name:'Neues Projekt',exact:true}).click();
     await page.getByLabel('Projektname',{exact:true}).fill('Synthetische Projektwirtschaftlichkeit');
     assert.equal(await page.getByRole('dialog').getByLabel('Kunde auswählen',{exact:true}).inputValue(),'');

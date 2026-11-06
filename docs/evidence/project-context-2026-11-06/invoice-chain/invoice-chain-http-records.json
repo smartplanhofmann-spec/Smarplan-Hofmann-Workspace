@@ -1,0 +1,421 @@
+[
+  {
+    "path": "/api/v1/business/documents/314ee61be84d4666beb5d8f8e60671e8/convert",
+    "body": {
+      "revision": 2,
+      "target_kind": "cumulative_invoice",
+      "request_id": "e0107b9a2da64ef49eff9348dd7e6439"
+    },
+    "status": 200,
+    "value": {
+      "archive_security": "synthetic_sqlite_test_only",
+      "archive_version": 1,
+      "buyer": {
+        "address_line": "Synthetic buyer street",
+        "city": "Berlin",
+        "country": "DE",
+        "email": "",
+        "endpoint_id": "",
+        "endpoint_scheme": "",
+        "name": "Synthetic Workshop Customer",
+        "postal_code": "10117",
+        "vat_id": ""
+      },
+      "buyer_reference": "",
+      "converted_from": "314ee61be84d4666beb5d8f8e60671e8",
+      "currency": "EUR",
+      "customer_id": "dae09a05c93f4a3a9623617b83d5dcad",
+      "document_revision": 1,
+      "due_date": "2026-11-16",
+      "finalized_at": null,
+      "id": "67de823cee164290866ffb236ba5a9f8",
+      "intro": "",
+      "issue_date": "2026-11-02",
+      "issuer": {
+        "address_line": "Synthetic seller street 1",
+        "bic": "",
+        "city": "Berlin",
+        "company_name": "Synthetic portal seller",
+        "country": "DE",
+        "cutover_ack": true,
+        "cutover_date": "2026-01-01",
+        "default_due_days": 14,
+        "einvoice_format": "none",
+        "email": "seller@example.test",
+        "footer": "",
+        "iban": "",
+        "issuer_mode": "own",
+        "issuing_enabled": true,
+        "logo_base64": "",
+        "payment_terms": "Zahlbar ohne Abzug.",
+        "phone": "",
+        "postal_code": "10115",
+        "tax_number": "",
+        "vat_id": "DE123456789",
+        "website": ""
+      },
+      "kind": "cumulative_invoice",
+      "notes": "",
+      "number": null,
+      "payload_sha256": "ccd7c93dd603158eb2cbffe00636d112a29816ca488cbcbc785abc93030e739b",
+      "positions": [
+        {
+          "description": "Synthetic full contract",
+          "discount_percent": "0",
+          "id": "deec28f594f94c43b3e673fe71be64a8",
+          "index": 1,
+          "kind": "service",
+          "net": "30.00",
+          "price_base_quantity": "1",
+          "quantity": "1",
+          "tax_category": "S",
+          "tax_exemption_reason": "",
+          "tax_rate": "19",
+          "unit": "C62",
+          "unit_price_net": "30.00"
+        }
+      ],
+      "prepared_at": "2026-11-06T06:48:01+00:00",
+      "previous_document_ids": [
+        "314ee61be84d4666beb5d8f8e60671e8"
+      ],
+      "project_id": "e1061079b09f4f1997e2cebdc72cf72f",
+      "revision": 1,
+      "settings_revision": 3,
+      "status": "draft",
+      "title": "Kumulierte Rechnung",
+      "totals": {
+        "by_kind": {
+          "labor": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "machine": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "material": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "service": {
+            "gross": "35.70",
+            "net": "30.00",
+            "tax": "5.70"
+          }
+        },
+        "gross": "35.70",
+        "labor_gross": "0.00",
+        "labor_net": "0.00",
+        "labor_tax": "0.00",
+        "material_gross": "0.00",
+        "material_net": "0.00",
+        "material_tax": "0.00",
+        "net": "30.00",
+        "payable": "35.70",
+        "tax": "5.70",
+        "tax_breakdown": [
+          {
+            "category": "S",
+            "net": "30.00",
+            "rate": "19",
+            "reason": "",
+            "tax": "5.70"
+          }
+        ]
+      },
+      "updated_at": "2026-11-06T06:48:06+00:00"
+    }
+  },
+  {
+    "path": "/api/v1/business/documents/314ee61be84d4666beb5d8f8e60671e8/convert",
+    "body": {
+      "revision": 2,
+      "target_kind": "cumulative_invoice",
+      "request_id": "e0107b9a2da64ef49eff9348dd7e6439"
+    },
+    "status": 200,
+    "value": {
+      "archive_security": "synthetic_sqlite_test_only",
+      "archive_version": 1,
+      "buyer": {
+        "address_line": "Synthetic buyer street",
+        "city": "Berlin",
+        "country": "DE",
+        "email": "",
+        "endpoint_id": "",
+        "endpoint_scheme": "",
+        "name": "Synthetic Workshop Customer",
+        "postal_code": "10117",
+        "vat_id": ""
+      },
+      "buyer_reference": "",
+      "converted_from": "314ee61be84d4666beb5d8f8e60671e8",
+      "currency": "EUR",
+      "customer_id": "dae09a05c93f4a3a9623617b83d5dcad",
+      "document_revision": 1,
+      "due_date": "2026-11-16",
+      "finalized_at": null,
+      "id": "67de823cee164290866ffb236ba5a9f8",
+      "intro": "",
+      "issue_date": "2026-11-02",
+      "issuer": {
+        "address_line": "Synthetic seller street 1",
+        "bic": "",
+        "city": "Berlin",
+        "company_name": "Synthetic portal seller",
+        "country": "DE",
+        "cutover_ack": true,
+        "cutover_date": "2026-01-01",
+        "default_due_days": 14,
+        "einvoice_format": "none",
+        "email": "seller@example.test",
+        "footer": "",
+        "iban": "",
+        "issuer_mode": "own",
+        "issuing_enabled": true,
+        "logo_base64": "",
+        "payment_terms": "Zahlbar ohne Abzug.",
+        "phone": "",
+        "postal_code": "10115",
+        "tax_number": "",
+        "vat_id": "DE123456789",
+        "website": ""
+      },
+      "kind": "cumulative_invoice",
+      "notes": "",
+      "number": null,
+      "payload_sha256": "ccd7c93dd603158eb2cbffe00636d112a29816ca488cbcbc785abc93030e739b",
+      "positions": [
+        {
+          "description": "Synthetic full contract",
+          "discount_percent": "0",
+          "id": "deec28f594f94c43b3e673fe71be64a8",
+          "index": 1,
+          "kind": "service",
+          "net": "30.00",
+          "price_base_quantity": "1",
+          "quantity": "1",
+          "tax_category": "S",
+          "tax_exemption_reason": "",
+          "tax_rate": "19",
+          "unit": "C62",
+          "unit_price_net": "30.00"
+        }
+      ],
+      "prepared_at": "2026-11-06T06:48:01+00:00",
+      "previous_document_ids": [
+        "314ee61be84d4666beb5d8f8e60671e8"
+      ],
+      "project_id": "e1061079b09f4f1997e2cebdc72cf72f",
+      "revision": 1,
+      "settings_revision": 3,
+      "status": "draft",
+      "title": "Kumulierte Rechnung",
+      "totals": {
+        "by_kind": {
+          "labor": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "machine": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "material": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "service": {
+            "gross": "35.70",
+            "net": "30.00",
+            "tax": "5.70"
+          }
+        },
+        "gross": "35.70",
+        "labor_gross": "0.00",
+        "labor_net": "0.00",
+        "labor_tax": "0.00",
+        "material_gross": "0.00",
+        "material_net": "0.00",
+        "material_tax": "0.00",
+        "net": "30.00",
+        "payable": "35.70",
+        "tax": "5.70",
+        "tax_breakdown": [
+          {
+            "category": "S",
+            "net": "30.00",
+            "rate": "19",
+            "reason": "",
+            "tax": "5.70"
+          }
+        ]
+      },
+      "updated_at": "2026-11-06T06:48:06+00:00"
+    }
+  },
+  {
+    "path": "/api/v1/business/documents/67de823cee164290866ffb236ba5a9f8",
+    "body": {
+      "project_id": "e1061079b09f4f1997e2cebdc72cf72f",
+      "kind": "cumulative_invoice",
+      "title": "Kumulierte Rechnung",
+      "issue_date": "2026-11-02",
+      "due_date": "2026-11-16",
+      "intro": "",
+      "notes": "",
+      "positions": [
+        {
+          "description": "Synthetic full contract",
+          "discount_percent": "0",
+          "id": "deec28f594f94c43b3e673fe71be64a8",
+          "index": 1,
+          "kind": "service",
+          "net": "30.00",
+          "price_base_quantity": "1",
+          "quantity": "1",
+          "tax_category": "S",
+          "tax_exemption_reason": "",
+          "tax_rate": "19",
+          "unit": "C62",
+          "unit_price_net": "70.00"
+        }
+      ],
+      "revision": 1,
+      "previous_document_ids": [
+        "314ee61be84d4666beb5d8f8e60671e8"
+      ],
+      "request_id": "a7261f09b7ea4c3cb53f06ede8b6ed2f"
+    },
+    "status": 200,
+    "value": {
+      "archive_security": "synthetic_sqlite_test_only",
+      "archive_version": 1,
+      "buyer": {
+        "address_line": "Synthetic buyer street",
+        "city": "Berlin",
+        "country": "DE",
+        "email": "",
+        "endpoint_id": "",
+        "endpoint_scheme": "",
+        "name": "Synthetic Workshop Customer",
+        "postal_code": "10117",
+        "vat_id": ""
+      },
+      "buyer_reference": "",
+      "converted_from": "314ee61be84d4666beb5d8f8e60671e8",
+      "currency": "EUR",
+      "customer_id": "dae09a05c93f4a3a9623617b83d5dcad",
+      "document_revision": 1,
+      "due_date": "2026-11-16",
+      "finalized_at": null,
+      "id": "67de823cee164290866ffb236ba5a9f8",
+      "intro": "",
+      "issue_date": "2026-11-02",
+      "issuer": {
+        "address_line": "Synthetic seller street 1",
+        "bic": "",
+        "city": "Berlin",
+        "company_name": "Synthetic portal seller",
+        "country": "DE",
+        "cutover_ack": true,
+        "cutover_date": "2026-01-01",
+        "default_due_days": 14,
+        "einvoice_format": "none",
+        "email": "seller@example.test",
+        "footer": "",
+        "iban": "",
+        "issuer_mode": "own",
+        "issuing_enabled": true,
+        "logo_base64": "",
+        "payment_terms": "Zahlbar ohne Abzug.",
+        "phone": "",
+        "postal_code": "10115",
+        "tax_number": "",
+        "vat_id": "DE123456789",
+        "website": ""
+      },
+      "kind": "cumulative_invoice",
+      "notes": "",
+      "number": null,
+      "payload_sha256": "087db4f6bd5f5ec11b5eae55a070b9ff2d0be6a826ce291920024b67d7c0ef8a",
+      "positions": [
+        {
+          "description": "Synthetic full contract",
+          "discount_percent": "0",
+          "id": "deec28f594f94c43b3e673fe71be64a8",
+          "index": 1,
+          "kind": "service",
+          "net": "70.00",
+          "price_base_quantity": "1",
+          "quantity": "1",
+          "tax_category": "S",
+          "tax_exemption_reason": "",
+          "tax_rate": "19",
+          "unit": "C62",
+          "unit_price_net": "70.00"
+        }
+      ],
+      "prepared_at": "2026-11-06T06:48:01+00:00",
+      "previous_document_ids": [
+        "314ee61be84d4666beb5d8f8e60671e8"
+      ],
+      "project_id": "e1061079b09f4f1997e2cebdc72cf72f",
+      "revision": 2,
+      "settings_revision": 3,
+      "status": "draft",
+      "title": "Kumulierte Rechnung",
+      "totals": {
+        "by_kind": {
+          "labor": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "machine": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "material": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "service": {
+            "gross": "83.30",
+            "net": "70.00",
+            "tax": "13.30"
+          }
+        },
+        "gross": "83.30",
+        "labor_gross": "0.00",
+        "labor_net": "0.00",
+        "labor_tax": "0.00",
+        "material_gross": "0.00",
+        "material_net": "0.00",
+        "material_tax": "0.00",
+        "net": "70.00",
+        "payable": "83.30",
+        "tax": "13.30",
+        "tax_breakdown": [
+          {
+            "category": "S",
+            "net": "70.00",
+            "rate": "19",
+            "reason": "",
+            "tax": "13.30"
+          }
+        ]
+      },
+      "updated_at": "2026-11-06T06:48:06+00:00"
+    }
+  }
+]

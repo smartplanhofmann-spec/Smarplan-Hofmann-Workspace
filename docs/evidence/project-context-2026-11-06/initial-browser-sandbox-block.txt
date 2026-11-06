@@ -1,0 +1,27 @@
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+browserType.launch: Target page, context or browser has been closed
+Browser logs:
+Chromium sandboxing failed!
+================================
+To avoid the sandboxing issue, do either of the following:
+  - (preferred): Configure your environment to support sandboxing
+  - (alternative): Launch Chromium without sandbox using 'chromiumSandbox: false' option
+================================
+
+Call log:
+[2m  - <launching> /usr/lib/chromium/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default [line truncated]
+[2m  - <launched> pid=928230[22m
+[2m  - [pid=928230][err] [928230:928230:1106/064029.383975:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/agent/.config/chromium/Crash Reports/settings.dat: Read-only file system (30)[22m
+[2m  - [pid=928230][err] [928230:928230:1106/064029.384195:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/agent/.config/chromium/Crash Reports/settings.dat: Read-only file system (30)[22m
+[2m  - [pid=928230][err] [928230:928230:1106/064029.385659:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:129] No usable sandbox! If this is a Debian system, please install the chromium-sandbox package to solve this problem. If you are running on Ubuntu 23.10+ or another Linux distro that has disabled unprivileged user namespaces with AppArmor, see https://chromium.googlesource.com/c [line truncated]
+[2m  - [pid=928230] <gracefully close start>[22m
+[2m  - [pid=928230] <kill>[22m
+[2m  - [pid=928230] <will force kill>[22m
+[2m  - [pid=928230] <process did exit: exitCode=1, signal=null>[22m
+[2m  - [pid=928230] starting temporary directories cleanup[22m
+[2m  - [pid=928230] finished temporary directories cleanup[22m
+[2m  - [pid=928230] <gracefully close end>[22m
+
+    at main (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:85:28)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"2147483647"}
+SMARTPLAN_BROWSER_FAILURE_END

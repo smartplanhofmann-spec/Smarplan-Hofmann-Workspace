@@ -198,6 +198,7 @@ jobs:
             SMARTPLAN_BROWSER_WORKFLOW=travel-allowances node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=travel-v3 node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=sales node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=project-context node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=project-customer node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=inventory-article-refs node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=time-tracking node tests/e2e.cjs &&

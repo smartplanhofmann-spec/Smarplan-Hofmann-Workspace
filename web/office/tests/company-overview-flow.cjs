@@ -1,5 +1,6 @@
 const assert=require('node:assert/strict');
 const path=require('node:path');
+const {selectProject}=require('./e2e.cjs');
 async function companyOverviewFlow({page,context,navigate,ready,fixture,screenshots}) {
   const reads=[],errors=[],pattern='**/api/v1/business/overview/metrics*';
   // Capture the real body before forwarding it: CDP can discard response
@@ -18,12 +19,14 @@ async function companyOverviewFlow({page,context,navigate,ready,fixture,screensh
     assert.ok(reads.length);let value=reads.at(-1);
     assert.equal(value.scope,'authorized_projects');assert.equal(value.accounting.available,true);
     assert.match(await area.innerText(),/Anfangsbestände.*Kontostand/s);
-    await page.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await ready(page);
-    value=reads.at(-1);assert.equal(value.scope,'selected_project');assert.equal(value.project_id,fixture.project_id);
-    assert.equal(value.project_count,1);assert.equal(value.accounting.available,false);
-    assert.equal(await page.getByRole('button',{name:'EÜR und Belege öffnen',exact:true}).count(),0);
+    assert.equal(await page.locator('.topbar .project-select').count(),0);
+    await selectProject(page,fixture.project_id);
+    await navigate(page,'Übersicht');
+    value=reads.at(-1);assert.equal(value.scope,'authorized_projects');assert.equal(value.project_id,null);
+    assert.equal(value.accounting.available,true);
+    assert.equal(await page.locator('.topbar .project-select').count(),0);
     const sources=page.locator('section.panel').filter({has:page.getByRole('heading',{name:'Grundlage der Projektkennzahlen',exact:true})});
-    await sources.getByRole('button',{name:'Vorgang öffnen',exact:true}).click();await ready(page);
+    await sources.getByRole('button',{name:'Vorgang öffnen',exact:true}).first().click();await ready(page);
     await page.getByRole('tab',{name:'Wirtschaftlichkeit',exact:true}).waitFor();
     await navigate(page,'Übersicht');await page.setViewportSize({width:390,height:844});await ready(page);
     await page.waitForFunction(()=>document.querySelector('.sidebar').getBoundingClientRect().right<=1);

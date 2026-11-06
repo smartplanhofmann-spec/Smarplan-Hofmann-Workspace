@@ -1,3 +1,4 @@
+const {selectProject}=require('./e2e.cjs');
 /* Real E1a browser forms, MFA and disposable HTTP/SQLite. No bank or token injection. */
 const assert=require('node:assert/strict');
 const fs=require('node:fs/promises');
@@ -37,7 +38,7 @@ async function accountingFlow({page,context,navigate,ready,login,fixture,screens
   }
   let account,bookkeeper;
   try {
-    await page.getByLabel('Aktuelles Projekt').selectOption('');await ready(page);await open();
+    await selectProject(page,'');await ready(page);await open();
     assert.match(await page.locator('main').innerText(),/Nur freigegebene Quellen/);assert.match(await page.locator('main').innerText(),/keine steuerlichen Summen/);
     // The supported-feature fallback must not call a nonexistent endpoint.
     const capsPattern='**/api/v1/business/capabilities';let requests=records.length;
@@ -71,7 +72,7 @@ async function accountingFlow({page,context,navigate,ready,login,fixture,screens
     if(screenshots)await page.screenshot({path:path.join(screenshots,'accounting-mobile.png'),fullPage:true});await page.setViewportSize({width:1440,height:1000});await page.waitForFunction(()=>!document.querySelector('.sidebar').inert);
 
     bookkeeper=await context.newPage();bookkeeper.on('pageerror',error=>errors.push(error.message));await bookkeeper.goto(fixture.base_url+'/office/');await login(bookkeeper,'bookkeeper@browser.example.test');await open(bookkeeper);
-    await bookkeeper.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await bookkeeper.getByRole('heading',{name:'Vorjournal',exact:true}).waitFor();await ready(bookkeeper);assert.equal(await bookkeeper.locator('main .list-row').count(),2,'assigned project payouts only; owner unallocated imports hidden');
+    await selectProject(bookkeeper,fixture.project_id);await bookkeeper.getByRole('heading',{name:'Vorjournal',exact:true}).waitFor();await ready(bookkeeper);assert.equal(await bookkeeper.locator('main .list-row').count(),2,'assigned project payouts only; owner unallocated imports hidden');
     await tab('Kundenzahlungen',bookkeeper);assert.equal(await bookkeeper.locator('main .list-row').count(),0);await tab('Auszahlungen',bookkeeper);assert.equal(await bookkeeper.getByText('Private accounting supplier',{exact:false}).count(),0);assert.equal(await bookkeeper.locator('main .list-row').count(),1);
     await tab('Vorjournal',bookkeeper);await bookkeeper.getByRole('button',{name:'Nachweis ansehen',exact:true}).first().click();await bookkeeper.getByRole('dialog').getByRole('heading',{name:'Bestätigte Quellfassung',exact:true}).waitFor();
     await navigate(page,'Einstellungen');await page.getByRole('button',{name:'Freigaben ansehen / ändern',exact:true}).click();modal=page.getByRole('dialog',{name:'Fachrechte',exact:true});

@@ -12,7 +12,13 @@ Lohnabrechnung und Buchhaltung sind zurückgestellt. Maßgeblich für die
 laufende Reihenfolge ist der [Projektphasenplan](CRM_ERP_PROJEKTPHASE_2026-11-04.md);
 historische Lohn-/Buchhaltungsnachweise bleiben erhalten.
 
-Stand: 05.11.2026. Quelle ist das unveränderte
+**Bedienanpassung vom 06.11.2026:** Die [Browser-Projektauswahl](CRM_ERP_BROWSER_PROJEKTAUSWAHL_2026-11-06.md)
+erscheint im neuen Quellstand nur in tatsächlich projektbezogenen Bereichen.
+Allgemeine Bereiche entfernen den vorherigen Projektkontext auch für
+Vorbelegungen und Rechte. Lokale Browserprüfung und Auslieferungsstand sind
+getrennt dokumentiert; die neue Serverinstallation ist noch nicht bestätigt.
+
+Stand: 06.11.2026. Quelle ist das unveränderte
 [Gesamtziel](../CRM_ERP_Gesamtziel.txt). Die integrierte Basis `4c2f008` und
 nachfolgende Änderungen sind im [Fortschritt](CRM_ERP_FORTSCHRITT.md)
 mit ihren eigenen Prüfnachweisen dokumentiert. Diese Matrix bewertet den

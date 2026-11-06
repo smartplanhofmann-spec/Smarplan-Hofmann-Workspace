@@ -1,3 +1,4 @@
+const {selectProject}=require('./e2e.cjs');
 /* Real authenticated browser purchasing flow against the disposable fixture. */
 const assert=require('node:assert/strict');
 const path=require('node:path');
@@ -44,7 +45,7 @@ async function close(page){await page.getByRole('dialog').getByRole('button',{na
 
 async function purchasingFlow({page,context,navigate,ready,fixture,screenshots}){
   await capturePurchaseResponses({page,context,fixture});
-  await page.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await ready(page);await navigate(page,'Material');
+  await selectProject(page,fixture.project_id);await ready(page);await navigate(page,'Material');
   const stock=page.locator('section.panel').filter({has:page.getByRole('heading',{name:'Lagerbestand',exact:true})});
   assert.match(await stock.locator('tbody').innerText(),/10,0000 m/);
   await page.getByRole('button',{name:'Bestellvorschlag anlegen',exact:true}).click();

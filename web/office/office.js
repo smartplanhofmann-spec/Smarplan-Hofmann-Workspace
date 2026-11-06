@@ -111,9 +111,9 @@ function organizationAreaAuthorized(section,permissions,capabilities) {
   return !!required&&required.some(permission=>allowed.has(permission))&&
     (supported.has(module)||supported.has('business_'+module));
 }
-export function organizationHiddenAreas(organization,permissions,capabilities) {
+export function organizationHiddenAreas(organization,permissions,capabilities,globalPermissions=permissions) {
   return ORGANIZATION_AREAS.map(([name])=>name).filter(name=>organization?.modules?.[name]?.visible===false&&
-    organizationAreaAuthorized(name,permissions,capabilities));
+    organizationAreaAuthorized(name,projectContext(name).label?permissions:globalPermissions,capabilities));
 }
 export function organizationModuleEnabled(section, organization) {
   return organization?.modules?.[section]?.enabled!==false;
@@ -1015,11 +1015,18 @@ export async function assistantPendingAuthorize(api,operation) {
   return project;
 }
 
+export function projectContext(section, projectId='') {
+  if(section==='projects')return {projectId:projectId||'',label:'Projekt öffnen',all:'Projektübersicht'};
+  if(['planning','documents','finance','material','assistant','service'].includes(section))
+    return {projectId:projectId||'',label:'Projektfilter',all:'Alle Projekte'};
+  return {projectId:'',label:null,all:null};
+}
 const NAV = [
   ['overview','Übersicht','◈'], ['inquiries','Anfragen','↗'], ['projects','Projekte','▦'], ['contacts','Kontakte','◎'],
   ['planning','Einsatzplanung','▤'], ['documents','Dokumente','▧'], ['finance','Finanzen','€'],
   ['material','Material','▣'], ['personnel','Personal','◷'], ['assistant','Assistent','✧'], ['service','Kundenservice','◉'], ['settings','Einstellungen','⚙']
 ];
+
 const LABELS = {remainder_cancelled:'Restmenge storniert',draft:'Entwurf',final:'Festgeschrieben',signed:'Unterzeichnet',new:'Neu',in_progress:'In Arbeit',open:'Offen',
   resolved:'Behoben',accepted:'Abgenommen',needs_review:'Prüfen',queued:'In Warteschlange',running:'Wird verarbeitet',failed:'Fehlgeschlagen',
   ready:'Bereit',uploading:'Upload läuft',planned:'Geplant',completed:'Abgeschlossen',paused:'Pausiert',working:'Läuft',stopped:'Beendet',
@@ -1266,12 +1273,14 @@ function mutation(key,path,data,options) {
 }
 function accountingRights(status=null) { return accountingAccess({permissions:[...state.globalPermissions],capabilities:[...state.capabilities],features:[...state.features],readonly:state.readonly},state.organization,status); }
 function sectionAuthorized(section) {
-  if(section==='service')return state.features.has('service_cases')&&state.capabilities.has('business_service')&&has('contacts.read');
-  if(section==='assistant')return state.features.has('assistant_workflow')&&has('assistant.use');
+  const permissions=projectContext(section).label?state.permissions:state.globalPermissions;
+  const allowed=permission=>permissions.has(permission);
+  if(section==='service')return state.features.has('service_cases')&&state.capabilities.has('business_service')&&allowed('contacts.read');
+  if(section==='assistant')return state.features.has('assistant_workflow')&&allowed('assistant.use');
   if(section==='finance'&&accountingRights().read)return true;
-  if(ORGANIZATION_AREAS.some(([name])=>name===section))return organizationAreaAuthorized(section,state.permissions,state.capabilities);
-  return ({contacts:has('contacts.read'),planning:has('planning.read'),finance:has('finance.read'),material:has('inventory.read')||has('finance.read'),
-    personnel:has('time.own')||has('personnel.read'),settings:has('settings.manage'),inquiries:state.metadata?.can_read_inquiries===true,documents:has('documents.read')||has('finance.read')})[section]??true;
+  if(ORGANIZATION_AREAS.some(([name])=>name===section))return organizationAreaAuthorized(section,permissions,state.capabilities);
+  return ({contacts:allowed('contacts.read'),planning:allowed('planning.read'),finance:allowed('finance.read'),material:allowed('inventory.read')||allowed('finance.read'),
+    personnel:allowed('time.own')||allowed('personnel.read'),settings:allowed('settings.manage'),inquiries:state.metadata?.can_read_inquiries===true,documents:allowed('documents.read')||allowed('finance.read')})[section]??true;
 }
 function sectionAllowed(section) {
   return organizationSectionAllowed(section,sectionAuthorized(section),state.organization);
@@ -1321,20 +1330,24 @@ async function startSession() {
 }
 function endSession() { state.financeTab='payments';state.accounting={tab:'events',payments:0,receipts:0,events:0,accounts:0};api.clear();photoUploads.clear();projectEconomics.clear();assistantWorkspace.clear();companyEvents.clear();accountingEuer.clear();state.render++;state.projects=[];state.projectId='';state.metadata=null;state.employeeId=null;state.newTimeEntryId=null;state.permissions.clear();state.globalPermissions.clear();state.capabilities.clear();state.features.clear();state.organization=null;state.openedHiddenSection=null;state.readonly=true;state.planning={mode:'week',anchor:dateInput(),years:3};loginScreen(); }
 function buildShell() {
-  root.replaceChildren(); shell=el('div',{class:'shell'});
+  root.replaceChildren(); shell=el('div',{class:'shell','data-context-section':state.section,'data-project-context':state.projectId});
   const nav=el('nav',{class:'navigation','aria-label':'Hauptnavigation'},NAV.filter(([id])=>sectionAllowed(id)).map(([id,label,glyph])=>el('button',{type:'button',class:'nav-button','data-section':id,'aria-current':id===state.section?'page':undefined,onClick:()=>navigate(id)},el('span',{class:'nav-glyph','aria-hidden':'true'},glyph),label)));
-  const hidden=organizationHiddenAreas(state.organization,state.permissions,state.capabilities);
+  const hidden=organizationHiddenAreas(state.organization,state.permissions,state.capabilities,state.globalPermissions);
   if(state.organization?.modules?.finance?.visible===false&&accountingRights().read&&!hidden.includes('finance'))hidden.push('finance');
   if(hidden.length)nav.append(el('details',{},el('summary',{class:'nav-button'},'Weitere Bereiche'),
     NAV.filter(([id])=>hidden.includes(id)).map(([id,label,glyph])=>el('button',{type:'button',class:'nav-button','data-section':id,
       'aria-current':id===state.section?'page':undefined,onClick:()=>navigate(id,{includeHidden:true})},
       el('span',{class:'nav-glyph','aria-hidden':'true'},glyph),label+' öffnen'))));
   const sidebar=el('aside',{class:'sidebar'},el('div',{class:'brand'},el('span',{class:'brand-mark'},'S'),el('div',{},el('strong',{},'smartplan'),el('small',{},'OFFICE'))),nav,el('div',{class:'sidebar-foot'},'Ihr Betrieb. Ein gemeinsamer Stand.',el('p',{class:'caption'},'Online · Daten vom eigenen Office-Server')));
-  const projectSelect=el('select',{class:'project-select','aria-label':'Aktuelles Projekt',onChange:event=>{state.projectId=event.target.value;state.tab='overview';refresh();}},el('option',{value:''},'Alle Projekte'),state.projects.map(project=>el('option',{value:project.id,selected:project.id===state.projectId},project.name)));
+  const scope=projectContext(state.section,state.projectId);
+  const projectSelect=scope.label?el('label',{class:'project-context'},el('span',{},scope.label),
+    el('select',{class:'project-select','aria-label':scope.label,onChange:event=>{state.projectId=event.target.value;state.tab='overview';refresh();}},
+      el('option',{value:''},scope.all),state.projects.map(project=>el('option',{value:project.id,selected:project.id===state.projectId},project.name))))
+    :el('span',{class:'workspace-context'},NAV.find(([id])=>id===state.section)?.[1]||'Smartplan Office');
   const menu=button('☰',()=>{shell.classList.toggle('menu-open');updateDrawer();},'icon mobile-menu');menu.setAttribute('aria-label','Navigation öffnen');menu.setAttribute('aria-expanded','false');
   const header=el('header',{class:'topbar'},menu,projectSelect,el('div',{class:'identity'},el('span',{},state.user.email||'Angemeldet'),button('Abmelden',()=>action(async()=>{try{await api.post('/logout',{});}finally{endSession();}}),'small')));
   const pending=button('Antworten offen',()=>pendingDialog(),'small');pending.dataset.pendingIndicator='true';pending.hidden=api.pendingCount===0;header.insertBefore(pending,header.lastChild);
-  banner=el('div',{});main=el('main',{id:'main-content',class:'content',tabIndex:-1});
+  banner=el('div',{});main=el('main',{id:'main-content',class:'content',tabIndex:-1},el('div',{class:'loading',role:'status'},'Daten werden geladen …'));
   shell.append(sidebar,el('div',{class:'workspace'},header,banner,main));root.append(shell);networkState();updateDrawer();
 }
 function updateDrawer() {
@@ -1417,10 +1430,12 @@ function pendingDialog() {
 function navigate(section,{includeHidden=false}={}) {
   state.openedHiddenSection=includeHidden&&sectionAuthorized(section)?section:null;
   if(!mayOpenSection(section))return;
+  if(!projectContext(section).label){state.projectId='';state.tab='overview';state.permissions=new Set(state.globalPermissions);}
   closeModal();state.section=section;shell?.classList.remove('menu-open');updateDrawer();root.querySelectorAll('[data-section]').forEach(node=>{if(node.dataset.section===section)node.setAttribute('aria-current','page');else node.removeAttribute('aria-current');});refresh();
 }
 async function refresh() {
   if(!state.user)return;
+  state.projectId=projectContext(state.section,state.projectId).projectId;
   catalogWorkspace.clear();datedWorkspace.clear();
   const version=++state.render,generation=api.generation;revokeUrls();main.replaceChildren(el('div',{class:'loading',role:'status'},'Daten werden geladen …'));
   try {
@@ -1437,9 +1452,9 @@ async function refresh() {
       if(version!==state.render||generation!==api.generation)return;
       effective=new Set(profile.permissions||state.globalPermissions);
     }
-    if(navigationChanged||[...effective].sort().join('|')!==[...state.permissions].sort().join('|')) {
+    if(navigationChanged||[...effective].sort().join('|')!==[...state.permissions].sort().join('|')||shell?.dataset.contextSection!==state.section||shell?.dataset.projectContext!==state.projectId) {
       state.permissions=new Set(effective);
-      if(!mayOpenSection(state.section)){state.section='overview';state.openedHiddenSection=null;}
+      if(!mayOpenSection(state.section)){state.section='overview';state.projectId='';state.tab='overview';state.permissions=new Set(state.globalPermissions);state.openedHiddenSection=null;}
       buildShell();
     }
     if(modal?.querySelector('[data-personnel-workflow]'))closeModal();
@@ -1483,7 +1498,7 @@ async function overviewView() {
   const projects=data.projects||[];
   const content=el('div',{class:'stack'},heading('Guten Tag.','Was heute zählt – aus Ihrem gemeinsamen Projektbestand.',[button('Aktualisieren',()=>refresh())]),
     metrics?renderCompanyOverview(metrics,{el,panel,row,rows,button,notice,formatMoney,formatDate,onProject:openProject,onAccounting:()=>{state.financeTab='accounting';state.accounting.tab='euer';navigate('finance');}}):null,
-    el('div',{class:'grid'},panel('Projekte',el('div',{class:'metric'},data.counters?.projects??projects.length),el('p',{class:'metric-sub'},'Für Ihren Zugang freigegeben')),panel('Arbeitsbereich',el('h2',{},state.projectId?state.projects.find(p=>p.id===state.projectId)?.name:'Alle Projekte'),el('p',{class:'muted'},'Wählen Sie oben ein Projekt für die gemeinsame Projektmappe.'),button('Projekte öffnen',()=>navigate('projects'),'primary'))),
+    el('div',{class:'grid'},panel('Projekte',el('div',{class:'metric'},data.counters?.projects??projects.length),el('p',{class:'metric-sub'},'Für Ihren Zugang freigegeben')),panel('Arbeitsbereich',el('h2',{},'Betriebsübersicht'),el('p',{class:'muted'},'Hier sehen Sie alle für Sie freigegebenen Projekte. Eine einzelne Projektmappe öffnen Sie unter „Projekte“.'),button('Projekte öffnen',()=>navigate('projects'),'primary'))),
     panel('Zuletzt im Betrieb',rows(feed.slice(0,10),item=>row(item.summary||item.message||item.event_type,formatDate(item.created_at,true),[badge(item.visibility||'operational')]),'Noch keine Projektereignisse vorhanden.')),
     panel('Ihre Projekte',rows(projects.slice(0,8),project=>row(project.name,project.customer,[project.status?badge(project.status.name):null,button('Projekt öffnen',()=>openProject(project.id),'small')]))));
   return content;

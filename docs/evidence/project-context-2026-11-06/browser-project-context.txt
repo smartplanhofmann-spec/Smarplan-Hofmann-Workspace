@@ -1,0 +1,2 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+1 project-context browser workflow passed (real MFA/HTTP, global navigation, late response, scoped denial, explicit clock project and mobile layout)

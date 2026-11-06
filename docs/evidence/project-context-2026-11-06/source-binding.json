@@ -1,0 +1,16 @@
+{
+  "baseline_commit": "6fcff2dca8bedb0ea32e533bb7e0b3aff5f99d46",
+  "baseline_product_files_identical_to_confirmed_server": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "files": [
+    {
+      "path": "web/office/office.js",
+      "before_sha256": "74214ce23be56e72d0bb5e8426b478dc29e6eb5854c87b4a54fa863bf12c89c4",
+      "after_sha256": "347a1035f1083c359939d022d463459c9d7c3d39285757c8b804ced9f355b566"
+    },
+    {
+      "path": "web/office/office.css",
+      "before_sha256": "5df39fa68d4fc52d5f499f2d2578c6e9fa34db77dc0967cc615939e6e85eb400",
+      "after_sha256": "e4e6ccc7b83170504f8bd21c83b4cf6513a1ee753bc870c520e33a486ebc1231"
+    }
+  ]
+}

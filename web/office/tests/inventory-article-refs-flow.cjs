@@ -1,3 +1,4 @@
+const {selectProject}=require('./e2e.cjs');
 /* Real warehouse login, price-free item choice, reservation and material pick. */
 const assert=require('node:assert/strict');
 const fs=require('node:fs/promises');
@@ -17,7 +18,7 @@ async function inventoryArticleRefsFlow({page,context,navigate,ready,login,fixtu
   });
   const modal=()=>page.getByRole('dialog');
   try {
-    await page.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await ready(page);
+    await selectProject(page,fixture.project_id);await ready(page);
     await navigate(page,'Material');
     const catalogs=records.filter(r=>r.path.endsWith('/inventory/articles'));
     assert.ok(catalogs.length>0,'warehouse loads operative article identities');

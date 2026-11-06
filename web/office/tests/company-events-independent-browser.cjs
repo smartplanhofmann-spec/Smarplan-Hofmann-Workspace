@@ -1,3 +1,4 @@
+const {selectProject}=require('./e2e.cjs');
 /* Independent actual Chromium/MFA check using the existing disposable host. */
 const assert=require('node:assert/strict');
 const fs=require('node:fs/promises');
@@ -29,7 +30,7 @@ async function companyEventsFlow({page,navigate,ready,fixture,screenshots}){
         await page.getByRole('button',{name:'Ereignislauf prüfen und starten',exact:true}).click();
         await page.getByRole('dialog',{name:'Ereignislauf starten',exact:true}).waitFor();
       }else{
-        await page.getByLabel('Aktuelles Projekt',{exact:true}).selectOption(fixture.project_id);
+        await selectProject(page,fixture.project_id);
         await ready(page);
       }
       release();await delivered;

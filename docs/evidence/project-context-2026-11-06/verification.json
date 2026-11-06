@@ -39,7 +39,11 @@
     }
   },
   "full_existing_browser_suite": {
-    "result": "in_progress_at_this_commit"
+    "result": "passed",
+    "reported_workflows": 17,
+    "exit_code": 0,
+    "log": "browser-full-existing-suite.txt",
+    "scope": "Actual loopback HTTP, MFA, module configuration, portal, financial operations, planning, photos/PDF/signature, technician/warehouse roles, public inquiry; TLS/Origin acceptance is separate"
   },
   "before_reproduction": {
     "source_commit": "6fcff2dca8bedb0ea32e533bb7e0b3aff5f99d46",
@@ -70,8 +74,29 @@
     "during-implementation-loading-race.txt": "Rebuilt shell lost loading indicator before view requests completed. Fixed in runtime.",
     "during-implementation-test-status-correction.txt": "Test expected HTTP 201 for permission update; actual existing endpoint returns 200. Test expectation corrected."
   },
-  "ci": "New isolated project-context workflow registered; no green remote result claimed",
+  "ci": "Code commit published to the authorized test branch; new workflow registered; remote completion is not yet claimed",
   "git_diff_check": "passed",
   "deployment": "Not applied to the actual server; last user-confirmed source remains a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
-  "customer_device_acceptance": "not claimed"
+  "customer_device_acceptance": "not claimed",
+  "product_commit": "5880f88848ac95623c072f43b092e4202ea38bdb",
+  "prepared_server_command": {
+    "syntax": "bash -n passed",
+    "expected_source_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+    "target_commit": "5880f88848ac95623c072f43b092e4202ea38bdb",
+    "execution": "not performed by cloud assistant and not yet observed"
+  },
+  "ci_runs_observed": [
+    {
+      "id": 42178170524,
+      "name": "Development checks",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 42178170349,
+      "name": "iPhone TestFlight",
+      "status": "in_progress",
+      "conclusion": null
+    }
+  ]
 }

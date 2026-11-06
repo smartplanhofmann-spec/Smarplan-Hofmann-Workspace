@@ -34,6 +34,13 @@ Anweisung in der Betriebsübersicht, oben ein Projekt zu wählen, ist entfernt.
 
 ## Prüfung und Vorschau
 
+860 Browser-Modultests bestehen ohne Skip. Zusätzlich bestehen die sechs
+gezielten tatsächlichen Browserabläufe und der vorhandene Gesamtbrowserlauf
+mit 17 gemeldeten Abläufen. Der alte Stand wird in einer getrennten Quellkopie
+am weiterhin sichtbaren allgemeinen Dropdown reproduziert. Die dabei geprüften
+alten Produktdateien stimmen bytegleich mit dem bestätigten A93-Serverstand
+überein. Sämtliche Protokolle und Zwischenbefunde sind im Prüfnachweis verlinkt.
+
 Der tatsächliche Chromium-Ablauf verwendet temporäre SQLite-Testdaten,
 echte HTTP-/MFA-Anmeldung und aktive Namespace-/PID-/Netzwerk-/Seccomp-Sandbox.
 Er prüft alle allgemeinen Bereiche, Projekt-/Filterbeschriftung, gefilterte
@@ -63,3 +70,31 @@ Browseransicht benötigt die koordinierte Aktualisierung dieses Servers;
 Quelländerung und lokale Tests sind noch kein Nachweis dieser Installation.
 Ein neuer signierter iPhone-Build oder eine neue native Geräteabnahme wird
 hiermit nicht behauptet.
+
+## Vorbereiteter Serverbefehl
+
+Fester Produktquellstand: **5880f88848ac95623c072f43b092e4202ea38bdb**.
+Die GitHub-Läufe [Development checks](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42178170524)
+und [iPhone-Prüfbuild](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42178170349)
+sind auf diesem Stand gestartet; ihr erfolgreicher Abschluss wird zu diesem
+Nachweiszeitpunkt nicht behauptet. Die Produktdateien für Backend und native
+Apps sind gegenüber dem freigegebenen Ausgangsstand unverändert.
+
+Der folgende Befehl ist für das bestehende root-SSH-Fenster vorbereitet. Er
+prüft den zuletzt bestätigten installierten Ausgangsstand, ruft den autorisierten
+Testbranch ab, stellt den festen Zielcommit bereit und startet den vorhandenen
+koordinierten Updateablauf. Dieser verwendet Sicherung, separate Kandidaten-
+datenbank, Datenvergleich, Wartungssperre und die erhaltenen Dienst-/Timerzustände.
+Die Archiv-Rechtekorrektur ist im Zielcommit enthalten. Ein bereits offenes
+Update wird vom vorhandenen Ablauf abgelehnt; keine blinde Wiederholung oder
+Markerbereinigung. Die zuvor reparierten Parser-Abhängigkeiten und ihr Lock
+sind in diesem Update nicht verändert.
+
+```bash
+bash -c 'set -e; test "$(cat /opt/smartplan-online/SOURCE_COMMIT)" = a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5 || { echo "Abbruch: installierten Serverstand zuerst prüfen."; exit 1; }; git -C /opt/smartplan-test fetch origin codex/testupdate-0.7-projects-20261104; git -C /opt/smartplan-test switch --detach 5880f88848ac95623c072f43b092e4202ea38bdb; bash /opt/smartplan-test/deploy/hetzner/online/update-online.sh'
+```
+
+Nach gemeldetem Erfolg Testupdate aktiviert mit diesem Zielcommit den Browser
+mit Strg+F5 neu laden. Die Ausführung dieses neuen Befehls auf dem Server und
+die sichtbare Bestätigung des Nutzers sind weiterhin offen. Der Cloud-Assistent
+hat keinen direkten SSH-Zugang zum Windowsfenster oder zum Server.

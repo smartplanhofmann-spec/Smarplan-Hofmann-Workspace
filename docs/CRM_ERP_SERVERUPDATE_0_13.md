@@ -1,4 +1,16 @@
-# Aktueller Stand: Serverupdate kontrolliert abgeschlossen
+# Neue Browseranpassung vorbereitet; installierter Serverstand weiterhin A93
+
+Die beauftragte [bereichsabhängige Projektauswahl](CRM_ERP_BROWSER_PROJEKTAUSWAHL_2026-11-06.md)
+ist auf dem festen Commit 5880f88848ac95623c072f43b092e4202ea38bdb vorbereitet.
+860 Modultests, sechs gezielte Browserabläufe und der vorhandene Gesamtbrowserlauf
+mit 17 gemeldeten Abläufen bestehen. Der verlinkte neue Updatebefehl stellt
+diesen festen Quellstand bereit und nutzt den bestehenden koordinierten Ablauf.
+Die Ausführung auf dem tatsächlichen Server ist noch nicht bestätigt. Die
+folgenden bisherigen Reparaturblöcke nicht erneut ausführen.
+
+## Zuletzt tatsächlich bestätigter Serverstand
+
+# Serverupdate auf A93 kontrolliert abgeschlossen
 
 Der Nutzer bestätigt am 05.11.2026 im tatsächlichen SSH-Fenster den erfolgreichen
 Abschluss auf **a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5**: Alle drei Dienste

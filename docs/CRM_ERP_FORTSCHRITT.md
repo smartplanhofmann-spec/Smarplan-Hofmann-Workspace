@@ -2628,3 +2628,15 @@ nicht durch einen versteckten Ersatz nachgebildet. Eine neue Remote-Gesamtfreiga
 wird nicht vorweggenommen. Der zuletzt vom Nutzer bestätigte Serverstand bleibt
 A93; die Anpassung ist noch nicht auf diesem Server installiert. Die tatsächlichen
 Gerätefälle bleiben unverändert ungeprüft.
+
+Der umfassende Lauf ist inzwischen ebenfalls erfolgreich beendet: **17 reale
+Browserabläufe laut bestehendem Runner** einschließlich Modulkonfiguration,
+ausgeblendeter Personalnavigation, Portal, Finanz-/Belegfolgen, Planung,
+Foto/PDF/Unterschrift und Techniker-/Lagerrollen. Sein vollständiges Protokoll
+ist ergänzt. Der unveränderte Backend-/Native-Produktumfang ist separat
+gegen den Ausgangsstand geprüft. Der feste Produktcommit 5880f88848ac95623c072f43b092e4202ea38bdb
+ist auf dem autorisierten Testbranch veröffentlicht; GitHub hat seine
+Development- und iPhone-Prüfworkflows gestartet. Diese neuen Remote-Läufe
+werden nicht als bereits bestanden ausgegeben. Der [konkrete Updatebefehl](CRM_ERP_BROWSER_PROJEKTAUSWAHL_2026-11-06.md)
+verwendet den vorhandenen koordinierten Ablauf und den bestätigten A93-
+Ausgangsstand. Seine tatsächliche Serverausführung bleibt noch nachzuweisen.

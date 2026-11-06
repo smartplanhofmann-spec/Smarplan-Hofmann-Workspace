@@ -2559,3 +2559,32 @@ Bereichsleiste. Die [Kundentestanleitung](CRM_ERP_KUNDENTEST_PROJEKTBETRIEB_0_13
 nennt jetzt beide Wege sowie den Unterschied zwischen fehlender Profilzuordnung
 und fehlendem Menü durch Sichtbarkeit/Modul/Berechtigung. Produktcode wurde
 nicht verändert; keine neue Geräteabnahme oder Serveränderung wird behauptet.
+
+
+## 06.11.2026 – Browser: Projektauswahl im gemeinsamen Kopf unklar
+
+Der Nutzer bestätigt den Browser als zuvor verwendeten Client und meldet nun
+das überall sichtbare Projekt-Dropdown als unverständlich. Der installierte
+A93-Quellstand erstellt die Auswahl Aktuelles Projekt/Alle Projekte im gemeinsamen
+buildShell-Kopf unabhängig vom geöffneten Bereich. Sie setzt state.projectId.
+In Projekte öffnet das die konkrete Projektmappe; Einsatzplanung, Dokumente,
+Kundenservice und weitere Fachansichten nutzen es als Projektkontext. In der
+Übersicht begrenzt es Kennzahlen und Feed, während Projektzahl und Projektliste
+aus dem allgemeinen Überblick stammen. Anfragen und Kontakte laden ihre Listen
+ohne diesen Projektfilter. Personal verwendet für Zeitlisten den Mitarbeiter
+und Monat, nicht die oben gewählte Projektkennung.
+
+Die gleiche Anzeige vermittelt damit einen einheitlichen Filterumfang, den
+die Ansichten nicht einheitlich besitzen. Darüber hinaus beeinflusst eine
+Projektwahl im refresh-Pfad die effektiven Frontend-Berechtigungen. Eine
+spätere Korrektur darf deshalb nicht nur das Dropdown ausblenden und dabei
+einen unsichtbaren Projektkontext für Aktionen oder Rechte zurücklassen.
+Ein tatsächlicher Berechtigungsfehler beim Nutzer ist damit nicht bestätigt.
+
+Als Bedienungsverbesserung aufgenommen: Unternehmensansichten und Projektmappe
+erkennbar trennen; nur tatsächlich wirksame optionale Projektfilter in den
+jeweiligen Bereichen anzeigen und ihren Umfang klar benennen. Bereichswechsel,
+Rückkehr zur Projektliste und berechtigte globale/projektbezogene Aktionen
+müssen bei einer Implementierung gezielt gegengeprüft werden. Diese Aufnahme
+und Erklärung verändern keinen Produktcode und keine laufende Serveransicht.
+Bis dahin stellt Alle Projekte den allgemeinen Kontext wieder her.

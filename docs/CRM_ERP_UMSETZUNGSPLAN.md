@@ -192,6 +192,14 @@ Parser-Kompatibilität vor zukünftigen API-Updates wird anschließend im
 Operatorablauf abgesichert. Signierte iPhone-Verteilung und tatsächliche
 Geräteabnahmen bleiben offen; Lohn und Gesamtbuchhaltung bleiben zurückgestellt.
 
+Bedienrückmeldung vom 06.11.2026: Das gemeinsame Projekt-Dropdown im Browser
+erscheint auch in ungefilterten Unternehmensbereichen. Für eine spätere
+Navigationskorrektur sind sichtbarer Filterumfang, Projektmappe und allgemeiner
+Unternehmenskontext zu unterscheiden. Beim Ausblenden darf kein unsichtbarer
+Projektkontext für Vorbelegungen oder effektive Rechte zurückbleiben. Der
+aktuelle Befund ist im Fortschritt erfasst; eine Produktänderung ist damit
+noch nicht umgesetzt oder auf dem Server ausgerollt.
+
 Neue Module werden additiv migriert. Historische Schema-/Quittungsformate bleiben
 prüfbar; aktuelle Restores verlangen den vollständigen installierten Umfang.
 Fehlende Bestände oder ungeprüfte Quellen werden nicht als Null, Gewinn oder

@@ -1,0 +1,11 @@
+test_actual_backup_restore_recalculates_factor_and_retains_originals (online.test_business_payroll_pg.FactorPayrollPostgres.test_actual_backup_restore_recalculates_factor_and_retains_originals) ... ok
+test_factor_recalculation_and_narrow_employee_statement_survive_restart (online.test_business_payroll_pg.FactorPayrollPostgres.test_factor_recalculation_and_narrow_employee_statement_survive_restart) ... ok
+test_actual_backup_restore_recalculates_result_and_retains_pdf_sources_receipts (online.test_business_payroll_pg.PayrollPostgres.test_actual_backup_restore_recalculates_result_and_retains_pdf_sources_receipts) ... ok
+test_real_http_correction_history_fresh_rights_restart_and_append_only_acl (online.test_business_payroll_pg.PayrollPostgres.test_real_http_correction_history_fresh_rights_restart_and_append_only_acl) ... ok
+test_actual_backup_restore_recalculates_regular_pap_and_retains_sources (online.test_business_payroll_pg.RegularPayrollPostgres.test_actual_backup_restore_recalculates_regular_pap_and_retains_sources) ... ok
+test_regular_pap_correction_exports_and_restart (online.test_business_payroll_pg.RegularPayrollPostgres.test_regular_pap_correction_exports_and_restart) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 73.241s
+
+OK

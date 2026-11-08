@@ -1,0 +1,71 @@
+test_actual_backup_restore_recalculates_factor_and_retains_originals (online.test_business_payroll_pg.FactorPayrollPostgres.test_actual_backup_restore_recalculates_factor_and_retains_originals) ... ERROR
+test_factor_recalculation_and_narrow_employee_statement_survive_restart (online.test_business_payroll_pg.FactorPayrollPostgres.test_factor_recalculation_and_narrow_employee_statement_survive_restart) ... ERROR
+test_actual_backup_restore_recalculates_result_and_retains_pdf_sources_receipts (online.test_business_payroll_pg.PayrollPostgres.test_actual_backup_restore_recalculates_result_and_retains_pdf_sources_receipts) ... ERROR
+test_real_http_correction_history_fresh_rights_restart_and_append_only_acl (online.test_business_payroll_pg.PayrollPostgres.test_real_http_correction_history_fresh_rights_restart_and_append_only_acl) ... ERROR
+test_actual_backup_restore_recalculates_regular_pap_and_retains_sources (online.test_business_payroll_pg.RegularPayrollPostgres.test_actual_backup_restore_recalculates_regular_pap_and_retains_sources) ... ERROR
+test_regular_pap_correction_exports_and_restart (online.test_business_payroll_pg.RegularPayrollPostgres.test_regular_pap_correction_exports_and_restart) ... ERROR
+
+======================================================================
+ERROR: test_actual_backup_restore_recalculates_factor_and_retains_originals (online.test_business_payroll_pg.FactorPayrollPostgres.test_actual_backup_restore_recalculates_factor_and_retains_originals)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_customer_execution_journey_pg.py", line 60, in setUp
+    release.secure_database(fixture.DSN, test_mode=True)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/release.py", line 184, in secure_database
+    raise ValueError('Fremde Datenbankownership nicht verändern.')
+ValueError: Fremde Datenbankownership nicht verändern.
+
+======================================================================
+ERROR: test_factor_recalculation_and_narrow_employee_statement_survive_restart (online.test_business_payroll_pg.FactorPayrollPostgres.test_factor_recalculation_and_narrow_employee_statement_survive_restart)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_customer_execution_journey_pg.py", line 60, in setUp
+    release.secure_database(fixture.DSN, test_mode=True)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/release.py", line 184, in secure_database
+    raise ValueError('Fremde Datenbankownership nicht verändern.')
+ValueError: Fremde Datenbankownership nicht verändern.
+
+======================================================================
+ERROR: test_actual_backup_restore_recalculates_result_and_retains_pdf_sources_receipts (online.test_business_payroll_pg.PayrollPostgres.test_actual_backup_restore_recalculates_result_and_retains_pdf_sources_receipts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_customer_execution_journey_pg.py", line 60, in setUp
+    release.secure_database(fixture.DSN, test_mode=True)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/release.py", line 184, in secure_database
+    raise ValueError('Fremde Datenbankownership nicht verändern.')
+ValueError: Fremde Datenbankownership nicht verändern.
+
+======================================================================
+ERROR: test_real_http_correction_history_fresh_rights_restart_and_append_only_acl (online.test_business_payroll_pg.PayrollPostgres.test_real_http_correction_history_fresh_rights_restart_and_append_only_acl)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_customer_execution_journey_pg.py", line 60, in setUp
+    release.secure_database(fixture.DSN, test_mode=True)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/release.py", line 184, in secure_database
+    raise ValueError('Fremde Datenbankownership nicht verändern.')
+ValueError: Fremde Datenbankownership nicht verändern.
+
+======================================================================
+ERROR: test_actual_backup_restore_recalculates_regular_pap_and_retains_sources (online.test_business_payroll_pg.RegularPayrollPostgres.test_actual_backup_restore_recalculates_regular_pap_and_retains_sources)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_customer_execution_journey_pg.py", line 60, in setUp
+    release.secure_database(fixture.DSN, test_mode=True)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/release.py", line 184, in secure_database
+    raise ValueError('Fremde Datenbankownership nicht verändern.')
+ValueError: Fremde Datenbankownership nicht verändern.
+
+======================================================================
+ERROR: test_regular_pap_correction_exports_and_restart (online.test_business_payroll_pg.RegularPayrollPostgres.test_regular_pap_correction_exports_and_restart)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_customer_execution_journey_pg.py", line 60, in setUp
+    release.secure_database(fixture.DSN, test_mode=True)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/release.py", line 184, in secure_database
+    raise ValueError('Fremde Datenbankownership nicht verändern.')
+ValueError: Fremde Datenbankownership nicht verändern.
+
+----------------------------------------------------------------------
+Ran 6 tests in 29.552s
+
+FAILED (errors=6)

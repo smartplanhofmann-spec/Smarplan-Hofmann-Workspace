@@ -116,6 +116,52 @@ class PayrollWorkflowTests(BusinessFixture,unittest.TestCase):
         self.assertEqual(self.payroll.export(self.owner,original['id'],'pdf','1')[0],original_pdf)
         self.assertTrue(validate_integrity(self.office))
 
+    def test_factor_correction_preserves_standard_original_and_exact_retry(self):
+        from payroll_factor_2026 import FACTOR_RULE_VERSION
+        from business_payroll_statements import project
+        data=self.case('regular',500000,tax_class=4,health_additional_percent='2.90',
+            tax_allowance_monthly_minor=0,tax_addition_monthly_minor=0)
+        command=self.command(data)
+        original=self.payroll.finalize(self.owner,command)
+        original_pdf=self.payroll.export(self.owner,original['id'],'pdf')[0]
+        saved=self.payroll.save_profile(self.owner,dict(request_id=rid(),employee_id=self.employee['id'],
+            id=data['profile']['id'],revision=1,profile={**data['profile']['profile'],
+                'special_cases':['tax_factor'],'tax_factor':'0.753'},source_file_id=data['file']['id'],
+            confirmed=True,correction_reason='Belegten wirksamen ELStAM-Faktor nachgetragen'))
+        data['inputs']['profile_revision']=saved['revision']
+        correction_command=self.command(data,id=original['id'],revision=1,
+            correction_reason='Steuerklasse IV mit belegtem Faktor berichtigt')
+        revised=self.payroll.finalize(self.owner,correction_command)
+        self.assertEqual(revised['calculation']['rule_version'],FACTOR_RULE_VERSION)
+        self.assertEqual(revised['calculation']['individual_wage_tax_minor'],58908)
+        self.assertEqual(revised['calculation']['net_minor'],332342)
+        self.assertEqual(revised['delta']['employee_tax_minor'],-19333)
+        self.assertEqual(revised['delta']['net_minor'],19333)
+        self.assertEqual(revised['delta']['employee_social_total_minor'],0)
+        self.assertEqual(self.payroll.finalize(self.owner,correction_command),revised)
+        self.assertEqual(self.payroll.finalize(self.owner,command),original)
+        self.assertEqual(self.payroll.export(self.owner,original['id'],'pdf','1')[0],original_pdf)
+        self.assertEqual(project(revised)['calculation']['net_minor'],332342)
+        self.assertNotIn('tax_factor',canonical(project(revised)))
+        self.assertTrue(validate_integrity(self.office))
+
+    def test_factor_tampering_is_detected_even_with_rehashed_payroll_envelope(self):
+        data=self.case('regular',500000,tax_class=4,health_additional_percent='2.90',
+            tax_allowance_monthly_minor=0,tax_addition_monthly_minor=0,
+            special_cases=['tax_factor'],tax_factor='0.753')
+        run=self.payroll.finalize(self.owner,self.command(data))
+        row=dict(self.office.db.execute('SELECT * FROM business_payroll_events WHERE id=?',(run['id'],)).fetchone())
+        payload=json.loads(row['payload_json'])
+        payload['calculation']['tax_parameters']['tax_factor']='0.900'
+        payload['preview_hash']=_sha(dict(source=payload['source'],calculation=payload['calculation']))
+        envelope={key:row[key] for key in COLUMNS.split(',') if key not in ('payload_json','content_hash')}
+        envelope['payload']=payload
+        self.office.db.execute('DROP TRIGGER business_payroll_events_update_guard')
+        self.office.db.execute('UPDATE business_payroll_events SET payload_json=?,content_hash=? WHERE id=?',
+            (canonical(payload),_sha(envelope),run['id']))
+        with self.assertRaisesRegex(ValueError,'does not reproduce'):
+            validate_integrity(self.office)
+
     def test_corrected_pension_exemption_creates_delta_and_retains_previous_pdf(self):
         data=self.case()
         command=self.command(data)

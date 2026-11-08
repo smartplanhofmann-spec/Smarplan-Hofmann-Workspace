@@ -102,6 +102,9 @@ def rate(value):
 
 
 def normalize_profile(value):
+    if isinstance(value, dict) and 'tax_factor' in value:
+        from payroll_factor_2026 import normalize_factor_profile
+        return normalize_factor_profile(value)
     if not isinstance(value, dict) or set(value) not in (PROFILE_FIELDS,PROFILE_FIELDS|TAX_PROFILE_FIELDS,
             PROFILE_FIELDS|TAX_PROFILE_FIELDS|TRANSITION_PROFILE_FIELDS):
         raise Problem(400, 'Alle definierten Payroll-Stammdaten ausdrücklich angeben; unbekannte Felder sind nicht zulässig.')
@@ -260,6 +263,12 @@ def _calculate_contributions(profile, month, gross_minor, *, full_month_confirme
 def calculate(profile, month, gross_minor, *, full_month_confirmed, source_issues=(), rule_version=None):
     """Keep archived v1 projections exact; opt in via complete explicit fields."""
     profile = normalize_profile(profile)
+    from payroll_factor_2026 import FACTOR_RULE_VERSION, calculate_factor
+    if rule_version == FACTOR_RULE_VERSION or 'tax_factor' in profile:
+        if rule_version not in (None, FACTOR_RULE_VERSION) or 'tax_factor' not in profile:
+            raise Problem(400, 'Neue Faktorprofile und historische Regelstände dürfen nicht stillschweigend vermischt werden.')
+        return calculate_factor(profile, month, gross_minor,
+            full_month_confirmed=full_month_confirmed, source_issues=source_issues)
     from payroll_transition_2026 import TRANSITION_RULE_VERSION, calculate_transition
     if rule_version == TRANSITION_RULE_VERSION or 'transition_assessment' in profile:
         if rule_version not in (None, TRANSITION_RULE_VERSION) or 'transition_assessment' not in profile:

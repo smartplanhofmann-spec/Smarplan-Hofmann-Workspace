@@ -1,0 +1,166 @@
+{
+  "date": "2026-11-08",
+  "base_commit": "2ed8162",
+  "scope": "explicit_regular_class_iv_factor_full_month_2026",
+  "goal": {
+    "path": "CRM_ERP_Gesamtziel.txt",
+    "bytes": 23863,
+    "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+    "unchanged": true
+  },
+  "official_software_approval": false,
+  "production_deployment": false,
+  "device_acceptance": false,
+  "factor": {
+    "rule_version": "de_2026_standard_factor_monthly_v8",
+    "pap_version": "bmf_2026_2025_11_12_standard_factor_v1",
+    "old_pap_files_unchanged": true,
+    "derived_household_factor": false,
+    "partial_month": false,
+    "transition": false,
+    "one_off": false
+  },
+  "reference": {
+    "pinned_xml_sha256": "63d8981646d139eba2f4dd990c13b43c4fb3883b402a5a40cddf253aa7aa96b4",
+    "direct_official_xml_download": false,
+    "java_xml_vectors": 170,
+    "independent_cached_vector_crosscheck": 207,
+    "runtime_java_or_network": false
+  },
+  "tests": {
+    "python_payroll": {
+      "initial_total": 630,
+      "initial_passed": 619,
+      "initial_socket_errors": 11,
+      "after_same_http_cases": 11,
+      "matched_test_ids": [
+        "test_business_payroll_annual_transport.AnnualPayrollHTTP.test_actual_preview_confirm_history_and_exact_replay_after_pause",
+        "test_business_payroll_annual_transport.AnnualPayrollHTTP.test_private_sources_strict_queries_methods_bodies_and_size",
+        "test_business_payroll_entitlements_transport.PayrollEntitlementsLocalHTTP.test_actual_http_overlapping_v3_and_preemployment_v4_originals",
+        "test_business_payroll_entitlements_transport.PayrollEntitlementsLocalHTTP.test_actual_http_preview_confirm_history_and_lost_ack_after_pause",
+        "test_business_payroll_entitlements_transport.PayrollEntitlementsLocalHTTP.test_actual_http_rejects_private_self_unknown_body_query_and_oversize",
+        "test_business_payroll_entitlements_transport.PayrollEntitlementsLocalHTTP.test_actual_http_sickness_v2_original_shift_and_lost_ack",
+        "test_business_payroll_facts_transport.PayrollFactsLocalHTTP.test_actual_http_period_preview_confirm_history_and_paused_original_ack",
+        "test_business_payroll_facts_transport.PayrollFactsLocalHTTP.test_strict_http_unknown_fields_queries_methods_size_and_private_self_access",
+        "test_business_payroll_statements.PayrollStatementHTTP.test_actual_http_own_pdf_history_private_denial_and_revocation",
+        "test_business_payroll_statements_v6.OneoffStatementHTTP.test_actual_http_own_history_pdf_denies_private_annual_case_and_original",
+        "test_business_payroll_statements_v7.Source5StatementHTTP.test_actual_http_own_json_pdf_history_deny_private_source5_originals"
+      ],
+      "additional_new_cash_case": 1,
+      "unique_effective_passed": 631,
+      "skips": 0
+    },
+    "postgres": {
+      "passed": 6,
+      "skips": 0,
+      "real_mfa_http": true,
+      "actual_dump_restore": true
+    },
+    "flutter": {
+      "payroll_passed": 306,
+      "final_factor_recheck": 5,
+      "analyze": "no issues"
+    },
+    "node": {
+      "passed": 866,
+      "skips": 0
+    },
+    "native_packaging": {
+      "passed": 16
+    },
+    "browser": {
+      "targets": [
+        "payroll-factor",
+        "payroll-transition"
+      ],
+      "passed": true,
+      "actual_mfa_http": true,
+      "synthetic_sources": true,
+      "actual_namespace_pid_network_seccomp_sandbox": true,
+      "lost_ack_exact_retry": true,
+      "original_pdf_retained": true,
+      "mobile_width": 390
+    }
+  },
+  "development_corrections": [
+    "Reference generator handles the XML missing-default int fields R/VJAHR; no runtime source altered.",
+    "Initial browser unit test imported a non-exported adapter name; corrected to the actual async payrollStatement adapter and real packaged statement fixture.",
+    "Numeric UI factor coercion was rejected after a failing precision/type case; both clients now require explicit text.",
+    "Initial native runner lacked the existing Clang directory in PATH; corrected runner environment, retained log.",
+    "Initial disposable PostgreSQL role and ownership did not match existing guards; changed only that new container, retained both failed logs.",
+    "Eleven initial HTTP tests were denied sockets by the outer execution sandbox; exactly the same cases passed with allowed local sockets, application policy unchanged."
+  ],
+  "remote_ci": {
+    "pre_factor_commit": "3773a60986ad2f2d921efb06166a07a3e6061b45",
+    "run_id": 42527000420,
+    "successful": [
+      "backend",
+      "update-flow",
+      "flutter",
+      "https-setup",
+      "ios-simulator",
+      "windows"
+    ],
+    "still_running_at_last_read": [
+      "business-services",
+      "online-api"
+    ],
+    "factor_commit_ci": "not_claimed_complete"
+  },
+  "live": {
+    "last_user_confirmed_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+    "subsequent_ui_update": "awaiting_user_execution_result",
+    "factor_installed": false
+  },
+  "source_sha256": {
+    ".github/workflows/checks.yml": "14d8f1534f098202011dc21192193e20f6ccfbd6e301758a1b83f2967aeebb19",
+    "app/lib/business_payroll.dart": "e3b5f5d25296f2a3e2238457bdb0bef2451acd911726763b9e6220c01a100fd2",
+    "app/lib/business_payroll_statements.dart": "46d1b4a35ce76a2c6ac2e89972c6756cf1663dac23ce4c95dbb99f7d98834e52",
+    "app/test/business_payroll_factor_test.dart": "b367df976d36e89024b00013bbf5e6cec6ad4624db326bc40724427e0fed2294",
+    "app/test/fixtures/generate_payroll_factor_2026.py": "1daa2bd11f249c0b4ace627b062d7c5f2c7606d66c673fd81236ac878ea2b799",
+    "app/test/fixtures/payroll_factor_2026_workflow.json": "3d253b0eb8c57af8e0cdacc676b80b2b55462aee7730efc3a265b9b4b83e0f2b",
+    "backend/business_payroll.py": "31b431b68c53cebd341ce5a605fe69bdf2476211fb19c9c2f15587ca7e62284a",
+    "backend/online/test_business_payroll_pg.py": "a31a7869c4ce18dfbec6ea2700fc0e6302ab4c8a2b94cb55c7eeeaeba6629aad",
+    "backend/payroll_de_2026.py": "c1365355ab501f194f37ede7c4bb0ab2c2347a1252dfda97ae360708593a9789",
+    "backend/payroll_factor_2026.py": "c55d017120f56b0e2539c793018839820d17aef54611c3ede636e1ee20d1df25",
+    "backend/payroll_pap_factor_2026.py": "92c6dee2d41b5c8985b52d9d8e86831919c05b16bbb504f4bdfc7176be7d088c",
+    "backend/test_business_payroll.py": "9de9c587265a8cd8b152c6f2e396be18a072ff2315b537b815fb89e9dc21c7c6",
+    "backend/test_business_payroll_cash.py": "2d4365e7a411472ad2e0e7b912555a347ef2ab64c7798417c1e07d91128e88a3",
+    "backend/test_payroll_factor_2026.py": "81cc1bd60cb1e68bae7bf62eba3a9e1541317d20d13bdaecef0dca6b06a83b5b",
+    "backend/test_payroll_pap_factor_2026.py": "ebc7b40a66a4e160f9c5acb91debf631009e63c038ed7f2621ea0c27aa44d7e8",
+    "backend/testdata/payroll_factor_2026.json": "4333fef3da5b71c212f3a3d3cee65a5c64f39950700550702bf729790c0d26b1",
+    "scripts/native-release.py": "46b608cea63460696f50bc63cf020c57db33edd45bec2e0b91ae985cb3987899",
+    "scripts/package-windows-support.py": "d4c6d407e5dd2184dc09eb63d4859053eb5593085b74bcf46192b9aa5b873048",
+    "scripts/payroll-factor-reference.py": "4bfe962477b76908b3a11adb173ebd1385e3f56d5952023455e02d48574922be",
+    "web/office/payroll-statements.js": "63d207d53d6c6a2d0f46cfca123366790e99b6bef31b124a3add4ee4db280563",
+    "web/office/payroll.js": "42bdc9022c6d502cc4a9e2579c202ae272560afbfb2ce50e0c5d3374114db3b0",
+    "web/office/tests/e2e.cjs": "4e01511e4fdbb0e48c0e382ed5b245c7e269a42e23922a2b40239138155955e0",
+    "web/office/tests/payroll-factor-flow.cjs": "dd5e402aec5383811da4a6842de75d72321f276f3e939826fb912ea6972d9b7c",
+    "web/office/tests/payroll-factor.test.mjs": "cba3008ba5d217ae3c4b6051a6c0a7bd1ea81dcb9f343272d537b23cd52c08b0",
+    ".gitattributes": "f79adc9eb3be52d44c57d5a46079dd5c16732c1d48d19c8f95a80cc5e36b5a53"
+  },
+  "evidence_sha256": {
+    "backend-http-after.txt": "7c246f2db73be97061ff1e11b28209b317e8309817efbfc179512565b85347fc",
+    "backend-payroll-initial-sockets.txt": "e15afe8e750e8758ef70bef94cc2e8d39b814bb6c6f76abe0147bbae8b0f019a",
+    "browser/payroll-factor-preview-desktop.png": "adce9fde133de02d3e2dabf5abe36a78ecd7938312fa411d572b94c852e71fb6",
+    "browser/payroll-factor-preview-mobile.png": "b909e32f4b9cc791addc7b6de57d671c08292e2f32879ecbbcd1e714ca14d073",
+    "browser/payroll-factor-synthetic-commands.json": "8a643fd197c50259b90b75ee20eed7557d8e486c9cec5fa23c18da58c653cfb0",
+    "browser-factor.txt": "ba89d79b6380687ae7f497fd82f1370fcddc6e3e692e1917ca8cadfeb9dd2358",
+    "browser-transition/payroll-transition-desktop.png": "c5b04f4da46a9e5cebc89636235b840733c6f62e9c533b66c06ce0889e1a4b90",
+    "browser-transition/payroll-transition-mobile.png": "002c1bb9afc8da644641f60c96388d6d64eccab27930bd6eff512bdc8a2cbb60",
+    "browser-transition/payroll-transition-synthetic-commands.json": "a1a02640c40aeb9621a7ce62645f65342d16ee7a6b84ba652d77a0c623163769",
+    "browser-transition.txt": "2063e59845f51d77ca7059130fce077cbdf4589d7c5e44316e78cd67077df3be",
+    "factor-cash-and-profile.txt": "7aa26d107e5a2bb6b0d005b536b5bb918ffdc999bb5bd2f7a0d14e03d8076485",
+    "flutter-analyze.txt": "7a540d62abcbf8cafdb84207f41eb66d8257f6a92a943595bd129dfc315b256a",
+    "flutter-factor-final.txt": "16bdedf47d3c96ad24941435dc6ae1333341377e40022e36b929a0545f183838",
+    "flutter-initial-toolchain.txt": "034810d56e8b4513ccbb1ad75e82bdadffaa7ae78357ca8ca1d867c662d3f0ac",
+    "flutter-payroll.txt": "34e3a3a23cef7dc48259d114a5b715c92c1b89cab97f31cd6b2b51326ab5b0f7",
+    "historical-kernel-hashes.json": "c05916007c84f93b30aa585220570801d8edc6e86c4d6755a943ed0557569652",
+    "native-packaging.txt": "889e231ad2b7ca7f950eabc3236b605b07cbde1addb213e4429aca3de045e22b",
+    "node-modules.txt": "fa915e5ce1033ae15ba543b5081c917dd2b03a60ed2315b71b6de84103f93472",
+    "postgres-initial-guard.txt": "d074397dbb264c8b191f33b11b983b1189c1b06d10a9e4881f5da180b53f5fa7",
+    "postgres-initial-ownership.txt": "31c7997a956e7b21592bf6e625978aa7d84a7c4295b05f23b2d08b9316da9d2d",
+    "postgres-payroll.txt": "1471faabecacd1fcf1afe86f9839d34df5afb362169f75066266b7828196a324",
+    "xml-oracle-crosscheck.json": "8daeab3ea93bf60cdbf0a76f5a7c2c792fab7392902c0426637f3bcff75aa503"
+  }
+}

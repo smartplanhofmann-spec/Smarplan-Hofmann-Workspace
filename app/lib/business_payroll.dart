@@ -44,6 +44,8 @@ const payrollScopes = {
   'regular_transition_monthly':
       'Belegter Übergangsbereich · Vollmonat und PAP 2026',
   'regular_standard_monthly': 'Reguläre Standard-Monatsberechnung · PAP 2026',
+  'regular_standard_factor_monthly':
+      'Reguläre Steuerklasse IV mit Faktor · Vollmonat und PAP 2026',
   'commercial_minijob_flat_tax':
       'Gewerblicher Minijob · Arbeitgeber trägt 2 % Pauschsteuer',
   'social_contributions_only':
@@ -110,6 +112,7 @@ const _profileLabels = {
   'verification_note': 'Prüfvermerk und Grundlage',
   'tax_allowance_monthly_minor': 'Monatlicher ELStAM-Freibetrag (€)',
   'tax_addition_monthly_minor': 'Monatlicher ELStAM-Hinzurechnungsbetrag (€)',
+  'tax_factor': 'Eingetragener ELStAM-Faktor (Steuerklasse IV)',
 };
 const _transitionLabels = {
   'transition_assessment': 'Belegte Übergangsbereichsprognose',
@@ -165,6 +168,21 @@ int payrollTaxMinor(Object? value) {
   final text = '${value ?? ''}'.trim().replaceAll(',', '.');
   if (RegExp(r'^0(?:\.0{1,2})?$').hasMatch(text)) return 0;
   return personnelMinor(value);
+}
+
+String payrollFactor(Object? value) {
+  if (value is! String) {
+    throw const FormatException(
+      'Den eingetragenen Faktor als genauen Dezimaltext angeben.',
+    );
+  }
+  final text = value.trim().replaceAll(',', '.');
+  if (!RegExp(r'^0\.[0-9]{3}$').hasMatch(text)) {
+    throw const FormatException(
+      'Eingetragenen ELStAM-Faktor mit genau drei Nachkommastellen und kleiner als eins angeben.',
+    );
+  }
+  return text;
 }
 
 String payrollRate(Object? input) {
@@ -293,6 +311,7 @@ Map<String, dynamic> payrollCalculation(dynamic value) {
       }
       if ([
             'regular_standard_monthly',
+            'regular_standard_factor_monthly',
             'regular_transition_monthly',
             'regular_standard_period',
             'regular_transition_period',
@@ -329,6 +348,15 @@ Map<String, dynamic> payrollCalculation(dynamic value) {
     }
   }
   if (scope == 'regular_transition_monthly') payrollTransition(v);
+  if (scope == 'regular_standard_factor_monthly' &&
+      (v['rule_version'] != 'de_2026_standard_factor_monthly_v8' ||
+          !RegExp(r'^0\.[0-9]{3}$')
+              .hasMatch('${v['tax_parameters']?['tax_factor'] ?? ''}'))) {
+    throw const ApiException(
+      0,
+      'Die Faktorberechnung besitzt keinen eindeutigen Faktor- und Regelstand.',
+    );
+  }
   return v;
 }
 
@@ -435,6 +463,19 @@ Map<String, dynamic> payrollPreview(dynamic raw, Map<String, dynamic> input) {
       0,
       'Die Vorschau gehört nicht zu den gewählten Personal- und Monatsquellen.',
     );
+  final profile = businessMap(source['profile']?['profile']);
+  if (profile.containsKey('tax_factor') ||
+      calculation['rule_version'] == 'de_2026_standard_factor_monthly_v8') {
+    if (!RegExp(r'^0\.[0-9]{3}$').hasMatch('${profile['tax_factor'] ?? ''}') ||
+        profile['tax_class'] != 4 ||
+        calculation['rule_version'] != 'de_2026_standard_factor_monthly_v8' ||
+        calculation['tax_parameters']?['tax_factor'] != profile['tax_factor']) {
+      throw const ApiException(
+        0,
+        'Faktorberechnung und belegtes Personalprofil stimmen nicht überein.',
+      );
+    }
+  }
   return value;
 }
 
@@ -494,6 +535,7 @@ void Function(dynamic) payrollReceiptValidator(
                 ].any(
                   (scope) => [
                     'regular_standard_monthly',
+                    'regular_standard_factor_monthly',
                     'regular_transition_monthly',
                     'regular_standard_period',
                     'regular_transition_period',
@@ -539,6 +581,7 @@ Map<String, dynamic> payrollProfileInput(Map<String, dynamic> values) {
     (key) => ![
       'tax_allowance_monthly_minor',
       'tax_addition_monthly_minor',
+      'tax_factor',
     ].contains(key),
   )) {
     if (_booleanFields.contains(key)) {
@@ -559,11 +602,15 @@ Map<String, dynamic> payrollProfileInput(Map<String, dynamic> values) {
           : values[key];
   }
   if (result['employment_kind'] == 'regular') {
-    if (!['standard', 'social_only'].contains(values['regular_tax_scope']))
+    if (![
+      'standard',
+      'factor',
+      'social_only',
+    ].contains(values['regular_tax_scope']))
       throw const FormatException(
         'Regulären Steuerumfang ausdrücklich wählen.',
       );
-    if (values['regular_tax_scope'] == 'standard') {
+    if (['standard', 'factor'].contains(values['regular_tax_scope'])) {
       for (final key in [
         'tax_allowance_monthly_minor',
         'tax_addition_monthly_minor',
@@ -572,6 +619,25 @@ Map<String, dynamic> payrollProfileInput(Map<String, dynamic> values) {
     }
   } else if (values['regular_tax_scope'] != 'minijob') {
     throw const FormatException('Minijob-Steuerumfang ausdrücklich wählen.');
+  }
+  if (values['regular_tax_scope'] == 'factor') {
+    if (result['tax_class'] != 4 ||
+        result['tax_allowance_monthly_minor'] != 0 ||
+        result['tax_addition_monthly_minor'] != 0 ||
+        values['transition_scope'] != 'none') {
+      throw const FormatException(
+        'Der Faktorfall benötigt Steuerklasse IV, bestätigte null Frei-/Hinzurechnungsbeträge und keinen Übergangsbereich.',
+      );
+    }
+    result['tax_factor'] = payrollFactor(values['tax_factor']);
+    result['special_cases'] = <String>{
+      ...List<String>.from(result['special_cases']),
+      'tax_factor',
+    }.toList()..sort();
+  } else if ('${values['tax_factor'] ?? ''}'.trim().isNotEmpty) {
+    throw const FormatException(
+      'Der erfasste Faktor benötigt den ausdrücklich gewählten Faktorumfang.',
+    );
   }
   if (!['none', 'monthly'].contains(values['transition_scope']))
     throw const FormatException('Übergangsbereich ausdrücklich beurteilen.');
@@ -693,9 +759,10 @@ List<BusinessField> payrollProfileFields(
     ),
     const BusinessField(
       'special_cases',
-      'Geprüfte Sonderfälle · betroffene Fälle bleiben gesperrt',
+      'Geprüfte Sonderfälle',
       type: BusinessInput.multiple,
       choices: payrollSpecialCases,
+      hint: 'Faktorverfahren zusätzlich über den Steuerumfang mit gültigem Faktor erfassen. Weitere Fälle benötigen gegebenenfalls eine gesonderte Berechnung.',
     ),
     field('verification_note'),
     const BusinessField(
@@ -707,9 +774,16 @@ List<BusinessField> payrollProfileFields(
         '': 'Bitte ausdrücklich wählen',
         'standard':
             'Regulär: Standard-Lohnsteuer mit geprüften ELStAM-Beträgen',
+        'factor':
+            'Regulär: Steuerklasse IV mit eingetragenem Faktor · Vollmonat',
         'social_only': 'Regulär: Nur Sozialversicherung, Netto bleibt offen',
         'minijob': 'Minijob: Pauschsteuerverfahren',
       },
+    ),
+    BusinessField(
+      'tax_factor',
+      _profileLabels['tax_factor']!,
+      hint: 'Nur beim Faktorverfahren: genau drei Nachkommastellen aus dem gültigen Nachweis. Frei- und Hinzurechnungsbetrag ausdrücklich 0.',
     ),
     for (final key in [
       'tax_allowance_monthly_minor',
@@ -1133,6 +1207,8 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
           ? ''
           : previousProfile['employment_kind'] == 'minijob'
           ? 'minijob'
+          : previousProfile.containsKey('tax_factor')
+          ? 'factor'
           : previousProfile.containsKey('tax_allowance_monthly_minor')
           ? 'standard'
           : 'social_only',
@@ -2224,6 +2300,10 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         style: Theme.of(context).textTheme.titleLarge,
       ),
       Text('${calc['month']} · Brutto ${payrollMoney(calc['gross_minor'])}'),
+      if (calc['tax_parameters']?['tax_factor'] != null)
+        Text(
+          'Eingetragener ELStAM-Faktor (Steuerklasse IV): ${calc['tax_parameters']['tax_factor']}',
+        ),
       if (calc['scope'] == 'social_contributions_only')
         const Notice(
           'Dies ist ausschließlich eine Sozialversicherungsberechnung. Individuelle Lohnsteuer, Solidaritätszuschlag, Kirchensteuer, Netto und Auszahlung sind nicht ermittelt.',

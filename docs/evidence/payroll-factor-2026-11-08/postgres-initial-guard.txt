@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/__main__.py", line 18, in <module>
+    main(module=None)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/main.py", line 104, in __init__
+    self.parseArgs(argv)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/main.py", line 153, in parseArgs
+    self.createTests()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/main.py", line 164, in createTests
+    self.test = self.testLoader.loadTestsFromNames(self.testNames,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 207, in loadTestsFromNames
+    suites = [self.loadTestsFromName(name, module) for name in names]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_business_payroll_pg.py", line 14, in <module>
+    from online import release, test_business_personnel_workflow_pg as personnel
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_business_personnel_workflow_pg.py", line 15, in <module>
+    from online import release, test_customer_execution_journey_pg as journey
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_customer_execution_journey_pg.py", line 27, in <module>
+    from online import release, test_business_journey_pg as fixture
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_business_journey_pg.py", line 36, in <module>
+    release.validate_dsns(DSN, make_conninfo(DSN, dbname='smartplan_release_check'), test_mode=True)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/release.py", line 61, in validate_dsns
+    raise ValueError('Testmodus ausschließlich für die benannten lokalen Einwegdatenbanken.')
+ValueError: Testmodus ausschließlich für die benannten lokalen Einwegdatenbanken.

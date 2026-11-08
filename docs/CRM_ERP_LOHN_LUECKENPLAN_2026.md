@@ -1,5 +1,12 @@
 # Lohn 2026 – verbleibende Standardfälle und konkreter Umsetzungsplan
 
+**Fortschreibung 08.11.2026:** Der reguläre volle Monat mit ausdrücklich
+belegtem Faktor in Steuerklasse IV ist jetzt als additive v8-Regel in Backend,
+Browser und App einschließlich Originalhistorie, tatsächlichem PG-Restore,
+Zahlungs-/EÜR-Kette und unabhängigen XML-Vergleichswerten geprüft.
+[Faktor-Lieferabschnitt](CRM_ERP_LOHN_FAKTOR_2026.md). Teilmonate, Midijobs und
+Einmalbezüge mit Faktor sowie die übrigen unten benannten Lücken bleiben offen.
+
 Bestandsaufnahme und Quellenprüfung: 03.11.2026. Maßstab bleibt die gewünschte erste Version für **reguläre Mitarbeiter und gewerbliche Minijobs**, nicht nur der bisher berechenbare Vollmonat. Diese Analyse ändert keine Rechenlogik und erklärt keine fachliche oder amtliche Zulassung.
 
 ## Fortschreibung nach P1, P2 und P3a
@@ -147,7 +154,7 @@ Die 2026-Richtlinien erlauben unter genauen Bedingungen unvorhersehbares Übersc
 
 Ab 01.07.2026 kann eine RV-Befreiung einmalig für die Zukunft aufgehoben werden, grundsätzlich ab dem auf Antragseingang folgenden Monat; eine spätere erneute Befreiung derselben fortbestehenden Beschäftigung ist nicht beliebig zulässig. Der heutige Profil-Bool prüft diesen Lebenslauf nicht. Quelle für beide Fälle: [Geringfügigkeits-Richtlinien 2026, B2.2.4.7/B3.1.3](https://www.minijob-zentrale.de/SharedDocs/Downloads/DE/Rundschreiben/Geringfuegigkeitsrichtlinien-2026.pdf?__blob=publicationFile). Erforderliche Tests: zweite/dritte Überschreitung im rollierenden Jahr, 1.206,00/1.206,01 EUR, vorhersehbarer Bonus, Antrag im Juni/Juli, Wirkung zum Folgemonat und unzulässiger erneuter Befreiungswechsel.
 
-Individuell versteuerter Minijob, Mehrfachbeschäftigung, freiwillige/private KV, Arbeitnehmer ab 65, Steuerklasse IV mit Faktor, Sachbezüge/bAV und Unfallversicherung bleiben weitere **Code- und Prüffälle** innerhalb eines vollständigen Lohnprodukts. Die Bezeichnung „regulärer Mitarbeiter“ schließt sie nicht fachlich aus. Ihre heutige Sperre ist sichtbar und schützt vor falschen Berechnungen, ersetzt aber ihre Umsetzung nicht.
+Individuell versteuerter Minijob, Mehrfachbeschäftigung, freiwillige/private KV, Arbeitnehmer ab 65, weitere Faktor-Teilmonats-/Einmalbezugsfälle, Sachbezüge/bAV und Unfallversicherung bleiben weitere **Code- und Prüffälle** innerhalb eines vollständigen Lohnprodukts. Der abgegrenzte reguläre Faktor-Vollmonat ist seit 08.11. additiv integriert. Die Bezeichnung „regulärer Mitarbeiter“ schließt die übrigen Fälle nicht fachlich aus. Ihre heutige Sperre ist sichtbar und schützt vor falschen Berechnungen, ersetzt aber ihre Umsetzung nicht.
 
 ## Additiver technischer Vertrag für die Umsetzung
 

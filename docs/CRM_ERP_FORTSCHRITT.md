@@ -2700,3 +2700,55 @@ systemd-Erkennungsabnahme des Servers. Eine neue Remote-CI oder produktive
 Freigabe wird nicht vorweggenommen. Weitere Lohnfälle, EÜR-/Gesamtintegration,
 tatsächliche Gerätebedienung und die benannten externen Nachweise bleiben
 Arbeit. Die begonnene Recherche zum Faktorverfahren ist keine Implementierung.
+
+## 08.11.2026 – Faktor-Vollmonat mit beiden Clients und Originalhistorie integriert
+
+Der anschließend umgesetzte Lieferabschnitt ergänzt Steuerklasse IV mit einem
+ausdrücklich belegten ELStAM-Faktor. Jahressteuer und kinderbereinigte Maßstabsteuer
+werden nach Faktor vor der Periodenverteilung auf ganze Euro abgerundet. Eine
+separate neue PAP-Version und Monatsregel v8 erhalten die historischen Standard-,
+Tages- und Einmal-PAP-Dateien bytegleich. Keine automatische Personenabfrage,
+Faktorermittlung, Schemamigration oder fachliche Zulassung wird daraus abgeleitet.
+Faktor-Teilmonate, Midijobs und Einmalbezüge bleiben gesonderte offene Codefälle.
+
+Browser und App erfassen den Faktor exakt, nennen ihn in der privaten Vorschau
+und bewahren ihn bei Korrekturen. Der private PDF-Beleg, Steuerdifferenzen,
+verlorene Antwort mit unveränderter Wiederholung, historische Originale,
+Jahresübersicht und der reduzierte Mitarbeiterbeleg sind angeschlossen.
+Belegte tatsächliche Nettozahlungen und gesonderte Abführungen erreichen die
+EÜR über die vorhandene private Zahlungskette; die öffentliche Finanzquelle
+enthält keinen persönlichen Faktor. Keine echte Zahlung wurde ausgeführt.
+
+170 Vergleichsvektoren stammen aus separat ausgeführten Dezimalausdrücken der
+gepinnten veröffentlichten XML. Der direkte amtliche XML-Abruf wurde nicht als
+erfolgreich ausgegeben; Spiegel, Digest und Quellen sind ausdrücklich genannt.
+Der XML-Runner stimmt zusätzlich mit 207 unabhängig beschafften öffentlichen
+Vergleichswerten überein. Er importiert den Python-Kern nicht. Die anfänglichen
+Runner-/Testfehler und die Korrektur des zu großzügigen numerischen UI-Eingangs
+werden im Prüfnachweis erhalten, nicht als zuerst bestandene Prüfungen ausgegeben.
+
+Der breite Python-Lohnlauf enthält 630 Fälle: 619 bestehen dort, elf lokale
+HTTP-Fälle stoppen am äußeren Socketverbot. Genau diese elf bestehen anschließend
+mit erlaubten lokalen Sockets. Die zusätzliche neue Zahlungs-/EÜR-Kette besteht
+ebenfalls; fünf Profilfälle sind dabei erneut geprüft. Damit sind 631 verschiedene
+Lohnfälle ausgeführt und nach Umgebungsnachlauf bestanden. Sechs tatsächliche
+PostgreSQL-/MFA-/HTTP-Fälle bestehen ohne Skip, einschließlich Faktor-Neustart und
+wirklichem Backup/Restore. Falsche Rolle und Eigentümerschaft des neu erzeugten
+Testcontainers wurden nur dort korrigiert; die Anwendungsschutzregeln bleiben
+unverändert. Die anfänglichen fehlgeschlagenen Protokolle bleiben im Repository.
+
+306 native Lohnfälle, vollständige Analyse ohne Befund, 866 Node-Modulfälle,
+16 Paketfälle sowie tatsächliche Faktor- und bestehende Midijob-Browserabläufe
+bestehen. Der erste native Lauf fehlte wegen nicht gesetztem vorhandenem Clang-
+Pfad; nach dessen Konfiguration bestehen die Tests. Nach der letzten Klarstellung
+der Sonderfallbeschriftung bestehen die fünf gezielten Faktor-Appfälle erneut.
+Der reale Faktor-Browserfall prüft auch ungültige Präzision vor POST, Original-
+wiederholung, unverändertes altes PDF, Jahreswerte und 390-Pixel-Darstellung.
+Beide Windowspaketlisten und die CI-Quellkopie enthalten die neuen Backendmodule.
+Der Faktor-Browserfall ist im gemeinsamen CI-Runner eingetragen.
+
+[Beschreibung, Quellen, Nachweise und verbleibende Grenzen](CRM_ERP_LOHN_FAKTOR_2026.md).
+Keine neue Serverinstallation oder tatsächliche Windows-/iPhone-Geräteabnahme
+wird damit behauptet. Das vollständige CRM-/ERP-Gesamtziel und Abnahmen A–G
+bleiben der Maßstab; weitere Lohn-/Buchhaltungs- und Integrationsaufgaben bleiben
+aktive Arbeit im Gesamtplan.

@@ -63,13 +63,21 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 4. **Nachweis:** 87 Update-/Recovery-/Operatorfälle, 21 Import-API-Fälle, 860
    Browser-Modultests und gezielte echte MFA-/HTTP-/Chromium-Abläufe bestanden.
    [Aktueller Prüfnachweis](evidence/project-resume-2026-11-08/verification.json).
+5. **Steuerklasse IV mit Faktor:** Der begrenzte reguläre Vollmonat ist mit
+   neuer Regel v8 in Backend, Browser und nativer App integriert. Belegte
+   Merkmale, Vorschau, Korrektur, Originalwiederholung, private und reduzierte
+   Belege, Jahresübersicht sowie tatsächliche Zahlungen/EÜR sind geprüft.
+   170 unabhängige XML-Vektoren, 631 unterschiedliche Python-Lohnfälle über
+   Gesamt-/Socketnachlauf und zusätzlichen EÜR-Fall, sechs reale PG-/Restorefälle,
+   306 App-, 866 Node- und 16 Paketfälle sowie echte Faktor-/Midijob-Browserwege
+   belegen den abgegrenzten Umfang. [Quellen, Grenzen und Nachweis](CRM_ERP_LOHN_FAKTOR_2026.md).
 
 ## Weitere unabhängige Entwicklungsarbeit
 
 - Die neue vollständige CI auf dem aktuellen Quellstand nachprüfen und
   tatsächliche neue Fehler beheben; nicht nur bereits grüne Jobs zählen.
 - Weitere benannte Standard-Lohnfälle additiv integrieren. Dazu gehören unter
-  anderem Faktorverfahren, individuelle Minijobsteuer, Versicherungsvarianten,
+  anderem Faktor-Teilmonate/-Einmalbezüge, individuelle Minijobsteuer, Versicherungsvarianten,
   Minijob-Jahresgrenzen und weitere Leistungen/Sachbezüge. Der
   [Lohn-Lückenplan](CRM_ERP_LOHN_LUECKENPLAN_2026.md) bewahrt auch historische
   Ausgangspunkte; pro Fall den heutigen Code prüfen. Bestehende begrenzte
@@ -80,10 +88,11 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 - Abnahmen A–G zu einem durchgängigen Lieferumfang verbinden. Lokale Fixtures
   ersetzen keine tatsächliche Windows-/iPhone-Bedienung oder Liveintegration.
 
-Für den nächsten Lohnfall ist der aktuelle PAP 2026 recherchiert. Das
-Faktorverfahren benötigt ausdrücklich bestätigte Merkmale, eine genaue
-Übernahme der amtlichen Rundungsstellen und neue Regel-/Quellversionen.
-Es ist mit dieser Recherche noch nicht implementiert oder freigegeben.
+Der neue Faktor-Vollmonat verlangt einen tatsächlich belegten Faktor und
+erhält alle historischen PAP-Dateien bytegleich. Seine geprüfte Implementierung
+ist keine vollständige Lohnfreigabe. Weitere Versicherungs-, Minijob- und
+Faktor-Spezialfälle bleiben eigenständige Codearbeit; der Lückenplan wird
+dementsprechend fortgeschrieben.
 
 ## Tatsächliche externe Voraussetzungen
 

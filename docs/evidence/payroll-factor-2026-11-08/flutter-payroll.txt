@@ -1,0 +1,310 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: employee top-ups remain signed exact cents; missing amounts are never inferred
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual imported_period typed references preserve canonical preview and receipt
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual imported_period typed references preserve canonical preview and receipt
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: actual payment parts preserve each date reference and exact amount
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual imported_one_off typed references preserve canonical preview and receipt
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account receipts bind evidence, source revisions and immutable correction ancestry
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual annual_basis typed references preserve canonical preview and receipt
+00:00 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: complete supported wage account and carryover remain separate from complete calendar and digital audit approval
+00:00 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: complete supported wage account and carryover remain separate from complete calendar and digital audit approval
+00:00 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual annual_tax_forecast typed references preserve canonical preview and receipt
+00:00 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: foreign originals, employer identity and replaced plan are rejected
+00:00 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: foreign originals, employer identity and replaced plan are rejected
+00:00 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: foreign originals, employer identity and replaced plan are rejected
+00:00 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:00 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:01 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:01 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:01 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:01 +18: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:01 +19: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:01 +20: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:01 +21: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:01 +22: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:02 +23: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: own account view cannot write and is removed on own permission withdrawal
+00:03 +24: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_review_test.dart: review employee change removes existing private annual editor and old selected original
+00:05 +25: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:06 +26: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:07 +27: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:07 +28: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_review_test.dart: review approve withdrawal with read retained closes private annual correction dialog
+00:08 +29: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_one_off mobile view and all correction steps preserve canonical details
+00:08 +30: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_review_test.dart: review delayed annual preview cannot restore a write workflow after approval withdrawal
+00:09 +31: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual annual_basis mobile view and all correction steps preserve canonical details
+00:09 +32: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual annual_basis mobile view and all correction steps preserve canonical details
+00:09 +33: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual annual_basis mobile view and all correction steps preserve canonical details
+00:09 +34: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual annual_basis mobile view and all correction steps preserve canonical details
+00:09 +35: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual annual_basis mobile view and all correction steps preserve canonical details
+00:09 +36: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual annual_basis mobile view and all correction steps preserve canonical details
+00:09 +37: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual one_off_earning mobile view and all correction steps preserve canonical details
+00:10 +38: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual one_off_earning mobile view and all correction steps preserve canonical details
+00:10 +39: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual one_off_earning mobile view and all correction steps preserve canonical details
+00:10 +40: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_case_contract_test.dart: actual v5 net includes taxable travel once and subtracts documented employee flat tax costs
+00:10 +41: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual annual_tax_forecast mobile view and all correction steps preserve canonical details
+00:10 +42: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual annual_tax_forecast mobile view and all correction steps preserve canonical details
+00:11 +43: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: accepted annual source replays exact nonce after pause, with renewed global rights
+00:11 +44: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: historical original and active selection use exact fresh employee sources
+00:12 +45: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: background removes an open private annual editor
+00:12 +46: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: late annual preview cannot restore private data after returning from background
+00:13 +47: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: late private source error remains cleared after background
+00:14 +48: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual HTTP correction and void receipts survive native confirmation and preserve historical original
+00:14 +49: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: late inspect response cannot repopulate a hidden private page
+00:14 +50: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: pending annual confirmation blocks new forms and replays the original after module pause
+00:14 +51: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: background clears an open editor containing private original details
+00:15 +52: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: background clears an open editor containing private original details
+00:15 +53: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: month switch requests the new month and clears selected original and plan
+00:16 +54: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: original callback receives the exact selected historical file
+00:16 +55: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:17 +56: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:18 +57: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: late preview after background cannot restore editor or submit a command
+00:18 +58: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: late preview after background cannot restore editor or submit a command
+00:18 +59: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: late preview after background cannot restore editor or submit a command
+00:18 +60: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_test.dart: mobile composite plan separates travel and clears revoked private data
+00:18 +61: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_test.dart: mobile composite plan separates travel and clears revoked private data
+00:19 +62: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_test.dart: mobile composite plan separates travel and clears revoked private data
+00:19 +63: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+00:21 +64: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: net uses exact actual source parts and excludes invented gross and tax payments
+00:21 +65: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: all remittance values including zeros and exact original settlement are explicit
+00:21 +66: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: known void keeps historical money account even when current bank inactive or revised
+00:21 +67: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: public finance projection rejects personal payload fields and changed money totals
+00:21 +68: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: financial form requires only explicit SKR04 accounts and preserves source facts
+00:21 +69: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: private preview and frozen receipt bind exact public proof, revision and selected source count
+00:21 +70: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: lost reply survives HR loss, restore gate and instance mismatch with identical nonce and body
+00:21 +71: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: financial classification requires no personnel grant while private adoption remains denied
+00:21 +72: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: actual remittance form leaves all five amounts, payment day and total empty
+00:22 +73: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: actual remittance form leaves all five amounts, payment day and total empty
+00:22 +74: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: actual remittance form leaves all five amounts, payment day and total empty
+00:23 +75: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: actual remittance form leaves all five amounts, payment day and total empty
+00:23 +76: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: actual remittance form leaves all five amounts, payment day and total empty
+00:23 +77: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: actual remittance form leaves all five amounts, payment day and total empty
+00:23 +78: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: open private payroll receipt clears when finance access is revoked
+00:24 +79: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: documented negative employee payment retains original inbound part without fabricated gross cash
+00:24 +80: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_session_test.dart: exact sickness_history retry survives module pause and later source revisions
+00:24 +81: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_session_test.dart: exact regular_absence retry survives module pause and later source revisions
+00:24 +82: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_session_test.dart: exact vacation_reference retry survives module pause and later source revisions
+00:24 +83: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_session_test.dart: exact unpaid_continuation retry survives module pause and later source revisions
+00:24 +84: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_session_test.dart: fresh authority and exact employee identity gate every retry
+00:25 +85: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: accepted claim keeps exact sources, original nonce and validator after pause
+00:25 +86: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual sickness plan displays private result on mobile and clears on rights withdrawal
+00:25 +87: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual sickness plan displays private result on mobile and clears on rights withdrawal
+00:25 +88: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual sickness plan displays private result on mobile and clears on rights withdrawal
+00:25 +89: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual sickness plan displays private result on mobile and clears on rights withdrawal
+00:25 +90: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual sickness plan displays private result on mobile and clears on rights withdrawal
+00:25 +91: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual sickness plan displays private result on mobile and clears on rights withdrawal
+00:27 +92: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual vacation plan displays private result on mobile and clears on rights withdrawal
+00:27 +93: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual vacation plan displays private result on mobile and clears on rights withdrawal
+00:27 +94: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual vacation plan displays private result on mobile and clears on rights withdrawal
+00:27 +95: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual vacation plan displays private result on mobile and clears on rights withdrawal
+00:27 +96: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual unpaid plan displays private result on mobile and clears on rights withdrawal
+00:27 +97: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: regular absence form has typed source and cause choices without a free entitlement amount
+00:28 +98: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: unpaid source form requires renewed explicit legal facts even for correction
+00:28 +99: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: strict calendar and duration distinguish unknown from explicitly zero
+00:28 +100: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: employment binds original personnel date and exact agreement with no default method
+00:28 +101: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: every chronological work schedule day requires explicit time and region
+00:28 +102: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: actual backend preview binds source and separate tax social days without client gross input
+00:28 +103: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: approved absence binds person and claim dates without private free text
+00:28 +104: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: unsupported entitlement remains documentable but incomplete
+00:28 +105: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: fact receipts bind correction and void to exact historical original
+00:28 +106: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: all three period rules and one effective yearly correction use actual backend fixtures
+00:29 +107: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: accepted native fact replay keeps exact command through later sources and module pause
+00:29 +108: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: private mobile fact page opens details and clears them on fresh role withdrawal
+00:30 +109: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main unmount closes nested private routes while navigator stays
+00:31 +110: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main unmount closes nested private routes while navigator stays
+00:33 +111: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:35 +112: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:35 +113: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross employee change
+00:35 +114: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross employee change
+00:36 +115: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_cases_test.dart: late Source5 preview response cannot revive private data after background
+00:37 +116: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_cases_test.dart: late Source5 preview response cannot revive private data after background
+00:37 +117: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross approve change
+00:37 +118: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_cases_test.dart: late Source5 preview failure cannot revive private data after background
+00:38 +119: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross generation change
+00:38 +120: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_cases_test.dart: native Source5 editor closes immediately after approval withdrawal
+00:39 +121: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross background change
+00:39 +122: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_cases_test.dart: original Source5 lost-ACK command repeats while module paused and rejects foreign receipt
+00:39 +123: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main nested case editor closes on session change
+00:39 +124: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main nested case editor closes on session change
+00:40 +125: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main correction selector closes on session change
+00:41 +126: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on session change
+00:41 +127: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on session change
+00:41 +128: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on session change
+00:41 +129: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on session change
+00:41 +130: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on session change
+00:41 +131: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on session change
+00:41 +132: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on session change
+00:41 +133: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on session change
+00:41 +134: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on session change
+00:41 +135: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on session change
+00:42 +136: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on session
+00:43 +137: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private preview error is discarded on session
+00:44 +138: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private preview error is discarded on session
+00:44 +139: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private preview error is discarded on session
+00:44 +140: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private preview error is discarded on session
+00:44 +141: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_independent_review_test.dart: independent Source5 payment cannot bypass its source contract via missing_version
+00:44 +142: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on session
+00:44 +143: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on session
+00:44 +144: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on session
+00:44 +145: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on session
+00:44 +146: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on session
+00:44 +147: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on session
+00:44 +148: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on session
+00:44 +149: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on session
+00:44 +150: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on session
+00:44 +151: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on session
+00:45 +152: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_independent_review_test.dart: independent Source5 page unmount closes private editor on retained navigator
+00:45 +153: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_independent_review_test.dart: independent Source5 page unmount closes private editor on retained navigator
+00:46 +154: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_independent_review_test.dart: independent Source5 page unmount closes private editor on retained navigator
+00:46 +155: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on employee change
+00:47 +156: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_independent_review_test.dart: independent Source5 allowed session replacement closes original private editor
+00:47 +157: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on employee
+00:48 +158: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private preview error is discarded on employee
+00:48 +159: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on employee
+00:49 +160: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_payment_page_test.dart: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK
+00:49 +161: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_payment_page_test.dart: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK
+00:50 +162: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_payment_page_test.dart: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK
+00:51 +163: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_payment_page_test.dart: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK
+00:51 +164: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_payment_page_test.dart: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK
+00:52 +165: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_payment_page_test.dart: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK
+00:52 +166: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on read
+00:53 +167: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_payment_page_test.dart: approval withdrawal removes Source5 payment editor before any transfer evidence is sent
+00:53 +168: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main nested case editor closes on approve change
+00:53 +169: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main correction selector closes on approve change
+00:54 +170: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on approve change
+00:55 +171: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_payments_test.dart: actual initial separated dates retain canonical payment, hash and cash originals
+00:55 +172: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on approve
+00:55 +173: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on approve
+00:55 +174: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on approve
+00:55 +175: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on approve
+00:55 +176: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on approve
+00:55 +177: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private preview error is discarded on approve
+00:56 +178: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on approve
+00:57 +179: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+00:57 +180: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+00:58 +181: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+00:58 +182: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+00:59 +183: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+01:00 +184: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+01:00 +185: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+01:01 +186: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main nested case editor closes on background change
+01:01 +187: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main correction selector closes on background change
+01:01 +188: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on background change
+01:02 +189: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on background change
+01:02 +190: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on background change
+01:02 +191: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on background change
+01:02 +192: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_case_contract_test.dart: preview refuses substituted claim, previous year, employee or original
+01:02 +193: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on background
+01:02 +194: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on background
+01:02 +195: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on background
+01:03 +196: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private preview error is discarded on background
+01:03 +197: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on background
+01:04 +198: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_review_test.dart: independent v6 session replacement closes editor and detaches old listener
+01:07 +199: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+01:08 +200: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+01:09 +201: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+01:10 +202: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+01:10 +203: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+01:11 +204: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+01:12 +205: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 original and calculation handoff preserve exact frozen case
+01:12 +206: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: late v6 preview result cannot restore private data after background
+01:13 +207: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: late v6 preview result cannot restore private data after background
+01:13 +208: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: late v6 preview result cannot restore private data after background
+01:13 +209: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: late v6 preview result cannot restore private data after background
+01:13 +210: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: late v6 preview result cannot restore private data after background
+01:13 +211: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: late v6 preview result cannot restore private data after background
+01:14 +212: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: late v6 preview result cannot restore private data after background
+01:14 +213: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+01:15 +214: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+01:16 +215: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+01:17 +216: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+01:17 +217: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+01:17 +218: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+01:20 +219: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: Source3 employee change closes private correction editor
+01:22 +220: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: Source3 employee change closes private correction editor
+01:23 +221: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: Source3 employee change closes private correction editor
+01:23 +222: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: Source3 employee change closes private correction editor
+01:23 +223: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: Source3 employee change closes private correction editor
+01:23 +224: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: Source3 employee change closes private correction editor
+01:23 +225: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: Source3 employee change closes private correction editor
+01:23 +226: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: P4 employee change closes private correction editor
+01:24 +227: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual phases_v3 mobile correction uses structured cases and exact original dates
+01:25 +228: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual phases_v3 mobile correction uses structured cases and exact original dates
+01:26 +229: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual phases_v3 mobile correction uses structured cases and exact original dates
+01:26 +230: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual phases_v3 mobile correction uses structured cases and exact original dates
+01:27 +231: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual phases_v3 mobile correction uses structured cases and exact original dates
+01:28 +232: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual phases_v3 mobile correction uses structured cases and exact original dates
+01:29 +233: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: P4 late preview cannot cross employee change
+01:30 +234: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: P4 late preview cannot cross employee change
+01:30 +235: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: backgrounding an open private sickness editor removes personal fields
+01:31 +236: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: Source3 late preview cannot cross approval change
+01:31 +237: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: late sickness preview after background cannot restore private details or submit a command
+01:32 +238: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: late sickness preview after background cannot restore private details or submit a command
+01:32 +239: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: Source3 late private edit error is discarded after background
+01:33 +240: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: late private sickness save error remains cleared after background
+01:33 +241: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: late private sickness save error remains cleared after background
+01:33 +242: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: late private sickness save error remains cleared after background
+01:33 +243: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: late private sickness save error remains cleared after background
+01:35 +244: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: actual v4 employee statement and own PDF bind exact frozen bytes
+01:35 +245: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: private nested fields and foreign or altered historical statement are rejected
+01:35 +246: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: incomplete scope retains unknown values
+01:35 +247: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+01:36 +248: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+01:36 +249: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+01:36 +250: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+01:37 +251: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v6_test.dart: actual v6 own statement and March split coexist with original v5 PDF
+01:37 +252: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v6_test.dart: rehashing cannot admit private annual facts or inconsistent year and money
+01:38 +253: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v6_test.dart: existing own payroll entry shows v6 bonus and v5 history at 390px without private routes, then clears revocation
+01:38 +254: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v6_test.dart: existing own payroll entry shows v6 bonus and v5 history at 390px without private routes, then clears revocation
+01:38 +255: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v6_test.dart: existing own payroll entry shows v6 bonus and v5 history at 390px without private routes, then clears revocation
+01:38 +256: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v6_test.dart: existing own payroll entry shows v6 bonus and v5 history at 390px without private routes, then clears revocation
+01:39 +257: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: 390px own Source5 JSON export and history never request private originals
+01:40 +258: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: revocation during JSON download clears view and cannot export
+01:41 +259: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: paused or changed-token session discards late JSON response
+01:41 +260: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: paused or changed-token session discards late JSON response
+01:41 +261: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: paused or changed-token session discards late JSON response
+01:41 +262: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: paused or changed-token session discards late JSON response
+01:41 +263: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: paused or changed-token session discards late JSON response
+01:41 +264: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: paused or changed-token session discards late JSON response
+01:41 +265: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: paused or changed-token session discards late JSON response
+01:41 +266: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: paused or changed-token session discards late JSON response
+01:41 +267: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: paused or changed-token session discards late JSON response
+01:41 +268: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: paused or changed-token session discards late JSON response
+01:41 +269: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: paused or changed-token session discards late JSON response
+01:41 +270: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: paused or changed-token session discards late JSON response
+01:41 +271: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: paused or changed-token session discards late JSON response
+01:41 +272: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v7_test.dart: paused or changed-token session discards late JSON response
+01:41 +273: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+01:43 +274: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+01:43 +275: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+01:43 +276: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+01:43 +277: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+01:44 +278: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_transition_test.dart: transition profile and contribution bases render at390px and disappear on read revocation
+01:44 +279: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_transition_test.dart: transition profile and contribution bases render at390px and disappear on read revocation
+01:45 +280: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_transition_test.dart: transition profile and contribution bases render at390px and disappear on read revocation
+01:46 +281: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: actual employer evidence fixes filing window original and null person
+01:46 +282: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: private sources reject substituted originals duplicate references and person scope
+01:46 +283: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: preview correction and void bind the exact original predecessor
+01:46 +284: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: mobile employer view clears private evidence after fresh global role withdrawal
+01:47 +285: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: mobile employer view clears private evidence after fresh global role withdrawal
+01:47 +286: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: mobile employer view clears private evidence after fresh global role withdrawal
+01:48 +287: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: new policy does not invent dates method region or economic cost choice
+01:48 +288: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: new policy does not invent dates method region or economic cost choice
+01:48 +289: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: new policy does not invent dates method region or economic cost choice
+01:48 +290: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: new policy does not invent dates method region or economic cost choice
+01:48 +291: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: new policy does not invent dates method region or economic cost choice
+01:48 +292: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: new policy does not invent dates method region or economic cost choice
+01:48 +293: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: new policy does not invent dates method region or economic cost choice
+01:49 +294: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_wage_interruptions_test.dart: readonly actual day derivation and explicit unknown count render on mobile
+01:50 +295: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: rendered correction previews then freezes and repeats accepted command after lost response
+01:50 +296: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_wage_interruptions_test.dart: real correction form resets reviews and LostACK UI replays original through personnel pause
+01:52 +297: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_wage_interruptions_test.dart: real correction form resets reviews and LostACK UI replays original through personnel pause
+01:52 +298: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_wage_interruptions_test.dart: real correction form resets reviews and LostACK UI replays original through personnel pause
+01:52 +299: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_wage_interruptions_test.dart: real correction form resets reviews and LostACK UI replays original through personnel pause
+01:54 +300: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: rendered zero-net selection requires original and both confirmations then replays and corrects without cash fields
+01:55 +301: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: rendered zero-net selection requires original and both confirmations then replays and corrects without cash fields
+01:55 +302: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: rendered zero-net selection requires original and both confirmations then replays and corrects without cash fields
+01:55 +303: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: rendered zero-net selection requires original and both confirmations then replays and corrects without cash fields
+01:57 +304: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: account closes on approve withdrawal and drops private history failures after background
+01:57 +305: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: zero evidence stays readable on mobile but fresh original rights and changed employee/session clear private context
+01:58 +306: All tests passed!

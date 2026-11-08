@@ -18,6 +18,7 @@ from business_personnel_workflow import PersonnelWorkflow, _sha, _shape, _intege
 from payroll_de_2026 import (calculate, normalize_profile, month_range, RULE_VERSION, RULES, RULES_SHA256,
     FULL_RULES,FULL_RULES_SHA256,PAP_PROVENANCE)
 from payroll_transition_2026 import TRANSITION_RULES,TRANSITION_RULES_SHA256
+from payroll_factor_2026 import FACTOR_RULES,FACTOR_RULES_SHA256,FACTOR_PAP_PROVENANCE
 from payroll_periods_2026 import PERIOD_RULES,PERIOD_RULES_SHA256,SCOPES as PERIOD_SCOPES
 from payroll_calculations_2026 import RULES as CALCULATION_RULES,RULES_SHA256 as CALCULATION_RULES_SHA256,SCOPES as CALCULATION_SCOPES
 from workspace_api import BinaryAttachment
@@ -340,7 +341,7 @@ class Payroll:
         _shape(data,fields,input_fields+('request_id','preview_hash','accepted_scope','confirmed','revision'))
         if data['confirmed'] is not True or not isinstance(data['preview_hash'],str) or not re.fullmatch(r'[a-f0-9]{64}',data['preview_hash']):
             raise Problem(400,'Geprüfte Berechnungsvorschau und ausdrückliche Bestätigung erforderlich.')
-        if data['accepted_scope'] not in ('commercial_minijob_flat_tax','social_contributions_only','regular_standard_monthly','regular_transition_monthly')+PERIOD_SCOPES+CALCULATION_SCOPES+('regular_standard_oneoff','regular_standard_multiple_oneoff'):
+        if data['accepted_scope'] not in ('commercial_minijob_flat_tax','social_contributions_only','regular_standard_monthly', 'regular_standard_factor_monthly','regular_transition_monthly')+PERIOD_SCOPES+CALCULATION_SCOPES+('regular_standard_oneoff','regular_standard_multiple_oneoff'):
             raise Problem(400,'Den tatsächlich verfügbaren Berechnungsumfang ausdrücklich bestätigen.')
         if 'id' in data:
             identifier(data['id'])
@@ -581,6 +582,7 @@ def _render(prepared):
     title = {'commercial_minijob_flat_tax':'Minijob-Berechnungsbeleg',
         'commercial_minijob_period_flat_tax':'Minijob-Berechnungsbeleg mit Zeitnachweis',
         'regular_standard_monthly':'Lohnberechnungsbeleg',
+        'regular_standard_factor_monthly':'Lohnberechnungsbeleg mit Faktor',
         'regular_transition_monthly':'Midijob-Lohnberechnungsbeleg',
         'regular_standard_period':'Lohnberechnungsbeleg mit Zeitnachweis',
         'regular_standard_oneoff':'Lohnberechnungsbeleg mit sonstigem Bezug',
@@ -598,6 +600,8 @@ def _render(prepared):
         line('PAP-Quellenmetadaten-SHA256: '+result['pap_provenance_sha256'])
     line('Quellen-/Ergebnis-SHA256: '+prepared['preview_hash'])
     line('Brutto: '+str(result['gross_minor'])+' Cent EUR')
+    if 'tax_factor' in result.get('tax_parameters', {}):
+        line('Eingetragener ELStAM-Faktor (Steuerklasse IV): '+result['tax_parameters']['tax_factor'])
     extra=(result.get('one_off_details') or result.get('multiple_one_off_details',{}).get('single_original_calculation',{}).get('one_off_details'))
     if extra:
         line('Sonstiger Bezug: '+str(extra['amount_minor'])+' Cent EUR / geplanter tatsächlicher Zufluss '+extra['receipt_date'])
@@ -678,7 +682,7 @@ def _render(prepared):
 
 def _delta(current,previous):
     keys=('gross_minor','employee_social_total_minor','employer_social_total_minor','employer_flat_tax_minor','net_minor')
-    regular=('regular_standard_monthly','regular_transition_monthly','regular_standard_period','regular_transition_period','regular_standard_segments','regular_transition_segments','regular_standard_oneoff','regular_standard_multiple_oneoff')
+    regular=('regular_standard_monthly', 'regular_standard_factor_monthly','regular_transition_monthly','regular_standard_period','regular_transition_period','regular_standard_segments','regular_transition_segments','regular_standard_oneoff','regular_standard_multiple_oneoff')
     if current['scope'] in regular or previous['scope'] in regular:
         keys+=('individual_wage_tax_minor','solidarity_minor','church_tax_minor','employee_tax_minor','payout_minor')
     result={key:current[key]-previous[key] if current[key] is not None and previous[key] is not None else None for key in keys}
@@ -813,6 +817,8 @@ def dispatch(office,actor,path,method,data):
             require_permission(office,actor,'personnel.read')
             result=dict(rules=RULES,rules_sha256=RULES_SHA256,regular_standard_rules=FULL_RULES,
                 regular_standard_rules_sha256=FULL_RULES_SHA256,pap_provenance=PAP_PROVENANCE,
+                regular_factor_rules=FACTOR_RULES,regular_factor_rules_sha256=FACTOR_RULES_SHA256,
+                factor_pap_provenance=FACTOR_PAP_PROVENANCE,
                 regular_transition_rules=TRANSITION_RULES,regular_transition_rules_sha256=TRANSITION_RULES_SHA256,
                 period_rules=PERIOD_RULES,period_rules_sha256=PERIOD_RULES_SHA256,
                 calculation_rules=CALCULATION_RULES,calculation_rules_sha256=CALCULATION_RULES_SHA256,

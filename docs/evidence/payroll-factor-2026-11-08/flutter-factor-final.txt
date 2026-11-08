@@ -1,0 +1,7 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_test.dart
+00:00 +0: factor is supplied as exact text and never rounded or inferred
+00:00 +1: factor editor offers an explicit scope and preserves source profile
+00:00 +2: factor calculation and source preview retain independently checked net
+00:00 +3: factor correction receipt retains actual tax deltas and historical version
+00:00 +4: employee factor statements contain own amounts without private tax profile
+00:00 +5: All tests passed!

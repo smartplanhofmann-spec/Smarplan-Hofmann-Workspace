@@ -200,5 +200,52 @@ class RegularPayrollPostgres(unittest.TestCase):
     test_actual_backup_restore_recalculates_regular_pap_and_retains_sources = PayrollPostgres.test_actual_backup_restore_recalculates_result_and_retains_pdf_sources_receipts
 
 
+@unittest.skipUnless(fixture.DSN, 'Guarded disposable PostgreSQL fixture required')
+class FactorPayrollPostgres(unittest.TestCase):
+    setUp = personnel.PersonnelWorkflowPostgres.setUp
+    reopen = personnel.PersonnelWorkflowPostgres.reopen
+    login = personnel.PersonnelWorkflowPostgres.login
+    call = personnel.PersonnelWorkflowPostgres.call
+
+    def workflow(self):
+        data=RegularPayrollPostgres.workflow(self)
+        original=dict(data)
+        employee_id=data['hr']['employee']['id']
+        saved=self.call('POST','/business/payroll/profiles',request(employee_id=employee_id,
+            id=data['profile']['id'],revision=1,profile={**data['profile']['profile'],
+                'tax_class':4,'special_cases':['tax_factor'],'tax_factor':'0.753'},
+            source_file_id=data['hr']['file']['id'],confirmed=True,
+            correction_reason='Synthetic documented effective class-IV factor')).json
+        inputs={**data['inputs'],'profile_revision':saved['revision']}
+        preview=self.call('POST','/business/payroll/preview',inputs).json
+        self.assertEqual(preview['calculation']['net_minor'],332342)
+        command=request(**inputs,preview_hash=preview['preview_hash'],
+            accepted_scope='regular_standard_factor_monthly',confirmed=True,
+            id=data['run']['id'],revision=1,correction_reason='Synthetic factor recalculation')
+        run=self.call('POST','/business/payroll/runs',command).json
+        self.assertEqual(run['delta']['employee_tax_minor'],-19333)
+        self.assertEqual(run['delta']['net_minor'],19333)
+        self.assertEqual(self.call('POST','/business/payroll/runs',command).json,run)
+        pdf=self.call('GET','/business/payroll/runs/'+run['id']+'/pdf').data
+        self.assertEqual(_sha(pdf),run['pdf_sha256'])
+        return dict(data,original=original,profile=saved,inputs=inputs,run=run,command=command,pdf=pdf)
+
+    def test_factor_recalculation_and_narrow_employee_statement_survive_restart(self):
+        data=self.workflow()
+        rules=self.call('GET','/business/payroll/rules').json
+        self.assertEqual(rules['regular_factor_rules']['version'],'de_2026_standard_factor_monthly_v8')
+        self.reopen()
+        self.assertEqual(self.call('POST','/business/payroll/runs',data['command']).json,data['run'])
+        self.assertEqual(self.call('POST','/business/payroll/runs',data['original']['command']).json,data['original']['run'])
+        self.assertEqual(self.call('GET','/business/payroll/runs/'+data['run']['id']+'/pdf?revision=1').data,data['original']['pdf'])
+        result=self.call('GET','/business/payroll/employee-statements/'+data['run']['id'],token=data['hr']['token']).json['statement']
+        self.assertEqual(result['calculation']['net_minor'],332342)
+        self.assertNotIn('tax_parameters',result['calculation'])
+        self.call('POST','/business/payroll/preview',data['inputs'],token=data['hr']['token'],status=403)
+        business_schema.validate_integrity(self.office)
+
+    test_actual_backup_restore_recalculates_factor_and_retains_originals = PayrollPostgres.test_actual_backup_restore_recalculates_result_and_retains_pdf_sources_receipts
+
+
 if __name__ == '__main__':
     unittest.main()

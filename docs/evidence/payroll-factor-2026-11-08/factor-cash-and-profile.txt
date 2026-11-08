@@ -1,0 +1,11 @@
+test_factor_net_and_actual_remittances_reach_euer_once_without_private_factor (test_business_payroll_cash.PayrollCashTests.test_factor_net_and_actual_remittances_reach_euer_once_without_private_factor) ... ok
+test_church_tax_uses_factored_assessment_with_state_rate (test_payroll_factor_2026.FactorMonthly2026.test_church_tax_uses_factored_assessment_with_state_rate) ... ok
+test_factor_month_uses_new_version_and_keeps_standard_social_components (test_payroll_factor_2026.FactorMonthly2026.test_factor_month_uses_new_version_and_keeps_standard_social_components) ... ok
+test_incomplete_factor_or_mixed_scope_cannot_default_to_old_rules (test_payroll_factor_2026.FactorMonthly2026.test_incomplete_factor_or_mixed_scope_cannot_default_to_old_rules) ... ok
+test_legacy_factor_flag_without_actual_factor_remains_blocked (test_payroll_factor_2026.FactorMonthly2026.test_legacy_factor_flag_without_actual_factor_remains_blocked) ... ok
+test_remaining_scope_and_source_blockers_still_prevent_net_result (test_payroll_factor_2026.FactorMonthly2026.test_remaining_scope_and_source_blockers_still_prevent_net_result) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.711s
+
+OK

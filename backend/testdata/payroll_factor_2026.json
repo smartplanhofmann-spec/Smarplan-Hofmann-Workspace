@@ -1,0 +1,3581 @@
+{
+  "schema_version": 1,
+  "reference": "pinned_2026_xml_java_decimal_expressions",
+  "xml_sha256": "63d8981646d139eba2f4dd990c13b43c4fb3883b402a5a40cddf253aa7aa96b4",
+  "official_xml_url": "https://www.bmf-steuerrechner.de/javax.faces.resource/daten/xmls/Lohnsteuer2026.xml.xhtml",
+  "reviewed_mirror_url": "https://raw.githubusercontent.com/manuelbusch/paprun/cdf564daec7f617d54181eb8b14232e48a59dd7a/tests/data/Lohnsteuer2026.xml",
+  "direct_official_xml_download": false,
+  "official_software_approval": false,
+  "cases": [
+    {
+      "inputs": {
+        "gross_minor": 0,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.000",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 0,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.001",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 0,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 0,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.999",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.000",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.001",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.999",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 175000,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.000",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 175000,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.001",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 175000,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 175000,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.999",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 500001,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.000",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 500001,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.001",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 500001,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 500001,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.999",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 850000,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.000",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 850000,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.001",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 850000,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 850000,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.999",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1500000,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.000",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1500000,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.001",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1500000,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1500000,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.999",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 0,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.000",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 0,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.001",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 0,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 0,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.999",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.000",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.001",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.999",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 175000,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.000",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 175000,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.001",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 175000,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 3333,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 175000,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.999",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 4425,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 500001,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.000",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 500001,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.001",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 75,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 500001,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 58908,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 500001,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.999",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 78150,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 850000,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.000",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 850000,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.001",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 200,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 850000,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 150800,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 850000,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.999",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 200066,
+        "SOLZLZZ": 3627,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1500000,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.000",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1500000,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.001",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 466,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1500000,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 356375,
+        "SOLZLZZ": 19600,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1500000,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.999",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 472800,
+        "SOLZLZZ": 26004,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 14971319,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.916",
+        "children_half_units": 2,
+        "additional_health_percent": "20",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 5941958,
+        "SOLZLZZ": 325886,
+        "BK": 5925200
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 46960180,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.971",
+        "children_half_units": 0,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 20297600,
+        "SOLZLZZ": 1116368,
+        "BK": 20297600
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 5524199,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.269",
+        "children_half_units": 20,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 607091,
+        "SOLZLZZ": 30683,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 13559024,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.442",
+        "children_half_units": 3,
+        "additional_health_percent": "20",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2586566,
+        "SOLZLZZ": 141594,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 46096709,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.098",
+        "children_half_units": 20,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2008275,
+        "SOLZLZZ": 109469,
+        "BK": 1990350
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 43350429,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.527",
+        "children_half_units": 0,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 10160250,
+        "SOLZLZZ": 558813,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 54856454,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.154",
+        "children_half_units": 0,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 3766175,
+        "SOLZLZZ": 207139,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 42906713,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.217",
+        "children_half_units": 0,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 4140925,
+        "SOLZLZZ": 227750,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 33063961,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.339",
+        "children_half_units": 1,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 4958408,
+        "SOLZLZZ": 272541,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 251662,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.597",
+        "children_half_units": 1,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 11908,
+        "SOLZLZZ": 0,
+        "BK": 8816
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 24160537,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.070",
+        "children_half_units": 4,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 745100,
+        "SOLZLZZ": 40839,
+        "BK": 742541
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 48165270,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.475",
+        "children_half_units": 4,
+        "additional_health_percent": "3.29",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 10187150,
+        "SOLZLZZ": 559337,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 47755852,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.081",
+        "children_half_units": 8,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 1520400,
+        "SOLZLZZ": 0,
+        "BK": 1449300
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 4944978,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.399",
+        "children_half_units": 0,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 797308,
+        "SOLZLZZ": 43851,
+        "BK": 797308
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 21852846,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.465",
+        "children_half_units": 1,
+        "additional_health_percent": "2.90",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 3401400,
+        "SOLZLZZ": 156937,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 41531600,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.744",
+        "children_half_units": 20,
+        "additional_health_percent": "3.29",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 11840000,
+        "SOLZLZZ": 561379,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 23186215,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.325",
+        "children_half_units": 8,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2582700,
+        "SOLZLZZ": 33474,
+        "BK": 2316300
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1266928,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.559",
+        "children_half_units": 2,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 212633,
+        "SOLZLZZ": 3986,
+        "BK": 203083
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 4018959,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.535",
+        "children_half_units": 0,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 239000,
+        "SOLZLZZ": 0,
+        "BK": 239000
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 51664739,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.531",
+        "children_half_units": 8,
+        "additional_health_percent": "3.29",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 10898300,
+        "SOLZLZZ": 573765,
+        "BK": 10432100
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 24613132,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.305",
+        "children_half_units": 4,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2506000,
+        "SOLZLZZ": 41174,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 39281207,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.374",
+        "children_half_units": 8,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 5469100,
+        "SOLZLZZ": 282738,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 23130105,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.677",
+        "children_half_units": 2,
+        "additional_health_percent": "2.90",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 5320400,
+        "SOLZLZZ": 284988,
+        "BK": 5181600
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 10616187,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.128",
+        "children_half_units": 3,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 582891,
+        "SOLZLZZ": 31865,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 50373084,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.249",
+        "children_half_units": 0,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 4962200,
+        "SOLZLZZ": 272921,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 49258164,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.892",
+        "children_half_units": 4,
+        "additional_health_percent": "20",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 17062800,
+        "SOLZLZZ": 916921,
+        "BK": 16671300
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 27323832,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.120",
+        "children_half_units": 4,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 1148900,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 50065308,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.731",
+        "children_half_units": 3,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 14268100,
+        "SOLZLZZ": 771512,
+        "BK": 14027500
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 11502356,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.623",
+        "children_half_units": 1,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 1855300,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 42449053,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.096",
+        "children_half_units": 3,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 1565800,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 35844256,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.652",
+        "children_half_units": 0,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 10352691,
+        "SOLZLZZ": 569398,
+        "BK": 10352691
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 19849224,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.251",
+        "children_half_units": 20,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 1642800,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 15754809,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.647",
+        "children_half_units": 20,
+        "additional_health_percent": "3.29",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 3086200,
+        "SOLZLZZ": 0,
+        "BK": 1760700
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 47916599,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.530",
+        "children_half_units": 4,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 9809900,
+        "SOLZLZZ": 526751,
+        "BK": 9577300
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 42046979,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.478",
+        "children_half_units": 2,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 8937500,
+        "SOLZLZZ": 491081,
+        "BK": 8928758
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 32187956,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.735",
+        "children_half_units": 1,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 8669700,
+        "SOLZLZZ": 472395,
+        "BK": 8589000
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 31696547,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.476",
+        "children_half_units": 0,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 6682733,
+        "SOLZLZZ": 367550,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 37172690,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.227",
+        "children_half_units": 4,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 3745041,
+        "SOLZLZZ": 205520,
+        "BK": 3736741
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 37302849,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.734",
+        "children_half_units": 2,
+        "additional_health_percent": "20",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 10117000,
+        "SOLZLZZ": 547574,
+        "BK": 9955900
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 13380648,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.656",
+        "children_half_units": 20,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2439500,
+        "SOLZLZZ": 0,
+        "BK": 1097000
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 3544379,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.532",
+        "children_half_units": 8,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 143100,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 8450180,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.105",
+        "children_half_units": 1,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 375808,
+        "SOLZLZZ": 20616,
+        "BK": 374850
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 52731718,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.114",
+        "children_half_units": 8,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2679083,
+        "SOLZLZZ": 146890,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 48315059,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.118",
+        "children_half_units": 0,
+        "additional_health_percent": "3.29",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2538233,
+        "SOLZLZZ": 139602,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 26260378,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.695",
+        "children_half_units": 2,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 6405100,
+        "SOLZLZZ": 344448,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 4493666,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.767",
+        "children_half_units": 2,
+        "additional_health_percent": "20",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 353500,
+        "SOLZLZZ": 0,
+        "BK": 249300
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 92476,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.609",
+        "children_half_units": 0,
+        "additional_health_percent": "20",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 27887693,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.641",
+        "children_half_units": 4,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 6350200,
+        "SOLZLZZ": 334812,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1668142,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.440",
+        "children_half_units": 2,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 240866,
+        "SOLZLZZ": 7588,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 36153466,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.702",
+        "children_half_units": 4,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 9522200,
+        "SOLZLZZ": 506764,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 48094390,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.969",
+        "children_half_units": 2,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 20748983,
+        "SOLZLZZ": 1140219,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 30021834,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.212",
+        "children_half_units": 0,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2278000,
+        "SOLZLZZ": 28917,
+        "BK": 2278000
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 6623632,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.973",
+        "children_half_units": 2,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 1103000,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 50583542,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.266",
+        "children_half_units": 2,
+        "additional_health_percent": "3.29",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 5330000,
+        "SOLZLZZ": 289938,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 38906181,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.221",
+        "children_half_units": 0,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 3819550,
+        "SOLZLZZ": 210075,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 43265129,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.116",
+        "children_half_units": 3,
+        "additional_health_percent": "2.90",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2232000,
+        "SOLZLZZ": 122584,
+        "BK": 2228816
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 46832396,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.877",
+        "children_half_units": 3,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 16103400,
+        "SOLZLZZ": 869808,
+        "BK": 15814700
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 24721757,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.064",
+        "children_half_units": 3,
+        "additional_health_percent": "20",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 695783,
+        "SOLZLZZ": 38171,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 21400101,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.927",
+        "children_half_units": 3,
+        "additional_health_percent": "3.29",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 6606200,
+        "SOLZLZZ": 347671,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 22522450,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.420",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 4161308,
+        "SOLZLZZ": 228871,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 12058429,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.925",
+        "children_half_units": 0,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 3000500,
+        "SOLZLZZ": 114894,
+        "BK": 3000500
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 29153707,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.372",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 3867300,
+        "SOLZLZZ": 212701,
+        "BK": 3867300
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 28210803,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.021",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 209300,
+        "SOLZLZZ": 0,
+        "BK": 209300
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 46515221,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.882",
+        "children_half_units": 2,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 18263675,
+        "SOLZLZZ": 1003614,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 37315389,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.386",
+        "children_half_units": 8,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 6393016,
+        "SOLZLZZ": 350062,
+        "BK": 6364775
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 9383754,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.677",
+        "children_half_units": 1,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2706166,
+        "SOLZLZZ": 148498,
+        "BK": 2699975
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 37341734,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.313",
+        "children_half_units": 4,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 5180841,
+        "SOLZLZZ": 284316,
+        "BK": 5169391
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 14085595,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.583",
+        "children_half_units": 8,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2396000,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 41930330,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.603",
+        "children_half_units": 0,
+        "additional_health_percent": "20",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 9567000,
+        "SOLZLZZ": 526185,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 6525353,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.394",
+        "children_half_units": 1,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 430900,
+        "SOLZLZZ": 0,
+        "BK": 397100
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 44772929,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.219",
+        "children_half_units": 0,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 3810400,
+        "SOLZLZZ": 209572,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 37448634,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.877",
+        "children_half_units": 20,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 14580400,
+        "SOLZLZZ": 793098,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 45569762,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.149",
+        "children_half_units": 3,
+        "additional_health_percent": "3.29",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 3021416,
+        "SOLZLZZ": 165953,
+        "BK": 3017333
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 11240207,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.607",
+        "children_half_units": 20,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2931700,
+        "SOLZLZZ": 155136,
+        "BK": 2820666
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1451976,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.309",
+        "children_half_units": 8,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 142116,
+        "SOLZLZZ": 0,
+        "BK": 121016
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 55072916,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.718",
+        "children_half_units": 1,
+        "additional_health_percent": "2.90",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 17629500,
+        "SOLZLZZ": 969261,
+        "BK": 17622933
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 12961350,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.556",
+        "children_half_units": 2,
+        "additional_health_percent": "2.90",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 3116225,
+        "SOLZLZZ": 170833,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 20196432,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.318",
+        "children_half_units": 8,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2015000,
+        "SOLZLZZ": 0,
+        "BK": 1754400
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 21408051,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.760",
+        "children_half_units": 2,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 5425200,
+        "SOLZLZZ": 289822,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 45218746,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.137",
+        "children_half_units": 2,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2755866,
+        "SOLZLZZ": 151435,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 21591755,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.408",
+        "children_half_units": 4,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2837500,
+        "SOLZLZZ": 75612,
+        "BK": 2670400
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 53315867,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.429",
+        "children_half_units": 20,
+        "additional_health_percent": "3.29",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 9123600,
+        "SOLZLZZ": 450004,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 22020209,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.012",
+        "children_half_units": 20,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 116191,
+        "SOLZLZZ": 0,
+        "BK": 114000
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 52625465,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.123",
+        "children_half_units": 3,
+        "additional_health_percent": "20",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2543400,
+        "SOLZLZZ": 55680,
+        "BK": 2502900
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 27109670,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.471",
+        "children_half_units": 1,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 5638558,
+        "SOLZLZZ": 309884,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 11708807,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.769",
+        "children_half_units": 4,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 3875700,
+        "SOLZLZZ": 211616,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 19492834,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.378",
+        "children_half_units": 8,
+        "additional_health_percent": "3.29",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2393700,
+        "SOLZLZZ": 5831,
+        "BK": 2084000
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 47545947,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.740",
+        "children_half_units": 3,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 13805800,
+        "SOLZLZZ": 745915,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 939076,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.747",
+        "children_half_units": 20,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 0,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 50826351,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.124",
+        "children_half_units": 4,
+        "additional_health_percent": "3.29",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 2496200,
+        "SOLZLZZ": 48409,
+        "BK": 2441800
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 31168735,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.738",
+        "children_half_units": 4,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 10186241,
+        "SOLZLZZ": 558758,
+        "BK": 10159241
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 58611458,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.195",
+        "children_half_units": 20,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 5098358,
+        "SOLZLZZ": 278448,
+        "BK": 5062691
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 16317944,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.694",
+        "children_half_units": 4,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 4940575,
+        "SOLZLZZ": 270335,
+        "BK": 4915183
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 21532985,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.861",
+        "children_half_units": 2,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 6183900,
+        "SOLZLZZ": 330412,
+        "BK": 6007500
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 6038214,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.409",
+        "children_half_units": 2,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 409800,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 51683509,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.030",
+        "children_half_units": 4,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 607600,
+        "SOLZLZZ": 0,
+        "BK": 594400
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 27781181,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.101",
+        "children_half_units": 2,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 997500,
+        "SOLZLZZ": 0,
+        "BK": 976800
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 16975162,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.884",
+        "children_half_units": 8,
+        "additional_health_percent": "2.90",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 6547575,
+        "SOLZLZZ": 356559,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 42430239,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.109",
+        "children_half_units": 0,
+        "additional_health_percent": "20",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 1755600,
+        "SOLZLZZ": 0,
+        "BK": 1755600
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 4567537,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.866",
+        "children_half_units": 20,
+        "additional_health_percent": "20",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 406700,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 12871232,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.850",
+        "children_half_units": 2,
+        "additional_health_percent": "3.29",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 4728558,
+        "SOLZLZZ": 259215,
+        "BK": 4713008
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 31587165,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.787",
+        "children_half_units": 2,
+        "additional_health_percent": "3.29",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 11007366,
+        "SOLZLZZ": 604613,
+        "BK": 10992966
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 47687309,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.775",
+        "children_half_units": 1,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 16457283,
+        "SOLZLZZ": 904761,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 55582708,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.361",
+        "children_half_units": 20,
+        "additional_health_percent": "2.90",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 8024100,
+        "SOLZLZZ": 397738,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 4456098,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.631",
+        "children_half_units": 1,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 1123083,
+        "SOLZLZZ": 61452,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 52753283,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.524",
+        "children_half_units": 20,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 11010400,
+        "SOLZLZZ": 542311,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 42626329,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.729",
+        "children_half_units": 1,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 13817441,
+        "SOLZLZZ": 759592,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 11972705,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.069",
+        "children_half_units": 8,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 355900,
+        "SOLZLZZ": 19296,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 27881979,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.607",
+        "children_half_units": 8,
+        "additional_health_percent": "3.29",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 3,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 5978200,
+        "SOLZLZZ": 301438,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 49809190,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.842",
+        "children_half_units": 3,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 16331000,
+        "SOLZLZZ": 882959,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 35223184,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.439",
+        "children_half_units": 2,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 6859675,
+        "SOLZLZZ": 376840,
+        "BK": 6851650
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 52284449,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.028",
+        "children_half_units": 20,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 652450,
+        "SOLZLZZ": 35602,
+        "BK": 647325
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 28644574,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.134",
+        "children_half_units": 1,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 1369100,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 24185053,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.582",
+        "children_half_units": 2,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 6188425,
+        "SOLZLZZ": 339777,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 16398891,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.847",
+        "children_half_units": 8,
+        "additional_health_percent": "20",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 4068300,
+        "SOLZLZZ": 159352,
+        "BK": 3374100
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 7938114,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.153",
+        "children_half_units": 3,
+        "additional_health_percent": "0",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 1,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 512150,
+        "SOLZLZZ": 27937,
+        "BK": 507950
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 41209659,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.166",
+        "children_half_units": 2,
+        "additional_health_percent": "20",
+        "saxony": false,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 3036816,
+        "SOLZLZZ": 166858,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 47798240,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.290",
+        "children_half_units": 20,
+        "additional_health_percent": "20",
+        "saxony": true,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 5352200,
+        "SOLZLZZ": 259358,
+        "BK": 0
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 40125472,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.097",
+        "children_half_units": 8,
+        "additional_health_percent": "0",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 4,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 1490600,
+        "SOLZLZZ": 0,
+        "BK": 1405400
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 3521443,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.351",
+        "children_half_units": 1,
+        "additional_health_percent": "2.90",
+        "saxony": true,
+        "childless_surcharge": false,
+        "care_child_discounts": 2,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 119400,
+        "SOLZLZZ": 0,
+        "BK": 96500
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 1000000000000,
+        "period": 1,
+        "tax_class": 4,
+        "factor": "0.999",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 449547233700,
+        "SOLZLZZ": 24725097853,
+        "BK": 449547233700
+      }
+    },
+    {
+      "inputs": {
+        "gross_minor": 83333333333,
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.999",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": true,
+        "allowance_minor": 0,
+        "addition_minor": 0
+      },
+      "expected": {
+        "LSTLZZ": 37462269466,
+        "SOLZLZZ": 2060424820,
+        "BK": 37462269466
+      }
+    }
+  ]
+}

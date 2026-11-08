@@ -36,8 +36,9 @@ class PayrollCashTests(unittest.TestCase):
             profile=dict(legal_form='sole_proprietorship',accounting_method='euer',vat_regime='regular',vat_timing='cash',vat_effective_from='2026-01-01',bookkeeping_start='2026-01-01'))
         preview=profile.preview(self.owner,body);profile.confirm(self.owner,dict(body,request_id=rid(),confirmation=True,preview_hash=preview['preview_hash']))
 
-    def case(self,regular=False,payments=None):
-        data=self.f.case('regular',500000,health_additional_percent='2.90',tax_allowance_monthly_minor=0,tax_addition_monthly_minor=0) if regular else self.f.case()
+    def case(self,regular=False,payments=None,factor=False):
+        extras=dict(tax_class=4,special_cases=['tax_factor'],tax_factor='0.753') if factor else {}
+        data=self.f.case('regular',500000,health_additional_percent='2.90',tax_allowance_monthly_minor=0,tax_addition_monthly_minor=0,**extras) if regular else self.f.case()
         run=self.f.payroll.finalize(self.owner,self.f.command(data));identity,_=self.f.save_account(data,'identity',self.f.identity_details(data))
         details=self.f.payment_details(run,identity,**({'payments':payments} if payments is not None else {}))
         paid,_=self.f.save_account(data,'payment',details)
@@ -90,6 +91,26 @@ class PayrollCashTests(unittest.TestCase):
         self.assertEqual(report['totals']['confirmed_output_vat'],'0.00');self.assertEqual(len(report['cash_movements']),2)
         self.assertTrue(validate_integrity(self.office));self.assertTrue(validate_euer(self.office))
         self.assertEqual(restore_horizon(self.office)['table_counts']['business_payroll_cash_batches'],2)
+
+    def test_factor_net_and_actual_remittances_reach_euer_once_without_private_factor(self):
+        data,run,identity,paid=self.case(regular=True,factor=True)
+        self.assertEqual(run['calculation']['net_minor'],332342)
+        body=self.body(paid);command=self.command(body)
+        net=self.api.confirm(self.owner,command)
+        self.assertEqual(self.api.confirm(self.owner,command),net)
+        self.assertEqual(net['public_source']['cash_movements'][0]['amount'],'3323.42')
+        self.assertNotIn('tax_factor',canonical(net['public_source']))
+        self.assertEqual(self.euer.report(self.owner,2026)['totals']['confirmed_expenses'],'0.00')
+        self.post('payroll_cash',self.payload(net))
+        self.assertEqual(self.euer.report(self.owner,2026)['totals']['confirmed_expenses'],'3323.42')
+        self.assertEqual(calculated(run['calculation'])['employee_tax'],58908)
+        remittance=self.import_cash(self.remittance(data,run,paid))
+        self.post('payroll_cash',self.payload(remittance))
+        report=self.euer.report(self.owner,2026)
+        self.assertEqual(report['totals']['confirmed_expenses'],'6192.00')
+        self.assertEqual(report['totals']['confirmed_input_vat'],'0.00')
+        self.assertEqual(len(report['cash_movements']),2)
+        self.assertTrue(validate_integrity(self.office));self.assertTrue(validate_euer(self.office))
 
     def test_finance_only_can_classify_and_read_aggregate_without_personal_sources(self):
         data,run,identity,paid=self.case(True);batch=self.import_cash(self.body(paid))

@@ -76,9 +76,11 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
 4. Aktuellen Auslieferungs-/Gerätestand abgleichen. Serverantwort und Verfügbarkeit
    des Apple-Developer-Kontos sind angefragt; keine Schlüssel im Chat.
 5. Weitere konkret benannte Lohn-/EÜR- und Länder-/Regelfälle additiv entwickeln.
-   Faktorverfahren ist als nächster abgegrenzter Lohnfall recherchiert; alte
-   Regel-/Quellhashes dürfen dabei nicht durch Änderung historischer Kerne
-   ungültig werden. Keine Berechnung aus unvollständigen Quellen erfinden.
+   Der [reguläre Faktor-Vollmonat](CRM_ERP_LOHN_FAKTOR_2026.md) ist jetzt mit
+   beiden Clients, tatsächlichem PG-Restore, Zahlungen/EÜR und unabhängigen
+   XML-Werten integriert. Individuelle Minijobsteuer und weitere Versicherungs-/
+   Faktor-Spezialfälle bleiben Codearbeit. Historische PAP-Kerne sind bytegleich;
+   keine Berechnung aus unvollständigen Quellen erfinden.
 6. Durchgängige Abnahmen A–G und vollständige Lieferung gemäß Anforderungsmatrix
    verbinden. Fehlender Code bleibt Codearbeit; externe Freigaben bleiben
    zusätzliche Nachweise. [Zentraler Arbeitsstand](CRM_ERP_ARBEITSSTAND.md).

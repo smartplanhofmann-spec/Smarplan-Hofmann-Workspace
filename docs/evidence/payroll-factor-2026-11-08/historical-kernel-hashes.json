@@ -1,0 +1,17 @@
+[
+  {
+    "path": "backend/payroll_pap_2026.py",
+    "unchanged": true,
+    "sha256": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071"
+  },
+  {
+    "path": "backend/payroll_pap_oneoff_2026.py",
+    "unchanged": true,
+    "sha256": "f2fc8ced86ab844e5c7b4ea592fab2ba5870a7843f47b78bc379b9f874b2f456"
+  },
+  {
+    "path": "backend/payroll_pap_periods_2026.py",
+    "unchanged": true,
+    "sha256": "9307e599d25512db069bc42b8662ff0aa84b5436808745916bc97018b2675444"
+  }
+]

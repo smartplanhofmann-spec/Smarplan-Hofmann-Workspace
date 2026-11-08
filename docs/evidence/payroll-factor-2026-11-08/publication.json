@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-08",
+  "source_commit": "f747311a5c3561fbafc3e9a74095d480b089c9b6",
+  "remote_branch": "codex/testupdate-0.7-projects-20261104",
+  "push_confirmed": true,
+  "ci_runs": [
+    {
+      "id": 42529918991,
+      "name": "iPhone TestFlight",
+      "status": "in_progress",
+      "conclusion": null,
+      "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42529918991",
+      "head_sha": "f747311a5c3561fbafc3e9a74095d480b089c9b6"
+    },
+    {
+      "id": 42529919023,
+      "name": "Development checks",
+      "status": "in_progress",
+      "conclusion": null,
+      "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42529919023",
+      "head_sha": "f747311a5c3561fbafc3e9a74095d480b089c9b6"
+    }
+  ],
+  "ci_complete": false,
+  "previous_run": {
+    "id": 42527000420,
+    "source_commit": "3773a60986ad2f2d921efb06166a07a3e6061b45",
+    "successful_jobs": [
+      "backend",
+      "update-flow",
+      "flutter",
+      "https-setup",
+      "ios-simulator",
+      "windows"
+    ],
+    "cancelled_by_new_branch_commit": [
+      "business-services",
+      "online-api"
+    ],
+    "whole_run_passed": false
+  },
+  "live_deployment": false,
+  "test_container_removed": true
+}

@@ -4,6 +4,15 @@ Stand: 08.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
+Letzter veröffentlichter Produktcommit:
+`f747311a5c3561fbafc3e9a74095d480b089c9b6` (Faktor-Vollmonat mit Clients).
+Die neuen GitHub-Läufe [Development checks](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42529919023)
+und [iPhone-Prüfworkflow](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42529918991)
+sind gestartet; ihre Ergebnisse bleiben offen. Der vorherige Lauf auf 3773a60
+bestand sechs Jobs; seine noch laufenden Business-/Online-Jobs wurden durch den
+neuen Branchstand automatisch abgebrochen. Er gilt nicht als vollständig grün.
+[Veröffentlichungsnachweis](evidence/payroll-factor-2026-11-08/publication.json).
+
 ## Ziel und fachlicher Umfang
 
 Der Nutzer beauftragt am 08.11. erneut die Fertigstellung der gesamten Software

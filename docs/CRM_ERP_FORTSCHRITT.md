@@ -2752,3 +2752,12 @@ Keine neue Serverinstallation oder tatsächliche Windows-/iPhone-Geräteabnahme
 wird damit behauptet. Das vollständige CRM-/ERP-Gesamtziel und Abnahmen A–G
 bleiben der Maßstab; weitere Lohn-/Buchhaltungs- und Integrationsaufgaben bleiben
 aktive Arbeit im Gesamtplan.
+
+Der geprüfte Produktstand ist als
+`f747311a5c3561fbafc3e9a74095d480b089c9b6` auf dem autorisierten Testbranch
+veröffentlicht. Development-Lauf 42529919023 und iPhone-Prüflauf 42529918991
+sind gestartet, noch nicht als bestanden bestätigt. Der vorige 3773a60-Lauf
+bestand sechs Jobs; die übrigen zwei wurden durch den neuen Branchstand
+automatisch abgebrochen und bleiben damit ohne Abschlussnachweis.
+Der nur für die lokalen PG-Prüfungen erzeugte Container ist nach den sechs
+erfolgreichen Fällen gestoppt und entfernt. Seine Nachweise bleiben erhalten.

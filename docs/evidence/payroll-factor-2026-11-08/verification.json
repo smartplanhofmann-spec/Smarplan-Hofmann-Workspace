@@ -101,11 +101,17 @@
       "ios-simulator",
       "windows"
     ],
-    "still_running_at_last_read": [
+    "factor_commit_ci": "in_progress",
+    "factor_commit": "f747311a5c3561fbafc3e9a74095d480b089c9b6",
+    "factor_ci_run_ids": [
+      42529919023,
+      42529918991
+    ],
+    "previous_remaining_jobs": "cancelled by newer branch commit; whole run not passed",
+    "cancelled_after_new_commit": [
       "business-services",
       "online-api"
-    ],
-    "factor_commit_ci": "not_claimed_complete"
+    ]
   },
   "live": {
     "last_user_confirmed_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
@@ -161,6 +167,7 @@
     "postgres-initial-guard.txt": "d074397dbb264c8b191f33b11b983b1189c1b06d10a9e4881f5da180b53f5fa7",
     "postgres-initial-ownership.txt": "31c7997a956e7b21592bf6e625978aa7d84a7c4295b05f23b2d08b9316da9d2d",
     "postgres-payroll.txt": "1471faabecacd1fcf1afe86f9839d34df5afb362169f75066266b7828196a324",
-    "xml-oracle-crosscheck.json": "8daeab3ea93bf60cdbf0a76f5a7c2c792fab7392902c0426637f3bcff75aa503"
+    "xml-oracle-crosscheck.json": "8daeab3ea93bf60cdbf0a76f5a7c2c792fab7392902c0426637f3bcff75aa503",
+    "publication.json": "5467c8b7757d91d66d87f49ed4c437e32b34c516d90c95f6e5435744debc6503"
   }
 }

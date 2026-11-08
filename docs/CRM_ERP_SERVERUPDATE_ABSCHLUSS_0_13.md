@@ -68,6 +68,11 @@ ohne Skip in 231 Sekunden. [Prüfnachweis](evidence/project-update-forward-2026-
 python3 -m unittest discover -s tests/update_flow -p test_forward_completion.py -v
 ```
 
-Die noch offene automatische Parser-Kompatibilitätsprüfung vor zukünftigen
-API-Updates bleibt ein eigener Operatorpunkt. Dieser incidentbezogene Abschluss
-ersetzt keine allgemeine Auslieferungs- oder fachliche Freigabe.
+Die damals noch offene Parser-Kompatibilitätsprüfung vor zukünftigen API-Updates
+ist am 08.11.2026 im neuen Updatecode umgesetzt und mit 87 Operatorfällen
+einschließlich Fehlern vor Wartung geprüft. Sie verändert keine Pakete und
+verwendet künftigen Backendcode, bestehende Parser-Venv und die tatsächliche
+Dienst-UID ohne Datenbankzugangsdaten. [Aktueller Arbeitsstand](CRM_ERP_ARBEITSSTAND.md).
+Diese Quelländerung ist noch keine bestätigte Serverinstallation. Der
+incidentbezogene Abschluss ersetzt weiterhin keine allgemeine Auslieferungs-
+oder fachliche Freigabe.

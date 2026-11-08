@@ -1,0 +1,167 @@
+test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database (test_parser_preflight.ParserPreflightUpdateTests.test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database) ... 
+  test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database (test_parser_preflight.ParserPreflightUpdateTests.test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database) (fault='preflight_doctor') ... FAIL
+  test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database (test_parser_preflight.ParserPreflightUpdateTests.test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database) (fault='preflight_false_ready') ... FAIL
+  test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database (test_parser_preflight.ParserPreflightUpdateTests.test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database) (fault='preflight_no_sandbox') ... FAIL
+  test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database (test_parser_preflight.ParserPreflightUpdateTests.test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database) (fault='preflight_wrong_languages') ... FAIL
+  test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database (test_parser_preflight.ParserPreflightUpdateTests.test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database) (fault='preflight_missing_namespace') ... FAIL
+  test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database (test_parser_preflight.ParserPreflightUpdateTests.test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database) (fault='preflight_unbounded_tmp') ... FAIL
+  test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database (test_parser_preflight.ParserPreflightUpdateTests.test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database) (fault='preflight_bad_json') ... FAIL
+test_installation_without_optional_parser_does_not_require_or_create_one (test_parser_preflight.ParserPreflightUpdateTests.test_installation_without_optional_parser_does_not_require_or_create_one) ... ok
+test_installed_but_inactive_parser_is_checked_and_remains_inactive_on_failure (test_parser_preflight.ParserPreflightUpdateTests.test_installed_but_inactive_parser_is_checked_and_remains_inactive_on_failure) ... FAIL
+test_missing_installed_parser_runtime_is_rejected_before_maintenance (test_parser_preflight.ParserPreflightUpdateTests.test_missing_installed_parser_runtime_is_rejected_before_maintenance) ... FAIL
+test_probe_uses_prospective_code_with_real_service_uid_and_no_database_credentials (test_parser_preflight.ParserPreflightUpdateTests.test_probe_uses_prospective_code_with_real_service_uid_and_no_database_credentials) ... ERROR
+
+======================================================================
+ERROR: test_probe_uses_prospective_code_with_real_service_uid_and_no_database_credentials (test_parser_preflight.ParserPreflightUpdateTests.test_probe_uses_prospective_code_with_real_service_uid_and_no_database_credentials)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/source/tests/update_flow/test_parser_preflight.py", line 27, in test_probe_uses_prospective_code_with_real_service_uid_and_no_database_credentials
+    proof = json.loads((STATE / 'doctor/evidence.json').read_text())
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/test-state/doctor/evidence.json'
+
+======================================================================
+FAIL: test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database (test_parser_preflight.ParserPreflightUpdateTests.test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database) (fault='preflight_doctor')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/source/tests/update_flow/test_parser_preflight.py", line 49, in test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database
+    self.assert_before_maintenance_failure(self.run_update())
+  File "/source/tests/update_flow/test_parser_preflight.py", line 12, in assert_before_maintenance_failure
+    self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+AssertionError: 0 == 0 : Ownership getrennt. Dienste bleiben gestoppt; der koordinierte Updatepfad prüft und aktiviert den Kandidaten.
+Testupdate aktiviert: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Updatejournal: /etc/smartplan-online/updates/aaaaaaaaaaaa-20261108T212302-7
+Originaldatenbank, bisherige Releases und geprüfte Sicherung bleiben erhalten.
+Ab öffentlicher Freigabe keine automatische Datenbank-Rückkehr; neue Schreibvorgänge erhalten.
+
+
+======================================================================
+FAIL: test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database (test_parser_preflight.ParserPreflightUpdateTests.test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database) (fault='preflight_false_ready')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/source/tests/update_flow/test_parser_preflight.py", line 49, in test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database
+    self.assert_before_maintenance_failure(self.run_update())
+  File "/source/tests/update_flow/test_parser_preflight.py", line 12, in assert_before_maintenance_failure
+    self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+AssertionError: 0 == 0 : Ownership getrennt. Dienste bleiben gestoppt; der koordinierte Updatepfad prüft und aktiviert den Kandidaten.
+Testupdate aktiviert: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Updatejournal: /etc/smartplan-online/updates/aaaaaaaaaaaa-20261108T212309-161
+Originaldatenbank, bisherige Releases und geprüfte Sicherung bleiben erhalten.
+Ab öffentlicher Freigabe keine automatische Datenbank-Rückkehr; neue Schreibvorgänge erhalten.
+
+
+======================================================================
+FAIL: test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database (test_parser_preflight.ParserPreflightUpdateTests.test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database) (fault='preflight_no_sandbox')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/source/tests/update_flow/test_parser_preflight.py", line 49, in test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database
+    self.assert_before_maintenance_failure(self.run_update())
+  File "/source/tests/update_flow/test_parser_preflight.py", line 12, in assert_before_maintenance_failure
+    self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+AssertionError: 0 == 0 : Ownership getrennt. Dienste bleiben gestoppt; der koordinierte Updatepfad prüft und aktiviert den Kandidaten.
+Testupdate aktiviert: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Updatejournal: /etc/smartplan-online/updates/aaaaaaaaaaaa-20261108T212316-315
+Originaldatenbank, bisherige Releases und geprüfte Sicherung bleiben erhalten.
+Ab öffentlicher Freigabe keine automatische Datenbank-Rückkehr; neue Schreibvorgänge erhalten.
+
+
+======================================================================
+FAIL: test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database (test_parser_preflight.ParserPreflightUpdateTests.test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database) (fault='preflight_wrong_languages')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/source/tests/update_flow/test_parser_preflight.py", line 49, in test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database
+    self.assert_before_maintenance_failure(self.run_update())
+  File "/source/tests/update_flow/test_parser_preflight.py", line 12, in assert_before_maintenance_failure
+    self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+AssertionError: 0 == 0 : Ownership getrennt. Dienste bleiben gestoppt; der koordinierte Updatepfad prüft und aktiviert den Kandidaten.
+Testupdate aktiviert: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Updatejournal: /etc/smartplan-online/updates/aaaaaaaaaaaa-20261108T212323-469
+Originaldatenbank, bisherige Releases und geprüfte Sicherung bleiben erhalten.
+Ab öffentlicher Freigabe keine automatische Datenbank-Rückkehr; neue Schreibvorgänge erhalten.
+
+
+======================================================================
+FAIL: test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database (test_parser_preflight.ParserPreflightUpdateTests.test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database) (fault='preflight_missing_namespace')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/source/tests/update_flow/test_parser_preflight.py", line 49, in test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database
+    self.assert_before_maintenance_failure(self.run_update())
+  File "/source/tests/update_flow/test_parser_preflight.py", line 12, in assert_before_maintenance_failure
+    self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+AssertionError: 0 == 0 : Ownership getrennt. Dienste bleiben gestoppt; der koordinierte Updatepfad prüft und aktiviert den Kandidaten.
+Testupdate aktiviert: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Updatejournal: /etc/smartplan-online/updates/aaaaaaaaaaaa-20261108T212330-623
+Originaldatenbank, bisherige Releases und geprüfte Sicherung bleiben erhalten.
+Ab öffentlicher Freigabe keine automatische Datenbank-Rückkehr; neue Schreibvorgänge erhalten.
+
+
+======================================================================
+FAIL: test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database (test_parser_preflight.ParserPreflightUpdateTests.test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database) (fault='preflight_unbounded_tmp')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/source/tests/update_flow/test_parser_preflight.py", line 49, in test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database
+    self.assert_before_maintenance_failure(self.run_update())
+  File "/source/tests/update_flow/test_parser_preflight.py", line 12, in assert_before_maintenance_failure
+    self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+AssertionError: 0 == 0 : Ownership getrennt. Dienste bleiben gestoppt; der koordinierte Updatepfad prüft und aktiviert den Kandidaten.
+Testupdate aktiviert: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Updatejournal: /etc/smartplan-online/updates/aaaaaaaaaaaa-20261108T212337-777
+Originaldatenbank, bisherige Releases und geprüfte Sicherung bleiben erhalten.
+Ab öffentlicher Freigabe keine automatische Datenbank-Rückkehr; neue Schreibvorgänge erhalten.
+
+
+======================================================================
+FAIL: test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database (test_parser_preflight.ParserPreflightUpdateTests.test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database) (fault='preflight_bad_json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/source/tests/update_flow/test_parser_preflight.py", line 49, in test_incompatible_or_unconfirmed_parser_never_stops_services_or_prepares_a_database
+    self.assert_before_maintenance_failure(self.run_update())
+  File "/source/tests/update_flow/test_parser_preflight.py", line 12, in assert_before_maintenance_failure
+    self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+AssertionError: 0 == 0 : Ownership getrennt. Dienste bleiben gestoppt; der koordinierte Updatepfad prüft und aktiviert den Kandidaten.
+Testupdate aktiviert: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Updatejournal: /etc/smartplan-online/updates/aaaaaaaaaaaa-20261108T212344-931
+Originaldatenbank, bisherige Releases und geprüfte Sicherung bleiben erhalten.
+Ab öffentlicher Freigabe keine automatische Datenbank-Rückkehr; neue Schreibvorgänge erhalten.
+
+
+======================================================================
+FAIL: test_installed_but_inactive_parser_is_checked_and_remains_inactive_on_failure (test_parser_preflight.ParserPreflightUpdateTests.test_installed_but_inactive_parser_is_checked_and_remains_inactive_on_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/source/tests/update_flow/test_parser_preflight.py", line 54, in test_installed_but_inactive_parser_is_checked_and_remains_inactive_on_failure
+    self.assert_before_maintenance_failure(self.run_update())
+  File "/source/tests/update_flow/test_parser_preflight.py", line 12, in assert_before_maintenance_failure
+    self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+AssertionError: 0 == 0 : Ownership getrennt. Dienste bleiben gestoppt; der koordinierte Updatepfad prüft und aktiviert den Kandidaten.
+Testupdate aktiviert: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Updatejournal: /etc/smartplan-online/updates/aaaaaaaaaaaa-20261108T212356-1229
+Originaldatenbank, bisherige Releases und geprüfte Sicherung bleiben erhalten.
+Ab öffentlicher Freigabe keine automatische Datenbank-Rückkehr; neue Schreibvorgänge erhalten.
+
+
+======================================================================
+FAIL: test_missing_installed_parser_runtime_is_rejected_before_maintenance (test_parser_preflight.ParserPreflightUpdateTests.test_missing_installed_parser_runtime_is_rejected_before_maintenance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/source/tests/update_flow/test_parser_preflight.py", line 60, in test_missing_installed_parser_runtime_is_rejected_before_maintenance
+    self.assert_before_maintenance_failure(self.run_update())
+  File "/source/tests/update_flow/test_parser_preflight.py", line 12, in assert_before_maintenance_failure
+    self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+AssertionError: 0 == 0 : Ownership getrennt. Dienste bleiben gestoppt; der koordinierte Updatepfad prüft und aktiviert den Kandidaten.
+Testupdate aktiviert: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Updatejournal: /etc/smartplan-online/updates/aaaaaaaaaaaa-20261108T212402-1382
+Originaldatenbank, bisherige Releases und geprüfte Sicherung bleiben erhalten.
+Ab öffentlicher Freigabe keine automatische Datenbank-Rückkehr; neue Schreibvorgänge erhalten.
+
+
+----------------------------------------------------------------------
+Ran 5 tests in 71.739s
+
+FAILED (failures=9, errors=1)

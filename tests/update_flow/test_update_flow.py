@@ -98,6 +98,11 @@ class OperatorFlowFixture:
                   worker_installed=True, worker_restarting=False, lead_installed=False,
                   lead_timer=False, lead_worker=False, lead_restarting=False):
         (STATE / 'scenario.json').write_text(json.dumps({'fault': fault}))
+        (STATE / 'scenario.json').chmod(0o644)
+        STATE.chmod(0o755)
+        doctor = STATE / 'doctor'
+        doctor.mkdir(mode=0o700, exist_ok=True)
+        os.chown(doctor, 2001, 2001)
         (STATE / 'services.json').write_text(json.dumps({'smartplan-online.service': True, 'smartplan-https.service': True,
                                                         'smartplan-online-backup.timer': timer,
                                                         'smartplan-plan-import.service': import_worker,
@@ -108,8 +113,14 @@ class OperatorFlowFixture:
         worker_unit = Path('/etc/systemd/system/smartplan-plan-import.service')
         if worker_installed:
             shutil.copyfile(CHECKOUT / 'deploy/hetzner/online/smartplan-plan-import.service', worker_unit)
+            parser = IMPORT_RUNTIME / 'venv/bin/python'
+            parser.parent.mkdir(parents=True, exist_ok=True)
+            if not parser.exists():
+                parser.symlink_to('/test-bin/command_stub.py')
         elif worker_unit.exists():
             worker_unit.unlink()
+        if not worker_installed and IMPORT_RUNTIME.exists():
+            shutil.rmtree(IMPORT_RUNTIME)
         for name in ('smartplan-lead-replies.service', 'smartplan-lead-replies.timer'):
             unit = Path('/etc/systemd/system') / name
             if lead_installed:
@@ -633,7 +644,7 @@ class InstallImportFlowTests(OperatorFlowFixture, unittest.TestCase):
                 directory.chmod(0o755)
         (STATE / 'scenario.json').chmod(0o644)
         doctor = STATE / 'doctor'
-        doctor.mkdir(mode=0o700)
+        doctor.mkdir(mode=0o700, exist_ok=True)
         os.chown(doctor, 2001, 2001)
         self.remember_existing_state()
 

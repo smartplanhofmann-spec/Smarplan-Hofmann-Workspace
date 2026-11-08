@@ -6,16 +6,18 @@ Das [Windowsprogramm 0.13.0](CRM_ERP_PROJEKT_BUILD_FREIGABE_2026-11-04.md) ist
 tatsächlich gebaut und geprüft. Ein unsignierter iPhone-Gerätebuild ist ebenfalls erfolgreich; Signierung,
 Serverabgleich und Geräteabnahme bleiben als Auslieferungsschritte offen.
 
-**Aktuelle Nutzerpriorität vom 04.11.2026:** Zuerst Projektbetrieb, Angebote,
-Rechnungen und Stunden in Browser, mobiler App und Windows-App fertigstellen.
-Lohnabrechnung und Buchhaltung sind zurückgestellt. Maßgeblich für die
-laufende Reihenfolge ist der [Projektphasenplan](CRM_ERP_PROJEKTPHASE_2026-11-04.md);
-historische Lohn-/Buchhaltungsnachweise bleiben erhalten.
+**Erneute Gesamtbeauftragung vom 08.11.2026:** Die gesamte vereinbarte Software
+fertigstellen. Projektbetrieb und Auslieferung bleiben zuerst zu schließen;
+die bisher zurückgestellten Buchhaltungs-/Lohnaufgaben bleiben anschließend
+aktive Codearbeit im Gesamtumfang. Der [zentrale Arbeitsstand](CRM_ERP_ARBEITSSTAND.md)
+verbindet diese Fortsetzung mit dem bisherigen Projektphasenplan. Historische
+Lohn-/Buchhaltungsnachweise bleiben erhalten.
 
-Stand: 04.11.2026. Maßgeblich bleiben das unveränderte
+Stand: 08.11.2026. Maßgeblich bleiben das unveränderte
 [Gesamtziel](../CRM_ERP_Gesamtziel.txt) und die
 [Anforderungsmatrix](CRM_ERP_ANFORDERUNGEN.md). Projekt:
-`/workspace/Smarplan-Hofmann-Workspace`, Branch `work`.
+`/workspace/Smarplan-Hofmann-Workspace`, lokaler Branch `codex/finish-20261108`,
+Veröffentlichungsziel `codex/testupdate-0.7-projects-20261104`.
 
 ## Verbindlicher fachlicher Rahmen
 
@@ -66,6 +68,23 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
 
 ## Aktive Arbeitspakete
 
+1. Wiederhergestellten Gesamtstand und Originalziel sichern; umgesetzt.
+2. Offene CI-/Browserregressionen der ausdrücklichen Projekt-/Quellenauswahl
+   schließen; Assistent, Zusatzfelder und Kundenbereich gezielt nachgeprüft.
+3. Parser-Kompatibilität vor Wartung und Datenbankumstellung prüfen; im neuen
+   Operatorcode umgesetzt und mit 87 Fällen nachgeprüft. Liveinstallation separat.
+4. Aktuellen Auslieferungs-/Gerätestand abgleichen. Serverantwort und Verfügbarkeit
+   des Apple-Developer-Kontos sind angefragt; keine Schlüssel im Chat.
+5. Weitere konkret benannte Lohn-/EÜR- und Länder-/Regelfälle additiv entwickeln.
+   Faktorverfahren ist als nächster abgegrenzter Lohnfall recherchiert; alte
+   Regel-/Quellhashes dürfen dabei nicht durch Änderung historischer Kerne
+   ungültig werden. Keine Berechnung aus unvollständigen Quellen erfinden.
+6. Durchgängige Abnahmen A–G und vollständige Lieferung gemäß Anforderungsmatrix
+   verbinden. Fehlender Code bleibt Codearbeit; externe Freigaben bleiben
+   zusätzliche Nachweise. [Zentraler Arbeitsstand](CRM_ERP_ARBEITSSTAND.md).
+
+## Bisheriger Projektphasenblock
+
 1. Kunden-/Projektanlage und vollständige Rechnungsanschrift in beiden Clients.
 2. Durchgängige Angebote, Aufträge und tatsächliche Rechnungsausstellung.
 3. Stunden mit Freigabe/Korrektur sowie zuverlässiger App-Offlinesynchronisation.
@@ -79,7 +98,9 @@ Der Windows-Teil von 5 ist mit tatsächlichen lokalen und Online-Releasepaketen,
 belegt. Die korrigierte macOS-Prüfung und der unsignierte iPhone-Build 168
 sind ebenfalls erfolgreich. Offen bleiben die installierbare signierte Verteilung,
 der nachgewiesene Serverabgleich und die gemeinsame Gerätefolge. [Nur lesende Serverbefehle und Geräteprotokoll](CRM_ERP_KUNDENTEST_PROJEKTBETRIEB_0_13.md)
-sind vorbereitet. Kein laufender Server wurde bereits aktualisiert.
+sind vorbereitet. Der Serverstand A93 wurde inzwischen tatsächlich bestätigt;
+die spätere Browseranpassung auf 5880f88 und neuere Änderungen sind ohne
+weitere Nutzerausgabe noch nicht als installiert nachgewiesen.
 
 Prüffälle, konkrete Lücken und Grenzen stehen im
 [aktuellen Phasenplan](CRM_ERP_PROJEKTPHASE_2026-11-04.md).

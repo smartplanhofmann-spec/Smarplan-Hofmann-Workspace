@@ -1,4 +1,10 @@
-# Smartplan Office – Entwicklungsstand 0.12.0
+# Smartplan Office – Entwicklungsstand 0.13.0
+
+Aktuelle Fortsetzung vom 08.11.2026: [Arbeitsstand und nächste Schritte](docs/CRM_ERP_ARBEITSSTAND.md).
+Das unveränderte Gesamtziel bleibt maßgeblich. Die erneut beauftragte gesamte
+Software umfasst auch Buchhaltung und Lohn; die frühere Projektphase hat nur
+die Reihenfolge geändert. Vor einer Fortsetzung den tatsächlichen Quellstand
+mit dem autorisierten Testbranch abgleichen.
 
 ## Aktuelles Gesamtziel – 04.11.2026
 

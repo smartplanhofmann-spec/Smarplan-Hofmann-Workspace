@@ -6,11 +6,12 @@ Das [Windowsprogramm 0.13.0](CRM_ERP_PROJEKT_BUILD_FREIGABE_2026-11-04.md) ist
 tatsächlich gebaut und geprüft. Ein unsignierter iPhone-Gerätebuild ist ebenfalls erfolgreich; Signierung,
 Serverabgleich und Geräteabnahme bleiben als Auslieferungsschritte offen.
 
-**Aktuelle Nutzerpriorität vom 04.11.2026:** Zuerst Projektbetrieb, Angebote,
-Rechnungen und Stunden in Browser, mobiler App und Windows-App fertigstellen.
-Lohnabrechnung und Buchhaltung sind zurückgestellt. Maßgeblich für die
-laufende Reihenfolge ist der [Projektphasenplan](CRM_ERP_PROJEKTPHASE_2026-11-04.md);
-historische Lohn-/Buchhaltungsnachweise bleiben erhalten.
+**Gesamtbeauftragung erneut bestätigt am 08.11.2026:** Die gesamte Software
+gemäß Originalziel fertigstellen. Der zuerst priorisierte Projektbetrieb
+bleibt ein Lieferabschnitt; Buchhaltung und Lohn werden nicht aus dem Endziel
+gestrichen. Der [zentrale Arbeitsstand](CRM_ERP_ARBEITSSTAND.md) dokumentiert
+wiederhergestellten Quellstand, neue Arbeiten und tatsächliche externe
+Voraussetzungen. Historische Lohn-/Buchhaltungsnachweise bleiben erhalten.
 
 **Bedienanpassung vom 06.11.2026:** Die [Browser-Projektauswahl](CRM_ERP_BROWSER_PROJEKTAUSWAHL_2026-11-06.md)
 erscheint im neuen Quellstand nur in tatsächlich projektbezogenen Bereichen.
@@ -18,7 +19,7 @@ Allgemeine Bereiche entfernen den vorherigen Projektkontext auch für
 Vorbelegungen und Rechte. Lokale Browserprüfung und Auslieferungsstand sind
 getrennt dokumentiert; die neue Serverinstallation ist noch nicht bestätigt.
 
-Stand: 06.11.2026. Quelle ist das unveränderte
+Stand: 08.11.2026. Quelle ist das unveränderte
 [Gesamtziel](../CRM_ERP_Gesamtziel.txt). Die integrierte Basis `4c2f008` und
 nachfolgende Änderungen sind im [Fortschritt](CRM_ERP_FORTSCHRITT.md)
 mit ihren eigenen Prüfnachweisen dokumentiert. Diese Matrix bewertet den

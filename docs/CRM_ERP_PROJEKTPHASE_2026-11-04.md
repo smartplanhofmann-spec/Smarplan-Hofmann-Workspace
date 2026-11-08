@@ -1,5 +1,13 @@
 # Projektbetrieb: aktueller Fertigstellungsumfang
 
+Fortschreibung vom 08.11.2026: Der Nutzer beauftragt erneut die Fertigstellung
+des Gesamtziels. Diese Projektphase bleibt der zuerst abzuschließende
+Lieferabschnitt; die damalige Zurückstellung von Buchhaltung und Lohn ist
+keine dauerhafte Streichung. Maßgeblich für die Fortsetzung sind der
+[zentrale Arbeitsstand](CRM_ERP_ARBEITSSTAND.md) und der aktualisierte Gesamtplan.
+Die nachfolgenden ursprünglichen Entscheidungen und Prüfnachweise bleiben
+als Verlauf erhalten.
+
 Stand: 05.11.2026. Historischer Ausgangspunkt ist `c875ea5` im Hauptprojekt
 `/workspace/Smarplan-Hofmann-Workspace`. Die letzte Nutzerentscheidung ersetzt
 die bisherige Reihenfolge: **zuerst den Projektbetrieb einschließlich Angeboten,

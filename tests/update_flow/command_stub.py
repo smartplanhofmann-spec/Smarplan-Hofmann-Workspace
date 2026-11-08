@@ -365,13 +365,27 @@ elif command in ('python', 'python3', 'python3.12'):
         nnp = int(next(line.split(':', 1)[1].strip() for line in status.splitlines() if line.startswith('NoNewPrivs:')))
         evidence = {'uid': os.getuid(), 'gid': os.getgid(), 'no_new_privileges': nnp, 'arguments': args,
                     'environment_names': sorted(os.environ),
-                    'unit_exists': Path('/etc/systemd/system/smartplan-plan-import.service').exists()}
+                    'unit_exists': Path('/etc/systemd/system/smartplan-plan-import.service').exists(),
+                    'cwd': os.getcwd(), 'prospective_generation': Path('generation').read_text().strip(),
+                    'installed_generation': generation(),
+                    'pending_update_exists': Path('/etc/smartplan-online/UPDATE_IN_PROGRESS').exists(),
+                    'api_was_running': read_state()['smartplan-online.service'],
+                    'gate_was_active': read_state()['gate']}
         Path('/test-state/doctor/evidence.json').write_text(json.dumps(evidence))
         assert '--doctor' in args and '--watch' not in args and '--once' not in args
         assert os.getuid() == 2001 and nnp == 1, 'Real service UID and NoNewPrivileges required'
         assert 'SMARTPLAN_DATABASE_DSN' not in os.environ and 'FIXTURE_PRIVATE_SETTING' not in os.environ
-        print(json.dumps({'ready': scenario['fault'] != 'install_doctor'}))
-        sys.exit(1 if scenario['fault'] == 'install_doctor' else 0)
+        fault = scenario['fault']
+        report = dict(ready=True, sandboxed=True, languages=['deu', 'eng'],
+                      namespaces=['net', 'pid', 'mnt'], temporary_storage_bounded=True)
+        if fault in ('install_doctor', 'preflight_doctor', 'preflight_false_ready'):
+            report['ready'] = False
+        if fault == 'preflight_no_sandbox': report['sandboxed'] = False
+        if fault == 'preflight_wrong_languages': report['languages'] = ['eng']
+        if fault == 'preflight_missing_namespace': report['namespaces'] = ['net', 'pid']
+        if fault == 'preflight_unbounded_tmp': report['temporary_storage_bounded'] = False
+        print('not-json' if fault == 'preflight_bad_json' else json.dumps(report))
+        sys.exit(1 if fault in ('install_doctor', 'preflight_doctor') else 0)
     if args[:2] == ['-m', 'online.release']:
         action = args[2]
         values = [arg for arg in args[3:] if arg != '--privileged-operator']

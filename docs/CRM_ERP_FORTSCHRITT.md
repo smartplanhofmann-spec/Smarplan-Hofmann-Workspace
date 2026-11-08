@@ -2640,3 +2640,63 @@ Development- und iPhone-Prüfworkflows gestartet. Diese neuen Remote-Läufe
 werden nicht als bereits bestanden ausgegeben. Der [konkrete Updatebefehl](CRM_ERP_BROWSER_PROJEKTAUSWAHL_2026-11-06.md)
 verwendet den vorhandenen koordinierten Ablauf und den bestätigten A93-
 Ausgangsstand. Seine tatsächliche Serverausführung bleibt noch nachzuweisen.
+
+
+## 08.11.2026 – Gesamtauftrag fortgesetzt und neuer Cloud-Checkout wiederhergestellt
+
+Der Nutzer beauftragt erneut die gesamte Software und fragt ausdrücklich nach
+dem Gesamtziel. Die neue Arbeitsumgebung enthielt zunächst den sauberen alten
+Branch work auf 822fe58. Der autorisierte Remote-Testbranch war noch nicht
+abgerufen. Nach lesendem Abgleich wurde der gesicherte Stand 7c06f36 auf dem
+neuen lokalen Branch codex/finish-20261108 wiederhergestellt. Der alte Branch
+und vorhandene Arbeitskopien bleiben erhalten. Es wurde keine Serverinstallation
+als Teil dieser lokalen Wiederherstellung ausgeführt.
+
+Die Gesamtzieldatei wurde vollständig erneut gelesen und per SHA-256 unverändert
+bestätigt: 23.863 Bytes, a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5.
+Der neue [zentrale Arbeitsstand](CRM_ERP_ARBEITSSTAND.md), README und
+Fortsetzungshinweise halten Ziel, Fachrahmen, Quellen, neue Arbeit und reale
+Abhängigkeiten zusammen. Die Projektphase bleibt eine Reihenfolgeentscheidung;
+Buchhaltung und Lohn sind weiterhin Bestandteil des Gesamtziels. Der aktuelle
+Auslieferungsstand und ein vorhandenes Apple-Developer-Konto sind angefragt,
+ohne Geheimnisse im Chat anzufordern.
+
+## 08.11.2026 – Assistenten-/Browserregression und Parser-Updategrenze geschlossen
+
+Die inzwischen abgeschlossenen Remote-Läufe auf 5880f88 bestätigen Windows,
+Simulator, Flutter, Backend, Online-API, Update, HTTPS und unsignierten iPhone-
+Prüfbuild. Der Business-/Browserjob ist rot: Sein Assistententest erwartet nach
+der allgemeinen Übersicht noch eine implizite Projektwahl. Der neue Test
+bestätigt zunächst deren Entfernung, wählt Projekt und freigegebene Datenbasis
+wieder ausdrücklich und prüft danach Regeln, Freigabe/Automatik/Verbot,
+Originalwiederholung, Aufgabe und quellengebundenen Angebotsentwurf. Auch
+verbleibende rohe Projektwähler in Zusatzfeldern und der Kundenbereich nach
+Modulkonfiguration wurden auf den tatsächlichen Bedienweg umgestellt. Die
+veränderte Produktnavigation wird nicht zurückgestellt.
+
+Der Updateablauf enthält jetzt die noch fehlende Parser-Vorprüfung. Sie nutzt
+künftigen Backendcode, bestehende Parser-Venv, tatsächliche Dienst-UID und
+NoNewPrivileges sowie keine geerbten Datenbank-/Proxy-/Python-Einstellungen.
+Ein vollständig bestätigter Sandbox-/Sprach-/Namespace-/Temporärspeicherbericht
+ist nötig. Fehlende Runtime, fehlerhafter Doctor, falsche Bereitschaft und
+unvollständige Berichte stoppen vor Wartung, Dienststopp, Updatejournal und
+Datenbankvorbereitung. Auch installierte inaktive Parser werden geprüft; eine
+Installation ohne optionalen Parser bleibt zulässig. Keine Pakete werden in
+dieser Vorprüfung verändert. Die spätere systemd-Startprüfung bleibt zusätzlich.
+
+Vor der Codeänderung reproduziert der neue Operatorfall die fehlende Prüfung
+mit neun fehlgeschlagenen Unterfällen und einem fehlenden Probe-Nachweis.
+Danach bestehen alle **87 Operator-/Recovery-Fälle ohne Skip**, **21 Import-API-
+Fälle ohne Skip**, **860 Browser-Modultests ohne Skip** sowie die fünf echten
+lokalen Chromium-/MFA-/HTTP-Abläufe Assistent, Zusatzfelder, Unternehmensereignisse,
+Sprache und Kundenbereich. Die Import-API enthält die expliziten Nachweise,
+dass Doctor-Modus und fehlende Sandbox keine Datenbank öffnen oder Quelle claimen.
+Der zunächst fehlende Suchpfad für eine bestehende Testfixture ist im Runner-
+Aufruf korrigiert; sein anfänglicher Fehler bleibt protokolliert.
+[Vollständiger aktueller Prüfnachweis](evidence/project-resume-2026-11-08/verification.json).
+
+Die neue Parser-Vorprüfung ist Code-/Fixtureprüfung, keine zusätzliche echte
+systemd-Erkennungsabnahme des Servers. Eine neue Remote-CI oder produktive
+Freigabe wird nicht vorweggenommen. Weitere Lohnfälle, EÜR-/Gesamtintegration,
+tatsächliche Gerätebedienung und die benannten externen Nachweise bleiben
+Arbeit. Die begonnene Recherche zum Faktorverfahren ist keine Implementierung.

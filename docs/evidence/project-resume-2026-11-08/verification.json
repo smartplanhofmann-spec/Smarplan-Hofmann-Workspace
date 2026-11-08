@@ -1,0 +1,105 @@
+{
+  "date": "2026-11-08",
+  "environment_resume": {
+    "previous_local_commit": "822fe58be148f5df52ab14d6ff8a9267c696932e",
+    "restored_remote_commit": "7c06f362088010bb2ec1f6b3fce7729b74bd51fa",
+    "old_work_branch_preserved": true,
+    "current_local_branch": "codex/finish-20261108",
+    "remote_target": "codex/testupdate-0.7-projects-20261104"
+  },
+  "goal": {
+    "file": "CRM_ERP_Gesamtziel.txt",
+    "bytes": 23863,
+    "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+    "fully_read": true,
+    "unchanged_from_original_upload": true
+  },
+  "previous_ci": {
+    "source": "5880f88848ac95623c072f43b092e4202ea38bdb",
+    "run": 42178170524,
+    "job": 127761363904,
+    "business_services": "failure",
+    "cause": "Assistant test retained an implicit project after navigating through the general overview",
+    "other_jobs_success": [
+      "https-setup",
+      "update-flow",
+      "iOS simulator",
+      "backend",
+      "flutter",
+      "Windows native-build",
+      "online-api"
+    ],
+    "unsigned_iphone": "success",
+    "signed_testflight_upload": "skipped",
+    "raw_log": "ci-business-services-5880f88.txt"
+  },
+  "parser_preflight_before": {
+    "result": "expected failure: 9 failed subcases and 1 missing-probe error in 5 test methods; old updater had no prospective parser check",
+    "log": "parser-preflight-before.txt"
+  },
+  "operator_suite": {
+    "tests": 87,
+    "failed": 0,
+    "skips": 0,
+    "seconds": 381.097,
+    "command": "bash scripts/test-update-flow.sh",
+    "log": "update-operator-after.txt",
+    "boundaries": "network-none disposable Docker; real filesystem, root UID and runuser/setpriv; synthetic systemd/PostgreSQL/doctor responses; real JSON assertions"
+  },
+  "import_api": {
+    "tests": 21,
+    "failed": 0,
+    "skips": 0,
+    "seconds": 17.75,
+    "log": "import-api-after.txt",
+    "includes": "Doctor mode and unavailable sandbox cannot open database or claim a source; auth, upload originals, leases, cancellation and supervised worker results",
+    "initial_harness_error": "Bare test_online fixture import required adding backend/online to test PYTHONPATH; no runtime code changed"
+  },
+  "browser_modules": {
+    "tests": 860,
+    "failed": 0,
+    "skips": 0,
+    "log": "node-modules.txt",
+    "command": "node --test --test-isolation=none tests/*.test.mjs"
+  },
+  "browser_workflows": {
+    "assistant": {
+      "result": "passed",
+      "log": "assistant-after.txt"
+    },
+    "custom-fields": {
+      "result": "passed",
+      "log": "custom-fields-after.txt"
+    },
+    "company-events": {
+      "result": "passed",
+      "log": "company-events-after.txt"
+    },
+    "speech": {
+      "result": "passed",
+      "log": "speech-after.txt"
+    },
+    "customer-workspace": {
+      "result": "passed",
+      "log": "customer-workspace-after.txt"
+    }
+  },
+  "browser_security": "Actual Chromium namespace/PID/network/seccomp probe before application access; real local MFA/HTTP; controlled fixtures, no providers or external messages",
+  "product_change": "Only coordinated operator update gains prospective parser check. Browser test drivers reflect the already implemented explicit project/source selection. Tax and payroll calculation kernels unchanged.",
+  "validation": {
+    "bash_syntax": "passed",
+    "python_syntax": "passed",
+    "git_diff_check": "passed"
+  },
+  "deployment": "No new server update performed; last user-confirmed commit remains A93. Status question pending.",
+  "whole_goal_complete": false,
+  "payroll_factor_research": {
+    "state": "research only; no implementation or approval claimed",
+    "official_program_page": "https://www.bmf-steuerrechner.de/interface/pseudocodes.xhtml",
+    "official_xml_url_observed": "https://www.bmf-steuerrechner.de/javax.faces.resource/daten/xmls/Lohnsteuer2026.xml.xhtml",
+    "xml_read_result": "web tool does not accept application/xml; original XML not downloaded",
+    "reviewed_pap_pdf": "https://www.ihk-muenchen.de/ihk/documents/Recht-Steuern/Steuerrecht/Einkommensteuer/2025-11-12-PAP-2026-anlage-1.pdf",
+    "reviewed_edition": "2025-11-12, Anlage 1, 40 pages",
+    "points": "STKL IV, explicit registered factor, three decimal places, no concurrent allowance; factor application and rounding must be independently checked before coding"
+  }
+}

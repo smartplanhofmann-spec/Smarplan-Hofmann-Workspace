@@ -145,6 +145,21 @@ active = os.environ['SMARTPLAN_DATABASE_DSN']
 validate_dsns(active, make_conninfo(active, dbname=sys.argv[1]))
 PY
 )
+# Check the prospective backend against the existing isolated parser runtime
+# before any maintenance gate, service stop or candidate database is created.
+# The doctor exits before opening a database; match the real service UID and
+# NoNewPrivileges and discard credentials/proxy/Python overrides explicitly.
+if (( smartplan_import_worker_present )); then
+  [[ -x /opt/smartplan-plan-import/venv/bin/python ]] || fail 'Installierte Parserumgebung fehlt. Laufenden Stand beibehalten und Parser zuerst geordnet vorbereiten.'
+  if ! (cd "$smartplan_release/app/backend"; runuser -u smartplan-online -- \
+    /usr/bin/env -i PATH=/usr/bin:/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 \
+    /usr/bin/setpriv --no-new-privs "$smartplan_release/venv/bin/python" -m online.import_worker \
+    --worker-python /opt/smartplan-plan-import/venv/bin/python --ocr-languages deu+eng --doctor) | \
+    "$smartplan_release/venv/bin/python" -c \
+    'import json,sys; v=json.load(sys.stdin); assert v.get("ready") is True and v.get("sandboxed") is True and v.get("temporary_storage_bounded") is True and {"deu","eng"} <= set(v.get("languages",[])) and {"net","pid","mnt"} <= set(v.get("namespaces",[]))'; then
+    fail 'Parser passt nicht zum neuen Quellstand oder seine Sandbox ist nicht bestätigt. Keine Wartung oder Datenbankumstellung begonnen; Parserumgebung zuerst geordnet aktualisieren.'
+  fi
+fi
 install -d -m 0700 /etc/smartplan-online/updates "$smartplan_control"
 for smartplan_operator_path in /var/lib/smartplan-online-operator /var/lib/smartplan-online-operator/updates "$smartplan_work"; do
   if [[ -e "$smartplan_operator_path" || -L "$smartplan_operator_path" ]]; then

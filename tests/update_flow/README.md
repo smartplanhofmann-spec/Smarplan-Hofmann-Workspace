@@ -61,6 +61,18 @@ Erkennungsabnahme auf einem echten Server.
 Die Stubs enthalten nur fiktive Daten. Sie öffnen keine realen Dienstverbindungen
 und lesen keine Zugangsdaten des Hostsystems.
 
+test_parser_preflight.py prüft zusätzlich die Kompatibilitätsprüfung vor
+Wartung und Datenbankkopie: Der Doctor läuft mit künftigem Backendpfad,
+tatsächlicher UID/GID 2001 und NoNewPrivileges sowie ohne geerbte Konfiguration.
+Ein fehlender Parser, ein fehlgeschlagener Doctor oder ein formal erfolgreicher
+aber unbestätigter Sandbox-/Sprach-/Namespace-/Temporärspeicherbericht beendet
+den Updateversuch vor Dienststopp, Journal und Datenbankvorbereitung. Auch eine
+installierte, gerade inaktive Parserumgebung wird geprüft; ohne optionale
+Parserinstallation bleibt der bisherige Ablauf zulässig. Die Doctor-Antwort
+ist eine Testgrenze; die JSON-Assertion, Reihenfolge, Dateizustände und
+Ausführung unter tatsächlicher Dienst-UID sind echt. Das ist keine zusätzliche
+Erkennungs- oder systemd-Abnahme des Produktionsservers.
+
 Der gesonderte test_forward_completion.py prüft den kontrollierten Abschluss
 eines bereits aktivierten, vorwärts reparierten Updates mit echten temporären
 Dateien, Symlinks, Rechten, flock und atomaren Schreibfehlern. Falsche Releases,

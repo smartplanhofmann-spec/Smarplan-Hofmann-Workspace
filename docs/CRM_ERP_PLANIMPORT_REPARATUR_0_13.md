@@ -94,7 +94,12 @@ und UPDATE_IN_PROGRESS nicht blind entfernen.
 
 Der Incident zeigt, dass die getrennte Parser-Venv bei Änderung der
 Quell-Abhängigkeiten mitgeführt oder vor der öffentlichen Aktivierungsgrenze
-auf Kompatibilität geprüft werden muss. Der bisherige API-Updateablauf
-aktualisiert diese getrennte Venv nicht automatisch. Diese Operatorlücke ist
-vor einer vollständigen automatisierten Auslieferungsfreigabe zu schließen;
-ein API-/DB-Readiness-Erfolg allein belegt keine Parserbereitschaft.
+auf Kompatibilität geprüft werden muss. Diese Vorprüfung ist am 08.11.2026
+im neuen Updatecode ergänzt: künftiger Backendcode, vorhandene Parser-Venv,
+tatsächliche Dienst-UID und NoNewPrivileges, keine geerbten Zugangsdaten und
+vollständiger bestätigter Sandboxbericht. Bei Fehlern beginnen weder Wartung
+noch Dienststopp oder Kandidatendatenbank. Die Venv wird nicht automatisch
+verändert. Die spätere tatsächliche systemd-Startprüfung bleibt bestehen.
+[Arbeitsstand und aktueller Prüfnachweis](CRM_ERP_ARBEITSSTAND.md).
+Die Installation dieses neuen Updatecodes auf dem realen Server ist separat
+nachzuweisen; die damalige A93-Reparatur ist dadurch nicht rückwirkend geändert.

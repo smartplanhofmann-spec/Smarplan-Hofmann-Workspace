@@ -1,2 +1,6 @@
 *.pdf binary
 *.cmd text eol=crlf
+
+# Preserve exact whitespace in immutable raw evidence streams.
+docs/evidence/project-resume-2026-11-08/ci-business-services-5880f88.txt whitespace=-blank-at-eol
+docs/evidence/project-resume-2026-11-08/parser-preflight-before.txt whitespace=-blank-at-eol

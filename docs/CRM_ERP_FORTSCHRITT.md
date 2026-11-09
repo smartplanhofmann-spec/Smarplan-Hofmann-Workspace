@@ -2960,3 +2960,14 @@ nach Ergänzung vertauschter Metadatenpaare erneut; 32 versionierte Rechenmodule
 sind gegen 877266a bytegleich. Originalziel unverändert. Die vollständige
 Veröffentlichung samt eigener Remote-CI wird gesondert nachgetragen.
 [Genauer Prüfnachweis](evidence/payroll-provenance-2026-11-09/verification.json).
+
+
+Der abschließende Produktstand ist als
+`3025747c156604646f5cca93288402369b30fa51` erfolgreich auf dem autorisierten
+Testbranch veröffentlicht. Development42601772720 und iPhone42601772533 sind
+beim ersten Abruf ausstehend. Der Vorgänger 877266a besteht App, Simulator,
+HTTPS und Update; seine übrigen noch laufenden Jobs werden vom neuen Branchstand
+beendet. Ein vollständig grüner neuer Gesamtstand wird nicht daraus abgeleitet.
+2598c96 bleibt der letzte vollständig grüne Produktcommit. Keine neue
+Serverinstallation, echte Gerätebedienung, Meldung oder signierte Verteilung.
+[Veröffentlichung und vorherige Jobzustände](evidence/payroll-provenance-2026-11-09/publication.json).

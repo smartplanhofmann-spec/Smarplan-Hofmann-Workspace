@@ -72,7 +72,8 @@ Testeinrichtungen und der zuerst direkte statt vollständige Dispatcheraufruf
 im Paketvergleich bleiben als fehlgeschlagene Rohprotokolle erhalten.
 Alle 649 unterschiedlichen Python-Lohnfälle bestehen ohne Skip in 617,953
 Sekunden. 32 versionierte Rechenmodule sind gegenüber 877266a bytegleich.
-Die Veröffentlichung wird gesondert fortgeschrieben. Die Gesamtsoftware, fachliche Lohnfreigabe und
+Als 3025747 auf dem autorisierten Testbranch veröffentlicht; die eigene neue
+Remote-CI ist beim ersten Abruf ausstehend. Die Gesamtsoftware, fachliche Lohnfreigabe und
 Abnahmen A–G sind damit weiterhin nicht vollständig abgeschlossen.
 
 [Maschinenlesbarer Nachweis und Rohprotokolle](evidence/payroll-provenance-2026-11-09/verification.json).

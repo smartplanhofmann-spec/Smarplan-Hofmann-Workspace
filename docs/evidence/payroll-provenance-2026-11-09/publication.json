@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-09",
+  "product_commit": "3025747c156604646f5cca93288402369b30fa51",
+  "remote_branch": "codex/testupdate-0.7-projects-20261104",
+  "push_success": true,
+  "runs": [
+    {
+      "id": 42601772720,
+      "name": "Development checks",
+      "status": "pending",
+      "conclusion": null,
+      "head_sha": "3025747c156604646f5cca93288402369b30fa51",
+      "html_url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42601772720"
+    },
+    {
+      "id": 42601772533,
+      "name": "iPhone TestFlight",
+      "status": "pending",
+      "conclusion": null,
+      "head_sha": "3025747c156604646f5cca93288402369b30fa51",
+      "html_url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42601772533"
+    }
+  ],
+  "all_new_ci_jobs_confirmed": false,
+  "last_fully_green_product_commit": "2598c9671f5158e9a85a7a1e4602408385b23e30",
+  "preceding_product_commit": "877266ab1382b61a897122fe6bfa1734e9efe2e6",
+  "preceding_development_jobs_at_superseding_push": [
+    {
+      "id": 129100747620,
+      "name": "online-api",
+      "status": "completed",
+      "conclusion": "cancelled"
+    },
+    {
+      "id": 129100747987,
+      "name": "https-setup",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129100747997,
+      "name": "backend",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 129100748000,
+      "name": "update-flow",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129100748072,
+      "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129100748106,
+      "name": "native-build (windows-latest, flutter build windows --release)",
+      "status": "completed",
+      "conclusion": "cancelled"
+    },
+    {
+      "id": 129100748108,
+      "name": "business-services",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 129100748156,
+      "name": "flutter",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "originals_rewritten": false,
+  "production_deployment": false,
+  "actual_windows_device_acceptance": false,
+  "signed_iphone_upload": false
+}

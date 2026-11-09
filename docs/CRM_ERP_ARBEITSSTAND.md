@@ -13,11 +13,15 @@ b57f474 und abgebrochene Vorgängerläufe bleiben in den historischen Nachweisen
 unter `evidence/completion-2026-11-09/` erhalten. Der Produktstand 2598c96 ist
 inzwischen vollständig grün: [Development](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42572643368),
 [iPhone unsigniert](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42572643353).
-Die neue v9-Erweiterung ist als 877266ab1382b61a897122fe6bfa1734e9efe2e6
-auf dem Testbranch veröffentlicht. [Development](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42599674604)
-und [iPhone](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42599674595)
-laufen noch; vollständig grün oder auf dem Server installiert ist dieser neue
-Stand damit noch nicht ausgewiesen.
+Aktueller veröffentlichter Produktstand mit Faktor-Teilmonaten und sicherem
+alten v8-Plattformabgleich: `3025747c156604646f5cca93288402369b30fa51`.
+[Development42601772720](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42601772720)
+und [iPhone42601772533](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42601772533)
+sind gestartet, beim ersten Abruf noch ausstehend. Der Vorgänger 877266a besteht
+App, iOS-Simulator, HTTPS und Update; noch laufende übrige Jobs werden durch
+den neuen Branchstand beendet. Weder Vorgänger noch Nachfolger gilt damit als
+vollständig grün. [Aktueller Veröffentlichungsnachweis](evidence/payroll-provenance-2026-11-09/publication.json).
+Eine neue Serverinstallation oder Geräteabnahme ist nicht erfolgt.
 
 ## Ziel und fachlicher Umfang
 
@@ -72,8 +76,8 @@ Mitarbeiterbeleg, Zahlung/EÜR, drei neue tatsächliche PG-/MFA-/Restore-/Bankf�
 und die drei bisherigen Perioden-PG-Fälle bestehen. 313 native Lohnfälle,
 879 Browsermodule, beide tatsächlichen Perioden-Browserwege und 16 Paketfälle
 bestehen; App-Analyse ohne Befund. Alle 644 unterschiedlichen Python-Lohnfälle
-bestehen ohne Skip. Die Erweiterung ist als 877266a veröffentlicht; ihre
-eigene Remote-CI läuft.
+bestehen ohne Skip. Die Erweiterung ist über 877266a und den Folgefix 3025747
+veröffentlicht; die eigene Remote-Gesamtprüfung des Nachfolgers ist ausstehend.
 
 Die historischen Kernmodule bleiben bytegleich. Neue v9-Quellmetadaten verwenden
 LF-normalisierte Dateihashes. Der Vergleich mit 146 verifizierten Quellen aus
@@ -84,8 +88,8 @@ prüft exakt hergeleitete Metadatenpaare bei sonst vollständiger Gleichheit.
 Fünf neue Fachkettenfälle, zwei tatsächliche PG-/MFA-/Neustart-/Restorefälle
 und der Vergleich mit den veröffentlichten Windowsquellen bestehen. Originale,
 Geldbeträge, PDF- und Quellhashes bleiben erhalten. Alle 649 unterschiedlichen
-Python-Lohnfälle bestehen ohne Skip; die Veröffentlichung dieses Folgeabschnitts
-wird gesondert nachgetragen. Andere rohe
+Python-Lohnfälle bestehen ohne Skip. Der Folgeabschnitt ist als 3025747
+veröffentlicht; seine eigene Remote-Gesamtprüfung ist ausstehend. Andere rohe
 Dateihash-Nachweise bei Einmalbezügen und Reisen bleiben zu prüfen.
 
 1. **Wiederherstellung/Originalziel:** abgeschlossen und per Hash geprüft.
@@ -126,8 +130,8 @@ Dateihash-Nachweise bei Einmalbezügen und Reisen bleiben zu prüfen.
 
 ## Weitere unabhängige Entwicklungsarbeit
 
-- Die neue Erweiterung vollständig veröffentlichen und ihre eigene Remote-CI
-  nachprüfen. 2598c96 bleibt bis dahin der letzte vollständig grüne Produktstand.
+- Die vollständige Remote-CI von 3025747 nachprüfen. 2598c96 bleibt bis dahin
+  der letzte vollständig grüne Produktstand.
 - Historische plattformabhängige Lohn-/Reisemetadaten vollständig abgleichen.
   Der v8-Faktor-Vollmonat ist eng begrenzt reproduzierbar korrigiert; andere
   rohe Dateihash-Nachweise sind noch keine geprüfte Plattformmigration.

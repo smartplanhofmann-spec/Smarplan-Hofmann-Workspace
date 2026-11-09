@@ -92,7 +92,7 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    Die [alte v8-Faktorhistorie](CRM_ERP_LOHN_PLATTFORMHISTORIE_2026.md)
    besitzt jetzt einen eng begrenzten exakten Windows-/Linux-Abgleich; fünf
    Fachketten-, zwei echte PG-/Restorefälle und alle 649 Python-Lohnfälle bestehen.
-   Veröffentlichung abschließen, danach weitere rohe Dateihash-Nachweise
+   Als 3025747 veröffentlicht; eigene Remote-CI ausstehend. Weitere rohe Dateihash-Nachweise
    bei Einmalbezügen und Reisen vollständig prüfen. Fälle mit Ansprüchen, Reisen, Übergangsbereich
    oder Einmalbezügen bleiben in ihren eigenen noch auszuarbeitenden Zweigen.
    Der [reguläre Faktor-Vollmonat](CRM_ERP_LOHN_FAKTOR_2026.md) ist jetzt mit

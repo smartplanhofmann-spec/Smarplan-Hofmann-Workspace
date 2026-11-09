@@ -1,0 +1,58 @@
+{
+  "product_commit": "3859a1cb223f134e1eec14d4978e13be1ca8b039",
+  "development_run": 42634757414,
+  "jobs": [
+    {
+      "id": 129219853581,
+      "name": "business-services",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129219853708,
+      "name": "online-api",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129219853750,
+      "name": "flutter",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 129219853858,
+      "name": "native-build (windows-latest, flutter build windows --release)",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 129219853880,
+      "name": "update-flow",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129219853999,
+      "name": "https-setup",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129219854192,
+      "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129219854213,
+      "name": "backend",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "unsigned_ios_run": 42634757313,
+  "unsigned_ios_result": "failure",
+  "signed_ios_result": "skipped",
+  "local_fixes": "The three diagnosed test failures are corrected locally; a new product run is required. No overall green status is claimed."
+}

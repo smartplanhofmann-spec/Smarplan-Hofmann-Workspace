@@ -72,7 +72,54 @@ Online-API, Update und HTTPS. Der Business-/Browserjob scheitert im Assistenten-
 Test an der Annahme eines nach Übersicht weiterhin ausgewählten Projekts.
 Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
-## Konkrete aktuelle Arbeit
+## Aktuelle Integration am 09.11.2026
+
+Arbeitskopie: `/workspace/smartplan-offline-instance-integration-20261109`.
+Der lokale gemeinsame Stand enthält die abgeschlossenen Projektmeilensteine,
+die Korrekturen der drei nachgewiesenen CI-Testfehler und den neuen
+[Wartungsvertragseditor](CRM_ERP_WARTUNGSVERTRAEGE_BROWSER_2026.md).
+Dessen echter Browsernachlauf besteht auch auf dem gemeinsamen Backend;
+alle 938 Browsermodultests bestehen.
+
+Die bestätigte Offline-Firmenverwechslung wird mit einem ausdrücklich an
+Instanz und Konto gebundenen V2-Vertrag geschlossen. Backend und reine
+Hashprüfung stehen; 93 betroffene Speicher-/HTTP-/TCP-/TLS-Fälle und fünf
+tatsächliche PostgreSQL-Migrations-/Konkurrenz-/Restorefälle bestehen. Die
+native Umstellung ist mit 186 gemeinsamen und zwei ergänzenden tatsächlichen
+HTTP-Fällen abgeschlossen; die Analyse ist ohne Befund. Die vollständige
+Appprüfung des kombinierten Stands folgt.
+V1-Dateien werden erhalten und keiner neuen Firma automatisch zugeordnet.
+Zusätzlich werden die bestehenden gebundenen Lohn- und Portaltests auf echte
+V2-Zugänge umgestellt; die Berechtigungsgrenzen werden nicht gelockert.
+
+Eine weitere echte HTTP-Reproduktion bestätigt doppelte manuelle Servicefälle
+nach angenommener Anfrage, verlorener Antwort und vollständigem App-Neustart.
+Der verschlüsselte, firmen- und kontogebundene Anlageauftrag wird getrennt
+implementiert und integriert. 24 gezielte sowie 45 bestehende Service-/Editor-
+Fälle bestehen, einschließlich tatsächlicher App-Neuerstellung und 390px-UI.
+Die vollständige gemeinsame Appprüfung folgt noch.
+
+Beim Lohn folgt der eng begrenzte reguläre Faktor-Vollmonat mit ausschließlich
+steuerfreien, tatsächlich bereits erstatteten Reisebelegen als neuer
+Source3-Vertrag. Basislohn und bestehende Rechenkerne bleiben unverändert;
+die Zahlung darf nicht nochmals zum Netto addiert werden. Backend und beide
+Clients entstehen in getrennten Arbeitskopien. Der individuell besteuerte
+Minijob bleibt eigenständige Arbeit. Eine zusätzliche
+[Primärquellenprüfung](CRM_ERP_MINIJOB_PAP_MERKMALE_AUDIT_2026.md) belegt jetzt
+die zuvor fehlende technische PKV-Zuordnung anhand des BMF-Schreibens für 2026
+und reproduziert zwei passende Steuerwerte unabhängig mit der gepinnten XML.
+Ein enger neuer Rechenvertrag wird darauf aufbauend vorbereitet. Die tatsächliche
+Krankenversicherung darf dabei nicht als privat umgeschrieben werden;
+bestehende Versionen und Sperren bleiben erhalten.
+
+Der veröffentlichte Produktstand bleibt vor dieser Integration 3859a1c. Seine
+eigene Remoteprüfung hat sechs erfolgreiche Development-Jobs und zwei lokal
+behobene fehlgeschlagene Jobs; der Online-API-Job ist ebenfalls erfolgreich. Der
+unsignierte iPhone-Lauf ist ebenfalls lokal korrigiert, aber remote noch nicht
+neu bestätigt. Der letzte vollständig grüne Produktstand bleibt eef1927.
+Keine neuere Serverinstallation oder echte Geräteabnahme ist bestätigt.
+
+## Nachweise vorangegangener Abschnitte bis 3859a1c
 
 Die positive Korrektur eines bezahlten einzelnen Source5-Bonus ist gemeinsam
 integriert in `/workspace/smartplan-source5-integration-20261109`, Branch

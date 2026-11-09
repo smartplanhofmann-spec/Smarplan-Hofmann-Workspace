@@ -80,6 +80,11 @@ der abschließende Lauf verwendet die zugelassene lokale Testumgebung.
 Der rot reproduzierte Editor-Gegenfall bleibt separat unter
 `/tmp/maintenance-contract-replacement-red-20261109.txt` erhalten.
 
+Der Root-Nachlauf auf dem gemeinsamen Meilenstein-/Offline-Backend besteht
+ebenfalls: 938 Browsermodulfälle in 16,473 Sekunden und derselbe tatsächliche
+Chromium-Ablauf. Protokolle, Originalquittungen und das Mobilbild sind dauerhaft
+im Repository gesichert: [Integrationsnachweis](evidence/offline-binding-integration-2026-11-09/maintenance-integration.json).
+
 Es wurden keine Wartungsregeln, Datenbanktabellen, Kundenverträge oder echten
 Termine geändert. Die zusätzliche Backendzeile erlaubt nur die Auslieferung
 des neuen Browsermoduls. Reale Geräte-/Bedienabnahme und die noch offenen

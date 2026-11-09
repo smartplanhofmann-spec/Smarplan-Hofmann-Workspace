@@ -63,8 +63,9 @@ class TransitionPostgres(unittest.TestCase):
         tech=data['hr']['token']
         self.call('GET','/business/payroll/runs/'+data['run']['id']+'/json',token=tech,status=403)
         self.call('POST','/business/payroll/preview',data['inputs'],token=tech,status=403)
-        device=self.call('POST','/business/offline/access',{},status=201).json['token']
-        self.call('GET','/business/payroll/runs/'+data['run']['id'],token=device,status=403)
+        grant=self.call('POST','/business/offline/access/v2',{},status=201).json
+        origin=grant['binding']['instance_id']+':'+grant['binding']['account_id']
+        self.call('GET','/business/payroll/runs/'+data['run']['id'],token=grant['token'],offline_origin=origin,status=403)
         uid=self.call('POST','/users',dict(email='midijob-reviewer@example.test',password='Synthetic-reviewed-midijob-password123',role='accountant'),status=201).json['id']
         token=self.login('midijob-reviewer@example.test','Synthetic-reviewed-midijob-password123')
         foundation=BusinessFoundation(self.office)

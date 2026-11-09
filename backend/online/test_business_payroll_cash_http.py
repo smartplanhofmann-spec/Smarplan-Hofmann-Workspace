@@ -18,9 +18,11 @@ class PayrollCashHttp(unittest.TestCase):
         self.client=self.app.test_client();self.token=None
         self.token=self.login('owner@example.test','Synthetic-owner-password-123')
 
-    def call(self,method,path,body=None,*,status=200,token=None):
+    def call(self,method,path,body=None,*,status=200,token=None,offline_origin=None):
+        headers={'Authorization':'Bearer '+(token or self.token)} if token or self.token else {}
+        if offline_origin is not None:headers['X-Smartplan-Offline-Binding']=offline_origin
         response=self.client.open('/api/v1'+path,method=method,base_url='https://payroll.example.test',json=body,
-            headers={'Authorization':'Bearer '+(token or self.token)} if token or self.token else {})
+            headers=headers)
         self.assertEqual(response.status_code,status,response.data[:250])
         return response
 
@@ -62,8 +64,9 @@ class PayrollCashHttp(unittest.TestCase):
         response=self.client.post('/api/v1/business/payroll/cash/preview',base_url='https://payroll.example.test',data=duplicate,
             content_type='application/json',headers={'Authorization':'Bearer '+self.token})
         self.assertEqual(response.status_code,400)
-        device=self.call('POST','/offline/access',{},status=201).json['token']
-        self.call('GET','/business/payroll/cash',token=device,status=403)
+        grant=self.call('POST','/offline/access/v2',{},status=201).json
+        origin=grant['binding']['instance_id']+':'+grant['binding']['account_id']
+        self.call('GET','/business/payroll/cash',token=grant['token'],offline_origin=origin,status=403)
         command=self.f.command(body);saved=self.call('POST','/business/payroll/cash/batches',command,status=201).json
         with self.office.db:self.office.db.execute("UPDATE users SET role='accountant' WHERE id=?",(self.f.owner['id'],))
         response=self.call('POST','/business/payroll/cash/batches',command,status=403)

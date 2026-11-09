@@ -192,8 +192,10 @@ class PortalJourneyTests(unittest.TestCase):
         self.call(first, '/portal/offer', token=tokens[2], status=401)
         self.call(second, '/portal/offer', token=tokens[0], status=401)
         self.call(first, '/portal/offer', token=first['token'], status=401)
-        offline = self.call(first, '/offline/access', {}, status=201).json['token']
-        self.call(first, '/portal/offer', token=offline, status=401)
+        grant = self.call(first, '/offline/access/v2', {}, status=201).json
+        binding = grant['binding']['instance_id'] + ':' + grant['binding']['account_id']
+        self.call(first, '/portal/offer', token=grant['token'],
+                  headers={'X-Smartplan-Offline-Binding': binding}, status=401)
         self.call(first, '/portal/sessions', {'grant_id': grants[1][1]['id'], 'key': grants[0][1]['key']},
                   token=None, status=401)
         self.call(first, '/portal/offer', token=tokens[0], host=second['host'], status=400)

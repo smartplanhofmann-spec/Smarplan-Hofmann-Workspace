@@ -1,0 +1,8 @@
+{
+  "passed": 11,
+  "skipped": 0,
+  "seconds": 13.159,
+  "raw_sha256": "c935fed733be77cf4fb4194ed63f26cf8022d3d0c45e355b92e9c6337d516662",
+  "raw_bytes": 2807,
+  "scope": "Existing bound payroll-cash and customer portal flows with explicit V2 tokens and origin headers; no financial formulas changed."
+}

@@ -102,8 +102,9 @@ class PeriodPayrollPostgres(unittest.TestCase):
         original=self.call('GET','/business/payroll/runs/'+run['id']+'/pdf').data
         self.call('GET','/business/payroll/runs/'+run['id'],token=data['tech'],status=403)
         self.call('GET','/business/payroll/ledger?employee_id='+employee+'&year=2026',token=data['tech'],status=403)
-        device=self.call('POST','/business/offline/access',{},status=201).json['token']
-        self.call('POST','/business/payroll/preview',data['inputs'],token=device,status=403)
+        grant=self.call('POST','/business/offline/access/v2',{},status=201).json
+        origin=grant['binding']['instance_id']+':'+grant['binding']['account_id']
+        self.call('POST','/business/payroll/preview',data['inputs'],token=grant['token'],offline_origin=origin,status=403)
         uid=self.call('POST','/users',dict(email='period-review@example.test',password='Synthetic-period-reviewer123',role='accountant'),status=201).json['id']
         token=self.login('period-review@example.test','Synthetic-period-reviewer123');grants=BusinessFoundation(self.office)
         for permission in ('personnel.read','personnel.approve'):

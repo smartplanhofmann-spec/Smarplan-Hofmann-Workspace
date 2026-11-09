@@ -197,8 +197,9 @@ class PositiveCorrectionPostgres(unittest.TestCase):
             self.assertNotIn(secret,str(own))
         self.call('GET','/business/payroll/runs/'+run['id'],token=data['tech'],status=403)
         self.call('GET','/business/payroll/account-records/'+payment['id'],token=data['tech'],status=403)
-        offline=self.call('POST','/business/offline/access',{},status=201).json['token']
-        self.call('GET','/business/payroll/runs/'+run['id'],token=offline,status=403)
+        grant=self.call('POST','/business/offline/access/v2',{},status=201).json
+        origin=grant['binding']['instance_id']+':'+grant['binding']['account_id']
+        self.call('GET','/business/payroll/runs/'+run['id'],token=grant['token'],offline_origin=origin,status=403)
         self.assertEqual(self.call('POST','/business/payroll/runs',command).json,run)
         self.assertTrue(business_schema.validate_integrity(self.office))
         self.office.db.close()

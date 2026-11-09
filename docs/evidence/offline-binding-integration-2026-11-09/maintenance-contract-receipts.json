@@ -1,0 +1,123 @@
+[
+  {
+    "body": {
+      "project_id": "2e1c6b728f044d74a99017aa9853ea3d",
+      "asset_id": "39f01dcf5c9a4abea71bc80467c36830",
+      "title": "Synthetischer Browserwartungsvertrag",
+      "anchor_date": "2026-11-01",
+      "interval_unit": "months",
+      "interval_count": 1,
+      "active": false,
+      "notes": "Synthetischer ursprünglicher Wartungsumfang.",
+      "media_ids": [],
+      "revision": 1,
+      "request_id": "2d9940c399a24f58b0602a837e923107"
+    },
+    "status": 200,
+    "value": {
+      "active": false,
+      "anchor_date": "2026-11-01",
+      "asset_id": "39f01dcf5c9a4abea71bc80467c36830",
+      "created_at": "2026-11-09T15:19:28+00:00",
+      "created_by": "a37b7d30d4d647ef8bb319f44a5dc599",
+      "id": "f969cd42c57e4536bdca6c4fd97babb3",
+      "interval_count": 1,
+      "interval_unit": "months",
+      "media_ids": [],
+      "next_due_date": "2026-12-01",
+      "notes": "Synthetischer ursprünglicher Wartungsumfang.",
+      "project_id": "2e1c6b728f044d74a99017aa9853ea3d",
+      "revision": 2,
+      "title": "Synthetischer Browserwartungsvertrag",
+      "updated_at": "2026-11-09T15:19:29+00:00",
+      "updated_by": "a37b7d30d4d647ef8bb319f44a5dc599"
+    }
+  },
+  {
+    "body": {
+      "project_id": "2e1c6b728f044d74a99017aa9853ea3d",
+      "asset_id": "39f01dcf5c9a4abea71bc80467c36830",
+      "title": "Synthetischer Browserwartungsvertrag",
+      "anchor_date": "2026-11-01",
+      "interval_unit": "months",
+      "interval_count": 1,
+      "active": false,
+      "notes": "Synthetischer ursprünglicher Wartungsumfang.",
+      "media_ids": [],
+      "revision": 1,
+      "request_id": "2d9940c399a24f58b0602a837e923107"
+    },
+    "status": 200,
+    "value": {
+      "active": false,
+      "anchor_date": "2026-11-01",
+      "asset_id": "39f01dcf5c9a4abea71bc80467c36830",
+      "created_at": "2026-11-09T15:19:28+00:00",
+      "created_by": "a37b7d30d4d647ef8bb319f44a5dc599",
+      "id": "f969cd42c57e4536bdca6c4fd97babb3",
+      "interval_count": 1,
+      "interval_unit": "months",
+      "media_ids": [],
+      "next_due_date": "2026-12-01",
+      "notes": "Synthetischer ursprünglicher Wartungsumfang.",
+      "project_id": "2e1c6b728f044d74a99017aa9853ea3d",
+      "revision": 2,
+      "title": "Synthetischer Browserwartungsvertrag",
+      "updated_at": "2026-11-09T15:19:29+00:00",
+      "updated_by": "a37b7d30d4d647ef8bb319f44a5dc599"
+    }
+  },
+  {
+    "body": {
+      "project_id": "2e1c6b728f044d74a99017aa9853ea3d",
+      "asset_id": "39f01dcf5c9a4abea71bc80467c36830",
+      "title": "Synthetischer Browserwartungsvertrag",
+      "anchor_date": "2026-11-01",
+      "interval_unit": "months",
+      "interval_count": 1,
+      "active": true,
+      "notes": "Synthetischer ursprünglicher Wartungsumfang.",
+      "media_ids": [],
+      "revision": 2,
+      "request_id": "76b0807adc574aeb957c46c4b9756611"
+    },
+    "status": 200,
+    "value": {
+      "active": true,
+      "anchor_date": "2026-11-01",
+      "asset_id": "39f01dcf5c9a4abea71bc80467c36830",
+      "created_at": "2026-11-09T15:19:28+00:00",
+      "created_by": "a37b7d30d4d647ef8bb319f44a5dc599",
+      "id": "f969cd42c57e4536bdca6c4fd97babb3",
+      "interval_count": 1,
+      "interval_unit": "months",
+      "media_ids": [],
+      "next_due_date": "2026-12-01",
+      "notes": "Synthetischer ursprünglicher Wartungsumfang.",
+      "project_id": "2e1c6b728f044d74a99017aa9853ea3d",
+      "revision": 3,
+      "title": "Synthetischer Browserwartungsvertrag",
+      "updated_at": "2026-11-09T15:19:31+00:00",
+      "updated_by": "a37b7d30d4d647ef8bb319f44a5dc599"
+    }
+  },
+  {
+    "body": {
+      "project_id": "2e1c6b728f044d74a99017aa9853ea3d",
+      "asset_id": "39f01dcf5c9a4abea71bc80467c36830",
+      "title": "Synthetischer Browserwartungsvertrag",
+      "anchor_date": "2026-11-01",
+      "interval_unit": "months",
+      "interval_count": 1,
+      "active": true,
+      "notes": "Veraltete Browseränderung.",
+      "media_ids": [],
+      "revision": 3,
+      "request_id": "f9294b1d56c04a5493eb112c16d60bb1"
+    },
+    "status": 409,
+    "value": {
+      "error": "Eintrag wurde inzwischen geändert"
+    }
+  }
+]

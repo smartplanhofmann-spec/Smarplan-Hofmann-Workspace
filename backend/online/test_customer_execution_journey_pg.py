@@ -76,9 +76,11 @@ class CustomerExecutionJourneyPostgres(unittest.TestCase):
                               storage_config={})
         self.client = self.app.test_client()
 
-    def call(self, method, path, body=None, *, token='owner', status=200, mime=None):
+    def call(self, method, path, body=None, *, token='owner', status=200, mime=None, offline_origin=None):
         bearer = self.token if token == 'owner' else token
         headers = {'Authorization': 'Bearer ' + bearer} if bearer else {}
+        if offline_origin is not None:
+            headers['X-Smartplan-Offline-Binding'] = offline_origin
         if path.startswith('/portal/') and method == 'POST':
             headers['Origin'] = ORIGIN
         arguments = {'json': body} if isinstance(body, dict) else {'data': body}

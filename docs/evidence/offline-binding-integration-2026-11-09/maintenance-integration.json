@@ -1,0 +1,33 @@
+{
+  "commit": "4ebf012",
+  "checks": {
+    "browser-modules": {
+      "passed": 938,
+      "skipped": 0,
+      "milliseconds": 16472.790873,
+      "raw_sha256": "6f447b127ed05244cb1c1fa4b468eb1f9314730d0159c088daf71df262f0ce95",
+      "raw_bytes": 95435
+    },
+    "maintenance-browser": {
+      "exit_code": 0,
+      "actual_chromium": true,
+      "sandbox_verified": true,
+      "raw_sha256": "549741dc23d391ae055ebc2ef2c1e79b011cb88c58ccf772d593ed9d168e81a6",
+      "raw_bytes": 339
+    },
+    "maintenance-contract-mobile.png": {
+      "sha256": "88a4bb68d013364ec245845bbb290fa94fa5385b5c37ed6ee1a48b85afec746a",
+      "bytes": 53985
+    },
+    "maintenance-contract-receipts.json": {
+      "sha256": "06a575954f5db136c7aa58c3c0de300e29b209ab5456c4eb102157d70eca6cc4",
+      "bytes": 4152
+    }
+  },
+  "source_sha256": {
+    "backend/online/web.py": "64eb2902e93257fbff2d588379dbb7e2ca178577e239dc6b1856d98f837f0af9",
+    "web/office/office.js": "b1971e368cb48ea85bc1a50a14a275a2575938c956db07f2c1cb361b6820a56d",
+    "web/office/maintenance-contracts.js": "7ef45caf6242252b254171b53bc1daab46059e4274ac54d91b9773346b203152",
+    "web/office/tests/maintenance-contract-flow.cjs": "ca16a4bebebcb318fc791506289ce333093f51d90053be00fe7cac58cdc12d41"
+  }
+}

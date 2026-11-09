@@ -1,0 +1,18 @@
+✔ task values implement supported priorities, all statuses, exact dates and current assignment (4.556457ms)
+✔ task history retains every original and rejects cross-project, gaps, substitutions and stale head (1.355471ms)
+✔ receipt verifies full original command, target and revision, including old accepted replay (0.87809ms)
+✔ fresh task authorization honors server read-only mode, actual write role and project identity (1.422005ms)
+✔ pending task preserves exact body after lost ACK, forbids retry after rights loss and then replays original (57.25817ms)
+✔ pending authorization rejects crossed task keys, malformed commands and inaccessible current task (2.687077ms)
+✔ invalid successful receipt and inconsistent retry reads never discard an uncertain task request (4.064158ms)
+✔ editor offers only supported priorities and all lifecycle states with explicit original revision (1.565402ms)
+✔ changed current revision blocks stale form without issuing a write (1.367904ms)
+✔ late accepted reply cannot close or refresh a replaced task dialog (5.737933ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 91.993066

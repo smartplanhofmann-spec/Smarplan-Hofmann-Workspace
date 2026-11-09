@@ -315,6 +315,14 @@ class ProjectWorkspace:
             require_document(self.office, user, project, 'link', identifier, value.get('category'))
         return value
 
+    def task_history(self, user, project, identifier):
+        if not _id(identifier):
+            raise Problem(404, 'Eintrag nicht verfügbar')
+        self.get_item(user, project, 'tasks', identifier)
+        return dict(items=[json.loads(row['payload']) for row in self.db.execute(
+            "SELECT payload FROM workspace_versions WHERE kind='tasks' AND object_id=? "
+            'AND project_id=? ORDER BY revision', (identifier, project)).fetchall()])
+
     def _values(self, user, project, kind, data, current=None):
         defaults = {
             'tasks': dict(title='', details='', status='todo', priority='normal', due_date=None, assignee_id=None),

@@ -163,6 +163,45 @@ class ProjectWorkspaceTests(unittest.TestCase):
         self.office.assign(self.owner, self.project, self.technician['id'], remove=True)
         self.error(404, self.workspace.save_item, self.technician, self.project, 'tasks', body)
 
+    def test_task_history_returns_full_immutable_revisions_after_edits_and_replays(self):
+        creation = self.request(title='Original survey', details='Original instructions',
+                                assignee_id=self.manager['id'], due_date='2026-10-25', priority='high')
+        first = self.perform(self.workspace.save_item, self.owner, self.project, 'tasks', creation)
+        update = self.request(revision=1, title='Rechecked survey', details='Revised instructions',
+                              assignee_id=self.technician['id'], status='in_progress')
+        second = self.perform(self.workspace.save_item, self.owner, self.project, 'tasks', update, first['id'])
+        third = self.perform(self.workspace.save_item, self.technician, self.project, 'tasks',
+                             self.request(revision=2, status='done'), first['id'])
+        expected = {'items': [first, second, third]}
+        versions_before = [tuple(row) for row in self.office.db.execute(
+            'SELECT * FROM workspace_versions ORDER BY kind,object_id,revision').fetchall()]
+        self.assertEqual(self.perform(self.workspace.task_history, self.accountant,
+                                      self.project, first['id']), expected)
+        self.assertEqual(self.perform(self.workspace.save_item, self.owner, self.project, 'tasks', creation), first)
+        self.assertEqual(self.perform(self.workspace.save_item, self.owner, self.project, 'tasks', update, first['id']), second)
+        self.office.update_user(self.owner, self.manager['id'], {'active': False})
+        exposed = self.perform(self.workspace.task_history, self.technician, self.project, first['id'])
+        self.assertEqual(exposed, expected)
+        exposed['items'][0]['details'] = 'Changed only in returned object'
+        self.assertEqual(self.perform(self.workspace.task_history, self.owner, self.project, first['id']), expected)
+        self.assertEqual([tuple(row) for row in self.office.db.execute(
+            'SELECT * FROM workspace_versions ORDER BY kind,object_id,revision').fetchall()], versions_before)
+        self.assertEqual(self.perform(self.workspace.get_item, self.owner, self.project, 'tasks', first['id']), third)
+
+    def test_task_history_requires_current_project_access_and_a_task_in_that_project(self):
+        task = self.create('tasks', title='Scoped history')
+        diary = self.create('diary', work_performed='Not a task')
+        self.assertEqual(self.perform(self.workspace.task_history, self.accountant,
+                                      self.project, task['id']), {'items': [task]})
+        for project, identifier in ((self.other_project, task['id']), (self.project, diary['id']),
+                                    (self.project, 'f' * 32), (self.project, 'invalid-id')):
+            self.error(404, self.workspace.task_history, self.owner, project, identifier)
+        self.error(404, self.workspace.task_history, self.outsider, self.project, task['id'])
+        self.office.assign(self.owner, self.project, self.technician['id'], remove=True)
+        self.error(404, self.workspace.task_history, self.technician, self.project, task['id'])
+        self.assertEqual(self.perform(self.workspace.task_history, self.owner,
+                                      self.project, task['id']), {'items': [task]})
+
     def test_assignees_must_be_active_project_members(self):
         for target in (self.outsider['id'], 'f' * 32, True, 'not-an-id'):
             self.error(400, self.workspace.save_item, self.owner, self.project, 'tasks',

@@ -1,0 +1,9 @@
+test_task_history_http_returns_original_revisions_without_changing_them (online.test_workspace_api.WorkspaceApiTests.test_task_history_http_returns_original_revisions_without_changing_them) ... ok
+test_task_history_http_is_get_only_and_requires_fresh_authenticated_project_access (online.test_workspace_api.WorkspaceApiTests.test_task_history_http_is_get_only_and_requires_fresh_authenticated_project_access) ... ok
+test_project_scope_fresh_assignment_and_roles_apply_to_every_workspace_adapter (online.test_workspace_api.WorkspaceApiTests.test_project_scope_fresh_assignment_and_roles_apply_to_every_workspace_adapter) ... ok
+test_http_request_retries_stale_revisions_and_atomic_failure (online.test_workspace_api.WorkspaceApiTests.test_http_request_retries_stale_revisions_and_atomic_failure) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 6.213s
+
+OK

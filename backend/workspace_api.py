@@ -33,6 +33,7 @@ _ROUTES = [
     (r'/inbound/gmail/tokens/' + _ID + '/revoke', 'POST'),
     (_PROJECT + r'/workspace', 'GET, POST'),
     (_PROJECT + r'/(?:tasks|diary|appointments|links)(?:/' + _ID + r')?', 'GET, POST'),
+    (_PROJECT + r'/tasks/' + _ID + r'/history', 'GET'),
     (_PROJECT + r'/appointments/' + _ID + r'/calendar', 'GET'),
     (_PROJECT + r'/mail-attachments', 'GET'),
     (_PROJECT + r'/mail-attachments/' + _ID + r'/content', 'GET'),
@@ -59,7 +60,7 @@ def methods(path):
 
 def project_path(path):
     """Classify project-only routes; the caller must also authenticate/scope."""
-    return bool(re.fullmatch(_PROJECT + r'/(?:workspace|(?:tasks|diary|appointments|links)'
+    return bool(re.fullmatch(_PROJECT + r'/(?:workspace|tasks/' + _ID + r'/history|(?:tasks|diary|appointments|links)'
                              r'(?:/' + _ID + r'(?:/calendar)?)?)', path)) and methods(path) is not None
 
 
@@ -163,6 +164,8 @@ def dispatch(office, user, path, method, data):
             workspace.save_profile(user, project, data), 200, 'application/json')
     identifier = parts[3] if len(parts) >= 4 else None
     if len(parts) == 5:
+        if kind == 'tasks':
+            return workspace.task_history(user, project, identifier), 200, 'application/json'
         return workspace.calendar(user, project, identifier), 200, 'text/calendar'
     if method == 'GET':
         result = workspace.get_item(user, project, kind, identifier) if identifier else workspace.list_items(user, project, kind)

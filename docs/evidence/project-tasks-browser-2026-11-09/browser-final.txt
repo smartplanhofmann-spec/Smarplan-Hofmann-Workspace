@@ -1,0 +1,2 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+project tasks: real MFA/HTTP create/edit/assignment/cancel/reopen/history, exact lost acknowledgements, concurrent change, revoked access, late response and390px passed

@@ -368,6 +368,58 @@ class WorkspaceApiTests(WorkspaceHttpFlow, unittest.TestCase):
         self.call('POST', base + '/diary', body, status=201)
         workspace_api.validate_integrity(self.office)
 
+    def test_task_history_http_returns_original_revisions_without_changing_them(self):
+        base = '/projects/' + self.project
+        technician_id, technician = self.add_actor('technician')
+        _, accountant = self.add_actor('accountant')
+        creation = {'request_id': request_id(), 'title': 'Original task', 'details': 'Original note',
+                    'assignee_id': technician_id, 'due_date': '2026-11-10', 'priority': 'high'}
+        first = self.call('POST', base + '/tasks', creation, status=201).json
+        path = base + '/tasks/' + first['id']
+        edit = {'request_id': request_id(), 'revision': 1, 'title': 'Revised task',
+                'details': 'Rechecked note', 'assignee_id': self.owner['id'], 'status': 'in_progress'}
+        second = self.call('POST', path, edit, token=technician).json
+        third = self.call('POST', path, {'request_id': request_id(), 'revision': 2, 'status': 'done'}).json
+        expected = {'items': [first, second, third]}
+        history = path + '/history'
+        self.assertEqual(self.call('GET', history, token=accountant).json, expected)
+        self.assertEqual(self.call('POST', base + '/tasks', creation, status=201).json, first)
+        self.assertEqual(self.call('POST', path, edit, token=technician).json, second)
+        self.call('POST', path, {'request_id': request_id(), 'revision': 1, 'details': 'Stale edit'}, status=409)
+        self.assertEqual(self.call('GET', history).json, expected)
+        self.assertEqual(self.call('GET', path).json, third)
+        workspace_api.validate_integrity(self.office)
+
+    def test_task_history_http_is_get_only_and_requires_fresh_authenticated_project_access(self):
+        base = '/projects/' + self.project
+        technician_id, technician = self.add_actor('technician')
+        accountant_id, accountant = self.add_actor('accountant')
+        _, outsider = self.add_actor('technician', assign=False)
+        task = self.call('POST', base + '/tasks', {'request_id': request_id(), 'title': 'Private task'}, status=201).json
+        history = base + '/tasks/' + task['id'] + '/history'
+        expected = {'items': [task]}
+        self.assertEqual(self.call('GET', history, token=accountant).json, expected)
+        offline = self.call('POST', '/offline/access', {}, token=technician, status=201).json['token']
+        self.assertEqual(self.call('GET', history, token=offline).json, expected)
+        self.call('GET', history, token=None, status=401)
+        self.call('GET', history, token=outsider, status=404)
+        other = self.call('POST', '/projects', {'name': 'Other history project',
+                                               'customer': 'Other synthetic customer'}, status=201).json['id']
+        self.call('GET', '/projects/' + other + '/tasks/' + task['id'] + '/history', status=404)
+        self.call('GET', base + '/tasks/' + 'f' * 32 + '/history', status=404)
+        diary = self.call('POST', base + '/diary', {'request_id': request_id(),
+                                                 'work_performed': 'Unrelated diary'}, status=201).json
+        self.call('GET', base + '/tasks/' + diary['id'] + '/history', status=404)
+        for method in ('POST', 'DELETE'):
+            response = self.call(method, history, {} if method == 'POST' else None, status=405)
+            self.assertEqual(response.headers['Allow'], 'GET')
+        self.call('POST', '/assignments', {'project_id': self.project, 'user_id': technician_id, 'remove': True})
+        self.call('GET', history, token=technician, status=404)
+        self.call('GET', history, token=offline, status=404)
+        self.call('POST', '/users/' + accountant_id, {'active': False})
+        self.call('GET', history, token=accountant, status=401)
+        self.assertEqual(self.call('GET', history).json, expected)
+
     def test_gmail_ingress_credentials_are_single_purpose_minimal_and_revocable(self):
         connector = self.issue_gmail()
         secret = connector['token']

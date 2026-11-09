@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-09",
+  "base": "51786b1a5a8b40f98dc6fd5c2e2831cf44637361",
+  "base_with_mobile_login": "cdb0b53",
+  "scope": "Browser project tasks and additive authenticated task history GET",
+  "domain": {
+    "tests": 21,
+    "exit_code": 0,
+    "seconds": 17.376
+  },
+  "http": {
+    "tests": 4,
+    "exit_code": 0,
+    "seconds": 6.213
+  },
+  "browser_modules": {
+    "tests": 912,
+    "exit_code": 0,
+    "seconds": 19.1557482,
+    "skipped": 0
+  },
+  "real_browser_final": {
+    "workflow": "project-tasks",
+    "exit_code": 0,
+    "sandbox": "namespace, PID, network, seccomp verified",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  "earlier_failure": {
+    "exit_code": 1,
+    "cause": "Test read select options before asynchronously opened editor appeared; corrected with waitFor on real priority field, no production timing change"
+  },
+  "sha256": {
+    "node-modules.txt": "f352cb3394a28003cf477fd2b9ba32a43d1e267e87d12eb57e5943926297f661",
+    "domain.txt": "e04e7c624698b8140ea60efcb6a74cf0e36b20edd698df2af69e455abe2cc3a5",
+    "http.txt": "6ce13a08010025c2c6d59f148ddd0a52bbef57ac5b08e091e158e7408fb3ff29",
+    "pending-review.txt": "27e70b82462cba7e4aa0b4d229468b560c87deae7f109bc38582e9de4670230d",
+    "browser-initial-failed.txt": "3ca712b11d702b162a7a8d873ba34d2c742ff5bb65286213ac46a85c406597f1",
+    "browser-after-wait.txt": "1fe96ecdd107e6a6d7d6f0f2d61948f286195fb58d509b68b85958ab9d6db6c1",
+    "browser-final.txt": "1fe96ecdd107e6a6d7d6f0f2d61948f286195fb58d509b68b85958ab9d6db6c1",
+    "project-tasks-mobile.png": "7ae20c506b9416a472673646d78e25c67b2d37cf41c0c7c3b599111f0b917cc1",
+    "project-tasks-evidence.json": "ca58f5fbdaf0444cf8c1a5595185888469777706be3a0bab9c29904deff5c0db"
+  }
+}

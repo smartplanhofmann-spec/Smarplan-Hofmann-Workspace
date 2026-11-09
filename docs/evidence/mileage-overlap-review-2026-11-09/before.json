@@ -1,0 +1,15 @@
+{
+  "source_base": "c96ea0c4a9f75cf0be2b646a7c09df5188b3dd62",
+  "result": "confirmed_product_failure",
+  "tests": 2,
+  "failures": 2,
+  "seconds": 2.445,
+  "actual_duplicate_settlements_accepted": true,
+  "cash_payments": 0,
+  "cases": [
+    "same employee another day partial original overlap",
+    "different employee copied original plus new proof"
+  ],
+  "raw_bytes": 2668,
+  "raw_sha256": "c56e860ad6c8eee45ce3f4f8fa9f886fd5d7d03ba1e3e45fb8f2b486071e82ac"
+}

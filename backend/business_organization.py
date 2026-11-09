@@ -163,7 +163,7 @@ def command_module(path, module_name):
         return None
     if module_name in ('business_time', 'business_personnel_workflow', 'business_payroll', 'business_payroll_accounts', 'business_payroll_cash') or re.match(r'^/(employees|absences|shifts)(?:/|$)', path):
         return 'personnel'
-    if module_name == 'business_planning':
+    if module_name in ('business_planning', 'business_project_milestones'):
         return 'planning'
     if module_name == 'business_operations' and path == '/service-reports/offline':
         return 'documents'

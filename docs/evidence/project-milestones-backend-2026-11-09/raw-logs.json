@@ -1,0 +1,52 @@
+{
+  "domain-initial-10": {
+    "gzip": "domain-initial-10.gz",
+    "bytes": 2033,
+    "sha256": "5a8313b6139aa1e62c7709750672de729fed404f6bf35c63fadb0a583fdd7691"
+  },
+  "catalog-initial-4": {
+    "gzip": "catalog-initial-4.gz",
+    "bytes": 934,
+    "sha256": "c455ad4fff0ff9f3a0dc1a8cafed6ab7226056426208fd8b71ec989f06d27a5b"
+  },
+  "backend-intermediate-19": {
+    "gzip": "backend-intermediate-19.gz",
+    "bytes": 3853,
+    "sha256": "5ddbed81f8b5199a83472db85404efba3a244bede306f6975956bec60fd1bee4"
+  },
+  "backend-intermediate-22": {
+    "gzip": "backend-intermediate-22.gz",
+    "bytes": 4438,
+    "sha256": "30bba2f635bda1afd4e969b13032709e03a97f38993abe094a1b252b994a67ab"
+  },
+  "backend-intermediate-23": {
+    "gzip": "backend-intermediate-23.gz",
+    "bytes": 4641,
+    "sha256": "ba5fa93555d96da6add3284794eddff85ff336f9e3ba8a467ff0ee670d241350"
+  },
+  "assignee-reference-1": {
+    "gzip": "assignee-reference-1.gz",
+    "bytes": 274,
+    "sha256": "edcb1c7d9c8abce9e45d379c486547358d23bf1c74f72da1b067ec5836a6b38d"
+  },
+  "registry-related-73": {
+    "gzip": "registry-related-73.gz",
+    "bytes": 14403,
+    "sha256": "ce494b362c82823f72067df56dc1d60991712c2324cb4986b1ad63088f05edb4"
+  },
+  "packaging-initial-16": {
+    "gzip": "packaging-initial-16.gz",
+    "bytes": 3428,
+    "sha256": "6eae4e620bbcfe69802790e8eadac7a348de9f2f229859a0e27bf825ce7f6086"
+  },
+  "backend-final-23": {
+    "gzip": "backend-final-23.gz",
+    "bytes": 4641,
+    "sha256": "3f07a5cc6bc31a435fcbb4f27c3c3ffc0e3869c5afbb8383e6c8f94b0b02d98d"
+  },
+  "packaging-final-16": {
+    "gzip": "packaging-final-16.gz",
+    "bytes": 3428,
+    "sha256": "f1bc66545ae4e50f513cf94195558f279f8ffa8c1951e601c8c622b03b1859f7"
+  }
+}

@@ -8,6 +8,9 @@ legal/business decisions; this inventory never invents one universal duration.
 CATALOG_VERSION = 1
 # Every known table, including excluded security/receipt tables, is accounted for.
 COLUMNS = {
+    'business_project_milestones': 'id,project_id,payload_json,revision,created_by,created_at,updated_by,updated_at',
+    'business_project_milestone_versions': 'milestone_id,project_id,revision,payload_json',
+    'business_project_milestone_requests': 'user_id,request_id,project_id,operation,request_json,request_hash,result_json',
     'business_accounting_year_opening_originals': 'id,entity_key,filename,media_type,size,sha256,original,created_by,created_at',
     'business_accounting_year_opening_events': 'id,sequence,entity_key,revision,previous_hash,payload_json,content_hash,created_by,created_at',
     'business_accounting_year_opening_requests': 'user_id,request_id,operation,request_json,request_hash,result_json',
@@ -414,6 +417,11 @@ def policy(table):
         result['sensitive']=True
         result['purpose']='Versioned customer/project/asset field definitions and values; may contain confidential personal free text'
         result['retention_basis']='Purpose and retention of the associated customer/project/asset record; case-specific review required'
+    if table.startswith('business_project_milestone'):
+        result['sensitive']=True
+        result['purpose']='Project milestones, responsible people, task bindings and immutable completion/correction evidence; may contain personal free text'
+        result['retention_basis']='Purpose and evidence obligations of the associated project; case-specific review, no independent blanket duration'
+        result['source_access']='Current project planning.read access; complete raw privacy-source inspection additionally requires the owner'
     if table.startswith('business_migration_'):
         result['sensitive']=True
         result['purpose']='Original CRM/financial migration files, mappings, adoption bindings and reconciliation evidence'

@@ -1,0 +1,57 @@
+{
+  "base_commit": "6a454ca",
+  "files": {
+    "backend/business_project_milestones.py": "a5f440f60955738473ef52adf802bfa9720fefafef544c8ade298741560ab203",
+    "backend/business_api.py": "090d93842e6e37fa11e8c1d4b6d0eb526ee3acdae8e47f22b055a6c6ee4781b7",
+    "backend/business_schema.py": "f20d73bfe2828493f9f45c0f812bc3cf40b1081b43d6ce062b217f5b2a99dbc7",
+    "backend/business_organization.py": "b452aa4e5df662ffc76cdfd0408b4cf05bc48fa1e109aea2132bac1fcca3f07d",
+    "backend/company_export_catalog.py": "d38416f1749fc9490c96e75f5769e6859a7c00fc2cc6e124b138d236afc3ad67",
+    "backend/privacy_case_sources.py": "f2712150c9f2c56ae6b8860649cc5fe33d5ce55519c79b0a4adfb821ead92c71",
+    "backend/online/web.py": "d287728167a689806c95e890c3469070fd6429603e407a716fc24ec8fb013e87",
+    "backend/test_project_milestones.py": "edb7689dd218e2266a88265acade04b301be2afd833fdb1798c80431a505054e",
+    "backend/test_project_milestone_catalog.py": "ccc776019019bf076c9e108564049a5cc938d94e15bd0d43d85a4ff64101305c",
+    "backend/online/test_project_milestones_http.py": "593dd28f312a70f4ab9a3800fea7b6183c39b4894f4397cba589e8ae7e53ee2f",
+    "scripts/native-release.py": "beacd4ffaa0baed22fdc0cadffa3e2480f57ce1c15a73d50bdde96ef16df2ba8",
+    "scripts/package-windows-support.py": "c579f12bbf13d8f4aa5ab7638b454cc2f37b0e9d06415c4916ff09a562fae9ac",
+    "scripts/generate-project-milestones-fixture.py": "9e702663b17e22ad03bd47067569f85c5913496ed7381cd93cf09d28b9a53a66",
+    ".github/workflows/checks.yml": "dea5af469cd4c5de8cb6430665549d72b72f6addd67b09ec9e2af6608d775a19",
+    "app/test/fixtures/project_milestones.json": "abee67cc3b6865c5ea6811fbb554b61b9caa7dfb023cbab99ca26155658b7c52"
+  },
+  "unchanged": {
+    "backend/project_workspace.py": "4d27aab3816045e617b8756fbefbb88700cbc1c8184c125056cf993d67a5bfb2",
+    "backend/workspace_api.py": "3dc0e2346bfb4b88acde13f5b269978de60f05907e2ee73e76ea34159ab7dd85",
+    "CRM_ERP_Gesamtziel.txt": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "tests": {
+    "domain_catalog_http": {
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 16.768,
+      "log": "backend-final-23.gz"
+    },
+    "related_schema_registry_export_privacy": {
+      "passed": 73,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 39.854,
+      "log": "registry-related-73.gz"
+    },
+    "packaging": {
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "log": "packaging-final-16.gz"
+    },
+    "fixture_reproduction": {
+      "byte_equal": true,
+      "sha256": "abee67cc3b6865c5ea6811fbb554b61b9caa7dfb023cbab99ca26155658b7c52"
+    }
+  },
+  "boundaries": [
+    "No PostgreSQL run in this backend worktree; root integration adds it separately.",
+    "Browser/native implementations have separate worktrees and tests.",
+    "No deployed server or real customer device claim.",
+    "Historical schema checksums, workspace DDL and rows preserved by explicit old-registry migration test."
+  ]
+}

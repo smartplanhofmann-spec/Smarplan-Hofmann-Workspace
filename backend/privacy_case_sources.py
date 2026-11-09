@@ -2,6 +2,7 @@
 import hashlib
 import json
 import re
+import sqlite3
 
 from core import Problem, canonical
 from business_foundation import BusinessFoundation, _fresh, require_permission
@@ -84,6 +85,9 @@ def access(office,actor,table,row=None,*,export=False):
         contact=row.get('customer_id') or row.get('id') if row else None
         if contact:BusinessFoundation(office)._contact_scope(fresh,contact)
         else:require_permission(office,fresh,'contacts.read')
+    elif table.startswith('business_project_milestone'):
+        require_permission(office,fresh,'planning.read',project)
+        if fresh['role']!='owner':raise Problem(403,'Die vollständige Quellenzeile benötigt die Geschäftsführung.')
     else:
         require_permission(office,fresh,'documents.read',project)
         # Raw source records can contain restricted classifications or nested
@@ -144,6 +148,17 @@ def inventory(office,actor,kind,subject_id):
             for relation in item['relationships']:
                 if relation['target_column']=='id' and relation['target_table'] in anchors:
                     match(relation['column'],anchors[relation['target_table']])
+            # Responsible users are a typed field of the milestone record,
+            # including each complete historical record. Query that JSON key
+            # directly; text mentioning an ID is not a subject relationship.
+            if table in ('business_project_milestones','business_project_milestone_versions') and anchors.get('users'):
+                users=sorted(anchors['users'])
+                fields=('assignee_id','created_by','updated_by') if table.endswith('_versions') else ('assignee_id',)
+                for field in fields:
+                    reference=("json_extract(payload_json,'$."+field+"')" if isinstance(office.db,sqlite3.Connection)
+                               else "(CAST(payload_json AS JSONB)->>'"+field+"')")
+                    conditions.append(reference+' IN ('+','.join('?' for _ in users)+')')
+                    parameters.extend(users)
             # Existing polymorphic custom fields have no database FK.
             if {'entity_type','entity_id'}<=names:
                 for entity,target in (('contact','customers'),('project','projects'),('asset','business_assets')):

@@ -30,7 +30,12 @@
     "unsigned_ios": "success",
     "signed_upload": "skipped"
   },
-  "new_changes_remote_ci": "not yet published",
+  "new_changes_remote_ci": {
+    "published_source_commit": "894ecdde1f2d4bff89e49151b8bc9f4b5e00ffbf",
+    "development_run": 42624525741,
+    "unsigned_iphone_run": 42624525589,
+    "status": "in_progress"
+  },
   "live_server_verified": false,
   "device_acceptance_verified": false
 }

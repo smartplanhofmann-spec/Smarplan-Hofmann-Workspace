@@ -3044,7 +3044,33 @@ der EÜR-Quellenrekonstruktion. Der ausschließlich je serialisiertem Aufruf
 verwendete Cache erhält sämtliche Original- und Rechteprüfungen. 29 Fach-/HTTP-,
 vier tatsächliche PG-/MFA-/Restorefälle und alle 17 echten vollständigen Browser-
 abläufe bestehen. Auf genau dem zuvor fehlgeschlagenen synthetischen Stand
-bleibt die Übersicht kanonisch identisch und benötigt lokal 1,863 statt18,406
+bleibt die Übersicht kanonisch identisch und benötigt lokal 1,863 statt 18,406
 Sekunden. Alte Fehlprotokolle bleiben erhalten. [Umfang, Grenze und Nachweise](CRM_ERP_UEBERSICHT_LESEKETTE_2026.md).
 Die getrennte Einmalbezugs-Erweiterung und gemeinsame Regression laufen weiter.
 Keine neue Serverinstallation oder Geräteabnahme.
+
+
+## 09.11.2026 – Alte Einmalbezugsoriginale und integrierte Veröffentlichung
+
+Der neue v6/v7-Abgleich erhält Originalpläne, abhängige Nachweise, Quittungen,
+PDFs, Zahlungen und Jahresquellen zwischen Windows/Linux. Die alten Rechenmodule
+und die v1-Zahlungsarithmetik sind bytegleich. Sieben neue Fachketten-, vier
+tatsächliche PG-/MFA-/Konkurrenz-/Restore-, 884 Browsermodul-, 31 ausgewählte
+native und 16 Paketprüfungen bestehen; App-Analyse ohne Befund. Der tatsächliche
+Vergleich aller 146 Quellen aus dem alten Windows-Paket reproduziert v6/v7
+und den alten Zahlungsplan exakt. Fünf gemeinsame Original-/Lese-/EÜR-Fälle
+bestehen nach Integration ebenfalls.
+
+Im breiten Lauf bestehen 683 von 694 Fällen; elf tatsächliche lokale HTTP-
+Listener scheitern am Socket-EPERM der Sandbox. Genau diese elf bestehen nach
+Freigabe in 24,294 Sekunden. Die Vereinigung enthält 694 erfolgreiche unterschiedliche
+Fälle ohne Skip; der ursprüngliche Sammellauf bleibt mit Exit 1 und 1115,245
+Sekunden erhalten. Keine Umdeutung in einen einzelnen grünen Sammellauf.
+[Nachweise und genaue Grenzen](CRM_ERP_LOHN_EINMALBEZUG_PLATTFORMHISTORIE_2026.md).
+
+Die Übersichtskorrektur 4b8ec08 und Einmalbezugs-Erweiterung 894ecdd sind auf dem
+autorisierten Testbranch veröffentlicht. Die neuen Development-/iPhone-Läufe
+42624525741/42624525589 laufen; keine neue Serverinstallation, signierte
+iPhone-Auslieferung oder Gesamtabnahme. Nächster konkreter Codeabschnitt:
+bezahlte Source5-Folgekorrekturen mit eigenem Differenzvertrag und mehrere
+Steuergruppen. Weitere Lohn-/EÜR-Fälle sowie A–G bleiben aktiv.

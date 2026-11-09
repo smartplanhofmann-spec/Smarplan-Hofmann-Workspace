@@ -1,0 +1,10 @@
+test_exact_report_and_catalog_reconstruct_joint_history_once_per_call (test_business_euer_read_scope.EuerReadScope.test_exact_report_and_catalog_reconstruct_joint_history_once_per_call) ... ok
+test_revoked_source_rights_and_failed_reads_leave_no_cache (test_business_euer_read_scope.EuerReadScope.test_revoked_source_rights_and_failed_reads_leave_no_cache) ... ok
+test_same_service_observes_new_cash_and_changed_original_between_reads (test_business_euer_read_scope.EuerReadScope.test_same_service_observes_new_cash_and_changed_original_between_reads) ... ok
+test_actual_source4_case_run_receipts_pdf_and_integrity_survive_native_read (test_business_payroll_oneoff_provenance.OneoffOriginalTransport.test_actual_source4_case_run_receipts_pdf_and_integrity_survive_native_read) ... ok
+test_actual_source5_paid_running_and_new_bonus_reach_cash_euer_once (test_business_payroll_oneoff_provenance.OneoffOriginalTransport.test_actual_source5_paid_running_and_new_bonus_reach_cash_euer_once) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 21.932s
+
+OK

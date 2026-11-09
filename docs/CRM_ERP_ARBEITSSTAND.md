@@ -14,8 +14,11 @@ Die ausdrücklich manuell gestarteten Prüfungen:
 [Aktueller CI-Nachweis](evidence/completion-followup-2026-11-09/ci-after.json),
 [Veröffentlichungsnachweis](evidence/completion-followup-2026-11-09/publication.json).
 Der frühere vollständig grüne Stand 2598c96 und die älteren fehlgeschlagenen
-Läufe bleiben in ihren historischen Nachweisen erhalten. Die unten genannte
-zusätzliche lokale Übersichtskorrektur ist in diesen CI-Läufen noch nicht enthalten.
+Läufe bleiben in ihren historischen Nachweisen erhalten. Die zusätzlichen Änderungen sind anschließend als 4b8ec08/894ecdd veröffentlicht.
+Die neue eigene Prüfung läuft: [Development42624525741](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42624525741),
+[iPhone42624525589](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42624525589).
+[Veröffentlichungsnachweis](evidence/oneoff-provenance-2026-11-09/publication.json).
+Der signierte Upload ist nicht angefordert.
 
 Der Vorgänger 3025747 besteht nach erfolgreicher Simulatorwiederholung sieben
 Development-Jobs und den unsignierten iPhone-Build. Sein vollständiger Browserjob
@@ -71,21 +74,31 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
 ## Konkrete aktuelle Arbeit
 
-Der nächste Einmalbezugs-Abgleich entsteht in der eigenen Arbeitskopie
-`/workspace/smartplan-oneoff-provenance-20261109`, Branch
-`codex/oneoff-provenance-20261109`, Basis ef1259c. Dieser Abschnitt ist noch
-nicht in den Hauptarbeitsstand übernommen oder veröffentlicht. Neuer reiner
-Prüfer für acht v6/v7-Metadatenvarianten; Case-/Run-Adapter und der private
-Source5-Zahlungsresolver erhalten Original- und abhängige Bindungshashes.
-Die unveränderte v1-Zahlungsarithmetik bleibt bestehen. Die tatsächliche
-Windows-Paketberechnung bestätigt beide alten Originale und den alten v1-
-Zahlungsplan. Vier tatsächliche PG-/MFA-/Konkurrenz-/Restorefälle bestehen
-in 186,817 Sekunden ohne Skip. Jahresfolgekette besteht; eine zunächst falsch
-vorbereitete überlappende Beschäftigung im Blockierungsfall ist korrigiert.
-Beide Clientverträge, native Analyse und gemeinsame Lohn-/Reiseregression
-laufen. Die 32 historischen 2026-Rechenmodule bleiben unverändert.
+Die folgenden beiden Abschnitte sind entwickelt, geprüft und auf dem Testbranch
+veröffentlicht. Als nächstes konkretes Codepaket bleiben bereits bezahlte
+Source5-Folgekorrekturen mit neuem Differenzvertrag und mehrere Steuergruppen
+gemäß Umsetzungsplan. Keine alte tatsächliche Zahlung darf dafür ersetzt werden.
+Weitere ausdrücklich benannte Lohn-/EÜR-Fälle und die getrennten Geräte-/
+Server-/Fachabnahmen gehören weiterhin zum Gesamtziel.
 
-Aktiver Browser-Nachlauf: Die erste vollständige lokale Wiederholung kommt
+Der [Einmalbezugs-Abgleich](CRM_ERP_LOHN_EINMALBEZUG_PLATTFORMHISTORIE_2026.md)
+ist aus der eigenen Arbeitskopie als 894ecdd in den Hauptstand übernommen.
+Der Quellbranch `codex/oneoff-provenance-20261109` mit e632991 und seine
+Arbeitskopie bleiben erhalten. Exakter Prüfer für acht v6/v7-Metadatenvarianten;
+Case-/Run-Adapter und privater Source5-Zahlungsresolver erhalten Original- und
+abhängige Bindungshashes. Sieben neue Fachkettenfälle, vier tatsächliche
+PG-/MFA-/Konkurrenz-/Restorefälle, tatsächlicher Vergleich mit dem alten Windows-
+Paket, 884 Browsermodule, 31 ausgewählte App- und 16 Paketprüfungen bestehen;
+App-Analyse ohne Befund. Die 32 historischen Rechenmodule und die alte v1-
+Zahlungsarithmetik sind bytegleich. Im Sammellauf von 694 verschiedenen Lohn-/Reisefällen bestehen 683; elf lokale
+HTTP-Listener scheitern ausschließlich mit Socket-EPERM. Genau diese elf
+bestehen nach Freigabe in 24,294 Sekunden. Erfolgreich geprüfte unterschiedliche Fälle: 694, keine
+Skips; der erste Sammellauf bleibt mit Exit 1 und 1115,245 Sekunden erhalten.
+Ein einzelner vollständig grüner Sammellauf wird nicht behauptet. Die gemeinsam
+integrierten Übersichts-/Original-/Zahlungs-/EÜR-Wege bestehen zusätzlich fünf
+Fälle in 21,932 Sekunden. Der Produktcode ist als 894ecdd veröffentlicht; seine neue Remote-CI läuft.
+
+Abgeschlossener Browser-Nachlauf: Die erste vollständige lokale Wiederholung kommt
 über den früheren Profilfehler hinaus und prüft Einkauf/Kalender, läuft dann
 aber in die Anmeldeannahme auf die nachgeladene Übersichtsüberschrift.
 Der Anmeldehelfer prüft jetzt den tatsächlichen Abmeldeknopf und die exakt
@@ -95,7 +108,7 @@ Engpass sichtbar: `/business/overview/metrics` hält nach vielen dokumentierten
 Geldflüssen länger als 15 Sekunden die Transaktion; auch die nach Navigation
 frisch angefragten Metadaten warten. Screenshot und offene Pfade sind erhalten.
 
-Die lokale Produktkorrektur teilt die vollständig validierte C2/R2-Rekonstruktion
+Die zusätzliche Produktkorrektur teilt die vollständig validierte C2/R2-Rekonstruktion
 nur innerhalb eines serialisierten EÜR-Aufrufs. Keine Historie, Rechenregel,
 Frist oder Berechtigung wird vereinfacht; der Cache wird auch bei Fehlern
 entfernt und nie zwischen Aufrufen behalten. Drei neue Regressionen und alle
@@ -108,7 +121,7 @@ EÜR-PG-/Restorefälle bestehen ohne Skip in 93,676 Sekunden. Die Vergleichskopi
 des vorher fehlgeschlagenen Teststands liefert identische Inhalte in 1,863
 statt 18,406 Sekunden; dies ist keine zugesicherte Produktionslaufzeit.
 [Änderung und Nachweise](CRM_ERP_UEBERSICHT_LESEKETTE_2026.md).
-Diese neuen Änderungen sind noch lokal, keine neue Serverinstallation.
+Diese neuen Änderungen sind als 4b8ec08/894ecdd veröffentlicht; die neue Remote-CI läuft. Keine neue Serverinstallation.
 
 Neu integriert und veröffentlicht: [alte Reiseoriginale zwischen Windows/Linux erhalten](CRM_ERP_REISEN_PLATTFORMHISTORIE_2026.md).
 Die v2/v3-Transportnachweise und v3-Boden-/Programmquellen werden mit exakt
@@ -143,8 +156,8 @@ Fünf neue Fachkettenfälle, zwei tatsächliche PG-/MFA-/Neustart-/Restorefälle
 und der Vergleich mit den veröffentlichten Windowsquellen bestehen. Originale,
 Geldbeträge, PDF- und Quellhashes bleiben erhalten. Alle 649 unterschiedlichen
 Python-Lohnfälle bestehen ohne Skip. Der Folgeabschnitt ist als 3025747
-veröffentlicht. Der zusätzliche Reiseabgleich ist oben beschrieben. Rohe
-Dateihash-Nachweise bei Einmalbezügen bleiben ein offener Folgefall.
+veröffentlicht. Der zusätzliche Reiseabgleich ist oben beschrieben. Der
+zusätzliche Einmalbezugsabgleich ist oben beschrieben.
 
 1. **Wiederherstellung/Originalziel:** abgeschlossen und per Hash geprüft.
 2. **Browserregressionen:** Assistent, Zusatzfelder und Kundenbereich verwenden

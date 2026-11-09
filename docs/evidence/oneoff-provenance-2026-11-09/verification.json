@@ -43,8 +43,53 @@
       "actual_windows_runtime_executed": false
     }
   },
-  "broad_regression": "694 unique cases running; local listener cases require an authorized socket rerun",
-  "remote_ci": "not published yet",
+  "broad_regression": {
+    "unique_test_cases": 694,
+    "initial_run": {
+      "total": 694,
+      "passed": 683,
+      "errors": 11,
+      "skipped": 0,
+      "seconds": 1115.245,
+      "exit_code": 1,
+      "error": "Local HTTP server socket creation denied by sandbox (EPERM); no assertion failures"
+    },
+    "authorized_socket_rerun": {
+      "total": 11,
+      "passed": 11,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 24.294,
+      "exit_code": 0,
+      "test_ids": [
+        "test_business_payroll_annual_transport.AnnualPayrollHTTP.test_actual_preview_confirm_history_and_exact_replay_after_pause",
+        "test_business_payroll_annual_transport.AnnualPayrollHTTP.test_private_sources_strict_queries_methods_bodies_and_size",
+        "test_business_payroll_entitlements_transport.PayrollEntitlementsLocalHTTP.test_actual_http_overlapping_v3_and_preemployment_v4_originals",
+        "test_business_payroll_entitlements_transport.PayrollEntitlementsLocalHTTP.test_actual_http_preview_confirm_history_and_lost_ack_after_pause",
+        "test_business_payroll_entitlements_transport.PayrollEntitlementsLocalHTTP.test_actual_http_rejects_private_self_unknown_body_query_and_oversize",
+        "test_business_payroll_entitlements_transport.PayrollEntitlementsLocalHTTP.test_actual_http_sickness_v2_original_shift_and_lost_ack",
+        "test_business_payroll_facts_transport.PayrollFactsLocalHTTP.test_actual_http_period_preview_confirm_history_and_paused_original_ack",
+        "test_business_payroll_facts_transport.PayrollFactsLocalHTTP.test_strict_http_unknown_fields_queries_methods_size_and_private_self_access",
+        "test_business_payroll_statements.PayrollStatementHTTP.test_actual_http_own_pdf_history_private_denial_and_revocation",
+        "test_business_payroll_statements_v6.OneoffStatementHTTP.test_actual_http_own_history_pdf_denies_private_annual_case_and_original",
+        "test_business_payroll_statements_v7.Source5StatementHTTP.test_actual_http_own_json_pdf_history_deny_private_source5_originals"
+      ]
+    },
+    "successful_unique_cases_across_runs": 694,
+    "single_all_green_run": false
+  },
+  "remote_ci": {
+    "source_commit": "894ecdde1f2d4bff89e49151b8bc9f4b5e00ffbf",
+    "development_run": 42624525741,
+    "unsigned_iphone_run": 42624525589,
+    "status": "in_progress; not a success assertion",
+    "signed_upload": false
+  },
   "server_installation_verified": false,
-  "device_acceptance": false
+  "device_acceptance": false,
+  "combined_original_read_smoke": {
+    "passed": 5,
+    "skipped": 0,
+    "seconds": 21.932
+  }
 }

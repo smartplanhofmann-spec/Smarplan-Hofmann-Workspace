@@ -1,0 +1,78 @@
+{
+  "checked_at": "2026-11-09T13:22:16.091Z",
+  "authorized_branch": "codex/testupdate-0.7-projects-20261104",
+  "product_commits": {
+    "overview": "4b8ec08",
+    "oneoff": "894ecdde1f2d4bff89e49151b8bc9f4b5e00ffbf"
+  },
+  "published_code_head": "894ecdde1f2d4bff89e49151b8bc9f4b5e00ffbf",
+  "ci": [
+    {
+      "run_id": 42624525741,
+      "jobs": [
+        {
+          "id": 129184762130,
+          "name": "update-flow",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 129184762331,
+          "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 129184762355,
+          "name": "online-api",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 129184762357,
+          "name": "backend",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 129184762388,
+          "name": "https-setup",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 129184762513,
+          "name": "business-services",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 129184762516,
+          "name": "flutter",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 129184762540,
+          "name": "native-build (windows-latest, flutter build windows --release)",
+          "status": "in_progress",
+          "conclusion": null
+        }
+      ]
+    },
+    {
+      "run_id": 42624525589,
+      "jobs": [
+        {
+          "id": 129184761599,
+          "name": "Online-Release ohne Apple-Zugang pruefen",
+          "status": "in_progress",
+          "conclusion": null
+        }
+      ]
+    }
+  ],
+  "signed_upload_requested": false,
+  "live_installation_verified": false,
+  "device_acceptance_verified": false
+}

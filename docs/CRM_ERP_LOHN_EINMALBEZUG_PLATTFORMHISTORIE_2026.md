@@ -39,10 +39,17 @@ Sie umfassen v6 einschließlich tatsächlich ins SV-Jahr2025 fallender
 Märzklausel, v7, ausdrücklich weiterhin blockierte Mehrfachansprüche,
 Originalfälle/Läufe/PDF/Quittungen, echte Zahlung und EÜR-Verbrauch sowie
 aufgelöste Jahresfolgen. Die umgekehrte Richtung LF-Original unter CRLF-Modulen
-wird ebenfalls geprüft. Die erste neue Jahresfolgekette besteht; ein zusätzlich
-anfangs falsch vorbereitetes Fixture mit überlappenden Beschäftigungsfakten
-ist korrigiert. Die abschließende gemeinsame Regression mit 694 verschiedenen
-Lohn-/Reisefällen läuft noch.
+wird ebenfalls geprüft. Alle sieben neuen Fachkettenfälle einschließlich der Jahresfolge bestehen.
+Ein anfangs falsch vorbereitetes Fixture mit überlappenden Beschäftigungsfakten
+ist korrigiert. Im gemeinsamen Sammellauf mit 694 verschiedenen Lohn-/Reisefällen
+bestehen 683 Fälle; elf tatsächliche lokale HTTP-Fälle scheitern ausschließlich
+beim Socketaufbau mit EPERM in der Sandbox. Genau diese elf bestehen nach
+Socketfreigabe in 24,294 Sekunden ohne Skip. Damit sind alle 694 verschiedenen
+Fälle erfolgreich geprüft, verteilt auf beide Läufe. Der erste Sammellauf bleibt
+mit 1115,245 Sekunden und Exit 1 erhalten; ein einzelner vollständig grüner
+Sammellauf wird nicht behauptet. Die erste gezielte Wiederholung verwendete
+versehentlich doppelte Methodennamen; auch dieses Ladeprotokoll ist erhalten.
+[Exakter Abgleich der Testkennungen](evidence/oneoff-provenance-2026-11-09/regression-outcomes.json).
 
 Vier tatsächliche PostgreSQL16.15-/MFA-Fälle bestehen ohne Skip in 186,817
 Sekunden: v6/v7-Originale mit zwei parallelen Verarbeitern, privatem Personal-
@@ -77,9 +84,14 @@ Diese Erweiterung ergänzt die bereits belegten v8-Faktor- und Reise-
 Plattformnachweise. Sie implementiert keine neuen Steuerfälle, keinen
 Mehrfachgruppen-Nettoabschluss und keinen Korrekturvertrag bereits bezahlter
 Source5-Revisionen. Diese Fälle und die weiteren im Gesamtplan genannten
-Lohn-/EÜR-Erweiterungen bleiben eigenständige aktive Arbeitspakete. Neue
-Remote-CI, Serverinstallation, signierte iPhone-Auslieferung und Gesamtabnahme
-A–G werden hier noch nicht behauptet.
+Lohn-/EÜR-Erweiterungen bleiben eigenständige aktive Arbeitspakete. Der Produktcode ist als 894ecdd gemeinsam mit der Übersichtskorrektur 4b8ec08
+auf dem autorisierten Testbranch veröffentlicht. Seine eigenen Prüfungen
+[Development42624525741](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42624525741) und
+[iPhone42624525589](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42624525589)
+laufen; ein Erfolg wird noch nicht behauptet. Der signierte Upload ist nicht
+angefordert. Serverinstallation, Geräteprüfung und Gesamtabnahme A–G bleiben
+offen. Die fünf zusätzlich gemeinsam integrierten Original-/Lese-/Zahlungs-/
+EÜR-Prüfungen bestehen in 21,932 Sekunden.
 
 Alle Rohprotokolle und der tatsächliche Windows-Quellenvergleich stehen unter
 `docs/evidence/oneoff-provenance-2026-11-09/`. Der ursprüngliche Gesamtzieltext

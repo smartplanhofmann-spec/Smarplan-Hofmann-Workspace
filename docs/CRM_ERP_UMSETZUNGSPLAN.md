@@ -95,10 +95,14 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    Als 3025747 veröffentlicht; sieben Remote-Jobs bestehen, Browser-Testfehler
    im aktuellen Nachfolger korrigiert. Der [v2/v3-Reiseabgleich](CRM_ERP_REISEN_PLATTFORMHISTORIE_2026.md)
    besteht sieben Fachketten-, drei echte PG-/Restorefälle sowie alle 687
-   Python-Lohn-/Reise-, 24 native Reise- und 881 Browsermodulfälle. Neue
-   Als eef1927/ef1259c veröffentlicht; eigene neue Remote-CI läuft. Vollständige
-   Browserfolge und Gesamtprüfung abschließen. Rohe Dateihash-Nachweise
-   bei Einmalbezügen vollständig prüfen. Fälle mit Ansprüchen, Reisen, Übergangsbereich
+   Python-Lohn-/Reise-, 24 native Reise- und 881 Browsermodulfälle.
+   eef1927/ef1259c besteht alle acht Development-Jobs und den unsignierten
+   iPhone-Build. Die zusätzliche [Übersichtskorrektur](CRM_ERP_UEBERSICHT_LESEKETTE_2026.md)
+   besteht 29 Fach-/HTTP-, vier tatsächliche PG-/Restore- und alle 17
+   vollständigen Browserabläufe. Der [v6/v7-Einmalbezugsabgleich](CRM_ERP_LOHN_EINMALBEZUG_PLATTFORMHISTORIE_2026.md)
+   ist als 894ecdd integriert und veröffentlicht; 694 unterschiedliche Fälle
+   bestehen über Sammellauf und gezielte Socket-Wiederholung. Die eigene neue
+   Remote-CI läuft; alte Fehlprotokolle bleiben unverändert erhalten. Fälle mit Ansprüchen, Reisen, Übergangsbereich
    oder Einmalbezügen bleiben in ihren eigenen noch auszuarbeitenden Zweigen.
    Der [reguläre Faktor-Vollmonat](CRM_ERP_LOHN_FAKTOR_2026.md) ist jetzt mit
    beiden Clients, tatsächlichem PG-Restore, Zahlungen/EÜR und unabhängigen
@@ -111,14 +115,15 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
 
 ### Nächste konkrete Codepakete nach der laufenden Gesamtprüfung
 
-1. **Historische Einmalbezüge v6/v7 zwischen Windows/Linux:**
-   `payroll_pap_oneoff_2026.py` und `payroll_oneoff_2026.py` enthalten weitere
-   rohe Dateihashes. Deren abhängige Pläne und Quellen in
-   `payroll_oneoff_composition_2026.py`, `payroll_multiple_oneoff_2026.py` und
-   den Source4/5-Adaptern benötigen einen eigenen exakten Abgleich. Die jetzige
-   Faktor-/Reisekorrektur erklärt diese Originale nicht automatisch als portabel.
-   Abschluss: echte alte Gesamtfälle, unveränderte Quittungen/PDFs,
-   Jahresquellen, Zahlungs-/Bank-/EÜR-Kette und tatsächlicher PG-Restore.
+1. **Historische Einmalbezüge v6/v7 zwischen Windows/Linux:** implementiert und
+   in den Hauptstand übernommen. Exakter Abgleich der bekannten LF-/CRLF-
+   Metadaten, Originalfälle, Jahresquellen, Quittungen/PDFs, tatsächliche
+   Zahlung/EÜR, vier echte PG-/Restorefälle und tatsächliche Windows-Paket-
+   rechnung sind belegt. 884 Browsermodule, 31 ausgewählte App- und 16
+   Paketprüfungen bestehen; historische Regeln und v1-Zahlungsarithmetik sind
+   bytegleich. Die 694 unterschiedlichen Fälle sind über den Sammellauf und elf gezielte
+   Socket-Wiederholungen erfolgreich geprüft; der erste Lauf bleibt Exit 1.
+   894ecdd ist veröffentlicht, seine eigene Remote-CI läuft. [Umfang und Grenze](CRM_ERP_LOHN_EINMALBEZUG_PLATTFORMHISTORIE_2026.md).
 2. **Bereits bezahlte Source5-Folgekorrekturen und mehrere Steuergruppen:**
    `payroll_multiple_runs.require_supported_correction` sperrt bezahlte
    Source5-Vorfassungen ausdrücklich; `payroll_multiple_payments` übernimmt

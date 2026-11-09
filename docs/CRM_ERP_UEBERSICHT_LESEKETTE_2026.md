@@ -57,7 +57,9 @@ Alle 17 Abläufe der vollständigen lokalen Browserfolge bestehen jetzt ohne
 Änderung einer Frist. Der gezielte Profil-/Kalender-/Recovery-Ablauf besteht
 ebenfalls. [Gemeinsamer Prüfnachweis](evidence/completion-followup-2026-11-09/overview-verification.json),
 [vollständiges Browserprotokoll](evidence/completion-followup-2026-11-09/full-browser-scoped.txt).
-Diese Produktkorrektur ist noch nicht veröffentlicht oder auf dem Kundentestserver installiert. Der
+Die Produktkorrektur ist als 4b8ec08 und gemeinsam mit 894ecdd auf dem autorisierten
+Testbranch veröffentlicht. Die eigene Remote-CI läuft; eine neue Installation
+auf dem Kundentestserver ist nicht bestätigt. Der
 bereits veröffentlichte Stand ef1259c besteht unabhängig davon alle acht
 Development-Jobs und den unsignierten iPhone-Build; siehe
 [CI-Nachweis](evidence/completion-followup-2026-11-09/ci-after.json).

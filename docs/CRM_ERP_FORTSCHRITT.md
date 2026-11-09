@@ -3267,3 +3267,22 @@ Der nächste konkrete Funktionsabschnitt ist die fehlende Materialrückgabe
 mit Bindung an die ursprüngliche Entnahme in Browser und App. Parallel wird
 die belegte Kilometererstattung für eine rein dienstliche Inlandsfahrt im
 privaten Pkw vorbereitet.
+
+## 09.11.2026 – Gemeinsamen Stand 8273852 auf Testbranch veröffentlicht
+
+Der gemeinsame Produktstand 82738522d132918b0f139011302e5862f40c1e92 ist
+ohne Force-Push auf `codex/testupdate-0.7-projects-20261104` veröffentlicht.
+Development42654230472 und iPhone42654230385 sind tatsächlich gestartet.
+Die neue vollständige lokale Appprüfung läuft parallel auf demselben Stand;
+die drei tatsächlichen nativen PDF-Rendererfälle sind separat bestanden.
+Ein vollständiges grünes Ergebnis wird erst nach Abschluss nachgetragen.
+
+Vor dem Push ist auch der Offene-Posten-Widgettest mit vollständigem Ablauf
+in 2:54 Minuten grün, bei unverändertem fünfminütigem Limit und allen 38
+bisherigen Assertions. Die bisherigen Fehler-/Zwischenlogs bleiben erhalten.
+Der neue tatsächliche Material-Clientbefund wird bis zu seiner Behebung als
+Teilanforderung ausgewiesen. Kilometererstattung bleibt getrennte Codearbeit.
+Kundenserver, echte Geräte und produktive Nachrichten/Zahlungen/Meldungen
+sind aus dieser Veröffentlichung nicht verändert worden.
+
+[Veröffentlichung und erster tatsächlicher CI-Status](evidence/final-assembly-2026-11-09/publication.json).

@@ -1,0 +1,86 @@
+{
+  "source_commit": "82738522d132918b0f139011302e5862f40c1e92",
+  "remote_branch": "codex/testupdate-0.7-projects-20261104",
+  "previous_remote_commit": "b70bea8bec76e3d6c6a15259ab565a66001f25db",
+  "push": {
+    "exit_code": 0,
+    "force": false,
+    "result": "b70bea8..8273852 HEAD -> codex/testupdate-0.7-projects-20261104"
+  },
+  "development": {
+    "run_id": 42654230472,
+    "status": "in_progress",
+    "jobs": [
+      {
+        "id": 129288305481,
+        "name": "online-api",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129288305939,
+        "name": "backend",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129288306032,
+        "name": "update-flow",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129288306110,
+        "name": "business-services",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129288306207,
+        "name": "https-setup",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129288306291,
+        "name": "flutter",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129288306410,
+        "name": "native-build (windows-latest, flutter build windows --release)",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129288306563,
+        "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+        "status": "in_progress",
+        "conclusion": null
+      }
+    ]
+  },
+  "iphone": {
+    "run_id": 42654230385,
+    "status": "in_progress",
+    "jobs": [
+      {
+        "id": 129288306130,
+        "name": "Online-Release ohne Apple-Zugang pruefen",
+        "status": "in_progress",
+        "conclusion": null
+      }
+    ],
+    "signed_upload_requested": false
+  },
+  "local_full_app": {
+    "source_commit": "82738522d132918b0f139011302e5862f40c1e92",
+    "status": "in_progress",
+    "log": "/tmp/smartplan-entire-app-final-20261109.txt",
+    "json_report": "/tmp/smartplan-entire-app-final-20261109.jsonl",
+    "native_pdf": "3 actual engine cases separately passed"
+  },
+  "server_installation": false,
+  "real_device_acceptance": false
+}

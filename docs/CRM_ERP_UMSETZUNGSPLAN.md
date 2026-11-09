@@ -286,8 +286,7 @@ Codes zu externen Hindernissen umgedeutet.
 
 ## Noch offener Zielumfang
 
-Die Anforderungsmatrix enthält 40 implementierte/getestete Zeilen, fünf
-teilweise erfüllte, elf offene und sechs extern blockierte Anforderungen.
+Die Anforderungsmatrix bewertet jede Zeile anhand ihrer konkreten Nachweise.
 Diese unterschiedlich großen Zeilen werden nicht in eine Gesamtprozentzahl
 umgerechnet. Gesamtbuchhaltung und alle Abnahmen A–G bleiben offen.
 

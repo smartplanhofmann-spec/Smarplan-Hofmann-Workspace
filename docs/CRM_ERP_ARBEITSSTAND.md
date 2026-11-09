@@ -156,11 +156,17 @@ der Fehlversuche liegen unter
 Alle 32 historischen Rechenmodule, die ursprüngliche V1-Zahlungsarithmetik
 und die Gesamtzieldatei sind erneut bytegleich geprüft.
 
-Der veröffentlichte Produktstand bleibt vor dieser Integration 3859a1c. Seine
-eigene Remoteprüfung hat sechs erfolgreiche Development-Jobs und zwei lokal
-behobene fehlgeschlagene Jobs; der Online-API-Job ist ebenfalls erfolgreich. Der
-unsignierte iPhone-Lauf ist ebenfalls lokal korrigiert, aber remote noch nicht
-neu bestätigt. Der letzte vollständig grüne Produktstand bleibt eef1927.
+Der gemeinsame Stand 82738522d132918b0f139011302e5862f40c1e92 ist am 09.11.
+ohne erzwungenes Überschreiben auf dem autorisierten Testbranch veröffentlicht.
+Seine neuen Prüfungen laufen:
+[Development42654230472](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42654230472),
+[iPhone42654230385](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42654230385).
+HTTPS besteht bereits, die übrigen sieben Development-Jobs und der unsignierte
+iPhone-Build sind noch aktiv. Parallel läuft die vollständige lokale Appprüfung
+auf genau diesem Stand. Der signierte Upload ist nicht angefordert.
+[Veröffentlichungsnachweis](evidence/final-assembly-2026-11-09/publication.json).
+Der vorherige 3859a1c bleibt mit sechs Erfolgen und zwei Fehlern dokumentiert.
+Der letzte vollständig grüne Produktstand bleibt bis zum neuen Ergebnis eef1927.
 Keine neuere Serverinstallation oder echte Geräteabnahme ist bestätigt.
 
 ## Nachweise vorangegangener Abschnitte bis 3859a1c

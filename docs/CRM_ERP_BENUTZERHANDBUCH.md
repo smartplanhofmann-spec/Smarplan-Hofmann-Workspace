@@ -253,3 +253,16 @@ angekommen. Konflikte und fehlende Rechte bleiben sichtbar. Bei einem
 Sitzungswechsel werden sensible flüchtige Arbeitsstände entfernt. Die konkreten
 unterstützten Offlineberichte stehen unter
 [Offline-Serviceberichte](CRM_ERP_OFFLINE_SERVICEBERICHTE.md).
+
+Neue Offlinearbeit benötigt eine aktuelle Freigabe für dieselbe Firma und
+dasselbe Benutzerkonto. Server und App müssen diesen gemeinsamen Stand
+unterstützen. Meldet die App, dass der Server keine Firmenbindung bestätigt,
+kann online weitergearbeitet werden; eine neue Offlinefreigabe wird verweigert.
+Die Meldung wird durch erneutes Anlegen desselben Vorgangs nicht behoben.
+
+Ältere Offlinebestände werden erhalten und keiner anderen Firma automatisch
+zugeordnet. Bei einem Firmen- oder Serverwechsel zuerst die Zuordnung und
+ausstehenden Originalaufträge klären. Eine vollständige Übernahme bisher
+ungebundener Altbestände ist ein eigener noch offener Schritt. Die lokalen
+Dateien dafür nicht vorsorglich löschen oder in die Ablage einer anderen
+Firma kopieren.

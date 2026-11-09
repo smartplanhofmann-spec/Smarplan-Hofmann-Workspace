@@ -82,6 +82,58 @@ void main() {
   tearDown(() async {
     await dir.delete(recursive: true);
   });
+  Future<void> discover() =>
+      OnlineCommandJournal(device: device).requireNoPending(
+        server: scope.server,
+        version: scope.version,
+        accountId: scope.accountId,
+        slot: slot,
+        requireCurrent: () {},
+      );
+  test(
+    'older server discovery of an empty device creates neither files nor keys',
+    () async {
+      await discover();
+      expect(await bytes(), isEmpty);
+      expect(await const FlutterSecureStorage().readAll(), isEmpty);
+    },
+  );
+  test('older server cannot bypass a retained original; resolved empty state is checked read-only', () async {
+    final current = await open();
+    await current.prepare(original());
+    final before = await bytes();
+    await expectLater(discover(), throwsA(isA<ApiException>()));
+    expect(await bytes(), before);
+    await current.clear(original());
+    final resolved = await bytes();
+    await discover();
+    expect(await bytes(), resolved);
+  });
+  test('older server discovery cannot replace a missing key for retained ciphertext', () async {
+    await (await open()).prepare(original());
+    final before = await bytes();
+    FlutterSecureStorage.setMockInitialValues({});
+    await expectLater(discover(), throwsA(isA<ApiException>()));
+    expect(await bytes(), before);
+    expect(await const FlutterSecureStorage().readAll(), isEmpty);
+  });
+  test(
+    'older server discovery never skips a corrupt newest snapshot',
+    () async {
+      final current = await open();
+      await current.prepare(original());
+      await current.clear(original());
+      final entries = await dir
+          .list(recursive: true)
+          .where((v) => v.path.endsWith('.enc'))
+          .toList();
+      entries.sort((a, b) => a.path.compareTo(b.path));
+      await File(entries.last.path).writeAsString('corrupt newest');
+      final before = await bytes();
+      await expectLater(discover(), throwsA(isA<ApiException>()));
+      expect(await bytes(), before);
+    },
+  );
   test('new journal and device objects reopen exact encrypted original, not caller mutations', () async {
     final first = await open(), body = original();
     await first.prepare(body);

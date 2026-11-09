@@ -198,6 +198,14 @@ PostgreSQL-/Konkurrenz-/Restorefälle und der echte Materialbrowser bestehen;
 Appanalyse ohne Befund. Browserpersistenz offener Aufträge, alte ungebundene
 Server, Offline-Rückgaben und reale Geräteabnahme bleiben getrennte Restpunkte.
 
+Die unabhängige Folgeprüfung bestätigt und schließt außerdem einen Rückfall
+auf neue RAM-Aufträge bei fehlender Serverfähigkeit trotz erhaltener alter
+Originale. Die [schreibfreie Erkennung](CRM_ERP_ORIGINALJOURNAL_SERVER_RUECKFALL_2026-11-09.md)
+blockiert in diesem Fall Ersatzaufträge und legt keinen Ersatzschlüssel an.
+Die unveränderte tatsächliche HTTP-Gegenprobe sowie alle 95 betroffenen nativen
+Fälle bestehen; Appanalyse ohne Befund. Ein wirklich leerer Altserver bleibt
+im begrenzten RAM-Verfahren nutzbar. Die Browserintegration ist separat aktiv.
+
 Der vollständige App-Lauf auf d4df2f5 ist beendet: 1.746 bestanden, vier
 fehlgeschlagen, kein Skip, 38:31 Minuten. Drei Fehler stammen aus zwei
 inkonsistenten gebundenen Testaufbauten; die Korrektur besteht separat mit

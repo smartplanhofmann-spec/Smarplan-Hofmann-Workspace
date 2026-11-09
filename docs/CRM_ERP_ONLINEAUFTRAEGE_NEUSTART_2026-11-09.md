@@ -99,6 +99,9 @@ wird durch die lokalen Prüfungen nicht ersetzt.
 
 Browseraufträge und alte Server ohne bestätigte Firmenbindung bleiben bisher
 sitzungsgebunden. Die Kilometeransicht zeigt diesen Unterschied ausdrücklich.
+Ein älterer Server darf einen schon gespeicherten geschützten Originalauftrag
+jedoch nicht umgehen: Die [zusätzliche schreibfreie Erkennung](CRM_ERP_ORIGINALJOURNAL_SERVER_RUECKFALL_2026-11-09.md)
+blockiert in diesem Fall die Neuanlage bis zur ursprünglichen Serverfreigabe.
 Offline-Materialrückgaben, weitere Reisearten und die übrigen Gesamtzielpunkte
 sind damit nicht geschlossen. Ein dauerhaft zurückgewiesenes Original ohne
 eindeutigen Nichtannahmenachweis bleibt geschützt zur Klärung erhalten; es

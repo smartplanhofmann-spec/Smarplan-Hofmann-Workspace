@@ -81,6 +81,7 @@ finally:f.doCleanups()
 class ActualApi extends OfficeApi {
   ActualApi(String base) : super(baseUrl: base, apiVersion: 'v1');
   bool lose = false, wrong = false;
+  bool journalCapability = true;
   final posts = <Map<String, dynamic>>[];
   String? expectedPath;
   @override
@@ -88,6 +89,15 @@ class ActualApi extends OfficeApi {
     final command = body != null && path == expectedPath;
     if (command) posts.add(businessMap(jsonDecode(jsonEncode(body))));
     final value = await super.call(path, body);
+    if (Uri.parse(path).path == '/api/business/capabilities' &&
+        !journalCapability) {
+      final legacy = businessMap(value);
+      legacy['features'] = (legacy['features'] as List)
+          .where((value) => value != 'project_creation_journal')
+          .toList();
+      legacy.remove('project_creation_scope');
+      return legacy;
+    }
     if (command && lose) {
       lose = false;
       throw const ApiException(0, 'Synthetic actual accepted reply lost');
@@ -214,6 +224,72 @@ void main() {
           '4.0000',
         );
         expect(flow.pending, isNull);
+        flow.dispose();
+        owner.dispose();
+        api.dispose();
+      }, BackendHttp());
+    } finally {
+      await f.close();
+    }
+  });
+  test('actual older server metadata cannot bypass a retained accepted material original', () async {
+    final f = await ActualFixture.start('material');
+    try {
+      await HttpOverrides.runWithHttpOverrides(() async {
+        final api = f.api()
+          ..lose = true
+          ..expectedPath = '/api/business/inventory/movements';
+        BusinessSession session() => BusinessSession(
+          api: api,
+          projectId: f.hello['project'],
+          onlineCommandJournal: f.journal(),
+        );
+        var owner = session();
+        await owner.load();
+        var flow = MaterialReturnFlow(owner);
+        await expectLater(
+          flow.submit(
+            businessMap(f.hello['issue']),
+            '2',
+            f.hello['location']['id'],
+            'Actual original return 🛠',
+          ),
+          throwsA(isA<ApiException>().having((e) => e.status, 'lost', 0)),
+        );
+        final original = api.posts.single;
+        flow.dispose();
+        owner.dispose();
+        api.journalCapability = false;
+        owner = session();
+        await owner.load();
+        flow = MaterialReturnFlow(owner);
+        expect(owner.hasFeature('project_creation_journal'), false);
+        await expectLater(
+          flow.submit(
+            businessMap(f.hello['issue']),
+            '2',
+            f.hello['location']['id'],
+            'Actual original return 🛠',
+          ),
+          throwsA(
+            isA<ApiException>().having(
+              (e) => e.status,
+              'retained original blocks replacement',
+              0,
+            ),
+          ),
+        );
+        expect(api.posts.length, 1);
+        api.journalCapability = true;
+        await owner.load();
+        await flow.restorePending();
+        expect(flow.pending, original);
+        await flow.retry();
+        final movements = businessItems(
+          await owner.read(owner.query('/inventory/movements')),
+        );
+        expect(movements.where((v) => v['kind'] == 'return').length, 1);
+        expect(api.posts.last, original);
         flow.dispose();
         owner.dispose();
         api.dispose();

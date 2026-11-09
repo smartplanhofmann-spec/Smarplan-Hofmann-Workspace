@@ -221,17 +221,44 @@ class BusinessSession extends ChangeNotifier {
     required void Function() requireCurrent,
   }) async {
     requireCurrent();
-    if (!hasFeature('project_creation_journal')) return null;
     final token = api.token, host = api.base, version = api.version;
+    final captured = generation;
+    void active() {
+      requireCurrent();
+      if (!allowed ||
+          offlineMode ||
+          token == null ||
+          api.token != token ||
+          api.base != host ||
+          api.version != version ||
+          generation != captured) {
+        throw const ApiException(
+          403,
+          'Die ursprüngliche Firmenanmeldung ist nicht mehr verfügbar.',
+        );
+      }
+    }
+
+    active();
+    if (!hasFeature('project_creation_journal')) {
+      await onlineCommands.requireNoPending(
+        server: host,
+        version: version,
+        accountId: actorId,
+        slot: slot,
+        requireCurrent: active,
+      );
+      active();
+      return null;
+    }
     final scope = ProjectCreationScope.fromServer(
       projectCreationScope,
       server: host,
       version: version,
       accountId: actorId,
     );
-    final captured = generation;
     void check() {
-      requireCurrent();
+      active();
       if (!allowed ||
           offlineMode ||
           token == null ||

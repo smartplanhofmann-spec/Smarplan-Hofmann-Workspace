@@ -8,6 +8,9 @@ import 'package:smartplan_office/api.dart';
 import 'package:smartplan_office/business_material_returns.dart';
 import 'package:smartplan_office/business_operations.dart';
 import 'package:smartplan_office/business_session.dart';
+
+import 'support/empty_online_journal.dart';
+
 import 'package:smartplan_office/service_creation_journal.dart'
     show serviceCreationCanonical;
 
@@ -119,7 +122,11 @@ Future<
 >
 setup({bool operational = false}) async {
   final api = ReturnApi(operational: operational);
-  final owner = BusinessSession(api: api, projectId: mainCase['project_id']);
+  final owner = BusinessSession(
+    api: api,
+    projectId: mainCase['project_id'],
+    onlineCommandJournal: emptyOnlineJournal(),
+  );
   await owner.load();
   final flow = MaterialReturnFlow(owner);
   var disposed = false;
@@ -386,6 +393,7 @@ void main() {
       final owner = BusinessSession(
         api: api,
         projectId: mainCase['project_id'],
+        onlineCommandJournal: emptyOnlineJournal(),
       );
       final flow = MaterialReturnFlow(owner);
       try {

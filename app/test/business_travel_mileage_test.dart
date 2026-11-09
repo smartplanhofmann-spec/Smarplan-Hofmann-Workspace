@@ -10,6 +10,8 @@ import 'package:smartplan_office/business_travel_cash.dart';
 import 'package:smartplan_office/business_travel_mileage.dart';
 import 'package:smartplan_office/business_widgets.dart';
 
+import 'support/empty_online_journal.dart';
+
 final fixture = jsonDecode(
   File('test/fixtures/private_car_mileage.json').readAsStringSync(),
 ) as Map<String, dynamic>;
@@ -111,7 +113,10 @@ Future<
 >
 setup({String? requestId}) async {
   final api = MileageApi();
-  final owner = BusinessSession(api: api);
+  final owner = BusinessSession(
+    api: api,
+    onlineCommandJournal: emptyOnlineJournal(),
+  );
   await owner.load();
   final command = requestId == null
       ? TravelCommand(owner, employeeId: employee, mileage: true)

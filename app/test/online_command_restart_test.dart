@@ -43,18 +43,23 @@ class BoundMaterialApi extends material.ReturnApi {
 
 class BoundMileageApi extends mileage.MileageApi {
   String instance = 'b' * 32;
+  bool journalCapability = true;
   @override
   Future<dynamic> call(String path, [Map<String, dynamic>? body]) async {
     final value = await super.call(path, body);
     if (Uri.parse(path).path == '/api/business/capabilities')
       return {
         ...businessMap(value),
-        'features': [...value['features'], 'project_creation_journal'],
-        'project_creation_scope': {
-          'schema_version': 1,
-          'instance_id': instance,
-          'account_id': actor,
-        },
+        'features': [
+          ...value['features'],
+          if (journalCapability) 'project_creation_journal',
+        ],
+        if (journalCapability)
+          'project_creation_scope': {
+            'schema_version': 1,
+            'instance_id': instance,
+            'account_id': actor,
+          },
       };
     return value;
   }
@@ -147,6 +152,68 @@ void main() {
     owner.dispose();
     api.dispose();
   });
+  test(
+    'older server metadata cannot bypass retained private mileage command',
+    () async {
+      final data = mileage.fixture['initial'],
+          api = BoundMileageApi()
+            ..kind = 'trip'
+            ..operation = 'trip.save'
+            ..receiptKey = 'draft_receipt'
+            ..actor = data['draft_receipt']['actor_id']
+            ..lose = true;
+      BusinessSession session() =>
+          BusinessSession(api: api, onlineCommandJournal: journal());
+      var owner = session();
+      await owner.load();
+      TravelCommand command() => TravelCommand(
+        owner,
+        employeeId: mileage.employee,
+        mileage: true,
+        requestIdFactory: () => data['trip_command']['request_id'],
+      );
+      var flow = command();
+      final body = mileage.copy(data['trip_command'])..remove('request_id');
+      await expectLater(
+        flow.submit(
+          '$mileageRoot/trips',
+          body,
+          operation: 'trip.save',
+          targetKind: 'trip',
+          targetId: body['id'],
+        ),
+        throwsA(isA<ApiException>()),
+      );
+      flow.dispose();
+      owner.dispose();
+      api.journalCapability = false;
+      owner = session();
+      await owner.load();
+      flow = command();
+      expect(owner.hasFeature('project_creation_journal'), false);
+      await expectLater(flow.restorePending(), throwsA(isA<ApiException>()));
+      expect(flow.pending, isNull);
+      await expectLater(
+        flow.submit(
+          '$mileageRoot/trips',
+          body,
+          operation: 'trip.save',
+          targetKind: 'trip',
+          targetId: body['id'],
+        ),
+        throwsA(isA<ApiException>()),
+      );
+      expect(api.posts.length, 1);
+      api.journalCapability = true;
+      await owner.load();
+      await flow.restorePending();
+      await flow.retry();
+      expect(api.posts.length, 1);
+      flow.dispose();
+      owner.dispose();
+      api.dispose();
+    },
+  );
   for (final explicit in [false, true]) {
     test(
       'material conflict resolves only with explicit no-effect proof: $explicit',

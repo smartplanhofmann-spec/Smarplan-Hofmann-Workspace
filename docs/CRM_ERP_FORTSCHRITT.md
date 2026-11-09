@@ -3437,3 +3437,15 @@ Development42697887605 und iPhone42697887724 laufen auf genau diesem Produktcode
 HTTPS ist im ersten Abruf erfolgreich, die übrigen Jobs sind noch offen.
 19ec4e9 bleibt bis zum Abschluss der neue vollständige grüne Remote-Nachweis.
 [Veröffentlichung und Quellbindung](evidence/online-command-restart-2026-11-09/publication-initial.json).
+
+## 09.11.2026 – Fehlende Serverfähigkeit darf geschütztes Original nicht umgehen
+
+Die unabhängige tatsächliche HTTP-Reproduktion zeigt eine zusätzliche
+Doppelrückgabe bei erneutem Start mit älteren Servermetadaten. Auch ohne
+`project_creation_journal` wird jetzt der bisherige Gerätespeicher schreibfrei
+geprüft. Ein erhaltenes Original, kaputter jüngster Stand oder verlorener
+Schlüssel blockiert einen Ersatzauftrag. Nur ein tatsächlich leerer Bestand
+erlaubt weiterhin den alten RAM-Ablauf. Die ursprünglichen privaten Inhalte
+werden ohne passende Firmenfreigabe nicht offengelegt.
+
+[Eigener Befund, Nachprüfung und Grenzen](CRM_ERP_ORIGINALJOURNAL_SERVER_RUECKFALL_2026-11-09.md).

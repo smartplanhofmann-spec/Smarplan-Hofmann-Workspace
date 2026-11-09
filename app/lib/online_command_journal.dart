@@ -11,7 +11,9 @@ typedef OnlineCommandValidator = Map<String, dynamic> Function(Object?);
 bool _keys(Map value, Set<String> keys) =>
     value.length == keys.length && keys.every(value.containsKey);
 bool _id(Object? value) =>
-    value is String && RegExp(r'^[a-f0-9]{32}$').hasMatch(value);
+    value is String &&
+    value.length == 32 &&
+    RegExp(r'^[a-f0-9]{32}$').hasMatch(value);
 
 /// A retained original is online recovery data, never an offline permission.
 /// Company binding stays inside ciphertext so a replacement company on the
@@ -20,6 +22,105 @@ class OnlineCommandJournal {
   OnlineCommandJournal({OfflineDevice? device})
     : device = device ?? OfflineDevice();
   final OfflineDevice device;
+
+  /// Missing server metadata is not evidence that an older local original
+  /// disappeared. Discovery creates neither a directory nor a replacement key.
+  Future<void> requireNoPending({
+    required String server,
+    required String version,
+    required String accountId,
+    required String slot,
+    required void Function() requireCurrent,
+  }) async {
+    requireCurrent();
+    if (!_id(accountId) ||
+        server.isEmpty ||
+        version.isEmpty ||
+        !RegExp(
+          r'^(material-return:(global|[a-f0-9]{32})|mileage:[a-f0-9]{32})$',
+        ).hasMatch(slot) ||
+        slot.contains(RegExp(r'\s'))) {
+      throw const ApiException(
+        0,
+        'Der ursprüngliche Gerätespeicher kann nicht sicher geprüft werden.',
+      );
+    }
+    try {
+      final namespace = jsonEncode([
+        'online-command-journal-v1',
+        server,
+        version,
+        slot,
+      ]);
+      final vault = await device.openExisting(namespace, accountId);
+      requireCurrent();
+      if (vault == null) return;
+      final type = await FileSystemEntity.type(
+        vault.directory.path,
+        followLinks: false,
+      );
+      requireCurrent();
+      if (type != FileSystemEntityType.notFound &&
+          type != FileSystemEntityType.directory) {
+        throw const FormatException('Invalid original journal directory');
+      }
+      if (type == FileSystemEntityType.directory) {
+        final entries = await vault.directory.list(followLinks: false).toList();
+        requireCurrent();
+        for (final entry in entries) {
+          final name = entry.uri.pathSegments.last;
+          if (entry is Link ||
+              name.startsWith('state-') &&
+                  (entry is! File ||
+                      !RegExp(r'^state-\d{16}\.enc$').hasMatch(name) ||
+                      name == 'state-0000000000000000.enc')) {
+            throw const FormatException('Unresolved original journal state');
+          }
+        }
+      }
+      final value = await vault.read();
+      requireCurrent();
+      if (value == null) return;
+      if (!_keys(value, {'schema_version', 'scope', 'slot', 'pending'}) ||
+          value['schema_version'] is! int ||
+          value['schema_version'] != 1 ||
+          value['slot'] != slot ||
+          value['scope'] is! Map ||
+          !_keys(value['scope'], {
+            'server',
+            'version',
+            'account_id',
+            'instance_id',
+          })) {
+        throw const FormatException('Invalid original journal');
+      }
+      final saved = value['scope'];
+      if (saved['server'] != server ||
+          saved['version'] != version ||
+          saved['account_id'] != accountId ||
+          !_id(saved['instance_id'])) {
+        throw const FormatException('Invalid original journal scope');
+      }
+      // Do not parse or disclose a private command without a current company
+      // scope. Even an unknown non-null pending value must block replacement.
+      if (value['pending'] != null) {
+        throw const ApiException(
+          0,
+          'Ein ursprünglicher Auftrag ist noch geschützt gespeichert. '
+          'Die aktuelle Serverfreigabe erlaubt seine Klärung nicht. '
+          'Es wurde kein neuer Auftrag gesendet.',
+        );
+      }
+    } on ApiException {
+      rethrow;
+    } catch (_) {
+      throw const ApiException(
+        0,
+        'Der frühere geschützte Auftrag konnte nicht sicher geprüft werden. '
+        'Es wurde nichts gesendet. Den lokalen Speicher erhalten.',
+      );
+    }
+  }
 
   Future<OnlineCommandJournalSession> open({
     required ProjectCreationScope scope,

@@ -1,0 +1,50 @@
+{
+  "base_commit": "8113e923916c447dfa4461629bda749ce217b7b9",
+  "passed_native": 95,
+  "failed_native": 0,
+  "skipped_native": 0,
+  "elapsed_progress_seconds": 43,
+  "analysis_issues": 0,
+  "analysis_seconds": 20.9,
+  "actual_http_negative_reproduced": true,
+  "actual_same_http_after_fix_passed": true,
+  "logs": [
+    {
+      "label": "actual-red",
+      "result": "expected actual negative reproduction on8113e92/29f526d, exit1",
+      "sha256": "3d26956a4246ca4a6089306aa82986aa6b83bd367c21fcaf3fb9cb58e0633b3f"
+    },
+    {
+      "label": "actual-green",
+      "result": "same actual HTTP case passes, exit0",
+      "sha256": "6597e9d137790c84fc16854d790f0aa3c9eac1a048d344cbbd33d5b2be52f7ae"
+    },
+    {
+      "label": "fixture-first",
+      "result": "four empty-fixture failures retained, not green",
+      "sha256": "57319fbfdc09c3266a6ce2af1ba15b0dcfea1e098baf1c992aff431eb9be6560"
+    },
+    {
+      "label": "combined-final",
+      "result": "95 passed, no failures/skips, exit0",
+      "sha256": "079c2979485b0934f7ef3c59e0adbf03d437e6a83b3a15c67f31c0ba24bd0ce3"
+    },
+    {
+      "label": "analysis",
+      "result": "no issues,20.9s,exit0",
+      "sha256": "0133fed39047eacee026d7d6fd0e78a8c94a4c2b3284753fef5da48b729643c8"
+    }
+  ],
+  "source_sha256": {
+    "app/lib/business_session.dart": "362760486c51ae5f23c1876de4cb6c52cfed50ff6dbc06b8e7f32e305723c5c3",
+    "app/lib/online_command_journal.dart": "ef97ded149dc0cbfa149e57a2a4b304fbe47d2f69f1ec6aacbd8849e15ade0df",
+    "app/test/business_material_returns_test.dart": "d012b2de5d40916d0019cfa249bb7d0c1864d4d2dca2f0e9d9b6b36c48c3b55d",
+    "app/test/business_travel_mileage_test.dart": "d68af1753461f755a876d81fd1ff7f6ccf33fe3b798c44b915796fd1c9585174",
+    "app/test/online_command_journal_test.dart": "1ef826ca629ad718525d8bb3021efb72f97afa23d8c861a96ae899b7ea20f29c",
+    "app/test/online_command_restart_http_test.dart": "0048cf8061907a30572c188bce3fb4787728aae1ad6978149d7b971efcc93069",
+    "app/test/online_command_restart_test.dart": "56f90f50c90463f4a4956593ebad75aa30a0e4662b3642baa7e9b677fbdf8625",
+    "app/test/support/empty_online_journal.dart": "500702dbac68235e106df89f2896defabb3f65ad26bd86d3da0e1138defe1524"
+  },
+  "backend_diff_empty": true,
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+}

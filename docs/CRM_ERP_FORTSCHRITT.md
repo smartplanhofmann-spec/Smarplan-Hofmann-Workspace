@@ -3164,3 +3164,12 @@ Lieferumfang ausdrücklich als teilweise/offen ausgewiesen. Es folgt daraus
 keine belastbare Gesamtprozentzahl. Die separate Umsetzung läuft bereits.
 Veröffentlichung und tatsächliche neue CI-Ergebnisse werden nachgetragen;
 Kundenserver und echte Geräte wurden nicht verändert.
+
+
+Der geprüfte gemeinsame Stand `3859a1cb223f134e1eec14d4978e13be1ca8b039`
+ist auf dem autorisierten Testbranch veröffentlicht. Development42634757414
+und iPhone42634757313 laufen; ein vollständig grünes Ergebnis ist noch nicht
+belegt. Der signierte Upload ist nicht angefordert. Der separate Meilenstein-
+Abschnitt wird währenddessen entwickelt, ohne den veröffentlichten Stand
+oder den Kundenserver zu verändern.
+[Veröffentlichungsnachweis](evidence/project-delivery-2026-11-09/publication.json).

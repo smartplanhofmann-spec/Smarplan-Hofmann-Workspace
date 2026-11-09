@@ -1,0 +1,89 @@
+{
+  "source_commit": "3859a1cb223f134e1eec14d4978e13be1ca8b039",
+  "previous_remote_commit": "7765d2995e83733b2ec2ebcaa53abd4fadaaf369",
+  "branch": "codex/testupdate-0.7-projects-20261104",
+  "push_exit_code": 0,
+  "workflows": [
+    {
+      "id": 42634757414,
+      "name": "Development checks",
+      "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42634757414",
+      "initial_status": "in_progress"
+    },
+    {
+      "id": 42634757313,
+      "name": "iPhone TestFlight",
+      "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42634757313",
+      "initial_status": "in_progress"
+    },
+    {
+      "id": 42634757442,
+      "name": "Mail bot connection",
+      "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42634757442",
+      "initial_status": "in_progress"
+    }
+  ],
+  "signed_upload_requested": false,
+  "server_installation_verified": false,
+  "actual_device_acceptance": false,
+  "initial_jobs": [
+    [
+      {
+        "id": 129219853581,
+        "name": "business-services",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129219853708,
+        "name": "online-api",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129219853750,
+        "name": "flutter",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129219853858,
+        "name": "native-build (windows-latest, flutter build windows --release)",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129219853880,
+        "name": "update-flow",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129219853999,
+        "name": "https-setup",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129219854192,
+        "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129219854213,
+        "name": "backend",
+        "status": "in_progress",
+        "conclusion": null
+      }
+    ],
+    [
+      {
+        "id": 129219852971,
+        "name": "Online-Release ohne Apple-Zugang pruefen",
+        "status": "in_progress",
+        "conclusion": null
+      }
+    ]
+  ]
+}

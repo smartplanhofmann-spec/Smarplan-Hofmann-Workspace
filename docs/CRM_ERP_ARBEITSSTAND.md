@@ -107,7 +107,7 @@ Die [über Neustart haltbare unbestätigte Projektanlage](CRM_ERP_PROJEKTANLAGE_
 Der [gemeinsame Liefernachweis](CRM_ERP_PROJEKT_LIEFERSTAND_2026-11-09.md) hält
 183 native, 45 Backend-, vier tatsächliche PG-/Konkurrenz-/Restore-,
 912 Browsermodul- und 16 Paketfälle sowie den echten Browsernachlauf fest.
-Die Veröffentlichung dieses gemeinsamen Stands wird vorbereitet; explizite
+Der gemeinsame Stand 3859a1c ist veröffentlicht. Development42634757414 und iPhone42634757313 laufen; der signierte Upload ist nicht angefordert. explizite
 Projektmeilensteine werden bereits getrennt entwickelt.
 
 Der [Einmalbezugs-Abgleich](CRM_ERP_LOHN_EINMALBEZUG_PLATTFORMHISTORIE_2026.md)

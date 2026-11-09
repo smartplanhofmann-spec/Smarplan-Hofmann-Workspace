@@ -21,7 +21,7 @@ bleiben erhalten; zusätzliche Zahlungsteile, Vollständigkeitsnachweis,
 Abführungsgrenzen, Jahresfortschreibung und Mitarbeiter-Datenschutz sind
 geprüft. Vier echte PostgreSQL-Fälle und der zusätzliche Jahres-/Restorefall,
 902 Browsermodulfälle, 23 ausgewählte Appfälle und 16 Paketprüfungen bestehen.
-Die breitere Lohn-/Reiseregression besteht mit allen 713 Fällen ohne Skip. Die gemeinsame neue Veröffentlichung wird vorbereitet; [vollständiger Liefernachweis](CRM_ERP_PROJEKT_LIEFERSTAND_2026-11-09.md).
+Die breitere Lohn-/Reiseregression besteht mit allen 713 Fällen ohne Skip. Der gemeinsame Stand `3859a1c` ist auf dem Testbranch veröffentlicht; seine Development- und unsignierten iPhone-Prüfungen laufen. [vollständiger Liefernachweis](CRM_ERP_PROJEKT_LIEFERSTAND_2026-11-09.md).
 [Vertrag und Grenzen](CRM_ERP_SOURCE5_POSITIVE_KORREKTUR_2026.md).
 
 ## Projektbetrieb und nächste Arbeiten

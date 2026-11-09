@@ -46,8 +46,12 @@ Beide eigenen Datenbankcontainer sind nach den Prüfungen entfernt.
 Der vorige veröffentlichte Stand 894ecdd hatte zwei bestätigte CI-Testfehler.
 Die mobile Anmeldung und die echte native Dateischreibsynchronisierung sind
 behoben und gezielt geprüft. Der iPhone-Job verwendet jetzt ebenfalls den
-vorhandenen maschinenlesbaren Fehlerbericht. Die neue Remote-CI wird nach der
-Veröffentlichung separat dokumentiert; sie wird nicht vorweggenommen.
+vorhandenen maschinenlesbaren Fehlerbericht. Der Stand `3859a1cb223f134e1eec14d4978e13be1ca8b039` ist veröffentlicht.
+[Development42634757414](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42634757414)
+und [iPhone42634757313](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42634757313)
+laufen auf genau diesem Commit; signierter Upload nicht angefordert.
+[Veröffentlichungsnachweis](evidence/project-delivery-2026-11-09/publication.json).
+Ein vollständig grünes Remote-Ergebnis wird noch nicht behauptet.
 
 Eine Installation auf dem Kundenserver und reale Windows-/iPhone-Geräteabnahmen
 sind nicht erfolgt. Der zuletzt bestätigte Serverstand bleibt a93cb4d.

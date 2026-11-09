@@ -1,0 +1,19 @@
+test_actual_legacy_identity_is_not_relabelled_by_explicit_v11_upgrade (test_minijob_v11_independent_review.MinijobV11IndependentReview.test_actual_legacy_identity_is_not_relabelled_by_explicit_v11_upgrade) ... ERROR
+
+======================================================================
+ERROR: test_actual_legacy_identity_is_not_relabelled_by_explicit_v11_upgrade (test_minijob_v11_independent_review.MinijobV11IndependentReview.test_actual_legacy_identity_is_not_relabelled_by_explicit_v11_upgrade)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-minijob-v11-pg-review-20261109/backend/test_minijob_v11_independent_review.py", line 33, in test_actual_legacy_identity_is_not_relabelled_by_explicit_v11_upgrade
+    self._replace_identity(fixture, accounts.PayrollAccountTests.identity_details(f, fixture.data),
+  File "/workspace/smartplan-minijob-v11-pg-review-20261109/backend/test_minijob_v11_independent_review.py", line 17, in _replace_identity
+    fixture.identity = fixture.accounts.save(f.owner, dict(request_id=rid(),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-minijob-v11-pg-review-20261109/backend/business_payroll_accounts.py", line 395, in save
+    raise Problem(409,error.message,request_resolution='not_accepted') from None
+core.Problem: (409, 'Für diese Quelle besteht bereits ein Nachweis. Begründete Korrekturversion anlegen.')
+
+----------------------------------------------------------------------
+Ran 1 test in 1.250s
+
+FAILED (errors=1)

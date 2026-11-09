@@ -1,0 +1,6 @@
+test_explicit_upgrade_keeps_real_gkv_and_all_original_receipts (online.test_minijob_v11_independent_pg.MinijobV11IndependentPostgres.test_explicit_upgrade_keeps_real_gkv_and_all_original_receipts) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 28.507s
+
+OK

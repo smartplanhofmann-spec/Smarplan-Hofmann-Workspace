@@ -1,0 +1,4 @@
+Removed own synthetic container: smartplan-minijob-v11-review-pg-20261109
+Docker rm exit: 0
+Exact-name container query after removal: no result
+Other containers were not removed.

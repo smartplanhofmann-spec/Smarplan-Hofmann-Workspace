@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-09",
+  "scope": "independent_v11_original_migration_postgresql_restore_review",
+  "reviewed_head": "c5cb37092ba95d65c42cce7eaa1c611b0aeb1381",
+  "integrated_base": "7b0b84cdc74d51199108a39b0b79f0529ae18691",
+  "upstream_fix": "57423ba",
+  "python": "3.12.14",
+  "postgresql": "16.15",
+  "container": "smartplan-minijob-v11-review-pg-20261109",
+  "loopback_port": 32782,
+  "container_removed": true,
+  "synthetic_data_only": true,
+  "final_results": {
+    "postgresql": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 207.39
+    },
+    "independent_domain": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 5.974
+    },
+    "actual_crlf_to_lf": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 6.74
+    },
+    "historical_kernels_unchanged": 32
+  },
+  "earlier_runs": [
+    {
+      "log": "corrupt-original-before-fix.txt",
+      "classification": "confirmed_product_defect_reproduced_before_fix",
+      "expected_assertion_failures": 1
+    },
+    {
+      "log": "legacy-identity-fixture-first-failure.txt",
+      "classification": "test_fixture_error_correctly_rejected_duplicate_identity",
+      "errors": 1
+    },
+    {
+      "log": "postgres-baseline-four.txt",
+      "classification": "baseline_before_fix",
+      "passed": 4,
+      "seconds": 90.473
+    },
+    {
+      "log": "postgres-upgrade-originals-before-fix.txt",
+      "classification": "additional_pg_before_fix",
+      "passed": 1,
+      "seconds": 28.507
+    },
+    {
+      "log": "previously-used-original-before-fix.txt",
+      "classification": "used_historical_revision_before_fix",
+      "passed": 1,
+      "seconds": 4.2
+    }
+  ],
+  "sha256": {
+    "backend/online/test_minijob_v11_independent_pg.py": "5981a475671602fcff3a661eb000c595dd3d2288779bc2e3eada4f0f2db97749",
+    "backend/test_minijob_v11_crlf_review.py": "46de7663ff490b7947cff2642ea2c22f81abe8add444f690e14ccefdd8d71745",
+    "backend/test_minijob_v11_independent_review.py": "5a236cbf26e9cbe37c17f30d857bfd4f2fe0ded6d71b1fa1184b25a78fc807ab",
+    "docs/CRM_ERP_MINIJOB_V11_UNABHAENGIGE_PRUEFUNG_2026.md": "2fb67b5ee5ae534b13597a516c22945226d2be85a96728ee22e4669411947c2b",
+    "docs/evidence/minijob-v11-independent-review-2026-11-09/README.md": "f366287e05d3216bfdf003b2f6d8c316a89df4a9821b110b1eb8b99421efd119",
+    "docs/evidence/minijob-v11-independent-review-2026-11-09/container-cleanup.txt": "b83fc3511e2fb2e3591abfb9a08784aff9c12018c6eb102d31c201dd17c5e162",
+    "docs/evidence/minijob-v11-independent-review-2026-11-09/corrupt-original-before-fix.txt": "c9905f99858125277ab23448ff43ff7cb7693a211d0f31e5d74de04a9c135595",
+    "docs/evidence/minijob-v11-independent-review-2026-11-09/crlf-lf-originals.txt": "b63697ce32aa2a17a8c74f2b1fd373432da41a5340c8aef5ca93cf4aaf4f4f81",
+    "docs/evidence/minijob-v11-independent-review-2026-11-09/historical-kernels.json": "69da2e2d7657241993f6c3c43985595c2cf528dd1fe0d800334a8f1c61c94fae",
+    "docs/evidence/minijob-v11-independent-review-2026-11-09/independent-negative-after-fix.txt": "7d61b79ab41931924ba28d32f2773130a443ca430fd63f023ae9c5659397d431",
+    "docs/evidence/minijob-v11-independent-review-2026-11-09/legacy-identity-fixture-first-failure.txt": "50b9a35b1450eb0f75580f327c7e7639d5d8ef9d83ae3fc59e5a2c0ff1f7dc1d",
+    "docs/evidence/minijob-v11-independent-review-2026-11-09/postgres-baseline-four.txt": "47fcffe9fb4cafd8e779175ed5375c11eb482ebf060b4abbdd695af117b60dad",
+    "docs/evidence/minijob-v11-independent-review-2026-11-09/postgres-final-six.txt": "d9d6c0aebdcdf83e12656858863381c8c9d847bcb63321f843b9633988785188",
+    "docs/evidence/minijob-v11-independent-review-2026-11-09/postgres-upgrade-originals-before-fix.txt": "26710fe5d8bff559c8664e0887babaf9224e7fc06991e5f5033bf548a4f1f838",
+    "docs/evidence/minijob-v11-independent-review-2026-11-09/previously-used-original-before-fix.txt": "584214258578763cf3538b7a11041f6fa76225b0282f9694819ef71cfc3c7876"
+  }
+}

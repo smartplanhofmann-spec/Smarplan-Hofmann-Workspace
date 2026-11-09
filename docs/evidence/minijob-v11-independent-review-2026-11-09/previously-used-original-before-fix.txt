@@ -1,0 +1,6 @@
+test_previously_used_older_revision_blocks_an_otherwise_eligible_upgrade (test_minijob_v11_independent_review.MinijobV11IndependentReview.test_previously_used_older_revision_blocks_an_otherwise_eligible_upgrade) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 4.200s
+
+OK

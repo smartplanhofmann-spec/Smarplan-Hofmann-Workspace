@@ -1,0 +1,9 @@
+test_actual_mfa_private_scope_fresh_denial_and_restart (online.test_business_payroll_individual_minijob_pg.IndividualMinijobPostgres.test_actual_mfa_private_scope_fresh_denial_and_restart) ... ok
+test_actual_v11_cash_euer_and_frozen_dump_restore (online.test_business_payroll_individual_minijob_pg.IndividualMinijobPostgres.test_actual_v11_cash_euer_and_frozen_dump_restore) ... ok
+test_concurrent_explicit_legacy_upgrades_accept_one_preserve_both_originals (online.test_business_payroll_individual_minijob_pg.IndividualMinijobPostgres.test_concurrent_explicit_legacy_upgrades_accept_one_preserve_both_originals) ... ok
+test_concurrent_postgres_v11_writers_accept_one_original (online.test_business_payroll_individual_minijob_pg.IndividualMinijobPostgres.test_concurrent_postgres_v11_writers_accept_one_original) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 90.473s
+
+OK

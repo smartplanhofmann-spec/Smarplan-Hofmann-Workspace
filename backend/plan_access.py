@@ -12,6 +12,8 @@ from core import Problem, canonical, digest
 PREFIX = 'offline_'
 WORKSPACE_PREFIX = 'offline_workspace_'
 BUSINESS_PREFIX = 'offline_business_'
+WORKSPACE_V2_PREFIX = 'offline_workspace_v2_'
+BUSINESS_V2_PREFIX = 'offline_business_v2_'
 
 
 def allows_workspace(token):
@@ -24,11 +26,20 @@ def allows_business(token):
     return isinstance(token, str) and token.startswith(BUSINESS_PREFIX)
 
 
-def credential(row):
-    return digest(canonical([row['id'], row['salt'], row['password'], row['role'], row['active']]))
+def is_v2(token):
+    return isinstance(token, str) and token.startswith((WORKSPACE_V2_PREFIX, BUSINESS_V2_PREFIX))
 
 
-def issue(office, user, *, workspace=False, business=False, business_capabilities=None):
+def credential(row, *, instance_id=None):
+    value = [row['id'], row['salt'], row['password'], row['role'], row['active']]
+    if instance_id is not None:
+        value.extend(['offline_instance_v2', instance_id])
+    return digest(canonical(value))
+
+
+def issue(office, user, *, workspace=False, business=False, business_capabilities=None, protocol_version=1):
+    if type(protocol_version) is not int or protocol_version not in (1, 2) or protocol_version == 2 and not workspace:
+        raise Problem(400, 'Ungültige Offline-Protokollversion')
     if type(workspace) is not bool or type(business) is not bool or (business and not workspace):
         raise Problem(400, 'Ungültiger Offline-Zugriffsbereich')
     row = office.db.execute('SELECT * FROM users WHERE id=? AND active=1', (user['id'],)).fetchone()
@@ -40,28 +51,62 @@ def issue(office, user, *, workspace=False, business=False, business_capabilitie
         raise Problem(400, 'Ungültiger Gerätezugriffsbereich')
     if not business and business_capabilities is not None:
         raise Problem(400, 'Ausdrücklicher Business-Gerätezugang erforderlich')
+    origin = None
+    if protocol_version == 2:
+        from business_offline_binding import binding, TABLE
+        from business_schema import _tables
+        origin = binding(office, user, required=True)
+        if TABLE not in _tables(office):
+            raise Problem(409, 'Offline-V2-Migration ist noch nicht verfügbar.')
     issued = int(time.time())
     expires = issued + 7 * 24 * 3600
     prefix = BUSINESS_PREFIX if business else WORKSPACE_PREFIX if workspace else PREFIX
+    if protocol_version == 2:
+        prefix = BUSINESS_V2_PREFIX if business else WORKSPACE_V2_PREFIX
     token = prefix + secrets.token_urlsafe(32)
     office.db.execute('DELETE FROM plan_sessions WHERE expiry<?', (issued,))
     office.db.execute('INSERT INTO plan_sessions(token,user_id,expiry,credential) VALUES(?,?,?,?)',
-                      (digest(token), row['id'], expires, credential(row)))
+                      (digest(token), row['id'], expires, credential(row, instance_id=origin['instance_id'] if origin else None)))
     if business:
         office.db.execute('INSERT INTO business_device_grants(token_hash,user_id,capabilities_json,issued_at,expiry) VALUES(?,?,?,?,?)',
                           (digest(token), row['id'], canonical(sorted(caps)), datetime.fromtimestamp(issued, timezone.utc).isoformat(), expires))
     office.audit(user, 'business.offline_access' if business else 'workspace.offline_access' if workspace else 'plan.offline_access', user['id'])
-    return dict(token=token, issued_at=datetime.fromtimestamp(issued, timezone.utc).isoformat(),
-                expires_at=datetime.fromtimestamp(expires, timezone.utc).isoformat())
+    result = dict(token=token, issued_at=datetime.fromtimestamp(issued, timezone.utc).isoformat(),
+                  expires_at=datetime.fromtimestamp(expires, timezone.utc).isoformat())
+    if protocol_version == 2:
+        from business_offline_binding import register
+        result.update(schema_version=2, binding=register(office, user, token, result['issued_at'], expires))
+    return result
 
 
-def user(office, token):
+def user(office, token, *, allow_legacy_bound=False):
     with office.lock:
         row = office.db.execute('SELECT u.*,s.expiry,s.credential FROM users u JOIN plan_sessions s ON u.id=s.user_id '
                                 'WHERE s.token=? AND u.active=1', (digest(token),)).fetchone()
-        if not row or row['expiry'] <= time.time() or row['credential'] != credential(row):
+        from business_offline_binding import instance_id, token_binding
+        instance = instance_id(office)
+        expected_instance = instance if is_v2(token) else None
+        if (not row or row['expiry'] <= time.time() or is_v2(token) and instance is None
+                or row['credential'] != credential(row, instance_id=expected_instance)):
             raise Problem(401, 'Offline-Zugang abgelaufen oder widerrufen. Bitte online anmelden.')
-        return {key: row[key] for key in ('id', 'email', 'role')}
+        actor = {key: row[key] for key in ('id', 'email', 'role')}
+        if is_v2(token):
+            token_binding(office, actor, token)
+        elif instance is not None and not allow_legacy_bound:
+            raise Problem(409, 'Dieser alte Offline-Zugang besitzt keine bestätigte Firmenbindung. Online anmelden und V2 verwenden; gespeicherte Aufträge bleiben erhalten.')
+        return actor
+
+
+def require_request_binding(office, actor, token, supplied):
+    if not is_v2(token):
+        from business_offline_binding import instance_id
+        if instance_id(office) is not None:
+            raise Problem(409, 'Dieser alte Offline-Zugang besitzt keine bestätigte Firmenbindung.')
+        return
+    from business_offline_binding import token_binding
+    expected = token_binding(office, actor, token)
+    if supplied != expected['instance_id'] + ':' + expected['account_id']:
+        raise Problem(403, 'Die Offline-Anfrage gehört nicht zu dieser Firmen- und Kontoanmeldung.')
 
 
 def revoke(office, token):

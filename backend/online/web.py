@@ -17,7 +17,7 @@ import business_api
 from online.plan_imports import PlanImports, CHUNK_SIZE, ensure_sqlite_schema
 
 METHODS = {
-    '/offline/access': 'POST', '/offline/logout': 'POST',
+    '/offline/access': 'POST', '/offline/access/v2': 'POST', '/offline/context': 'GET', '/offline/logout': 'POST',
     '/me': 'GET', '/logout': 'POST', '/users': 'GET, POST',
     '/customers': 'GET, POST', '/projects': 'GET, POST', '/assignments': 'POST',
     '/storage/status': 'GET', '/storage/connect': 'POST',
@@ -59,10 +59,13 @@ def dispatch(office, user, path, method, data, token):
                                   if isinstance(result, workspace_api.BinaryAttachment)
                                   else 'attachment; filename="smartplan-termin.ics"'})
                 if mimetype != 'application/json' else result), status
-    if path == '/offline/access':
+    if path == '/offline/context':
+        from business_offline_binding import context
+        return context(office, user), 200
+    if path in ('/offline/access', '/offline/access/v2'):
         if data:
             raise Problem(400, 'Keine Zugangsdaten im Anfrageinhalt erwartet')
-        return {**plan_access.issue(office, user, workspace=True),
+        return {**plan_access.issue(office, user, workspace=True, protocol_version=2 if path.endswith('/v2') else 1),
                 'capabilities': ['project_plans', 'offline_plan_access', 'plan_imports', 'plan_deletion',
                                  'project_workspace', 'offline_workspace']}, 201
     if path == '/offline/logout':
@@ -421,7 +424,9 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
             response.status_code = 405
             response.headers['Allow'] = methods
             return response
-        strict_accounting_body = (path == '/business/accounting/profile' or
+        if path in ('/offline/context', '/offline/access/v2') and request.query_string:
+            raise Problem(400, 'Keine zusätzlichen Offline-Filter erlaubt')
+        strict_accounting_body = (path in ('/offline/context', '/offline/access/v2') or path == '/business/accounting/profile' or
             path.startswith(('/business/accounting/allocations/', '/business/accounting/components/',
                              '/business/accounting/refunds/', '/business/accounting/profile/')) or
             business_api.strict_report_path(path) or business_api.strict_workflow_path(path))
@@ -464,6 +469,8 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         if business_api.methods(path):
             with office.lock, office.db:
                 user = plan_access.user(office, token) if plan_token else office.user(token)
+                if plan_token:
+                    plan_access.require_request_binding(office, user, token, request.headers.get('X-Smartplan-Offline-Binding'))
             result, status, mimetype = business_api.dispatch(
                 office, user, path, request.method, data, offline=plan_token,
                 offline_capabilities=plan_access.business_capabilities(office, token) if plan_token else ())
@@ -497,7 +504,9 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                                           expected_provider='onedrive' if transfer[2] == 'onedrive' else None))
         # One transaction includes fresh authorization, all reads/writes, and PDF access.
         with office.lock, office.db:
-            user = plan_access.user(office, token) if plan_token else office.user(token)
+            user = plan_access.user(office, token, allow_legacy_bound=path == '/offline/logout') if plan_token else office.user(token)
+            if plan_token and path != '/offline/logout':
+                plan_access.require_request_binding(office, user, token, request.headers.get('X-Smartplan-Offline-Binding'))
             result, status = dispatch(office, user, path, request.method, data, token)
         return (result if isinstance(result, Response) else jsonify(result)), status
 

@@ -10,7 +10,7 @@ import re
 from core import Problem
 
 MODULES = (
-    'business_foundation', 'business_documents', 'business_finance',
+    'business_foundation', 'business_offline_binding', 'business_documents', 'business_finance',
     'business_planning', 'business_time', 'business_operations',
     'business_inventory', 'business_maintenance', 'business_adapters', 'business_catalog_imports', 'business_catalog_prices', 'business_organization', 'business_purchasing', 'business_portal',
     'business_accounting', 'business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity',
@@ -50,7 +50,7 @@ def methods(path):
         return None
     if relative == '/capabilities':
         return 'GET'
-    if relative == '/offline/access':
+    if relative in ('/offline/access', '/offline/access/v2'):
         return 'POST'
     for module in _modules():
         classify = getattr(module, 'methods', None)
@@ -104,7 +104,7 @@ def strict_workflow_path(path):
     if not isinstance(path, str):
         return False
     return re.fullmatch(
-        r'/business/(?:(?:project-economics|customer-workspace|receipt-media|personnel|payroll|accounting/euer|accounting/opening-balances|accounting/historical-assets|accounting/open-items|accounting/year-values|assistant|company-events|sales|company-handover|migrations|custom-fields|privacy/cases|service|bank|resource-custody|catalog-prices)(?:/.*)?|overview/metrics|inventory/(?:counts(?:/.*)?|count-sources)|'
+        r'/business/(?:offline/(?:access/v2|recovery/lookup)|(?:project-economics|customer-workspace|receipt-media|personnel|payroll|accounting/euer|accounting/opening-balances|accounting/historical-assets|accounting/open-items|accounting/year-values|assistant|company-events|sales|company-handover|migrations|custom-fields|privacy/cases|service|bank|resource-custody|catalog-prices)(?:/.*)?|overview/metrics|inventory/(?:counts(?:/.*)?|count-sources)|'
         r'projects/[a-f0-9]{32}/milestones(?:/[a-f0-9]{32}(?:/history)?)?|'
         r'finance/receipts(?:/[a-f0-9]{32}(?:/original)?)?|adapters(?:/.*)?|'
         r'assets/(?:from-delivery|origin-sources|[a-f0-9]{32}/origin)|'
@@ -239,7 +239,7 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
                 result[key] = [name for name in result.get(key, []) if name in permitted_modules]
             result.pop('restore_id', None)
         return result, 200, 'application/json'
-    if relative == '/offline/access':
+    if relative in ('/offline/access', '/offline/access/v2'):
         if offline or method != 'POST' or data:
             raise Problem(400, 'Leerer ausdrücklicher Geräteauftrag erwartet.')
         import business_schema
@@ -260,7 +260,8 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
                 caps.append('offline_reports')
             if not caps:
                 raise Problem(403, 'Keine freigegebenen Baustellenfunktionen verfügbar.')
-            return {**plan_access.issue(office, actor, workspace=True, business=True, business_capabilities=caps),
+            return {**plan_access.issue(office, actor, workspace=True, business=True, business_capabilities=caps,
+                                        protocol_version=2 if relative.endswith('/v2') else 1),
                     **reports,
                     'capabilities': ['project_plans', 'offline_plan_access', 'plan_imports',
                                      'plan_deletion', 'project_workspace', 'offline_workspace', *caps]}, 201, 'application/json'
@@ -284,9 +285,10 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
                            and re.fullmatch(r'/adapters/imports/[a-f0-9]{32}/catalog-preview', relative) is not None
                            or method == 'POST' and module.__name__ == 'business_catalog_prices'
                            and re.fullmatch(r'/catalog-prices/(?:candidates|imports/[a-f0-9]{32}/preview)', relative) is not None)
-        if module.__name__ not in active and not ((method == 'GET' or security_revoke or catalog_preview) and module.__name__ in readable):
+        recovery_lookup = (module.__name__ == 'business_offline_binding' and relative == '/offline/recovery/lookup' and method == 'POST')
+        if module.__name__ not in active and not ((method == 'GET' or security_revoke or catalog_preview or recovery_lookup) and module.__name__ in readable):
             raise Problem(409, 'Dieses Modul ist im aktuellen Betriebsmodus nicht schreibend freigegeben.')
-        if method != 'GET' and not catalog_preview and 'business_organization' in readable:
+        if method != 'GET' and not catalog_preview and not recovery_lookup and 'business_organization' in readable:
             from business_organization import require_active
             require_active(office, actor, relative, module.__name__, data)
         result = handler(office, actor, relative, method, data)

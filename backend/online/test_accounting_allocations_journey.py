@@ -131,7 +131,7 @@ class AccountingAllocationsJourneyTests(unittest.TestCase):
             self.assertFalse(thread.is_alive())
         self.addCleanup(close)
 
-    def call(self, company, path, body=None, *, token='owner', status=200, method=None):
+    def call(self, company, path, body=None, *, token='owner', status=200, method=None, request_headers=None):
         token = company.get('token') if token == 'owner' else token
         method = method or ('POST' if body is not None else 'GET')
         payload = json.dumps(body).encode() if body is not None else b''
@@ -141,6 +141,8 @@ class AccountingAllocationsJourneyTests(unittest.TestCase):
             headers += ['Content-Type: application/json']
         if token:
             headers += ['Authorization: Bearer ' + token]
+        if request_headers:
+            headers += [name + ': ' + value for name, value in request_headers.items()]
         with socket.create_connection(('127.0.0.1', company['server'].server_port), timeout=10) as raw:
             with company['tls'].wrap_socket(raw, server_hostname=company['host']) as connection:
                 self.assertIsNotNone(connection.cipher())

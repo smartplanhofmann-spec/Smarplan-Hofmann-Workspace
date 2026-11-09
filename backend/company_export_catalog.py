@@ -11,6 +11,7 @@ COLUMNS = {
     'business_project_milestones': 'id,project_id,payload_json,revision,created_by,created_at,updated_by,updated_at',
     'business_project_milestone_versions': 'milestone_id,project_id,revision,payload_json',
     'business_project_milestone_requests': 'user_id,request_id,project_id,operation,request_json,request_hash,result_json',
+    'business_offline_instance_grants': 'token_hash,instance_id,account_id,issued_at,expiry',
     'business_accounting_year_opening_originals': 'id,entity_key,filename,media_type,size,sha256,original,created_by,created_at',
     'business_accounting_year_opening_events': 'id,sequence,entity_key,revision,previous_hash,payload_json,content_hash,created_by,created_at',
     'business_accounting_year_opening_requests': 'user_id,request_id,operation,request_json,request_hash,result_json',
@@ -344,6 +345,7 @@ COLUMNS = {
 }
 
 EXCLUDED = {
+    'business_offline_instance_grants': 'active_instance_bound_device_authentication',
     'business_privacy_case_contents': 'restricted_subject_request_working_material_case_authorization_only',
     'business_privacy_case_export_blobs': 'restricted_subject_request_working_material_case_authorization_only',
     'secrets': 'provider_credentials_and_encrypted_settings',

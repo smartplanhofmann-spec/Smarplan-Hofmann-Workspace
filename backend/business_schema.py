@@ -28,7 +28,7 @@ STORAGE_VERSION = 7
 LEGACY_VERSION = 6
 MODULE_NAMES = tuple('business_' + name for name in (
     'foundation', 'documents', 'finance', 'planning', 'time', 'operations',
-    'inventory', 'maintenance', 'adapters', 'catalog_imports', 'catalog_prices', 'organization', 'instance', 'purchasing', 'portal', 'accounting',
+    'inventory', 'maintenance', 'adapters', 'catalog_imports', 'catalog_prices', 'organization', 'instance', 'offline_binding', 'purchasing', 'portal', 'accounting',
     'accounting_allocations', 'accounting_components', 'accounting_refunds', 'accounting_capacity', 'accounting_refunds_v2', 'accounting_profile',
     'project_economics', 'project_milestones', 'asset_provenance', 'customer_workspace', 'personnel_workflow', 'accounting_euer', 'assistant', 'payroll', 'inventory_counts', 'sales', 'payroll_accounts', 'assistant_speech', 'company_handover', 'migrations', 'custom_fields', 'privacy_cases', 'payroll_cash', 'service', 'bank_reconciliation', 'resource_custody', 'purchase_changes', 'payroll_facts', 'travel_allowances', 'payroll_entitlements', 'payroll_calculation_cases', 'payroll_annual_basis', 'payroll_wage_interruptions', 'payroll_oneoff_cases', 'payroll_multiple_cases', 'accounting_openings', 'accounting_asset_openings', 'accounting_open_items', 'company_events', 'accounting_year_openings')) + ('payroll_travel_recording',)
 CONTROL_TABLES = frozenset((

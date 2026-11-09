@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-09",
+  "base_commit": "b70bea8bec76e3d6c6a15259ab565a66001f25db",
+  "scope": "Backend V2 instance/account binding; additive registry, private grants, legacy positive original lookup, packaged local and online server paths. Synthetic data only. No live deployment or native device acceptance.",
+  "test_groups": {
+    "new_storage_and_flask_mfa": {
+      "tests": 20,
+      "passed": 20,
+      "seconds": 18.226
+    },
+    "new_local_tcp": {
+      "tests": 1,
+      "passed": 1,
+      "seconds": 1.22
+    },
+    "existing_affected": {
+      "tests": 52,
+      "passed": 52,
+      "seconds": 44.896
+    },
+    "registry_features_router": {
+      "tests": 25,
+      "passed": 25,
+      "seconds": 1.507
+    },
+    "packaged_sources": {
+      "tests": 16,
+      "passed": 16,
+      "seconds": 17.807
+    }
+  },
+  "logs": [
+    {
+      "file": "offline-binding-combined-final-20261109.txt.gz",
+      "uncompressed_bytes": 4392,
+      "uncompressed_sha256": "47ed8942da0875f5b6f8e9ed009ba8d6acc054d6e5a55a6d623b528fc28b3cc4",
+      "gzip_sha256": "fe74a2e452be6f4947433747599d26d55ad49641774ac81d072150d32eb2310b",
+      "result": "passed: 20 tests; storage plus Flask/MFA"
+    },
+    {
+      "file": "offline-binding-local-wire-final-20261109.txt.gz",
+      "uncompressed_bytes": 312,
+      "uncompressed_sha256": "ef06133146b8e5900a3f7146c295c143811ef6fba7c59ef8bf1312a1d66e25e2",
+      "gzip_sha256": "f97fb67edaa5063be47ed5f9e526518d127030a0a8498a68fbb53fdae24e2a8d",
+      "result": "passed: 1 actual local TCP test"
+    },
+    {
+      "file": "offline-binding-regression-final-20261109.txt.gz",
+      "uncompressed_bytes": 10514,
+      "uncompressed_sha256": "eee76973041107010914f45b0cd1c820b070250becda213960a05b1775fb0106",
+      "gzip_sha256": "2b5585e8d1f819d1dbdb064f09aac329d05456f78807c872d8849faefbe5376b",
+      "result": "passed: 52 affected regressions including real TLS"
+    },
+    {
+      "file": "offline-instance-registry-features-final-20261109.txt.gz",
+      "uncompressed_bytes": 4860,
+      "uncompressed_sha256": "c033d4cb5b6810a9de55f225ad60deff5e07b95ab7e111fbded149e27f4c3c2a",
+      "gzip_sha256": "d43baf1bd37f9c28bb88640e2f21aaedec37ce52f9098adc08c9a7c928044e83",
+      "result": "passed: 25 schema/features/router tests"
+    },
+    {
+      "file": "offline-instance-packaging-final-20261109.txt.gz",
+      "uncompressed_bytes": 3428,
+      "uncompressed_sha256": "aad9281412cffcafc724c87af3774dbb992997d66f34d83839a789e7929d4737",
+      "gzip_sha256": "89ef99df7ff825eb34aab189effad4a6f870042aeb0821932a2e1d544ab4db84",
+      "result": "passed: 16 native package-source tests"
+    },
+    {
+      "file": "offline-instance-http-first-20261109.txt.gz",
+      "uncompressed_bytes": 3790,
+      "uncompressed_sha256": "e044c9a8493b3bc473472e464d88117e917946de016356187c7a07d8e8d72912",
+      "gzip_sha256": "30f484bbee207e4c4837ae27a10d82eab9120c6858965c9b001233e67e38404b",
+      "result": "preserved first run: one wrong expected error code"
+    },
+    {
+      "file": "offline-binding-regression-first-20261109.txt.gz",
+      "uncompressed_bytes": 7933,
+      "uncompressed_sha256": "f2358b5262f7b7494b1ae902ab4f4cc26fc576c33802bc16ef4b7bc52459155e",
+      "gzip_sha256": "6e3f7bdd2c5fd7ec547998450157cec2eee34aa071eabe110b72a067d24f1f02",
+      "result": "preserved first run: two missing Python import roots"
+    },
+    {
+      "file": "offline-binding-existing-http-20261109.txt.gz",
+      "uncompressed_bytes": 5727,
+      "uncompressed_sha256": "9e1f05e146500b91723df4656a5b2449f9ea10b2ab3a37f833a470bbccef34ed",
+      "gzip_sha256": "5602175fa8245cf8be702cbf1863f310474dbbdfc7ef919071dd66a32e86cac2",
+      "result": "preserved intermediate run: bound V1 TLS request is now denied; unrelated optional PostgreSQL skip"
+    },
+    {
+      "file": "offline-binding-combined-wire-final-20261109.txt.gz",
+      "uncompressed_bytes": 5947,
+      "uncompressed_sha256": "3b7b253aa2059db5db029cb465348a932bf2d6cb7899e571d1e70dcb82a6f30a",
+      "gzip_sha256": "770cb7d398a1cc74de2d7701bb11e49fcfcbf7b474e4177f704f8ca92c8428e2",
+      "result": "preserved first local test: wrong HTTP 200 expectation, actual exact replay is 201"
+    },
+    {
+      "file": "offline-binding-generator-jsontext-final-first-20261109.txt.gz",
+      "uncompressed_bytes": 202,
+      "uncompressed_sha256": "d89f8844a4ed6d9d821e639782d3f94c20f46bf03737890789824c56b0cceac3",
+      "gzip_sha256": "167f9d8bfe1fcdebf6aa01cd857d7bd33492dd605549c21ba0f1885aa3a67b5f",
+      "result": "fixture generator first run"
+    },
+    {
+      "file": "offline-binding-generator-jsontext-final-second-20261109.txt.gz",
+      "uncompressed_bytes": 165,
+      "uncompressed_sha256": "210126afc64123116f9203f640c6dd3fa41953586a79102e856a87c08847da9b",
+      "gzip_sha256": "f6a956603fa29ff4b3ff780a9d242bc140c0490bdf9852d7e10c0fab51766f17",
+      "result": "fixture generator repeat: byte identical"
+    },
+    {
+      "file": "smartplan-offline-v2-review-negatives-20261109.txt.gz",
+      "uncompressed_bytes": 915,
+      "uncompressed_sha256": "a39baf538c39ccb5764ac3b4f984ada900a8f071867e8d090b1061c20ad5e35f",
+      "gzip_sha256": "5ccf70504b2d6655270d76832900fdd138bee44556b59595da62c02bfc12450b",
+      "result": "passed: independently rerun negative, revocation and export review cases"
+    },
+    {
+      "file": "smartplan-offline-v2-review-revoke-export-20261109.txt.gz",
+      "uncompressed_bytes": 736,
+      "uncompressed_sha256": "db98bd76967bac7e62843959d5efe268db9a59ce45584a39818ec673fec46617",
+      "gzip_sha256": "f85a77f3bf7475b5d1b20121fb24183082adcfdaadab3ed66a09e858d4700833",
+      "result": "passed: independently rerun negative, revocation and export review cases"
+    }
+  ],
+  "source_files": {
+    ".github/workflows/checks.yml": {
+      "bytes": 59340,
+      "sha256": "07b14992ced9d6373021c5cffa3c7e5f7772f7adf88c6aa23cea3880639225a1"
+    },
+    "app/test/fixtures/offline_binding_v2.json": {
+      "bytes": 3762,
+      "sha256": "2a31cd4c282ac30f36ca4b7e691d6ec9714be7ce8ebbad8b32a239d8e3cfd5d1"
+    },
+    "backend/business_api.py": {
+      "bytes": 23639,
+      "sha256": "5738810f15cb000199c2f246ba650c05bb4aa9f70b8da50b88805d1d27571444"
+    },
+    "backend/business_offline_binding.py": {
+      "bytes": 11498,
+      "sha256": "dfbc15dda5731099fe326da03ef35cca3b692d59059e7d09ecaf3b54c5e13f5c"
+    },
+    "backend/business_schema.py": {
+      "bytes": 88341,
+      "sha256": "e50f30deac0111a68c3ed84ec3381784fc44dddacb18176a9782a149628a301a"
+    },
+    "backend/company_export_catalog.py": {
+      "bytes": 50240,
+      "sha256": "d9529037372a15c9f54490a82c0c960404c545a2fb8ac7d8e414d5c6bc32fb61"
+    },
+    "backend/online/test_accounting_allocations_journey.py": {
+      "bytes": 24642,
+      "sha256": "76c3af629b4557bc4d21ae0b6c1bdf0fd5a26c81c67370fbaab0c965bc60ec52"
+    },
+    "backend/online/test_business_offline_reports_api.py": {
+      "bytes": 16749,
+      "sha256": "e991afb95b945ed3100c49a4b50585436f5e1e9855a40cfa140a2a76b30897d1"
+    },
+    "backend/online/test_offline_instance_binding.py": {
+      "bytes": 23074,
+      "sha256": "675d77c1200c4c4d3a3b6c65bd30c66f14b63d3bd1f34795b2fed9a74619897f"
+    },
+    "backend/online/web.py": {
+      "bytes": 31130,
+      "sha256": "7316a51bca8e36f6d836964fe426b9535c79635174c1d2626d3826e0d9f1d04d"
+    },
+    "backend/plan_access.py": {
+      "bytes": 7135,
+      "sha256": "260f8b685908e1557d746da68ea28571d65c45b06e74376c1490ee1010874b2f"
+    },
+    "backend/server.py": {
+      "bytes": 17584,
+      "sha256": "1a91f44e107dae2dd3391b81638b68bff917a376d32b373c31e6e0a6b0ce26cf"
+    },
+    "backend/test_offline_binding_storage.py": {
+      "bytes": 10744,
+      "sha256": "2d0ea1f2c748ab656c4f8f4f565a1edcc913a849cded50d778474d4617a0c574"
+    },
+    "scripts/generate-offline-binding-fixture.py": {
+      "bytes": 6126,
+      "sha256": "4f2bc148d8f5913706c4ba0f8a4db26543d8e04fabbc40322bfd50e3996d4041"
+    },
+    "scripts/native-release.py": {
+      "bytes": 28846,
+      "sha256": "4afc2e23f0ecce36176c633ca5c3b85db6468a700aed51f8acd1e616a75a47f6"
+    },
+    "scripts/package-windows-support.py": {
+      "bytes": 19482,
+      "sha256": "0a853e7278386a7584533cdf604fb0fb90c4ccb6d5496dd44cea25dda8e8c718"
+    }
+  },
+  "unchanged_goal": {
+    "path": "CRM_ERP_Gesamtziel.txt",
+    "bytes": 23863,
+    "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "review": "Independent read-only review; mutable-session expiry extension finding fixed and covered; no remaining concrete findings reported. Second independent reviewer reran seven negative/revocation/export cases successfully; no concrete finding.",
+  "limits": [
+    "No new native cache activation for unbound_legacy; no implicit V1 queue migration.",
+    "Read-only recovery covers exact accepted plan_write originals only; a negative answer does not authorize a resend.",
+    "PostgreSQL roles/restore, native integration and physical device acceptance are separate."
+  ]
+}

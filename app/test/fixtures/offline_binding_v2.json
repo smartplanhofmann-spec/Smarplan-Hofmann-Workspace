@@ -1,0 +1,121 @@
+{
+  "account_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "api_version": "v1",
+  "business_grant": {
+    "binding": {
+      "account_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "instance_id": "11111111111111111111111111111111",
+      "schema_version": 1
+    },
+    "capabilities": [
+      "project_plans",
+      "offline_plan_access",
+      "plan_imports",
+      "plan_deletion",
+      "project_workspace",
+      "offline_workspace",
+      "time_events",
+      "field_media",
+      "offline_reports"
+    ],
+    "expires_at": "2026-11-16T12:00:00+00:00",
+    "issued_at": "2026-11-09T12:00:00+00:00",
+    "report_project_ids": [
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "report_writes_enabled": true,
+    "schema_version": 2,
+    "token": "offline_business_v2_SYNTHETIC_BUSINESS_BINDING_FIXTURE_TOKEN"
+  },
+  "context": {
+    "binding": {
+      "account_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "instance_id": "11111111111111111111111111111111",
+      "schema_version": 1
+    },
+    "mode": "bound_v2",
+    "schema_version": 2
+  },
+  "fixture_scope": "PUBLIC SYNTHETIC FIXTURE; no real credentials, live server or customer data",
+  "foreign_binding": {
+    "account_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "instance_id": "22222222222222222222222222222222",
+    "schema_version": 1
+  },
+  "instance_id": "11111111111111111111111111111111",
+  "lookup_command": {
+    "command_json": "{\"request_id\":\"44444444444444444444444444444444\",\"title\":\"  Synthetischer Altplan Süd 🚧  \",\"walls\":[{\"id\":\"synthetic_wall\",\"points\":[[1.0,-0.0],[1e-06,2.0]]}]}",
+    "kind": "plan_write",
+    "nonce": "55555555555555555555555555555555",
+    "plan_id": null,
+    "project_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "schema_version": 1
+  },
+  "lookup_result": {
+    "binding": {
+      "account_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "instance_id": "11111111111111111111111111111111",
+      "schema_version": 1
+    },
+    "kind": "plan_write",
+    "lookup_hash": "19cf68c029ae22577c1280223df685f8b900024bce92500c49fcc9b04f6ddaa9",
+    "nonce": "55555555555555555555555555555555",
+    "original": {
+      "id": "dddddddddddddddddddddddddddddddd",
+      "project_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "revision": 1,
+      "status": "draft",
+      "title": "Synthetischer Altplan Süd 🚧",
+      "units": "unitless",
+      "updated_at": "2026-11-09T12:00:00+00:00",
+      "updated_by": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "walls": [
+        {
+          "id": "synthetic_wall",
+          "points": [
+            [
+              1.0,
+              -0.0
+            ],
+            [
+              1e-06,
+              2.0
+            ]
+          ]
+        }
+      ]
+    },
+    "plan_id": null,
+    "project_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "request_hash": "5b9d0d1ed2920c5105bdbe260db1e8f440ed4f85d8fd479fbf10392bbaae7368",
+    "request_id": "44444444444444444444444444444444",
+    "schema_version": 1
+  },
+  "project_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "schema_version": 1,
+  "server_url": "https://offline-fixture.example.test",
+  "unbound_context": {
+    "binding": null,
+    "mode": "unbound_legacy",
+    "schema_version": 2
+  },
+  "workspace_grant": {
+    "binding": {
+      "account_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "instance_id": "11111111111111111111111111111111",
+      "schema_version": 1
+    },
+    "capabilities": [
+      "project_plans",
+      "offline_plan_access",
+      "plan_imports",
+      "plan_deletion",
+      "project_workspace",
+      "offline_workspace"
+    ],
+    "expires_at": "2026-11-16T12:00:00+00:00",
+    "issued_at": "2026-11-09T12:00:00+00:00",
+    "schema_version": 2,
+    "token": "offline_workspace_v2_SYNTHETIC_WORKSPACE_BINDING_FIXTURE_TOKEN"
+  }
+}

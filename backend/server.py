@@ -44,7 +44,8 @@ def make_handler(office,drive,launch_id=""):
                     "/api/me": "GET", "/api/logout": "POST", "/api/users": "GET, POST",
                     "/api/assignments": "POST", "/api/projects": "GET, POST",
                     "/api/customers": "GET, POST",
-                    "/api/offline/access": "POST", "/api/offline/logout": "POST",
+                    "/api/offline/access": "POST", "/api/offline/access/v2": "POST",
+                    "/api/offline/context": "GET", "/api/offline/logout": "POST",
                     "/api/storage/status": "GET", "/api/storage/connect": "POST",
                 }
                 self.allowed_methods = methods.get(path, "")
@@ -74,7 +75,9 @@ def make_handler(office,drive,launch_id=""):
                     if self.command not in ("GET", "POST"):
                         raise Problem(405, "HTTP-Methode nicht erlaubt")
                 data={}
-                strict_accounting = (path == '/api/business/accounting/profile' or path.startswith((
+                if path in ('/api/offline/context', '/api/offline/access/v2') and parsed.query:
+                    raise Problem(400, 'Keine zusätzlichen Offline-Filter erlaubt')
+                strict_accounting = (path in ('/api/offline/context', '/api/offline/access/v2') or path == '/api/business/accounting/profile' or path.startswith((
                     '/api/business/accounting/allocations/', '/api/business/accounting/components/',
                     '/api/business/accounting/refunds/', '/api/business/accounting/profile/')) or
                     business_api.strict_report_path(path.removeprefix('/api')) or
@@ -124,7 +127,9 @@ def make_handler(office,drive,launch_id=""):
                         re.fullmatch(r'/api/projects/[a-f0-9]{32}/(?:plans/delete|plan-deletions)', path) or
                         re.fullmatch(r'/api/projects/[a-f0-9]{32}/plans(?:/[a-f0-9]{32})?', path)):
                     raise Problem(403, 'Offline-Zugang erlaubt ausschließlich Projektpläne')
-                user = plan_access.user(office, token) if plan_token else office.user(token)
+                user = plan_access.user(office, token, allow_legacy_bound=path == '/api/offline/logout') if plan_token else office.user(token)
+                if plan_token and path != '/api/offline/logout':
+                    plan_access.require_request_binding(office, user, token, self.headers.get('X-Smartplan-Offline-Binding'))
                 if business_api.methods(path.removeprefix('/api')):
                     result, status, mimetype = business_api.dispatch(
                         office, user, path.removeprefix('/api'), self.command, data, offline=plan_token,
@@ -136,12 +141,15 @@ def make_handler(office,drive,launch_id=""):
                         result, status, mimetype = workspace_api.dispatch(
                             office, current, path.removeprefix('/api'), self.command, data)
                         return self.send(status, result, mimetype)
-                if path == '/api/offline/access':
+                if path == '/api/offline/context':
+                    from business_offline_binding import context
+                    return self.send(200, context(office, user))
+                if path in ('/api/offline/access', '/api/offline/access/v2'):
                     if data:
                         raise Problem(400, 'Keine Zugangsdaten im Anfrageinhalt erwartet')
                     with office.lock, office.db:
                         current = office.user(token)
-                        return self.send(201, {**plan_access.issue(office, current, workspace=True),
+                        return self.send(201, {**plan_access.issue(office, current, workspace=True, protocol_version=2 if path.endswith('/v2') else 1),
                                               'capabilities': ['project_plans', 'offline_plan_access', 'plan_deletion',
                                                                'project_workspace', 'offline_workspace']})
                 if path == '/api/offline/logout':

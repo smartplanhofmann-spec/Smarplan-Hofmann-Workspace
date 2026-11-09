@@ -257,12 +257,15 @@ class OfflineReportsTlsTests(unittest.TestCase):
 
     def test_actual_trusted_tls_normal_mfa_retry_and_integrated_archive(self):
         company = self.company
-        token = self.call(company, '/business/offline/access', {}, status=201).json['token']
+        grant = self.call(company, '/business/offline/access/v2', {}, status=201).json
+        token = grant['token']
+        origin = grant['binding']
+        headers = {'X-Smartplan-Offline-Binding': origin['instance_id'] + ':' + origin['account_id']}
         actor = company['office'].user(company['token'])
         body = capture_body(company['office'], actor, company['project'])
-        row = self.call(company, PATH, body, token=token, status=201).json
-        self.assertEqual(self.call(company, PATH, body, token=token, status=201).json, row)
-        pdf = self.call(company, '/business/service-reports/' + row['id'] + '/pdf', token=token).data
+        row = self.call(company, PATH, body, token=token, status=201, request_headers=headers).json
+        self.assertEqual(self.call(company, PATH, body, token=token, status=201, request_headers=headers).json, row)
+        pdf = self.call(company, '/business/service-reports/' + row['id'] + '/pdf', token=token, request_headers=headers).data
         self.assertEqual(hashlib.sha256(pdf).hexdigest(), row['pdf_sha256'])
         self.call(company, '/business/service-reports', token=token, status=403)
         self.call(company, '/business/employees', token=token, status=403)

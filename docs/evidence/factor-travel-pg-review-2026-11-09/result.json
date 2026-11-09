@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-09T15:49:02.786384+00:00",
+  "base": "ffb5010",
+  "backend_followups": [
+    "7db66f1",
+    "35f94e4"
+  ],
+  "local_backend_head": "4022b30a38817fdf74ba19068e3bc5bf97f5f68c",
+  "fixture_sha256": "2cefdf221d9e1ad7e223478574c256e91ee97f2e5293be9979c5966d08195bf2",
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "checks": [
+    {
+      "name": "HTTP-negative sources/person/month/hash/M/input",
+      "passed": true,
+      "log": "smartplan-factor-travel-pg-final-third-20261109.log.gz",
+      "note": "This log has two passing negative tests and the separately corrected missing-pg_dump infrastructure error."
+    },
+    {
+      "name": "actual payment prefix/repayment and historical replay",
+      "passed": true,
+      "log": "smartplan-factor-travel-pg-final-third-20261109.log.gz"
+    },
+    {
+      "name": "v9 to v10 factor correction/annual basis/real dump restore",
+      "passed": true,
+      "seconds": 70.942,
+      "log": "smartplan-factor-travel-pg-restore-20261109.log.gz"
+    },
+    {
+      "name": "fresh finance and personnel revocation",
+      "passed": true,
+      "seconds": 22.856,
+      "log": "smartplan-factor-travel-pg-rights-20261109.log.gz"
+    },
+    {
+      "name": "actual CRLF original generation and LF validation/replay/PDF",
+      "passed": true,
+      "seconds": 6.636,
+      "log": "smartplan-factor-travel-crlf-final-20261109.log.gz"
+    }
+  ],
+  "pg_scenarios_passed": 4,
+  "crlf_scenarios_passed": 1,
+  "historical_payroll_files_byte_unchanged": 43,
+  "runtime_acl": "runtime-acl.json",
+  "container": "smartplan-factor-travel-review-pg-20261109",
+  "isolated_container_removed": true,
+  "product_code_modified_by_review": false,
+  "published": false,
+  "windows_device_acceptance": false
+}

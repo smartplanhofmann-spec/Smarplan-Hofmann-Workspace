@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "logs": [
+    {
+      "file": "smartplan-factor-travel-crlf-20261109.log.gz",
+      "raw_bytes": 282,
+      "raw_sha256": "61edd1c2a07e4c647c6e0f1a0b2fb8af8af64ce21a056b1aaa562b362ec16c32",
+      "gzip_sha256": "b98fa7411f1c934cb16dbbd62c13921c82cbc44e73654bdf76f0444f23800eeb"
+    },
+    {
+      "file": "smartplan-factor-travel-crlf-final-20261109.log.gz",
+      "raw_bytes": 282,
+      "raw_sha256": "2658c038c816ce473ab5e868b0e7a77009b0530b82731544ee97e1360e082b4f",
+      "gzip_sha256": "55e363d757c671f3881575e35a3fe4a848c0a4ead2db15e2eb063d76181e78d9"
+    },
+    {
+      "file": "smartplan-factor-travel-pg-final-first-20261109.log.gz",
+      "raw_bytes": 1678,
+      "raw_sha256": "b4b601434e218c785f2b771d292943fa0e8de305ae0c08975034d46e04bfc3ce",
+      "gzip_sha256": "421bd095532e642342d3e1f3aa8bbce1505e6c50bc03387295cb6b98e7517a47"
+    },
+    {
+      "file": "smartplan-factor-travel-pg-final-second-20261109.log.gz",
+      "raw_bytes": 1300,
+      "raw_sha256": "f0e088e4232b1be5115431ec39be5478db0844a513b8ebaa5408838aef48b8e7",
+      "gzip_sha256": "ec63362f325573484354a4fa970872fcbcb6a3d49d123dcc826a5f002208f716"
+    },
+    {
+      "file": "smartplan-factor-travel-pg-final-third-20261109.log.gz",
+      "raw_bytes": 2839,
+      "raw_sha256": "6d2661bef3f507788eb243dccef23d4be985972f56b9f0706d065b31e1b78154",
+      "gzip_sha256": "f4d41da4a3b3b44678727b97ea4334a9441d4e2d0523a9e24c2a376afc7a6df2"
+    },
+    {
+      "file": "smartplan-factor-travel-pg-initial-20261109.log.gz",
+      "raw_bytes": 2012,
+      "raw_sha256": "88ae95250887b13618dec08342eece65b2e76806f161f440f862f37faba82d04",
+      "gzip_sha256": "46fb430cc7c877203d10e1ae414652352b86d46ffb1faddd78379744060a5341"
+    },
+    {
+      "file": "smartplan-factor-travel-pg-negative-fixed-20261109.log.gz",
+      "raw_bytes": 1508,
+      "raw_sha256": "44e33a876b4580e693ebb6009ee5347d24310f5cc273f43b9017bced01769a02",
+      "gzip_sha256": "04cb1fb5bb8cc619fd3d8e8eebb021d7122b6673f36e5a0265c14f26a66e953c"
+    },
+    {
+      "file": "smartplan-factor-travel-pg-original-negative-20261109.log.gz",
+      "raw_bytes": 1294,
+      "raw_sha256": "956bc265dd67bf050d5680df44bc58633c034fb37d5bb2e952937e4a211c8ecb",
+      "gzip_sha256": "1bd5cb945dd711313eafcc4d0a60e70ac6370f2c8cc9d611505051b6dec37cd5"
+    },
+    {
+      "file": "smartplan-factor-travel-pg-restore-20261109.log.gz",
+      "raw_bytes": 296,
+      "raw_sha256": "843719fcf45dcfa0286b867a197685ae8113907674b214b330203d33c18c213a",
+      "gzip_sha256": "e47667dab644d7794f59d6f0436031252a44007344a964ccf4228eea64b6bb39"
+    },
+    {
+      "file": "smartplan-factor-travel-pg-rights-20261109.log.gz",
+      "raw_bytes": 318,
+      "raw_sha256": "74863cbad887be368a1f586a9ec41bd2b2132b522fab06657bf5923823c0e33f",
+      "gzip_sha256": "e9ea96c3f8ae5e9dbb89d8b62fdbbe86505de010cbb8237c767bcbeb15187bb6"
+    },
+    {
+      "file": "smartplan-factor-travel-pg-setup-20261109.log.gz",
+      "raw_bytes": 2043,
+      "raw_sha256": "568bf950259915433b49f5b1ca2098e8d75b3f22c9f65f28f5049f20446c0145",
+      "gzip_sha256": "408e7e4148ab78d387ff2c59d6042135afda8695e0447c7ac129121d69100e21"
+    }
+  ]
+}

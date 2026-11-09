@@ -1,0 +1,10 @@
+#!/workspace/Smarplan-Hofmann-Workspace/.venv/bin/python
+import os,sys
+from psycopg.conninfo import conninfo_to_dict,make_conninfo
+args=sys.argv[1:];i=args.index('--dbname')+1
+p=conninfo_to_dict(args[i])
+assert p.get('host')=='127.0.0.1' and p.get('port')=='32780'
+assert p['dbname'] in ('smartplan_check','smartplan_release_check')
+args[i]=make_conninfo(args[i],port=5432)
+for key in ('DOCKER_HOST','DOCKER_CONTEXT','DOCKER_TLS','DOCKER_TLS_VERIFY','DOCKER_CERT_PATH'):os.environ.pop(key,None)
+os.execvp('docker',['docker','--host=unix:///var/run/docker.sock','exec','-i','smartplan-factor-travel-review-pg-20261109',os.path.basename(sys.argv[0]),*args])

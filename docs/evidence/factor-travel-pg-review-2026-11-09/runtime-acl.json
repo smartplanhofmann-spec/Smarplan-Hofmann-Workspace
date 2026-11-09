@@ -1,0 +1,12 @@
+{
+  "postgresql": "16.15 (Debian 16.15-1.pgdg13+2)",
+  "runtime_role": "smartplan-online",
+  "blocked_updates": {
+    "business_payroll_calculation_case_events": "InsufficientPrivilege",
+    "business_travel_payments": "InsufficientPrivilege",
+    "business_travel_cash_events": "InsufficientPrivilege",
+    "business_payroll_events": "InsufficientPrivilege"
+  },
+  "restore_database_removed": true,
+  "isolated_loopback_port": 32780
+}

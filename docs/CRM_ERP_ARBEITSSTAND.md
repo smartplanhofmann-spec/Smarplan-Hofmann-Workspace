@@ -4,7 +4,15 @@ Stand: 09.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
-**Neueste Veröffentlichung:** Der gemeinsam lokal geprüfte Produktstand
+**Neueste Veröffentlichung:** Die geprüfte native Wiederaufnahme ist als
+`29f526d86f3995949d9967c4a6ff3394cb417b25` auf dem autorisierten Testbranch
+veröffentlicht. Ihre eigenen Läufe
+[Development42697887605](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42697887605)
+und [iPhone42697887724](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42697887724)
+laufen; HTTPS besteht im dokumentierten ersten Abruf, die übrigen Jobs sind
+noch offen. [Veröffentlichung und tatsächlicher Zwischenstand](evidence/online-command-restart-2026-11-09/publication-initial.json).
+
+**Letzter vollständig grüner Produktstand:** Der gemeinsam geprüfte Produktstand
 `19ec4e9dbca6c54dd964075cac6591442abb63ee` ist auf dem autorisierten Testbranch
 veröffentlicht; der Remote-Zeiger ist lesend bestätigt. Seine eigenen Läufe
 [Development42670555279](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42670555279)

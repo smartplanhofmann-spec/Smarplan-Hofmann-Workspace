@@ -3431,3 +3431,9 @@ eigenen Testcontainer. Beide eigenen Testcontainer sind anschließend entfernt.
 [Quellen, Rohbelege und Grenzen](CRM_ERP_ONLINEAUFTRAEGE_NEUSTART_2026-11-09.md).
 Die Browserpersistenz und weitere Gesamtzielpunkte bleiben aktive Codearbeit.
 Keine neue Serverinstallation, Signierung oder echte Geräteabnahme erfolgt.
+
+Die Erweiterung ist als 29f526d auf dem autorisierten Testbranch veröffentlicht.
+Development42697887605 und iPhone42697887724 laufen auf genau diesem Produktcode;
+HTTPS ist im ersten Abruf erfolgreich, die übrigen Jobs sind noch offen.
+19ec4e9 bleibt bis zum Abschluss der neue vollständige grüne Remote-Nachweis.
+[Veröffentlichung und Quellbindung](evidence/online-command-restart-2026-11-09/publication-initial.json).

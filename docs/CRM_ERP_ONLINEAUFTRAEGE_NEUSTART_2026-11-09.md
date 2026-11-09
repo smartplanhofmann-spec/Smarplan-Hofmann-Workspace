@@ -103,3 +103,8 @@ Offline-Materialrückgaben, weitere Reisearten und die übrigen Gesamtzielpunkte
 sind damit nicht geschlossen. Ein dauerhaft zurückgewiesenes Original ohne
 eindeutigen Nichtannahmenachweis bleibt geschützt zur Klärung erhalten; es
 existiert keine pauschale Lösch- oder Neuverbuchungsaktion.
+
+Veröffentlicht als `29f526d86f3995949d9967c4a6ff3394cb417b25` auf dem
+autorisierten Testbranch. Die eigenen vollständigen Remoteprüfungen sind
+Development42697887605 und iPhone42697887724; der erste tatsächliche Abruf
+ist [hier unverändert erhalten](evidence/online-command-restart-2026-11-09/publication-initial.json).

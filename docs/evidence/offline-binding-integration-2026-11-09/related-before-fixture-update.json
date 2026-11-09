@@ -1,0 +1,9 @@
+{
+  "total": 71,
+  "passed": 67,
+  "failed": 4,
+  "seconds": 80.359,
+  "note": "Process loaded the previous bound V1 grant fixtures; all four expected 201 where the new guard correctly returned 409. Source lines displayed by traceback reflect edits made after module loading.",
+  "raw_sha256": "1115ca7f599f6c5ed7f57faef5372a97a8f78d852a08575d69f3af999faa005e",
+  "raw_bytes": 18722
+}

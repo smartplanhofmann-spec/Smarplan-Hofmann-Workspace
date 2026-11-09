@@ -40,8 +40,9 @@ class CompanyHandoverHttp(unittest.TestCase):
         self.call(first,'/exports/'+created['id'],token=second['token'],status=401)
         self.call(second,'/exports/'+created['id'],status=404)
         self.call(second,'/exports',command,status=409)
-        offline=self.f.request(first,'/offline/access',{},token=first['token'],status=201).json['token']
-        self.call(first,'',token=offline,status=403)
+        grant=self.f.request(first,'/offline/access/v2',{},token=first['token'],status=201).json
+        origin=grant['binding']['instance_id']+':'+grant['binding']['account_id']
+        self.call(first,'',token=grant['token'],origin=origin,status=403)
         self.assertEqual(self.call(first,'/exports/'+created['id']+'/archive').data,original.data)
 
     def test_strict_request_shapes_partial_checklist_and_fresh_owner_revocation(self):

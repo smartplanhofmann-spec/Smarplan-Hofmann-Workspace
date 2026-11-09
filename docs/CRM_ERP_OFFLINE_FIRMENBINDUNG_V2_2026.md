@@ -203,3 +203,19 @@ Onlinezugriffe und die explizit ungebundene V1-Vergabe bleiben erfolgreich.
 Die unabhängige Codeprüfung bestätigt die zentrale Abdeckung aller produktiven
 Vergabepfade. PostgreSQL wird mit derselben zusätzlichen Ablehnung separat
 erneut geprüft. [Zusatznachweis](evidence/offline-binding-integration-2026-11-09/v1-issuance-guard.json).
+
+Die gemeinsame Abschlussprüfung des Backends besteht jetzt aus 93 erfolgreichen
+Fällen ohne Skip, einschließlich tatsächlichem lokalem TCP, vertrauenswürdigem
+TLS, bestehenden Zeit-/Berichtswegen, Meilensteinen und Projektquittungen.
+Vier ältere gebundene Testfirmen verwendeten noch eine V1-Neuausstellung;
+deren erwartetes HTTP201 widersprach dem neuen Schutz. Sie verwenden jetzt
+ausdrücklich V2 samt gespeichertem Herkunftsheader. Der vorherige Lauf mit
+67 Erfolgen und vier Fehlern bleibt erhalten.
+
+Zusätzlich bestehen fünf tatsächliche PostgreSQL-Fälle in 176,740 Sekunden:
+V1-Ausstellungsstopp ohne Sitzungsänderung, additive Migration, V2-Herkunft,
+Hash-only-Abgleich, historische Meilensteine, konkurrierende Anlagen sowie
+echte Sicherung/Wiederherstellung mit Widerruf der Gerätezugänge. Der eigene
+Container wurde anschließend entfernt. Dies ist noch keine native Geräte-
+oder vollständige Produktabnahme. [Backendnachlauf](evidence/offline-binding-integration-2026-11-09/related-corrected.json),
+[PostgreSQL-Nachlauf](evidence/offline-binding-integration-2026-11-09/postgres-combined-final.json).

@@ -1,0 +1,17 @@
+{
+  "kind": "Historical reproduction, not a passing security test",
+  "synthetic_only": true,
+  "result": "Copied legacy session row allowed a cross-company GET under the previous V1 credential contract. Bound V1 GET and new V1 issuance are now denied.",
+  "files": [
+    {
+      "file": "offline-tenant-v1-get-copy-audit-20261109.py.gz",
+      "raw_bytes": 4561,
+      "raw_sha256": "fe152ea0093369698de09e00d9272bcf422ae75d4ee50db7b58212f43235cb29"
+    },
+    {
+      "file": "offline-tenant-v1-get-copy-audit-20261109.txt.gz",
+      "raw_bytes": 459,
+      "raw_sha256": "bdc1ff7a7efb488217184d332a2cf6efa41ef2b5599f035b6c5abe2e00aa554c"
+    }
+  ]
+}

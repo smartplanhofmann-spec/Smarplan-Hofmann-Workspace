@@ -59,10 +59,13 @@ class InstanceIsolationTests(unittest.TestCase):
         args.update(changes)
         return create_app(**args)
 
-    def request(self, value, path, body=None, *, token=None, status=200, method=None, **kwargs):
+    def request(self, value, path, body=None, *, token=None, status=200, method=None, origin=None, **kwargs):
+        headers = {'Authorization': 'Bearer ' + token} if token else {}
+        if origin is not None:
+            headers['X-Smartplan-Offline-Binding'] = origin
         response = value['client'].open('/api/v1' + path,
             method=method or ('POST' if body is not None else 'GET'), base_url='https://' + value['host'],
-            json=body, headers={'Authorization': 'Bearer ' + token} if token else {}, **kwargs)
+            json=body, headers=headers, **kwargs)
         self.assertEqual(response.status_code, status, repr(response.data[:250]))
         return response
 
@@ -93,8 +96,9 @@ class InstanceIsolationTests(unittest.TestCase):
             self.assertEqual([row['name'] for row in contacts], [current['host'] + ' customer'])
             self.request(current, '/projects/' + foreign['project'] + '/reports', token=current['token'], status=404)
             self.request(current, '/reports/' + foreign['report']['id'] + '/pdf', token=current['token'], status=404)
-            offline = self.request(foreign, '/offline/access', {}, token=foreign['token'], status=201).json['token']
-            self.request(current, '/projects', token=offline, status=401)
+            grant = self.request(foreign, '/offline/access/v2', {}, token=foreign['token'], status=201).json
+            origin = grant['binding']['instance_id'] + ':' + grant['binding']['account_id']
+            self.request(current, '/projects', token=grant['token'], origin=origin, status=401)
             self.request(current, '/business/contacts', token=foreign['token'], status=401)
             report = current['report']
             self.request(current, '/reports/' + report['id'] + '/sign', {

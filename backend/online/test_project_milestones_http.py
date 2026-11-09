@@ -76,9 +76,10 @@ class ProjectMilestoneHttpTests(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         for field, invalid in (('title', '\ud800'), ('details', '\udfff')):
             self.request(company, path, self.command(**{field:invalid}), token=token, status=400)
-        device = self.request(company, '/business/offline/access', {}, token=token, status=201).json['token']
-        self.request(company, path, token=device, status=403)
-        self.request(company, path, self.command(), token=device, status=403)
+        grant = self.request(company, '/business/offline/access/v2', {}, token=token, status=201).json
+        origin = grant['binding']['instance_id'] + ':' + grant['binding']['account_id']
+        self.request(company, path, token=grant['token'], origin=origin, status=403)
+        self.request(company, path, self.command(), token=grant['token'], origin=origin, status=403)
         meta = self.request(company, '/business/capabilities', token=token).json
         self.assertIn('project_milestones', meta['features'])
 

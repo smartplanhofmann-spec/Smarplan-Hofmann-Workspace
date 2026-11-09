@@ -92,11 +92,12 @@ class ProjectCreationJournalHttpTests(unittest.TestCase):
     def test_narrow_offline_token_never_receives_scope_or_project_receipt(self):
         company = self.start(self.company[0])
         body, _, _ = self.create(company)
-        grant = self.request(company, '/business/offline/access', {}, token=company['token'], status=201).json
-        meta = self.request(company, '/business/capabilities', token=grant['token']).json
+        grant = self.request(company, '/business/offline/access/v2', {}, token=company['token'], status=201).json
+        origin = grant['binding']['instance_id'] + ':' + grant['binding']['account_id']
+        meta = self.request(company, '/business/capabilities', token=grant['token'], origin=origin).json
         self.assertEqual(meta['features'], [])
         self.assertNotIn('project_creation_scope', meta)
-        self.request(company, '/business/project-creations/' + body['request_id'], token=grant['token'], status=403)
+        self.request(company, '/business/project-creations/' + body['request_id'], token=grant['token'], origin=origin, status=403)
 
     def test_malformed_or_missing_original_is_never_reconstructed(self):
         company = self.start(self.company[0])

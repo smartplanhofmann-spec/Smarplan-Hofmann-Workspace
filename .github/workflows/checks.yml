@@ -95,6 +95,7 @@ jobs:
           python -m unittest discover -s backend/online -p test_onedrive.py -v
           python -m unittest discover -s backend/online -p 'test_business*.py' -v
           python -m unittest -v online.test_factor_travel_review_pg
+          python -m unittest -v online.test_minijob_v11_independent_pg
           python -m unittest -v online.test_communication_history_pg
           python -m unittest discover -s backend/online -p test_accounting_year_package_pg.py -v
           python -m unittest -v online.test_accounting_year_package_v2_pg
@@ -154,6 +155,17 @@ jobs:
         run: node integrations/google_apps_script/test_gmail.js
   business-services:
     runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16-bookworm
+        env:
+          POSTGRES_DB: smartplan_check
+          POSTGRES_PASSWORD: disposable-browser-only
+        ports:
+          - 55434:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d smartplan_check"
+          --health-interval 5s --health-timeout 5s --health-retries 10
     env:
       PYTHONPATH: backend:backend/business_tests:backend/online:scripts
       PYTHONDONTWRITEBYTECODE: '1'
@@ -213,6 +225,8 @@ jobs:
             SMARTPLAN_BROWSER_WORKFLOW=payroll node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-transition node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-factor node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-factor-travel node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-individual-minijob node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-periods node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-factor-periods node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-entitlements node tests/e2e.cjs &&
@@ -234,6 +248,7 @@ jobs:
             SMARTPLAN_BROWSER_WORKFLOW=custom-fields node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=service node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=maintenance-contracts node tests/e2e.cjs &&
+            SMARTPLAN_TEST_DSN='host=127.0.0.1 port=55434 dbname=smartplan_check user=postgres password=disposable-browser-only' SMARTPLAN_BROWSER_WORKFLOW=document-time-billing node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=privacy-cases node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-cash node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=historical-assets node tests/e2e.cjs &&

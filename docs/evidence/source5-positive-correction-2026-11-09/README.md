@@ -48,6 +48,11 @@ Die vollständigen fehlgeschlagenen Streams bleiben als
 `ci-894-business-services.gz` und `ci-894-unsigned-iphone.gz` erhalten;
 `ci-894-raw-logs.json` bindet deren unveränderte UTF8-Bytes. Die Korrekturen
 erhalten eigene lokale Prüfungen und benötigen danach eine neue Remote-CI.
+Der iPhone-Prüflauf verwendet außerdem jetzt denselben bereits vorhandenen
+JSON-Fehlerzuordner wie die übrigen App-Jobs. Dadurch bezeichnet ein Fehler
+den tatsächlich fehlgeschlagenen Test statt beliebiger späterer Statuszeilen.
+Die vorhandenen Zuordnungs-/Interleaving-/Begrenzungsprüfungen sind erneut
+ausgeführt; Rohstream `iphone-diagnostics.gz`.
 
 ## Grenzen
 

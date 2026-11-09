@@ -76,5 +76,11 @@
     "raw_bytes": 231,
     "raw_sha256": "e7f9664d4904ae1a1a97b5fd750ecd4050ff4041c681c68c95c3904a2733a212",
     "gzip_sha256": "eb685cd65abb937684c06adcf03785e035f45e301af653206e78d3006041a63d"
+  },
+  "iphone-diagnostics": {
+    "file": "iphone-diagnostics.gz",
+    "raw_bytes": 2003,
+    "raw_sha256": "47f9c09d5a2e3a903d5b993ff4c0ce1801d1d655d53eeb80e9d433847ae44d9a",
+    "gzip_sha256": "625700d81a654b50fbbf213cc7ec39664cc2d93eaa887ca0e8b4ef53940a9963"
   }
 }

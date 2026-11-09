@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:smartplan_office/offline_plans.dart';
 import 'package:smartplan_office/offline_vault.dart';
 
-import 'offline_plans_test.dart' show PlanServer, TestDevice, idle;
+import 'offline_plans_test.dart' show PlanServer, TestDevice, idle, loginV2;
 
 class DelayedDevice extends TestDevice {
   DelayedDevice(super.folder);
@@ -14,7 +14,11 @@ class DelayedDevice extends TestDevice {
   final release = Completer<void>();
 
   @override
-  Future<OfflineVault> open(String server, String user, {bool create = false}) async {
+  Future<OfflineVault> open(
+    String server,
+    String user, {
+    bool create = false,
+  }) async {
     final vault = await super.open(server, user, create: create);
     return DelayedVault(vault, this);
   }
@@ -41,29 +45,45 @@ void main() {
     final device = DelayedDevice(directory);
     final server = PlanServer()..token = 'synthetic-online';
     final repository = OfflinePlans(
-      api: server, transport: server, device: device,
+      api: server,
+      transport: server.offlineTransport,
+      device: device,
       clock: () => DateTime.utc(2026, 10, 23),
     );
     try {
-      await repository.login({'id': 'a' * 32, 'role': 'owner', 'email': 'synthetic@example.test'},
-                             [{'id': 'project', 'name': 'Synthetic project'}]);
+      await loginV2(
+        repository,
+        {'id': 'a' * 32, 'role': 'owner', 'email': 'synthetic@example.test'},
+        [
+          {'id': 'project', 'name': 'Synthetic project'},
+        ],
+      );
       await idle(repository);
       server.online = false;
+      final namespace = repository.storageNamespace;
       device.delay = true;
-      final save = repository.save('project', {'title': 'Retained during shutdown', 'walls': []});
+      final save = repository.save('project', {
+        'title': 'Retained during shutdown',
+        'walls': [],
+      });
       // Attach the error observer before leave invalidates the view epoch.
       final completedSave = expectLater(save, throwsA(isA<StateError>()));
       await device.entered.future;
       var left = false;
-      final leaving = repository.leave().then((_) { left = true; });
+      final leaving = repository.leave().then((_) {
+        left = true;
+      });
       await Future<void>.delayed(Duration.zero);
       expect(left, false);
       device.release.complete();
       await completedSave;
       await leaving;
       expect(left, true);
-      final stored = await (await device.open(repository.server, 'a' * 32)).read();
-      expect((stored!['records'] as Map).values.single['title'], 'Retained during shutdown');
+      final stored = await (await device.open(namespace, 'a' * 32)).read();
+      expect(
+        (stored!['records'] as Map).values.single['title'],
+        'Retained during shutdown',
+      );
       await directory.delete(recursive: true);
       expect(await directory.exists(), false);
     } finally {

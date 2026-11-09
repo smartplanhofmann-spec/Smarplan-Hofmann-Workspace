@@ -9,12 +9,21 @@ import 'package:smartplan_office/project_workspace_page.dart';
 import 'package:smartplan_office/offline_plans.dart';
 
 import 'workflow_test.dart' show TestApi, openProjectReports;
-import 'offline_plans_test.dart' show TestDevice, idle;
+import 'offline_plans_test.dart'
+    show TestDevice, idle, PlanServer, OfflineTestTransport;
 
 /// All records are synthetic. Requests use the production revision/request-ID
 /// contract; no customer files, URLs or calendar applications are contacted.
 class WorkspaceApi extends TestApi {
   WorkspaceApi({super.role});
+  final offlineFixture = PlanServer();
+
+  @override
+  void dispose() {
+    offlineFixture.dispose();
+    super.dispose();
+  }
+
   static const project = {
     'id': 'project-1',
     'name': 'Service und Aufmaß',
@@ -52,15 +61,17 @@ class WorkspaceApi extends TestApi {
     const base = '/api/projects/project-1';
     networkCalls++;
     if (!network) throw const ApiException(0, 'Synthetic offline connection');
-    if (path == '/api/offline/access')
+    if (path == '/api/offline/context')
       return {
-        'token': 'synthetic-offline-token',
-        'expires_at': DateTime.now()
-            .toUtc()
-            .add(const Duration(days: 7))
-            .toIso8601String(),
-        'capabilities': ['offline_workspace', 'project_workspace'],
+        'schema_version': 2,
+        'mode': 'bound_v2',
+        'binding': offlineFixture.binding,
       };
+    if (path == '/api/offline/access/v2') return offlineFixture.v2Grant();
+    if (path == '/api/offline/logout') return {'ok': true};
+    if (path == '/api/me')
+      return {'id': 'a' * 32, 'email': 'owner@example.test', 'role': role};
+    if (path.endsWith('/plan-deletions')) return <dynamic>[];
     if (path == '/api/projects') return revoked ? [] : [project];
     if (path.startsWith('$base/workspace') ||
         [
@@ -98,6 +109,7 @@ class WorkspaceApi extends TestApi {
         }
         final result = <String, dynamic>{
           ...?current,
+          'project_id': project['id'],
           if (current == null)
             'id': (++sequence).toRadixString(16).padLeft(32, '0'),
           for (final entry in body.entries)
@@ -149,13 +161,19 @@ class WorkspaceApi extends TestApi {
       }
       final kind = path.split('/')[4];
       return path.split('/').length == 6
-          ? Map<String, dynamic>.from(
-              items[kind]!.firstWhere(
+          ? Map<String, dynamic>.from({
+              ...items[kind]!.firstWhere(
                 (item) => item['id'] == path.split('/').last,
               ),
-            )
+              'project_id': project['id'],
+            })
           : items[kind]!
-                .map((item) => Map<String, dynamic>.from(item))
+                .map(
+                  (item) => <String, dynamic>{
+                    ...item,
+                    'project_id': project['id'],
+                  },
+                )
                 .toList();
     }
     return super.call(path, body);
@@ -180,7 +198,7 @@ class CacheFixture {
     late CacheFixture fixture;
     final repo = OfflinePlans(
       api: api,
-      transport: api,
+      transport: OfflineTestTransport(api),
       device: TestDevice(folder),
       clock: () => fixture.now,
     );
@@ -197,10 +215,28 @@ class CacheFixture {
   Future<void> close() async {
     await repository.flush();
     await idle(repository);
+    await repository.leave();
+    repository.transport.dispose();
     repository.dispose();
     api.dispose();
     await folder.delete(recursive: true);
   }
+}
+
+Future<void> closeCacheFixture(
+  WidgetTester tester,
+  CacheFixture fixture,
+) async {
+  // Start in the test zone, then pump both fake-clock callbacks and native I/O.
+  // Awaiting leave's existing fake-zone writer inside runAsync deadlocks it.
+  var completed = false;
+  final closing = fixture.close();
+  closing.then<void>(
+    (_) => completed = true,
+    onError: (Object error, StackTrace stack) => completed = true,
+  );
+  await settleStorage(tester, () => completed);
+  await closing;
 }
 
 Future<void> settleStorage(WidgetTester tester, bool Function() done) async {
@@ -579,7 +615,9 @@ void main() {
         await tester.tap(find.widgetWithText(FilledButton, 'Speichern'));
         await settleStorage(
           tester,
-          () => find.byType(AlertDialog).evaluate().isEmpty,
+          // The local receipt may close before its background sync completes.
+          // Drain both while native file completions are still being pumped.
+          () => find.byType(AlertDialog).evaluate().isEmpty && !cache.syncing,
         );
         expect(cache.getWorkspace('project-1')!['tasks'], hasLength(1));
         expect(cache.getWorkspace('project-1')!['has_pending_changes'], isTrue);
@@ -599,7 +637,7 @@ void main() {
       } finally {
         await settleStorage(tester, () => !cache.syncing);
         await tester.pumpWidget(const SizedBox());
-        await tester.runAsync(fixture.close);
+        await closeCacheFixture(tester, fixture);
       }
     },
   );
@@ -655,7 +693,7 @@ void main() {
       } finally {
         await settleStorage(tester, () => !cache.syncing);
         await tester.pumpWidget(const SizedBox());
-        await tester.runAsync(fixture.close);
+        await closeCacheFixture(tester, fixture);
       }
     },
   );

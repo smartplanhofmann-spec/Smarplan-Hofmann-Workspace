@@ -34,7 +34,9 @@ class TimeModuleConnection extends ImportConnection {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  final backend = Directory('../backend').absolute;
+  final backend = Directory(
+    Platform.environment['SMARTPLAN_TEST_BACKEND'] ?? '../backend',
+  ).absolute;
   final python =
       Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
       '${backend.path}/.venv/${Platform.isWindows ? 'Scripts/python.exe' : 'bin/python'}';
@@ -199,6 +201,7 @@ app = create_app(''',
         } finally {
           await repo?.flush();
           if (repo != null) await idle(repo);
+          await repo?.leave();
           repo?.dispose();
           connection?.dispose();
           api?.dispose();

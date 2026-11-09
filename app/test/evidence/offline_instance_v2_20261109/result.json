@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-09T15:30:52.699322+00:00",
+  "branch": "codex/offline-instance-native-v2-20261109",
+  "base": "e5e313b35bcc55ad419247ff67d6ff2ebcb553cf",
+  "prerequisite_local_commit": "7b54ddd",
+  "backend_commit": "4ebf012810913c1d7ea42cf588e964760ff45182",
+  "fixture_sha256": "92ad11ff24c9eb5a7ee84bd17f94854a620a1a7fc2f1562f2a6e7af69c39db64",
+  "overall_goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "checks": [
+    {
+      "log": "smartplan-offline-v2-complete-matrix-repeat-20261109.log.gz",
+      "passed": 186,
+      "failed": 0,
+      "skipped": 0,
+      "elapsed_log_seconds": 181,
+      "test_files": [
+        "offline_binding_test.dart",
+        "offline_instance_test.dart",
+        "offline_instance_http_test.dart",
+        "offline_plans_test.dart",
+        "offline_imports_test.dart",
+        "offline_deletions_test.dart",
+        "offline_workspace_test.dart",
+        "offline_shutdown_test.dart",
+        "offline_backend_integration_test.dart",
+        "business_backend_integration_test.dart",
+        "business_offline_time_test.dart",
+        "business_offline_media_test.dart",
+        "business_offline_reports_test.dart",
+        "offline_plan_widget_test.dart",
+        "offline_service_report_widget_test.dart",
+        "offline_logout_widget_test.dart",
+        "project_workspace_widget_test.dart",
+        "project_unsaved_return_test.dart",
+        "plan_import_widget_test.dart",
+        "business_media_widget_test.dart",
+        "import_backend_integration_test.dart"
+      ]
+    },
+    {
+      "log": "smartplan-offline-v2-extra-http-20261109.log.gz",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "elapsed_log_seconds": 5,
+      "test_files": [
+        "business_module_pause_integration_test.dart",
+        "offline_service_report_backend_integration_test.dart"
+      ]
+    },
+    {
+      "log": "smartplan-offline-v2-analyze-final-20261109.log.gz",
+      "result": "No issues found",
+      "elapsed_seconds": 24.5
+    }
+  ],
+  "environment": {
+    "platform": "Linux",
+    "flutter": "/workspace/toolchains/flutter/bin/flutter",
+    "PUB_CACHE": "/workspace/toolchains/pub-cache",
+    "SMARTPLAN_TEST_BACKEND": "/workspace/smartplan-offline-instance-integration-20261109/backend",
+    "SMARTPLAN_TEST_PYTHON": "/workspace/Smarplan-Hofmann-Workspace/.venv/bin/python"
+  },
+  "publication_performed": false,
+  "automatic_legacy_recovery": false
+}

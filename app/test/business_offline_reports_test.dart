@@ -1,13 +1,41 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cryptography/cryptography.dart';
+import 'package:cryptography/dart.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:smartplan_office/api.dart';
 import 'package:smartplan_office/offline_plans.dart';
 
-import 'offline_plans_test.dart' show PlanServer, TestDevice, idle;
+import 'offline_plans_test.dart' show PlanServer, TestDevice, idle, loginV2;
+
+class PdfHashGate extends DartSha256 {
+  PdfHashGate(this.pdf);
+  final List<int> pdf;
+  final entered = Completer<void>(), release = Completer<void>();
+  int matches = 0;
+  @override
+  Future<Hash> hash(List<int> input) async {
+    if (input.length == pdf.length &&
+        List.generate(pdf.length, (i) => i).every((i) => input[i] == pdf[i])) {
+      matches++;
+      if (matches == 2) {
+        entered.complete();
+        await release.future;
+      }
+    }
+    return super.hash(input);
+  }
+}
+
+class PdfGateCryptography extends DartCryptography {
+  PdfGateCryptography(this.gate);
+  final PdfHashGate gate;
+  @override
+  Sha256 sha256() => gate;
+}
 
 const reportUser = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 const reportProject = 'cccccccccccccccccccccccccccccccc';
@@ -46,13 +74,13 @@ class OfflineReportServer extends PlanServer {
         ...reportMetadata,
       };
     }
-    if (path == '/api/business/offline/access') {
-      return {
-        'token': 'offline_business_reports_synthetic',
-        'expires_at': clock().add(const Duration(days: 7)).toIso8601String(),
-        'capabilities': [if (reportGrant) 'offline_reports'],
-        'report_project_ids': [if (reportGrant) reportProject],
-      };
+    if (path == '/api/business/offline/access/v2') {
+      return v2Grant(
+        kind: 'business',
+        at: clock(),
+        extra: [if (reportGrant) 'offline_reports'],
+        reports: [if (reportGrant) reportProject],
+      );
     }
     if (path == '/api/business/service-reports/offline') {
       reportBodies.add(copyReport(body!));
@@ -165,10 +193,11 @@ void main() {
     repo.dispose();
     repo = OfflinePlans(
       api: server,
-      transport: server,
+      transport: server.offlineTransport,
       device: device,
       clock: () => now,
     );
+    repo.api.token = null;
     await repo.resume();
     await idle(repo);
   }
@@ -180,11 +209,11 @@ void main() {
     server = OfflineReportServer(() => now)..token = 'synthetic-full-session';
     repo = OfflinePlans(
       api: server,
-      transport: server,
+      transport: server.offlineTransport,
       device: device,
       clock: () => now,
     );
-    await repo.login(user, projects, offlineReports: true);
+    await loginV2(repo, user, projects, offlineReports: true);
     await idle(repo);
     server.online = false;
   });
@@ -194,6 +223,57 @@ void main() {
     repo.dispose();
     server.dispose();
     await folder.delete(recursive: true);
+  });
+
+  test('company switch while hashing a private report PDF never writes its bytes to B', () async {
+    final created = await draft();
+    await sign(created['id']);
+    await idle(repo);
+    final scopeA = repo.storageNamespace;
+    final gate = PdfHashGate(server.reportPdf);
+    final previousCrypto = Cryptography.instance;
+    Cryptography.instance = PdfGateCryptography(gate);
+    try {
+      server.online = true;
+      final syncing = repo.sync();
+      await gate.entered.future.timeout(const Duration(seconds: 5));
+      server.instanceId = 'b' * 32;
+      await loginV2(repo, user, projects, offlineReports: true);
+      final scopeB = repo.storageNamespace;
+      expect(scopeB, isNot(scopeA));
+      gate.release.complete();
+      await syncing;
+      await idle(repo);
+      expect(repo.serviceReports(reportProject), isEmpty);
+      final bVault = await device.open(scopeB, reportUser);
+      final bAssets = Directory('${bVault.directory.path}/assets');
+      expect(
+        await bAssets.exists() ? await bAssets.list().toList() : [],
+        isEmpty,
+      );
+      final aState = await (await device.open(scopeA, reportUser)).read();
+      expect(aState!['service_report_outbox'], [created['id']]);
+      expect(
+        aState['service_report_records'][created['id']]['pdf_source'],
+        isNull,
+      );
+      Cryptography.instance = previousCrypto;
+      server.instanceId = 'f' * 32;
+      await loginV2(repo, user, projects, offlineReports: true);
+      await idle(repo);
+      expect(
+        await repo.serviceReportPdf(reportProject, created['id']),
+        server.reportPdf,
+      );
+      expect(repo.pending, 0);
+      expect(
+        await bAssets.exists() ? await bAssets.list().toList() : [],
+        isEmpty,
+      );
+    } finally {
+      if (!gate.release.isCompleted) gate.release.complete();
+      Cryptography.instance = previousCrypto;
+    }
   });
 
   test(
@@ -301,7 +381,7 @@ void main() {
     () async {
       final created = await draft();
       await idle(repo);
-      final vault = await device.open(repo.server, reportUser);
+      final vault = await device.open(repo.storageNamespace, reportUser);
       final original = vault.directory.path;
       final backup = await vault.directory.rename('$original.backup');
       await File(original).writeAsString('Simulated unavailable storage');
@@ -409,7 +489,7 @@ void main() {
     expect(server.reportBodies, isEmpty);
     expect(repo.pending, 1);
     server.online = true;
-    await repo.login(user, projects, offlineReports: true);
+    await loginV2(repo, user, projects, offlineReports: true);
     await idle(repo);
     expect(repo.pending, 0);
     expect(repo.serviceReports(reportProject).single['id'], created['id']);
@@ -423,14 +503,25 @@ void main() {
       await idle(repo);
       server.online = true;
       server.reportGrant = false;
-      await repo.login(user, projects, offlineReports: true);
+      final oldNamespace = repo.storageNamespace;
+      await expectLater(
+        loginV2(repo, user, projects, offlineReports: true),
+        throwsA(isA<ApiException>()),
+      );
       await idle(repo);
       expect(repo.offlineReportsSupported, isFalse);
       await expectLater(draft(), throwsA(isA<ApiException>()));
-      expect(repo.pending, 1);
+      expect(repo.active, isFalse);
+      expect(
+        (await (await device.open(
+          oldNamespace,
+          reportUser,
+        )).read())!['service_report_outbox'],
+        hasLength(1),
+      );
       expect(server.reportBodies, isEmpty);
       server.reportGrant = true;
-      await repo.login(user, projects, offlineReports: true);
+      await loginV2(repo, user, projects, offlineReports: true);
       await idle(repo);
       expect(repo.pending, 0);
       expect(repo.serviceReports(reportProject).single['id'], created['id']);
@@ -451,7 +542,7 @@ void main() {
       throwsA(isA<ApiException>()),
     );
     server.reportFailure = null;
-    await repo.login(user, projects, offlineReports: true);
+    await loginV2(repo, user, projects, offlineReports: true);
     await idle(repo);
     expect(repo.pending, 0);
     expect(server.reportReceipts, hasLength(1));
@@ -577,7 +668,7 @@ void main() {
     );
     final first = copyReport(server.reportBodies.single);
     server.forbidden = false;
-    await repo.login(user, projects, offlineReports: true);
+    await loginV2(repo, user, projects, offlineReports: true);
     await idle(repo);
     expect(repo.pending, 0);
     expect(server.reportBodies.last, first);
@@ -694,7 +785,7 @@ void main() {
       ),
     );
     server.reportMetadata = {};
-    await repo.login(user, projects, offlineReports: true);
+    await loginV2(repo, user, projects, offlineReports: true);
     await idle(repo);
     expect(repo.serviceReports(reportProject).single['id'], created['id']);
     expect(repo.pending, 0);

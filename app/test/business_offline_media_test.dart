@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:smartplan_office/api.dart';
 import 'package:smartplan_office/offline_plans.dart';
 
-import 'offline_plans_test.dart' show PlanServer, TestDevice, idle;
+import 'offline_plans_test.dart' show PlanServer, TestDevice, idle, loginV2;
 
 final fieldPng = Uint8List.fromList(
   base64Decode(
@@ -28,15 +28,8 @@ class FieldServer extends PlanServer {
         'permissions': ['time.own', 'documents.read', 'documents.write'],
         'capabilities': ['business_time', 'business_operations'],
       };
-    if (path == '/api/business/offline/access')
-      return {
-        'token': 'offline_business_synthetic',
-        'expires_at': DateTime.now()
-            .toUtc()
-            .add(const Duration(days: 7))
-            .toIso8601String(),
-        'capabilities': [if (fieldGrant) 'field_media'],
-      };
+    if (path == '/api/business/offline/access/v2')
+      return v2Grant(kind: 'business', extra: [if (fieldGrant) 'field_media']);
     if (path.startsWith('/api/business/media')) {
       if (forbidden) throw const ApiException(403, 'Zugriff entzogen');
       if (path == '/api/business/media') {
@@ -85,8 +78,13 @@ void main() {
     folder = await Directory.systemTemp.createTemp('smartplan-field-media-');
     device = TestDevice(folder);
     server = FieldServer()..token = 'full-session';
-    repo = OfflinePlans(api: server, transport: server, device: device);
-    await repo.login(
+    repo = OfflinePlans(
+      api: server,
+      transport: server.offlineTransport,
+      device: device,
+    );
+    await loginV2(
+      repo,
       {'id': 'a' * 32, 'role': 'technician'},
       [
         {'id': 'p', 'name': 'Test'},
@@ -128,7 +126,12 @@ void main() {
       isFalse,
     );
     repo.dispose();
-    repo = OfflinePlans(api: server, transport: server, device: device);
+    repo = OfflinePlans(
+      api: server,
+      transport: server.offlineTransport,
+      device: device,
+    );
+    repo.api.token = null;
     await repo.resume();
     await idle(repo);
     expect(

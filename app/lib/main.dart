@@ -379,14 +379,18 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
       if (api.token != null) await api.call('/api/logout', {});
     } finally {
       api.token = null;
-      await offline?.logout();
-      if (mounted)
-        setState(() {
-          offlineMode = false;
-          user = null;
-          projects = [];
-          storage = null;
-        });
+      business?.revoke();
+      try {
+        await offline?.logout();
+      } finally {
+        if (mounted)
+          setState(() {
+            offlineMode = false;
+            user = null;
+            projects = [];
+            storage = null;
+          });
+      }
     }
   });
   Future<void> newProject({String? customerId}) async {

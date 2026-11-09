@@ -9,7 +9,8 @@ import 'package:smartplan_office/offline_vault.dart';
 
 import 'offline_imports_test.dart'
     show ImportServer, previewPng, checksum, syntheticPdf;
-import 'offline_plans_test.dart' show TestDevice, idle;
+import 'offline_plans_test.dart'
+    show TestDevice, idle, loginV2, v2TestNamespace;
 import 'offline_assets_test.dart' show InterruptedFile, nativeFile;
 
 /// Inject metadata failures while retaining real snapshot encryption, source
@@ -85,10 +86,12 @@ class DeletionServer extends ImportServer {
 
   @override
   Future<dynamic> call(String path, [Map<String, dynamic>? body]) async {
-    if (path == '/api/offline/access') {
+    if (path == '/api/offline/access/v2') {
       final grant = Map<String, dynamic>.from(await super.call(path, body));
       grant['capabilities'] = [
-        ...((grant['capabilities'] as List?) ?? []),
+        ...((grant['capabilities'] as List?) ?? []).where(
+          (v) => v != 'plan_deletion',
+        ),
         'plan_deletion',
       ];
       return grant;
@@ -335,13 +338,16 @@ void main() {
 
   OfflinePlans createRepository() => OfflinePlans(
     api: server,
-    transport: server,
+    transport: server.offlineTransport,
     device: device,
     clock: () => now,
   );
 
   Future<Map<String, dynamic>> persisted() async {
-    final vault = await device.open(repo.server, user['id']);
+    final vault = await device.open(
+      v2TestNamespace(repo, user['id']),
+      user['id'],
+    );
     return (await vault.read())!;
   }
 
@@ -380,7 +386,7 @@ void main() {
       .toList();
 
   Future<File> sourceFile(Map<String, dynamic> record) async {
-    final vault = await device.open(repo.server, user['id']);
+    final vault = await device.open(repo.storageNamespace, user['id']);
     return File.fromUri(
       vault.directory.uri.resolve(
         'assets/${record['source']['id']}/original.enc',
@@ -393,6 +399,7 @@ void main() {
     await repo.leave();
     repo.dispose();
     repo = createRepository();
+    repo.api.token = null;
     await repo.resume();
     await idle(repo);
   }
@@ -407,7 +414,7 @@ void main() {
       ..grantImportCapability = true
       ..token = 'synthetic-session';
     repo = createRepository();
-    await repo.login(user, projects);
+    await loginV2(repo, user, projects);
     await idle(repo);
     server.online = false;
   });
@@ -541,7 +548,7 @@ void main() {
     final record = await capture();
     final id = record['local_id'] as String;
     server.online = true;
-    await repo.login({...user, 'role': 'accountant'}, projects);
+    await loginV2(repo, {...user, 'role': 'accountant'}, projects);
     await idle(repo);
     server.online = false;
     final pendingBefore = repo.pending;
@@ -900,11 +907,14 @@ void main() {
     expect(seenAccounts, isNot(contains(user['id'])));
     server.online = true;
     final other = {...user, 'id': 'b' * 32};
-    await repo.login(other, projects);
+    await loginV2(repo, other, projects);
     await idle(repo);
     expect(repo.user['id'], other['id']);
     expect(repo.imports('project'), isEmpty);
-    final previous = await device.open(repo.server, user['id']);
+    final previous = await device.open(
+      v2TestNamespace(repo, user['id']),
+      user['id'],
+    );
     expect(
       (await previous.read())!['imports'][record['local_id']][rotation],
       3,
@@ -985,7 +995,7 @@ void main() {
     },
   );
 
-  test('Offline resume retries a persisted cleanup intent even without a stored server token', () async {
+  test('Missing V2 token preserves cleanup intent until renewed company authorization', () async {
     final record = await capture();
     final source = await sourceFile(record);
     final directory = source.parent;
@@ -999,10 +1009,18 @@ void main() {
       hasLength(1),
     );
     await extra.delete();
-    await device.saveSession(repo.server, user['id'], null);
-    await restart();
+    await device.saveSession(repo.storageNamespace, user['id'], null);
+    await expectLater(restart(), throwsA(isA<FormatException>()));
+    expect(repo.active, isFalse);
+    expect(
+      (await persisted())['import_deletions'][record['local_id']]['assets'],
+      hasLength(1),
+    );
+    server.online = true;
+    await loginV2(repo, user, projects);
+    await idle(repo);
     expect(repo.imports('project'), isEmpty);
-    expect(repo.pending, 1);
+    expect(repo.pending, 0);
     expect(await directory.exists(), isFalse);
     expect(
       (await persisted())['import_deletions'][record['local_id']]['assets'],
@@ -1031,7 +1049,7 @@ void main() {
     await started.future.timeout(const Duration(seconds: 3));
     await repo.leave();
     final other = {...user, 'id': 'b' * 32};
-    await repo.login(other, projects);
+    await loginV2(repo, other, projects);
     await idle(repo);
     server.online = false;
     final otherSource = await capture();
@@ -1053,7 +1071,7 @@ void main() {
         final source = await capture();
         if (restriction == 'read_only') {
           server.online = true;
-          await repo.login({...user, 'role': 'accountant'}, projects);
+          await loginV2(repo, {...user, 'role': 'accountant'}, projects);
           await idle(repo);
           server.online = false;
         } else if (restriction == 'expired') {

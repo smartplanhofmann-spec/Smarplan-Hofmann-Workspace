@@ -6,7 +6,8 @@ import 'package:smartplan_office/api.dart';
 import 'package:smartplan_office/offline_plans.dart';
 import 'package:smartplan_office/offline_vault.dart';
 
-import 'offline_plans_test.dart' show PlanServer, TestDevice, idle;
+import 'offline_plans_test.dart'
+    show PlanServer, TestDevice, idle, loginV2, v2TestNamespace;
 
 const workspaceKinds = ['tasks', 'diary', 'appointments', 'links'];
 const workspaceUserId = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
@@ -158,7 +159,7 @@ class WorkspaceServer extends PlanServer {
 
   @override
   Future<dynamic> call(String path, [Map<String, dynamic>? body]) async {
-    if (path == '/api/offline/access') {
+    if (path == '/api/offline/access/v2') {
       if (body == null || body.isNotEmpty) {
         throw const ApiException(
           400,
@@ -166,7 +167,12 @@ class WorkspaceServer extends PlanServer {
         );
       }
       final value = Map<String, dynamic>.from(await super.call(path, body));
-      value['capabilities'] = [...workspaceCapabilities];
+      value['capabilities'] = {
+        ...(value['capabilities'] as List).where(
+          (v) => !['project_workspace', 'offline_workspace'].contains(v),
+        ),
+        ...workspaceCapabilities,
+      }.toList();
       return value;
     }
     final route = RegExp(
@@ -369,7 +375,7 @@ void main() {
   ];
   OfflinePlans open() => OfflinePlans(
     api: server,
-    transport: server,
+    transport: server.offlineTransport,
     device: device,
     clock: () => now,
   );
@@ -378,6 +384,7 @@ void main() {
     await repo.leave();
     repo.dispose();
     repo = open();
+    repo.api.token = null;
     await repo.resume();
     await idle(repo);
   }
@@ -397,7 +404,7 @@ void main() {
     server = WorkspaceServer()..token = 'full-session';
     now = DateTime.utc(2026, 10, 24, 12);
     repo = open();
-    await repo.login(user, projects);
+    await loginV2(repo, user, projects);
     await idle(repo);
     server.online = false;
   });
@@ -478,14 +485,20 @@ void main() {
         server.online = true;
         await repo.refreshWorkspace(workspaceProject);
         server.workspaceCapabilities = capabilities;
-        await repo.login(user, projects);
+        await expectLater(
+          loginV2(repo, user, projects),
+          throwsA(isA<ApiException>()),
+        );
         await idle(repo);
         expect(repo.workspaceSupported, isFalse);
-        expect(repo.getWorkspace(workspaceProject), isNull);
+        expect(
+          () => repo.getWorkspace(workspaceProject),
+          throwsA(isA<ApiException>()),
+        );
         final readsBefore = server.workspaceReads.length;
         await expectLater(
           repo.refreshWorkspace(workspaceProject),
-          throwsA(status(403)),
+          throwsA(isA<ApiException>()),
         );
         expect(server.workspaceReads, hasLength(readsBefore));
         await expectLater(
@@ -498,7 +511,7 @@ void main() {
         );
         expect(server.workspaceCommands, isEmpty);
         expect(repo.pending, 0);
-        expect(repo.canAccessProject(workspaceProject), isTrue);
+        expect(repo.canAccessProject(workspaceProject), isFalse);
       },
     );
   }
@@ -574,22 +587,29 @@ void main() {
         workspaceInput('tasks', 'Retained across older server login'),
       );
       await idle(repo);
+      final oldNamespace = repo.storageNamespace;
       server.workspaceCapabilities = ['project_workspace'];
       server.online = true;
-      await repo.login(user, projects);
+      await expectLater(
+        loginV2(repo, user, projects),
+        throwsA(isA<ApiException>()),
+      );
       await idle(repo);
       expect(repo.workspaceSupported, isFalse);
-      expect(repo.getWorkspace(workspaceProject), isNull);
-      expect(repo.pending, 1);
+      expect(
+        () => repo.getWorkspace(workspaceProject),
+        throwsA(isA<ApiException>()),
+      );
+      expect(repo.active, isFalse);
       expect(server.workspaceCommands, isEmpty);
-      expect(repo.canAccessProject(workspaceProject), isTrue);
-      final vault = await device.open(repo.server, workspaceUserId);
+      expect(repo.canAccessProject(workspaceProject), isFalse);
+      final vault = await device.open(oldNamespace, workspaceUserId);
       expect(
         (await vault.read()).toString(),
         contains('Retained across older server login'),
       );
       server.workspaceCapabilities = ['project_workspace', 'offline_workspace'];
-      await repo.login(user, projects);
+      await loginV2(repo, user, projects);
       await idle(repo);
       expect(repo.pending, 0);
       expect(
@@ -961,11 +981,11 @@ void main() {
       throwsA(status(401)),
     );
     expect(repo.pending, 1);
-    final vault = await device.open(repo.server, workspaceUserId);
+    final vault = await device.open(repo.storageNamespace, workspaceUserId);
     final durable = await vault.read();
     expect(durable.toString(), contains('Retained field notes'));
     server.online = true;
-    await repo.login(user, projects);
+    await loginV2(repo, user, projects);
     await idle(repo);
     expect(repo.pending, 0);
     expect(
@@ -994,10 +1014,10 @@ void main() {
     expect(repo.canAccessProject(workspaceProject), isFalse);
     expect(() => repo.getWorkspace(workspaceProject), throwsA(status(403)));
     expect(repo.pending, 1);
-    final vault = await device.open(repo.server, workspaceUserId);
+    final vault = await device.open(repo.storageNamespace, workspaceUserId);
     expect((await vault.read()).toString(), contains('Keep if reassigned'));
     server.forbidden = false;
-    await repo.login(user, projects);
+    await loginV2(repo, user, projects);
     await idle(repo);
     expect(repo.pending, 0);
     expect(
@@ -1012,7 +1032,7 @@ void main() {
       server.seed('tasks');
       server.online = true;
       await repo.refreshWorkspace(workspaceProject);
-      await repo.login({...user, 'role': 'accountant'}, projects);
+      await loginV2(repo, {...user, 'role': 'accountant'}, projects);
       await idle(repo);
       server.online = false;
       expect(cachedItems('tasks'), hasLength(1));
@@ -1040,7 +1060,7 @@ void main() {
     () async {
       server.online = true;
       await repo.refreshWorkspace(workspaceProject);
-      await repo.login({...user, 'role': 'technician'}, projects);
+      await loginV2(repo, {...user, 'role': 'technician'}, projects);
       await idle(repo);
       server.online = false;
       await repo.saveWorkspaceItem(
@@ -1107,7 +1127,7 @@ void main() {
             .refreshWorkspace(workspaceProject)
             .then<void>((_) {}, onError: (Object error) {});
         await server.readStarted!.future;
-        await repo.login({...user, 'id': workspaceOtherUserId}, projects);
+        await loginV2(repo, {...user, 'id': workspaceOtherUserId}, projects);
         server.releaseRead!.complete();
         await refresh;
         await idle(repo);
@@ -1133,14 +1153,17 @@ void main() {
         workspaceInput('tasks', 'Account A draft'),
       );
       await server.writeAccepted!.future;
-      await repo.login({...user, 'id': workspaceOtherUserId}, projects);
+      await loginV2(repo, {...user, 'id': workspaceOtherUserId}, projects);
       server.releaseWrite!.complete();
       await idle(repo);
       expect(repo.user['id'], workspaceOtherUserId);
       expect(repo.getWorkspace(workspaceProject), isNull);
       expect(repo.pending, 0);
       server.online = false;
-      final aVault = await device.open(repo.server, workspaceUserId);
+      final aVault = await device.open(
+        v2TestNamespace(repo, workspaceUserId),
+        workspaceUserId,
+      );
       expect((await aVault.read()).toString(), contains(local['local_id']));
     },
   );

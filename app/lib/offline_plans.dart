@@ -7,11 +7,13 @@ import 'package:cryptography/cryptography.dart';
 import 'api.dart';
 import 'offline_vault.dart';
 import 'offline_assets.dart';
+import 'offline_binding.dart';
 
 part 'offline_imports.dart';
 part 'offline_workspace.dart';
 part 'business_offline.dart';
 part 'offline_service_reports.dart';
+part 'offline_instance.dart';
 
 /// Plan-only offline workspace. Its scoped seven-day token stays in OS secure storage.
 class OfflinePlans extends ChangeNotifier {
@@ -22,7 +24,10 @@ class OfflinePlans extends ChangeNotifier {
   final DateTime Function() clock;
   OfflineVault? _vault;
   Map<String, dynamic>? _state;
+  OfflineBinding? _binding;
+  String? _storageNamespace, _onlineToken;
   Future<void> _tail = Future.value();
+  Future<void> _activationTail = Future.value();
   Timer? _timer;
   bool _syncing = false, _disposed = false;
   int _epoch = 0;
@@ -38,14 +43,22 @@ class OfflinePlans extends ChangeNotifier {
        device = device ?? OfflineDevice(),
        clock = clock ?? DateTime.now;
   String get server => '${api.base}|${api.version}';
+  String get storageNamespace =>
+      _storageNamespace ??
+      (throw StateError('Kein firmengebundener Offlinespeicher geöffnet.'));
   bool get active => _state != null;
   bool get permitted {
-    if (!active || _state!['locked'] == true) return false;
+    if ((api.token != null && api.token != _onlineToken) ||
+        !active ||
+        _state!['locked'] == true ||
+        !_matchesBoundState(_state!))
+      return false;
     final now = clock().toUtc();
     final online = DateTime.parse(_state!['last_online']);
     final seen = DateTime.parse(_state!['last_seen']);
     return !now.isBefore(online) &&
         !now.isBefore(seen.subtract(const Duration(minutes: 2))) &&
+        now.isBefore(DateTime.parse(_state!['server_expires_at'])) &&
         now.difference(online) < const Duration(days: 7);
   }
 
@@ -86,7 +99,10 @@ class OfflinePlans extends ChangeNotifier {
         throw StateError('Offline-Konto wurde gewechselt.');
       final state = offlineCopy(_state!);
       final vault = _vault!;
+      final binding = _binding!;
+      _checkQueueBindings(state, binding);
       final result = action(state);
+      _bindNewQueues(_state!, state, binding);
       state['last_seen'] = clock().toUtc().toIso8601String();
       await vault.write(state);
       if (epoch != _epoch || _vault != vault || _state == null)
@@ -105,123 +121,15 @@ class OfflinePlans extends ChangeNotifier {
     bool businessTime = false,
     bool fieldMedia = false,
     bool offlineReports = false,
-  }) async {
-    _epoch++;
-    await _tail;
-    _state = null;
-    _vault = null;
-    final vault = await device.open(server, user['id'], create: true);
-    final grant = Map<String, dynamic>.from(
-      await api.call(
-        (businessTime || fieldMedia || offlineReports)
-            ? '/api/business/offline/access'
-            : '/api/offline/access',
-        {},
-      ),
-    );
-    transport.token = grant['token'];
-    await device.saveSession(server, user['id'], transport.token);
-    final now = clock().toUtc().toIso8601String();
-    final state =
-        await vault.read() ?? <String, dynamic>{'records': {}, 'outbox': []};
-    state.addAll({
-      'time_events_supported':
-          businessTime &&
-          (grant['capabilities'] as List? ?? []).contains('time_events'),
-      'field_media_supported':
-          fieldMedia &&
-          (grant['capabilities'] as List? ?? []).contains('field_media'),
-      'offline_reports_supported':
-          offlineReports &&
-          (grant['capabilities'] as List? ?? []).contains('offline_reports'),
-      'report_project_ids': grant['report_project_ids'] is List
-          ? List<String>.from(grant['report_project_ids'])
-          : <String>[],
-      'report_writes_enabled': grant['report_writes_enabled'] != false,
-      'cache_schema': 1,
-      'user': user,
-      'projects': projects,
-      'last_online': now,
-      'server_expires_at': grant['expires_at'],
-      'last_seen': now,
-      'locked': false,
-      'imports_supported': (grant['capabilities'] as List? ?? []).contains(
-        'plan_imports',
-      ),
-      'deletions_supported': (grant['capabilities'] as List? ?? []).contains(
-        'plan_deletion',
-      ),
-      'workspace_supported':
-          (grant['capabilities'] as List? ?? []).contains(
-            'offline_workspace',
-          ) &&
-          (grant['capabilities'] as List? ?? []).contains('project_workspace'),
-    });
-    for (final record in (state['records'] as Map).values) {
-      if (record['sync_status'] == 'Zugriff gesperrt')
-        record['sync_status'] = 'Wartet auf Verbindung';
-    }
-    for (final record in (state['imports'] as Map? ?? {}).values) {
-      if (record['sync_status'] == 'Zugriff gesperrt') {
-        record['sync_status'] = 'Wartet auf Verbindung';
-      }
-    }
-    for (final record in (state['workspace_records'] as Map? ?? {}).values) {
-      if (record['sync_status'] == 'Zugriff gesperrt')
-        record['sync_status'] = 'Wartet auf Verbindung';
-    }
-    for (final record
-        in (state['service_report_records'] as Map? ?? {}).values) {
-      if (record['sync_status'] == 'Zugriff gesperrt')
-        record['sync_status'] = 'Wartet auf Verbindung';
-    }
-    await vault.write(state);
-    await device.select(server, user['id']);
-    _vault = vault;
-    _state = state;
-    notice = null;
-    start();
-    changed();
-    unawaited(sync());
-  }
+  }) => _loginBound(
+    user,
+    projects,
+    businessTime: businessTime,
+    fieldMedia: fieldMedia,
+    offlineReports: offlineReports,
+  );
 
-  Future<void> resume() async {
-    if (!await device.unlock())
-      throw const ApiException(0, 'Gerät wurde nicht entsperrt.');
-    final selected = await device.selected(server);
-    if (selected == null)
-      throw const ApiException(
-        0,
-        'Noch keine Offline-Projekte vorhanden. Zuerst online anmelden.',
-      );
-    _epoch++;
-    final epoch = _epoch;
-    await _tail;
-    _state = null;
-    _vault = null;
-    try {
-      _vault = await device.open(server, selected);
-      _state = await _vault!.read();
-      if (_state?['cache_schema'] != 1 || _state?['user']?['id'] != selected)
-        throw StateError(
-          'Offline-Speicherformat oder Konto stimmt nicht überein.',
-        );
-      transport.token = await device.session(server, selected);
-      requireAccess();
-      await _change((_) {});
-      await _cleanupDeletedAssets(epoch);
-      if (epoch != _epoch) throw StateError('Offline-Konto wurde gewechselt.');
-    } catch (_) {
-      if (epoch == _epoch) {
-        _state = null;
-        _vault = null;
-      }
-      rethrow;
-    }
-    start();
-    changed();
-    unawaited(sync());
-  }
+  Future<void> resume() => _resumeBound();
 
   void start() {
     _timer?.cancel();
@@ -234,31 +142,69 @@ class OfflinePlans extends ChangeNotifier {
   }
 
   Future<void> leave() async {
+    final epoch = ++_epoch;
     _timer?.cancel();
-    _epoch++;
-    await _tail;
     _state = null;
     _vault = null;
+    _binding = null;
+    _storageNamespace = null;
+    _onlineToken = null;
     transport.token = null;
-    changed();
+    final activation = _activationTail;
+    await _tail;
+    await activation;
+    if (epoch == _epoch) changed();
   }
 
   Future<void> logout() async {
-    final token = transport.token;
-    if (active) {
-      await device.saveSession(server, user['id'], null);
-      await lock();
-    }
-    await leave();
-    if (token != null) {
-      final revoke = OfficeApi(baseUrl: api.base, apiVersion: api.version)
-        ..token = token;
-      unawaited(
-        revoke
-            .call('/api/offline/logout', {})
-            .then<void>((_) {}, onError: (Object e, StackTrace s) {})
-            .whenComplete(revoke.dispose),
-      );
+    // Capture the old scope before closing the visible session. Serialize its
+    // durable close with pending writes, so a new login cannot lose its token.
+    final token = transport.token, binding = _binding;
+    final vault = _vault, namespace = _storageNamespace;
+    final host = api.base, version = api.version;
+    final closing = _tail.then((_) async {
+      Object? failure;
+      StackTrace? failureStack;
+      try {
+        if (vault != null && binding != null) {
+          final latest = await vault.read();
+          if (latest != null) {
+            if (OfflineBinding.fromJson(latest['binding']) != binding)
+              throw const FormatException(
+                'Offline-Abmeldung gehört zu einer anderen Firma.',
+              );
+            await vault.write({...latest, 'locked': true});
+          }
+        }
+      } catch (error, stack) {
+        failure = error;
+        failureStack = stack;
+      }
+      try {
+        if (namespace != null && binding != null)
+          await device.saveSession(namespace, binding.accountId, null);
+      } catch (error, stack) {
+        failure ??= error;
+        failureStack ??= stack;
+      }
+      if (failure != null) Error.throwWithStackTrace(failure, failureStack!);
+    });
+    _tail = closing.then<void>((_) {}, onError: (Object e, StackTrace s) {});
+    final leaving = leave(); // Immediately clears RAM, timer and transport.
+    try {
+      await closing;
+    } finally {
+      await leaving;
+      if (token != null && binding != null) {
+        final revoke = OfficeApi(baseUrl: host, apiVersion: version);
+        revoke.configureOfflineSession(token, binding.headerValue);
+        unawaited(
+          revoke
+              .call('/api/offline/logout', {})
+              .then<void>((_) {}, onError: (Object e, StackTrace s) {})
+              .whenComplete(revoke.dispose),
+        );
+      }
     }
   }
 
@@ -307,7 +253,7 @@ class OfflinePlans extends ChangeNotifier {
       if (_unresolvedDeletion('plan', project)) return;
       final generation = _state?['deletion_generation'] ?? 0;
       final plans =
-          await transport.call('/api/projects/$project/plans') as List;
+          await _offlineCall(epoch, '/api/projects/$project/plans') as List;
       if (epoch != _epoch) return;
       if (generation != (_state?['deletion_generation'] ?? 0)) return;
       await _change((state) {
@@ -648,7 +594,8 @@ class OfflinePlans extends ChangeNotifier {
 
   Future<void> _refreshDeletions(int epoch, String project) async {
     _entryAccess(epoch, project);
-    final response = await transport.call(
+    final response = await _offlineCall(
+      epoch,
       '/api/projects/$project/plan-deletions',
     );
     _entryAccess(epoch, project);
@@ -705,7 +652,8 @@ class OfflinePlans extends ChangeNotifier {
             if (marker['create_request_id'] != null)
               'create_request_id': marker['create_request_id'],
           };
-          final result = await transport.call(
+          final result = await _offlineCall(
+            epoch,
             '/api/projects/$project/${kind == 'plan' ? 'plans' : 'plan-imports'}/delete',
             body,
           );
@@ -831,7 +779,8 @@ class OfflinePlans extends ChangeNotifier {
         if (epoch != _epoch || transport.token != token) break;
         if (operation == null || _deleted('plan', localId: localId)) continue;
         try {
-          final response = await transport.call(
+          final response = await _offlineCall(
+            epoch,
             operation['path'],
             Map<String, dynamic>.from(operation['body']),
           );
@@ -873,7 +822,7 @@ class OfflinePlans extends ChangeNotifier {
           if (e.status == 409 && operation['body']['revision'] != null) {
             try {
               remote = Map<String, dynamic>.from(
-                await transport.call(operation['path']),
+                await _offlineCall(epoch, operation['path']),
               );
             } on ApiException catch (conflict) {
               if (conflict.status == 410) {
@@ -988,7 +937,14 @@ class OfflinePlans extends ChangeNotifier {
   @override
   void dispose() {
     _disposed = true;
+    _epoch++;
     _timer?.cancel();
+    _state = null;
+    _vault = null;
+    _binding = null;
+    _storageNamespace = null;
+    _onlineToken = null;
+    transport.token = null;
     if (ownsTransport) transport.dispose();
     super.dispose();
   }

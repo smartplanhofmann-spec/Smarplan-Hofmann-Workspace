@@ -300,7 +300,8 @@ extension PlanImports on OfflinePlans {
           (kind != 'source' && record['status'] != 'needs_review'))
         continue;
       if (kind == 'recognition') {
-        final bytes = await transport.bytes(
+        final bytes = await _offlineBytes(
+          epoch,
           '$path/result',
           mediaType: 'application/json',
           maxBytes: 1024 * 1024,
@@ -359,7 +360,8 @@ extension PlanImports on OfflinePlans {
           expectedSize > 20 * 1024 * 1024) {
         throw const ApiException(0, 'Prüfsumme der Serverdatei fehlt.');
       }
-      final bytes = await transport.bytes(
+      final bytes = await _offlineBytes(
+        epoch,
         '$path/$kind',
         mediaType: mime,
         maxBytes: expectedSize,
@@ -463,7 +465,8 @@ extension PlanImports on OfflinePlans {
         await _refreshDeletions(epoch, project);
       if (_unresolvedDeletion('import', project)) return;
       final generation = _state?['deletion_generation'] ?? 0;
-      final remote = await transport.call(
+      final remote = await _offlineCall(
+        epoch,
         '/api/projects/$project/plan-imports',
       );
       _importAccess(epoch, project);
@@ -567,7 +570,7 @@ extension PlanImports on OfflinePlans {
         Map<String, dynamic> remote;
         if (pending) {
           remote = Map<String, dynamic>.from(
-            await transport.call(collection, {
+            await _offlineCall(epoch, collection, {
               for (final key in [
                 'request_id',
                 'title',
@@ -582,7 +585,7 @@ extension PlanImports on OfflinePlans {
           );
         } else {
           remote = Map<String, dynamic>.from(
-            await transport.call('$collection/${record['server_id']}'),
+            await _offlineCall(epoch, '$collection/${record['server_id']}'),
           );
         }
         _importAccess(epoch, project);
@@ -606,7 +609,8 @@ extension PlanImports on OfflinePlans {
             if (received.contains(index)) continue;
             _importAccess(epoch, project);
             if (_deleted('import', localId: localId)) break;
-            await transport.putChunk(
+            await _offlineChunk(
+              epoch,
               '$collection/${remote['id']}/chunks/$index',
               Uint8List.sublistView(
                 source,
@@ -618,7 +622,11 @@ extension PlanImports on OfflinePlans {
           }
           if (_deleted('import', localId: localId)) continue;
           remote = Map<String, dynamic>.from(
-            await transport.call('$collection/${remote['id']}/complete', {}),
+            await _offlineCall(
+              epoch,
+              '$collection/${remote['id']}/complete',
+              {},
+            ),
           );
           _importAccess(epoch, project);
           await _mergeImport(epoch, project, remote, localId: localId);

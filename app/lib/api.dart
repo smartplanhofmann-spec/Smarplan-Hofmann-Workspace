@@ -35,7 +35,29 @@ class OfficeApi extends ChangeNotifier {
       version = apiVersion ?? const String.fromEnvironment('API_VERSION');
   final String base;
   final String version;
-  String? token;
+  String? _token, _offlineToken, _offlineBindingHeader;
+  String? get token => _token;
+  set token(String? value) {
+    _token = value;
+    _offlineToken = _offlineBindingHeader = null;
+  }
+
+  String? get offlineBindingHeader =>
+      _offlineToken == token ? _offlineBindingHeader : null;
+
+  /// The origin belongs to this exact stored device grant, not a later login.
+  void configureOfflineSession(String value, String bindingHeader) {
+    if (!(value.startsWith('offline_workspace_v2_') ||
+            value.startsWith('offline_business_v2_')) ||
+        !RegExp(r'^[a-f0-9]{32}:[a-f0-9]{32}$').hasMatch(bindingHeader)) {
+      throw const ApiException(
+        0,
+        'Ungültige Firmenbindung der Offline-Freigabe.',
+      );
+    }
+    _token = _offlineToken = value;
+    _offlineBindingHeader = bindingHeader;
+  }
 
   Future<Uint8List> _request(
     String path,
@@ -63,6 +85,16 @@ class OfficeApi extends ChangeNotifier {
     final client = HttpClient()
       ..connectionTimeout = const Duration(seconds: 15);
     final sessionToken = token;
+    final sessionBinding = offlineBindingHeader;
+    if ((sessionToken?.startsWith('offline_workspace_v2_') == true ||
+            sessionToken?.startsWith('offline_business_v2_') == true) &&
+        sessionBinding == null) {
+      client.close(force: true);
+      throw const ApiException(
+        0,
+        'Die ursprüngliche Offline-Firmenbindung fehlt.',
+      );
+    }
     final requestMethod = method ?? (body == null ? 'GET' : 'POST');
     try {
       final request = await client
@@ -71,6 +103,8 @@ class OfficeApi extends ChangeNotifier {
       request.followRedirects = false;
       if (sessionToken != null)
         request.headers.set('Authorization', 'Bearer $sessionToken');
+      if (sessionBinding != null)
+        request.headers.set('X-Smartplan-Offline-Binding', sessionBinding);
       if (binary != null) {
         request.headers.contentType = ContentType.binary;
         request.contentLength = binary.length;

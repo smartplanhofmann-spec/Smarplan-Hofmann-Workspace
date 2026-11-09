@@ -256,9 +256,9 @@ extension OfflineWorkspace on OfflinePlans {
       );
     try {
       final responses = await Future.wait<dynamic>([
-        transport.call('/api/projects/$project/workspace'),
+        _offlineCall(epoch, '/api/projects/$project/workspace'),
         for (final kind in ['tasks', 'diary', 'appointments', 'links'])
-          transport.call('/api/projects/$project/$kind'),
+          _offlineCall(epoch, '/api/projects/$project/$kind'),
       ]);
       _workspaceAccess(epoch, project);
       if (transport.token != token)
@@ -672,7 +672,7 @@ extension OfflineWorkspace on OfflinePlans {
     var revoke = collection && [403, 404].contains(error.status);
     if (!collection && [403, 404].contains(error.status)) {
       try {
-        await transport.call('/api/projects/$project/workspace');
+        await _offlineCall(epoch, '/api/projects/$project/workspace');
         _workspaceAccess(epoch, project);
       } on ApiException catch (probe) {
         if (epoch != _epoch) return;
@@ -756,7 +756,8 @@ extension OfflineWorkspace on OfflinePlans {
       final project = operation['project_id'] as String;
       final kind = operation['kind'] as String;
       try {
-        final response = await transport.call(
+        final response = await _offlineCall(
+          epoch,
           operation['path'],
           Map<String, dynamic>.from(operation['body']),
         );
@@ -803,7 +804,7 @@ extension OfflineWorkspace on OfflinePlans {
           Map<String, dynamic>? remote;
           if (operation['body']['revision'] != null) {
             try {
-              final value = await transport.call(operation['path']);
+              final value = await _offlineCall(epoch, operation['path']);
               _workspaceAccess(epoch, project);
               remote = _workspaceRemote(
                 project,

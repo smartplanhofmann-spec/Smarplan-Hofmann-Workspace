@@ -23,15 +23,22 @@ from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 from cryptography.fernet import Fernet
 from core import Office
 from online.web import create_app
+from online.instance import bind
+from online.storage import Storage
 
 for name in ('SMARTPLAN_DATABASE_DSN', 'SMARTPLAN_VAULT_KEY_FILE', 'SMARTPLAN_STORAGE_CONFIG_FILE'):
     os.environ.pop(name, None)
-office = Office(Path(sys.argv[1]) / 'office.sqlite3')
+root = Path(sys.argv[1]).resolve(strict=True)
+office = Office(root / 'office.sqlite3')
 office.add_user('synthetic@example.test', 'Synthetic-import-password-123', 'owner')
 token = office.login('synthetic@example.test', 'Synthetic-import-password-123')
 user = office.user(token)
 project = office.add_project(user, 'Importfixture', 'Synthetic customer')
-app = create_app(office=office, key=Fernet.generate_key(), host='office.example.test', storage_config={})
+key = Fernet.generate_key()
+instance_id = '11111111111111111111111111111111'
+storage = Storage(office, key, 'office.example.test', config={'server': {'path': str(root / 'storage')}})
+bind(office, instance_id, 'office.example.test', key, storage)
+app = create_app(office=office, key=key, host='office.example.test', storage=storage, instance_id=instance_id)
 def proxy(environ, start_response):
     environ['HTTP_HOST'] = 'office.example.test'
     environ['HTTP_X_FORWARDED_PROTO'] = 'https'
@@ -107,7 +114,9 @@ Uint8List syntheticPdf() {
 }
 
 void main() {
-  final backend = Directory('../backend').absolute;
+  final backend = Directory(
+    Platform.environment['SMARTPLAN_TEST_BACKEND'] ?? '../backend',
+  ).absolute;
   final python =
       Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
       '${backend.path}/.venv/${Platform.isWindows ? 'Scripts/python.exe' : 'bin/python'}';
@@ -160,7 +169,7 @@ void main() {
           await repo.login(user, projects);
           await idle(repo);
           final granted = await (await device.open(
-            repo.server,
+            repo.storageNamespace,
             user['id'],
           )).read();
           expect(granted?['imports_supported'], isTrue);
@@ -205,6 +214,9 @@ void main() {
             throwsA(isA<ApiException>().having((e) => e.status, 'status', 403)),
           );
         } finally {
+          await repo?.leave();
+          await second?.leave();
+          second?.transport.dispose();
           repo?.dispose();
           second?.dispose();
           full?.dispose();

@@ -321,13 +321,15 @@ extension OfflineServiceReports on OfflinePlans {
           ].contains(record['sync_status']))
         continue;
       final project = record['project_id'] as String;
+      final vault = _vault!;
       final request = offlineCopy(
         Map<String, dynamic>.from(record['capture_request']),
       );
       try {
         _reportAccess(epoch, project);
         final remote = Map<String, dynamic>.from(
-          await transport.call(
+          await _offlineCall(
+            epoch,
             '/api/business/service-reports/offline',
             request,
           ),
@@ -342,7 +344,8 @@ extension OfflineServiceReports on OfflinePlans {
             'sync_status': 'Serverbestätigt · PDF wird geladen',
           });
         });
-        final bytes = await transport.bytes(
+        final bytes = await _offlineBytes(
+          epoch,
           '/api/business/service-reports/$id/pdf',
           mediaType: 'application/pdf',
         );
@@ -351,27 +354,39 @@ extension OfflineServiceReports on OfflinePlans {
         final hash = (await Sha256().hash(bytes)).bytes
             .map((v) => v.toRadixString(16).padLeft(2, '0'))
             .join();
+        _reportAccess(epoch, project);
+        if (_vault != vault || transport.token != token) return;
         if (hash != remote['pdf_sha256'])
           throw const ApiException(
             0,
             'Das empfangene PDF stimmt nicht mit dem unterschriebenen Archiv überein.',
           );
-        final source = await EncryptedAssets(_vault!).put(
+        final source = await EncryptedAssets(vault).put(
           bytes,
           mediaType: 'application/pdf',
           filename: 'servicebericht-$id.pdf',
         );
-        _reportAccess(epoch, project);
-        if (transport.token != token) return;
-        await _change((state) {
+        try {
           _reportAccess(epoch, project);
-          (state['service_report_records'][id] as Map).addAll(<String, dynamic>{
-            'pdf_source': source,
-            'sync_status': 'Synchronisiert',
+          if (_vault != vault || transport.token != token)
+            throw StateError('Offline-Konto wurde gewechselt.');
+          await _change((state) {
+            _reportAccess(epoch, project);
+            (state['service_report_records'][id] as Map).addAll(
+              <String, dynamic>{
+                'pdf_source': source,
+                'sync_status': 'Synchronisiert',
+              },
+            );
+            (state['service_report_records'][id] as Map).remove('sync_error');
+            (state['service_report_outbox'] as List).remove(id);
           });
-          (state['service_report_records'][id] as Map).remove('sync_error');
-          (state['service_report_outbox'] as List).remove(id);
-        });
+        } catch (_) {
+          // Read a separate snapshot: a failed acknowledgement may follow a
+          // committed write. Never delete an original referenced on disk.
+          await _removeUnpublishedReportPdf(vault, source);
+          rethrow;
+        }
       } on ApiException catch (error) {
         if (epoch != _epoch || !active || transport.token != token) return;
         if (error.status == 401) {
@@ -396,6 +411,21 @@ extension OfflineServiceReports on OfflinePlans {
             (state['report_project_ids'] as List).remove(project);
         });
       }
+    }
+  }
+
+  Future<void> _removeUnpublishedReportPdf(
+    OfflineVault vault,
+    Map<String, dynamic> source,
+  ) async {
+    try {
+      final stored = await OfflineVault(vault.directory, vault.key).read();
+      final records = (stored?['service_report_records'] as Map? ?? {}).values;
+      if (records.any((record) => record['pdf_source']?['id'] == source['id']))
+        return;
+      await EncryptedAssets(vault).remove(source);
+    } catch (_) {
+      // Preserve bytes if a durable reference cannot be ruled out.
     }
   }
 }

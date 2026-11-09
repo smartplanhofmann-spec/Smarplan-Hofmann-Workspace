@@ -10,7 +10,8 @@ import 'package:smartplan_office/offline_assets.dart';
 import 'package:smartplan_office/offline_plans.dart';
 import 'package:smartplan_office/offline_vault.dart';
 
-import 'offline_plans_test.dart' show TestDevice, PlanServer, idle;
+import 'offline_plans_test.dart'
+    show TestDevice, PlanServer, idle, loginV2, v2TestNamespace;
 
 const chunkSize = 262144;
 const privateOriginal = 'SYNTHETIC_PRIVATE_ORIGINAL_5537';
@@ -88,18 +89,12 @@ class ImportServer extends PlanServer {
       await planRefreshRelease!.future;
       throw ApiException(delayedPlanStatus, 'Delayed old-account response');
     }
-    if (path == '/api/offline/access') {
+    if (path == '/api/offline/access/v2') {
       if (!online) throw const ApiException(0, 'Offline');
-      return {
-        'token': 'offline-test',
-        'expires_at': now.add(const Duration(days: 7)).toIso8601String(),
-        if (grantImportCapability)
-          'capabilities': [
-            'project_plans',
-            'offline_plan_access',
-            'plan_imports',
-          ],
-      };
+      return v2Grant(
+        at: now,
+        extra: [if (grantImportCapability) 'plan_imports'],
+      );
     }
     if (!path.contains('/plan-imports')) return super.call(path, body);
     guard();
@@ -324,13 +319,16 @@ void main() {
 
   OfflinePlans createRepository() => OfflinePlans(
     api: server,
-    transport: server,
+    transport: server.offlineTransport,
     device: device,
     clock: () => now,
   );
 
   Future<Map<String, dynamic>> persisted([String? account]) async {
-    final vault = await device.open(repo.server, account ?? user['id']);
+    final vault = await device.open(
+      v2TestNamespace(repo, account ?? user['id']),
+      account ?? user['id'],
+    );
     return (await vault.read())!;
   }
 
@@ -357,6 +355,7 @@ void main() {
     await repo.leave();
     repo.dispose();
     repo = createRepository();
+    repo.api.token = null;
     await repo.resume();
     await idle(repo);
   }
@@ -367,7 +366,7 @@ void main() {
     server = ImportServer()..token = 'full-session';
     now = DateTime.utc(2026, 10, 23);
     repo = createRepository();
-    await repo.login(user, projects);
+    await loginV2(repo, user, projects);
     await idle(repo);
   });
 
@@ -488,14 +487,14 @@ void main() {
       expect(server.manifestCalls, isEmpty);
       final state = await persisted();
       expect(state['import_outbox'], [id]);
-      final vault = await device.open(repo.server, user['id']);
+      final vault = await device.open(repo.storageNamespace, user['id']);
       expect(
         await EncryptedAssets(vault).read(reference),
         orderedEquals(syntheticPdf()),
       );
       server.now = now;
       server.online = true;
-      await repo.login(user, projects);
+      await loginV2(repo, user, projects);
       await idle(repo);
       expect(repo.permitted, isTrue);
       expect(repo.pending, 0);
@@ -528,7 +527,7 @@ void main() {
       () async {
         if (supportSource == 'grant_capability') {
           server.grantImportCapability = true;
-          await repo.login(user, projects);
+          await loginV2(repo, user, projects);
           await idle(repo);
         }
         server.online = false;
@@ -568,14 +567,14 @@ void main() {
         expect(state['import_outbox'], [id]);
         expect(state['imports'][id]['source'], record['source']);
         expect(repo.pending, 1);
-        final vault = await device.open(repo.server, user['id']);
+        final vault = await device.open(repo.storageNamespace, user['id']);
         expect(
           await EncryptedAssets(vault)
               .read(Map<String, dynamic>.from(record['source'])),
           orderedEquals(syntheticPdf()),
         );
         server.forbidden = false;
-        await repo.login(user, projects);
+        await loginV2(repo, user, projects);
         await idle(repo);
         expect(repo.canAccessProject('project'), isTrue);
         expect(repo.pending, 0);
@@ -620,14 +619,14 @@ void main() {
         (await encryptedFiles()).map((file) => file.path).toSet(),
         containsAll(filesBefore.where(_isAssetPath)),
       );
-      final vault = await device.open(repo.server, user['id']);
+      final vault = await device.open(repo.storageNamespace, user['id']);
       expect(
         await EncryptedAssets(vault)
             .read(Map<String, dynamic>.from(record['source'])),
         orderedEquals(syntheticPdf()),
       );
       server.forbidden = false;
-      await repo.login(user, projects);
+      await loginV2(repo, user, projects);
       await idle(repo);
       expect(repo.canAccessProject('project'), isTrue);
       expect(repo.pending, 0);
@@ -653,7 +652,7 @@ void main() {
           'id': 'b' * 32,
           'email': 'other@example.test',
         };
-        await repo.login(other, projects);
+        await loginV2(repo, other, projects);
         await idle(repo);
         server.planRefreshRelease!.complete();
         await refresh;
@@ -681,7 +680,7 @@ void main() {
       'id': 'b' * 32,
       'email': 'other@example.test',
     };
-    await repo.login(other, [
+    await loginV2(repo, other, [
       {'id': 'other-project', 'name': 'Other account project'},
     ]);
     server.sourceRelease!.complete();
@@ -691,7 +690,7 @@ void main() {
     expect(repo.imports('other-project'), isEmpty);
     final state = await persisted(other['id']);
     expect(state['imports'] ?? {}, isEmpty);
-    final otherVault = await device.open(repo.server, other['id']);
+    final otherVault = await device.open(repo.storageNamespace, other['id']);
     expect(
       await Directory('${otherVault.directory.path}/assets').exists(),
       isFalse,
@@ -803,7 +802,7 @@ void main() {
       ),
       throwsA(isA<ApiException>().having((e) => e.status, 'status', 403)),
     );
-    await repo.login({...user, 'role': 'accountant'}, projects);
+    await loginV2(repo, {...user, 'role': 'accountant'}, projects);
     await idle(repo);
     await expectLater(
       repo.captureImport(

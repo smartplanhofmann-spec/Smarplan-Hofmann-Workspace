@@ -7,6 +7,7 @@ import 'package:smartplan_office/offline_plans.dart';
 import 'business_offline_reports_test.dart'
     show OfflineReportServer, reportProject, reportUser;
 import 'offline_plan_widget_test.dart' show FrameDevice;
+import 'offline_plans_test.dart' show loginV2;
 
 void main() {
   Future<(OfflinePlans, OfflineReportServer, BusinessSession)> setup() async {
@@ -14,11 +15,12 @@ void main() {
     final server = OfflineReportServer(() => now)..token = 'synthetic';
     final repo = OfflinePlans(
       api: server,
-      transport: server,
+      transport: server.offlineTransport,
       device: FrameDevice(),
       clock: () => now,
     );
-    await repo.login(
+    await loginV2(
+      repo,
       {'id': reportUser, 'role': 'technician'},
       [
         {

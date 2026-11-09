@@ -13,7 +13,7 @@ import 'package:smartplan_office/offline_plans.dart';
 import 'package:smartplan_office/offline_vault.dart';
 
 import 'business_offline_media_test.dart' show FieldServer, fieldPng;
-import 'offline_plans_test.dart' show TestDevice, idle;
+import 'offline_plans_test.dart' show TestDevice, idle, loginV2;
 
 /// Reproduces picker metadata from cross_file's separator-only name getter
 /// while continuing to read the real synthetic file through its actual path.
@@ -136,14 +136,18 @@ void main() {
         var now = DateTime.now().toUtc();
         final device = HeldMediaDevice(Directory('${folder.path}/vault'));
         Timer? releaseTimer;
-        final repo = OfflinePlans(
-          api: server,
-          transport: server,
-          device: device,
-          clock: () => now,
-        );
+        late OfflinePlans repo;
         await tester.runAsync(() async {
-          await repo.login(
+          // Construct the writer futures in the same real-I/O zone used by
+          // this fixture's initial login and sync.
+          repo = OfflinePlans(
+            api: server,
+            transport: server.offlineTransport,
+            device: device,
+            clock: () => now,
+          );
+          await loginV2(
+            repo,
             {'id': 'a' * 32, 'role': 'technician'},
             [
               {'id': 'p', 'name': 'Synthetisches Projekt'},
@@ -152,6 +156,11 @@ void main() {
           );
           await idle(repo);
         });
+        expect(
+          tester.takeException(),
+          isNull,
+          reason: 'Initial real-I/O login',
+        );
         server.online = false;
         device.vault!.holdMediaCommit = scenario.slowCommit;
         final session = BusinessSession(
@@ -224,9 +233,14 @@ void main() {
             });
           }
           await waitForCapture(tester, repo, camera);
+          await waitForCapture(
+            tester,
+            repo,
+            camera,
+            reached: () => !repo.syncing,
+            phase: 'the finished offline sync',
+          );
           await tester.runAsync(() async {
-            await repo.flush();
-            await idle(repo);
             expect(await camera.exists(), isFalse);
             expect(
               repo.fieldPhotos('p').single['caption'],
@@ -279,14 +293,27 @@ void main() {
             device.vault!.allowCommit.complete();
           await tester.pumpWidget(const SizedBox());
           debugDefaultTargetPlatformOverride = null;
-          await tester.runAsync(() async {
-            await repo.flush();
-            await idle(repo);
+          var closed = false;
+          final closing = (() async {
+            await repo.leave();
             repo.dispose();
             session.dispose();
+            server.offlineTransport.dispose();
             server.dispose();
             await folder.delete(recursive: true);
-          });
+          })();
+          closing.then<void>(
+            (_) => closed = true,
+            onError: (Object error, StackTrace stack) => closed = true,
+          );
+          await waitForCapture(
+            tester,
+            repo,
+            camera,
+            reached: () => closed,
+            phase: 'the durable fixture shutdown',
+          );
+          await closing;
         }
       },
     );

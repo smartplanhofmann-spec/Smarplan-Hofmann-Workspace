@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cryptography/cryptography.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,17 +13,17 @@ class TestDevice extends OfflineDevice {
   final Directory folder;
   final keys = <String, SecretKey>{};
   final sessions = <String, String?>{};
-  String? account;
+  final accounts = <String, String>{};
   bool unlocked = true;
   TestDevice(this.folder);
   @override
   Future<bool> Function() get unlock =>
       () async => unlocked;
   @override
-  Future<String?> selected(String server) async => account;
+  Future<String?> selected(String server) async => accounts[server];
   @override
   Future<void> select(String server, String user) async {
-    account = user;
+    accounts[server] = user;
   }
 
   @override
@@ -48,6 +50,48 @@ class TestDevice extends OfflineDevice {
 }
 
 class PlanServer extends OfficeApi {
+  PlanServer() {
+    token = 'full-session';
+  }
+  String accountId = 'a' * 32, instanceId = 'f' * 32;
+  Map<String, dynamic> currentUser = {'id': 'a' * 32, 'role': 'owner'};
+  List<dynamic> currentProjects = const [];
+  OfficeApi? _offlineTransport;
+  OfficeApi get offlineTransport =>
+      _offlineTransport ??= OfflineTestTransport(this);
+  Map<String, dynamic> get binding => {
+    'schema_version': 1,
+    'instance_id': instanceId,
+    'account_id': accountId,
+  };
+  Map<String, dynamic> v2Grant({
+    String kind = 'workspace',
+    List<String> extra = const [],
+    DateTime? at,
+    List<String> reports = const [],
+  }) {
+    final now = (at ?? DateTime.now()).toUtc();
+    return {
+      'schema_version': 2,
+      'binding': binding,
+      'token': 'offline_${kind}_v2_synthetic_$instanceId',
+      'issued_at': now.toIso8601String(),
+      'expires_at': now.add(const Duration(days: 7)).toIso8601String(),
+      'capabilities': {
+        'project_plans',
+        'offline_plan_access',
+        'plan_deletion',
+        'project_workspace',
+        'offline_workspace',
+        ...extra,
+      }.toList(),
+      if (kind == 'business') ...{
+        'report_project_ids': reports,
+        'report_writes_enabled': true,
+      },
+    };
+  }
+
   bool online = true, loseAck = false, forbidden = false;
   Completer<void>? hold;
   final started = Completer<void>();
@@ -58,12 +102,14 @@ class PlanServer extends OfficeApi {
   @override
   Future<dynamic> call(String path, [Map<String, dynamic>? body]) async {
     if (!online) throw const ApiException(0, 'Offline');
-    if (path == '/api/offline/access')
-      return {
-        'token': 'offline-test',
-        'expires_at': DateTime.utc(2026, 10, 30).toIso8601String(),
-      };
+    if (path == '/api/offline/context')
+      return {'schema_version': 2, 'mode': 'bound_v2', 'binding': binding};
+    if (path == '/api/offline/access/v2') return v2Grant();
+    if (path == '/api/me') return Map<String, dynamic>.from(currentUser);
+    if (path == '/api/projects' && body == null)
+      return List<dynamic>.from(currentProjects);
     if (path == '/api/offline/logout') return {'ok': true};
+    if (path.endsWith('/plan-deletions') && body == null) return <dynamic>[];
     if (forbidden) throw const ApiException(403, 'Access revoked');
     if (body == null)
       return path.endsWith('/plans')
@@ -95,6 +141,55 @@ class PlanServer extends OfficeApi {
   }
 }
 
+/// The unit server and device transport have distinct credentials like the
+/// production client, while requests still use the same controlled fixture.
+class OfflineTestTransport extends OfficeApi {
+  OfflineTestTransport(this.server);
+  final OfficeApi server;
+  @override
+  Future<dynamic> call(String path, [Map<String, dynamic>? body]) =>
+      server.call(path, body);
+  @override
+  Future<dynamic> putChunk(String path, Uint8List bytes) =>
+      server.putChunk(path, bytes);
+  @override
+  Future<Uint8List> bytes(
+    String path, {
+    required String mediaType,
+    int maxBytes = 20 * 1024 * 1024,
+  }) => server.bytes(path, mediaType: mediaType, maxBytes: maxBytes);
+}
+
+Future<void> loginV2(
+  OfflinePlans repo,
+  Map<String, dynamic> user,
+  List<dynamic> projects, {
+  bool businessTime = false,
+  bool fieldMedia = false,
+  bool offlineReports = false,
+}) async {
+  final server = repo.api as PlanServer;
+  server.accountId = user['id'];
+  server.currentUser = user;
+  server.currentProjects = projects;
+  server.token = 'full-session-${user['id']}';
+  await repo.login(
+    user,
+    projects,
+    businessTime: businessTime,
+    fieldMedia: fieldMedia,
+    offlineReports: offlineReports,
+  );
+}
+
+String v2TestNamespace(OfflinePlans repo, String account) => jsonEncode([
+  'smartplan-offline-v2',
+  repo.api.base,
+  repo.api.version,
+  (repo.api as PlanServer).instanceId,
+  account,
+]);
+
 Future<void> idle(OfflinePlans repo) async {
   for (var i = 0; i < 1000; i++) {
     if (!repo.syncing) return;
@@ -124,11 +219,11 @@ void main() {
     now = DateTime.utc(2026, 10, 23);
     repo = OfflinePlans(
       api: server,
-      transport: server,
+      transport: server.offlineTransport,
       device: device,
       clock: () => now,
     );
-    await repo.login(user, projects);
+    await loginV2(repo, user, projects);
     await idle(repo);
   });
   tearDown(() async {
@@ -158,10 +253,11 @@ void main() {
     now = now.add(const Duration(days: 1));
     repo = OfflinePlans(
       api: server,
-      transport: server,
+      transport: server.offlineTransport,
       device: device,
       clock: () => now,
     );
+    server.token = null; // A restarted offline app has no online identity.
     await repo.resume();
     await idle(repo);
     expect(repo.get(plan['local_id'])['title'], 'Private ground floor');
@@ -233,7 +329,7 @@ void main() {
       expect(() => repo.list('project'), throwsA(isA<ApiException>()));
       expect(repo.pending, 1);
       server.online = true;
-      await repo.login(user, projects);
+      await loginV2(repo, user, projects);
       await idle(repo);
       expect(repo.pending, 0);
       expect(server.plans.values.single['title'], 'Pending');
@@ -246,7 +342,7 @@ void main() {
       await repo.save('project', {'title': 'Account A', 'walls': []});
       await idle(repo);
       server.online = true;
-      await repo.login({...user, 'id': 'b' * 32}, projects);
+      await loginV2(repo, {...user, 'id': 'b' * 32}, projects);
       expect(repo.list('project'), isEmpty);
       await repo.leave();
       device.unlocked = false;
@@ -278,7 +374,7 @@ void main() {
       'walls': [],
     });
     await idle(repo);
-    final vault = await device.open(repo.server, user['id']);
+    final vault = await device.open(repo.storageNamespace, user['id']);
     final original = vault.directory.path;
     final backup = await vault.directory.rename('$original.backup');
     await File(original).writeAsString('Simulated unavailable directory');

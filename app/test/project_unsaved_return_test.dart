@@ -34,16 +34,6 @@ class UnsavedProjectApi extends ProjectTabsApi {
 
   @override
   Future<dynamic> call(String path, [Map<String, dynamic>? body]) async {
-    if (path == '/api/offline/access') {
-      return {
-        'token': 'offline_synthetic-plan-exit',
-        'expires_at': DateTime.now()
-            .toUtc()
-            .add(const Duration(days: 7))
-            .toIso8601String(),
-        'capabilities': <String>[],
-      };
-    }
     const plans = '/api/projects/${ProjectTabsApi.projectId}/plans';
     if (path == plans || path == '$plans/synthetic-plan') {
       if (body == null) {
@@ -81,9 +71,20 @@ class ProjectReturnObserver extends NavigatorObserver {
 Map<String, dynamic> businessCopy(Map<String, dynamic> value) =>
     Map<String, dynamic>.from(jsonDecode(jsonEncode(value)) as Map);
 
+// This vault deliberately owns no files. Keep its directory probe in the same
+// fake-clock domain as its read/write futures; real disk is tested separately.
+class MemoryPlanDirectory implements Directory {
+  @override
+  Future<bool> exists() async => false;
+  @override
+  String get path => 'unused-plan-return';
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
 class GatedPlanVault extends OfflineVault {
   GatedPlanVault()
-    : super(Directory('unused-plan-return'), SecretKey(List.filled(32, 0)));
+    : super(MemoryPlanDirectory(), SecretKey(List.filled(32, 0)));
   Map<String, dynamic>? stored;
   Completer<void>? holdWrite;
   bool writeStarted = false, failWrites = false;

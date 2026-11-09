@@ -18,7 +18,9 @@ import 'business_offline_media_test.dart' show fieldPng;
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  final backend = Directory('../backend').absolute;
+  final backend = Directory(
+    Platform.environment['SMARTPLAN_TEST_BACKEND'] ?? '../backend',
+  ).absolute;
   final python =
       Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
       '${backend.path}/.venv/${Platform.isWindows ? 'Scripts/python.exe' : 'bin/python'}';
@@ -235,12 +237,15 @@ app = create_app(""",
             connection.call('/api/business/finance/open-items'),
             throwsA(isA<ApiException>().having((e) => e.status, 'status', 403)),
           );
-          final legacy = await api.call('/api/offline/access', {});
-          expect(legacy['capabilities'], isNot(contains('time_events')));
+          await expectLater(
+            api.call('/api/offline/access', {}),
+            throwsA(isA<ApiException>().having((e) => e.status, 'status', 409)),
+          );
           expect(offlineId(), matches(RegExp(r'^[a-f0-9]{32}$')));
         } finally {
           await repo?.flush();
           if (repo != null) await idle(repo);
+          await repo?.leave();
           repo?.dispose();
           connection?.dispose();
           session?.dispose();

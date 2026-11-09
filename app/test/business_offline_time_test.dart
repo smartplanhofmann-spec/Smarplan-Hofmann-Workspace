@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:smartplan_office/api.dart';
 import 'package:smartplan_office/offline_plans.dart';
 
-import 'offline_plans_test.dart' show PlanServer, TestDevice, idle;
+import 'offline_plans_test.dart' show PlanServer, TestDevice, idle, loginV2;
 
 class TimeServer extends PlanServer {
   bool timeGrant = true, conflict = false, timeEnabled = true;
@@ -20,12 +20,8 @@ class TimeServer extends PlanServer {
         'permissions': ['time.own', 'documents.read', 'documents.write'],
         'capabilities': ['business_time', 'business_operations'],
       };
-    if (path == '/api/business/offline/access')
-      return {
-        'token': 'offline-synthetic',
-        'expires_at': DateTime.utc(2026, 11, 1).toIso8601String(),
-        'capabilities': [if (timeGrant) 'time_events'],
-      };
+    if (path == '/api/business/offline/access/v2')
+      return v2Grant(kind: 'business', extra: [if (timeGrant) 'time_events']);
     if (path == '/api/business/time/events') {
       if (forbidden) throw const ApiException(403, 'Entzogen');
       if (conflict)
@@ -76,11 +72,12 @@ void main() {
     server = TimeServer()..token = 'synthetic-session';
     repo = OfflinePlans(
       api: server,
-      transport: server,
+      transport: server.offlineTransport,
       device: device,
       clock: () => now,
     );
-    await repo.login(
+    await loginV2(
+      repo,
       {'id': 'a' * 32, 'role': 'technician'},
       [
         {'id': 'p', 'name': 'Synthetische Baustelle'},
@@ -116,6 +113,7 @@ void main() {
     await repo.saveTimeEvent('p', 'pause', entryId: id);
     await idle(repo);
     await repo.leave();
+    repo.api.token = null;
     await repo.resume();
     await idle(repo);
     final paused = repo.timeEntries('p').single;
@@ -154,10 +152,11 @@ void main() {
     repo.dispose();
     repo = OfflinePlans(
       api: server,
-      transport: server,
+      transport: server.offlineTransport,
       device: device,
       clock: () => now,
     );
+    repo.api.token = null;
     await repo.resume();
     await idle(repo);
     expect(repo.timeEntries('p').single['status'], 'stopped');
@@ -211,10 +210,11 @@ void main() {
     repo.dispose();
     repo = OfflinePlans(
       api: server,
-      transport: server,
+      transport: server.offlineTransport,
       device: device,
       clock: () => now,
     );
+    repo.api.token = null;
     await repo.resume();
     await idle(repo);
     expect(repo.pending, 1);
@@ -271,7 +271,8 @@ void main() {
   });
   test('An old grant is never silently expanded to time recording', () async {
     server.timeGrant = false;
-    await repo.login(
+    await loginV2(
+      repo,
       {'id': 'a' * 32, 'role': 'technician'},
       [
         {'id': 'p', 'name': 'Test'},

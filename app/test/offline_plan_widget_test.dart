@@ -7,13 +7,21 @@ import 'package:smartplan_office/offline_plans.dart';
 import 'package:smartplan_office/offline_vault.dart';
 import 'package:smartplan_office/plan_pages.dart';
 
-import 'offline_plans_test.dart' show TestDevice, PlanServer;
+import 'offline_plans_test.dart' show TestDevice, PlanServer, loginV2;
 
 // Storage durability is exercised with real encrypted files in the service and
 // HTTP integration tests. This widget test keeps I/O out of the fake frame clock.
+class FrameDirectory implements Directory {
+  const FrameDirectory();
+  @override
+  Future<bool> exists() async => false;
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
 class FrameVault extends OfflineVault {
   Map<String, dynamic>? value;
-  FrameVault() : super(Directory('unused'), SecretKey(List.filled(32, 0)));
+  FrameVault() : super(const FrameDirectory(), SecretKey(List.filled(32, 0)));
   @override
   Future<Map<String, dynamic>?> read() async =>
       value == null ? null : offlineCopy(value!);
@@ -41,10 +49,11 @@ void main() {
       final server = PlanServer();
       final repo = OfflinePlans(
         api: server,
-        transport: server,
+        transport: server.offlineTransport,
         device: FrameDevice(),
       );
-      await repo.login(
+      await loginV2(
+        repo,
         {'id': 'a' * 32, 'role': 'owner'},
         [
           {'id': 'project'},
@@ -83,6 +92,7 @@ void main() {
         await tester.pumpWidget(const MaterialApp(home: SizedBox()));
         await repo.flush();
         await repo.leave();
+        repo.api.token = null;
         await repo.resume();
         expect(repo.get(initial['local_id'])['walls'], hasLength(1));
         await tester.pump();

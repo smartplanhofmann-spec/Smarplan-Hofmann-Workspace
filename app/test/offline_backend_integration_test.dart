@@ -19,8 +19,24 @@ class ConnectionApi extends OfficeApi {
   }
 }
 
+// Keep the original local-HTTP fixture but bind this synthetic database to an
+// actual company instance. Canonicalize the temporary root for macOS /var.
+final boundOfflineFixture = backendFixture.replaceFirst(
+  "office = Office(Path(sys.argv[1]) / 'office.sqlite3')",
+  r"""from cryptography.fernet import Fernet
+from online.instance import bind
+from online.storage import Storage
+root = Path(sys.argv[1]).resolve(strict=True)
+office = Office(root / 'office.sqlite3')
+key = Fernet.generate_key()
+storage = Storage(office, key, 'offline.example.test', config={'server': {'path': str(root / 'storage')}})
+bind(office, '11111111111111111111111111111111', 'offline.example.test', key, storage)""",
+);
+
 void main() {
-  final backend = Directory('../backend').absolute;
+  final backend = Directory(
+    Platform.environment['SMARTPLAN_TEST_BACKEND'] ?? '../backend',
+  ).absolute;
   final python =
       Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
       '${backend.path}/.venv/${Platform.isWindows ? 'Scripts/python.exe' : 'bin/python'}';
@@ -39,7 +55,7 @@ void main() {
         process = await Process.start(python, [
           '-u',
           '-c',
-          backendFixture,
+          boundOfflineFixture,
           directory.path,
         ], workingDirectory: backend.path);
         final diagnostics = StringBuffer();

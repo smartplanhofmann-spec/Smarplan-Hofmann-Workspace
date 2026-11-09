@@ -15,7 +15,7 @@ import 'package:smartplan_office/offline_vault.dart';
 import 'package:smartplan_office/plan_import_page.dart';
 import 'package:smartplan_office/plan_pages.dart';
 
-import 'offline_plans_test.dart' show PlanServer, TestDevice, idle;
+import 'offline_plans_test.dart' show PlanServer, TestDevice, idle, loginV2;
 
 // A real 40x30 PNG containing a synthetic black rectangle on white paper.
 final _png = base64Decode(
@@ -304,12 +304,12 @@ class _Fixture {
     late _Fixture fixture;
     final repository = OfflinePlans(
       api: server,
-      transport: server,
+      transport: server.offlineTransport,
       device: _ImportDevice(vault),
       clock: () => fixture.now,
     );
     fixture = _Fixture(folder, vault, server, repository);
-    await repository.login({'id': 'a' * 32, 'role': 'owner'}, [project]);
+    await loginV2(repository, {'id': 'a' * 32, 'role': 'owner'}, [project]);
     await idle(repository);
     server.online = false;
     return fixture;
@@ -323,7 +323,9 @@ class _Fixture {
     if (gate != null && !gate.isCompleted) gate.complete();
     await repository.flush();
     await idle(repository);
+    await repository.leave();
     repository.dispose();
+    server.offlineTransport.dispose();
     server.dispose();
     await folder.delete(recursive: true);
   }
@@ -374,7 +376,18 @@ Future<void> _close(WidgetTester tester, _Fixture fixture) async {
     );
   }
   await tester.pumpWidget(const SizedBox());
-  await tester.runAsync(fixture.dispose);
+  var closed = false;
+  final closing = fixture.dispose();
+  closing.then<void>(
+    (_) => closed = true,
+    onError: (Object error, StackTrace stack) => closed = true,
+  );
+  await _pumpUntil(
+    tester,
+    () => closed,
+    reason: 'Encrypted import fixture did not finish its durable shutdown',
+  );
+  await closing;
 }
 
 Future<void> _finishDetailLoad(WidgetTester tester) => _pumpUntil(

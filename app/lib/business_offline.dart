@@ -10,7 +10,7 @@ extension OfflineBusinessTime on OfflinePlans {
   Future<bool> _businessWritesAvailable(int epoch, String? token) async {
     try {
       final value = Map<String, dynamic>.from(
-        await transport.call('/api/business/capabilities'),
+        await _offlineCall(epoch, '/api/business/capabilities'),
       );
       if (epoch != _epoch || transport.token != token || !permitted)
         return false;
@@ -242,7 +242,7 @@ extension OfflineBusinessTime on OfflinePlans {
       final body = Map<String, dynamic>.from(op['body']);
       try {
         final response = Map<String, dynamic>.from(
-          await transport.call('/api/business/time/events', body),
+          await _offlineCall(epoch, '/api/business/time/events', body),
         );
         _entryAccess(epoch, op['project_id']);
         if (transport.token != token) return;
@@ -442,7 +442,7 @@ extension OfflineBusinessMedia on OfflinePlans {
         if (record['server_id'] == null) {
           final created = _fieldRemote(
             Map<String, dynamic>.from(
-              await transport.call('/api/business/media', {
+              await _offlineCall(epoch, '/api/business/media', {
                 'request_id': record['create_request_id'],
                 'project_id': project,
                 for (final field in [
@@ -472,7 +472,10 @@ extension OfflineBusinessMedia on OfflinePlans {
         }
         var remote = _fieldRemote(
           Map<String, dynamic>.from(
-            await transport.call('/api/business/media/${record['server_id']}'),
+            await _offlineCall(
+              epoch,
+              '/api/business/media/${record['server_id']}',
+            ),
           ),
           record,
         );
@@ -495,7 +498,8 @@ extension OfflineBusinessMedia on OfflinePlans {
             if (chunks.contains(index)) continue;
             _fieldAccess(epoch, project);
             if (transport.token != token) return;
-            await transport.call(
+            await _offlineCall(
+              epoch,
               '/api/business/media/${record['server_id']}/chunks/$index',
               {
                 'content_base64': base64Encode(
@@ -520,7 +524,8 @@ extension OfflineBusinessMedia on OfflinePlans {
           }
           remote = _fieldRemote(
             Map<String, dynamic>.from(
-              await transport.call(
+              await _offlineCall(
+                epoch,
                 '/api/business/media/${record['server_id']}/complete',
                 {'request_id': record['complete_request_id']},
               ),

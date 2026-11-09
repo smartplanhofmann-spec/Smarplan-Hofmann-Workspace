@@ -115,6 +115,7 @@ class FactorTravelTests(FactorTravelFixture):
         self.assertEqual(statement['travel_summary']['tax_free_external_minor'],1400)
         self.assertNotIn('cash_source_hash',canonical(statement))
         self.assertNotIn('account_id',canonical(saved['sources']['travel_sources']))
+        self.assertEqual(f.office.db.execute('SELECT COUNT(*) FROM business_travel_payments').fetchone()[0],1)
         self.assertTrue(validate_integrity(f.office))
 
     def test_missing_payment_and_foreign_month_are_not_a_zero_money_shortcut(self):
@@ -122,6 +123,14 @@ class FactorTravelTests(FactorTravelFixture):
             paid_taxfree_source(self.f.office,self.f.owner,self.f.employee['id'],reference(self.settlement),[],'2026-10',fresh=True)
         with self.assertRaises(Problem):
             paid_taxfree_source(self.f.office,self.f.owner,self.f.employee['id'],reference(self.settlement),[reference(self.payment)],'2026-11',fresh=True)
+        body,_=self.prepare()
+        for wrong in (None,1,True,[], 'invalid'):
+            with self.subTest(details=wrong),self.assertRaises(Problem) as caught:
+                self.api.save(self.f.owner,dict(body,details=wrong))
+            self.assertEqual(caught.exception.status,400)
+            preview={key:body[key] for key in ('employee_id','employee_revision','kind','rule_version','source_contract_version','details','source_file_ids')}
+            with self.assertRaises(Problem) as caught:self.api.preview(self.f.owner,dict(preview,details=wrong))
+            self.assertEqual(caught.exception.status,400)
 
     def test_repayment_requires_current_complete_payment_prefix_but_keeps_old_original(self):
         body,_=self.prepare();saved=self.api.save(self.f.owner,body)
@@ -182,8 +191,46 @@ class FactorTravelTests(FactorTravelFixture):
         self.assertEqual(f.payroll.export(f.owner,run['id'],'pdf','1')[0],original_pdf)
         self.assertEqual(f.payroll.export(f.owner,run['id'],'json','1')[0],original_json)
         self.assertEqual(public_source(f.office,self.payment['id']),travel_cash)
+        self.assertEqual(f.office.db.execute('SELECT COUNT(*) FROM business_travel_payments').fetchone()[0],1)
         self.assertEqual(self.api.get(f.owner,saved['id'],True)['items'],[saved,corrected])
         self.assertTrue(validate_integrity(f.office))
+
+    def test_oneoff_source_pickers_do_not_offer_factor_travel_as_supported_bonus_basis(self):
+        from business_payroll_oneoff_cases import PayrollOneoffCases
+        from business_payroll_multiple_cases import PayrollMultipleCases
+        body,_=self.prepare();saved=self.api.save(self.f.owner,body)
+        for service in (PayrollOneoffCases,PayrollMultipleCases):
+            sources=service(self.f.office).sources(self.f.owner,dict(employee_id=self.f.employee['id'],month='2026-10'))
+            self.assertNotIn(saved['id'],[value['id'] for value in sources['calculation_cases']])
+
+    def test_existing_cash_and_euer_count_the_external_travel_payment_exactly_once(self):
+        from business_accounting_profile import AccountingPreparationProfile
+        from business_accounting_euer import EuerAccounting
+        from business_payroll_cash import PayrollCash
+        from travel_allowance_cash import public_source
+        import test_business_payroll_cash as cash_fixture
+        import test_business_payroll_accounts as account_fixture
+        f=self.f;body,_=self.prepare();saved=self.api.save(f.owner,body)
+        inputs=dict(source_schema_version=3,employee_id=f.employee['id'],calculation_case_ref=reference(saved))
+        run=f.payroll.finalize(f.owner,command(f.payroll,f.owner,inputs))
+        profile=AccountingPreparationProfile(f.office,clock=lambda:f.now);state=profile.state(f.owner)
+        data=dict(expected_revision=state['revision'],state_hash=state['state_hash'],reason='Synthetic complete EÜR facts',
+            evidence_reference='Synthetic owner evidence',profile=dict(legal_form='sole_proprietorship',accounting_method='euer',
+            vat_regime='regular',vat_timing='cash',vat_effective_from='2026-01-01',bookkeeping_start='2026-01-01'))
+        proof=profile.preview(f.owner,data)
+        profile.confirm(f.owner,dict(data,request_id=rid(),confirmation=True,preview_hash=proof['preview_hash']))
+        helper=cash_fixture.PayrollCashTests('runTest')
+        helper.office=f.office;helper.owner=f.owner;helper.f=f;helper.instance=self.travel.instance;helper.account=self.travel.account
+        helper.api=PayrollCash(f.office,clock=lambda:f.now);helper.euer=EuerAccounting(f.office,clock=lambda:f.now)
+        paid,_=f.save_account(f.data,'payment',account_fixture.PayrollAccountTests.payment_details(f,run,f.identity))
+        net=helper.import_cash(helper.body(paid));helper.post('payroll_cash',helper.payload(net))
+        remittance=helper.import_cash(helper.remittance(f.data,run,paid));helper.post('payroll_cash',helper.payload(remittance))
+        travel=public_source(f.office,self.payment['id'])
+        helper.post('travel_cash',dict(payment_id=self.payment['id'],revision=1,source_hash=travel['source_hash'],accounts={'travel_allowance':'6664'}))
+        report=helper.euer.report(f.owner,2026)
+        self.assertEqual(report['totals']['confirmed_expenses'],'6206.00')
+        self.assertEqual(report['totals']['confirmed_input_vat'],'0.00')
+        self.assertEqual(f.office.db.execute('SELECT COUNT(*) FROM business_travel_payments').fetchone()[0],1)
 
 
 if __name__=='__main__':unittest.main()

@@ -134,6 +134,8 @@ class PayrollMultipleCases(PayrollFacts):
         if (running['employee_id']!=employee_id or running['kind']!='calculation_case'
                 or running['status']!='active' or reference(running)!=value):
             raise Problem(409,'Laufender Originalfall gehört nicht zur Person oder ist nicht aktiv.')
+        if running['rule_version']!='de_2026_segments_entitlements_v5' or running['source_contract_version']!=1:
+            raise Problem(409,'Einmalbezüge auf einem Faktor-Reisefall benötigen ihren eigenen Regelzweig.')
         validate_running(self.office,running)
         flat=running['sources']['flat_travel_tax'];planned_on=flat['recording_context']['planned_recording_on'] if flat else None
         if fresh and (reference(cases._get(value['id']))!=value or cases._snapshot(employee,'calculation_case',
@@ -182,6 +184,9 @@ class PayrollMultipleCases(PayrollFacts):
         with transaction(self.office):
             fresh, employee = self._access(actor, query['employee_id'])
             source = PayrollAnnualBasis(self.office, clock=self.hr.clock).sources(fresh, dict(employee_id=employee['id']))
+            # New factor/travel cases do not silently become one-off wage bases.
+            source['calculation_cases']=[value for value in source['calculation_cases']
+                if value['rule_version']=='de_2026_segments_entitlements_v5' and value['source_contract_version']==1]
             source.update(month=query['month'], multiple_one_off_cases=self._all(employee['id']))
             for value in source['multiple_one_off_cases']: validate_case_sources(self.office, value)
             return source

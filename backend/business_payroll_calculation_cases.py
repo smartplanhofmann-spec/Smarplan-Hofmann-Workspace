@@ -54,6 +54,7 @@ def guard_statements(dialect):
 
 
 def normalize_details(kind,value):
+    if not isinstance(value,dict):raise Problem(400,'Strukturierte Gesamtfalldetails erforderlich.')
     if kind=='travel_tax_policy':
         fields=('filing_period_from','filing_period_to','federal_state','church_method','church_rate_region',
             'church_method_applies_to_all','employer_bears_tax','verification_note')
@@ -355,6 +356,7 @@ class PayrollCalculationCases(PayrollFacts):
 
     @staticmethod
     def _versions(data):
+        if not isinstance(data.get('details'),dict):raise Problem(400,'Strukturierte Gesamtfalldetails erforderlich.')
         from payroll_factor_taxfree_travel_2026 import RULE_VERSION as FACTOR_TRAVEL_RULE
         is_new=data['kind']=='calculation_case' and data['rule_version']==FACTOR_TRAVEL_RULE
         expected=FACTOR_TRAVEL_RULE if is_new else CALCULATION_RULE_VERSION if data['kind']=='calculation_case' else POLICY_RULE_VERSION

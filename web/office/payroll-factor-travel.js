@@ -35,6 +35,7 @@ export function factorTravelPlan(plan){
  if(plan.rule_version!==PAYROLL_FACTOR_TRAVEL_RULE||plan.source_contract_version!==2)throw fail('Unbekannter Faktor-Reisefall.');
  if(!Array.isArray(plan.travel_payment_refs)||!plan.travel_payment_refs.length||new Set(plan.travel_payment_refs.map(ref=>payrollFactRef(ref).id)).size!==plan.travel_payment_refs.length)throw fail('Die vollständigen Reisezahlungsbelege fehlen.');
  money(plan.travel_paid_minor);
+ if(plan.can_calculate&&plan.travel_paid_minor===0)throw fail('Eine tatsächlich positive vollständig erstattete Reise gehört zu diesem Faktorfall.');
  if(plan.travel?.tax_free_external_minor!==plan.travel_paid_minor||['flat_taxable_payroll_minor','individual_taxable_payroll_minor','benefit_in_kind_non_cash_minor'].some(key=>plan.travel?.[key]!==0)||plan.travel?.letter_m!==false||plan.flat_travel_tax!==null||plan.entitlement_sources.length||plan.unpaid_dates.length)throw fail('Dieser Faktorfall erlaubt ausschließlich bereits bezahlte steuerfreie Reisen ohne Ansprüche oder Sachbezüge.');
  if(plan.can_calculate){
   const days=payrollFactDates(plan.month),tax=plan.tax_periods,social=plan.social_periods;
@@ -55,6 +56,7 @@ export function factorTravelBindings(s,d,plan){
   const sequences=new Set();let paid=0;
   for(const value of proof.payments){
    factorTravelPayment({...value,settlement_ref:travel.settlement_ref});
+   if(!value.paid_on.startsWith(d.month+'-'))throw fail('Die Reisezahlung gehört nicht zum ursprünglichen Lohnmonat.');
    if(!Number.isSafeInteger(value.sequence)||value.sequence<1||value.sequence>proof.cutoff_sequence||sequences.has(value.sequence)||!HASH.test(value.cash_source_hash||''))throw fail('Die ursprüngliche Folge der Reisezahlungen ist widersprüchlich.');
    sequences.add(value.sequence);payments.push(value);
    if(value.status==='active')paid+=(value.kind==='reimbursement'?1:-1)*value.amount_minor;

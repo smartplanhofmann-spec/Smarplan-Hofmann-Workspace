@@ -58,12 +58,13 @@ test('historical factor travel proofs reject altered payments, paid totals, fact
   v=>v.sources.travel_sources[0].payment_proof.paid_minor++,
   v=>v.sources.travel_sources[0].payment_proof.payments[0].content_hash='0'.repeat(64),
   v=>v.sources.travel_sources[0].payment_proof.payments[0].cash_source_hash='invalid',
+  v=>v.sources.travel_sources[0].payment_proof.payments[0].paid_on='2026-09-27',
   v=>v.sources.travel_sources[0].letter_m=true,
   v=>v.sources.travel_sources[0].individual_taxable_payroll_minor=1,
   v=>v.plan.factor_parameters.tax_factor='0.900',
   v=>v.source_contract_version=1,
  ]){const saved=copy(f.saved);change(saved);assert.throws(()=>payrollCalculationCaseValidator(clean(f.command),null,f.preview)(saved));}
- for(const change of [v=>v.net_minor+=1400,v=>v.payout_minor+=1400,v=>v.scope='regular_standard_segments',v=>v.period_details.travel_paid_minor++,v=>v.period_details.factor_parameters.tax_factor='0.900']){
+ for(const change of [v=>v.net_minor+=1400,v=>v.payout_minor+=1400,v=>v.scope='regular_standard_segments',v=>v.period_details.travel_paid_minor++,v=>v.period_details.factor_parameters.tax_factor='0.900',v=>{v.period_details.travel_paid_minor=0;v.period_details.travel.tax_free_external_minor=0;}]){
   const calc=copy(f.run.calculation);change(calc);assert.throws(()=>payrollCompositeCalculation(calc));
  }
 });

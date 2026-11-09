@@ -248,6 +248,9 @@ void main() {
           .clear(),
       (v) =>
           v['sources']['travel_sources'][0]['payment_proof']['cutoff_sequence']++,
+      (v) =>
+          v['sources']['travel_sources'][0]['payment_proof']['payments'][0]['paid_on'] =
+              '2026-09-27',
       (v) => v['plan']['factor_parameters']['profile_ref']['revision']++,
       (v) => v['plan']['earnings'][0]['kind'] = 'one_off',
       (v) => v['plan']['tax_periods'][0]['tax_days'] = 17,
@@ -267,6 +270,10 @@ void main() {
       (v) => v['period_details']['travel']['individual_taxable_payroll_minor'] =
           1400,
       (v) => v['period_details']['travel']['letter_m'] = true,
+      (v) {
+        v['period_details']['travel_paid_minor'] = 0;
+        v['period_details']['travel']['tax_free_external_minor'] = 0;
+      },
       (v) => v['period_details']['factor_parameters']['tax_factor'] = '0.75',
       (v) =>
           v['period_details']['tax_calculations'][0]['calculation']['factor'] =

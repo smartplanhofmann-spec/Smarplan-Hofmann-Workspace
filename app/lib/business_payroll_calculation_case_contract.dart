@@ -81,7 +81,7 @@ void _factorTravelMetadata(
     if (!ids.add(ref['id']))
       _fail('Ein Reisezahlungsbeleg wurde doppelt gebunden.');
   }
-  _integer(value['travel_paid_minor']);
+  _integer(value['travel_paid_minor'], required ? 1 : 0);
   final factor = businessMap(value['factor_parameters']);
   if (factor.isEmpty && !required) return;
   if (factor['tax_factor'] is! String ||
@@ -303,6 +303,8 @@ void _bindings(
         final sequence = _integer(payment['sequence'], 1);
         final amount = _integer(payment['amount_minor']);
         payrollFactDate(payment['paid_on']);
+        if (!'${payment['paid_on']}'.startsWith('${d['month']}-'))
+          _fail('Die Reisezahlung gehört nicht zum ursprünglichen Lohnmonat.');
         if (!['active', 'void'].contains(payment['status']) ||
             !['reimbursement', 'repayment'].contains(payment['kind']) ||
             !_hash.hasMatch('${payment['cash_source_hash']}') ||

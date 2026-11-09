@@ -76,6 +76,7 @@ async function payrollPositiveCorrectionFlow(h){
    assert.deepEqual(await api('/payroll/account-records/'+oldPayment.id),oldPayment);assert.deepEqual((await api('/payroll/runs/'+oldRun.id+'/history')).items.find(r=>r.revision===oldRun.revision),oldRun);
    await openPayroll();await page.getByRole('button',{name:'Lohnkonto-Nachweise öffnen',exact:true}).click();await page.setViewportSize({width:390,height:844});await page.waitForFunction(()=>document.querySelector('.sidebar').inert);
    await page.getByText('Belegte zusätzliche Nettozahlung',{exact:true}).waitFor();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+   await page.getByText('Belegte zusätzliche Nettozahlung',{exact:true}).scrollIntoViewIfNeeded();
    await page.screenshot({path:path.join(screenshots,'payroll-positive-correction-mobile.png'),fullPage:false});
    console.log('positive Source5 browser: genuine corrected prior-employer evidence, explicit complete external-payment review, same gross, two unchanged old payment parts, positive same-day addition, exact lost run/payment ACK replay, immutable v1 and mobile390 passed');
   }finally{for(const pattern of watched)await context.unroute(pattern,intercept);}

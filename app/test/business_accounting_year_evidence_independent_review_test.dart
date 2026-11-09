@@ -15,7 +15,10 @@ import 'business_accounting_year_evidence_test.dart' as actual;
 /// The plugin boundary alone is controlled. These tests execute the production
 /// desktop branch, including its post-picker authorization and actual File IO.
 class ReviewSavePicker extends FileSelectorPlatform {
-  final answer = Completer<FileSaveLocation?>();
+  // Bind these futures to the zone that starts the actual picker operation,
+  // not to setUp's fake clock.
+  late final answer = Completer<FileSaveLocation?>();
+  late final requested = Completer<void>();
   int calls = 0;
   String? suggested;
   @override
@@ -25,6 +28,7 @@ class ReviewSavePicker extends FileSelectorPlatform {
   }) {
     calls++;
     suggested = options.suggestedName;
+    requested.complete();
     return answer.future;
   }
 }
@@ -49,13 +53,43 @@ class ReviewYearApi extends actual.YearEvidenceApi {
   }
 }
 
-Future<void> flushFileIO(WidgetTester t) async {
-  for (var i = 0; i < 35; i++) {
-    await t.runAsync(
-      () => Future<void>.delayed(const Duration(milliseconds: 8)),
-    );
-    await t.pump(const Duration(milliseconds: 10));
-  }
+class ReviewDesktopSave {
+  ReviewDesktopSave(this.completed);
+  final Future<void> completed;
+}
+
+Future<ReviewDesktopSave> startDesktopSave(
+  WidgetTester t,
+  ReviewSavePicker picker,
+) async {
+  final label = find.text(saveLabel), scroll = find.byType(Scrollable).first;
+  t.state<ScrollableState>(scroll).position.jumpTo(0);
+  await t.pump();
+  await t.scrollUntilVisible(label, 250, scrollable: scroll);
+  await t.ensureVisible(label);
+  await t.pumpAndSettle();
+  final button = t.widget<FilledButton>(
+    find.widgetWithText(FilledButton, saveLabel),
+  );
+  expect(button.onPressed, isNotNull);
+  late Future<void> completed;
+  // Start the actual button operation in the real async zone: its File IO
+  // cannot be completed by advancing the widget test's fake clock.
+  await t.runAsync(() async {
+    completed = (button.onPressed! as Future<void> Function())();
+    await Future.any([picker.requested.future, completed]);
+  });
+  await t.pump();
+  expect(picker.calls, 1);
+  return ReviewDesktopSave(completed);
+}
+
+Future<void> finishDesktopSave(WidgetTester t, ReviewDesktopSave save) async {
+  // Await the same operation, including post-picker checks and flush:true,
+  // before settling its UI. No fixed delay assumes a fast filesystem.
+  // The picker answer was completed in the test's fake async zone.
+  await t.pump();
+  await t.runAsync(() => save.completed);
   await t.pumpAndSettle();
 }
 
@@ -87,12 +121,12 @@ void main() {
       api.scenario = 'old_after_profile_change';
       final output = File('${temporary.path}/verified.zip');
       await actual.mountYear(t, api, session);
-      await actual.yearTap(t, saveLabel, settle: false);
+      final save = await startDesktopSave(t, picker);
       expect(picker.calls, 1);
       expect(picker.suggested, api.f['metadata']['filename']);
       final readsBeforeSelection = api.metadataReads;
       picker.answer.complete(FileSaveLocation(output.path));
-      await flushFileIO(t);
+      await finishDesktopSave(t, save);
       expect(api.metadataReads, greaterThan(readsBeforeSelection));
       expect(output.readAsBytesSync(), base64Decode(api.f['archive_base64']));
       expect(
@@ -129,7 +163,7 @@ void main() {
       BusinessSession? replacement;
       final output = File('${temporary.path}/must-not-write.zip');
       await actual.mountYear(t, api, session);
-      await actual.yearTap(t, saveLabel, settle: false);
+      final save = await startDesktopSave(t, picker);
       expect(picker.calls, 1);
       expect(api.byteReads, 1);
       switch (change) {
@@ -172,7 +206,7 @@ void main() {
           await session.load();
       }
       picker.answer.complete(FileSaveLocation(output.path));
-      await flushFileIO(t);
+      await finishDesktopSave(t, save);
       expect(output.existsSync(), false);
       expect(find.text(savedLabel), findsNothing);
       expect(api.posts, 0);
@@ -211,21 +245,21 @@ void main() {
     (t) async {
       final api = ReviewYearApi(), session = BusinessSession(api: api);
       await actual.mountYear(t, api, session);
-      await actual.yearTap(t, saveLabel, settle: false);
+      final save = await startDesktopSave(t, picker);
       picker.answer.complete(
         FileSaveLocation(temporary.path),
       ); // Existing directory: genuine FileSystemException.
-      await flushFileIO(t);
+      await finishDesktopSave(t, save);
       expect(find.text(savedLabel), findsNothing);
       expect(find.text(api.f['metadata']['filename']), findsNothing);
       expect(temporary.listSync(), isEmpty);
       expect(t.takeException(), null);
       FileSelectorPlatform.instance = picker = ReviewSavePicker();
       await actual.yearTap(t, 'Originalnachweis erneut lesen');
-      await actual.yearTap(t, saveLabel, settle: false);
+      final retry = await startDesktopSave(t, picker);
       final output = File('${temporary.path}/retry.zip');
       picker.answer.complete(FileSaveLocation(output.path));
-      await flushFileIO(t);
+      await finishDesktopSave(t, retry);
       expect(output.readAsBytesSync(), base64Decode(api.f['archive_base64']));
       expect(api.posts, 0);
       await actual.closeYear(t, session);
@@ -237,9 +271,9 @@ void main() {
     (t) async {
       final api = ReviewYearApi(), session = BusinessSession(api: api);
       await actual.mountYear(t, api, session);
-      await actual.yearTap(t, saveLabel, settle: false);
+      final save = await startDesktopSave(t, picker);
       picker.answer.complete(null);
-      await flushFileIO(t);
+      await finishDesktopSave(t, save);
       expect(temporary.listSync(), isEmpty);
       expect(find.text(savedLabel), findsNothing);
       expect(find.text(api.f['metadata']['filename']), findsOneWidget);

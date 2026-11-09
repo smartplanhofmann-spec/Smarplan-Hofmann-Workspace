@@ -1,0 +1,113 @@
+{
+  "date": "2026-11-09",
+  "base_commit": "51786b1a5a8b40f98dc6fd5c2e2831cf44637361",
+  "scope": "Test-only synchronization of actual native year-evidence V1/V2 desktop File.writeAsBytes(flush:true).",
+  "cause": "Fixed 35x8ms real-time delay followed by fake-clock pumpAndSettle did not establish that the actual file I/O finished.",
+  "fix": "Invoke unchanged enabled FilledButton callback in runAsync, create picker Completers there, retain its actual Future, wait for picker request, then flush answer microtasks and await the same completed operation before settling UI.",
+  "retained_assertions": [
+    "exact bytes and external SHA-256",
+    "fresh original and source permissions after picker",
+    "session, token, export, background and disposal invalidation",
+    "real FileSystemException and retry",
+    "cancellation",
+    "late pre-picker bytes and foreign original rejection"
+  ],
+  "source_files": {
+    "app/test/business_accounting_year_evidence_independent_review_test.dart": "4cb5ddbc70de99c6f22598ff3f8b0e14ba34865f695813b5c0705be70e8999f9",
+    "app/test/business_accounting_year_evidence_v2_independent_review_test.dart": "ec23de089f05e1d1e34a65c44189a5b66d9ea608c741d9dc10d578a63f0efed4"
+  },
+  "unchanged_production": {
+    "path": "app/lib/business_accounting_year_evidence.dart",
+    "sha256": "0480ab38fe16ecf124b1e45eca8fec1e50740e93045a0312320234c595d7b887",
+    "matches_base": true,
+    "other_production_changes": false
+  },
+  "original_ci_failure": {
+    "job": 129184761599,
+    "source": "894ecdd",
+    "artifact": "docs/evidence/source5-positive-correction-2026-11-09/ci-894-unsigned-iphone.gz",
+    "raw_sha256_as_reported": "aded4fa44921b1e0e8a69c33b65365ca6cb3800c803b28f78d8e5be943d6c75c",
+    "artifact_duplicated": false,
+    "result": "1638 passed, 5 skipped, 1 failed; first real failure at independent V2 actual production desktop write retains trusted complete-history bytes / flushFileIO pumpAndSettle"
+  },
+  "commands": {
+    "paired_final": "flutter test --no-pub test/business_accounting_year_evidence_independent_review_test.dart test/business_accounting_year_evidence_v2_independent_review_test.dart --timeout 30s",
+    "regression": "flutter test --no-pub test/business_accounting_year_evidence_independent_review_test.dart test/business_accounting_year_evidence_v2_independent_review_test.dart test/business_accounting_year_evidence_test.dart test/business_accounting_year_evidence_v2_test.dart test/business_document_access_widget_test.dart test/business_material_document_access_test.dart test/mail_attachment_integration_widget_test.dart --timeout 45s",
+    "analysis": "flutter analyze --no-pub"
+  },
+  "environment": {
+    "platform": "Linux cloud workspace",
+    "flutter": "/workspace/toolchains/flutter/bin/flutter",
+    "PUB_CACHE": "/workspace/toolchains/pub-cache",
+    "PATH_prefix": "/workspace/toolchains/clang-19/bin",
+    "test_permissions": "local test sockets authorized",
+    "synthetic_data": true
+  },
+  "results": [
+    {
+      "name": "initial",
+      "outcome": "interrupted",
+      "note": "Callback im RealAsync-Kontext, Picker-Completer noch im FakeAsync-Kontext; vor separatem Pump. Nach ausbleibendem Fortschritt gezielt abgebrochen; kein bestandener Lauf.",
+      "passed_tests": null,
+      "raw_sha256": "29828ef6988c4f30e6a111b2391fa25b7409364487c1dac4ba30734f0a977943",
+      "raw_bytes": 6039,
+      "artifact": "initial.log.gz",
+      "gzip_sha256": "a5ceee6b47b2aa4a1679df6252fffea7fc0acaf3e74eb4c67f618ea8b3134986"
+    },
+    {
+      "name": "single",
+      "outcome": "passed_diagnostic_only",
+      "note": "Einzelner Original-Write nach zusätzlichem Pump bestanden; Picker-Completer noch nicht abschließend korrigiert.",
+      "passed_tests": 1,
+      "raw_sha256": "c9e73c46302dbe0023ccf91b836ccfeca1864f119ac408ab92e5ea2d3b3703f8",
+      "raw_bytes": 252,
+      "artifact": "single.log.gz",
+      "gzip_sha256": "a71f0d870a6ec5e602cdbeab7146641ff9383e2b33d6ca7283cf8b8c4da3eff6"
+    },
+    {
+      "name": "paired",
+      "outcome": "interrupted",
+      "note": "Paarlauf mit Pump, aber weiter im FakeAsync-Kontext erzeugten Picker-Completern; gezielt abgebrochen; kein bestandener Lauf.",
+      "passed_tests": null,
+      "raw_sha256": "40ff28e43bbbb6116a9b9b92b634adbe491897f2f91af5d9080ca8af4b7cee40",
+      "raw_bytes": 4829,
+      "artifact": "paired.log.gz",
+      "gzip_sha256": "e8d06bb2443ce31f1055c97d031582b78cd54aeb02908a35a0abaafda3d15270"
+    },
+    {
+      "name": "realzone",
+      "outcome": "passed",
+      "note": "Abschließende Picker-Completer werden beim ersten Zugriff im realen Async-Kontext erzeugt; beide vollständigen unabhängigen Prüfdateien.",
+      "passed_tests": 24,
+      "raw_sha256": "ac2a829c4e5ee0d05a08b83ea1507afaf0b8318fff52288443719728755b2b46",
+      "raw_bytes": 5026,
+      "artifact": "realzone.log.gz",
+      "gzip_sha256": "94c1d0d125b939892cfbd57e66d52124f2ca699c4ea4e10e1cfad5e3c28ce6af"
+    },
+    {
+      "name": "regression",
+      "outcome": "passed",
+      "note": "Abschließender unveränderter Testcode: beide unabhängigen Dateien erneut, beide Vertragsdateien, Dokument-/Materialrechte und Dateianlagen.",
+      "passed_tests": 66,
+      "raw_sha256": "c7c02473281ba3c973a044e1cebc7a5ab996b90e6dfc966496ed99633f7a21dc",
+      "raw_bytes": 12792,
+      "artifact": "regression.log.gz",
+      "gzip_sha256": "0391676e07e8f77af03a5fbe492460e2daaf756e00ea616b3d3b44d02fef72ca"
+    },
+    {
+      "name": "analyze",
+      "outcome": "passed",
+      "note": "Vollständige App-Analyse ohne Befund.",
+      "passed_tests": null,
+      "raw_sha256": "b1eacd8db26371f1512007a1ed37f4a5e67bcb193e0a5a312720384b3334162e",
+      "raw_bytes": 97,
+      "artifact": "analyze.log.gz",
+      "gzip_sha256": "6189bd808dd5039c4a2650b3dd78868b954df0109354c32adde67562e879a434"
+    }
+  ],
+  "limits": [
+    "24 tests overlap the final 66-test regression; not 90 distinct tests.",
+    "No remote CI rerun, iPhone/Windows device test, build, server deployment or publication performed by this change.",
+    "All prior interrupted diagnostic runs remain unmodified in compressed logs."
+  ]
+}

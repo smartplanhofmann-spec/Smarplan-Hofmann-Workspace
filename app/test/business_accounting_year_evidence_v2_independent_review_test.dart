@@ -10,7 +10,12 @@ import 'package:smartplan_office/business_accounting_year_evidence.dart';
 import 'package:smartplan_office/business_session.dart';
 
 import 'business_accounting_year_evidence_independent_review_test.dart'
-    show ReviewSavePicker, flushFileIO, saveLabel, savedLabel;
+    show
+        ReviewSavePicker,
+        startDesktopSave,
+        finishDesktopSave,
+        saveLabel,
+        savedLabel;
 import 'business_accounting_year_evidence_test.dart' as actual;
 
 final v2 = yearEvidenceCopy(
@@ -92,11 +97,11 @@ void main() {
       try {
         FileSelectorPlatform.instance = picker;
         await actual.mountYear(t, api, session);
-        await actual.yearTap(t, saveLabel, settle: false);
+        final save = await startDesktopSave(t, picker);
         expect(picker.calls, 1);
         final output = File('${directory.path}/actual-v2.zip');
         picker.answer.complete(FileSaveLocation(output.path));
-        await flushFileIO(t);
+        await finishDesktopSave(t, save);
         expect(output.readAsBytesSync(), base64Decode(api.f['archive_base64']));
         expect(find.text(savedLabel), findsOneWidget);
         expect(api.posts, 0);
@@ -120,7 +125,7 @@ void main() {
       try {
         FileSelectorPlatform.instance = picker;
         await actual.mountYear(t, api, session);
-        await actual.yearTap(t, saveLabel, settle: false);
+        final save = await startDesktopSave(t, picker);
         expect(picker.calls, 1);
         api.overrideMetadata = {
           ...api.f['metadata'],
@@ -128,7 +133,7 @@ void main() {
         };
         final output = File('${directory.path}/forbidden.zip');
         picker.answer.complete(FileSaveLocation(output.path));
-        await flushFileIO(t);
+        await finishDesktopSave(t, save);
         expect(output.existsSync(), false);
         expect(find.text(savedLabel), findsNothing);
         expect(find.text(api.f['metadata']['filename']), findsNothing);

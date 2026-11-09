@@ -138,6 +138,16 @@ class OfflineInstanceBindingHttpTests(unittest.TestCase):
         self.assertNotEqual(self.a['instance_id'], self.b['instance_id'])
         self.assertNotEqual(self.a['key'], self.b['key'])
 
+    def test_bound_server_refuses_new_legacy_grants_without_touching_existing_sessions(self):
+        company = self.a
+        retained = self.legacy(company)
+        before = [tuple(row) for row in company['office'].db.execute('SELECT * FROM plan_sessions ORDER BY token')]
+        for path in ('/offline/access', '/business/offline/access'):
+            self.call(company, path, {}, status=409)
+            self.assertEqual([tuple(row) for row in company['office'].db.execute('SELECT * FROM plan_sessions ORDER BY token')], before)
+        self.assertTrue(any(row[0] == digest(retained) for row in before))
+        self.call(company, '/projects')  # Normal authenticated online access is unchanged.
+
     def test_every_v2_read_write_and_chunk_requires_matching_binding(self):
         grant = self.grant(self.a)
         path = '/projects/' + self.project + '/plans'

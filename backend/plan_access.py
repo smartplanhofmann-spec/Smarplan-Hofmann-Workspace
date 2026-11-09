@@ -45,6 +45,10 @@ def issue(office, user, *, workspace=False, business=False, business_capabilitie
     row = office.db.execute('SELECT * FROM users WHERE id=? AND active=1', (user['id'],)).fetchone()
     if not row:
         raise Problem(401, 'Bitte anmelden')
+    if protocol_version == 1:
+        from business_offline_binding import instance_id
+        if instance_id(office) is not None:
+            raise Problem(409, 'Diese Firmeninstanz benötigt eine gebundene Offline-Freigabe. App aktualisieren und online anmelden.')
     caps = ['time_events'] if business_capabilities is None else business_capabilities
     if business and (not isinstance(caps, (list, tuple)) or not caps or any(not isinstance(cap, str) for cap in caps) or len(set(caps)) != len(caps)
                      or any(cap not in ('time_events', 'field_media', 'offline_reports') for cap in caps)):

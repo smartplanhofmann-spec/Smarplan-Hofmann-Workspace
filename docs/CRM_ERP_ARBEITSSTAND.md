@@ -261,6 +261,31 @@ nicht gebundener Offlineaufträge werden vorbereitet. Vorhandene Dateien und
 Aufträge dürfen nicht gelöscht oder ungeprüft einer neuen Instanz zugewiesen
 werden. Der Fix wird mit eigenem Nachweis entwickelt; die Meilensteinintegration ist lokal abgeschlossen. Neue V2-Grants und getrennte Cache-/Token-Namensräume binden Instanz und Konto. V1-Bestände ohne nachweisbare Herkunft bleiben erhalten und gesperrt; sie werden keiner neuen Firma automatisch zugewiesen.
 
+## Laufende Offline-V2-Integration
+
+Der gemeinsame, noch unveröffentlichte Stand liegt in
+`/workspace/smartplan-offline-instance-integration-20261109`, Branch
+`codex/offline-instance-integration-20261109`. Er enthält Meilensteine und die
+neue serverseitige Firmenbindung. Der Backendquellzweig liegt unter
+`/workspace/smartplan-offline-instance-backend-20261109`, die native Arbeit unter
+`/workspace/smartplan-offline-instance-native-20261109`.
+
+Ein zusätzlicher tatsächlicher PostgreSQL-Nachweis besteht mit zwei Fällen
+nach Korrektur des neuen Triggerfunktionsnamens auf die bereits zugelassene
+`business_`-Namenskonvention. Die vorhandene Ownership-Prüfung wurde nicht
+geweitet. Migration erhält V1-Daten; V1-Gerätezugriffe sind in gebundenen
+Instanzen gesperrt; Restore widerruft V2-Gerätezugänge und erhält Planoriginale.
+Dieser Lauf betrifft den serverseitigen Zwischenstand. Native Umstellung und
+der neue ausschließlich hashbasierte Altauftragsabgleich sind noch in Arbeit.
+Ein alter Planinhalt darf zur Herkunftsprüfung nicht an die möglicherweise
+falsche neue Firma übertragen werden. Negative Abgleiche geben keine Sendung frei.
+
+Der erste Fehlversuch und erfolgreiche Nachlauf stehen unter
+`docs/evidence/offline-binding-integration-2026-11-09/`. Der dafür angelegte
+eigene Testcontainer ist nach dem abschließenden PostgreSQL-Hash-only-Nachlauf
+(2/2 bestanden) entfernt; er verwendete nur synthetische Daten. Die früheren Meilenstein- und Projektjournalcontainer sind
+bereits entfernt.
+
 ## Weitere unabhängige Entwicklungsarbeit
 
 - Korrigierten Browser-Gesamtlauf und neue eigene Remote-CI abschließen.

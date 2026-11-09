@@ -1,0 +1,22 @@
+{
+  "passed": 2,
+  "skipped": 0,
+  "seconds": 58.03,
+  "raw_sha256": "8e56a8c3a50bf699c27924f07d9e4b0dba0b906c4f0e77aa0a1e16aafece2dae",
+  "raw_bytes": 527,
+  "source_sha256": {
+    "backend/business_offline_binding.py": "a0eb861a1e024b4d1f6c0e980b6f3c81fe288be18c4351d4015a59e540a9c787",
+    "backend/online/test_business_offline_binding_pg.py": "8248f85211e528199707656a3bed6713c5a678c650abe117a37125d66f12fa54"
+  },
+  "checks": [
+    "additive PostgreSQL migration retains V1 rows without granting access",
+    "missing/foreign V2 origins denied",
+    "unchanged original plan and exact hash-only lookup",
+    "old content-bearing lookup rejected",
+    "unknown lookup never grants resend",
+    "real dump/restore revokes device sessions and preserves original lookup"
+  ],
+  "native_integration_pending": true,
+  "container_id": "d2501fa1ee3737ee353cc8670e557b4e42d44069f7c7d40884e1370c1815f117",
+  "container_removed_after_checks": true
+}

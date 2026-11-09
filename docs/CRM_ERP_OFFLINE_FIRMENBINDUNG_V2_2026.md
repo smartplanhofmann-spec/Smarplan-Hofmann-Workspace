@@ -53,6 +53,14 @@ GET. Ein bloßer sicherer Widerruf ist ausgenommen. Die alte Benutzerkennung
 und der bisherige Credentialhash belegen keine Firmenzugehörigkeit. Normale
 Onlineanfragen bleiben unverändert. Ein V2-Fehler erlaubt keinen V1-Fallback.
 
+Auch die Neuausstellung über die bisherigen V1-Endpunkte ist bei gebundener
+Instanz gesperrt. Die gemeinsame Vergabefunktion weist sie mit HTTP409 zurück,
+bevor sie Sitzungen bereinigt, neue Token erzeugt oder Auditzeilen schreibt.
+Damit kann eine ältere App nicht erst einen neuen Token erhalten und dabei
+ihren alten Cache einer anderen Firma überschreiben. Bereits vorhandene
+V1-Sitzungen und lokale Originale bleiben erhalten; ausdrücklich ungebundene
+Legacy-Server behalten ihren bisherigen Vergabevertrag.
+
 ## Lokaler Speicher und V1-Bestand
 
 Der native V2-Speicher, sein geschützter Schlüssel, Token und Auswahlindex sind
@@ -187,3 +195,11 @@ dokumentiert.
 Neue Rohprotokolle und Quellhashes werden unter
 [`offline-recovery-hash-only-2026-11-09`](evidence/offline-recovery-hash-only-2026-11-09/verification.json)
 gesichert. Die bisherigen Nachweise werden nicht überschrieben.
+
+Der ergänzte V1-Ausstellungsstopp besteht gemeinsam mit den vorherigen Fällen
+22/22 Speicher-, Flask-MFA- und tatsächliche TCP-Prüfungen in 21,830 Sekunden.
+Beide alten Vergaberouten erhalten sämtliche vorherigen Sitzungszeilen; normale
+Onlinezugriffe und die explizit ungebundene V1-Vergabe bleiben erfolgreich.
+Die unabhängige Codeprüfung bestätigt die zentrale Abdeckung aller produktiven
+Vergabepfade. PostgreSQL wird mit derselben zusätzlichen Ablehnung separat
+erneut geprüft. [Zusatznachweis](evidence/offline-binding-integration-2026-11-09/v1-issuance-guard.json).

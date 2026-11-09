@@ -45,6 +45,10 @@ class OfflineBindingPostgres(unittest.TestCase):
         self.assertEqual(context['binding']['instance_id'], self.instance)
         legacy = self.legacy_row()
         self.request_with_grant('GET', '/projects', legacy, status=409)
+        sessions = [tuple(row) for row in self.office.db.execute('SELECT * FROM plan_sessions ORDER BY token')]
+        for legacy_path in ('/offline/access', '/business/offline/access'):
+            self.call('POST', legacy_path, {}, status=409)
+            self.assertEqual([tuple(row) for row in self.office.db.execute('SELECT * FROM plan_sessions ORDER BY token')], sessions)
         grant = self.call('POST', '/offline/access/v2', {}, status=201).json
         origin = self.instance+':'+self.owner['id']
         self.assertEqual(grant['binding'], context['binding'])
@@ -57,12 +61,19 @@ class OfflineBindingPostgres(unittest.TestCase):
         original = self.request_with_grant('POST', path, grant['token'], origin=origin, body=command, status=201).json
         self.assertEqual(self.request_with_grant('POST', path, grant['token'], origin=origin,
                                               body=command, status=201).json, original)
-        lookup = dict(schema_version=1, nonce=uuid.uuid4().hex, kind='plan_write',
-                      project_id=project, plan_id=None, command_json=canonical(command))
+        lookup = dict(schema_version=2, nonce=uuid.uuid4().hex, kind='plan_write',
+                      project_id=project, plan_id=None, request_id=command['request_id'],
+                      request_hash=digest(canonical(dict(project_id=project, plan_id=None, data=command))))
+        self.call('POST', '/business/offline/recovery/lookup',
+                  dict(schema_version=1, nonce=uuid.uuid4().hex, kind='plan_write',
+                       project_id=project, plan_id=None, command_json=canonical(command)), status=400)
         verified = self.call('POST', '/business/offline/recovery/lookup', lookup).json
         self.assertEqual(verified['original'], original)
         before = release.snapshot_fingerprint(bound.fixture.fixture.DSN)
         self.assertEqual(self.call('POST', '/business/offline/recovery/lookup', lookup).json, verified)
+        missing = self.call('POST', '/business/offline/recovery/lookup',
+                            dict(lookup, request_id=uuid.uuid4().hex), status=404)
+        self.assertNotIn('request_resolution', missing.json)
         after = release.snapshot_fingerprint(bound.fixture.fixture.DSN)
         for table in ('projects', 'plan_versions', 'plan_requests'):
             self.assertEqual(before[table], after[table])

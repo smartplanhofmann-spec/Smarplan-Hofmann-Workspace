@@ -1,0 +1,13 @@
+{
+  "passed": 22,
+  "skipped": 0,
+  "seconds": 21.83,
+  "raw_sha256": "12f861f9083dacb561c0483d9e1e6c30c14a45913d5d0104b68a2080ee90055a",
+  "raw_bytes": 4859,
+  "review": "Independent read-only review: central issue() guard covers every production route before session cleanup/insert/audit; no further findings.",
+  "source_sha256": {
+    "backend/plan_access.py": "383d0c596aeec0748c28ea0766340f1678954b4a2d5c0bd7b7b2fd4d7dbfee90",
+    "backend/online/test_offline_instance_binding.py": "0a32230590ce9eb70329d767f24c6fb6e5aed1673ef0f48374db861b2217d751"
+  },
+  "postgreSQL_additional_assertions_pending": true
+}

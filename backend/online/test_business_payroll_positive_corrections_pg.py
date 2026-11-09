@@ -5,6 +5,7 @@ from copy import deepcopy
 from decimal import Decimal
 import threading
 import unittest
+from unittest.mock import patch
 
 import business_schema
 from business_accounting_euer import EuerAccounting
@@ -19,6 +20,7 @@ from online import test_business_payroll_multiple_pg as original
 from online import test_business_payroll_cash_pg as cash
 from online.store import PostgresOffice
 from online.test_postgres_accounting_components_integration import disposable_restore, evidence_for, approve
+import test_business_payroll_oneoff_provenance as transport
 
 fixture=original.fixture
 req=original.req
@@ -26,6 +28,8 @@ req=original.req
 
 @unittest.skipUnless(fixture.DSN, 'Guarded disposable loopback PostgreSQL required')
 class PositiveCorrectionPostgres(unittest.TestCase):
+    setUpClass=classmethod(transport.OneoffOriginalTransport.setUpClass.__func__)
+    windows_calculate=transport.OneoffOriginalTransport.windows_calculate
     setUp=bound.CompanyHandoverPostgres.setUp
     reopen=bound.CompanyHandoverPostgres.reopen
     login=bound.CompanyHandoverPostgres.login
@@ -119,9 +123,16 @@ class PositiveCorrectionPostgres(unittest.TestCase):
         batch=self.call('POST','/business/payroll/cash/batches',command,status=201).json
         return batch,command
 
-    def workflow(self, *, money=False):
+    def workflow(self, *, money=False, windows_original=False):
         data=original.MultiplePayrollPostgres.workflow(self,save_case=False)
-        self.forecast(data,2000000);case=self.save_case(data)
+        self.forecast(data,2000000)
+        if windows_original:
+            # Produce the actual old v7 metadata in an independent CRLF
+            # process, then resume normal native execution for the correction.
+            with patch('business_payroll_multiple_cases.calculate_multiple_source',side_effect=self.windows_calculate):
+                case=self.save_case(data)
+        else:
+            case=self.save_case(data)
         _,command=self.prepare_run(data,case)
         run=self.call('POST','/business/payroll/runs',command).json
         payment,payment_command=self.pay(data,run)
@@ -152,7 +163,7 @@ class PositiveCorrectionPostgres(unittest.TestCase):
         return req(**body,confirmation=True,preview_hash=preview['preview_hash'])
 
     def test_actual_positive_payment_euer_private_mfa_and_originals_survive_restore(self):
-        data=self.workflow(money=True);old=data['run'];old_payment=data['payment']
+        data=self.workflow(money=True,windows_original=True);old=data['run'];old_payment=data['payment']
         old_pdf=self.call('GET','/business/payroll/runs/'+old['id']+'/pdf').data
         case,preview,command=self.correction(data)
         self.assertEqual(preview['calculation']['running_calculation'],old['calculation']['running_calculation'])

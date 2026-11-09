@@ -126,9 +126,9 @@ export function projectMilestonesUi(h){
       const [context,raw,record]=await Promise.all([milestoneContext(api,project),api.get(path(project,identifier)+'/history'),api.get(path(project,identifier))]);
       return {context,record,items:await milestoneHistory(raw,project,record)};
     });if(!loaded)return;const {context,record,items}=loaded;
-    const content=el('div',{'data-project-milestones':'',class:'stack'},notice('Gespeicherte Fassungen bleiben unverändert. Die Zuordnung verwendet die damalige Benutzerkennung; angezeigte Teamadressen sind heutige Bezeichnungen.'),
+    const content=el('div',{'data-project-milestones':'',class:'stack'},notice('Gespeicherte Fassungen bleiben unverändert. Zugeordnete Personen werden mit ihrer heutigen Teambezeichnung angezeigt.'),
       ...items.slice().reverse().map(item=>panel(`Version ${item.revision}${item.revision===record.revision?' · aktuell':''}`,row(item.title,describe(item,context.team)),el('p',{class:'break-word'},item.details||'Ohne Beschreibung'),el('p',{class:'caption'},'Gespeichert '+formatDate(item.updated_at,true)),
-        item.assignee_id?el('p',{class:'caption break-word'},'Verantwortliche Benutzerkennung: '+item.assignee_id):null,el('details',{},el('summary',{},'Originalnachweis'),el('p',{class:'caption break-word'},'Meilenstein: '+item.id),el('p',{class:'caption break-word'},'Prüfsumme: '+item.content_hash)))));
+        el('details',{},el('summary',{},'Originalnachweis'),item.assignee_id?el('p',{class:'caption break-word'},'Verantwortliche Benutzerkennung: '+item.assignee_id):null,el('p',{class:'caption break-word'},'Meilenstein: '+item.id),el('p',{class:'caption break-word'},'Prüfsumme: '+item.content_hash)))));
     dialog('Meilensteinverlauf',content);
   }
   async function view(project){

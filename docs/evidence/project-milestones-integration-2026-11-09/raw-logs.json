@@ -1,0 +1,50 @@
+{
+  "postgres-final": {
+    "file": "postgres-final.gz",
+    "raw_bytes": 533,
+    "raw_sha256": "0d8c18ba9fcdc64f399653292552b3d19e881b1f2c1f0b89c7e0c845125f8a5c",
+    "gzip_sha256": "efda51c84e652c7d42dbe1dfb1c90c135c167f0b02fbd05f47835650946d0487"
+  },
+  "browser-initial-failed": {
+    "file": "browser-initial-failed.gz",
+    "raw_bytes": 2868,
+    "raw_sha256": "482cde9ba9ef9dc9dec9efdd122d7b9d32d8e46945769edcb1b5d25a6fead827",
+    "gzip_sha256": "c66f38a43603125d0524d0baf091ea240e35d7aa723b279a567b7e311ff5844c"
+  },
+  "browser-final": {
+    "file": "browser-final.gz",
+    "raw_bytes": 272,
+    "raw_sha256": "710643afb2dc28dad84818d99303d1ae59ea8cb226b72c75d2eba6c52814ab72",
+    "gzip_sha256": "8c0f5268eb7681e2261ef0b9c04fd3ec0d0290e970a5d45ac496532a63266294"
+  },
+  "native-integrated": {
+    "file": "native-integrated.gz",
+    "raw_bytes": 26839,
+    "raw_sha256": "9c8c31c8135ad9209a8429e04f6c10ffdfa58985e5eda3e6bee21e4b064bcd00",
+    "gzip_sha256": "b8cdcd0aff4e7cff00e0958cdcd6698b94092e213e296685a5ef2eeb447a99ad"
+  },
+  "backend-integrated": {
+    "file": "backend-integrated.gz",
+    "raw_bytes": 4641,
+    "raw_sha256": "eefabdd587dd3af8671a8facb79cb7521eeb11735ad74c72ed75a60717de2cdd",
+    "gzip_sha256": "570bfcb662a2332e38cf7285569ed246eb98831f85f71ba754334565aeba0373"
+  },
+  "package-integrated": {
+    "file": "package-integrated.gz",
+    "raw_bytes": 3604,
+    "raw_sha256": "e8c447fac7ffe456e02ced9fd714bb1a95cfc32ef3247ada76ff59f69b60c30a",
+    "gzip_sha256": "e027474488c023f1bc6c1e7e2abb6a32b8444191dcdd82261295c19c08bef6ea"
+  },
+  "browser-proof-final": {
+    "file": "browser-proof-final.gz",
+    "raw_bytes": 272,
+    "raw_sha256": "710643afb2dc28dad84818d99303d1ae59ea8cb226b72c75d2eba6c52814ab72",
+    "gzip_sha256": "8c0f5268eb7681e2261ef0b9c04fd3ec0d0290e970a5d45ac496532a63266294"
+  },
+  "node-final": {
+    "file": "node-final.gz",
+    "raw_bytes": 94275,
+    "raw_sha256": "9cfad3621b023354dc0b8f492d52e1ac4549b1d9e5ca1705e237a6dd944ceef1",
+    "gzip_sha256": "b4f09879887e82cca580e393deec41113d65bb57d8d653f8921157a126abd2cd"
+  }
+}

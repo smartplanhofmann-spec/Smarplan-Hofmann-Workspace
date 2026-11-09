@@ -1,0 +1,16 @@
+{
+  "passed": 2,
+  "skipped": 0,
+  "seconds": 75.498,
+  "source_sha256": "f18ae51354cebe930af8b180a5170a52349c3f48ebe3c32d6fc22676d21bc666",
+  "covers": [
+    "additive migration preserving all previous table fingerprints except schema metadata",
+    "two concurrent writers with one original receipt",
+    "real MFA and original HTTP history",
+    "former assignee and intermediate author JSONB privacy links",
+    "fresh project revocation",
+    "real dump/restore and unchanged historical request replay"
+  ],
+  "container_id": "b3f2592c0e4ae3e079123eb3b05ed8d2d1439d28192b3886d7228f94e3ab9e11",
+  "container_removed_after_checks": true
+}

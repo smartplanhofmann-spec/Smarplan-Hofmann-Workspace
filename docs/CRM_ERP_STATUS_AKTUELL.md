@@ -21,7 +21,7 @@ bleiben erhalten; zusätzliche Zahlungsteile, Vollständigkeitsnachweis,
 Abführungsgrenzen, Jahresfortschreibung und Mitarbeiter-Datenschutz sind
 geprüft. Vier echte PostgreSQL-Fälle und der zusätzliche Jahres-/Restorefall,
 902 Browsermodulfälle, 23 ausgewählte Appfälle und 16 Paketprüfungen bestehen.
-Die breitere Lohn-/Reiseregression besteht mit allen 713 Fällen ohne Skip. Der gemeinsame Stand `3859a1c` ist auf dem Testbranch veröffentlicht; seine Development- und unsignierten iPhone-Prüfungen laufen. [vollständiger Liefernachweis](CRM_ERP_PROJEKT_LIEFERSTAND_2026-11-09.md).
+Die breitere Lohn-/Reiseregression besteht mit allen 713 Fällen ohne Skip. Der gemeinsame Stand `3859a1c` ist auf dem Testbranch veröffentlicht; seine neue CI hat zwei weitere Testfehler bei asynchroner Datei-/Testverzeichnisarbeit gefunden. Beide Fehler sind lokal korrigiert und nachgeprüft; die alte CI bleibt fehlgeschlagen, weitere Jobs und der unsignierte iPhone-Build laufen noch. [vollständiger Liefernachweis](CRM_ERP_PROJEKT_LIEFERSTAND_2026-11-09.md).
 [Vertrag und Grenzen](CRM_ERP_SOURCE5_POSITIVE_KORREKTUR_2026.md).
 
 ## Projektbetrieb und nächste Arbeiten
@@ -33,7 +33,7 @@ Dateifälle, 45 Backendfälle, vier tatsächliche PostgreSQLfälle, 912 unverän
 Browsermodulfälle und 16 Paketfälle bestehen. Der echte Browserablauf wurde
 auf dem gemeinsamen Serverstand wiederholt. Die Testgruppen überlappen.
 
-Explizite Projektmeilensteine werden als nächster eigener Baustein entwickelt.
+Explizite [Projektmeilensteine](CRM_ERP_PROJEKTMEILENSTEINE_GESAMTPRUEFUNG_2026-11-09.md) sind inzwischen lokal integriert und geprüft; die Veröffentlichung steht noch aus.
 Weitere benannte Lohn-/EÜR-Fälle, Integrationen und die durchgängigen Abnahmen
 A–G bleiben offen. Mehrere Bonus-Steuergruppen, negative Korrekturen und andere
 tatsächliche Nachzahlungstage sind durch den neuen positiven Einzelvertrag

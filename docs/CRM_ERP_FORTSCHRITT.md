@@ -3192,3 +3192,42 @@ Offlineaufträge bleiben erhalten; sie dürfen bei der Migration keiner neuen
 Instanz ungeprüft zugeordnet werden. Diese Korrektur hat nach der laufenden
 Meilensteinintegration Priorität. Keine Kundendaten oder Liveinstanz wurden
 für die Reproduktion benutzt oder geändert.
+
+
+### Neue CI-Befunde auf dem veröffentlichten 3859a1c
+
+Development42634757414 meldet einen fehlgeschlagenen Linux-App-Test und einen
+fehlgeschlagenen Windows-Job. Linux: Der tatsächliche EÜR-HTTP-/ZIP-Test erwartet
+den zweiten Dateidialog, wartet bislang aber nur auf ruhende HTTP-Anfragen;
+die echte Dateischreibarbeit kann noch laufen. Windows: Der Offline-Backend-
+Test entfernt sein temporäres Verzeichnis nach dispose(), ohne vorher laufende
+Vault-Schreibvorgänge mit leave() abzuwarten. Beide Ursachen werden getrennt
+mit deterministischen Nachprüfungen bearbeitet. Die übrigen noch laufenden
+Jobs und der iPhone-Build werden nicht als bestanden ausgewiesen.
+[Unveränderte fehlgeschlagene Jobprotokolle](evidence/project-delivery-2026-11-09/ci-3859-failures.json).
+
+
+## 09.11.2026 – Projektmeilensteine gemeinsam lokal abgeschlossen
+
+Eigener versionierter Baustein mit getrennten aktuellen Daten, Fassungen und
+Auftragsquittungen; Browser und App erfassen Termin, Verantwortlichen und
+manuellen Status. Die Erweiterung verändert keine alten Aufgaben-/Termin-
+Originale und löst keine Finanz- oder automatische Projektaktion aus.
+
+130 native, 927 Browsermodul-, 23 Backend-/HTTP-/Katalog-, zwei tatsächliche
+PostgreSQL- und 16 Paketfälle bestehen. Migration erhält alte Tabellen;
+konkurrierende Abschlüsse ergeben genau eine Fassung. Die JSONB-Betroffenen-
+quellen finden alte Verantwortliche und Zwischenbearbeiter nach Umzuweisung.
+Echter Dump/Restore erhält Historie und Originalquittungen. Der abschließende
+Browserfall prüft sechs Fassungen, Rechteentzug, verlorene Antworten, Unicode,
+CRLF und den mobilen Originalnachweis. Container entfernt.
+
+Zusätzlich sind beide alten CI-Testfehler lokal behoben: Windows räumt erst
+nach abgeschlossenem Vault-Write auf (zwei Fälle), beide Jahresarchiv-HTTP-
+Tests warten auf tatsächlichen Export und UI-Freigabe (zwei Fälle). Der alte
+Linux-Wartefehler wurde kontrolliert reproduziert; Fehlprotokolle bleiben.
+Die neuen Codeprüfungen werden erst nach neuer Veröffentlichung bewertet.
+
+[Gemeinsamer Meilensteinnachweis](CRM_ERP_PROJEKTMEILENSTEINE_GESAMTPRUEFUNG_2026-11-09.md).
+Die bestätigte Offline-Instanzlücke bleibt eine aktive getrennte Korrektur.
+Es wird keine vollständige CRM-/ERP-, Geräte- oder Produktivabnahme behauptet.

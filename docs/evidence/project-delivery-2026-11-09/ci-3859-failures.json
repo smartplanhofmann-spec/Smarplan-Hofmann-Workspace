@@ -1,0 +1,18 @@
+{
+  "flutter": {
+    "job_id": 129219853750,
+    "source": "3859a1cb223f134e1eec14d4978e13be1ca8b039",
+    "file": "ci-3859-flutter.gz",
+    "raw_bytes": 496873,
+    "raw_sha256": "e22f8a8c463534290bebbde84b1d6660965110fd936e4adc2755f94fdf9c4401",
+    "gzip_sha256": "cfebc2c99bf76a85196718bef0681390a79bdc902455ddfd704e165c7215b9e6"
+  },
+  "windows": {
+    "job_id": 129219853858,
+    "source": "3859a1cb223f134e1eec14d4978e13be1ca8b039",
+    "file": "ci-3859-windows.gz",
+    "raw_bytes": 448421,
+    "raw_sha256": "d571f6342867c3bcf60679ce84610f2feb545f4abf2cc5bb186ec7d5f2d6e1b0",
+    "gzip_sha256": "a454345f9831decdc7ff1c739c6192e500e1dbee364419300242d8d78165f238"
+  }
+}

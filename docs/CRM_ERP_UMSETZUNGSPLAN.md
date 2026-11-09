@@ -168,9 +168,10 @@ keinen echten Zahlungs-, Nachrichten-, Melde- oder signierten Uploadauftrag.
   Konflikte, verlorene Antworten, Rechteentzug und geschlossene Ansichten
   sind in echten HTTP-/Browserabläufen geprüft; die gemeinsame Endprüfung
   mit Projektjournal und nativen Originalfällen besteht.
-- Explizite Projektmeilensteine werden als separater additiver Codeabschnitt
-  für Backend, Browser und native App entwickelt; der gemeinsame Vertrag ist
-  abgestimmt. Aktuelle Aufgaben-/Termindaten bleiben dabei unverändert.
+- Explizite [Projektmeilensteine](CRM_ERP_PROJEKTMEILENSTEINE_GESAMTPRUEFUNG_2026-11-09.md) sind additiv mit Backend, Browser und nativer App integriert und lokal geprüft. Bisherige Aufgaben-/Termindaten bleiben unverändert.
+- Priorisiert läuft die bestätigte Offline-Firmenisolationskorrektur: neue
+  gebundene V2-Grants, getrennte Instanzspeicher und unveränderte Erhaltung
+  unklarer V1-Aufträge. Negative Altbestandsabgleiche geben keine neue Sendung frei.
 
 ## Bisheriger Projektphasenblock
 

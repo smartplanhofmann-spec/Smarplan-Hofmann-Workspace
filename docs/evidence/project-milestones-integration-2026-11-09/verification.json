@@ -1,0 +1,78 @@
+{
+  "base_commit": "b70bea8bec76e3d6c6a15259ab565a66001f25db",
+  "source_sha256": {
+    ".github/workflows/checks.yml": "a9f2696fa42b548a4ec2f14a3c9dc12f82d4cf4bcbff27ca1efc42be95cac659",
+    "app/lib/business_project_milestone_contract.dart": "e393476833e227e503056c28532f2d653c045e1ffb6fbdae65b6fec0e8f38154",
+    "app/lib/business_project_milestones.dart": "02af2eeed4941857e0138319ff3f724187cb7fdd7becacb4c07f186502133a77",
+    "app/lib/business_session.dart": "b176b716b4a054991023d1687c866f9d244c24e76b9452e39ef3cee7b898f418",
+    "app/lib/business_shell.dart": "34179f2d683900d632f268d9e508826b2757684a9c19c94265b5f8cabad1753a",
+    "app/lib/business_widgets.dart": "511c6801dd5b3cad3d2866be33d82689143cc671abcb28ab5d3cf92abb30078a",
+    "app/lib/project_workspace_page.dart": "8b051b815d58aff74ac44183d6c34a6dddde88a84a7ca6ef873f2f31969f6ac0",
+    "app/test/business_accounting_year_evidence_http_test.dart": "ed880e403f26ed21a01baa5ba85071b83c4ff7d286a97abd6134670e38efb476",
+    "app/test/business_accounting_year_evidence_v2_http_test.dart": "9c282006b80f965d8cc9975938d2908fe8664a9d7c690b89b06424dcff2fcf68",
+    "app/test/business_project_milestone_contract_test.dart": "de2c3a26449d7c07b264a48dada2ec184f1c845ca692c119aef565d5f1cf84b5",
+    "app/test/business_project_milestones_http_test.dart": "9d3c2861c99d8dde23d098310f3883dcf1c0142e4bfa97f44ff41d76e6dd7436",
+    "app/test/business_project_milestones_test.dart": "b83d139a97de8664c6763bd21c0dc8075555d20055347256f430093ac7842ebb",
+    "app/test/fixtures/project_milestones.json": "abee67cc3b6865c5ea6811fbb554b61b9caa7dfb023cbab99ca26155658b7c52",
+    "app/test/offline_backend_integration_test.dart": "d48d8e6d41c889120555706663e1be1ca23a1b01af743c11548fe2bf4f320ead",
+    "app/test/offline_shutdown_test.dart": "61b30e94320fded700c98d77fddf705b1bd7be9fa3ad8f9c6b0218ebf88731fb",
+    "backend/business_api.py": "090d93842e6e37fa11e8c1d4b6d0eb526ee3acdae8e47f22b055a6c6ee4781b7",
+    "backend/business_organization.py": "b452aa4e5df662ffc76cdfd0408b4cf05bc48fa1e109aea2132bac1fcca3f07d",
+    "backend/business_project_milestones.py": "a5f440f60955738473ef52adf802bfa9720fefafef544c8ade298741560ab203",
+    "backend/business_schema.py": "f20d73bfe2828493f9f45c0f812bc3cf40b1081b43d6ce062b217f5b2a99dbc7",
+    "backend/company_export_catalog.py": "d38416f1749fc9490c96e75f5769e6859a7c00fc2cc6e124b138d236afc3ad67",
+    "backend/online/test_business_project_milestones_pg.py": "f18ae51354cebe930af8b180a5170a52349c3f48ebe3c32d6fc22676d21bc666",
+    "backend/online/test_project_milestones_http.py": "593dd28f312a70f4ab9a3800fea7b6183c39b4894f4397cba589e8ae7e53ee2f",
+    "backend/online/web.py": "d287728167a689806c95e890c3469070fd6429603e407a716fc24ec8fb013e87",
+    "backend/privacy_case_sources.py": "f2712150c9f2c56ae6b8860649cc5fe33d5ce55519c79b0a4adfb821ead92c71",
+    "backend/test_project_milestone_catalog.py": "ccc776019019bf076c9e108564049a5cc938d94e15bd0d43d85a4ff64101305c",
+    "backend/test_project_milestones.py": "edb7689dd218e2266a88265acade04b301be2afd833fdb1798c80431a505054e",
+    "web/office/office.js": "5c7c2a08312f035c7c6f9f08d5686292581d4b506ec6c9c25393a627ce37e98c",
+    "web/office/project-milestones.js": "3859f7490ee8d0a2441831149fcdb97d27dacaab1fa9299cc5c9798aac979b68",
+    "web/office/tests/e2e.cjs": "f4c735e9bc815e6e20a9922460070550b51b5ab3b9c575c22ae0cea490ebcb8f",
+    "web/office/tests/project-milestones-fixture.mjs": "4495f8413851fa6e0cdc95c3bd4cfdfcb88f2631c7f00d9d68e087e2bfcbf268",
+    "web/office/tests/project-milestones-fixture.test.mjs": "dcc3c4240eeca81bd71ad6457654ff8acdb7fa4933e921542e36f3435e7db1bf",
+    "web/office/tests/project-milestones-flow.cjs": "eb5c88f22de41010f3bf1d9fdb71f20fa951faee5e4f2c81e23fd4ff289b2bbb",
+    "web/office/tests/project-milestones.test.mjs": "60dfea32bbe715d10765a74eea7da051df89a6b02d0b28a97faf77ff58312dbd"
+  },
+  "checks": {
+    "native_integrated": {
+      "passed": 130,
+      "skipped": 0,
+      "source": "native-integrated.gz"
+    },
+    "browser_modules": {
+      "passed": 927,
+      "skipped": 0,
+      "seconds": 14.112,
+      "source": "node-final.gz"
+    },
+    "backend_integrated": {
+      "passed": 23,
+      "skipped": 0,
+      "seconds": 13.576,
+      "source": "backend-integrated.gz"
+    },
+    "postgres": {
+      "passed": 2,
+      "skipped": 0,
+      "seconds": 75.498,
+      "source": "postgres-final.gz"
+    },
+    "packaging": {
+      "passed": 16,
+      "skipped": 0,
+      "seconds": 27.751,
+      "source": "package-integrated.gz"
+    },
+    "actual_browser_final": {
+      "exit_code": 0,
+      "source": "browser-proof-final.gz"
+    }
+  },
+  "postgres_container_removed": true,
+  "original_goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "remote_publication": false,
+  "live_deployment": false,
+  "known_separate_blocker": "Offline company isolation V2 fix in progress; legacy queues retained"
+}

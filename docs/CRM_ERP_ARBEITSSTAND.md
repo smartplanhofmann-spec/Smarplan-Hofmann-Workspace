@@ -243,8 +243,7 @@ optionalem Termin und Verantwortlichem sowie manuellem Status
 Auftragsquittungen, frische Projekt-/Planungsrechte und unveränderte bestehende
 Aufgaben/Termine gehören zum Umfang. Ein erreichter Meilenstein ist keine
 rechtliche Abnahme und erzeugt keine automatische Rechnung oder Zahlung.
-Backend/Browser/App und aktuelle Fixtures werden zusammengeführt und erst
-nach den tatsächlichen Prüfungen als neuer Lieferstand ausgewiesen.
+Backend/Browser/App und aktuelle Fixtures sind zusammengeführt. [Gemeinsamer Nachweis](CRM_ERP_PROJEKTMEILENSTEINE_GESAMTPRUEFUNG_2026-11-09.md): 130 native, 927 Browsermodul-, 23 Backend-, zwei tatsächliche PG-/Restore- und 16 Paketfälle bestehen. Der separate echte Browsernachlauf besteht ebenfalls. Veröffentlichung und neue Remoteprüfung stehen noch aus.
 
 ## Unmittelbar folgende Isolationskorrektur
 
@@ -260,7 +259,7 @@ Dies ist eine konkrete offene R03.04-Korrektur, keine Produktivfreigabe.
 Ein additiver Grant-/Cachevertrag und sichere Behandlung vorhandener noch
 nicht gebundener Offlineaufträge werden vorbereitet. Vorhandene Dateien und
 Aufträge dürfen nicht gelöscht oder ungeprüft einer neuen Instanz zugewiesen
-werden. Der Fix folgt mit eigenem Nachweis auf die laufende Meilensteinintegration.
+werden. Der Fix wird mit eigenem Nachweis entwickelt; die Meilensteinintegration ist lokal abgeschlossen. Neue V2-Grants und getrennte Cache-/Token-Namensräume binden Instanz und Konto. V1-Bestände ohne nachweisbare Herkunft bleiben erhalten und gesperrt; sie werden keiner neuen Firma automatisch zugewiesen.
 
 ## Weitere unabhängige Entwicklungsarbeit
 

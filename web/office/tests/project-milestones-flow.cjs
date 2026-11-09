@@ -70,6 +70,7 @@ async function projectMilestonesFlow({page,context,login,ready,navigate,fixture,
     assert.equal(await tech.getByRole('dialog').count(),0);await tech.getByRole('heading',{name:'Guten Tag.',exact:true}).waitFor();assert.equal(updateCommands[0],updateCommands[1]);
     current=await api(objectPath);assert.equal(current.revision,6);assert.equal(current.details,'Parallel bestätigte Fassung\r\nUnverändert\r\n');await open(tech);
     await tech.setViewportSize({width:390,height:844});await row(tech).getByRole('button',{name:'Verlauf',exact:true}).click();history=tech.getByRole('dialog',{name:'Meilensteinverlauf',exact:true});await history.getByRole('heading',{name:'Version 6 · aktuell',exact:true}).waitFor();
+    const proof=history.locator('details').first(),assigneeProof=proof.getByText('Verantwortliche Benutzerkennung: '+current.assignee_id,{exact:true});assert.equal(await assigneeProof.isVisible(),false);await proof.locator('summary').click();await assigneeProof.waitFor();await proof.locator('summary').click();
     assert.equal(await tech.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);await tech.screenshot({path:path.join(screenshots,'project-milestones-mobile.png'),fullPage:false});
     const originals=(await api(objectPath+'/history')).items;assert.equal(originals.length,6);assert.deepEqual(originals[0],initial);
     await fs.writeFile(path.join(screenshots,'project-milestones-evidence.json'),JSON.stringify({initial,current,originals,createCommands,updateCommands},null,2));

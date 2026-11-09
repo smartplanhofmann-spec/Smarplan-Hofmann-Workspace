@@ -1,0 +1,426 @@
+{
+  "synthetic": true,
+  "entries": [
+    {
+      "path": "/api/v1/business/personnel/travel/mileage/trips",
+      "status": 200,
+      "original_command": {
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "id": "52541fc54ee84999b3281bcb5a4b9490",
+        "revision": 0,
+        "correction_reason": "",
+        "details": {
+          "purpose": "Synthetic actual domestic customer measurement",
+          "project_id": "d3c62a5d028847008f0ab937be0d73a7",
+          "departed_at": "2026-10-26T08:00:00+01:00",
+          "returned_at": "2026-10-26T13:00:00+01:00",
+          "timezone": "Europe/Berlin",
+          "home_site_ref": {
+            "id": "a679b2dbc7094fe3b62492d7ec5688c5",
+            "revision": 1,
+            "content_hash": "a768b32fa4e371b7eb28a444ae084bd508f0f71d65be413fb7354fbbe39b6bbb"
+          },
+          "first_workplace_ref": null,
+          "source_file_ids": [
+            "08d1b27721bf452e914895ac9e3ae4a6",
+            "50880d2e3a0543f6a454dc4430c34cb8"
+          ],
+          "mileage": {
+            "schema_version": 1,
+            "vehicle_kind": "private_car",
+            "vehicle_registration": "SYNTHETISCH-PKW",
+            "vehicle_file_id": "50880d2e3a0543f6a454dc4430c34cb8",
+            "declaration_file_id": "08d1b27721bf452e914895ac9e3ae4a6",
+            "employee_bears_vehicle_costs": true,
+            "no_employer_vehicle": true,
+            "only_business_travel": true,
+            "no_commuting_or_family_home": true,
+            "no_collection_point_or_wide_area": true,
+            "no_other_reimbursement": true,
+            "legs": [
+              {
+                "id": "aa4aee8e3f8745bba1ed586c1f190215",
+                "departed_at": "2026-10-26T08:00:00+01:00",
+                "arrived_at": "2026-10-26T09:00:00+01:00",
+                "from_site_ref": {
+                  "id": "a679b2dbc7094fe3b62492d7ec5688c5",
+                  "revision": 1,
+                  "content_hash": "a768b32fa4e371b7eb28a444ae084bd508f0f71d65be413fb7354fbbe39b6bbb"
+                },
+                "to_site_ref": {
+                  "id": "b043e56ec39441989ff527103fa4ecb1",
+                  "revision": 1,
+                  "content_hash": "251c15ea8acbf091018c55115f35225ddd047206ef2b868b794e442ce1d24828"
+                },
+                "distance_m": 50000,
+                "evidence_file_id": "08d1b27721bf452e914895ac9e3ae4a6"
+              },
+              {
+                "id": "a08b6ac828284e5e956b61d0b11b59a1",
+                "departed_at": "2026-10-26T12:00:00+01:00",
+                "arrived_at": "2026-10-26T13:00:00+01:00",
+                "from_site_ref": {
+                  "id": "b043e56ec39441989ff527103fa4ecb1",
+                  "revision": 1,
+                  "content_hash": "251c15ea8acbf091018c55115f35225ddd047206ef2b868b794e442ce1d24828"
+                },
+                "to_site_ref": {
+                  "id": "a679b2dbc7094fe3b62492d7ec5688c5",
+                  "revision": 1,
+                  "content_hash": "a768b32fa4e371b7eb28a444ae084bd508f0f71d65be413fb7354fbbe39b6bbb"
+                },
+                "distance_m": 50000,
+                "evidence_file_id": "08d1b27721bf452e914895ac9e3ae4a6"
+              }
+            ],
+            "review_note": "Synthetic private car, sole business route and no second reimbursement reviewed"
+          }
+        },
+        "request_id": "9bef87a3ad4e4570a7856687ce79a30d"
+      },
+      "receipt": {
+        "request_id": "9bef87a3ad4e4570a7856687ce79a30d",
+        "actor_id": "9f50fbb568bc4128ac2d555e5cb6ad3f",
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "operation": "trip.save",
+        "target_kind": "trip",
+        "target_id": "52541fc54ee84999b3281bcb5a4b9490",
+        "revision": 1,
+        "request_hash": "3a3954cf8b72d6d87155132dad40d8b05322ec826b51c4acabb6f9c6a5767b7f",
+        "result_hash": "b56c42f81fdac57cd2575014ad5471d28364906104163f6577ac19e0484694ef",
+        "confirmed": true
+      },
+      "response_canonical_sha256": "0d9a6253b1e972ad826afc7d179359649e30b8204784d88aeb7cd1d78307e177"
+    },
+    {
+      "path": "/api/v1/business/personnel/travel/mileage/trips/52541fc54ee84999b3281bcb5a4b9490/submit",
+      "status": 200,
+      "original_command": {
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "revision": 1,
+        "source_hash": "910a654e3c52b260ee72b7cf77a005265d7dfe63ae16ecfc533b8845454a571c",
+        "confirmed": true,
+        "request_id": "29f8fafd5ccb49a6a6fb245f1c3fd0a7"
+      },
+      "receipt": {
+        "request_id": "29f8fafd5ccb49a6a6fb245f1c3fd0a7",
+        "actor_id": "9f50fbb568bc4128ac2d555e5cb6ad3f",
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "operation": "trip.submit",
+        "target_kind": "trip",
+        "target_id": "52541fc54ee84999b3281bcb5a4b9490",
+        "revision": 2,
+        "request_hash": "df30c3fd482482bcc64fdd208da84043396a6a835b9399eae78b0e226d92c2e5",
+        "result_hash": "41fd601323ccd620e02b93ed9cb6d7387fdec2476dc556d4188a82d0d7a69b2a",
+        "confirmed": true
+      },
+      "response_canonical_sha256": "588898adb7f62f0d12ef03aaf332e3d53cc61dda746a079d5c6173e101dd0bde"
+    },
+    {
+      "path": "/api/v1/business/personnel/travel/mileage/settlements",
+      "status": 200,
+      "original_command": {
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "trip_refs": [
+          {
+            "id": "52541fc54ee84999b3281bcb5a4b9490",
+            "revision": 2,
+            "content_hash": "d78546b203d8c7f11feb4bc0b7e11da836dfef093891cac1f77c53b34890d24b"
+          }
+        ],
+        "period_from": "2026-10-26",
+        "period_to": "2026-10-26",
+        "settlement_unit": "trip",
+        "tax_choice": "tax_free_only",
+        "requested_meal_minor": 0,
+        "requested_lodging_minor": 0,
+        "correction_of": null,
+        "review_note": "Synthetic independent complete source and route review",
+        "id": "365028b23314463cb237eec26dc35b0c",
+        "revision": 0,
+        "source_hash": "983d865dd9331921670a8d8f703d12a808581bc94bffd6ab856354bca17cc6cb",
+        "preview_hash": "c9a8f69b9ba49476ebef45ae190fcf6d4913cc2ef11e7bdce483c20599efe8d9",
+        "confirmed": true,
+        "request_id": "2b388176f3fb485793f44bb3c7f3bd2b"
+      },
+      "receipt": {
+        "request_id": "2b388176f3fb485793f44bb3c7f3bd2b",
+        "actor_id": "16cd3f8fe7054e9f9be4b48aa406d386",
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "operation": "settlement.approve",
+        "target_kind": "settlement",
+        "target_id": "365028b23314463cb237eec26dc35b0c",
+        "revision": 1,
+        "request_hash": "1a96e4520b2dc1e3cf5bce83894f0831d76f166e9411bdd4155925678ba68540",
+        "result_hash": "b7053d5b732933dd5c666cd33a9d8190b4083f9a7aa1430a89787c79f373a82d",
+        "confirmed": true
+      },
+      "response_canonical_sha256": "e291cb5bacafb89dbc919813fe2284a7f0562a3e6b8225bf9bfe7abdfbd2a14e"
+    },
+    {
+      "path": "/api/v1/business/personnel/travel/mileage/payments",
+      "status": 200,
+      "original_command": {
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "id": "f65b6eb28db74006bf2d3959f7654874",
+        "revision": 0,
+        "action": "record",
+        "settlement_ref": {
+          "id": "365028b23314463cb237eec26dc35b0c",
+          "revision": 1,
+          "content_hash": "5d492d21066849c00e41d4a95d63a8441bd94e61eb45aa652195679602bf4b15"
+        },
+        "kind": "reimbursement",
+        "paid_on": "2026-10-27",
+        "amount_minor": 3000,
+        "account_id": "25085c5a736f4ee2b99ffa792899304f",
+        "account_revision": 1,
+        "instance_id": "e08f267d039744f4b6032e15faa7dded",
+        "reference": "SYN-MILEAGE-PAID",
+        "reference_file_id": "b70bf51fd54c446ea6687f4f0a45ebd5",
+        "source_hash": "cd6a09aad77fae914f0301cf484fd9dfa95b036b1aa028b1995d3f577f82e37f",
+        "correction_reason": "",
+        "confirmed": true,
+        "request_id": "79bf84ed2eea4f50ad401c1a4724f77b"
+      },
+      "receipt": {
+        "request_id": "79bf84ed2eea4f50ad401c1a4724f77b",
+        "actor_id": "16cd3f8fe7054e9f9be4b48aa406d386",
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "operation": "payment.record",
+        "target_kind": "payment",
+        "target_id": "f65b6eb28db74006bf2d3959f7654874",
+        "revision": 1,
+        "request_hash": "52feda4abd7bf806c9b0b64983066b8cd66d43e2bad7a82c976c6792e94cc0fc",
+        "result_hash": "ea933496e1d5763061d01ba4cbf9f477be6a3711076a05632087d6e0cb479197",
+        "confirmed": true
+      },
+      "response_canonical_sha256": "d0477d7d1b403a1ecd642e0b1bf9b9795762b5082020229c73fd904fb7f99ac2"
+    },
+    {
+      "path": "/api/v1/business/personnel/travel/mileage/trips/52541fc54ee84999b3281bcb5a4b9490/reject",
+      "status": 200,
+      "original_command": {
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "revision": 2,
+        "source_hash": "43c359f3a3fe3a5c8a3a83391122d1688aa7bf2eaf8e41f70bbf5f867778fded",
+        "reason": "Synthetic independent evidence of shorter original route",
+        "confirmed": true,
+        "request_id": "5a485acb040145a9b064be61dd6c6573"
+      },
+      "receipt": {
+        "request_id": "5a485acb040145a9b064be61dd6c6573",
+        "actor_id": "16cd3f8fe7054e9f9be4b48aa406d386",
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "operation": "trip.reject",
+        "target_kind": "trip",
+        "target_id": "52541fc54ee84999b3281bcb5a4b9490",
+        "revision": 3,
+        "request_hash": "487db6e1419fb77fae6e08f93db506338fd88f77e19a75a9438797eeeec91a03",
+        "result_hash": "1376a1ee040023129e40e98cc8d6505a2b970ff8e6db866eb5ece4b7a156501e",
+        "confirmed": true
+      },
+      "response_canonical_sha256": "832f78354e177d3d6d79c48be0aef8f20fd66353fcc1bdc72e8bb2fdede14a3d"
+    },
+    {
+      "path": "/api/v1/business/personnel/travel/mileage/trips",
+      "status": 200,
+      "original_command": {
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "id": "52541fc54ee84999b3281bcb5a4b9490",
+        "revision": 3,
+        "correction_reason": "Synthetic independent correction of recorded original metres",
+        "details": {
+          "purpose": "Synthetic actual domestic customer measurement",
+          "project_id": "d3c62a5d028847008f0ab937be0d73a7",
+          "departed_at": "2026-10-26T08:00:00+01:00",
+          "returned_at": "2026-10-26T13:00:00+01:00",
+          "timezone": "Europe/Berlin",
+          "home_site_ref": {
+            "id": "a679b2dbc7094fe3b62492d7ec5688c5",
+            "revision": 1,
+            "content_hash": "a768b32fa4e371b7eb28a444ae084bd508f0f71d65be413fb7354fbbe39b6bbb"
+          },
+          "first_workplace_ref": null,
+          "source_file_ids": [
+            "08d1b27721bf452e914895ac9e3ae4a6",
+            "50880d2e3a0543f6a454dc4430c34cb8"
+          ],
+          "mileage": {
+            "schema_version": 1,
+            "vehicle_kind": "private_car",
+            "vehicle_registration": "SYNTHETISCH-PKW",
+            "vehicle_file_id": "50880d2e3a0543f6a454dc4430c34cb8",
+            "declaration_file_id": "08d1b27721bf452e914895ac9e3ae4a6",
+            "employee_bears_vehicle_costs": true,
+            "no_employer_vehicle": true,
+            "only_business_travel": true,
+            "no_commuting_or_family_home": true,
+            "no_collection_point_or_wide_area": true,
+            "no_other_reimbursement": true,
+            "legs": [
+              {
+                "id": "aa4aee8e3f8745bba1ed586c1f190215",
+                "departed_at": "2026-10-26T08:00:00+01:00",
+                "arrived_at": "2026-10-26T09:00:00+01:00",
+                "from_site_ref": {
+                  "id": "a679b2dbc7094fe3b62492d7ec5688c5",
+                  "revision": 1,
+                  "content_hash": "a768b32fa4e371b7eb28a444ae084bd508f0f71d65be413fb7354fbbe39b6bbb"
+                },
+                "to_site_ref": {
+                  "id": "b043e56ec39441989ff527103fa4ecb1",
+                  "revision": 1,
+                  "content_hash": "251c15ea8acbf091018c55115f35225ddd047206ef2b868b794e442ce1d24828"
+                },
+                "distance_m": 25000,
+                "evidence_file_id": "08d1b27721bf452e914895ac9e3ae4a6"
+              },
+              {
+                "id": "a08b6ac828284e5e956b61d0b11b59a1",
+                "departed_at": "2026-10-26T12:00:00+01:00",
+                "arrived_at": "2026-10-26T13:00:00+01:00",
+                "from_site_ref": {
+                  "id": "b043e56ec39441989ff527103fa4ecb1",
+                  "revision": 1,
+                  "content_hash": "251c15ea8acbf091018c55115f35225ddd047206ef2b868b794e442ce1d24828"
+                },
+                "to_site_ref": {
+                  "id": "a679b2dbc7094fe3b62492d7ec5688c5",
+                  "revision": 1,
+                  "content_hash": "a768b32fa4e371b7eb28a444ae084bd508f0f71d65be413fb7354fbbe39b6bbb"
+                },
+                "distance_m": 25000,
+                "evidence_file_id": "08d1b27721bf452e914895ac9e3ae4a6"
+              }
+            ],
+            "review_note": "Synthetic private car, sole business route and no second reimbursement reviewed"
+          }
+        },
+        "request_id": "29cc85fb8f27499ba9a52d09c20a2bbb"
+      },
+      "receipt": {
+        "request_id": "29cc85fb8f27499ba9a52d09c20a2bbb",
+        "actor_id": "9f50fbb568bc4128ac2d555e5cb6ad3f",
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "operation": "trip.save",
+        "target_kind": "trip",
+        "target_id": "52541fc54ee84999b3281bcb5a4b9490",
+        "revision": 4,
+        "request_hash": "da44b5711f6c2b48f8fa62f9eeb81e649402bb20334076f70bef336b8109fce2",
+        "result_hash": "bc4b4dc8743c2130fbf33a8b82ee1dbcd4236a65b408309473bf0053afb9cd2f",
+        "confirmed": true
+      },
+      "response_canonical_sha256": "7de2c47ab08a2a1237c55bf416704b582ffdf5110bcff6f0bdd4c83ccd01de30"
+    },
+    {
+      "path": "/api/v1/business/personnel/travel/mileage/trips/52541fc54ee84999b3281bcb5a4b9490/submit",
+      "status": 200,
+      "original_command": {
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "revision": 4,
+        "source_hash": "abd0488d3718c24af85dcd5b529ce786039724bf14772bac1fb7f8428e0e5c0f",
+        "confirmed": true,
+        "request_id": "0728a57fe54b49169afcaab0903b2529"
+      },
+      "receipt": {
+        "request_id": "0728a57fe54b49169afcaab0903b2529",
+        "actor_id": "9f50fbb568bc4128ac2d555e5cb6ad3f",
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "operation": "trip.submit",
+        "target_kind": "trip",
+        "target_id": "52541fc54ee84999b3281bcb5a4b9490",
+        "revision": 5,
+        "request_hash": "d0fe59744e65d15ea3fc89a2dca1a58bffdd87cd4b6a10636d29be5510848daf",
+        "result_hash": "aa154a3b0df8aee97b263d4e31088705fea32fe43ff54a2e85942d4d74ec6b21",
+        "confirmed": true
+      },
+      "response_canonical_sha256": "d8d45eb9d36af3c044edacf5e2598b04ad0c3f397ed0391b9b2c71d9cc833be2"
+    },
+    {
+      "path": "/api/v1/business/personnel/travel/mileage/settlements",
+      "status": 200,
+      "original_command": {
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "trip_refs": [
+          {
+            "id": "52541fc54ee84999b3281bcb5a4b9490",
+            "revision": 5,
+            "content_hash": "af49c2890bddab41f8db974a27847d89aa274fd4db7582dadc154d4f6a03275a"
+          }
+        ],
+        "period_from": "2026-10-26",
+        "period_to": "2026-10-26",
+        "settlement_unit": "trip",
+        "tax_choice": "tax_free_only",
+        "requested_meal_minor": 0,
+        "requested_lodging_minor": 0,
+        "correction_of": {
+          "id": "365028b23314463cb237eec26dc35b0c",
+          "revision": 1,
+          "content_hash": "5d492d21066849c00e41d4a95d63a8441bd94e61eb45aa652195679602bf4b15"
+        },
+        "review_note": "Synthetic independent complete source and route review",
+        "id": "365028b23314463cb237eec26dc35b0c",
+        "revision": 1,
+        "source_hash": "065c0733c2c66189775499a9d1ae4278d928c45dd2333e15749c30bcddf83c48",
+        "preview_hash": "3b5855a74602e55eb0034d6b0a2e7aeffc2576263b8277d0e002c8767f6f7d3e",
+        "confirmed": true,
+        "request_id": "7d8b327cc69a41c5bc726623134e757b"
+      },
+      "receipt": {
+        "request_id": "7d8b327cc69a41c5bc726623134e757b",
+        "actor_id": "16cd3f8fe7054e9f9be4b48aa406d386",
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "operation": "settlement.approve",
+        "target_kind": "settlement",
+        "target_id": "365028b23314463cb237eec26dc35b0c",
+        "revision": 2,
+        "request_hash": "8fa7abb90174b1b3646d2cd9f8e87fd9d1bded11ed2e59fc14a67764e165a8b7",
+        "result_hash": "8ab2edb730053fa6f9bc969e925e9eba5cfd46e9582f99d06bca121bbdbdf4e2",
+        "confirmed": true
+      },
+      "response_canonical_sha256": "e40b4d807373e6e82800a5f422664ff0f4122614535055b67fb439c72e70e343"
+    },
+    {
+      "path": "/api/v1/business/personnel/travel/mileage/payments",
+      "status": 200,
+      "original_command": {
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "id": "22d4f162912a4c3eb60aeeefd2ae3baa",
+        "revision": 0,
+        "action": "record",
+        "settlement_ref": {
+          "id": "365028b23314463cb237eec26dc35b0c",
+          "revision": 2,
+          "content_hash": "a2a1e0f0d5249c483d44d82ea386163c49842c0050b143fc8db5e616c4c1834e"
+        },
+        "kind": "repayment",
+        "paid_on": "2026-10-28",
+        "amount_minor": 1500,
+        "account_id": "25085c5a736f4ee2b99ffa792899304f",
+        "account_revision": 1,
+        "instance_id": "e08f267d039744f4b6032e15faa7dded",
+        "reference": "SYN-MILEAGE-REPAY",
+        "reference_file_id": "0f9c194a84d9436d9fd91f26382b9d3e",
+        "source_hash": "98e7c23f43dbb59d029c72496fe4ddf25ec3289a46f289e6b10c4844ea94d234",
+        "correction_reason": "",
+        "confirmed": true,
+        "request_id": "36d7db719ba8430bb4f3140cdee82c55"
+      },
+      "receipt": {
+        "request_id": "36d7db719ba8430bb4f3140cdee82c55",
+        "actor_id": "16cd3f8fe7054e9f9be4b48aa406d386",
+        "employee_id": "4d2ca4fd30514d9dadfc28d3fcc9632a",
+        "operation": "payment.record",
+        "target_kind": "payment",
+        "target_id": "22d4f162912a4c3eb60aeeefd2ae3baa",
+        "revision": 1,
+        "request_hash": "72908bca76b3508ff734dbdd56eb41db7d05c1c90ccdcf657c7aeadde9f45e83",
+        "result_hash": "eb1ef13a6c71aef50deb5b8566aa8b6762ee4b54f31efca64fe4b35f2e024b01",
+        "confirmed": true
+      },
+      "response_canonical_sha256": "5c6885f2d99749096ad56c862e7152148eb55ff47798498412dc6651159258c6"
+    }
+  ]
+}

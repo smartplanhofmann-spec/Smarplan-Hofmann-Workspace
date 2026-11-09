@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "backend_author_commit": "ae0c851c9b7f3b99736c29f99da24cee070185d0",
+  "backend_local_commit": "e347f5c",
+  "source_files_sha256": {
+    "web/office/private-car-mileage.js": "4ff64fa3789376ed752bc68549a10790c583efe7aa84d5d5310dce26e238ee00",
+    "web/office/travel-allowances.js": "2ae52d48723053b798fd97c6749a4fb078616a77fd2fcc924248b561bade568f",
+    "web/office/personnel-workflow.js": "e1f8cf49aa856e5a6ec5b366294c7e59162ceefc6d07b0466f629dfd35a9a993",
+    "web/office/office.js": "a573095bf38593c610bf84ce94f7fc95143782a51017add55812e37d403ab317",
+    "app/lib/business_travel_mileage.dart": "606d771b2c50aec96c48a8dcded3ed921ad849f7d1dd6fec48a1777c700e1f52",
+    "app/lib/business_travel_allowances.dart": "a97ff890e4bb5928ac6def2db413849de8b8e4a20ebbec20f5dad02bb5ad3917"
+  },
+  "fixture_sha256": "30c0d2388a83458259d7cd8c1d98caf69cf08cf8e5396ba36ec9b02ba6aac71b",
+  "browser_contract_passed_cases": 12,
+  "browser_regression_passed_files": 6,
+  "native_passed_cases": 36,
+  "native_new_cases": 12,
+  "native_analysis_files": 3,
+  "browser_two_mfa_http_passed": true,
+  "browser_actual_cash_and_euer_minor": [
+    3000,
+    1500
+  ],
+  "private_pending_persistence": "in memory in the authorized private view; no new restart persistence",
+  "live_install_or_provider_actions": false,
+  "pending_backend_followup": "per-original evidence SHA claim overlap fix coordinated by root; final integrated recheck follows"
+}

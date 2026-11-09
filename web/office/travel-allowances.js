@@ -171,8 +171,9 @@ export function travelV3Calculation(value,tripRefs) {
 /** Complete private bodies never enter OfficeApi's general pending queue. */
 export class TravelCommand {
   #pending = null;
-  constructor(api, {employeeId, stamp = () => 0, allowed = () => true} = {}) {
+  constructor(api, {employeeId, stamp = () => 0, allowed = () => true, root=ROOT, writeFeature=null, validateResult=null} = {}) {
     if (!ID.test(employeeId ?? '')) throw fail('Eine eindeutige Mitarbeiterzuordnung ist erforderlich.');
+    if(![ROOT,ROOT+'/mileage'].includes(root)||writeFeature!==null&&writeFeature!=='travel_private_car_mileage')throw fail('Unbekannter privater Reisevertrag.');if((root===ROOT+'/mileage')!==(writeFeature==='travel_private_car_mileage'))throw fail('Reisepfad und Quellenvertrag passen nicht zusammen.');this.root=root;this.writeFeature=writeFeature;this.validateResult=validateResult;
     this.api = api; this.employeeId = employeeId; this.stamp = stamp; this.allowed = allowed; this.epoch = 0;
   }
   get pending() {
@@ -203,22 +204,23 @@ export class TravelCommand {
     const stamp = this.stamp(), epoch = this.epoch;
     const [actor, caps, sources] = await Promise.all([
       this.read('/me'), this.read('/business/capabilities'),
-      this.read(ROOT + '/sources?employee_id=' + this.employeeId),
+      this.read(this.root + '/sources?employee_id=' + this.employeeId),
     ]);
     this.check(stamp, epoch);
     if (!ID.test(actor?.id ?? '') || !caps.features?.includes('travel_allowances') ||
-        !caps.capabilities?.includes('business_travel_allowances') ||
+        !caps.capabilities?.includes('business_travel_allowances') ||this.writeFeature&&!caps.features?.includes('travel_private_car_mileage_read')||
         sources.employee?.id !== this.employeeId || sources.rights?.read !== true ||
-        sources.rights?.[right] !== true || right !== 'read' && (caps.readonly !== false || sources.active !== true || sources.readonly !== false)) {
+        (!this.writeFeature&&sources.rights?.[right] !== true) || !this.writeFeature&&right !== 'read' && (caps.readonly !== false || sources.active !== true || sources.readonly !== false)) {
       this.clear(); throw fail('Die aktuelle Mitarbeiter- oder Reisefreigabe fehlt.', 403);
     }
+    if(this.writeFeature&&right!=='read'&&(!caps.features?.includes(this.writeFeature)||sources.rights?.[right]!==true||caps.readonly!==false||sources.active!==true||sources.readonly!==false))throw fail('Die aktuelle Freigabe für neue Kilometeraufträge fehlt. Der ursprüngliche Auftrag bleibt offen.',403);
     return {actor, caps, sources};
   }
   async submit(path, body, {operation, targetKind, targetId, right = 'write', validate} = {}) {
     if (this.#pending) throw fail('Zuerst die Bestätigung des offenen Reiseauftrags prüfen.', 409);
     if (!ID.test(targetId ?? '') || !['site', 'trip', 'settlement', 'payment'].includes(targetKind) ||
         typeof operation !== 'string' || !/^[a-z][a-z_.-]{0,39}$/.test(operation) ||
-        !path.startsWith(ROOT + '/') || /[?#]/.test(path) || body?.employee_id !== this.employeeId) {
+        (!path.startsWith(this.root + '/')||this.root===ROOT&&path.startsWith(ROOT+'/mileage/')) || /[?#]/.test(path) || body?.employee_id !== this.employeeId) {
       throw fail('Der Reiseauftrag ist nicht eindeutig an Mitarbeiter und Quelle gebunden.');
     }
     const stamp = this.stamp(), epoch = this.epoch;
@@ -239,9 +241,10 @@ export class TravelCommand {
     this.check(pending.stamp, pending.epoch);
     const {actor} = await this.fresh();
     if (actor.id !== pending.actor_id) {this.clear(); throw fail('Der Auftraggeber wurde geändert.', 403);}
-    const value = await this.read(ROOT + '/requests/' + pending.request_id);
+    const value = await this.read(this.root + '/requests/' + pending.request_id);
     const receipt = await travelReceipt(value, pending);
     this.check(pending.stamp, pending.epoch);
+    if(this.validateResult)await this.validateResult(receipt.result,copy(pending.body),receipt);
     if (pending.validate) await pending.validate(receipt.result);
     this.check(pending.stamp, pending.epoch);
     if (resolve) {pending.body = {}; this.#pending = null;}
@@ -272,7 +275,7 @@ export class TravelCommand {
   }
 }
 
-export function travelAllowancesUi(h) {
+export function travelAllowancesUi(h,adapter={}) {
   const {api, el, button, field, form: sharedForm, dialog, panel, rows, row, notice, table} = h;
   // The ordinary form closes its modal before running `after`. A private
   // view must replace its own modal first, otherwise its close observer would
@@ -304,7 +307,7 @@ export function travelAllowancesUi(h) {
     if (document.visibilityState === 'hidden') clear();
   });
   if (typeof window !== 'undefined') window.addEventListener('pagehide', clear);
-  const path = part => ROOT + part;
+  const path = part => (adapter.root||ROOT) + part;
   async function run(task) {
     try {return await task();}
     catch (error) {
@@ -336,7 +339,7 @@ export function travelAllowancesUi(h) {
     if (!command) throw fail('Die Reiseansicht wurde geschlossen.', 403);
     return command.read(path(part));
   }
-  function can(right) {return sources?.rights?.[right] === true && sources.active === true && sources.readonly === false;}
+  function can(right) {return (!adapter.feature||h.writeFeature?.(adapter.feature)!==false)&&sources?.rights?.[right] === true && sources.active === true && sources.readonly === false;}
   function choices(values, label = value => value.name || value.filename || value.id) {
     return values.map(value => [value.id, label(value)]);
   }
@@ -369,11 +372,12 @@ export function travelAllowancesUi(h) {
       }), 'small'));
     box.dataset.travelPending = 'true'; return box;
   }
+  function services(){return {h,api,el,button,field,form,panel,rows,row,notice,table,command,employee,sources,catalog,show,fresh,get,path,run,load,money,calculation,pendingBox,withTimes};}
   async function open(person) {
     if (!person || !ID.test(person.id ?? '')) throw fail('Mitarbeiter zuerst auswählen.');
     if (!command || employee?.id !== person.id) {
       clear(); employee = person;
-      command = new TravelCommand(api, {employeeId: person.id, stamp: h.stamp, allowed: () => h.allowed?.() !== false});
+      command = new TravelCommand(api, {employeeId: person.id, stamp: h.stamp, allowed: () => h.allowed?.() !== false,root:adapter.root||ROOT,writeFeature:adapter.feature||null,validateResult:adapter.result||null});
     }
     return load();
   }
@@ -384,19 +388,19 @@ export function travelAllowancesUi(h) {
       get('/settlements?employee_id=' + employee.id), get('/payments?employee_id=' + employee.id),
     ]);
     captured.check(stamp, epoch);
-    if ([trips, settlements, payments].some(value => value.employee_id !== employee.id || !Array.isArray(value.items)) || !Array.isArray(rules.rates)) {
+    if ([trips, settlements, payments].some(value => value.employee_id !== employee.id || !Array.isArray(value.items)) || (!adapter.catalog&&!Array.isArray(rules.rates))) {
       throw fail('Die Reiseübersicht gehört nicht zum geöffneten Mitarbeiter.');
     }
-    catalog = rules;
+    if(adapter.catalog)adapter.catalog(rules);catalog = rules;
     const free = !command.pending;
-    show('Reisen und Pauschalen · ' + employee.name, el('div', {class: 'stack'},
-      notice('Belegte Reisen, nachvollziehbare Tagesbeträge und tatsächliche Erstattungen. Eine Berechnung ist noch keine Zahlung.'),
+    show((adapter.title||'Reisen und Pauschalen')+' · ' + employee.name, el('div', {class: 'stack'},
+      notice(adapter.description||'Belegte Reisen, nachvollziehbare Tagesbeträge und tatsächliche Erstattungen. Eine Berechnung ist noch keine Zahlung.'),
       pendingBox(),
       panel('Reisen', can('write') && free ? button('Neue Reise erfassen', () => run(() => editTrip()), 'primary') : null,
         rows(trips.items, item => row(item.details?.purpose || item.purpose || 'Reise',
           `Fassung ${item.revision} · ${travelStatus[item.status] || item.status}`,
           [button('Reise und Historie', () => run(() => detail('trips', item.id)), 'small')]))),
-      panel('Orte und Nachweise', can('write') && free ? button('Stätte belegt erfassen', () => run(() => editSite()), 'small') : null,
+      adapter.root?notice('Die Stätten und ihre Originalnachweise werden unter „Reisen und Pauschalen“ belegt.'):panel('Orte und Nachweise', can('write') && free ? button('Stätte belegt erfassen', () => run(() => editSite()), 'small') : null,
         rows(sources.sites || [], item => row(item.details?.name || item.name || 'Stätte',
           `Fassung ${item.revision} · ${travelStatus[item.status] || item.status}`,
           [button('Stättennachweis öffnen', () => run(() => detail('sites', item.id)), 'small')]))),
@@ -414,6 +418,7 @@ export function travelAllowancesUi(h) {
     return table(['Angabe', 'Gespeicherter Nachweis'], fields.map(([key, label]) => [label, value?.[key] == null || value[key] === '' ? 'Nicht angegeben' : factLabel(String(value[key]))]));
   }
   function calculation(value) {
+    if(adapter.calculation)return adapter.calculation(h,value);
     const totals = value?.totals || {};
     return el('div', {class: 'stack'},
       value?.blockers?.length ? panel('Noch zu klären', ...value.blockers.map(item => notice(item.text || item.code))) : null,
@@ -441,7 +446,7 @@ export function travelAllowancesUi(h) {
     await fresh(); const current = command, epoch = command.epoch, stamp = h.stamp?.() ?? 0;
     const response = await get(`/${kind}/${id}${revision ? '?revision=' + revision : ''}`);
     current.check(stamp, epoch);
-    const item = response.item;
+    const item = response.item;if(adapter.record)adapter.record(item,kind,employee.id);
     if (item?.id !== id || item.employee_id !== employee.id || !Number.isSafeInteger(item.revision) || revision && item.revision !== revision) {
       throw fail('Die historische Ansicht gehört nicht zur gewählten Reisequelle.');
     }
@@ -454,9 +459,9 @@ export function travelAllowancesUi(h) {
       if (!revision && can('write') && !command.pending) content.append(button('Stättennachweis korrigieren', () => run(() => editSite(item)), 'small'));
     } else if (kind === 'trips') {
       content.append(bodyFields(item.details, [['purpose', 'Reisezweck'], ['departed_at', 'Tatsächlicher Beginn'], ['returned_at', 'Tatsächliches Ende'], ['timezone', 'Zeitzone']]),
-        tripSections(item.details || {}));
+        adapter.tripSections?adapter.tripSections(h,item.details||{}):tripSections(item.details || {}));
       if (!revision && !command.pending) {
-        if (can('write')) content.append(button('Reise korrigieren', () => run(() => editTrip(item)), 'small'));
+        if (can('write')&&(!adapter.root||['draft','rejected'].includes(item.status))) content.append(button('Reise korrigieren', () => run(() => editTrip(item)), 'small'));
         if (item.status === 'draft' && can('write')) content.append(button('Reise zur Prüfung einreichen', () => run(() => tripAction(item, 'submit')), 'primary'));
         if (item.status === 'submitted' && can('approve')) content.append(button('Mit Begründung zurückweisen', () => run(() => tripAction(item, 'reject')), 'small'));
       }
@@ -592,6 +597,7 @@ export function travelAllowancesUi(h) {
       value.mixed_assessment?panel('Belegtes gemischtes Reiseprogramm',notice(value.mixed_assessment.review_note),rows(value.mixed_assessment.program_sessions,item=>row(`${item.from} – ${item.to}`,item.kind==='business'?'Berufliches Programm':'Privates Programm'))):null);
   }
   async function editTrip(previous = null) {
+    if(adapter.editTrip)return adapter.editTrip(services(),previous);
     await fresh('write');
     draft = {id: previous?.id || newId(), revision: previous?.revision || 0,
       correction_reason: '', details: copy(previous?.details || {purpose: '', project_id: null,
@@ -748,7 +754,7 @@ export function travelAllowancesUi(h) {
     const unresolved = [], resolved = {};
     for (const [key, label, timezone] of entries) {
       const local = travelLocalTime(`${values[key + '_date']}T${values[key + '_time']}`);
-      const options = travelTimeOptions(await get('/time-options?local=' + encodeURIComponent(local) + '&timezone=' + encodeURIComponent(timezone)), local, timezone);
+      const options = travelTimeOptions(await command.read(ROOT+'/time-options?local=' + encodeURIComponent(local) + '&timezone=' + encodeURIComponent(timezone)), local, timezone);
       if (options.length === 1) resolved[key] = options[0].instant;
       else unresolved.push({key, label, options});
     }
@@ -847,10 +853,11 @@ export function travelAllowancesUi(h) {
       if (values.confirmed !== true) throw fail('Den gewählten Reiseauftrag ausdrücklich bestätigen.');
       return command.submit(path(`/trips/${item.id}/${action}`), {employee_id: employee.id, revision: item.revision,
         source_hash: capturedSources, ...values}, {operation: 'trip.' + action, targetKind: 'trip', targetId: item.id,
-        right: action === 'reject' ? 'approve' : 'write'});
+        right: action === 'reject' ? 'approve' : 'write',validate:adapter.action?adapter.action(item,action):null});
     }, {key: 'travel-' + action + '-' + item.id, submit: action === 'submit' ? 'Zur fremden Prüfung einreichen' : 'Begründet zurückweisen', after: load, extra: pendingBox()}));
   }
   async function settlementEditor(trips, previous = null) {
+    if(adapter.settlementEditor)return adapter.settlementEditor(services(),trips,previous);
     await fresh('approve'); const available = trips.filter(item => item.status === 'submitted');
     if (!available.length) {show('Keine eingereichten Reisen', notice('Zuerst einen fremd prüfbaren Reiseantrag einreichen.')); return;}
     show('Eingereichte Reisen abrechnen', form('', [

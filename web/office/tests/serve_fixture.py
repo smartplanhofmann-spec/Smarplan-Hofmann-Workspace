@@ -364,7 +364,7 @@ def main():
     def stop(_signum, _frame): raise SystemExit(0)
     signal.signal(signal.SIGTERM, stop)
     with tempfile.TemporaryDirectory(prefix='smartplan-browser-synthetic-') as temp:
-        directory = Path(temp)
+        directory = Path(temp).resolve(strict=True)
         office = Office(directory / 'office.sqlite')
         server = None
         speech_patch = None

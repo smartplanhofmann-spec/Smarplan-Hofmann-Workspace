@@ -1,0 +1,14 @@
+✔ web/office/tests/personnel-workflow.test.mjs (194.139899ms)
+✔ web/office/tests/private-car-mileage.test.mjs (413.931853ms)
+✔ web/office/tests/travel-allowances.test.mjs (312.155492ms)
+✔ web/office/tests/travel-cash.test.mjs (186.32078ms)
+✔ web/office/tests/travel-provenance.test.mjs (129.974477ms)
+✔ web/office/tests/travel-v3.test.mjs (211.509942ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 617.05113

@@ -1,0 +1,38 @@
+00:00 +0: loading /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart
+00:00 +0: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: real initial and corrected originals preserve metres, once-only rounding and existing cash
+00:00 +1: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: whole metres and personal originals cannot be replaced by money, private or foreign facts
+00:00 +2: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: frozen original route and paid correction reject extra rounding, M or net additions
+00:00 +3: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: unchecked personal declarations remain draft facts and can never silently approve
+00:00 +4: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: private mileage and legacy command roots cannot be mixed
+00:00 +5: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: lost trip settlement and payment replies resolve exact originals by private status only
+00:00 +6: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: absent new feature blocks mileage writes while actual original metadata stays readable
+00:00 +7: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: the historical entry requires the explicit read marker and never falls back to an old server
+00:00 +8: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: self-consistent altered payment hash or body cannot clear its accepted original
+00:00 +9: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: explicit native mileage draft starts six declarations false and accepts only whole metres
+00:02 +10: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: explicit native mileage draft starts six declarations false and accepts only whole metres
+00:02 +11: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: explicit native mileage draft starts six declarations false and accepts only whole metres
+00:02 +12: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: explicit native mileage draft starts six declarations false and accepts only whole metres
+00:02 +13: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: explicit native mileage draft starts six declarations false and accepts only whole metres
+00:02 +14: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: explicit native mileage draft starts six declarations false and accepts only whole metres
+00:02 +15: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: explicit native mileage draft starts six declarations false and accepts only whole metres
+00:02 +16: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: explicit native mileage draft starts six declarations false and accepts only whole metres
+00:02 +17: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_mileage_test.dart: explicit native mileage draft starts six declarations false and accepts only whole metres
+00:05 +18: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+00:05 +19: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+00:06 +20: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+00:08 +21: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+00:08 +22: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+00:08 +23: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+00:08 +24: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+00:08 +25: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:08 +26: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:11 +27: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:11 +28: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:12 +29: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:12 +30: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:12 +31: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:12 +32: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:12 +33: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:14 +34: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:14 +35: /workspace/smartplan-private-car-clients-20261109/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:15 +36: All tests passed!

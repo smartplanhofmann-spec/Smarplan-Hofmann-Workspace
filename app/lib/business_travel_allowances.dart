@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'api.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
+import 'business_travel_mileage.dart';
 import 'design.dart';
 import 'mail_attachment_widgets.dart';
 import 'offline_vault.dart' show offlineId;
@@ -147,6 +148,8 @@ class TravelCommand extends ChangeNotifier {
   TravelCommand(
     this.session, {
     required this.employeeId,
+    this.mileage = false,
+    this.requestIdFactory = offlineId,
     bool Function()? allowed,
   }) : allowed = allowed ?? (() => true) {
     if (!_travelId.hasMatch(employeeId)) {
@@ -155,6 +158,12 @@ class TravelCommand extends ChangeNotifier {
   }
   final BusinessSession session;
   final String employeeId;
+  final bool mileage;
+  final String Function() requestIdFactory;
+  String get root => mileage ? mileageRoot : _travelRoot;
+  bool ownsPath(String path) =>
+      path.startsWith('$root/') &&
+      (mileage || !path.startsWith('$root/mileage/'));
   final bool Function() allowed;
   Map<String, dynamic>? _pending;
   int epoch = 0;
@@ -184,6 +193,7 @@ class TravelCommand extends ChangeNotifier {
       session.allowed &&
       session.projectId == null &&
       session.hasFeature('travel_allowances') &&
+      (!mileage || session.hasFeature(mileageReadFeature)) &&
       session.hasModule('travel_allowances');
   void clear() {
     final body = _pending?['body'];
@@ -204,6 +214,8 @@ class TravelCommand extends ChangeNotifier {
   }
 
   Future<dynamic> read(String path) async {
+    if (!ownsPath(path))
+      _fail('Der private Reiseauftrag gehört zu einem anderen Regelpfad.');
     final original = stamp, captured = epoch;
     try {
       final result = await session.read(path);
@@ -231,7 +243,7 @@ class TravelCommand extends ChangeNotifier {
     }
     check(original, captured);
     final sources = businessMap(
-      await read('$_travelRoot/sources?employee_id=$employeeId'),
+      await read('$root/sources?employee_id=$employeeId'),
     );
     final rights = businessMap(sources['rights']);
     check(original, captured);
@@ -241,6 +253,7 @@ class TravelCommand extends ChangeNotifier {
         rights[right] != true ||
         right != 'read' &&
             (session.readonly ||
+                mileage && !session.hasFeature(mileageFeature) ||
                 sources['active'] != true ||
                 sources['readonly'] != false)) {
       clear();
@@ -263,7 +276,7 @@ class TravelCommand extends ChangeNotifier {
     if (!_travelId.hasMatch(targetId) ||
         !const ['site', 'trip', 'settlement', 'payment'].contains(targetKind) ||
         !RegExp(r'^[a-z][a-z_.-]{0,39}$').hasMatch(operation) ||
-        !path.startsWith('$_travelRoot/') ||
+        !ownsPath(path) ||
         path.contains(RegExp(r'[?#]')) ||
         body['employee_id'] != employeeId) {
       _fail(
@@ -272,7 +285,10 @@ class TravelCommand extends ChangeNotifier {
     }
     final original = stamp, captured = epoch;
     final access = await fresh(right);
-    final frozen = {..._copy(body), 'request_id': offlineId()};
+    final requestId = requestIdFactory();
+    if (!_travelId.hasMatch(requestId))
+      _fail('Der Originalauftrag benötigt eine eindeutige Request-ID.');
+    final frozen = {..._copy(body), 'request_id': requestId};
     final requestHash = await travelHash([
       operation,
       targetKind,
@@ -309,9 +325,23 @@ class TravelCommand extends ChangeNotifier {
       clear();
       _fail('Der Auftraggeber wurde geändert.', 403);
     }
-    final raw = await read('$_travelRoot/requests/${current['request_id']}');
+    final raw = await read('$root/requests/${current['request_id']}');
     final receipt = await travelReceipt(raw, current);
     check(current['stamp'], current['epoch']);
+    if (mileage) {
+      final result = businessMap(receipt['result']);
+      if (result['command_hash'] != current['request_hash'])
+        _fail(
+          'Die Kilometerquittung gehört nicht zum unveränderten ursprünglichen Auftrag.',
+        );
+      mileageResult(
+        result,
+        businessMap(current['body']),
+        current['operation'],
+        actorId: current['actor_id'],
+        targetId: current['target_id'],
+      );
+    }
     final validator =
         current['validate'] as Future<void> Function(Map<String, dynamic>)?;
     if (validator != null) await validator(businessMap(receipt['result']));
@@ -658,10 +688,12 @@ class BusinessTravelAllowancesPage extends StatefulWidget {
     super.key,
     required this.session,
     required this.employee,
+    this.mileage = false,
     this.exporter,
   });
   final BusinessSession session;
   final Map<String, dynamic> employee;
+  final bool mileage;
   final MailAttachmentExporter? exporter;
   @override
   State<BusinessTravelAllowancesPage> createState() =>
@@ -672,6 +704,9 @@ class _BusinessTravelAllowancesPageState
     extends State<BusinessTravelAllowancesPage>
     with WidgetsBindingObserver {
   BusinessSession get session => widget.session;
+  late final BusinessSession boundOwner;
+  late final String boundEmployee;
+  late final bool boundMileage;
   late final TravelCommand command;
   Map<String, dynamic> sources = {}, catalog = {};
   List<Map<String, dynamic>> trips = [], settlements = [], payments = [];
@@ -680,11 +715,22 @@ class _BusinessTravelAllowancesPageState
   int privateEpoch = 0, dialogDepth = 0;
   bool busy = false, suspended = false, historical = false;
   String get employeeId => '${widget.employee['id']}';
-  bool get available => !suspended && travelAvailable(session);
+  String get root => widget.mileage ? mileageRoot : _travelRoot;
+  bool get sameOwner =>
+      identical(boundOwner, session) &&
+      boundEmployee == employeeId &&
+      boundMileage == widget.mileage;
+  bool get available =>
+      !suspended &&
+      sameOwner &&
+      command.mileage == widget.mileage &&
+      (!widget.mileage || session.hasFeature(mileageReadFeature)) &&
+      travelAvailable(session);
   bool can(String right) =>
       businessMap(sources['rights'])[right] == true &&
       sources['active'] == true &&
-      sources['readonly'] == false;
+      sources['readonly'] == false &&
+      (!widget.mileage || session.hasFeature(mileageFeature));
   List<Map<String, dynamic>> items(dynamic value) =>
       (value as List? ?? []).map(businessMap).toList();
   String money(dynamic value) => value is int
@@ -702,21 +748,34 @@ class _BusinessTravelAllowancesPageState
   @override
   void initState() {
     super.initState();
+    boundOwner = session;
+    boundEmployee = employeeId;
+    boundMileage = widget.mileage;
     command = TravelCommand(
       session,
       employeeId: employeeId,
-      allowed: () => mounted && !suspended,
+      mileage: widget.mileage,
+      allowed: () => mounted && !suspended && sameOwner,
     );
     command.addListener(privateChanged);
-    session.addListener(sessionChanged);
+    boundOwner.addListener(sessionChanged);
     WidgetsBinding.instance.addObserver(this);
     run(load);
   }
 
   @override
+  void didUpdateWidget(covariant BusinessTravelAllowancesPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!sameOwner) {
+      command.clear();
+      openedStamp = null;
+    }
+  }
+
+  @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    session.removeListener(sessionChanged);
+    boundOwner.removeListener(sessionChanged);
     command.removeListener(privateChanged);
     command.clear();
     command.dispose();
@@ -797,7 +856,7 @@ class _BusinessTravelAllowancesPageState
   }
 
   Future<Map<String, dynamic>> get(String path) async =>
-      businessMap(await command.read('$_travelRoot$path'));
+      businessMap(await command.read('$root$path'));
   Future<void> load() async {
     await fresh();
     final original = command.stamp, captured = command.epoch;
@@ -814,10 +873,15 @@ class _BusinessTravelAllowancesPageState
               (value) =>
                   value['employee_id'] != employeeId || value['items'] is! List,
             ) ||
-        values[0]['rates'] is! List) {
+        (!widget.mileage && values[0]['rates'] is! List)) {
       _fail('Die Reiseübersicht gehört nicht zum geöffneten Mitarbeiter.');
     }
     catalog = values[0];
+    if (widget.mileage) {
+      mileageCatalog(catalog);
+      for (final trip in businessItems(values[1]))
+        mileageTrip(trip, employeeId);
+    }
     trips = items(values[1]['items']);
     settlements = items(values[2]['items']);
     payments = items(values[3]['items']);
@@ -890,13 +954,33 @@ class _BusinessTravelAllowancesPageState
     String id, {
     String right = 'write',
   }) async {
+    final originalTrip =
+        widget.mileage &&
+            kind == 'trip' &&
+            operation != 'trip.save' &&
+            currentKind == 'trips' &&
+            current?['id'] == id
+        ? _copy(current!)
+        : null;
     await command.submit(
-      '$_travelRoot$path',
+      '$root$path',
       {'employee_id': employeeId, ...body},
       operation: operation,
       targetKind: kind,
       targetId: id,
       right: right,
+      validate: originalTrip == null
+          ? null
+          : (result) async {
+              if (travelCanonical(result['details']) !=
+                      travelCanonical(originalTrip['details']) ||
+                  travelCanonical(result['sources']) !=
+                      travelCanonical(originalTrip['sources']) ||
+                  result['previous_hash'] != originalTrip['content_hash'])
+                _fail(
+                  'Die Fahrthandlung hat ursprüngliche Strecken oder Belege ersetzt.',
+                );
+            },
     );
   }
 
@@ -1220,6 +1304,15 @@ class _BusinessTravelAllowancesPageState
         businessMap(item['calculation']),
         items(businessMap(item['details'])['trip_refs']),
       );
+    if (widget.mileage) {
+      if (kind == 'trips') mileageTrip(item, employeeId);
+      if (kind == 'settlements')
+        mileageCalculation(
+          businessMap(item['calculation']),
+          items(item['details']['trip_refs']),
+          trip: businessItems(item['sources']['trips']).single,
+        );
+    }
     current = item;
     currentKind = kind;
     historical = revision != null;
@@ -1278,13 +1371,15 @@ class _BusinessTravelAllowancesPageState
     final local = travelLocalTime(
       '${values['${key}_date']}T${values['${key}_time']}',
     );
-    final options = travelTimeOptions(
-      await get(
-        '/time-options?local=${Uri.encodeQueryComponent(local)}&timezone=${Uri.encodeQueryComponent(timezone)}',
-      ),
-      local,
-      timezone,
-    );
+    final original = command.stamp, captured = command.epoch;
+    final query =
+        '/time-options?local=${Uri.encodeQueryComponent(local)}&timezone=${Uri.encodeQueryComponent(timezone)}';
+    // Shared, read-only civil-time metadata has no mileage mutation fallback.
+    final raw = widget.mileage
+        ? await session.read('$_travelRoot$query')
+        : await get(query);
+    command.check(original, captured);
+    final options = travelTimeOptions(raw, local, timezone);
     if (options.length == 1) return '${options.single['instant']}';
     if (!mounted) _fail('Die Reiseansicht wurde geschlossen.', 403);
     dialogDepth++;
@@ -1321,7 +1416,460 @@ class _BusinessTravelAllowancesPageState
     return selected;
   }
 
+  void startMileageTrip([Map<String, dynamic>? previous]) {
+    draft = {
+      'id': previous?['id'] ?? offlineId(),
+      'revision': previous?['revision'] ?? 0,
+      'correction_reason': '',
+      'details': previous == null
+          ? {
+              'purpose': '',
+              'project_id': null,
+              'departed_at': '',
+              'returned_at': '',
+              'timezone': 'Europe/Berlin',
+              'home_site_ref': null,
+              'first_workplace_ref': null,
+              'source_file_ids': <String>[],
+              'mileage': {
+                'schema_version': 1,
+                'vehicle_kind': 'private_car',
+                'vehicle_registration': '',
+                'vehicle_file_id': null,
+                'declaration_file_id': null,
+                'legs': <Map<String, dynamic>>[],
+                'review_note': '',
+                for (final key in mileageDeclarations.keys) key: false,
+              },
+            }
+          : _copy(previous['details']),
+    };
+    current = null;
+    currentKind = null;
+    preview = null;
+    previewBody = null;
+    previewPrevious = null;
+    setState(() {});
+  }
+
+  List<Map<String, dynamic>> get mileageFiles => items(sources['files'])
+      .where(
+        (f) => f['employee_id'] == employeeId && f['purpose'] == 'personnel',
+      )
+      .toList();
+  Map<String, dynamic> mileageSite(String id) =>
+      mileageRef(items(sources['sites']).firstWhere((v) => v['id'] == id));
+  String mileageSiteName(dynamic ref) {
+    final value = businessMap(ref);
+    final sites = current?['sources']?['sites'] ?? sources['sites'];
+    final site = items(sites)
+        .where(
+          (s) =>
+              s['id'] == value['id'] &&
+              s['revision'] == value['revision'] &&
+              s['content_hash'] == value['content_hash'],
+        )
+        .firstOrNull;
+    return site == null
+        ? 'Gebundene Stätte · Fassung ${value['revision']}'
+        : '${site['details']['name']}';
+  }
+
+  Future<void> mileageBasics() async {
+    await fresh('write');
+    final captured = draft!,
+        details = businessMap(captured['details']),
+        m = businessMap(details['mileage']);
+    final sites = items(sources['sites'])
+        .where((s) => s['status'] == 'active')
+        .toList();
+    await edit(
+      'Private Pkw-Fahrt und Originale',
+      [
+        text(
+          'purpose',
+          'Tatsächlicher dienstlicher Fahrtzweck',
+          details['purpose'],
+        ),
+        choice(
+          'project_id',
+          'Projekt, falls zugeordnet',
+          choices(sources['projects']),
+          details['project_id'],
+          false,
+        ),
+        ...timeFields(
+          'departed',
+          'Tatsächliche Abfahrt',
+          details['departed_at'],
+        ),
+        ...timeFields(
+          'returned',
+          'Tatsächliche Rückkehr',
+          details['returned_at'],
+        ),
+        choice(
+          'home_site_id',
+          'Gebundene Wohnung',
+          choices(
+            sites.where((s) => s['details']['kind'] == 'home').toList(),
+            (s) => '${s['details']['name']}',
+          ),
+          details['home_site_ref']?['id'],
+        ),
+        choice('first_workplace_id', 'Belegte erste Tätigkeitsstätte', {
+          'none': 'Keine erste Tätigkeitsstätte belegt',
+          ...choices(
+            sites
+                .where((s) => s['details']['kind'] == 'first_workplace')
+                .toList(),
+            (s) => '${s['details']['name']}',
+          ),
+        }, details['first_workplace_ref']?['id'] ?? 'none'),
+        text(
+          'vehicle_registration',
+          'Kennzeichen des tatsächlich privat gestellten Pkw',
+          m['vehicle_registration'],
+        ),
+        choice(
+          'vehicle_file_id',
+          'Privater Fahrzeugnachweis',
+          choices(mileageFiles),
+          m['vehicle_file_id'],
+        ),
+        choice(
+          'declaration_file_id',
+          'Original der persönlichen Erklärung',
+          choices(mileageFiles),
+          m['declaration_file_id'],
+        ),
+        multiple(
+          'source_file_ids',
+          'Weitere persönliche Fahrtoriginale',
+          choices(mileageFiles),
+          details['source_file_ids'],
+        ),
+        for (final entry in mileageDeclarations.entries)
+          BusinessField(
+            entry.key,
+            entry.value,
+            type: BusinessInput.toggle,
+            initial: m[entry.key] == true,
+          ),
+        BusinessField(
+          'review_note',
+          'Belegte Prüfung der Strecke und Fahrzeugkosten',
+          type: BusinessInput.multiline,
+          required: true,
+          initial: m['review_note'],
+        ),
+        if (captured['revision'] > 0)
+          text(
+            'correction_reason',
+            'Begründung der ursprünglichen Fahrtkorrektur',
+            captured['correction_reason'],
+          ),
+      ],
+      (values) async {
+        if (!identical(draft, captured))
+          _fail('Der private Fahrtentwurf wurde geschlossen.', 403);
+        final departed = await resolveTime(values, 'departed', 'Europe/Berlin');
+        final returned = await resolveTime(values, 'returned', 'Europe/Berlin');
+        if (!identical(draft, captured))
+          _fail('Der private Fahrtentwurf wurde geschlossen.', 403);
+        captured['details'] = {
+          'purpose': values['purpose'],
+          'project_id': values['project_id'],
+          'departed_at': departed,
+          'returned_at': returned,
+          'timezone': 'Europe/Berlin',
+          'home_site_ref': mileageSite(values['home_site_id']),
+          'first_workplace_ref': values['first_workplace_id'] == 'none'
+              ? null
+              : mileageSite(values['first_workplace_id']),
+          'source_file_ids': <String>{
+            ...List<String>.from(values['source_file_ids']),
+            values['vehicle_file_id'],
+            values['declaration_file_id'],
+            for (final leg in items(m['legs']))
+              leg['evidence_file_id'] as String,
+          }.toList(),
+          'mileage': {
+            ...m,
+            'vehicle_registration': values['vehicle_registration'],
+            'vehicle_file_id': values['vehicle_file_id'],
+            'declaration_file_id': values['declaration_file_id'],
+            'review_note': values['review_note'],
+            for (final key in mileageDeclarations.keys) key: values[key],
+          },
+        };
+        captured['correction_reason'] = values['correction_reason'] ?? '';
+      },
+    );
+  }
+
+  Future<void> mileageLegEditor([int? index]) async {
+    await fresh('write');
+    final captured = draft!,
+        details = businessMap(captured['details']),
+        m = businessMap(details['mileage']);
+    final legs = items(m['legs']).map(_copy).toList();
+    final old = index == null ? <String, dynamic>{} : legs[index];
+    final sites = items(sources['sites'])
+        .where(
+          (s) =>
+              s['status'] == 'active' &&
+              [
+                'home',
+                'first_workplace',
+                'external_fixed',
+              ].contains(s['details']['kind']),
+        )
+        .toList();
+    await edit(
+      index == null
+          ? 'Belegte Pkw-Teilstrecke hinzufügen'
+          : 'Pkw-Teilstrecke berichtigen',
+      [
+        ...timeFields(
+          'departed',
+          'Abfahrt dieser Teilstrecke',
+          old['departed_at'] ?? '',
+        ),
+        ...timeFields(
+          'arrived',
+          'Ankunft dieser Teilstrecke',
+          old['arrived_at'] ?? '',
+        ),
+        choice(
+          'from_site_id',
+          'Tatsächlicher Ausgangsort',
+          choices(sites, (s) => '${s['details']['name']}'),
+          old['from_site_ref']?['id'],
+        ),
+        choice(
+          'to_site_id',
+          'Tatsächliches Ziel',
+          choices(sites, (s) => '${s['details']['name']}'),
+          old['to_site_ref']?['id'],
+        ),
+        BusinessField(
+          'distance_m',
+          'Tatsächlich gefahrene Strecke in ganzen Metern',
+          type: BusinessInput.integer,
+          required: true,
+          initial: old['distance_m'],
+        ),
+        choice(
+          'evidence_file_id',
+          'Unveränderter Streckennachweis',
+          choices(mileageFiles),
+          old['evidence_file_id'],
+        ),
+      ],
+      (values) async {
+        mileageMetres(values['distance_m']);
+        final departed = await resolveTime(values, 'departed', 'Europe/Berlin');
+        final arrived = await resolveTime(values, 'arrived', 'Europe/Berlin');
+        if (!identical(draft, captured))
+          _fail('Der private Fahrtentwurf wurde geschlossen.', 403);
+        final leg = {
+          'id': old['id'] ?? offlineId(),
+          'departed_at': departed,
+          'arrived_at': arrived,
+          'from_site_ref': mileageSite(values['from_site_id']),
+          'to_site_ref': mileageSite(values['to_site_id']),
+          'distance_m': values['distance_m'],
+          'evidence_file_id': values['evidence_file_id'],
+        };
+        if (index == null) {
+          legs.add(leg);
+        } else {
+          legs[index] = leg;
+        }
+        captured['details'] = {
+          ...details,
+          'source_file_ids': <String>{
+            ...List<String>.from(details['source_file_ids']),
+            values['evidence_file_id'],
+          }.toList(),
+          'mileage': {...m, 'legs': legs},
+        };
+      },
+    );
+  }
+
+  List<Widget> mileageJourney(Map<String, dynamic> details) {
+    final m = businessMap(details['mileage']);
+    return [
+      fieldRows(m, const {
+        'vehicle_registration': 'Privat gestellter Pkw',
+        'review_note': 'Originalprüfung',
+      }),
+      for (final entry in mileageDeclarations.entries)
+        Text(
+          '${entry.value} ${m[entry.key] == true ? 'Bestätigt' : 'Noch nicht bestätigt'}',
+        ),
+      section('Belegte Teilstrecken in tatsächlicher Reihenfolge', [
+        for (final leg in items(m['legs']))
+          ListTile(
+            title: Text(
+              '${mileageSiteName(leg['from_site_ref'])} → ${mileageSiteName(leg['to_site_ref'])}',
+            ),
+            subtitle: Text(
+              '${leg['distance_m']} m · ${businessDate(leg['departed_at'], time: true)} – ${businessDate(leg['arrived_at'], time: true)}',
+            ),
+          ),
+      ]),
+    ];
+  }
+
+  List<Widget> mileageDraftView() {
+    final details = businessMap(draft!['details']),
+        m = businessMap(details['mileage']);
+    return [
+      section('Privater Pkw-Fahrtentwurf', [
+        fieldRows(details, const {
+          'purpose': 'Dienstlicher Fahrtzweck',
+          'departed_at': 'Abfahrt',
+          'returned_at': 'Rückkehr',
+        }),
+        action(
+          'Fahrtgrunddaten und sechs Erklärungen prüfen',
+          mileageBasics,
+          primary: true,
+        ),
+      ]),
+      ...mileageJourney(details),
+      for (var i = 0; i < items(m['legs']).length; i++)
+        Wrap(
+          spacing: 8,
+          children: [
+            action(
+              'Teilstrecke ${i + 1} berichtigen',
+              () => mileageLegEditor(i),
+            ),
+            action('Teilstrecke ${i + 1} entfernen', () async {
+              final legs = items(m['legs']).map(_copy).toList()..removeAt(i);
+              draft!['details'] = {
+                ...details,
+                'mileage': {...m, 'legs': legs},
+              };
+              setState(() {});
+            }),
+          ],
+        ),
+      action('Belegte Pkw-Teilstrecke hinzufügen', mileageLegEditor),
+      const Notice(
+        'Ganze Meter bleiben als Original erhalten. Fehlende Erklärungen sperren die Abrechnung; ein gespeicherter Entwurf ist keine Freigabe oder Auszahlung.',
+      ),
+      action('Private Pkw-Fahrt belegt speichern', saveTrip, primary: true),
+      action('Fahrtentwurf verwerfen und zur Übersicht', () async {
+        draft?.clear();
+        draft = null;
+        await load();
+      }),
+    ];
+  }
+
+  Future<void> mileageSettlementEditor([Map<String, dynamic>? previous]) async {
+    await fresh('approve');
+    final page = await get('/trips?employee_id=$employeeId');
+    final candidates = items(page['items'])
+        .where((t) => t['status'] == 'submitted')
+        .toList();
+    if (candidates.isEmpty)
+      _fail(
+        'Zuerst eine vollständig belegte private Pkw-Fahrt zur fremden Prüfung einreichen.',
+      );
+    for (final trip in candidates) mileageTrip(trip, employeeId);
+    await edit(
+      previous == null
+          ? 'Eine private Pkw-Fahrt fremd prüfen'
+          : 'Kilometerabrechnung belegt korrigieren',
+      [
+        choice(
+          'trip_id',
+          'Genau eine eingereichte Originalfahrt',
+          choices(
+            candidates,
+            (t) => '${t['details']['purpose']} · Fassung ${t['revision']}',
+          ),
+          previous?['details']?['trip_refs']?[0]?['id'],
+        ),
+        BusinessField(
+          'review_note',
+          'Unabhängige Prüfung von Strecke, privatem Pkw und Originalen',
+          type: BusinessInput.multiline,
+          required: true,
+        ),
+      ],
+      (values) async {
+        final trip = candidates.firstWhere((t) => t['id'] == values['trip_id']);
+        final body = mileagePreviewInput(
+          trip,
+          values['review_note'],
+          previous: previous,
+        );
+        final original = command.stamp, captured = command.epoch;
+        final result = mileagePreview(
+          await session.api.call(
+            session.path('$root/settlements/preview'),
+            body,
+          ),
+          body,
+          trip,
+        );
+        command.check(original, captured);
+        preview = result;
+        previewBody = body;
+        previewPrevious = previous;
+        current = null;
+        currentKind = null;
+        draft = null;
+      },
+      right: 'approve',
+      saveLabel: 'Belegte Kilometererstattung unverbindlich prüfen',
+    );
+  }
+
+  Widget mileageCalculationView(Map<String, dynamic> value) {
+    final totals = businessMap(value['totals']);
+    return section('Geprüfte private Pkw-Kilometererstattung', [
+      for (final blocker in items(value['blockers']))
+        Notice('${blocker['text']}', error: true),
+      Text('Tatsächlich gefahren: ${totals['mileage_distance_m']} m'),
+      Text(
+        '30 Cent je Kilometer · einmal auf die vollständige Fahrt gerundet: ${money(totals['mileage_allowance_minor'])}',
+      ),
+      Text(
+        'Bereits tatsächlich erstattet: ${money(totals['already_paid_minor'])}',
+      ),
+      Text('Noch offen: ${money(totals['remaining_minor'])}'),
+      if ((totals['overpaid_minor'] ?? 0) > 0)
+        Notice(
+          'Belegte Überzahlung: ${money(totals['overpaid_minor'])}. Eine tatsächliche Rückzahlung wird separat erfasst.',
+        ),
+      for (final leg in items(value['mileage_items']))
+        ListTile(
+          title: Text(
+            '${mileageSiteName(leg['from_site_ref'])} → ${mileageSiteName(leg['to_site_ref'])}',
+          ),
+          subtitle: Text(
+            '${leg['distance_m']} ganze Meter · unveränderter Streckennachweis',
+          ),
+        ),
+      const Notice(
+        'Steuerfreie Mitarbeitererstattung ohne zweite Addition zum Lohnnetto und ohne Kennzeichen M. Die Berechnung löst keine Zahlung aus.',
+      ),
+    ]);
+  }
+
   void startTrip([Map<String, dynamic>? previous]) {
+    if (widget.mileage) {
+      startMileageTrip(previous);
+      return;
+    }
     draft = {
       'id': previous?['id'] ?? offlineId(),
       'revision': previous?['revision'] ?? 0,
@@ -2143,6 +2691,24 @@ class _BusinessTravelAllowancesPageState
     await fresh('write');
     final captured = draft!;
     final details = businessMap(captured['details']);
+    if (widget.mileage) {
+      mileageDetails(details, employeeId, sources);
+      if (captured['revision'] > 0 &&
+          (captured['correction_reason'] is! String ||
+              (captured['correction_reason'] as String).trim().isEmpty ||
+              (captured['correction_reason'] as String).runes.length > 1000))
+        _fail('Die Fahrtkorrektur ausdrücklich begründen.');
+      await submit(
+        '/trips',
+        _copy(captured),
+        'trip.save',
+        'trip',
+        captured['id'],
+      );
+      draft = null;
+      await load();
+      return;
+    }
     if (const [
           'purpose',
           'departed_at',
@@ -2213,6 +2779,10 @@ class _BusinessTravelAllowancesPageState
   }
 
   Future<void> settlementEditor([Map<String, dynamic>? previous]) async {
+    if (widget.mileage) {
+      await mileageSettlementEditor(previous);
+      return;
+    }
     await fresh('approve');
     final page = await get('/trips?employee_id=$employeeId');
     final availableTrips = items(page['items'])
@@ -2310,7 +2880,7 @@ class _BusinessTravelAllowancesPageState
         final original = command.stamp, captured = command.epoch;
         final result = travelPreview(
           await session.api.call(
-            session.path('$_travelRoot/settlements/preview'),
+            session.path('$root/settlements/preview'),
             body,
           ),
           employeeId,
@@ -2611,7 +3181,7 @@ class _BusinessTravelAllowancesPageState
     final original = command.stamp, captured = command.epoch;
     final bytes = await session.api.bytes(
       session.path(
-        '$_travelRoot/settlements/${item['id']}/export?revision=${item['revision']}&format=$format',
+        '$root/settlements/${item['id']}/export?revision=${item['revision']}&format=$format',
       ),
       mediaType: '${metadata['media_type']}',
       maxBytes: 16000000,
@@ -2721,6 +3291,7 @@ class _BusinessTravelAllowancesPageState
     }),
   ]);
   Widget calculation(Map<String, dynamic> value) {
+    if (widget.mileage) return mileageCalculationView(value);
     final totals = businessMap(value['totals']);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -2827,11 +3398,33 @@ class _BusinessTravelAllowancesPageState
   }
 
   List<Widget> overview() => [
+    if (!widget.mileage && session.hasFeature(mileageReadFeature))
+      action('Private Pkw-Kilometererstattung', () async {
+        await Navigator.push<void>(
+          context,
+          MaterialPageRoute(
+            builder: (_) => BusinessTravelAllowancesPage(
+              session: session,
+              employee: widget.employee,
+              mileage: true,
+            ),
+          ),
+        );
+        if (mounted) await load();
+      }, primary: true),
+    if (widget.mileage)
+      const Notice(
+        'Eine belegte rein dienstliche Inlands-Rundfahrt mit privatem Pkw je Person und Tag. Ganze Meter und unabhängige Freigabe; Zahlungen werden separat dokumentiert.',
+      ),
     section('Reisen', [
       if (can('write') && command.pending == null)
-        action('Neue Reise erfassen', () async {
-          startTrip();
-        }, primary: true),
+        action(
+          widget.mileage ? 'Private Pkw-Fahrt erfassen' : 'Neue Reise erfassen',
+          () async {
+            startTrip();
+          },
+          primary: true,
+        ),
       if (trips.isEmpty) const Text('Noch keine Reisen erfasst.'),
       for (final trip in trips)
         ListTile(
@@ -2845,7 +3438,7 @@ class _BusinessTravelAllowancesPageState
         ),
     ]),
     section('Orte und Nachweise', [
-      if (can('write') && command.pending == null)
+      if (!widget.mileage && can('write') && command.pending == null)
         action('Stätte belegt erfassen', editSite),
       for (final site in items(sources['sites']))
         ListTile(
@@ -2853,7 +3446,9 @@ class _BusinessTravelAllowancesPageState
             '${businessMap(site['details'])['name'] ?? site['name']}',
           ),
           subtitle: Text('Fassung ${site['revision']}'),
-          onTap: busy ? null : () => run(() => openDetail('sites', site['id'])),
+          onTap: busy || widget.mileage
+              ? null
+              : () => run(() => openDetail('sites', site['id'])),
         ),
     ]),
     section('Abrechnungen', [
@@ -2895,6 +3490,7 @@ class _BusinessTravelAllowancesPageState
     ]),
   ];
   List<Widget> draftView() {
+    if (widget.mileage) return mileageDraftView();
     final details = businessMap(draft!['details']);
     return [
       section('Reiseentwurf', [
@@ -3115,23 +3711,25 @@ class _BusinessTravelAllowancesPageState
           'returned_at': 'Tatsächliches Ende',
           'timezone': 'Zeitzone',
         }),
-        for (final kind in const {
-          'segments': 'Stationen',
-          'overnights': 'Übernachtungen',
-          'meals': 'Mahlzeiten',
-          'private_intervals': 'Private Reiseabschnitte',
-        }.entries)
-          section(kind.value, [
-            for (final row in items(details[kind.key]))
-              ListTile(
-                title: Text('${row['date'] ?? row['from']}'),
-                subtitle: Text(
-                  factLabel(
-                    row['kind'] ?? row['activity'] ?? row['claim_method'],
+        if (widget.mileage) ...mileageJourney(details),
+        if (!widget.mileage)
+          for (final kind in const {
+            'segments': 'Stationen',
+            'overnights': 'Übernachtungen',
+            'meals': 'Mahlzeiten',
+            'private_intervals': 'Private Reiseabschnitte',
+          }.entries)
+            section(kind.value, [
+              for (final row in items(details[kind.key]))
+                ListTile(
+                  title: Text('${row['date'] ?? row['from']}'),
+                  subtitle: Text(
+                    factLabel(
+                      row['kind'] ?? row['activity'] ?? row['claim_method'],
+                    ),
                   ),
                 ),
-              ),
-          ]),
+            ]),
         if (details['mixed_assessment'] != null)
           section('Belegtes gemischtes Reiseprogramm', [
             Text('${details['mixed_assessment']['review_note']}'),
@@ -3148,7 +3746,9 @@ class _BusinessTravelAllowancesPageState
               ),
           ]),
         if (!historical && command.pending == null) ...[
-          if (can('write'))
+          if (can('write') &&
+              (!widget.mileage ||
+                  ['draft', 'rejected'].contains(item['status'])))
             action('Reise korrigieren', () async {
               startTrip(item);
             }),
@@ -3240,7 +3840,7 @@ class _BusinessTravelAllowancesPageState
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       title: Text(
-        'Reisen und Pauschalen · ${businessMap(sources['employee'])['name'] ?? widget.employee['name']}',
+        '${widget.mileage ? 'Private Pkw-Kilometererstattung' : 'Reisen und Pauschalen'} · ${businessMap(sources['employee'])['name'] ?? widget.employee['name']}',
       ),
       actions: [
         IconButton(

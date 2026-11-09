@@ -1,0 +1,20 @@
+✔ actual initial private car originals, exact requests and independently frozen cash proofs validate (97.51719ms)
+✔ actual correction private car originals, exact requests and independently frozen cash proofs validate (28.991633ms)
+✔ a corrected 50km trip preserves the original 100km/30EUR payment and evidences 15EUR repayment separately (4.192895ms)
+✔ integer meters, private original ownership, contiguous domestic route and no commuting are required (12.931214ms)
+✔ all six declarations are explicit booleans and draft false flags never become an automatic approval (15.512782ms)
+✔ correlated but inconsistent distance, private proof, net or first approval metadata is rejected (6.143326ms)
+✔ legacy and new private write roots cannot cross; invalid configuration is rejected (1.365338ms)
+✔ accepted draft lost reply is resolved by original private status, even after write feature withdrawal (8.605911ms)
+✔ accepted settlement lost reply is resolved by original private status, even after write feature withdrawal (10.883197ms)
+✔ accepted payment lost reply is resolved by original private status, even after write feature withdrawal (3.959367ms)
+✔ submitted and rejected actions retain the exact previous route and private source snapshot (5.834349ms)
+✔ missing historical read marker denies the new root even when write metadata is present (0.666224ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 225.008878

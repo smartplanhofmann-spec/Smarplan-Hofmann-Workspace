@@ -1,4 +1,5 @@
 import {stockReturnsUi,isStockReturn,stockReturnPendingAuthorize} from './stock-returns.js';
+import {privateCarMileageUi,MILEAGE_FEATURE,MILEAGE_READ_FEATURE} from './private-car-mileage.js';
 import {datedCatalogUi,datedPendingAuthorize,datedPricePicker,priceSelection,datedConsumerCommand,datedConsumerPendingAuthorize} from './catalog-prices.js';
 import {accountingOpenItemsUi} from './accounting-open-items.js';
 import {oiPendingAuthorize} from './accounting-open-items-contract.js';
@@ -1130,8 +1131,14 @@ const travelWorkspace=travelAllowancesUi({el,button,field,form,dialog,panel,rows
   stamp:()=>`${api.generation}/${state.render}`,
   saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
 
+const mileageWorkspace=privateCarMileageUi({el,button,field,form,dialog,panel,rows,row,notice,table,api,formatDate,formatMoney,
+  allowed:()=>state.section==='personnel'&&state.features.has(MILEAGE_READ_FEATURE)&&state.features.has('travel_allowances')&&state.capabilities.has('business_travel_allowances')&&(state.globalPermissions.has('personnel.read')||state.globalPermissions.has('time.own')),
+  writeFeature:feature=>state.features.has(feature),stamp:()=>`${api.generation}/${state.render}/${dialogGeneration}`,
+  saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
+
 const personnelWorkflow=personnelWorkflowUi({el,button,field,form,dialog,panel,rows,row,notice,table,api,biz,query,mutation,action,refresh,formatDate,formatMoney,duration,
   available:()=>state.features.has('personnel_preparation')&&state.section==='personnel',
+  mileageAvailable:()=>state.features.has(MILEAGE_READ_FEATURE)&&state.capabilities.has('business_travel_allowances'),openMileage:employee=>mileageWorkspace.open(employee),
   payrollAvailable:()=>state.features.has('german_payroll_2026'),openPayroll:employee=>payrollWorkspace.open(employee),
   travelAvailable:()=>state.features.has('travel_allowances')&&state.capabilities.has('business_travel_allowances'),openTravel:employee=>travelWorkspace.open(employee),
   permission:value=>state.globalPermissions.has(value),userId:()=>state.user?.id,
@@ -1307,7 +1314,7 @@ function mayOpenSection(section) {
 }
 
 function loginScreen(challenge = null, enrollment = null) {
-  privacyCases.clear();travelWorkspace.clear();payrollWorkspace.clear();yearValuesWorkspace.clear();openingWorkspace.clear();catalogWorkspace.clear();historicalWorkspace.clear();datedWorkspace.clear();openItemWorkspace.clear();yearPackageWorkspace.clear();
+  privacyCases.clear();travelWorkspace.clear();mileageWorkspace.clear();payrollWorkspace.clear();yearValuesWorkspace.clear();openingWorkspace.clear();catalogWorkspace.clear();historicalWorkspace.clear();datedWorkspace.clear();openItemWorkspace.clear();yearPackageWorkspace.clear();
   refundPendingSources.clear();
   closeModal(); revokeUrls(); state.user=null; root.replaceChildren();
   const card=el('section',{class:'login-card'},el('div',{class:'brand'},el('span',{class:'brand-mark'},'S'),el('div',{},el('strong',{},'smartplan'),el('small',{},'OFFICE'))),el('h1',{},challenge?'Anmeldung bestätigen':'Willkommen im Büro.'),el('p',{class:'muted'},challenge?'Authentifizierungscode oder Wiederherstellungscode eingeben.':'Projekte, Team und Unterlagen an einem Ort.'));
@@ -1486,7 +1493,7 @@ async function refresh() {
     if(modal?.querySelector('[data-historical-assets]')){historicalWorkspace.clear();closeModal();}
     if(modal?.querySelector('[data-accounting-openings]')){openingWorkspace.clear();closeModal();}
     if(modal?.querySelector('[data-privacy-cases]')){privacyCases.clear();closeModal();}
-    if(modal?.querySelector('[data-travel-allowances]')){travelWorkspace.clear();closeModal();}
+    if(modal?.querySelector('[data-travel-allowances]')){travelWorkspace.clear();mileageWorkspace.clear();closeModal();}
     if(modal?.querySelector('[data-file-migration]'))closeModal();
     if(modal?.querySelector('[data-service-case],[data-resource-custody],[data-purchase-change]'))closeModal();
     if(modal?.querySelector('[data-project-tasks]'))closeModal();

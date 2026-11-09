@@ -217,6 +217,7 @@ jobs:
             SMARTPLAN_BROWSER_WORKFLOW=travel-allowances node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=travel-v3 node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=private-car-mileage node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=private-car-mileage-restart node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=sales node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=communication-history node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=project-context node tests/e2e.cjs &&
@@ -225,6 +226,7 @@ jobs:
             SMARTPLAN_BROWSER_WORKFLOW=project-customer node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=inventory-article-refs node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=material-return node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=material-return-restart node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=time-tracking node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-transition node tests/e2e.cjs &&

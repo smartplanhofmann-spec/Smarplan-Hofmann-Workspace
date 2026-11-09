@@ -17,6 +17,7 @@ import business_api
 from online.plan_imports import PlanImports, CHUNK_SIZE, ensure_sqlite_schema
 
 METHODS = {
+    '/business/client-original-key': 'GET',
     '/offline/access': 'POST', '/offline/access/v2': 'POST', '/offline/context': 'GET', '/offline/logout': 'POST',
     '/me': 'GET', '/logout': 'POST', '/users': 'GET, POST',
     '/customers': 'GET, POST', '/projects': 'GET, POST', '/assignments': 'POST',
@@ -151,6 +152,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     from online.instance import verify as verify_instance
     instance = verify_instance(office, instance_id if instance_id is not None else
                                os.environ.get('SMARTPLAN_INSTANCE_ID'), host, key, storage)
+    office.client_original_key_instance = instance['instance_id'] if instance else None
     from online.integrations_service import OnlineIntegrations, methods as integration_methods
     integrations = integrations or OnlineIntegrations(office, key, host)
     # Only this verified online context advertises reachable portal links.
@@ -190,6 +192,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     @app.get('/office/<asset>')
     def office_browser(asset='index.html'):
         types = {'index.html': 'text/html', 'office.js': 'text/javascript', 'office.css': 'text/css',
+                 'original-journal.js': 'text/javascript',
                  'time-tracking.js': 'text/javascript', 'document-time-sources.js': 'text/javascript',
                  'project-economics.js': 'text/javascript', 'project-milestones.js': 'text/javascript', 'maintenance-contracts.js': 'text/javascript', 'asset-provenance.js': 'text/javascript',
                  'customer-workspace.html': 'text/html', 'customer-workspace.js': 'text/javascript',
@@ -426,7 +429,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
             return response
         if path in ('/offline/context', '/offline/access/v2') and request.query_string:
             raise Problem(400, 'Keine zusätzlichen Offline-Filter erlaubt')
-        strict_accounting_body = (path in ('/offline/context', '/offline/access/v2') or path == '/business/accounting/profile' or
+        strict_accounting_body = (path in ('/offline/context', '/offline/access/v2', '/business/client-original-key') or path == '/business/accounting/profile' or
             path.startswith(('/business/accounting/allocations/', '/business/accounting/components/',
                              '/business/accounting/refunds/', '/business/accounting/profile/')) or
             business_api.strict_report_path(path) or business_api.strict_workflow_path(path))
@@ -469,6 +472,12 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                 re.fullmatch(r'/projects/[a-f0-9]{32}/plans(?:/[a-f0-9]{32})?', path) or
                 re.fullmatch(r'/projects/[a-f0-9]{32}/plan-imports(?:/[a-f0-9]{32}(?:/(?:complete|source|preview|result|chunks/[0-9]{1,3}))?)?', path)):
             raise Problem(403, 'Offline-Zugang erlaubt ausschließlich Projektpläne und Planquellen')
+        if path == '/business/client-original-key':
+            from online.client_originals import wrapping_key
+            with office.lock, office.db:
+                user = office.user(token)
+                return jsonify(wrapping_key(office, user, data.get('_query', {}),
+                    master_key=key, instance=instance, host=host))
         if business_api.methods(path):
             with office.lock, office.db:
                 user = plan_access.user(office, token) if plan_token else office.user(token)

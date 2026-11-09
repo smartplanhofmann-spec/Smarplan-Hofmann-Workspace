@@ -1,0 +1,16 @@
+test_actual_authenticated_key_is_stable_separate_and_never_master_material (online.test_client_originals.BrowserOriginalKeyTests.test_actual_authenticated_key_is_stable_separate_and_never_master_material) ... ok
+test_actual_bound_offline_device_token_cannot_obtain_decryption_material (online.test_client_originals.BrowserOriginalKeyTests.test_actual_bound_offline_device_token_cannot_obtain_decryption_material) ... ok
+test_global_inventory_grant_does_not_survive_actual_project_assignment_revocation (online.test_client_originals.BrowserOriginalKeyTests.test_global_inventory_grant_does_not_survive_actual_project_assignment_revocation) ... ok
+test_instance_mismatch_is_rejected_and_other_project_key_is_separate (online.test_client_originals.BrowserOriginalKeyTests.test_instance_mismatch_is_rejected_and_other_project_key_is_separate) ... ok
+test_key_reads_do_not_add_payments_claims_or_personnel_originals (online.test_client_originals.BrowserOriginalKeyTests.test_key_reads_do_not_add_payments_claims_or_personnel_originals) ... ok
+test_personnel_deny_is_checked_again_before_releasing_same_resource_key (online.test_client_originals.BrowserOriginalKeyTests.test_personnel_deny_is_checked_again_before_releasing_same_resource_key) ... ok
+test_private_key_does_not_follow_missing_employee_or_fresh_inactive_identity (online.test_client_originals.BrowserOriginalKeyTests.test_private_key_does_not_follow_missing_employee_or_fresh_inactive_identity) ... ok
+test_readonly_history_keeps_same_key_without_releasing_write_authority (online.test_client_originals.BrowserOriginalKeyTests.test_readonly_history_keeps_same_key_without_releasing_write_authority) ... ok
+test_same_verified_server_recreation_keeps_only_the_same_derived_key (online.test_client_originals.BrowserOriginalKeyTests.test_same_verified_server_recreation_keeps_only_the_same_derived_key) ... ok
+test_strict_shape_method_and_get_body_never_release_key (online.test_client_originals.BrowserOriginalKeyTests.test_strict_shape_method_and_get_body_never_release_key) ... ok
+test_unbound_server_does_not_advertise_or_release_browser_key (online.test_client_originals.BrowserOriginalKeyTests.test_unbound_server_does_not_advertise_or_release_browser_key) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 8.257s
+
+OK

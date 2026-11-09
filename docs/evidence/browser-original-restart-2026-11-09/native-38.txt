@@ -1,0 +1,42 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart
+00:00 +0: /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart: older server discovery of an empty device creates neither files nor keys
+00:00 +1: /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart: older server cannot bypass a retained original; resolved empty state is checked read-only
+00:00 +2: /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart: older server discovery cannot replace a missing key for retained ciphertext
+00:00 +3: /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart: older server discovery never skips a corrupt newest snapshot
+00:00 +4: /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart: new journal and device objects reopen exact encrypted original, not caller mutations
+00:00 +5: /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart: replacement company cannot inspect or overwrite unresolved original
+00:00 +6: /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart: account host API and employee/project slots stay separate
+00:00 +7: /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart: only a resolved empty journal may rebind to a replacement company
+00:00 +8: /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart: concurrent windows cannot replace or clear a newer original
+00:00 +9: /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart: same original prepare is idempotent; different fields and clear are refused
+00:01 +10: /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart: write failure cannot become a prepared command
+00:01 +11: /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart: clear failure preserves exact original for next launch
+00:01 +12: /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart: corrupt newest ciphertext is preserved, never rolled back
+00:01 +13: /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart: missing key never replaces retained encrypted originals
+00:01 +14: /workspace/smartplan-browser-original-restart-20261109/app/test/online_command_journal_test.dart: changed authentication guard blocks reads and writes without deleting original
+00:26 +15: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: real partial and final returns retain exact original quantities and historical valuation
+00:26 +16: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: first return binds original project and article and never sends current price or source warehouse
+00:26 +17: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: fresh remaining balance prevents over-return and changed source before any POST
+00:26 +18: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: accepted lost response repeats exact original after all material is already returned
+00:26 +19: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: price-free original acknowledgement survives finance withdrawal but write withdrawal preserves it
+00:26 +20: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: wrong acknowledgement and changed account cannot consume or resend another original
+00:26 +21: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: concurrent first submissions cannot create two return commands
+00:26 +22: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: changed author metadata or readback value cannot confirm the original
+00:26 +23: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: real HTTP lost response retains its original request and produces one stored return
+00:26 +24: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: closing and reopening an unconfirmed return retains only the original retry
+00:28 +25: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: closing and reopening an unconfirmed return retains only the original retry
+00:28 +26: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: closing and reopening an unconfirmed return retains only the original retry
+00:28 +27: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: closing and reopening an unconfirmed return retains only the original retry
+00:28 +28: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: closing and reopening an unconfirmed return retains only the original retry
+00:28 +29: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: closing and reopening an unconfirmed return retains only the original retry
+00:28 +30: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: closing and reopening an unconfirmed return retains only the original retry
+00:28 +31: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: closing and reopening an unconfirmed return retains only the original retry
+00:28 +32: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: closing and reopening an unconfirmed return retains only the original retry
+00:28 +33: /workspace/smartplan-browser-original-restart-20261109/app/test/business_material_returns_test.dart: closing and reopening an unconfirmed return retains only the original retry
+00:29 +34: /workspace/smartplan-browser-original-restart-20261109/app/test/business_travel_mileage_test.dart: explicit native mileage draft starts six declarations false and accepts only whole metres
+00:32 +35: /workspace/smartplan-browser-original-restart-20261109/app/test/business_travel_mileage_test.dart: explicit native mileage draft starts six declarations false and accepts only whole metres
+00:33 +36: /workspace/smartplan-browser-original-restart-20261109/app/test/business_travel_mileage_test.dart: reused private mileage state clears its original employee owner and mode
+00:33 +37: /workspace/smartplan-browser-original-restart-20261109/app/test/business_travel_mileage_test.dart: submitted mileage original is readable and cannot be silently corrected before rejection
+00:33 +38: All tests passed!

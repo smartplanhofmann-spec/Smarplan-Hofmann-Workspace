@@ -1,0 +1,31 @@
+test_actual_authenticated_key_is_stable_separate_and_never_master_material (online.test_client_originals.BrowserOriginalKeyTests.test_actual_authenticated_key_is_stable_separate_and_never_master_material) ... ok
+test_derivation_separates_instance_host_api_account_kind_and_subject (online.test_client_originals.BrowserOriginalKeyTests.test_derivation_separates_instance_host_api_account_kind_and_subject) ... ok
+test_global_inventory_grant_does_not_survive_actual_project_assignment_revocation (online.test_client_originals.BrowserOriginalKeyTests.test_global_inventory_grant_does_not_survive_actual_project_assignment_revocation) ... ok
+test_key_reads_do_not_add_payments_claims_or_personnel_originals (online.test_client_originals.BrowserOriginalKeyTests.test_key_reads_do_not_add_payments_claims_or_personnel_originals) ... ok
+test_personnel_deny_is_checked_again_before_releasing_same_resource_key (online.test_client_originals.BrowserOriginalKeyTests.test_personnel_deny_is_checked_again_before_releasing_same_resource_key) ... FAIL
+test_private_key_does_not_follow_missing_employee_or_fresh_inactive_identity (online.test_client_originals.BrowserOriginalKeyTests.test_private_key_does_not_follow_missing_employee_or_fresh_inactive_identity) ... ok
+test_same_verified_server_recreation_keeps_only_the_same_derived_key (online.test_client_originals.BrowserOriginalKeyTests.test_same_verified_server_recreation_keeps_only_the_same_derived_key) ... ok
+test_strict_shape_method_and_get_body_never_release_key (online.test_client_originals.BrowserOriginalKeyTests.test_strict_shape_method_and_get_body_never_release_key) ... ok
+test_unbound_server_does_not_advertise_or_release_browser_key (online.test_client_originals.BrowserOriginalKeyTests.test_unbound_server_does_not_advertise_or_release_browser_key) ... ok
+test_real_http_strict_shapes_and_fresh_revocation_on_original_retry (online.test_business_travel_mileage_http.MileageHttpTests.test_real_http_strict_shapes_and_fresh_revocation_on_original_retry) ... ok
+test_real_mfa_http_original_review_cash_and_legacy_separation (online.test_business_travel_mileage_http.MileageHttpTests.test_real_mfa_http_original_review_cash_and_legacy_separation) ... ok
+test_disabled_material_stops_confirm_and_receipts_but_keeps_history_readable (online.test_purchasing_journey.PurchasingJourneyTests.test_disabled_material_stops_confirm_and_receipts_but_keeps_history_readable) ... ok
+test_overdelivery_batch_and_changed_article_unit_leave_stock_unchanged (online.test_purchasing_journey.PurchasingJourneyTests.test_overdelivery_batch_and_changed_article_unit_leave_stock_unchanged) ... ok
+test_partial_and_final_delivery_issue_valuation_and_signed_maintenance_survive_restart (online.test_purchasing_journey.PurchasingJourneyTests.test_partial_and_final_delivery_issue_valuation_and_signed_maintenance_survive_restart) ... ok
+test_receipt_prices_and_order_scope_are_checked_on_reads_writes_and_replay (online.test_purchasing_journey.PurchasingJourneyTests.test_receipt_prices_and_order_scope_are_checked_on_reads_writes_and_replay) ... ok
+
+======================================================================
+FAIL: test_personnel_deny_is_checked_again_before_releasing_same_resource_key (online.test_client_originals.BrowserOriginalKeyTests.test_personnel_deny_is_checked_again_before_releasing_same_resource_key)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-browser-original-restart-20261109/backend/online/test_client_originals.py", line 85, in test_personnel_deny_is_checked_again_before_releasing_same_resource_key
+    self.call('POST', '/business/settings/permissions', dict(request_id='b'*32,
+  File "/workspace/smartplan-browser-original-restart-20261109/backend/online/test_business_travel_http.py", line 26, in call
+    self.assertEqual(response.status_code,status,response.data[:350]);return response
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 400 != 200 : b'{"error":"Gesch\\u00e4ftsf\\u00fchrung beh\\u00e4lt vollst\\u00e4ndige Fachrechte"}\n'
+
+----------------------------------------------------------------------
+Ran 15 tests in 11.828s
+
+FAILED (failures=1)

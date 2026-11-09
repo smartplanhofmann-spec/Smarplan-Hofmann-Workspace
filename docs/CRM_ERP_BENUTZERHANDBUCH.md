@@ -103,9 +103,13 @@ Bei einer unklaren Antwort **Ursprüngliche Rückgabe erneut prüfen** verwenden
 Die aktuelle native App erhält den Originalauftrag bei bestätigter Firmenbindung
 auch über einen Neustart. Mit demselben Konto in derselben Firma und demselben
 Projekt erneut **Material zurückgeben** öffnen und die ursprüngliche Rückgabe
-prüfen. Es wird keine neue Vorgangskennung angelegt. Im Browser bleibt der
-offene Auftrag bisher an die laufende Sitzung gebunden; nach einem Browser-
-Neustart zuerst das Lagerjournal prüfen. Die Rückgabe benötigt eine Onlineverbindung.
+prüfen. Es wird keine neue Vorgangskennung angelegt. Auch der aktuelle Browser
+erhält diesen Auftrag bei bestätigter Firmenbindung verschlüsselt über ein
+Neuladen und eine erneute MFA-Anmeldung. Im selben Browserprofil mit demselben
+Konto das ursprüngliche Projekt öffnen und **Ursprüngliche Rückgabe erneut
+prüfen** wählen. Bei einer fehlenden Freigabe oder einem nicht lesbaren
+Altauftrag den Browserspeicher erhalten und das ursprüngliche Lagerjournal
+prüfen. Die Rückgabe benötigt eine Onlineverbindung.
 
 Die Inventur vergleicht eine ausdrücklich gezählte Menge mit einem gebundenen
 Lagerstand. Differenzen benötigen einen Grund und gegebenenfalls eine Bewertung.
@@ -226,8 +230,12 @@ einen Neustart geschützt erhalten. Mit demselben Konto den ursprünglichen
 Mitarbeiter und **Private Pkw-Kilometererstattung** öffnen, dann **Status des
 ursprünglichen Auftrags prüfen** wählen. Nur wenn der Auftrag noch nicht
 angenommen ist, seine unveränderte Wiederholung verwenden. Es wird keine zweite
-Zahlung angelegt. Im Browser bleiben offene Aufträge bisher sitzungsgebunden;
-nach einem Browserneustart zuerst Fahrt-, Abrechnungs- und Zahlungsoriginale prüfen.
+Zahlung angelegt. Auch im aktuellen Browser bleibt das Original bei bestätigter
+Firmenbindung verschlüsselt erhalten. Nach Neuladen im selben Browserprofil
+erneut mit MFA anmelden, denselben Mitarbeiter öffnen und zuerst den
+ursprünglichen Status prüfen. Der Auftrag wird nicht automatisch gesendet.
+Bei gesperrten oder beschädigten Altaufträgen den Browserspeicher erhalten;
+ein neuer Auftrag ersetzt keine ungeklärte ursprüngliche Zahlung.
 
 Bei zusätzlichen pauschal zu versteuernden Verpflegungszuschüssen wird zuerst
 die betriebliche Steuerentscheidung für den Anmeldezeitraum belegt. Das

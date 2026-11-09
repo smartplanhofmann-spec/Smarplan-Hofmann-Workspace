@@ -21,6 +21,16 @@ Veröffentlichungsziel `codex/testupdate-0.7-projects-20261104`.
 
 ## Verbindlicher fachlicher Rahmen
 
+Ergänzung vom 09.11.: Die [Browser-Wiederaufnahme von Material- und privaten
+Kilometeroriginalen](CRM_ERP_BROWSER_ORIGINALJOURNAL_VERTRAG_2026-11-09.md)
+ist integriert. 1.017 Browsermodul-, 65 betroffene Backend-, 38 betroffene
+native und 16 Paketfälle bestehen; tatsächliche Browser-Neuanmeldung sowie
+IndexedDB-Konkurrenz werden geprüft. Die [Reiseeinreichung am Sekundenwechsel](CRM_ERP_REISEZEITPUNKT_2026-11-09.md)
+ist korrigiert; ihre vier tatsächlichen PostgreSQL-/Restorefälle bestehen.
+Weitere Codearbeit bleibt insbesondere die geschützte Übernahme ungebundener
+Offline-Altbestände und die benannten zusätzlichen Lohnfälle. Gesamtabnahmen,
+Serverauslieferung und reale Geräteprüfung werden getrennt abgeschlossen.
+
 Aktueller Lieferabschnitt vom 09.11.: Projektmeilensteine, Offlinebindung V2,
 Serviceanlagejournal, Wartungsverträge, Faktor-/Reisefall V10, Minijob V11 und
 Browserzeitabrechnung sind im [gemeinsamen Kandidaten](CRM_ERP_GESAMTINTEGRATION_2026-11-09.md)

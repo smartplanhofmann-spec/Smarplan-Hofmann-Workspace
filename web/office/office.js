@@ -1,4 +1,5 @@
-import {stockReturnsUi,isStockReturn,stockReturnPendingAuthorize} from './stock-returns.js';
+import {stockReturnsUi,isStockReturn,stockReturnPendingAuthorize,stockReturnOriginal,stockReturnKey,stockReturnReceipt,stockReturnRights,stockReturnMovement} from './stock-returns.js';
+import {browserOriginalJournal,originalCanonical} from './original-journal.js';
 import {privateCarMileageUi,MILEAGE_FEATURE,MILEAGE_READ_FEATURE} from './private-car-mileage.js';
 import {datedCatalogUi,datedPendingAuthorize,datedPricePicker,priceSelection,datedConsumerCommand,datedConsumerPendingAuthorize} from './catalog-prices.js';
 import {accountingOpenItemsUi} from './accounting-open-items.js';
@@ -878,9 +879,11 @@ export function planningTicks(mode,range) {
 
 export class OfficeApi {
   #token = ''; #generation = 0; #controllers = new Set(); #pending = new Map();
-  constructor({fetcher = globalThis.fetch, base = '/api/v1'} = {}) {
+  #originals = new Map();
+  constructor({fetcher = globalThis.fetch, base = '/api/v1',originalStore,originalOrigin} = {}) {
     if (base !== '/api/v1') throw new Error('Nur die eigene Office-API ist erlaubt.');
     this.fetcher = fetcher.bind(globalThis); this.base = base;
+    this.originalStore=originalStore;this.originalOrigin=originalOrigin;
   }
   get generation() { return this.#generation; }
   get pendingCount() { return this.#pending.size; }
@@ -902,6 +905,31 @@ export class OfficeApi {
     this.#generation++;
     this.#controllers.forEach(controller => controller.abort());
     this.#controllers.clear(); this.#pending.clear(); this.#token = '';
+    this.#originals.clear();
+  }
+  async restoreStockReturn(projectId,caps){
+    const generation=this.#generation,key=stockReturnKey(projectId),path='/business/inventory/movements';
+    const guard=()=>{if(generation!==this.#generation||!this.#token)throw new StaleSession();};
+    guard();if(!stockReturnRights(caps).read)throw new ApiError('Die aktuelle Projektlesefreigabe fehlt.',403);
+    const actor=await this.get('/me');guard();
+    const journal=await browserOriginalJournal(this,{caps,actorId:actor.id,kind:'material_return',subjectId:projectId,guard,
+      store:this.originalStore,origin:this.originalOrigin??globalThis.location?.origin??''});
+    guard();const saved=journal?await journal.pending():null;guard();
+    const previous=this.#pending.get(key);
+    if(saved){
+      const original=stockReturnOriginal(saved,projectId,actor.id),body=original.body;
+      const issue=stockReturnMovement(await this.get(path+'/'+body.reversal_of),'issue');guard();
+      if(issue.project_id!==projectId||issue.article_id!==body.article_id)throw new ApiError('Der ursprüngliche Projektbezug konnte nicht bestätigt werden.');
+      if(previous&&originalCanonical(previous.body)!==originalCanonical(body))throw new ApiError('Ein anderer ursprünglicher Rückgabeauftrag ist noch offen.',409);
+      const data=structuredClone(body);delete data.request_id;
+      const verify=stockReturnReceipt(body,actor.id);
+      this.#pending.set(key,{path,fingerprint:JSON.stringify(data),body:structuredClone(body),validate:value=>verify(value,this),journaled:true});
+    }else if(journal&&previous){
+      if(previous.journaled===true)this.#pending.delete(key);
+      else throw new ApiError('Der ursprüngliche Rückgabeauftrag wird noch vorbereitet. Bitte erneut öffnen.');
+    }
+    this.#originals.set(key,{journal,actorId:actor.id});
+    return this.#pending.has(key);
   }
   async request(path, {method = 'GET', body, publicRequest = false, binary = false, maxBytes} = {}) {
     if (typeof path !== 'string' || !path.startsWith('/') || path.startsWith('//') || path.includes('#') || /[\r\n]/.test(path)) throw new Error('Ungültiger API-Pfad.');
@@ -962,8 +990,14 @@ export class OfficeApi {
     const fingerprint = JSON.stringify(data), old = this.#pending.get(key), generation = this.#generation;
     if (old && (old.path !== path || old.fingerprint !== fingerprint)) throw new ApiError('Die vorige Antwort ist noch unklar. Bitte zuerst die unveränderte Eingabe erneut senden.');
     const operation = old || {path, fingerprint, body: {...JSON.parse(fingerprint), request_id: requestId()}, validate};
+    const retained=this.#originals.get(key);let original=null,posted=false,responseReturned=false;
     this.#pending.set(key, operation);
     try {
+      if(isStockReturn(key,path,operation.body)&&retained?.journal){
+        original=stockReturnOriginal({schema_version:1,key,path,actor_id:retained.actorId,body:operation.body},operation.body.project_id,retained.actorId);
+        try{await retained.journal.prepare(original);}catch(error){if(!old&&generation===this.#generation&&this.#pending.get(key)===operation)this.#pending.delete(key);throw error;}
+        operation.journaled=true;
+      }
       if(old&&isStockReturn(key,path,operation.body))await stockReturnPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/catalog-prices/'))await datedPendingAuthorize(this,{key,path});
       if(old&&datedConsumerCommand(key,path,operation.body))await datedConsumerPendingAuthorize(this,{key,path});
@@ -999,17 +1033,24 @@ export class OfficeApi {
       if(old&&(path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')))await inventoryCountPendingAuthorize(this,{key,path});
       if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
       if(stillCurrent&&!stillCurrent())throw new ApiError('Die ursprüngliche Ansicht wurde geschlossen. Der Auftrag bleibt unbestätigt.',0);
+      if(original){await retained.journal.requireOriginal(original);if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();if(stillCurrent&&!stillCurrent())throw new ApiError('Die ursprüngliche Ansicht wurde geschlossen. Der Auftrag bleibt unbestätigt.',0);}
+      posted=true;
       const result = await this.post(path, operation.body);
+      responseReturned=true;
       if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
       if(operation.validate)await operation.validate(result,JSON.parse(JSON.stringify(operation.body)));
       if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
+      if(original){await retained.journal.clear(original);if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();operation.journaled=false;}
       this.#pending.delete(key); return result;
     } catch (error) {
+      if(original&&posted&&!responseReturned&&generation===this.#generation&&this.#pending.get(key)===operation&&error instanceof ApiError&&error.status===409&&error.requestResolution==='not_accepted'){
+        await retained.journal.clear(original);if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();operation.journaled=false;this.#pending.delete(key);
+      }
       const protectedAccounting=path.startsWith('/business/accounting/year-values')||path.startsWith('/business/accounting/open-items')||path.startsWith('/business/company-events/')||path.startsWith('/business/accounting/historical-assets')||datedConsumerCommand(key,path,operation.body)||path.startsWith('/business/catalog-prices/')||key.startsWith('catalog-')||path.startsWith('/business/accounting/opening-balances')||(key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))||path.startsWith('/business/bank/')||path.startsWith('/business/resource-custody/')||path.startsWith('/business/service/cases')||path.startsWith('/business/custom-fields/')||path==='/business/migrations'||path.startsWith('/business/migrations/')||path.startsWith('/business/company-handover/')||path.startsWith('/business/sales/')||path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')||path.startsWith('/business/assistant/')||path.startsWith('/business/payroll/')||path.startsWith('/business/customer-workspace/')||path.startsWith('/business/personnel/')||path==='/business/accounting/euer/confirm'||path==='/business/finance/receipts'||/^\/business\/finance\/receipts\/[a-f0-9]{32}$/.test(path)||path==='/business/receipt-media'||/^\/business\/receipt-media\/[a-f0-9]{32}\/complete$/.test(path)||path==='/business/project-economics/confirm'||path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
       const protectedTask=/^\/projects\/[a-f0-9]{32}\/tasks(?:\/[a-f0-9]{32})?$/.test(path);
       const protectedMaintenance=/^\/business\/maintenance\/contracts(?:\/[a-f0-9]{32})?$/.test(path)&&([403,404].includes(error.status)||old&&error.status===409&&error.requestResolution!=='not_accepted');
       const protectedStockReturn=isStockReturn(key,path,operation.body)&&([403,404].includes(error.status)||old&&error.status===409&&error.requestResolution!=='not_accepted');
-      const uncertainAccounting=protectedStockReturn||protectedMaintenance||(protectedAccounting||milestoneCommandPath(path)||documentTimeCommand(key,path,operation.body))&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted')||protectedTask&&[403,404].includes(error.status);
+      const uncertainAccounting=operation.journaled===true||protectedStockReturn||protectedMaintenance||(protectedAccounting||milestoneCommandPath(path)||documentTimeCommand(key,path,operation.body))&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted')||protectedTask&&[403,404].includes(error.status);
       if (generation===this.#generation && this.#pending.get(key)===operation && error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 423 && error.status !== 429 && !uncertainAccounting) this.#pending.delete(key);
       throw error;
     }

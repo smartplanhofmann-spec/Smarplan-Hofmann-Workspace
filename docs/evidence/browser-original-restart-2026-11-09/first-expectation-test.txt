@@ -1,0 +1,65 @@
+✔ private trip original survives new controller and status-only resolution under read-only access (86.475356ms)
+✔ private submit original survives new controller and status-only resolution under read-only access (40.347737ms)
+✔ private settlement original survives new controller and status-only resolution under read-only access (20.868661ms)
+✔ private payment original survives new controller and status-only resolution under read-only access (11.5593ms)
+✖ restored private expectation rejects a self-consistent altered previous hash without losing original (11.439141ms)
+✔ private original cannot be bypassed by missing feature or replacement instance (3.853532ms)
+✔ private confirmed body and validation snapshot freeze before first awaited authorization (13.711128ms)
+✔ private storage refusal sends no POST and missing original status retries the exact nonce only (29.166506ms)
+✔ new browser controller recovers exact original from ciphertext only and gets fresh online key (4.353696ms)
+✔ same pending preparation is idempotent; replacement and wrong clear preserve original (5.894354ms)
+✔ a replacement company with the same user and locator cannot inspect or overwrite the old original (1.2646ms)
+✔ separate origin/account/resource locators do not assign a previous original (1.231188ms)
+✔ a wrong server key and corrupted authenticated ciphertext stay preserved without fallback (2.13795ms)
+✔ fresh scope revocation and logout block reads without deleting retained ciphertext (2.761344ms)
+✔ storage refusal and unavailable IndexedDB do not become a prepared original (3.096289ms)
+✔ two independently prepared windows cannot replace each other under asynchronous encryption (1.622849ms)
+✔ wrong local original cannot authorize retry and an already resolved original is absent (9.375137ms)
+✔ invalid identity whitespace JSON numbers Unicode and oversize payload never write (88.846024ms)
+✔ optional old server checks for retained originals without creating a key; missing binding fails closed (0.769226ms)
+✔ a server downgrade cannot bypass ciphertext retained in the same authenticated browser namespace (1.456508ms)
+✔ actual initial private car originals, exact requests and independently frozen cash proofs validate (63.763785ms)
+✔ actual correction private car originals, exact requests and independently frozen cash proofs validate (43.854056ms)
+✔ a corrected 50km trip preserves the original 100km/30EUR payment and evidences 15EUR repayment separately (7.781424ms)
+✔ integer meters, private original ownership, contiguous domestic route and no commuting are required (22.994508ms)
+✔ all six declarations are explicit booleans and draft false flags never become an automatic approval (24.08691ms)
+✔ correlated but inconsistent distance, private proof, net or first approval metadata is rejected (10.62455ms)
+✔ legacy and new private write roots cannot cross; invalid configuration is rejected (1.273998ms)
+✔ accepted draft lost reply is resolved by original private status, even after write feature withdrawal (32.220307ms)
+✔ accepted settlement lost reply is resolved by original private status, even after write feature withdrawal (2.805957ms)
+✔ accepted payment lost reply is resolved by original private status, even after write feature withdrawal (3.0754ms)
+✔ submitted and rejected actions retain the exact previous route and private source snapshot (3.950032ms)
+✔ missing historical read marker denies the new root even when write metadata is present (0.398764ms)
+✔ new OfficeApi after lost accepted return restores exact nonce and validates original without a second booking (56.009879ms)
+✔ an older server cannot bypass retained original and a restored company cannot inspect another instance (4.738815ms)
+✔ storage prepare refusal prevents POST; failed local clear retains the accepted original for another browser session (26.099516ms)
+✔ a live company switch during pending retry blocks POST while preserving ciphertext (5.110759ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 35
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 876.334618
+
+✖ failing tests:
+
+test at tests/mileage-journal.test.mjs:49:1
+✖ restored private expectation rejects a self-consistent altered previous hash without losing original (11.439141ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /gespeicherte Originalfassung/. Input:
+  
+  'Error: Die Kilometerfahrt besitzt keinen bekannten privaten Originalstand.'
+  
+      at async file:///workspace/smartplan-browser-original-restart-20261109/web/office/tests/mileage-journal.test.mjs:52:24
+      at async withId (file:///workspace/smartplan-browser-original-restart-20261109/web/office/tests/mileage-journal.test.mjs:41:158)
+      at async TestContext.<anonymous> (file:///workspace/smartplan-browser-original-restart-20261109/web/office/tests/mileage-journal.test.mjs:50:25)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [Error],
+    expected: /gespeicherte Originalfassung/,
+    operator: 'rejects',
+    diff: 'simple'
+  }

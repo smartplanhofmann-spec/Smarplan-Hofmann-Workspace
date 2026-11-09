@@ -1,0 +1,4 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+actual IndexedDB original acceptance: {"competing_originals":2,"committed":1,"ciphertext_only":true,"downgrade_blocked":true,"replacement_blocked":true,"corruption_preserved":true}
+material return: actual MFA/HTTP issue selection, original price after catalogue change, no over-return POST, exact accepted lost-ACK retry, partial/final quantities, unchanged originals and project costs, price-free warehouse role and mobile view passed; actual page reload and renewed MFA recovered ciphertext-only original without a second booking
+1 targeted material return browser workflow passed

@@ -1,0 +1,15 @@
+✖ tests/stock-return-journal.test.mjs (448.070358ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 469.524508
+
+✖ failing tests:
+
+test at tests/stock-return-journal.test.mjs:1:1
+✖ tests/stock-return-journal.test.mjs (448.070358ms)
+  'test failed'

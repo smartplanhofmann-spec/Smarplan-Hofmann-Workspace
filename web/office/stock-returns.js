@@ -8,6 +8,17 @@ const units=value=>BigInt(inventoryQuantity(value).replace('.',''));
 const quantity=value=>{const raw=value.toString().padStart(5,'0');return raw.slice(0,-4)+'.'+raw.slice(-4);};
 export const stockReturnKey=projectId=>'stock-return-'+projectId;
 export const isStockReturn=(key,resource,body)=>resource===path&&key===stockReturnKey(body?.project_id)&&body?.kind==='return'&&ID.test(body?.reversal_of||'');
+export function stockReturnOriginal(value,projectId,actorId){
+ const exact=(v,keys)=>v&&Object.getPrototypeOf(v)===Object.prototype&&Object.keys(v).length===keys.length&&keys.every(k=>Object.hasOwn(v,k));
+ const id=v=>typeof v==='string'&&v.length===32&&ID.test(v);
+ const body=value?.body;
+ if(!exact(value,['schema_version','path','key','actor_id','body'])||value.schema_version!==1||value.path!==path||value.key!==stockReturnKey(projectId)||value.actor_id!==actorId||
+   !id(actorId)||!exact(body,['kind','article_id','project_id','reversal_of','to_location_id','quantity','note','request_id'])||body.kind!=='return'||body.project_id!==projectId||
+   ![body.article_id,body.project_id,body.reversal_of,body.to_location_id,body.request_id].every(id)||
+   typeof body.note!=='string'||[...body.note].length>2000||/[\x00-\x08\x0b\x0c\x0e-\x1f]/.test(body.note)||
+   inventoryQuantity(body.quantity)!==body.quantity)throw fail('Der gespeicherte Rückgabeauftrag gehört nicht zur ursprünglichen Anmeldung und Projektentnahme.');
+ return copy(value);
+}
 export function stockReturnRights(caps){const rights=new Set(caps?.permissions||[]),read=caps?.capabilities?.includes('business_inventory')===true&&rights.has('inventory.read');return {read,write:read&&caps.readonly===false&&caps.organization?.modules?.material?.enabled!==false&&rights.has('inventory.write'),financial:rights.has('finance.read')};}
 export function stockReturnMovement(value,kind=null){
  if(!value||!ID.test(value.id||'')||!ID.test(value.article_id||'')||!['receive','issue','return','transfer'].includes(value.kind)||kind&&value.kind!==kind||!Number.isSafeInteger(value.sequence_number)||value.sequence_number<1||typeof value.quantity!=='string'||!/^\d{1,12}\.\d{4}$/.test(value.quantity)||units(value.quantity)<=0n||value.article_snapshot?.id!==value.article_id)throw fail('Der unveränderte Lagerbeleg ist nicht eindeutig.');
@@ -50,6 +61,9 @@ export function stockReturnsUi(h){
   if(!ID.test(projectId)){const page=await api.get('/projects');if(stamp!==h.stamp())return;show('Projekt der Materialrückgabe',form('',[field('project_id','Projekt der ursprünglichen Entnahme','select','',{required:true,options:[['','Projekt ausdrücklich wählen'],...(page.items||page).map(value=>[value.id,value.name]) ]})],values=>open(values.project_id),{key:'stock-return-project',submit:'Originalentnahmen öffnen'}));return;}
   const [caps,page,locations]=await Promise.all([api.get('/business/capabilities?project_id='+projectId),api.get(path+'?project_id='+projectId),api.get('/business/inventory/locations')]);if(stamp!==h.stamp())return;
   const rights=stockReturnRights(caps);if(!rights.read)throw fail('Die aktuelle Lesefreigabe für diese Projektentnahmen fehlt.',403);if(!Array.isArray(page.items)||!Array.isArray(locations.items))throw fail('Die Lagerquellen sind unvollständig.');
+  if(typeof api.restoreStockReturn==='function')await api.restoreStockReturn(projectId,caps);
+  else if(caps.features?.includes('client_original_key'))throw fail('Der geschützte Browserauftrag ist in diesem Client noch nicht verfügbar.');
+  if(stamp!==h.stamp())return;
   const body=el('div',{class:'stack'}),pending=api.pendingCommandValues(stockReturnKey(projectId),path);show('Material zurückgeben',body);
   if(pending){body.append(notice('Die ursprüngliche Rückgabe kann bereits gebucht sein. Zuerst genau diesen Auftrag erneut prüfen.'));if(rights.write)body.append(button('Ursprüngliche Rückgabe erneut prüfen',()=>action(async()=>{const origin=token();await api.retry(stockReturnKey(projectId),{stillCurrent:()=>current(origin)});if(current(origin)){h.closeModal();await h.refresh();}}),'primary'));return;}
   const issues=page.items.filter(v=>v.kind==='issue'&&v.project_id===projectId&&units(stockReturnRemaining(v,page.items))>0n);

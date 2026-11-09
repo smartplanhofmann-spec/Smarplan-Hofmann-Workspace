@@ -1,0 +1,100 @@
+{
+  "date": "2026-11-09",
+  "base_commit": "f98a48815f11df46839cabd62668a0eb77168c8e",
+  "scope": "encrypted browser material-return and private employee car mileage originals across page reload and actual renewed MFA",
+  "results": {
+    "node": {
+      "passed": 1017,
+      "failed": 0,
+      "skipped": 0
+    },
+    "backend_integrated": {
+      "passed": 65,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 30.657
+    },
+    "native_affected": {
+      "passed": 38,
+      "failed": 0,
+      "note": "unchanged native app; run before integration of independent legacy travel clock fix f98a488"
+    },
+    "packaging": {
+      "passed": 16,
+      "actual_packaged_backend_import": true
+    },
+    "source_inventory": {
+      "passed": 2
+    },
+    "actual_browser": [
+      "material-return-restart",
+      "private-car-mileage-restart"
+    ],
+    "indexeddb_actual": "two competing originals; exactly one commit; ciphertext-only; missing feature/company replacement/corruption blocked",
+    "pg_related": "four actual cases with dump/restore in ../ci-travel-clock-2026-11-09/manifest.json"
+  },
+  "first_failures": {
+    "first-key-fixture.txt": "initial imported test class discovery and owner-role deny assumption; final tests use independent HR identity",
+    "second-key-fixture.txt": "two fixture expected status codes corrected",
+    "first-expectation-test.txt": "35 pass, one overly specific negative test expectation; revision-2 action now exercises preserved previous-hash validator",
+    "first-private-browser-wait.txt": "status resolution must finish before navigating an already visible workspace",
+    "incomplete-material-wait.txt": "own process tree terminated after unbounded synthetic wait; no success claimed",
+    "first-indexeddb-helper.txt": "native fetch Response.ok is a property; corrected browser-only helper",
+    "first-backend-selection.txt": "test selection named a non-existent class; corrected 65-case integrated run",
+    "post-resolution-before.txt": "actual new pending-entry bug reproduced: later GET rejection cleared accepted original; final POST response guard fixes it"
+  },
+  "source_sha256": {
+    ".github/workflows/checks.yml": "31f972c0bf4c441b7622f2af7b19f99086e76b0a0f3119eddde0184b0a8c678a",
+    "backend/business_foundation.py": "9419f5c4199fb3084968d87aa929f22db9aa49aab1b03981ec840abfc85f3347",
+    "backend/online/client_originals.py": "b728ee5b35ac7372871956ca45920ad5ebb9301168a70849c63ad9c14ae68061",
+    "backend/online/test_client_originals.py": "52d4f240ea5a851e1caf1ef4cfc38e242aa2359029141e43d5b09cbbf66e62e3",
+    "backend/online/web.py": "daf48c10390b951ba2450545cfd02af69f1fb1ccb5a0408946e2c737a47c40ba",
+    "web/office/office.js": "dcf076a59fee12b703668ac67250e8ca42e69a6997218ff5f42af5f06eb6bd80",
+    "web/office/original-journal.js": "c8d5380d6be9ab9b4915b9255ce9b60bbc69a1ec5730a1af241b535a47926fcc",
+    "web/office/private-car-mileage.js": "ab5317a0a68d36f8c9000bbca643d2cef13fceb855f80dc48eca24d0309043a2",
+    "web/office/stock-returns.js": "750682e65dc9e7fd9ba94d7c531955814ea11d6503f9e045f62e9851bc25629f",
+    "web/office/tests/e2e.cjs": "34706aefb971012d4f7be92a4da5846ac1d4a2937b868a14f98781fb084dd339",
+    "web/office/tests/material-return-flow.cjs": "91e5d5d2194f421251c2ac3d0bc203b97c14335219601f7f2f236268d4d9fa6c",
+    "web/office/tests/mileage-journal.test.mjs": "6eec901e519049114553dc5d17fc5ff796b25c3eecbcabcc8355145288d46022",
+    "web/office/tests/original-journal-browser.cjs": "9ba75cdfc525193064b67c3b0198cba1177fbe73e2a5014ad144547fa9ab5f8e",
+    "web/office/tests/original-journal.test.mjs": "5ccab1ef05e9b946b8add7a9a611fa0b329c9fab70530f0a0b6ffd33036b9f92",
+    "web/office/tests/private-car-mileage-flow.cjs": "769f96fe79ee5982f603a8f089adcb64e62c0bff251e55d73718589867c32806",
+    "web/office/tests/private-car-mileage.test.mjs": "b60c068dea314a97d51bcc97d7d66c0c203c3a78b511e23e3289a9e93ae65229",
+    "web/office/tests/stock-return-journal.test.mjs": "9366a2d1e30d823eda49ede047ae94884e28d193ac2d687ab832a67d60ad1949",
+    "web/office/travel-allowances.js": "7bf3dd3296b9ed27fc35a92ae66282c7ccf5673ada2d1b71112660cb152339ef"
+  },
+  "goal": {
+    "bytes": 23863,
+    "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "historical_kernels_unchanged": 32,
+  "payment_module_unchanged": true,
+  "live_server_changed": false,
+  "server_last_user_confirmed": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "remote_publication": "separate proof follows",
+  "own_pg_container_removed": "ec755343a7fe1040249e89541cde213060114f9c9c1c70b0eb91e24d9ef7d840",
+  "evidence_sha256": {
+    "backend-integrated.txt": "4bbf1fd25c811b63d7311bb53468e49aca83b5abb925c61a07ac1e60e5d3be44",
+    "first-backend-selection.txt": "f66ace460220b3b91a55befdb60ec762d724ab61697ee02836bf216ead0181be",
+    "first-expectation-test.txt": "f0f3014ede4eb39d7f585173c24936bd2be945b9aa534ffe396ca5c32b8271cf",
+    "first-indexeddb-helper.txt": "13206e4ae60f5070b7e18d9c47f6841047ddbf4465d3f5e6f7960f567009c9da",
+    "first-key-fixture.txt": "be3b9395bad489f76edce2b7ec9cbb5a43a13b4d39856c6baad4cf2815b064f6",
+    "first-private-browser-wait.txt": "dfa5cab040815f5af1bf7c316476cd85da9bf5dcaa1487f82195070b31931fa2",
+    "incomplete-material-wait.txt": "73ce5c2959b6c302b383b142d31691e67e2aa5147902a8c614e9cfc1869188d3",
+    "key-11.txt": "611b455874a2ed9714739ecd6ff5da4c89dbf267468bd2f08c3a9f7eb6238d77",
+    "material/material-return-mobile.png": "b8b09326ed0c5719f3fa1fff9a0fb16df61af6079d9fdcd2206c0e7977f606e2",
+    "material/material-return-synthetic-commands.json": "9044f88aa6dc7c6c69e2dd96296cfc54776b7af0fe4f4e105c8535ffaa2517d1",
+    "material/material-return-warehouse-mobile.png": "e335acf3a06582a577252678739aa7f3f1b397a5c35523686b17fb594a727552",
+    "material-browser.txt": "992ade47dc5dbd8c550b6515d518a1920c0f6be1d25770b1d31ca1ee95f06ae2",
+    "mileage/private-car-mileage-history-mobile.png": "0175d0ec4193e53a2033278d95b16541272c4fade239b06042796bba5c26f326",
+    "mileage/private-car-mileage-synthetic-commands.json": "2afafa8237bb49f1f46b7aa0ff8201432b1a08eb007cef5facfbd05029f3ad3d",
+    "mileage-browser.txt": "35976a0163fd5629b1ffd8c547fa5cadf02aff1fe3dcff22fd526cc9ec8df489",
+    "native-38.txt": "6d408b6cb859c1560076ac90811ebba652b88791847efeebd0dab4ad409c048d",
+    "node-all.txt": "7eff063a3f6b488424056c38293bfe63f12da29f6b19396129f9ac6f18792ecd",
+    "package-16.txt": "f2a5c32299d65675235ae2974c537530850cd92bf98b6c4cfebad14201c6452a",
+    "post-resolution-before.txt": "395d5f85683d5d5625d6f0c4ebbba4ff59c2ce9af8c605b3b921b0bda35a1e06",
+    "previous-iphone-completed.json": "2a90ce7faf7720c33f1a54f8761b070cea7586ca4fcb25d8a544df23bf6d765a",
+    "second-key-fixture.txt": "b28b8870185aacc2728773df12a7da20b9ad57216639db55f18d62437b24c992",
+    "source-inventory-2.txt": "9047a75f7d2df65c974599a5f79918d0464db172a5b21b6f60df0e4de754ed07"
+  }
+}

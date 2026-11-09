@@ -1,0 +1,38 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+page.evaluate: TypeError: response.ok is not a function
+    at get (eval at evaluate (:311:30), <anonymous>:5:17)
+    at async eval (eval at evaluate (:311:30), <anonymous>:8:15)
+    at async <anonymous>:337:30
+    at Object.originalJournalBrowser (/workspace/smartplan-browser-original-restart-20261109/web/office/tests/original-journal-browser.cjs:3:26)
+    at Object.materialReturnFlow (/workspace/smartplan-browser-original-restart-20261109/web/office/tests/material-return-flow.cjs:52:62)
+    at async main (/workspace/smartplan-browser-original-restart-20261109/web/office/tests/e2e.cjs:124:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: [ 'Failed to load resource: net::ERR_FAILED' ]
+Visible headings: [
+  'Material',
+  'Bestellungen',
+  'Lagerbestand',
+  'Artikel per Code finden'
+]
+Active section: material
+Pending API requests: [ { method: 'GET', path: '/api/v1/me', elapsed_ms: 24 } ]
+Fixture log tail:
+urn&subject_id=1468dea405a44ca2a4f3f818c89f404c HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 23:03:00] "GET /api/v1/business/client-original-key?kind=material_return&subject_id=1468dea405a44ca2a4f3f818c89f404c HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 23:03:00] "[35m[1mPOST /api/v1/business/inventory/movements HTTP/1.1[0m" 201 -
+127.0.0.1 - - [09/Nov/2026 23:03:00] "GET /api/v1/business/inventory/movements/5250570b49dd4cce926b7226cf16e824 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 23:03:00] "GET /api/v1/business/client-original-key?kind=material_return&subject_id=1468dea405a44ca2a4f3f818c89f404c HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 23:03:00] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 23:03:00] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 23:03:00] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 23:03:00] "GET /api/v1/business/inventory/locations HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 23:03:00] "GET /api/v1/business/inventory/stock HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 23:03:00] "GET /api/v1/business/inventory/articles?limit=200 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 23:03:00] "GET /api/v1/business/purchasing/orders HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 23:03:00] "GET /api/v1/business/inventory/stock?location_id=1a052ba71cf14512b3aece2ea0717083&article_id=e3ebaca5beb24fa9935ca84d4bbea080 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 23:03:00] "GET /api/v1/me HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

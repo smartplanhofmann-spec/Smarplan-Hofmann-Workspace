@@ -3468,3 +3468,22 @@ Fälle bestehen. Der Aufgaben-Browsertest wartet jetzt vor seiner parallelen
 Änderung auf den tatsächlich geladenen alten Editor und besteht ebenfalls.
 Die ersten fehlgeschlagenen Läufe bleiben mit eigener Erklärung erhalten.
 [Befund, genaue Grenzen und Nachweise](CRM_ERP_REISEZEITPUNKT_2026-11-09.md).
+
+## 09.11.2026 – Material- und Kilometeroriginale im Browser über Neuanmeldung
+
+Offene bestätigte Aufträge bleiben vor dem POST als verschlüsseltes Original
+in IndexedDB erhalten. Der gebundene Server gibt nur bei frischer Anmeldung
+und konkretem Fachleserecht einen getrennt abgeleiteten Schlüssel aus. Kein
+Schlüssel oder Zugang wird im Browserjournal gespeichert. Firmenwechsel,
+fehlende Serverfähigkeit, Korruption und konkurrierende Vorbereitung geben
+keinen Ersatzauftrag frei. Private Status-/Quittungsprüfungen erhalten nach
+Neuladen die vollständige ursprüngliche Validierung, einschließlich Quellen,
+Vorgänger und damaliger Rechenherleitung.
+
+Alle 1.017 Browsermodulfälle und 65 betroffenen Backendfälle bestehen ohne
+Auslassung. 38 betroffene native und 16 Paketfälle bestehen ebenfalls. Die
+beiden tatsächlichen Neustartabläufe sind in CI registriert. Ein zusätzlich
+rot reproduzierter Fehler bei späteren Lesefehlern ist korrigiert: Nur die
+ausdrückliche Nichtannahme des ursprünglichen POST darf das lokale Original
+auflösen. Erste unvollständige und fehlerhafte Testaufbauten bleiben erhalten.
+[Vertrag, tatsächliche Abläufe und Restumfang](CRM_ERP_BROWSER_ORIGINALJOURNAL_VERTRAG_2026-11-09.md).

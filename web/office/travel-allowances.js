@@ -1,4 +1,5 @@
 /* Private travel facts and actual reimbursements. No automatic payment retry. */
+import {browserOriginalJournal} from './original-journal.js';
 const ID = /^[a-f0-9]{32}$/;
 const HASH = /^[a-f0-9]{64}$/;
 const ROOT = '/business/personnel/travel';
@@ -171,10 +172,65 @@ export function travelV3Calculation(value,tripRefs) {
 /** Complete private bodies never enter OfficeApi's general pending queue. */
 export class TravelCommand {
   #pending = null;
-  constructor(api, {employeeId, stamp = () => 0, allowed = () => true, root=ROOT, writeFeature=null, validateResult=null} = {}) {
+  constructor(api, {employeeId, stamp = () => 0, allowed = () => true, root=ROOT, writeFeature=null, validateResult=null,journalFactory=browserOriginalJournal} = {}) {
     if (!ID.test(employeeId ?? '')) throw fail('Eine eindeutige Mitarbeiterzuordnung ist erforderlich.');
     if(![ROOT,ROOT+'/mileage'].includes(root)||writeFeature!==null&&writeFeature!=='travel_private_car_mileage')throw fail('Unbekannter privater Reisevertrag.');if((root===ROOT+'/mileage')!==(writeFeature==='travel_private_car_mileage'))throw fail('Reisepfad und Quellenvertrag passen nicht zusammen.');this.root=root;this.writeFeature=writeFeature;this.validateResult=validateResult;
     this.api = api; this.employeeId = employeeId; this.stamp = stamp; this.allowed = allowed; this.epoch = 0;
+    this.journalFactory=journalFactory;this.journal=null;
+  }
+  get durable(){return this.journal!==null;}
+  saved(value){
+    const keys=['schema_version','path','body','employee_id','actor_id','operation','target_kind','target_id','request_id','request_hash','right','expectation'];
+    const id=value=>typeof value==='string'&&value.length===32&&ID.test(value),target=value?.target_id,body=value?.body;
+    const actions={'trip.save':[this.root+'/trips','trip','write'],'trip.submit':[this.root+'/trips/'+target+'/submit','trip','write'],
+      'trip.reject':[this.root+'/trips/'+target+'/reject','trip','approve'],'settlement.approve':[this.root+'/settlements','settlement','approve'],'payment.record':[this.root+'/payments','payment','payments']};
+    const action=actions[value?.operation],expect=value?.expectation;
+    if(!value||Object.keys(value).length!==keys.length||keys.some(key=>!Object.hasOwn(value,key))||value.schema_version!==1||
+      !action||value.path!==action[0]||value.target_kind!==action[1]||value.right!==action[2]||value.employee_id!==this.employeeId||
+      ![value.actor_id,target,value.request_id].every(id)||typeof value.request_hash!=='string'||value.request_hash.length!==64||!HASH.test(value.request_hash)||
+      !body||body.employee_id!==this.employeeId||body.request_id!==value.request_id||!Number.isSafeInteger(body.revision)||body.revision<0||
+      !['trip.submit','trip.reject'].includes(value.operation)&&body.id!==target||
+      !expect||Object.getPrototypeOf(expect)!==Object.prototype||!Object.hasOwn(expect,'previous_hash')||
+      Object.keys(expect).some(key=>!['previous_hash','details','sources','calculation','status','correction_reason'].includes(key))||
+      (body.revision===0?expect.previous_hash!==null:typeof expect.previous_hash!=='string'||expect.previous_hash.length!==64||!HASH.test(expect.previous_hash)))throw fail('Der geschützte Kilometerauftrag gehört nicht zu seiner ursprünglichen Handlung.');
+    const expectedKeys=value.operation==='trip.save'?['previous_hash','status','details','correction_reason']:
+      ['trip.submit','trip.reject'].includes(value.operation)?['previous_hash','status','details','sources']:
+      value.operation==='settlement.approve'?['previous_hash','calculation']:['previous_hash'];
+    if(Object.keys(expect).length!==expectedKeys.length||expectedKeys.some(key=>!Object.hasOwn(expect,key)))throw fail('Die vollständige Originalprüfung des Kilometerauftrags fehlt.');
+    if(value.operation==='settlement.approve'){
+      const fields=['rule_version','rule_hash','table_hash','days','expense_items','transport_sources','ground_calendar_sources','mixed_program_sources','mileage_items','totals','blockers','payroll_required','can_approve','can_pay'];
+      if(!expect.calculation||Object.getPrototypeOf(expect.calculation)!==Object.prototype||Object.keys(expect.calculation).length!==fields.length||fields.some(key=>!Object.hasOwn(expect.calculation,key)))throw fail('Die vollständige gespeicherte Kilometerherleitung fehlt.');
+    }
+    travelCanonical(value);return copy(value);
+  }
+  original(pending){return this.saved(Object.fromEntries(['schema_version','path','body','employee_id','actor_id','operation','target_kind','target_id','request_id','request_hash','right','expectation'].map(key=>[key,pending[key]])));}
+  verifyExpectation(result,expectation){
+    if(!expectation)return;
+    for(const [key,value]of Object.entries(expectation)){
+      if(key==='calculation'){
+        for(const [field,expected]of Object.entries(value))if(!Object.hasOwn(result.calculation??{},field)||travelCanonical(result.calculation[field])!==travelCanonical(expected))throw fail('Die bestätigte Kilometerrechnung ersetzt die gespeicherte Originalherleitung.');
+      }else if(!Object.hasOwn(result,key)||travelCanonical(result[key])!==travelCanonical(value))throw fail('Die Kilometerquittung ersetzt die gespeicherte Originalfassung.');
+    }
+  }
+  async restorePending(){
+    if(!this.writeFeature)return;
+    const stamp=this.stamp(),epoch=this.epoch,generation=this.api.generation;
+    const {actor,caps}=await this.fresh();this.check(stamp,epoch);
+    const guard=()=>{if(!this.allowed()||this.epoch!==epoch||this.api.generation!==generation)throw fail('Die private Firmenanmeldung wurde gewechselt. Der Originalauftrag bleibt geschützt erhalten.',403);};
+    const journal=await this.journalFactory(this.api,{caps,actorId:actor.id,kind:'private_car_mileage',subjectId:this.employeeId,guard,
+      store:this.api.originalStore,origin:this.api.originalOrigin??globalThis.location?.origin??''});
+    this.check(stamp,epoch);const raw=journal?await journal.pending():null;this.check(stamp,epoch);
+    if(raw){
+      const saved=this.saved(raw);
+      if(saved.actor_id!==actor.id||await travelHash([saved.operation,saved.target_kind,saved.target_id,saved.body])!==saved.request_hash)throw fail('Der ursprüngliche private Auftrag konnte nicht bestätigt werden.');
+      this.check(stamp,epoch);const validate=this.#pending?.request_hash===saved.request_hash?this.#pending.validate:null;
+      this.#pending={...saved,stamp,epoch,generation,journaled:true,validate};
+    }else if(journal&&this.#pending?.journaled){this.#pending.body={};this.#pending=null;}
+    this.journal=journal;
+  }
+  activateView(previousStamp,epoch){
+    if(!this.allowed()||this.epoch!==epoch||this.#pending&&(this.#pending.stamp!==previousStamp||this.#pending.generation!==this.api.generation))throw fail('Die private Ansicht wurde gewechselt.',403);
+    if(this.#pending)this.#pending.stamp=this.stamp();
   }
   get pending() {
     if (!this.#pending) return null;
@@ -184,6 +240,7 @@ export class TravelCommand {
   clear() {
     if (this.#pending) this.#pending.body = {};
     this.#pending = null; this.epoch++;
+    this.journal=null;
   }
   check(stamp, epoch) {
     if (!this.allowed() || stamp !== this.stamp() || epoch !== this.epoch) {
@@ -216,7 +273,9 @@ export class TravelCommand {
     if(this.writeFeature&&right!=='read'&&(!caps.features?.includes(this.writeFeature)||sources.rights?.[right]!==true||caps.readonly!==false||sources.active!==true||sources.readonly!==false))throw fail('Die aktuelle Freigabe für neue Kilometeraufträge fehlt. Der ursprüngliche Auftrag bleibt offen.',403);
     return {actor, caps, sources};
   }
-  async submit(path, body, {operation, targetKind, targetId, right = 'write', validate} = {}) {
+  async submit(path, body, {operation, targetKind, targetId, right = 'write', validate,expectation} = {}) {
+    body=copy(body);expectation=expectation===undefined?undefined:copy(expectation);
+    await this.restorePending();
     if (this.#pending) throw fail('Zuerst die Bestätigung des offenen Reiseauftrags prüfen.', 409);
     if (!ID.test(targetId ?? '') || !['site', 'trip', 'settlement', 'payment'].includes(targetKind) ||
         typeof operation !== 'string' || !/^[a-z][a-z_.-]{0,39}$/.test(operation) ||
@@ -228,11 +287,14 @@ export class TravelCommand {
     const frozen = {...copy(body), request_id: newId()};
     const requestHash = await travelHash([operation, targetKind, targetId, frozen]);
     this.check(stamp, epoch);
-    this.#pending = {
+    const next = {
+      schema_version:1,
       path, body: frozen, operation, target_kind: targetKind, target_id: targetId,
       request_id: frozen.request_id, employee_id: this.employeeId, actor_id: actor.id,
-      request_hash: requestHash, right, validate, stamp, epoch,
+      request_hash: requestHash, right, validate, stamp, epoch,generation:this.api.generation,expectation:expectation?copy(expectation):null,
     };
+    if(this.journal){await this.journal.prepare(this.original(next));next.journaled=true;}
+    this.check(stamp,epoch);this.#pending=next;
     return this.send();
   }
   async status({resolve = false} = {}) {
@@ -241,13 +303,15 @@ export class TravelCommand {
     this.check(pending.stamp, pending.epoch);
     const {actor} = await this.fresh();
     if (actor.id !== pending.actor_id) {this.clear(); throw fail('Der Auftraggeber wurde geändert.', 403);}
+    if(this.journal)await this.journal.requireOriginal(this.original(pending));this.check(pending.stamp,pending.epoch);
     const value = await this.read(this.root + '/requests/' + pending.request_id);
     const receipt = await travelReceipt(value, pending);
     this.check(pending.stamp, pending.epoch);
     if(this.validateResult)await this.validateResult(receipt.result,copy(pending.body),receipt);
+    this.verifyExpectation(receipt.result,pending.expectation);
     if (pending.validate) await pending.validate(receipt.result);
     this.check(pending.stamp, pending.epoch);
-    if (resolve) {pending.body = {}; this.#pending = null;}
+    if (resolve) {if(this.journal)await this.journal.clear(this.original(pending));this.check(pending.stamp,pending.epoch);pending.body = {}; this.#pending = null;}
     return receipt;
   }
   async send() {
@@ -256,11 +320,17 @@ export class TravelCommand {
     this.check(pending.stamp, pending.epoch);
     const {actor} = await this.fresh(pending.right);
     if (actor.id !== pending.actor_id) {this.clear(); throw fail('Der Auftraggeber wurde geändert.', 403);}
+    if(this.journal)await this.journal.requireOriginal(this.original(pending));this.check(pending.stamp,pending.epoch);
+    let responseReturned=false;
     try {
       await this.api.post(pending.path, copy(pending.body));
+      responseReturned=true;
       this.check(pending.stamp, pending.epoch);
       return await this.status({resolve: true});
     } catch (error) {
+      if(!responseReturned&&error?.status===409&&error?.requestResolution==='not_accepted'){
+        if(this.journal)await this.journal.clear(this.original(pending));this.check(pending.stamp,pending.epoch);pending.body={};this.#pending=null;
+      }
       if ([401, 403, 410].includes(error?.status)) this.clear();
       // An uncertain transport, stale source or absent status cannot prove
       // that an accepted payment record did not already reach the server.
@@ -367,7 +437,7 @@ export function travelAllowancesUi(h,adapter={}) {
       button('Ursprünglichen Auftrag unverändert wiederholen', () => run(async () => {
         await command.retry(); await load();
       }), 'small'),
-      button('Private Eingaben verwerfen und Stand neu laden', () => run(async () => {
+      command.durable?notice('Der ursprüngliche Auftrag bleibt geschützt gespeichert, bis seine Bestätigung geprüft ist.'):button('Private Eingaben verwerfen und Stand neu laden', () => run(async () => {
         command.clear(); draft = null; await load();
       }), 'small'));
     box.dataset.travelPending = 'true'; return box;
@@ -382,7 +452,7 @@ export function travelAllowancesUi(h,adapter={}) {
     return load();
   }
   async function load() {
-    await fresh(); const captured = command, epoch = command.epoch, stamp = h.stamp?.() ?? 0;
+    await fresh();await command.restorePending(); const captured = command, epoch = command.epoch, stamp = h.stamp?.() ?? 0;
     const [rules, trips, settlements, payments] = await Promise.all([
       get('/catalog'), get('/trips?employee_id=' + employee.id),
       get('/settlements?employee_id=' + employee.id), get('/payments?employee_id=' + employee.id),
@@ -413,6 +483,7 @@ export function travelAllowancesUi(h,adapter={}) {
         `${money(item.details?.amount_minor)} · ${h.formatDate(item.details?.paid_on)} · Fassung ${item.revision}`,
         [button('Zahlungsnachweis und Historie', () => run(() => detail('payments', item.id)), 'small')]))),
       button('Ansicht neu laden', () => run(load), 'small')));
+    captured.activateView(stamp,epoch);
   }
   function bodyFields(value, fields) {
     return table(['Angabe', 'Gespeicherter Nachweis'], fields.map(([key, label]) => [label, value?.[key] == null || value[key] === '' ? 'Nicht angegeben' : factLabel(String(value[key]))]));
@@ -853,7 +924,8 @@ export function travelAllowancesUi(h,adapter={}) {
       if (values.confirmed !== true) throw fail('Den gewählten Reiseauftrag ausdrücklich bestätigen.');
       return command.submit(path(`/trips/${item.id}/${action}`), {employee_id: employee.id, revision: item.revision,
         source_hash: capturedSources, ...values}, {operation: 'trip.' + action, targetKind: 'trip', targetId: item.id,
-        right: action === 'reject' ? 'approve' : 'write',validate:adapter.action?adapter.action(item,action):null});
+        right: action === 'reject' ? 'approve' : 'write',validate:adapter.action?adapter.action(item,action):null,
+        expectation:adapter.feature?{previous_hash:item.content_hash,status:action==='submit'?'submitted':'rejected',details:copy(item.details),sources:copy(item.sources)}:undefined});
     }, {key: 'travel-' + action + '-' + item.id, submit: action === 'submit' ? 'Zur fremden Prüfung einreichen' : 'Begründet zurückweisen', after: load, extra: pendingBox()}));
   }
   async function settlementEditor(trips, previous = null) {
@@ -920,7 +992,7 @@ export function travelAllowancesUi(h,adapter={}) {
           account_id: account.id, account_revision: account.revision, instance_id: state.instance_id,
           reference: action === 'void' || legacyBinding ? fixed.reference : values.reference, ...(legacyBinding ? {legacy_payment: copy(legacyBinding)} : {}), reference_file_id: action === 'void' ? prior.reference_file_id : values.reference_file_id, source_hash: state.source_hash,
           correction_reason: values.correction_reason || '', confirmed: true},
-        {operation: 'payment.record', targetKind: 'payment', targetId: id, right: 'payments'});
+        {operation: 'payment.record', targetKind: 'payment', targetId: id, right: 'payments',expectation:adapter.feature?{previous_hash:previous?.content_hash??null}:undefined});
       }, {key: 'travel-payment-' + id, submit: action === 'adopt_legacy' ? 'Vorhandene Zahlung als Finanzquelle übernehmen' : action === 'void' ? 'Falschen Nachweis belegt aufheben' : 'Tatsächlichen Geldfluss dokumentieren',
         after: load, extra: notice(legacyBinding && action === 'void' ? 'Aufgehoben wird ausschließlich die Finanz-Nachweisübernahme. Die ursprüngliche tatsächliche Auslagenzahlung bleibt unverändert und gilt weiterhin als bereits bezahlt.' : legacyBinding && action !== 'void' ? `Unverändert gebundene frühere Zahlung: ${h.formatDate(fixed.paid_on)} · ${factLabel(fixed.kind)} · ${money(fixed.amount_minor)} · ${fixed.reference}. Ausschließlich Finanznachweis; keine neue Auszahlung.` : action === 'void' ? `Unverändert aufgehoben wird ausschließlich der frühere Nachweis: ${prior.paid_on} · ${money(prior.amount_minor)} · ${prior.reference}. Keine tatsächliche Rückzahlung.` : 'Hier wird kein Zahlungsauftrag an eine Bank versendet. Ein geänderter Anspruch ist ohne tatsächliche Zahlung noch kein Geldfluss.')}));
   }

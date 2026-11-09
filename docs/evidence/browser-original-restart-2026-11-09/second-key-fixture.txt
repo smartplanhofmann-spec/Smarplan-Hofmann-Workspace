@@ -1,0 +1,40 @@
+test_actual_authenticated_key_is_stable_separate_and_never_master_material (online.test_client_originals.BrowserOriginalKeyTests.test_actual_authenticated_key_is_stable_separate_and_never_master_material) ... ok
+test_actual_bound_offline_device_token_cannot_obtain_decryption_material (online.test_client_originals.BrowserOriginalKeyTests.test_actual_bound_offline_device_token_cannot_obtain_decryption_material) ... FAIL
+test_global_inventory_grant_does_not_survive_actual_project_assignment_revocation (online.test_client_originals.BrowserOriginalKeyTests.test_global_inventory_grant_does_not_survive_actual_project_assignment_revocation) ... ok
+test_instance_mismatch_is_rejected_and_other_project_key_is_separate (online.test_client_originals.BrowserOriginalKeyTests.test_instance_mismatch_is_rejected_and_other_project_key_is_separate) ... ok
+test_key_reads_do_not_add_payments_claims_or_personnel_originals (online.test_client_originals.BrowserOriginalKeyTests.test_key_reads_do_not_add_payments_claims_or_personnel_originals) ... ok
+test_personnel_deny_is_checked_again_before_releasing_same_resource_key (online.test_client_originals.BrowserOriginalKeyTests.test_personnel_deny_is_checked_again_before_releasing_same_resource_key) ... FAIL
+test_private_key_does_not_follow_missing_employee_or_fresh_inactive_identity (online.test_client_originals.BrowserOriginalKeyTests.test_private_key_does_not_follow_missing_employee_or_fresh_inactive_identity) ... ok
+test_readonly_history_keeps_same_key_without_releasing_write_authority (online.test_client_originals.BrowserOriginalKeyTests.test_readonly_history_keeps_same_key_without_releasing_write_authority) ... ok
+test_same_verified_server_recreation_keeps_only_the_same_derived_key (online.test_client_originals.BrowserOriginalKeyTests.test_same_verified_server_recreation_keeps_only_the_same_derived_key) ... ok
+test_strict_shape_method_and_get_body_never_release_key (online.test_client_originals.BrowserOriginalKeyTests.test_strict_shape_method_and_get_body_never_release_key) ... ok
+test_unbound_server_does_not_advertise_or_release_browser_key (online.test_client_originals.BrowserOriginalKeyTests.test_unbound_server_does_not_advertise_or_release_browser_key) ... ok
+
+======================================================================
+FAIL: test_actual_bound_offline_device_token_cannot_obtain_decryption_material (online.test_client_originals.BrowserOriginalKeyTests.test_actual_bound_offline_device_token_cannot_obtain_decryption_material)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-browser-original-restart-20261109/backend/online/test_client_originals.py", line 138, in test_actual_bound_offline_device_token_cannot_obtain_decryption_material
+    grant=self.call('POST','/offline/access/v2',{},token=self.tech).json
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-browser-original-restart-20261109/backend/online/test_business_travel_http.py", line 26, in call
+    self.assertEqual(response.status_code,status,response.data[:350]);return response
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 201 != 200 : b'{"binding":{"account_id":"20ae6d32ceb349afbf2328ece6054bd6","instance_id":"20d0a356a0254791bc67602886ab95b2","schema_version":1},"capabilities":["project_plans","offline_plan_access","plan_imports","plan_deletion","project_workspace","offline_workspace"],"expires_at":"2026-11-16T21:06:27+00:00","issued_at":"2026-11-09T21:06:27+00:00","schema_versio'
+
+======================================================================
+FAIL: test_personnel_deny_is_checked_again_before_releasing_same_resource_key (online.test_client_originals.BrowserOriginalKeyTests.test_personnel_deny_is_checked_again_before_releasing_same_resource_key)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-browser-original-restart-20261109/backend/online/test_client_originals.py", line 87, in test_personnel_deny_is_checked_again_before_releasing_same_resource_key
+    hr=self.call('POST','/users',dict(email='synthetic-key-hr@example.test',
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-browser-original-restart-20261109/backend/online/test_business_travel_http.py", line 26, in call
+    self.assertEqual(response.status_code,status,response.data[:350]);return response
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 201 != 200 : b'{"id":"b044d9c4ce6e43cd96d3dd9a12fa4c4f"}\n'
+
+----------------------------------------------------------------------
+Ran 11 tests in 9.341s
+
+FAILED (failures=2)

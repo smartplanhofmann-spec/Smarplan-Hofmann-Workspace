@@ -15,7 +15,7 @@ from core import Problem, canonical, customer_key, customer_values, now_iso
 from inquiries import _transaction
 
 
-FEATURES = ('billing_contact', 'company_overview', 'project_creation_receipts', 'project_creation_journal')
+FEATURES = ('billing_contact', 'company_overview', 'project_creation_receipts', 'project_creation_journal', 'client_original_key')
 BILLING_ROLES = frozenset(('billing', 'invoice', 'accounts payable', 'rechnung', 'rechnungen', 'buchhaltung', 'rechnungswesen'))
 PERMISSIONS = frozenset(('contacts.read', 'contacts.write', 'projects.manage',
     'documents.read', 'documents.write', 'documents.classify', 'finance.read',
@@ -50,9 +50,11 @@ def _project_creation_instance(office):
 
 def runtime_features(office):
     """Persistent create journals require an operator-bound company identity."""
-    if _project_creation_instance(office) is None:
-        return tuple(feature for feature in FEATURES if feature != 'project_creation_journal')
-    return FEATURES
+    instance = _project_creation_instance(office)
+    return tuple(feature for feature in FEATURES
+                 if not (feature == 'project_creation_journal' and instance is None)
+                 and not (feature == 'client_original_key' and
+                          (instance is None or getattr(office, 'client_original_key_instance', None) != instance)))
 
 
 def project_creation_scope(office, actor):

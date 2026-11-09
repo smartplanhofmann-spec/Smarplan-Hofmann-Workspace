@@ -1,0 +1,42 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('dialog', { name: 'Reise', exact: true }).getByRole('button', { name: 'Reise zur Prüfung einreichen', exact: true })[22m
+[2m    - locator resolved to <button type="button" class="button primary">Reise zur Prüfung einreichen</button>[22m
+[2m  - attempting click action[22m
+[2m    - waiting for element to be visible, enabled and stable[22m
+[2m  - element was detached from the DOM, retrying[22m
+
+    at submitTrip (/workspace/smartplan-browser-original-restart-20261109/web/office/tests/private-car-mileage-flow.cjs:39:280)
+    at async Object.privateCarMileageFlow (/workspace/smartplan-browser-original-restart-20261109/web/office/tests/private-car-mileage-flow.cjs:46:20)
+    at async main (/workspace/smartplan-browser-original-restart-20261109/web/office/tests/e2e.cjs:128:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: []
+Visible headings: [
+  'Personal & Zeiten',
+  'Nettoarbeitszeit im Monat',
+  'Arbeitszeiteinträge',
+  'Tagesfreigaben',
+  'Mitarbeiterprofile'
+]
+Active section: personnel
+Pending API requests: []
+Fixture log tail:
+ET /api/v1/me HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 22:47:53] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 22:47:53] "GET /api/v1/business/personnel/travel/mileage/sources?employee_id=84075577452344ce9fd2113e304bd1c2 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 22:47:53] "GET /api/v1/business/client-original-key?kind=private_car_mileage&subject_id=84075577452344ce9fd2113e304bd1c2 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 22:47:53] "GET /api/v1/business/personnel/travel/mileage/requests/e00dbcd48e3b4482ab0c3f906ed5ad2b HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 22:47:53] "GET /api/v1/me HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 22:47:53] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 22:47:53] "GET /api/v1/business/client-original-key?kind=private_car_mileage&subject_id=84075577452344ce9fd2113e304bd1c2 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 22:47:53] "GET /api/v1/business/personnel/travel/mileage/sources?employee_id=84075577452344ce9fd2113e304bd1c2 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 22:47:53] "GET /api/v1/me HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 22:47:53] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 22:47:53] "GET /api/v1/business/personnel/travel/mileage/trips/11df385430c247d8bbff29151226046e HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 22:47:53] "GET /api/v1/business/personnel/travel/mileage/sources?employee_id=84075577452344ce9fd2113e304bd1c2 HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

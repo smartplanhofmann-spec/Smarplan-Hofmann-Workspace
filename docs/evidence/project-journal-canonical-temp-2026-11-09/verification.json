@@ -1,0 +1,10 @@
+{
+  "source_sha256": "a8db41f7ab88723cadb747e1c06d897f341914863c861c93f95f4c2d45a02730",
+  "passed": 1,
+  "skipped": 0,
+  "seconds": 21,
+  "raw_sha256": "2f4e5cb9bcb070f461d04cf8dc3fe43e1aa7bd468c2b5d0a56e6d4f53094ddc8",
+  "synthetic_symlink_root_tested": true,
+  "production_storage_guards_unchanged": true,
+  "actual_macos_runtime_tested_here": false
+}

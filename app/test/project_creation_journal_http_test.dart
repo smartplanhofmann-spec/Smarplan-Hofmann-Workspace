@@ -25,12 +25,13 @@ from online.instance import bind
 from online.storage import Storage
 from online.web import create_app
 from online.test_instance_isolation import MFA_SCHEMA
-office=Office(Path(sys.argv[1])/'synthetic.db')
+root=Path(sys.argv[1]).resolve(strict=True)
+office=Office(root/'synthetic.db')
 office.db.executescript(MFA_SCHEMA)
 owner=office.add_user('journal@example.test','Synthetic-journal-password-123','owner')
 customer=office.create_customer(dict(id=owner,role='owner'),dict(name='Müller Originalkunde',address='Südstraße 7'))
 key=Fernet.generate_key();host='journal.example.test';instance=uuid.uuid4().hex
-storage=Storage(office,key,host,config={'server':{'path':str(Path(sys.argv[1])/'storage')}})
+storage=Storage(office,key,host,config={'server':{'path':str(root/'storage')}})
 bind(office,instance,host,key,storage)
 with office.db:
     office.db.execute('INSERT INTO mfa VALUES(?,?,?,?)',(owner,Fernet(key).encrypt(b'JBSWY3DPEHPK3PXP').decode(),-1,json.dumps([digest('111111111111111111111111'),digest('222222222222222222222222')])))
@@ -113,6 +114,12 @@ void main() {
       await tester.binding.setSurfaceSize(const Size(1200, 900));
       try {
         final setup = await tester.runAsync(() async {
+          // macOS temp paths can contain /var -> /private/var. An explicit
+          // alias also exercises that path here on Linux; storage still
+          // receives only the canonical path resolved by the fixture.
+          final serverRoot = await Directory('${temp.path}/server').create();
+          final serverAlias = Link('${temp.path}/server-alias');
+          await serverAlias.create(serverRoot.path);
           final python =
               Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
               '${Directory('../backend').absolute.path}/.venv/bin/python';
@@ -120,7 +127,7 @@ void main() {
             '-u',
             '-c',
             fixture,
-            temp.path,
+            serverAlias.path,
           ], workingDirectory: Directory('../backend').absolute.path);
           errors = process!.stderr
               .transform(utf8.decoder)

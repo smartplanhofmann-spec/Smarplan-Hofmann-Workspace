@@ -1,0 +1,8 @@
+{
+  "job_id": 129219852971,
+  "source_commit": "3859a1cb223f134e1eec14d4978e13be1ca8b039",
+  "raw_file": "ci-3859-ios.gz",
+  "raw_bytes": 503691,
+  "raw_sha256": "216d5e4d83825790c82ec1ff0752dcf2b33ff4bc71d786fe2a00eeac683fe23a",
+  "cause": "Synthetic project journal fixture passed the macOS /var alias to strict server storage. Storage correctly rejected the symlink component."
+}

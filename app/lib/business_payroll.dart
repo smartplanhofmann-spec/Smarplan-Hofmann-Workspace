@@ -20,6 +20,7 @@ import 'business_payroll_wage_interruptions.dart';
 import 'business_payroll_annual_basis.dart';
 import 'business_payroll_oneoff_cases.dart';
 import 'business_payroll_multiple_cases.dart';
+import 'business_payroll_source5_transition.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -527,6 +528,23 @@ void Function(dynamic) payrollReceiptValidator(
           v['status'] != 'calculation_recorded' ||
           v['transmission_status'] != 'not_transmitted' ||
           !RegExp(r'^[a-f0-9]{64}$').hasMatch('${v['pdf_sha256']}');
+      if (v.containsKey('settlement_transition') !=
+              proof.containsKey('settlement_transition') ||
+          !payrollSame(
+            v['settlement_transition'],
+            proof['settlement_transition'],
+          ))
+        bad = true;
+      if (frozen.containsKey('settlement_review') !=
+              proof.containsKey('settlement_transition') ||
+          proof.containsKey('settlement_transition') &&
+              !payrollSame(
+                frozen['settlement_review'],
+                proof['settlement_transition']['settlement_review'],
+              ))
+        bad = true;
+      if (!bad && v.containsKey('settlement_transition'))
+        payrollPositiveTransition(v);
       final expectedDelta = prior == null
           ? null
           : {
@@ -782,8 +800,7 @@ List<BusinessField> payrollProfileFields(
         '': 'Bitte ausdrücklich wählen',
         'standard':
             'Regulär: Standard-Lohnsteuer mit geprüften ELStAM-Beträgen',
-        'factor':
-            'Regulär: Steuerklasse IV mit eingetragenem Faktor',
+        'factor': 'Regulär: Steuerklasse IV mit eingetragenem Faktor',
         'social_only': 'Regulär: Nur Sozialversicherung, Netto bleibt offen',
         'minijob': 'Minijob: Pauschsteuerverfahren',
       },
@@ -1119,8 +1136,11 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
             'Die Payroll-Antwort gehört nicht zu diesem Mitarbeiter.',
           );
       }
-      for (final record in businessItems(result[1]))
+      for (final record in businessItems(result[1])) {
         payrollCalculation(record['calculation']);
+        if (record.containsKey('settlement_transition'))
+          payrollPositiveTransition(record);
+      }
       if (!mounted || captured != epoch || !readable) return;
       setState(() {
         profiles = businessItems(result[0]);
@@ -1446,7 +1466,9 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
     Map<String, dynamic> fact, {
     Map<String, dynamic>? previous,
     String reason = '',
+    bool Function()? mayContinue,
   }) async {
+    if (mayContinue?.call() == false) return;
     final owner = session, person = employeeId, ticket = epoch;
     try {
       await fresh();
@@ -1482,18 +1504,85 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
               : fact['kind'] == 'calculation_case'
               ? payrollCalculationCaseRunInput(fact)
               : payrollFactRunInput(fact);
+      if (previous?['source']?['source_schema_version'] == 5 &&
+          session.hasFeature(payrollPositiveCorrectionFeature) &&
+          fact['kind'] == 'multiple_one_off_case') {
+        final page = businessMap(
+          await session.read('/payroll/account-records?employee_id=$person'),
+        );
+        if (!currentContext(owner, person, ticket) ||
+            !readable ||
+            opening != session.generation ||
+            mayContinue?.call() == false)
+          return;
+        if (page['employee_id'] != person)
+          throw const ApiException(
+            403,
+            'Die bisherigen Zahlungen gehören nicht zum ausgewählten Mitarbeiter.',
+          );
+        final paid =
+            businessItems(page).where((record) {
+              payrollAccountRecord(record, person);
+              return record['kind'] == 'payment' &&
+                  record['details']['run_id'] == previous!['id'] &&
+                  record['details']['run_revision'] <= previous['revision'];
+            }).toList()..sort((a, b) {
+              final order = (a['details']['run_revision'] as int).compareTo(
+                b['details']['run_revision'],
+              );
+              return order != 0
+                  ? order
+                  : (a['revision'] as int).compareTo(b['revision']);
+            });
+        if (paid.isNotEmpty &&
+            paid.last['sources']?['run']?['source']?['source_schema_version'] ==
+                5) {
+          final review = await positiveSettlementReview(
+            owner,
+            person,
+            ticket,
+            mayContinue: mayContinue,
+          );
+          if (review == null ||
+              !currentContext(owner, person, ticket) ||
+              mayContinue?.call() == false)
+            return;
+          input['settlement_review'] = review;
+        }
+      }
       final value = payrollPreview(
         await session.api.call(session.path('/payroll/preview'), input),
         input,
       );
+      if (mayContinue?.call() == false) return;
+      if (value.containsKey('settlement_transition')) {
+        if (!session.hasFeature(payrollPositiveCorrectionFeature) ||
+            !session.hasModule('payroll_multiple_cases'))
+          throw const ApiException(
+            409,
+            'Dieser Server unterstützt den belegten positiven Korrekturvertrag noch nicht.',
+          );
+        final transition = payrollPositiveTransition(value);
+        if (previous == null ||
+            !payrollSame(
+              transition['previous_run_ref'],
+              payrollFactRef(previous),
+            ))
+          throw const ApiException(
+            409,
+            'Die unmittelbar vorherige Monatsfassung wurde geändert. Bitte erneut auswählen.',
+          );
+      }
       if (!currentContext(owner, person, ticket) ||
           !readable ||
-          opening != session.generation)
+          opening != session.generation ||
+          mayContinue?.call() == false)
         return;
       await fresh();
       if (!currentContext(owner, person, ticket) ||
           !readable ||
-          opening != session.generation)
+          opening != session.generation ||
+          mayContinue?.call() == false)
         return;
       setState(() {
         preview = value;
@@ -1514,40 +1603,41 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
   ) async {
     if (!mounted || !readable || !canPreview) return;
     final owner = session, person = employeeId, ticket = epoch;
-    await privateRoute<void>(
-      DialogRoute<void>(
-        context: context,
-        builder: (_) => BusinessEditor(
-          session: owner,
-          title: 'Monatslauf mit Einmalbezug korrigieren',
-          fields: const [
-            BusinessField(
-              'reason',
-              'Nachvollziehbarer Korrekturgrund',
-              required: true,
-            ),
-          ],
-          readPermission: 'personnel.read',
-          writePermission: 'personnel.read',
-          readAllowed: () =>
-              currentContext(owner, person, ticket) &&
-              readable &&
-              owner.can('personnel.approve'),
-          onSave: (values) async {
-            if (!currentContext(owner, person, ticket))
-              throw const ApiException(
-                403,
-                'Die private Lohnansicht wurde gewechselt.',
-              );
-            await calculatePeriod(
-              fact,
-              previous: previous,
-              reason: values['reason'],
+    late final DialogRoute<void> correctionRoute;
+    correctionRoute = DialogRoute<void>(
+      context: context,
+      builder: (_) => BusinessEditor(
+        session: owner,
+        title: 'Monatslauf mit Einmalbezug korrigieren',
+        fields: const [
+          BusinessField(
+            'reason',
+            'Nachvollziehbarer Korrekturgrund',
+            required: true,
+          ),
+        ],
+        readPermission: 'personnel.read',
+        writePermission: 'personnel.read',
+        readAllowed: () =>
+            currentContext(owner, person, ticket) &&
+            readable &&
+            owner.can('personnel.approve'),
+        onSave: (values) async {
+          if (!currentContext(owner, person, ticket))
+            throw const ApiException(
+              403,
+              'Die private Lohnansicht wurde gewechselt.',
             );
-          },
-        ),
+          await calculatePeriod(
+            fact,
+            previous: previous,
+            reason: values['reason'],
+            mayContinue: () => correctionRoute.isActive,
+          );
+        },
       ),
     );
+    await privateRoute<void>(correctionRoute);
   }
 
   Future<void> openOneOffCases([Map<String, dynamic>? previous]) async {
@@ -1603,6 +1693,114 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
           (epoch == ticket || epoch == ticket + 1))
         failure(error);
     }
+  }
+
+  Future<Map<String, dynamic>?> positiveSettlementReview(
+    BusinessSession owner,
+    String person,
+    int ticket, {
+    bool Function()? mayContinue,
+  }) async {
+    if (!currentContext(owner, person, ticket) ||
+        !readable ||
+        mayContinue?.call() == false)
+      return null;
+    Map<String, dynamic>? acceptedReview;
+    late final DialogRoute<void> reviewRoute;
+    reviewRoute = DialogRoute<void>(
+      context: context,
+      builder: (_) => BusinessEditor(
+        session: session,
+        title: 'Zahlungen und Abführungen vollständig prüfen',
+        readPermission: 'personnel.read',
+        readAllowed: () =>
+            currentContext(owner, person, ticket) &&
+            readable &&
+            reviewRoute.isActive &&
+            mayContinue?.call() != false,
+        fields: [
+          const BusinessField(
+            'payments_complete',
+            'Sämtliche tatsächlich erfolgten Zahlungen für diesen Monat, einschließlich externer Vorgänge, sind vollständig im Programm belegt.',
+            type: BusinessInput.toggle,
+          ),
+          const BusinessField(
+            'remittances_complete',
+            'Sämtliche tatsächlich erfolgten Steuer- und Beitragsabführungen, einschließlich externer Vorgänge, sind vollständig im Programm belegt.',
+            type: BusinessInput.toggle,
+          ),
+          BusinessField(
+            'evidence_file',
+            'Geschützter Nachweis des vollständigen Abgleichs',
+            type: BusinessInput.choice,
+            required: true,
+            choices: {
+              '': 'Original ausdrücklich auswählen',
+              for (final f in files.where((f) => f['employee_id'] == person))
+                '${f['id']}': '${f['filename']}',
+            },
+            hint: 'Wenn keine Abführungen erfasst sind, muss der Originalnachweis ausdrücklich bestätigen, dass keine erfolgt sind.',
+          ),
+        ],
+        initial: const {
+          'payments_complete': false,
+          'remittances_complete': false,
+          'evidence_file': '',
+        },
+        saveLabel: 'Vollständigen Abgleich bestätigen',
+        onSave: (values) async {
+          if (values['payments_complete'] != true ||
+              values['remittances_complete'] != true)
+            throw const FormatException(
+              'Beide vollständigen Abgleiche ausdrücklich bestätigen.',
+            );
+          await fresh();
+          if (!currentContext(owner, person, ticket) ||
+              !reviewRoute.isActive ||
+              mayContinue?.call() == false ||
+              !session.hasFeature(payrollPositiveCorrectionFeature))
+            throw const ApiException(
+              403,
+              'Der private Korrekturkontext ist nicht mehr verfügbar.',
+            );
+          final originals = businessItems(
+            await session.read('/personnel/files?employee_id=$person'),
+          );
+          if (!currentContext(owner, person, ticket) ||
+              !readable ||
+              !reviewRoute.isActive ||
+              mayContinue?.call() == false ||
+              !session.hasFeature(payrollPositiveCorrectionFeature))
+            throw const ApiException(
+              403,
+              'Der private Korrekturkontext ist nicht mehr verfügbar.',
+            );
+          final file = originals
+              .where(
+                (f) =>
+                    f['id'] == values['evidence_file'] &&
+                    f['employee_id'] == person,
+              )
+              .firstOrNull;
+          if (file == null)
+            throw const FormatException(
+              'Ein zugängliches geschütztes Original für diesen Mitarbeiter auswählen.',
+            );
+          acceptedReview = payrollPositiveSettlementReview({
+            'schema_version': 1,
+            'payments_complete': values['payments_complete'],
+            'remittances_complete': values['remittances_complete'],
+            'evidence_ref': {
+              'id': file['id'],
+              'revision': 1,
+              'content_hash': file['content_hash'],
+            },
+          });
+        },
+      ),
+    );
+    await privateRoute<void>(reviewRoute);
+    return acceptedReview;
   }
 
   Future<void> openMultipleCases([Map<String, dynamic>? previous]) async {
@@ -1836,6 +2034,13 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
           409,
           'Datenstand geändert. Monatsberechnung erneut prüfen.',
         );
+      if (proof.containsKey('settlement_transition') &&
+          (!session.hasFeature(payrollPositiveCorrectionFeature) ||
+              !session.hasModule('payroll_multiple_cases')))
+        throw const ApiException(
+          409,
+          'Der positive Korrekturvertrag ist aktuell nicht verfügbar.',
+        );
       await session.command(
         key(false),
         '/payroll/runs',
@@ -1877,7 +2082,12 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
           0,
           'Die Historie gehört nicht zum gewählten Mitarbeiter.',
         );
-      if (!profile) for (final r in rows) payrollCalculation(r['calculation']);
+      if (!profile)
+        for (final r in rows) {
+          payrollCalculation(r['calculation']);
+          if (r.containsKey('settlement_transition'))
+            payrollPositiveTransition(r);
+        }
       if (mounted && readable && opening == session.generation)
         setState(() {
           history = rows;
@@ -2300,6 +2510,18 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
     );
   }
 
+  Widget positiveCorrectionNotice(Map<String, dynamic> value) {
+    final transition = payrollPositiveTransition(value);
+    return Notice(
+      'Belegte zusätzliche Nettozahlung: ${payrollMoney(transition['additional_net_minor'])}. '
+      'Bisher erfüllt: ${payrollMoney(transition['prior_total_net_minor'])}; '
+      'korrigierte Nettoschuld: ${payrollMoney(transition['total_net_minor'])}. '
+      'Die bisherigen Zahlungsteile bleiben unverändert. Der zusätzliche Betrag muss '
+      'am ursprünglichen Zuflusstag ${businessDate(transition['receipt_date'])} tatsächlich belegt sein. '
+      'Das Speichern löst keine Überweisung aus.',
+    );
+  }
+
   Widget calculationView(Map<String, dynamic> calc) => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -2526,6 +2748,8 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
             style: Theme.of(context).textTheme.titleLarge,
           ),
           calculationView(businessMap(run['calculation'])),
+          if (run.containsKey('settlement_transition'))
+            positiveCorrectionNotice(run),
           sourceView(businessMap(run['source'])),
           if ('${run['correction_reason'] ?? ''}'.isNotEmpty)
             Text('Korrektur: ${run['correction_reason']}'),
@@ -2988,6 +3212,8 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
                               calculationView(
                                 businessMap(preview!['calculation']),
                               ),
+                              if (preview!.containsKey('settlement_transition'))
+                                positiveCorrectionNotice(preview!),
                               sourceView(businessMap(preview!['source'])),
                               if (preview!['can_finalize'] == true) ...[
                                 CheckboxListTile(

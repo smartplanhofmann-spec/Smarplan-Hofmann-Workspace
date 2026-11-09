@@ -1,0 +1,37 @@
+{
+  "base_commit": "af98278",
+  "branch": "codex/source5-positive-app-20261109",
+  "source_sha256": {
+    "app/lib/business_payroll.dart": "a83785b9113a567c5732cf93865ed52cdc622091460c69fbafe57933165c5844",
+    "app/lib/business_payroll_accounts.dart": "cdbbcc50055ab0e2a3d83abe76102bf390d22b09ce35f124dcb9c919b66cbde3",
+    "app/lib/business_payroll_multiple_case_contract.dart": "959d08840f4d9e76657480e32c230c98e20b2ab3ea3e829dec97c7f226e364db",
+    "app/lib/business_payroll_source5_transition.dart": "e4cb3534fe32308bdc8b8a8f7e4e2d1ea3b17c0e823f28c708eeee9b9a1f0f76",
+    "app/lib/business_session.dart": "51f21b0eb45875becb57cd40148af986de270380b258b13f7823a71031a4ec5f",
+    "app/test/business_source5_positive_contract_test.dart": "cc5582e77b7b8ad0d06ba21503c784a8e56e0d6689ca34bd408f053cf05d1540",
+    "app/test/business_source5_positive_page_test.dart": "3db6b65c746af961e7172dbb99e3a4d216b00aa52170b55515709bd9bf292e4c",
+    "app/test/fixtures/generate_source5_positive.py": "3c39327f6639b4b49547e8bd300b972c07bcc92cab030b23f4d511552289ada8",
+    "app/test/fixtures/source5_positive_corrections.json": "71c22ff8c3961eb690e91c1249fde69f7bd0ad23ea428f7c4341fd954a0c13f4"
+  },
+  "verification": {
+    "flutter_tests": 22,
+    "passed": 22,
+    "failed": 0,
+    "skipped": 0,
+    "reported_seconds": 35,
+    "analysis": "No issues found (29.5s)",
+    "fixture": "actual accepted isolated backend workflow with controlled widget transport",
+    "actual_device_test": false,
+    "live_server_test": false
+  },
+  "command": "flutter test --no-pub test/business_source5_positive_contract_test.dart test/business_source5_positive_page_test.dart test/business_payroll_multiple_runs_test.dart test/business_payroll_multiple_payments_test.dart test/business_payroll_multiple_payment_page_test.dart test/business_oneoff_provenance_test.dart",
+  "independent_review": {
+    "findings": [
+      "late account/file read could outlive initiating dialog",
+      "new transition preview_hash was optional"
+    ],
+    "fixed": true,
+    "followup": "No further concrete defect found; static review only"
+  },
+  "no_actual_transfer": true,
+  "no_publication": true
+}

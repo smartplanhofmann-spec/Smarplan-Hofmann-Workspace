@@ -2055,6 +2055,14 @@ class BusinessSession extends ChangeNotifier {
       matches: (path) => path == '/payroll/account-records',
       readPath: '/payroll/account-records?employee_id=$employeeId',
       requireRights: () {
+        if (_pending[key]?.body['details']?['payment_source_schema_version'] ==
+                2 &&
+            (!hasFeature('payroll_source5_positive_corrections') ||
+                !hasModule('payroll_multiple_cases')))
+          throw const ApiException(
+            409,
+            'Der ursprüngliche zusätzliche Zahlungsnachweis benötigt seinen unterstützten Korrekturvertrag.',
+          );
         if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(employeeId) ||
             projectId != null ||
             !hasFeature('payroll_wage_account') ||
@@ -2538,6 +2546,13 @@ class BusinessSession extends ChangeNotifier {
         }
       },
       requireRights: () {
+        if (_pending[key]?.body.containsKey('settlement_review') == true &&
+            (!hasFeature('payroll_source5_positive_corrections') ||
+                !hasModule('payroll_multiple_cases')))
+          throw const ApiException(
+            409,
+            'Der ursprüngliche positive Korrekturauftrag benötigt seinen unterstützten Vertrag.',
+          );
         if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(employeeId) ||
             projectId != null ||
             !hasFeature('german_payroll_2026') ||

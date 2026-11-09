@@ -1,0 +1,6 @@
+test_same_actual_route_original_cannot_be_claimed_by_another_employee (test_business_travel_mileage.MileageBusinessTests.test_same_actual_route_original_cannot_be_claimed_by_another_employee) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.938s
+
+OK

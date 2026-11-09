@@ -13,7 +13,7 @@ from payroll_travel_2026 import integer, day, zone, moment, time_options, calcul
 from payroll_travel_rates_2026 import catalog, rate
 from workspace_api import BinaryAttachment
 
-FEATURES=('travel_allowances',)
+FEATURES=('travel_allowances','travel_private_car_mileage','travel_private_car_mileage_read')
 EVENT_TABLES=('business_travel_sites','business_travel_trips','business_travel_settlements','business_travel_payments')
 TABLES=EVENT_TABLES+('business_travel_claims','business_travel_cash_events','business_travel_evidence','business_travel_requests')
 KIND_TABLE={'site':EVENT_TABLES[0],'trip':EVENT_TABLES[1],'settlement':EVENT_TABLES[2],'payment':EVENT_TABLES[3]}
@@ -105,6 +105,10 @@ def _pdf(record):
                 ' · Pauschale vor Aufteilung '+str(value['unapportioned_base_minor'])+' Cent'+
                 ' · berufliche Pauschale '+str(value['base_minor'])+' Cent'+
                 ' · Mahlzeitenkürzung '+str(value['meal_reduction_minor'])+' Cent')
+    if record['calculation'].get('mileage_items'):
+        for item in record['calculation']['mileage_items']:
+            lines.append('Originalstrecke '+str(item['distance_m'])+' Meter · '+str(item['rate_minor_per_km'])+' Cent/km · Nachweis '+item['evidence_file_id'])
+        lines.append('Privater Pkw: '+record['sources']['trips'][0]['details']['mileage']['vehicle_registration'])
     totals=record['calculation']['totals'];lines.extend(['Steuerfreier Betrag: '+str(totals['tax_free_minor'])+' Cent',
         'Die Abrechnung ist keine Zahlungsbestätigung. Tatsächliche Zahlungen werden separat belegt.'])
     for line in lines:story.extend([Paragraph(escape(line),styles['Normal']),Spacer(1,7)])
@@ -204,6 +208,8 @@ class TravelAllowances:
     def get(self,actor,kind,object_id,revision=None,history=False):
         with transaction(self.office):
             item=self._get(kind,object_id,revision);fresh,employee=self._employee(actor,item['employee_id'])
+            from business_travel_mileage import is_mileage
+            if is_mileage(item) and not getattr(self,'mileage_mode',False):raise Problem(404,'Kilometeroriginal über den eigenen Kilometerbereich öffnen.')
             self._read_sources(fresh,item)
             if history:
                 items=[self._view(row) for row in self.db.execute(f'SELECT * FROM {KIND_TABLE[kind]} WHERE id=? ORDER BY revision',(object_id,))]
@@ -214,6 +220,8 @@ class TravelAllowances:
         with transaction(self.office):
             fresh,employee=self._employee(actor,employee_id);items=[]
             for value in self._all(kind,employee_id):
+                from business_travel_mileage import is_mileage
+                if kind!='site' and is_mileage(value)!=bool(getattr(self,'mileage_mode',False)):continue
                 try:self._read_sources(fresh,value);items.append(value)
                 except Problem as error:
                     if error.status not in (403,404):raise
@@ -320,6 +328,7 @@ class TravelAllowances:
         self._read_sources(actor,record)
         return record
     def _trip_details(self,actor,employee,d,*,current=True,rule_version=None):
+        if isinstance(d,dict) and 'mileage' in d:raise Problem(409,'Kilometerfahrt ausdrücklich über den eigenen Kilometerpfad bearbeiten.')
         fields=('purpose','project_id','departed_at','returned_at','timezone','source_file_ids','home_site_ref','first_workplace_ref','segments','overnights','meals','expense_refs','requested_meal_minor','requested_lodging_minor','tax_choice','private_intervals')
         _shape(d,fields+('expense_allocations','transport_facts','mixed_assessment'),fields);text(d['purpose'],'Reisezweck',1000,required=True);zone(d['timezone'])
         moment(d['departed_at'],d['timezone']);moment(d['returned_at'],d['timezone'])
@@ -386,6 +395,8 @@ class TravelAllowances:
         fields=('request_id','employee_id','id','revision','details','correction_reason');_shape(data,fields,fields)
         def save(fresh,employee,fingerprint):
             old=self._previous('trip',data)
+            from business_travel_mileage import is_mileage
+            if old and is_mileage(old):raise Problem(409,'Kilometervertrag darf nicht in v3 umgeschrieben werden.')
             if old and old['status']=='submitted':raise Problem(409,'Eingereichte Reise zuerst durch die prüfende Person zurückweisen lassen.')
             reason=text(data['correction_reason'],'Änderungsgrund',1000,required=bool(old))
             details,sources,calculation=self._trip_details(fresh,employee,data['details'])
@@ -398,6 +409,8 @@ class TravelAllowances:
         def save(fresh,employee,fingerprint):
             old=self._previous('trip',data)
             if old is None:raise Problem(404,'Reise nicht verfügbar.')
+            from business_travel_mileage import is_mileage
+            if is_mileage(old):raise Problem(409,'Kilometerfahrt über den eigenen Kilometerpfad bearbeiten.')
             if data['confirmed'] is not True:raise Problem(400,'Reisevorgang ausdrücklich bestätigen.')
             if data['source_hash']!=self._basis(employee['id']):raise Problem(409,'Reisequellen wurden geändert; neu prüfen.')
             if action=='submit':
@@ -422,13 +435,15 @@ class TravelAllowances:
         trips=[];sites=[];files=[];expenses=[]
         for ref in data['trip_refs']:
             trip=self._resolve(fresh,'trip',ref,employee['id'],current=not historical)
+            from business_travel_mileage import is_mileage
+            if is_mileage(trip):raise Problem(409,'Kilometerfahrt ausdrücklich unter ihrem V4-Vertrag abrechnen.')
             if trip['status']!='submitted':raise Problem(409,'Nur eingereichte Reisen können abgerechnet werden.')
             if moment(trip['details']['departed_at']).astimezone(zone(trip['details']['timezone'])).date()<first or moment(trip['details']['returned_at']).astimezone(zone(trip['details']['timezone'])).date()>last:
                 raise Problem(400,'Abrechnungszeitraum muss die ausgewählten Reisen umfassen.')
             if actor is not None:self._trip_details(fresh,employee,trip['details'],current=not historical)
             trips.append(trip);sites.extend(trip['sources']['sites']);files.extend(trip['sources']['files']);expenses.extend(trip['sources']['expenses'])
         sites=list({_reference(_ref(v)):v for v in sites}.values());files=list({f['id']:f for f in files}.values())
-        history_trips=[t for t in self._all('trip',employee['id']) if t['status']=='submitted' and t['id'] not in {x['id'] for x in trips}]
+        history_trips=[t for t in self._all('trip',employee['id']) if t['status']=='submitted' and not is_mileage(t) and t['id'] not in {x['id'] for x in trips}]
         old=None
         if data['correction_of'] is not None:old=self._resolve(fresh,'settlement',data['correction_of'],employee['id'],current=not historical)
         from travel_allowance_cash import _paid
@@ -513,6 +528,9 @@ def validate_payment(api,record):
     settlement=api._resolve(None,'settlement',d['settlement_ref'],record['employee_id'],current=False)
     if settlement!=record['sources']['settlement']:raise Problem(409,'Historische Reiseabrechnungsquelle wurde verändert.')
     validate_record(api,settlement)
+    from business_travel_mileage import is_mileage
+    if is_mileage(settlement) and d['paid_on']<settlement['details']['period_to']:
+        raise Problem(409,'Historische Kilometererstattung lag vor der tatsächlichen Fahrt.')
     if not settlement['calculation']['can_approve'] or settlement['calculation']['blockers']:
         raise Problem(409,'Zahlung auf unvollständige Reiseabrechnung.')
     legacy_ref=d.get('legacy_payment');legacy=None
@@ -574,6 +592,9 @@ def validate_record(api,value):
     previous=api._get(kind,value['id'],value['revision']-1) if value['revision']>1 else None
     if value['previous_hash']!=(previous['content_hash'] if previous else None):raise Problem(409,'Reisefassung besitzt einen falschen Vorgänger.')
     api._read_sources(None,value);employee=dict(id=value['employee_id'])
+    from business_travel_mileage import is_mileage,validate_mileage_record
+    if is_mileage(value) and kind in ('trip','settlement'):
+        return validate_mileage_record(api,value,previous)
     if kind=='site':
         details,files=api._site_details(None,employee,value['details'])
         if details!=value['details'] or files!=value['sources']['files'] or value['status'] not in ('active','void'):
@@ -648,6 +669,7 @@ def validate_record(api,value):
 
 def validate_integrity(office):
     if not installed(office):return True
+    from business_travel_mileage import is_mileage
     api=TravelAllowances(office)
     try:
         for kind,table in KIND_TABLE.items():
@@ -657,9 +679,14 @@ def validate_integrity(office):
                 last_sequence=row['sequence'];validate_record(api,api._view(row))
         # Effective day claims must remain exclusive across different settlement
         # identities. Earlier revisions of the same identity stay historical.
-        seen=set();expense_seen=set()
+        seen=set();expense_seen=set();mileage_seen=set();mileage_trip_seen=set()
         for employee in office.db.execute('SELECT DISTINCT employee_id FROM business_travel_settlements'):
             for record in api._all('settlement',employee['employee_id']):
+                if is_mileage(record):
+                    from business_travel_mileage import _proof_key
+                    key=_proof_key(record['calculation'],record['employee_id']);trip_id=record['sources']['trips'][0]['id']
+                    if key in mileage_seen or trip_id in mileage_trip_seen:raise ValueError('Duplicate effective mileage original')
+                    mileage_seen.add(key);mileage_trip_seen.add(trip_id)
                 for item in record['calculation']['days']:
                     key=(record['employee_id'],item['date'])
                     if key in seen:raise ValueError('Duplicate effective travel day')
@@ -669,8 +696,9 @@ def validate_integrity(office):
                     expense_seen.add(item['receipt_sha256'])
         expected_claims=0
         for row in office.db.execute('SELECT * FROM business_travel_settlements'):
-            record=api._view(row);expected_claims+=len(record['calculation']['days'])+len(record['calculation'].get('expense_items',[]))
+            record=api._view(row);expected_claims+=len(record['calculation']['days'])+len(record['calculation'].get('expense_items',[]))+(1 if is_mileage(record) else 0)
         if expected_claims!=office.db.execute('SELECT COUNT(*) FROM business_travel_claims').fetchone()[0]:raise ValueError('Unexpected travel claim row')
+        if office.db.execute("SELECT claim_key FROM business_travel_claims WHERE source_kind='mileage' GROUP BY claim_key HAVING COUNT(DISTINCT settlement_id)>1").fetchone():raise ValueError('Mileage original reused by another settlement identity')
         from business_accounting import _evidence
         from business_accounting_euer import ensure_cash_identity_available
         for evidence in office.db.execute('SELECT * FROM business_travel_evidence'):
@@ -691,6 +719,9 @@ def validate_integrity(office):
 
 
 def methods(path):
+    if path.startswith('/personnel/travel/mileage/'):
+        from business_travel_mileage import methods as mileage_methods
+        return mileage_methods(path)
     if path in ('/personnel/travel/catalog','/personnel/travel/sources','/personnel/travel/time-options'):
         return 'GET'
     if path in ('/personnel/travel/sites','/personnel/travel/trips','/personnel/travel/settlements','/personnel/travel/payments'):
@@ -711,6 +742,9 @@ def _query_revision(query):
 
 
 def dispatch(office,actor,path,method,data):
+    if path.startswith('/personnel/travel/mileage/'):
+        from business_travel_mileage import dispatch as mileage_dispatch
+        return mileage_dispatch(office,actor,path,method,data)
     allowed=methods(path)
     if allowed is None:return None
     if method not in allowed.split(', '):raise Problem(405,'HTTP-Methode nicht erlaubt.')

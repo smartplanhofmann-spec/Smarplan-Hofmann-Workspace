@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "base_commit": "487977a94d15f16a387a8995d51dcdcd44d86e9e",
+  "date": "2026-11-09",
+  "scope": "bounded_employee_private_car_mileage_backend_v4",
+  "synthetic_only": true,
+  "historical_kernels_unchanged": 32,
+  "container_removed": true,
+  "final_results": {
+    "domain_http_existing_v3_v10": {
+      "tests": 52,
+      "seconds": 46.622,
+      "result": "OK"
+    },
+    "postgresql_cash_bank_archive_restore_concurrency": {
+      "tests": 2,
+      "seconds": 66.603,
+      "result": "OK"
+    },
+    "refund_euer_additional_assertions": {
+      "tests": 1,
+      "seconds": 1.309,
+      "result": "OK"
+    },
+    "package_suite": {
+      "tests": 16,
+      "seconds": 27.415,
+      "result": "OK"
+    },
+    "final_actual_package_import": {
+      "tests": 1,
+      "seconds": 3.871,
+      "result": "OK"
+    }
+  },
+  "sha256": {
+    "app/test/fixtures/private_car_mileage.json": "30c0d2388a83458259d7cd8c1d98caf69cf08cf8e5396ba36ec9b02ba6aac71b",
+    "backend/business_payroll_calculation_cases.py": "dcc19db55ecf1b8b921f00452f32e963affe75f1882af46454c954d146ce9812",
+    "backend/business_travel_allowances.py": "6f1dabdf24d94a418f844efda73b27224ab583b892f36a7bea12b788a90d7239",
+    "backend/business_travel_mileage.py": "3cb98199d58443101c23d6fa51a8037e0b1395abd6351d5b341c235a64823e82",
+    "backend/online/test_business_travel_mileage_http.py": "7bf473682757a460b6d346c0a5bbb382a6a0b12fe4a7bdd90f3ea0a3bc2afe7f",
+    "backend/online/test_business_travel_mileage_pg.py": "c6935bee42690918e36fa908c3aea3fa8826e9bd8c325c557fa87a1861ea0c83",
+    "backend/payroll_travel_mileage_2026.py": "5f3892bd1023c9eef2216eb877be7779a6dbef940070f23aa1a315b4b454f79d",
+    "backend/test_business_travel_mileage.py": "93510ae2f1a132d82a8e79f063ac2ff9abb231bf53666bfe609a80bc74763189",
+    "backend/test_payroll_travel_mileage_2026.py": "cc33f94e2f00de359250a8825a18c2f1d2e6bcf0d55cc104529516baa57f6abd",
+    "backend/travel_allowance_cash.py": "1b80aa7970a006b3a7d87324e3e45d8108cd268078c4dc15033c2ca61c3a3f88",
+    "docs/CRM_ERP_KILOMETERERSTATTUNG_BACKEND_PRUEFUNG_2026.md": "31c67526c43c694f91a0db14c8eb30b8b7f8b86f06b6c5409c01b17ad78bc596",
+    "docs/CRM_ERP_KILOMETERERSTATTUNG_VERTRAG_2026.md": "412b187740b1f82b2a4b68b71d2c0855ff18b2a0337bfc16e9f9530d0265c59a",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/business-first-invalid-operation.txt": "94ab6afb0cf0a713aeed7a9729498a8fe211f2ca866fbab8b6d44ab425660344",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/container-cleanup.txt": "adce757c5556c0e31e1e0954f8ded6e380ab02f68562a471c2ad6e07527f1739",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/cross-person-original.txt": "10bcdc5ee09680aa6aa767b7e623bfe203b5b0e6fe77406fa6c8f21fa7e355d8",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/direct-source-fetch-attempts.json": "21e80519e525d6c2d77d6515747a1c63849dacd3f25027f8cfe8e759dcf49f2f",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/domain-final-52.txt": "ad08218166bb8251d2d8e85a2d7e6ed37f6eac45e03b720b68c3d3717903e801",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/domain-first-missing-profile.txt": "d832ade66b4398d872ce73d8f4aa264177b4daa6c56b1f3f2dae0f952a46cdc4",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/historical-kernels.json": "1f660792add7846002f6b2a6c09c551f13a7510eda6fda92a8e1ab2dab7cd4a5",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/official-source-notes.json": "b21a48b0f264de5445989d5e95f944cdc1b303fea6020d32d2c7097acb01c67c",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/package-final-16.txt": "5f8091d4adfd289e3a990cfc2ce401bf2be971392a98f51794225cc38defa38a",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/package-final-actual-import.txt": "4d70a33a3c96a0e309a3e4b5a8ba9af1bf68df29b0f589274eb4abcd692d2e31",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/package-first-missing-venv.txt": "5997b84fd898314531c53140b472073a67563bb62b436a67331b17b9b7d753a1",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/portable-http.txt": "a94ef0cae6fb359bdbfa44c0f0013c083e06987c9a8303f42b779b3ca9e063c8",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/postgres-final-2.txt": "d500c1618919bd2862e2943319e594954600972e995c50ed18493efbc4c80775",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/postgres-first-mfa-fixture-error.txt": "e1506fd5c2c74799ed5174c7f0d159ac748c93f94d4067d1d53a7b64406acdf8",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/postgres-previous-3.txt": "3f169e5ad6ab07505983662e748398509944e44e04ba12015eac3dbaf02d2bdc",
+    "docs/evidence/private-car-mileage-backend-2026-11-09/refund-euer-final.txt": "3fa30906af945aac04773eae381aeb86307a26091b10b53720fbcff9f9983391",
+    "scripts/generate-private-car-mileage-fixture.py": "e7b11d28b370754e03bca2a1ea31d5228f93bfc6e09f1034309f0adfb0e19a0c"
+  }
+}

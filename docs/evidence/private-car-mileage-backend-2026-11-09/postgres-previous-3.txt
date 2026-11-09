@@ -1,0 +1,8 @@
+test_actual_mfa_cash_bank_euer_company_archive_and_frozen_dump_restore (online.test_business_travel_mileage_pg.MileagePostgres.test_actual_mfa_cash_bank_euer_company_archive_and_frozen_dump_restore) ... ok
+test_two_actual_postgresql_connections_claim_one_original_day_and_retry_one_payment (online.test_business_travel_mileage_pg.MileagePostgres.test_two_actual_postgresql_connections_claim_one_original_day_and_retry_one_payment) ... ok
+test_actual_mfa_http_private_boundary_runtime_guards_and_restart (online.test_business_travel_pg.TravelPostgres.test_actual_mfa_http_private_boundary_runtime_guards_and_restart) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 66.116s
+
+OK

@@ -125,6 +125,15 @@ def record_payment(api,actor,data):
             raise Problem(409,'Aktuelles aktives EUR-Geldkonto ausdrücklich auswählen.')
         legacy_correction=old is not None and data.get('legacy_payment') is not None
         settlement=api._resolve(fresh,'settlement',data['settlement_ref'],employee['id'],current=data['action']!='void' and not legacy_correction)
+        from business_travel_mileage import is_mileage,MileageTravel
+        if is_mileage(settlement):
+            if not getattr(api,'mileage_mode',False):raise Problem(409,'Kilometerzahlung ausdrücklich im Kilometerbereich erfassen.')
+            if data['paid_on']<settlement['details']['period_to']:raise Problem(400,'Kilometervertrag unterstützt Erstattung erst nach der tatsächlichen Fahrt.')
+            if data['action']!='void':
+                mileage=MileageTravel(api.office,clock=api.clock)
+                for trip in settlement['sources']['trips']:
+                    if api._get('trip',trip['id'])!=trip:raise Problem(409,'Fahrt wurde geändert; Abrechnung zuerst ausdrücklich korrigieren.')
+                    mileage._trip_details(fresh,employee,trip['details'])
         if data['action']!='void' and not legacy_correction:
             for expense in settlement['sources']['expenses']:
                 if api.hr._latest(expense['id'],'expense')['content_hash']!=expense['content_hash']:

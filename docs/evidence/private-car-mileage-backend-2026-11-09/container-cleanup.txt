@@ -1,0 +1,3 @@
+PostgreSQL16.15; own synthetic container smartplan-mileage-pg-20261109, loopback32783.
+After final successful tests docker rm exited0; exact-name query returned no remaining container.
+No other containers were removed.

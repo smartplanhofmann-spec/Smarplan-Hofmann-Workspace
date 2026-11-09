@@ -1,0 +1,26 @@
+test_actual_own_submission_independent_approval_and_unchanged_receipts (test_business_travel_mileage.MileageBusinessTests.test_actual_own_submission_independent_approval_and_unchanged_receipts) ... ok
+test_actual_partial_cash_euer_and_private_boundary (test_business_travel_mileage.MileageBusinessTests.test_actual_partial_cash_euer_and_private_boundary) ... ERROR
+test_false_declaration_and_fresh_privacy_rights_and_http_shapes (test_business_travel_mileage.MileageBusinessTests.test_false_declaration_and_fresh_privacy_rights_and_http_shapes) ... ok
+test_negative_correction_preserves_actual_cash_until_real_refund (test_business_travel_mileage.MileageBusinessTests.test_negative_correction_preserves_actual_cash_until_real_refund) ... ok
+test_no_payment_before_approval_no_self_approval_and_no_double_person_day (test_business_travel_mileage.MileageBusinessTests.test_no_payment_before_approval_no_self_approval_and_no_double_person_day) ... ok
+
+======================================================================
+ERROR: test_actual_partial_cash_euer_and_private_boundary (test_business_travel_mileage.MileageBusinessTests.test_actual_partial_cash_euer_and_private_boundary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 119, in test_actual_partial_cash_euer_and_private_boundary
+    for payment in (first,second):ledger.post('travel_cash_classify',ledger.payload(payment))
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_finance.py", line 44, in post
+    preview = self.euer.preview(actor, body)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_accounting_euer.py", line 1085, in preview
+    self._inputs(data)
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_accounting_euer.py", line 314, in _inputs
+    raise Problem(400, 'Bekannter Vorgang und nichtnegative Journalrevision erwartet')
+core.Problem: (400, 'Bekannter Vorgang und nichtnegative Journalrevision erwartet')
+
+----------------------------------------------------------------------
+Ran 5 tests in 5.202s
+
+FAILED (errors=1)

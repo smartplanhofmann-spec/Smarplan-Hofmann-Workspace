@@ -1,0 +1,6 @@
+test_negative_correction_preserves_actual_cash_until_real_refund (test_business_travel_mileage.MileageBusinessTests.test_negative_correction_preserves_actual_cash_until_real_refund) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.309s
+
+OK

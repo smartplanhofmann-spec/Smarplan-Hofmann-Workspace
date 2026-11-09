@@ -182,6 +182,7 @@ class PayrollCalculationCases(PayrollFacts):
             fresh,employee=self._access(actor,query['employee_id'])
             from business_payroll_entitlements import PayrollEntitlements
             from business_travel_allowances import TravelAllowances
+            from business_travel_mileage import is_mileage
             result=self.facts.sources(fresh,dict(employee_id=employee['id']))
             # Factor periods have their own v9 running-pay rule. They must not
             # be offered to the historical v5 claims/travel composition rule.
@@ -192,9 +193,12 @@ class PayrollCalculationCases(PayrollFacts):
             except Problem as error:
                 if error.status!=403:raise
                 payments=[]
+            settlements=[value for value in TravelAllowances(self.office)._all('settlement',employee['id']) if not is_mileage(value)]
+            allowed_settlements={value['id'] for value in settlements}
+            payments=[value for value in payments if value['settlement_ref']['id'] in allowed_settlements]
             result.update(factor_period_facts=factor_facts,travel_payment_proofs=payments)
             result.update(month=query['month'],calculation_cases=self._all(employee['id']),travel_tax_policies=self._all(None),
-                entitlements=PayrollEntitlements(self.office)._all(employee['id']),travel_settlements=TravelAllowances(self.office)._all('settlement',employee['id']))
+                entitlements=PayrollEntitlements(self.office)._all(employee['id']),travel_settlements=settlements)
             return result
 
     def policy_sources(self,actor,query):

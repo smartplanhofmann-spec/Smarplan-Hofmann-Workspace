@@ -1,0 +1,7 @@
+test_actual_mfa_cash_bank_euer_company_archive_and_frozen_dump_restore (online.test_business_travel_mileage_pg.MileagePostgres.test_actual_mfa_cash_bank_euer_company_archive_and_frozen_dump_restore) ... ok
+test_two_actual_postgresql_connections_claim_one_original_day_and_retry_one_payment (online.test_business_travel_mileage_pg.MileagePostgres.test_two_actual_postgresql_connections_claim_one_original_day_and_retry_one_payment) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 66.603s
+
+OK

@@ -1,0 +1,18 @@
+[
+  {
+    "source": "R9_5",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "source": "EStG_9",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "source": "BRKG_5",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "source": "EStG_3",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  }
+]

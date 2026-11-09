@@ -1,0 +1,23 @@
+{
+  "retrieved_on": "2026-11-09",
+  "retrieval_method": "public_web_tool_official_pages_and_indexed_official_full_text",
+  "original_html_or_pdf_bytes_claimed": false,
+  "sources": [
+    {
+      "url": "https://www.gesetze-im-internet.de/estg/__9.html",
+      "scope": "Absatz1Satz3Nummer4a: dienstliche Auswaertsfahrt und hoechster BRKG-Kilometersatz; Pendel-/Familienheimfahrten und regelmaessige Sammelpunkte getrennt."
+    },
+    {
+      "url": "https://www.gesetze-im-internet.de/brkg_2005/__5.html",
+      "scope": "Absatz2: hoechste Kraftwagen-Wegstreckenentschaedigung30Cent je gefahrenem Kilometer. Private Arbeitgebererstattung folgt dem Verweis in EStG9, keine Uebernahme der Bundesbediensteten-Verfahrensvoraussetzungen."
+    },
+    {
+      "url": "https://www.gesetze-im-internet.de/estg/__3.html",
+      "scope": "Nummer16: steuerfreier privater Arbeitgeberersatz innerhalb der entsprechenden Werbungskostengrenzen."
+    },
+    {
+      "url": "https://amtliche-handbuecher.bundesfinanzministerium.de/lsth/2026/A-Einkommensteuergesetz/II-Einkommen-2-24b/4-Ueberschuss-d-Einnahmen-ueber-die-Werbungsk-8-9a/Paragraf-9/inhalt.html",
+      "scope": "R9.5Absatz1/2: persoenliche private Fahrzeugbenutzung, Dokumentation zum Lohnkonto, kein steuerfreier pauschaler Ersatz fuer gestellte Arbeitgeberfahrzeuge."
+    }
+  ]
+}

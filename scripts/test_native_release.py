@@ -321,6 +321,7 @@ class NativePackageTests(unittest.TestCase):
                         'import business_documents, business_finance, business_einvoice\n'
                         'import business_planning, business_time, business_operations\n'
                         'import business_inventory, business_maintenance, business_adapters\n'
+                        'import business_travel_mileage, payroll_travel_mileage_2026\n'
                         'from core import Office\n'
                         'office = Office("synthetic-package.db")\n'
                         'office.db.close()'],

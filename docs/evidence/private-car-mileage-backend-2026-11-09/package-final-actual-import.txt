@@ -1,0 +1,7 @@
+test_actual_support_archive_imports_the_packaged_backend (test_native_release.NativePackageTests.test_actual_support_archive_imports_the_packaged_backend) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 3.871s
+
+OK
+support.zip 1888593 bytes cc11eb5b68168fcdb5b8da9064a21efe2807592410240ed16d799fa4f2308cda

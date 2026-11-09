@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {milestoneValues,milestoneRights,milestoneContext,milestoneCommandPath,projectMilestonesUi} from '../project-milestones.js';
+import {milestoneValues,milestoneEditedValues,milestoneRights,milestoneContext,milestoneCommandPath,projectMilestonesUi} from '../project-milestones.js';
 import {ApiError} from '../office.js';
 
 const project='a'.repeat(32),other='b'.repeat(32),actor='c'.repeat(32),member='d'.repeat(32);
@@ -21,6 +21,11 @@ test('milestone rights are project-scoped and require project management rather 
   assert.deepEqual(milestoneRights({...caps(),permissions:[],global_permissions:['planning.read','projects.manage']},project),{read:false,write:false});
   for(const change of [{project_id:other},{features:[]},{capabilities:[]}])assert.deepEqual(milestoneRights({...caps(),...change},project),{read:false,write:false});
   for(const change of [{readonly:true},{organization:{modules:{planning:{enabled:false}}}}])assert.deepEqual(milestoneRights({...caps(),...change},project),{read:true,write:false});
+});
+test('unchanged rendered text preserves the original CRLF while an actual text edit remains explicit',()=>{
+  const original={...values(),title:'First\r\nSecond',details:'Original\r\n'},displayed={title:'FirstSecond',details:'Original\n'};
+  assert.deepEqual(milestoneEditedValues({...original,...displayed,status:'achieved'},original,displayed),{...original,status:'achieved'});
+  assert.equal(milestoneEditedValues({...original,...displayed,details:'Changed\n'},original,displayed).details,'Changed\n');
 });
 test('fresh milestone context reads the scoped capability and exact team source before accepting current user',async()=>{
   const reads=[];let result=caps();const api={get:async path=>{reads.push(path);return path.startsWith('/business/capabilities')?result:path==='/me'?{id:actor}:{project:{id:project},team:team()};}};

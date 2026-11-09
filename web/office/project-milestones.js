@@ -24,6 +24,13 @@ export function milestoneValues(value,team,current=null){
   if(!MILESTONE_STATUSES.some(([status])=>status===result.status))fail('Unbekannter Meilensteinstatus.');
   if(result.assignee_id!==null&&(!hex(result.assignee_id)||result.assignee_id!==current?.assignee_id&&!team.some(member=>member.id===result.assignee_id)))fail('Eine neue Verantwortlichkeit benötigt ein aktuelles Mitglied dieses Projekts.');return result;
 }
+export function milestoneEditedValues(values,current,displayed){
+  const result={...values};
+  // HTML inputs normalize line endings. If the visible text is unchanged,
+  // preserve its exact stored original when changing another field.
+  if(current)for(const name of ['title','details'])if(Object.hasOwn(displayed,name)&&values[name]===displayed[name])result[name]=current[name];
+  return result;
+}
 export async function milestoneRecord(value,project,identifier=null){
   if(!keys(value,recordKeys)||value.schema_version!==1||!hex(value.id)||!hex(project)||value.project_id!==project||identifier&&value.id!==identifier||!Number.isSafeInteger(value.revision)||value.revision<1||value.revision>=2**31||!hex(value.created_by)||!hex(value.updated_by)||!['created_at','updated_at'].every(name=>typeof value[name]==='string'&&/T.*(?:Z|[+-]\d{2}:\d{2})$/.test(value[name])&&Number.isFinite(Date.parse(value[name])))||Date.parse(value.updated_at)<Date.parse(value.created_at)||typeof value.content_hash!=='string'||!/^[a-f0-9]{64}$/.test(value.content_hash))fail('Die Meilensteinfassung ist unvollständig oder gehört zu einem anderen Projekt.');
   const normalized=milestoneValues(value,[],value);for(const field of fields)if(value[field]!==normalized[field])fail('Die Meilensteinfassung enthält nicht bestätigte Angaben.');
@@ -87,7 +94,7 @@ export function projectMilestonesUi(h){
       const [context,raw]=await Promise.all([milestoneContext(api,project,{write:true}),identifier?api.get(path(project,identifier)):null]);
       return {context,item:raw?await milestoneRecord(raw,project,identifier):null};
     });if(!loaded)return;const {context,item}=loaded;
-    let ownerStamp,editor;const alive=()=>editor.isConnected&&stamp()===ownerStamp&&document.visibilityState!=='hidden';
+    let ownerStamp,editor;const displayed={};const alive=()=>editor.isConnected&&stamp()===ownerStamp&&document.visibilityState!=='hidden';
     const choices=[['','Nicht zugewiesen'],...context.team.map(member=>[member.id,member.email])];
     if(item?.assignee_id&&!context.team.some(member=>member.id===item.assignee_id))choices.push([item.assignee_id,'Nicht mehr im aktuellen Projektteam (unverändert)']);
     editor=form('',[
@@ -103,7 +110,7 @@ export function projectMilestonesUi(h){
         const fresh=await milestoneContext(api,project,{write:true});if(!alive())return;
         const current=identifier?await milestoneRecord(await api.get(url),project,identifier):null;if(!alive())return;
         if(!pending&&current&&!same(current,item))throw new ApiError('Der Meilenstein wurde inzwischen geändert. Die aktuelle Fassung erneut öffnen und die Eingabe vergleichen.',409);
-        const body={schema_version:1,...milestoneValues(values,pending?context.team:fresh.team,item),...(item?{revision:item.revision}:{})};
+        const body={schema_version:1,...milestoneValues(milestoneEditedValues(values,item,displayed),pending?context.team:fresh.team,item),...(item?{revision:item.revision}:{})};
         const result=await api.mutate(key,url,body,{validate:(value,command)=>milestoneReceipt(value,project,identifier,command,{original:item,actorId:fresh.user.id})});
         return alive()?result:undefined;
       }catch(error){
@@ -111,6 +118,7 @@ export function projectMilestonesUi(h){
         if(alive())throw error;return undefined;
       }
     },{key:`milestone-save-${identifier||'new-'+project}`,after:()=>refresh(),description:item?`Änderung an Version ${item.revision}. Frühere Fassungen bleiben im Verlauf erhalten.`:'Ein Meilenstein beschreibt ein Projektziel. „Erreicht“ ist eine manuelle Statusbestätigung.'});
+    for(const name of ['title','details'])if(editor.controls?.get(name)?.input)displayed[name]=editor.controls.get(name).input.value;
     editor.setAttribute('data-project-milestones','');dialog(item?'Meilenstein bearbeiten':'Neuer Meilenstein',editor);ownerStamp=stamp();
   }
   async function history(project,identifier){

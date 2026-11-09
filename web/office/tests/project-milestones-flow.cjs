@@ -40,13 +40,13 @@ async function projectMilestonesFlow({page,context,login,ready,navigate,fixture,
   await api('/assignments',{project_id:project,user_id:technician.id});await editor(page).getByLabel('Status',{exact:true}).selectOption('achieved');await editor(page).getByLabel('Fällig am',{exact:true}).fill('2026-11-30');await save();current=await api(objectPath);assert.equal(current.revision,2);
   // The unchanged old responsibility remains valid when the team later changes.
   await api('/assignments',{project_id:project,user_id:technician.id,remove:true});
-  await row(page).getByRole('button',{name:'Bearbeiten',exact:true}).click();await editor(page).getByLabel('Verantwortlich',{exact:true}).locator('option').filter({hasText:'Nicht mehr im aktuellen Projektteam'}).waitFor();
+  await row(page).getByRole('button',{name:'Bearbeiten',exact:true}).click();await editor(page).getByLabel('Verantwortlich',{exact:true}).locator('option').filter({hasText:'Nicht mehr im aktuellen Projektteam'}).waitFor({state:'attached'});
   await editor(page).getByLabel('Status',{exact:true}).selectOption('cancelled');await save();current=await api(objectPath);assert.equal(current.revision,3);assert.equal(current.assignee_id,technician.id);
   await api('/assignments',{project_id:project,user_id:technician.id});await row(page).getByRole('button',{name:'Wieder planen',exact:true}).click();assert.equal(await editor(page).getByLabel('Status',{exact:true}).inputValue(),'planned');await save();current=await api(objectPath);assert.equal(current.revision,4);
   await row(page).getByRole('button',{name:'Verlauf',exact:true}).click();let history=page.getByRole('dialog',{name:'Meilensteinverlauf',exact:true});await history.getByRole('heading',{name:'Version 4 · aktuell',exact:true}).waitFor();
   assert.equal(await history.locator('input,textarea,select').count(),0);assert.deepEqual((await api(objectPath+'/history')).items[0],initial);await history.getByRole('button',{name:'Dialog schließen',exact:true}).click();
   // A genuine concurrent write does not become the original of an old editor.
-  await row(page).getByRole('button',{name:'Bearbeiten',exact:true}).click();current=await api(objectPath,request({schema_version:1,...values(current),revision:current.revision,details:'Parallel bestätigte Fassung'}));
+  await row(page).getByRole('button',{name:'Bearbeiten',exact:true}).click();current=await api(objectPath,request({schema_version:1,...values(current),revision:current.revision,details:'Parallel bestätigte Fassung\r\nUnverändert\r\n'}));
   await editor(page).getByLabel('Beschreibung des Projektziels',{exact:true}).fill('Veralteter Entwurf');await editor(page).getByRole('button',{name:'Speichern',exact:true}).click();await editor(page).getByText(/inzwischen geändert/).waitFor();assert.deepEqual(await api(objectPath),current);await editor(page).getByRole('button',{name:'Dialog schließen',exact:true}).click();
   const grants=new Map();const grant=async(permission,effect)=>{const value=await api('/business/settings/permissions',request({user_id:technician.id,permission,scope:project,effect,revision:grants.get(permission)?.revision||0}));grants.set(permission,value);return value;};
   await grant('projects.manage','allow');await grant('planning.read','deny');
@@ -68,7 +68,7 @@ async function projectMilestonesFlow({page,context,login,ready,navigate,fixture,
     await tech.locator('[data-pending-indicator]').click();await tech.getByRole('dialog').getByRole('button',{name:'Unverändert erneut senden',exact:true}).click();await arrived;
     await tech.getByRole('dialog').getByRole('button',{name:'Dialog schließen',exact:true}).click();await navigate(tech,'Übersicht');release();await settled;await tech.evaluate(()=>new Promise(requestAnimationFrame));
     assert.equal(await tech.getByRole('dialog').count(),0);await tech.getByRole('heading',{name:'Guten Tag.',exact:true}).waitFor();assert.equal(updateCommands[0],updateCommands[1]);
-    current=await api(objectPath);assert.equal(current.revision,6);await open(tech);
+    current=await api(objectPath);assert.equal(current.revision,6);assert.equal(current.details,'Parallel bestätigte Fassung\r\nUnverändert\r\n');await open(tech);
     await tech.setViewportSize({width:390,height:844});await row(tech).getByRole('button',{name:'Verlauf',exact:true}).click();history=tech.getByRole('dialog',{name:'Meilensteinverlauf',exact:true});await history.getByRole('heading',{name:'Version 6 · aktuell',exact:true}).waitFor();
     assert.equal(await tech.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);await tech.screenshot({path:path.join(screenshots,'project-milestones-mobile.png'),fullPage:false});
     const originals=(await api(objectPath+'/history')).items;assert.equal(originals.length,6);assert.deepEqual(originals[0],initial);

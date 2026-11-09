@@ -88,3 +88,47 @@ Der Generator verwendet tatsächliche Fachaufrufe und Quittungsabrufe ohne
 Rechen- oder Annahmepatches. Browser-/App-Bedienung, gemeinsame Integration und
 Auslieferung sind gesonderte Arbeit. Rohprotokolle, Quellenmanifest und Hashes:
 `docs/evidence/private-car-mileage-backend-2026-11-09/`.
+
+## Nachprüfung: teilweise überlappende Originalbelege
+
+Die unabhängige Nachprüfung fand am ersten Backendstand einen tatsächlichen
+Vertragsfehler: Eine neue Belegmenge `{X,Y}` konnte das bereits verwendete
+Original `X` erneut enthalten, weil nur der Hash der gesamten Belegmenge
+reserviert war. Zwei unabhängige echte Fachabläufe sowie eine eigene
+Gegenprobe bestätigten die zweite Abrechnungsannahme. Diese vorherigen
+Fehlerprotokolle bleiben erhalten; sie sind kein erfolgreicher Schutztest.
+
+Die Korrektur reserviert bei neuen Abrechnungen jeden tatsächlichen Original-SHA
+separat. Zusätzlich werden sämtliche erhaltenen Abrechnungsfassungen geprüft,
+damit auch frühere unverändert gespeicherte Bündelreservierungen alle ihre
+Originalteile schützen. Gleiche eigene Korrektur-IDs bleiben zulässig; andere
+Abrechnungen mit jeder Teilüberlappung werden abgewiesen. Der Blocker enthält
+keinen fremden Personen-/Abrechnungsbezug. Kilometerregel, Geldarithmetik,
+öffentliche DTOs und gemeinsame Clientfixture bleiben unverändert.
+
+Die Altverträglichkeit verwendet einen unter den tatsächlichen früheren
+Produktionsdateien erzeugten synthetischen Datenbankstand mit zwei verschiedenen
+Originalen, realer Fremdfreigabe, Zahlung und PDF. Der neue Code liest die alten
+Claims unverändert, wiederholt die alten Quittungen und sperrt `{X,Z}` gegen das
+alte `{X,Y}`. Eine anschließende eigene Korrektur erzeugt nur neue Claimzeilen;
+alte Zeilen, Quittungen und Zahlung bleiben erhalten. Es wird kein neuer
+Originalhash oder alter Claim im Test fingiert. Der Generator und die
+komprimierte Testdatenbank sind im Repository nachvollziehbar hinterlegt.
+
+Nachweise der Korrektur:
+
+- 54 gemeinsame Fach-/HTTP-/Kern-/v3-/V10-/Altbündelfälle bestehen, 39,330 s.
+- Beide unveränderten Root-Gegenproben bestehen gegen den korrigierten Code,
+  2/2 in 2,195 s; eigene neue Gegenprobe ist im Sammellauf enthalten.
+- Erweiterte echte Altbündel-/Korrekturprüfung besteht 1/1 in 0,835 s.
+- Drei tatsächliche PostgreSQL-Fälle bestehen in 53,147 s. Zusätzlich zur
+  bisherigen Bank-/EÜR-/Archiv-/Restorekette konkurrieren jetzt zwei Personen
+  an verschiedenen Tagen mit überlappenden Originalmengen über zwei echte
+  Verbindungen: genau eine Abrechnung, 409 für die andere, keine Zahlung.
+- 32 historische Kerne und der Clientfixture-Hash bleiben unverändert.
+
+Rohprotokolle einschließlich des ersten internen fehlgeschlagenen
+Claim-Serialisierungsnachlaufs und des korrigierten Nachlaufs liegen unter
+`docs/evidence/private-car-mileage-overlap-fix-2026-11-09/`.
+Der ausschließlich dafür verwendete synthetische PostgreSQL-Container
+`smartplan-mileage-overlap-pg-20261109` auf Loopback32789 ist entfernt.

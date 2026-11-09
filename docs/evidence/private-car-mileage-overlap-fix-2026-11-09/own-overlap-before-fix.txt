@@ -1,0 +1,17 @@
+test_used_original_cannot_be_reused_inside_a_larger_bundle_on_another_day (test_business_travel_mileage.MileageBusinessTests.test_used_original_cannot_be_reused_inside_a_larger_bundle_on_another_day) ... FAIL
+
+======================================================================
+FAIL: test_used_original_cannot_be_reused_inside_a_larger_bundle_on_another_day (test_business_travel_mileage.MileageBusinessTests.test_used_original_cannot_be_reused_inside_a_larger_bundle_on_another_day)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 209, in test_used_original_cannot_be_reused_inside_a_larger_bundle_on_another_day
+    self.failure(409,lambda:self.api.approve(f.owner,dict(proposal,request_id=rid(),id=rid(),revision=0,
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 77, in failure
+    with self.assertRaises(Problem) as caught:callback()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 1.907s
+
+FAILED (failures=1)

@@ -1,0 +1,1 @@
+Removed only synthetic smartplan-mileage-overlap-pg-20261109 on loopback32789 after final successful tests; exact-name query returned no container.

@@ -37,10 +37,18 @@ def _date_of(trip):
 
 
 def _proof_key(calculation, employee_id):
+    """Exact historical bundle identity; retained only for old claim rows."""
     return 'mileage:' + _sha(sorted({x['evidence_sha256'] for x in calculation['mileage_items']}))
 
 
-def claims(record):
+def _original_hashes(calculation):
+    values={x['evidence_sha256'] for x in calculation['mileage_items']}
+    if not values or any(not isinstance(x,str) or re.fullmatch('[a-f0-9]{64}',x) is None for x in values):
+        raise Problem(409,'Unveränderte tatsächliche Streckenoriginale erforderlich.')
+    return values
+
+
+def legacy_claims(record):
     calc = record['calculation']; date = calc['days'][0]['date']; trip = record['sources']['trips'][0]
     base = dict(settlement_id=record['id'], revision=record['revision'], employee_id=record['employee_id'])
     return [dict(base, claim_key='day:'+record['employee_id']+':'+date,
@@ -48,6 +56,43 @@ def claims(record):
         amount_minor=calc['totals']['mileage_allowance_minor']),
         dict(base, claim_key=_proof_key(calc, record['employee_id']), source_kind='mileage',
         source_id=trip['id'], source_revision=trip['revision'], amount_minor=calc['totals']['mileage_allowance_minor'])]
+
+
+def claims(record):
+    """Reserve every original separately; these rows create no money."""
+    trip=record['sources']['trips'][0]
+    base=dict(settlement_id=record['id'],revision=record['revision'],employee_id=record['employee_id'],
+        source_kind='mileage_original',source_id=trip['id'],source_revision=trip['revision'],amount_minor=0)
+    return [legacy_claims(record)[0]]+[dict(base,claim_key='mileage-original:'+sha)
+        for sha in sorted(_original_hashes(record['calculation']))]
+
+
+def stored_claims(api,record):
+    actual=[dict(r) for r in api.db.execute('SELECT * FROM business_travel_claims WHERE settlement_id=? AND revision=? ORDER BY claim_key',
+        (record['id'],record['revision']))]
+    # Both forms are derived exactly from the original accepted calculation.
+    # Existing bundle rows are never replaced or expanded during read/restore.
+    for form in (claims(record),legacy_claims(record)):
+        expected=sorted([dict(x,content_hash=_sha(x)) for x in form],key=lambda x:x['claim_key'])
+        if actual==expected:return actual
+    raise Problem(409,'Unpassende ursprüngliche Streckenbelegung.')
+
+
+def reserved_originals(api,*,verify=True):
+    """Read all retained revisions, including unchanged old bundle records."""
+    reservations={}
+    try:
+        for row in api.db.execute('SELECT * FROM business_travel_settlements ORDER BY sequence'):
+            record=api._view(row)
+            if verify:validate_record(api,record)
+            if not is_mileage(record):continue
+            for sha in _original_hashes(record['calculation']):
+                if sha in reservations and reservations[sha]!=record['id']:
+                    raise Problem(409,'Die ursprüngliche Streckenbelegung ist nicht eindeutig.')
+                reservations[sha]=record['id']
+    except (ValueError,TypeError,KeyError,RecursionError):
+        raise Problem(409,'Die vollständige ursprüngliche Streckenbelegung kann nicht sicher geprüft werden.') from None
+    return reservations
 
 
 def _preview_value(employee_id, data, source_hash, trip, sites, calculation):
@@ -188,16 +233,14 @@ class MileageTravel(TravelAllowances):
         sites=trip['sources']['sites']
         calc=calculate([trip],sites,settlement_unit=data['settlement_unit'],tax_choice=data['tax_choice'],
             requested_meal_minor=data['requested_meal_minor'],requested_lodging_minor=data['requested_lodging_minor'],already_paid_minor=paid)
-        used=self.db.execute('SELECT DISTINCT settlement_id FROM business_travel_claims WHERE source_kind=? AND claim_key=?',
-            ('mileage',_proof_key(calc,employee['id']))).fetchall()
-        if any(row['settlement_id']!=(old['id'] if old else None) for row in used):
+        used=reserved_originals(self)
+        if any(sha in used and used[sha]!=(old['id'] if old else None) for sha in _original_hashes(calc)):
             calc['blockers'].append(dict(code='mileage_original_already_settled',text='Das tatsächliche Streckenoriginal ist bereits an eine andere Abrechnung gebunden.',source_ref=None))
             calc['can_approve']=False;calc['can_pay']=False
         for existing in self._all('settlement',employee['id']):
             if old and existing['id']==old['id']:continue
             duplicate_day=any(x['date']==date for x in existing['calculation']['days'])
-            duplicate_proof=is_mileage(existing) and _proof_key(existing['calculation'],employee['id'])==_proof_key(calc,employee['id'])
-            if duplicate_day or duplicate_proof:
+            if duplicate_day:
                 calc['blockers'].append(dict(code='mileage_already_settled',text='Fahrtoriginal oder Personentag ist bereits abgerechnet.',source_ref=_ref(existing)))
                 calc['can_approve']=False;calc['can_pay']=False
         source_hash=self._basis(employee['id'])
@@ -227,7 +270,7 @@ class MileageTravel(TravelAllowances):
                 calculation=calc,source_hash=preview['source_hash'],preview_hash=preview['preview_hash'],command_hash=fingerprint),old,pdf=True)
             for claim in claims(record):
                 self.db.execute('INSERT INTO business_travel_claims(settlement_id,revision,employee_id,claim_key,source_kind,source_id,source_revision,amount_minor,content_hash) VALUES(?,?,?,?,?,?,?,?,?)',
-                    tuple(claim.values())+(_sha(claim),))
+                    tuple(claim[key] for key in ('settlement_id','revision','employee_id','claim_key','source_kind','source_id','source_revision','amount_minor'))+(_sha(claim),))
             return record
         return self._command(actor,'settlement','settlement.approve',data,save,permission='personnel.approve',own=False)
 
@@ -288,9 +331,7 @@ def validate_mileage_record(api,value,previous):
     if calc!=value['calculation'] or not calc['can_approve']:raise Problem(409,'Historische Kilometerberechnung ist nicht reproduzierbar.')
     preview=_preview_value(value['employee_id'],d,value['source_hash'],trip,sources['sites'],calc)
     if preview['preview_hash']!=value['preview_hash']:raise Problem(409,'Unpassender ursprünglicher Kilometer-Vorschauhash.')
-    expected=[dict(x,content_hash=_sha(x)) for x in claims(value)]
-    actual=[dict(r) for r in api.db.execute('SELECT * FROM business_travel_claims WHERE settlement_id=? AND revision=? ORDER BY claim_key',(value['id'],value['revision']))]
-    if sorted(expected,key=lambda x:x['claim_key'])!=actual:raise Problem(409,'Unpassende ursprüngliche Streckenbelegung.')
+    stored_claims(api,value)
     return True
 
 

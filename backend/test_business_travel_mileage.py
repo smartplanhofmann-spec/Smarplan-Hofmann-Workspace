@@ -159,8 +159,8 @@ class MileageBusinessTests(unittest.TestCase):
         self.assertEqual(self.api.approve(f.owner,x.approve_command)['result'],mileage)
         self.assertTrue(business_schema.validate_integrity(f.office))
 
-    def test_same_actual_route_original_cannot_be_claimed_by_another_employee(self):
-        x=self.x;f=self.f;x.submitted();x.approval()
+    def copied_employee_trip(self,*,extra_original=False,other_day=False):
+        x=self.x;f=self.f
         user_id=f.office.add_user('other-mileage@example.test','Synthetic-other-mileage-123','technician')
         employee=f.planning.save_employee(f.owner,dict(request_id=rid(),user_id=user_id,name='Other synthetic employee',
             weekly_minutes=1200,hourly_cost_minor=2000,employment_from='2026-01-01',employment_to=None))
@@ -178,13 +178,41 @@ class MileageBusinessTests(unittest.TestCase):
         m=body['details']['mileage'];m.update(vehicle_file_id=originals[0]['id'],declaration_file_id=originals[1]['id'])
         for index,leg in enumerate(m['legs']):
             leg.update(id=rid(),from_site_ref=_ref(sites[index]),to_site_ref=_ref(sites[1-index]),evidence_file_id=originals[1]['id'])
-        draft=self.api.save_trip(f.owner,body)['result']
-        trip=self.api.trip_action(f.owner,draft['id'],'submit',dict(request_id=rid(),employee_id=employee['id'],revision=1,
+        if extra_original:
+            extra=f.hr.upload(f.owner,dict(request_id=rid(),employee_id=employee['id'],purpose='personnel',owner_visible=True,
+                filename='additional-actual-leg.pdf',media_type='application/pdf',content_base64=base64.b64encode(b'%PDF-1.4\nActual additional route original Y\n%%EOF').decode()))
+            body['details']['source_file_ids'].append(extra['id']);m['legs'][1]['evidence_file_id']=extra['id']
+        if other_day:
+            for key in ('departed_at','returned_at'):body['details'][key]=body['details'][key].replace('2026-10-26','2026-10-27')
+            for leg in m['legs']:
+                for key in ('departed_at','arrived_at'):leg[key]=leg[key].replace('2026-10-26','2026-10-27')
+        body['details']['project_id']=None
+        actor=dict(id=user_id,email='other-mileage@example.test',role='technician')
+        draft=self.api.save_trip(actor,body)['result']
+        trip=self.api.trip_action(actor,draft['id'],'submit',dict(request_id=rid(),employee_id=employee['id'],revision=1,
             source_hash=self.api._basis(employee['id']),confirmed=True))['result']
+        return employee,trip
+
+    def test_same_actual_route_original_cannot_be_claimed_by_another_employee(self):
+        x=self.x;f=self.f;x.submitted();x.approval()
+        employee,trip=self.copied_employee_trip()
         preview=self.api.preview(f.owner,dict(x.preview_input,employee_id=employee['id'],trip_refs=[_ref(trip)]))
         self.assertFalse(preview['can_approve'])
         blocker=next(v for v in preview['blockers'] if v['code']=='mileage_original_already_settled')
         self.assertIsNone(blocker['source_ref'])
+
+    def test_used_original_cannot_be_reused_inside_a_larger_bundle_on_another_day(self):
+        x=self.x;f=self.f;x.submitted();original=x.approval()
+        employee,trip=self.copied_employee_trip(extra_original=True,other_day=True)
+        proposal=dict(x.preview_input,employee_id=employee['id'],trip_refs=[_ref(trip)],period_from='2026-10-27',period_to='2026-10-27')
+        preview=self.api.preview(f.owner,proposal)
+        self.failure(409,lambda:self.api.approve(f.owner,dict(proposal,request_id=rid(),id=rid(),revision=0,
+            source_hash=preview['source_hash'],preview_hash=preview['preview_hash'],confirmed=True)))
+        self.assertFalse(preview['can_approve'])
+        blocker=next(v for v in preview['blockers'] if v['code']=='mileage_original_already_settled')
+        self.assertIsNone(blocker['source_ref'])
+        self.assertEqual(f.office.db.execute('SELECT COUNT(*) FROM business_travel_settlements').fetchone()[0],1)
+        self.assertEqual(self.api.approve(f.owner,x.approve_command)['result'],original)
 
     def test_negative_correction_preserves_actual_cash_until_real_refund(self):
         x=self.x;f=self.f;x.submitted();old=x.approval()

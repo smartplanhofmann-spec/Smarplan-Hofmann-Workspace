@@ -1,0 +1,8 @@
+test_actual_mfa_cash_bank_euer_company_archive_and_frozen_dump_restore (online.test_business_travel_mileage_pg.MileagePostgres.test_actual_mfa_cash_bank_euer_company_archive_and_frozen_dump_restore) ... ok
+test_concurrent_other_person_and_day_overlapping_originals_allow_only_one_settlement (online.test_business_travel_mileage_pg.MileagePostgres.test_concurrent_other_person_and_day_overlapping_originals_allow_only_one_settlement) ... ok
+test_two_actual_postgresql_connections_claim_one_original_day_and_retry_one_payment (online.test_business_travel_mileage_pg.MileagePostgres.test_two_actual_postgresql_connections_claim_one_original_day_and_retry_one_payment) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 53.147s
+
+OK

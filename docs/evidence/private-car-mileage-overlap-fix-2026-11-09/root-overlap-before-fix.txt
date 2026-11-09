@@ -1,0 +1,28 @@
+test_extra_route_proof_cannot_release_copied_original_for_another_person (test_mileage_proof_overlap_review.MileageProofOverlapReview.test_extra_route_proof_cannot_release_copied_original_for_another_person) ... FAIL
+test_extra_route_proof_cannot_release_used_original_on_another_day (test_mileage_proof_overlap_review.MileageProofOverlapReview.test_extra_route_proof_cannot_release_used_original_on_another_day) ... FAIL
+
+======================================================================
+FAIL: test_extra_route_proof_cannot_release_copied_original_for_another_person (test_mileage_proof_overlap_review.MileageProofOverlapReview.test_extra_route_proof_cannot_release_copied_original_for_another_person)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-mileage-integration-20261109/backend/test_mileage_proof_overlap_review.py", line 89, in test_extra_route_proof_cannot_release_copied_original_for_another_person
+    preview = self.assert_rejected(actor, command, '2026-10-26')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-mileage-integration-20261109/backend/test_mileage_proof_overlap_review.py", line 35, in assert_rejected
+    self.fail('The real domain accepted a second settlement containing an already claimed original plus a different second proof')
+AssertionError: The real domain accepted a second settlement containing an already claimed original plus a different second proof
+
+======================================================================
+FAIL: test_extra_route_proof_cannot_release_used_original_on_another_day (test_mileage_proof_overlap_review.MileageProofOverlapReview.test_extra_route_proof_cannot_release_used_original_on_another_day)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-mileage-integration-20261109/backend/test_mileage_proof_overlap_review.py", line 57, in test_extra_route_proof_cannot_release_used_original_on_another_day
+    self.assert_rejected(self.f.technician, command, '2026-10-27')
+  File "/workspace/smartplan-mileage-integration-20261109/backend/test_mileage_proof_overlap_review.py", line 35, in assert_rejected
+    self.fail('The real domain accepted a second settlement containing an already claimed original plus a different second proof')
+AssertionError: The real domain accepted a second settlement containing an already claimed original plus a different second proof
+
+----------------------------------------------------------------------
+Ran 2 tests in 2.445s
+
+FAILED (failures=2)

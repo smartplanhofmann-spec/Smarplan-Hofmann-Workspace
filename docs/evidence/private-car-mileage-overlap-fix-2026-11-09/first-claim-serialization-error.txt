@@ -1,0 +1,237 @@
+test_actual_own_submission_independent_approval_and_unchanged_receipts (test_business_travel_mileage.MileageBusinessTests.test_actual_own_submission_independent_approval_and_unchanged_receipts) ... ERROR
+test_actual_partial_cash_euer_and_private_boundary (test_business_travel_mileage.MileageBusinessTests.test_actual_partial_cash_euer_and_private_boundary) ... ERROR
+test_default_v3_still_calculates_after_new_v4_and_keeps_both_originals (test_business_travel_mileage.MileageBusinessTests.test_default_v3_still_calculates_after_new_v4_and_keeps_both_originals) ... ERROR
+test_false_declaration_and_fresh_privacy_rights_and_http_shapes (test_business_travel_mileage.MileageBusinessTests.test_false_declaration_and_fresh_privacy_rights_and_http_shapes) ... ok
+test_negative_correction_preserves_actual_cash_until_real_refund (test_business_travel_mileage.MileageBusinessTests.test_negative_correction_preserves_actual_cash_until_real_refund) ... ERROR
+test_new_payment_rechecks_originals_and_rejects_advances_and_legacy_write_path (test_business_travel_mileage.MileageBusinessTests.test_new_payment_rechecks_originals_and_rejects_advances_and_legacy_write_path) ... ERROR
+test_no_payment_before_approval_no_self_approval_and_no_double_person_day (test_business_travel_mileage.MileageBusinessTests.test_no_payment_before_approval_no_self_approval_and_no_double_person_day) ... ERROR
+test_same_actual_route_original_cannot_be_claimed_by_another_employee (test_business_travel_mileage.MileageBusinessTests.test_same_actual_route_original_cannot_be_claimed_by_another_employee) ... ERROR
+test_used_original_cannot_be_reused_inside_a_larger_bundle_on_another_day (test_business_travel_mileage.MileageBusinessTests.test_used_original_cannot_be_reused_inside_a_larger_bundle_on_another_day) ... ERROR
+
+======================================================================
+ERROR: test_actual_own_submission_independent_approval_and_unchanged_receipts (test_business_travel_mileage.MileageBusinessTests.test_actual_own_submission_independent_approval_and_unchanged_receipts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 81, in test_actual_own_submission_independent_approval_and_unchanged_receipts
+    x=self.x;f=self.f;trip=x.submitted();settlement=x.approval()
+                                                    ^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 68, in approval
+    self.settlement=self.api.approve(f.owner,self.approve_command)['result']
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 275, in approve
+    return self._command(actor,'settlement','settlement.approve',data,save,permission='personnel.approve',own=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 277, in _command
+    return self._receipt(row,fresh)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 250, in _receipt
+    self._read_sources(actor,item);validate_record(self,item)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 597, in validate_record
+    return validate_mileage_record(api,value,previous)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 334, in validate_mileage_record
+    stored_claims(api,value)
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 78, in stored_claims
+    raise Problem(409,'Unpassende ursprüngliche Streckenbelegung.')
+core.Problem: (409, 'Unpassende ursprüngliche Streckenbelegung.')
+
+======================================================================
+ERROR: test_actual_partial_cash_euer_and_private_boundary (test_business_travel_mileage.MileageBusinessTests.test_actual_partial_cash_euer_and_private_boundary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 119, in test_actual_partial_cash_euer_and_private_boundary
+    x=self.x;f=self.f;x.submitted();settlement=x.approval()
+                                               ^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 68, in approval
+    self.settlement=self.api.approve(f.owner,self.approve_command)['result']
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 275, in approve
+    return self._command(actor,'settlement','settlement.approve',data,save,permission='personnel.approve',own=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 277, in _command
+    return self._receipt(row,fresh)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 250, in _receipt
+    self._read_sources(actor,item);validate_record(self,item)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 597, in validate_record
+    return validate_mileage_record(api,value,previous)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 334, in validate_mileage_record
+    stored_claims(api,value)
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 78, in stored_claims
+    raise Problem(409,'Unpassende ursprüngliche Streckenbelegung.')
+core.Problem: (409, 'Unpassende ursprüngliche Streckenbelegung.')
+
+======================================================================
+ERROR: test_default_v3_still_calculates_after_new_v4_and_keeps_both_originals (test_business_travel_mileage.MileageBusinessTests.test_default_v3_still_calculates_after_new_v4_and_keeps_both_originals)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 144, in test_default_v3_still_calculates_after_new_v4_and_keeps_both_originals
+    x=self.x;f=self.f;x.submitted();mileage=x.approval()
+                                            ^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 68, in approval
+    self.settlement=self.api.approve(f.owner,self.approve_command)['result']
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 275, in approve
+    return self._command(actor,'settlement','settlement.approve',data,save,permission='personnel.approve',own=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 277, in _command
+    return self._receipt(row,fresh)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 250, in _receipt
+    self._read_sources(actor,item);validate_record(self,item)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 597, in validate_record
+    return validate_mileage_record(api,value,previous)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 334, in validate_mileage_record
+    stored_claims(api,value)
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 78, in stored_claims
+    raise Problem(409,'Unpassende ursprüngliche Streckenbelegung.')
+core.Problem: (409, 'Unpassende ursprüngliche Streckenbelegung.')
+
+======================================================================
+ERROR: test_negative_correction_preserves_actual_cash_until_real_refund (test_business_travel_mileage.MileageBusinessTests.test_negative_correction_preserves_actual_cash_until_real_refund)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 218, in test_negative_correction_preserves_actual_cash_until_real_refund
+    x=self.x;f=self.f;x.submitted();old=x.approval()
+                                        ^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 68, in approval
+    self.settlement=self.api.approve(f.owner,self.approve_command)['result']
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 275, in approve
+    return self._command(actor,'settlement','settlement.approve',data,save,permission='personnel.approve',own=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 277, in _command
+    return self._receipt(row,fresh)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 250, in _receipt
+    self._read_sources(actor,item);validate_record(self,item)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 597, in validate_record
+    return validate_mileage_record(api,value,previous)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 334, in validate_mileage_record
+    stored_claims(api,value)
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 78, in stored_claims
+    raise Problem(409,'Unpassende ursprüngliche Streckenbelegung.')
+core.Problem: (409, 'Unpassende ursprüngliche Streckenbelegung.')
+
+======================================================================
+ERROR: test_new_payment_rechecks_originals_and_rejects_advances_and_legacy_write_path (test_business_travel_mileage.MileageBusinessTests.test_new_payment_rechecks_originals_and_rejects_advances_and_legacy_write_path)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 135, in test_new_payment_rechecks_originals_and_rejects_advances_and_legacy_write_path
+    x=self.x;f=self.f;x.submitted();settlement=x.approval()
+                                               ^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 68, in approval
+    self.settlement=self.api.approve(f.owner,self.approve_command)['result']
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 275, in approve
+    return self._command(actor,'settlement','settlement.approve',data,save,permission='personnel.approve',own=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 277, in _command
+    return self._receipt(row,fresh)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 250, in _receipt
+    self._read_sources(actor,item);validate_record(self,item)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 597, in validate_record
+    return validate_mileage_record(api,value,previous)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 334, in validate_mileage_record
+    stored_claims(api,value)
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 78, in stored_claims
+    raise Problem(409,'Unpassende ursprüngliche Streckenbelegung.')
+core.Problem: (409, 'Unpassende ursprüngliche Streckenbelegung.')
+
+======================================================================
+ERROR: test_no_payment_before_approval_no_self_approval_and_no_double_person_day (test_business_travel_mileage.MileageBusinessTests.test_no_payment_before_approval_no_self_approval_and_no_double_person_day)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 111, in test_no_payment_before_approval_no_self_approval_and_no_double_person_day
+    x.approval()
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 68, in approval
+    self.settlement=self.api.approve(f.owner,self.approve_command)['result']
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 275, in approve
+    return self._command(actor,'settlement','settlement.approve',data,save,permission='personnel.approve',own=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 277, in _command
+    return self._receipt(row,fresh)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 250, in _receipt
+    self._read_sources(actor,item);validate_record(self,item)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 597, in validate_record
+    return validate_mileage_record(api,value,previous)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 334, in validate_mileage_record
+    stored_claims(api,value)
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 78, in stored_claims
+    raise Problem(409,'Unpassende ursprüngliche Streckenbelegung.')
+core.Problem: (409, 'Unpassende ursprüngliche Streckenbelegung.')
+
+======================================================================
+ERROR: test_same_actual_route_original_cannot_be_claimed_by_another_employee (test_business_travel_mileage.MileageBusinessTests.test_same_actual_route_original_cannot_be_claimed_by_another_employee)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 197, in test_same_actual_route_original_cannot_be_claimed_by_another_employee
+    x=self.x;f=self.f;x.submitted();x.approval()
+                                    ^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 68, in approval
+    self.settlement=self.api.approve(f.owner,self.approve_command)['result']
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 275, in approve
+    return self._command(actor,'settlement','settlement.approve',data,save,permission='personnel.approve',own=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 277, in _command
+    return self._receipt(row,fresh)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 250, in _receipt
+    self._read_sources(actor,item);validate_record(self,item)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 597, in validate_record
+    return validate_mileage_record(api,value,previous)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 334, in validate_mileage_record
+    stored_claims(api,value)
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 78, in stored_claims
+    raise Problem(409,'Unpassende ursprüngliche Streckenbelegung.')
+core.Problem: (409, 'Unpassende ursprüngliche Streckenbelegung.')
+
+======================================================================
+ERROR: test_used_original_cannot_be_reused_inside_a_larger_bundle_on_another_day (test_business_travel_mileage.MileageBusinessTests.test_used_original_cannot_be_reused_inside_a_larger_bundle_on_another_day)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 205, in test_used_original_cannot_be_reused_inside_a_larger_bundle_on_another_day
+    x=self.x;f=self.f;x.submitted();original=x.approval()
+                                             ^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/test_business_travel_mileage.py", line 68, in approval
+    self.settlement=self.api.approve(f.owner,self.approve_command)['result']
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 275, in approve
+    return self._command(actor,'settlement','settlement.approve',data,save,permission='personnel.approve',own=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 277, in _command
+    return self._receipt(row,fresh)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 250, in _receipt
+    self._read_sources(actor,item);validate_record(self,item)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_allowances.py", line 597, in validate_record
+    return validate_mileage_record(api,value,previous)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 334, in validate_mileage_record
+    stored_claims(api,value)
+  File "/workspace/smartplan-private-car-backend-20261109/backend/business_travel_mileage.py", line 78, in stored_claims
+    raise Problem(409,'Unpassende ursprüngliche Streckenbelegung.')
+core.Problem: (409, 'Unpassende ursprüngliche Streckenbelegung.')
+
+----------------------------------------------------------------------
+Ran 9 tests in 9.567s
+
+FAILED (errors=8)

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-09",
+  "parent": "ae0c851c9b7f3b99736c29f99da24cee070185d0",
+  "scope": "individual_original_reservations_and_legacy_bundle_overlap",
+  "historical_kernels_unchanged": 32,
+  "client_fixture_unchanged": true,
+  "synthetic_container_removed": true,
+  "final_results": {
+    "combined_tests": 54,
+    "combined_seconds": 39.33,
+    "root_counterexamples": 2,
+    "root_seconds": 2.195,
+    "postgresql_tests": 3,
+    "postgresql_seconds": 53.147,
+    "legacy_correction_tests": 1,
+    "legacy_seconds": 0.835
+  },
+  "sha256": {
+    "backend/business_travel_allowances.py": "e781d3029f225d6e1cc85ff60bfa08eca073672a8af0fb11f2f896f044ebb624",
+    "backend/business_travel_mileage.py": "baec61afb0da9627975219d640c8f1ad02148808e905bfc5334230f336d94850",
+    "backend/online/test_business_travel_mileage_pg.py": "5e49bf49f8753c1a878ba88aafedfcc7e04b2383c8ea597e723df873139ee88a",
+    "backend/test_business_travel_mileage.py": "58604ec99d62a1a2c000fc9c974d4006df9b8722032e9e9b75d95ecf4a4d86b4",
+    "backend/test_mileage_legacy_bundle_originals.py": "c21054a2ee107cec99cb53ed09db8e556cddbcea6c0dc6c7de475aba529cd7e1",
+    "backend/testdata/mileage_legacy_bundle.json": "315645f0282773e39149b07d42936c3bd1aa00955578fa73fa848788cdf415ba",
+    "backend/testdata/mileage_legacy_bundle.sqlite3.gz": "ab5a36a436617489a723641c3a3d615718e067ed7350b8551ea076f6819be78c",
+    "docs/evidence/private-car-mileage-overlap-fix-2026-11-09/actual-legacy-bundle-correction.txt": "75f9e6c1dd61f72262a37d2ce0e80791605278c950a8d4625040e61366672cf5",
+    "docs/evidence/private-car-mileage-overlap-fix-2026-11-09/combined-after-fix-54.txt": "edf90cc1edbf0097a4c1e5c5142778370228dab18e2b7bb1bfe5ce63a01d0b82",
+    "docs/evidence/private-car-mileage-overlap-fix-2026-11-09/container-cleanup.txt": "c24ab08b3183b1dde4262c8822390b9f3b2080aeda2f3dfb6cf5289ae01c0dea",
+    "docs/evidence/private-car-mileage-overlap-fix-2026-11-09/domain-after-fix.txt": "a1a5cce76ccc694bc64bbf726281e5ce0d9f9fed5d8dbe092f00e61e88d0c419",
+    "docs/evidence/private-car-mileage-overlap-fix-2026-11-09/first-claim-serialization-error.txt": "3d54eebcc9e1b8ef5576104c78074eecb354d137e4eb7de19b877a489b68ec4a",
+    "docs/evidence/private-car-mileage-overlap-fix-2026-11-09/legacy-fixture-generation.txt": "159e2ac6416a9c92030d4bd98d0abbb35f7004da767648596ab10f4a476a21f8",
+    "docs/evidence/private-car-mileage-overlap-fix-2026-11-09/own-overlap-before-fix.txt": "5694621e9797db292ca07a5c53e8773dc1de1309d4dc4b8fdfd3480bf9fd0847",
+    "docs/evidence/private-car-mileage-overlap-fix-2026-11-09/postgresql-after-fix-3.txt": "b03cf10ec5b9752a3c773b3b70181baabe6c7854b5f1349425a0f00f65531e61",
+    "docs/evidence/private-car-mileage-overlap-fix-2026-11-09/root-overlap-after-fix.txt": "49075afab401a95abc1f7d9a54da9895ee2d89fe214111d605a2f61b5e252a76",
+    "docs/evidence/private-car-mileage-overlap-fix-2026-11-09/root-overlap-before-fix.txt": "c56e860ad6c8eee45ce3f4f8fa9f886fd5d7d03ba1e3e45fb8f2b486071e82ac",
+    "scripts/generate-mileage-legacy-bundle-fixture.py": "74f57ea4e18009979190d2b9cb1f6d985691560798317ab984999cb826cd2300"
+  }
+}

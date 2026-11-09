@@ -1,0 +1,1834 @@
+{
+  "actor": {
+    "email": "owner@example.test",
+    "id": "2437f8dafef342f1bfe2dadce35ab23c",
+    "role": "owner"
+  },
+  "claims": [
+    {
+      "amount_minor": 3000,
+      "claim_key": "day:692d3a6c6da546eaa1bdb720632b026d:2026-10-26",
+      "content_hash": "51301c37c436c79d8a32eaf6acd33ec9096faee73d8e8fbea3bf59f1c6421b3e",
+      "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+      "revision": 1,
+      "settlement_id": "2ff9323b4dda49fa80fef230a4b730d8",
+      "source_id": "2026-10-26",
+      "source_kind": "employee_day",
+      "source_revision": 1
+    },
+    {
+      "amount_minor": 3000,
+      "claim_key": "mileage:15b52da47df87e96546562ca4ff27ff378d12d0846b19e74ef1663aaf92e0f09",
+      "content_hash": "9423f5c86eb4ca21bf978e91405673e3390287a1ca0149e64d8977e4e9923ff5",
+      "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+      "revision": 1,
+      "settlement_id": "2ff9323b4dda49fa80fef230a4b730d8",
+      "source_id": "6225588cf5924e3dbc6178c042dee0d5",
+      "source_kind": "mileage",
+      "source_revision": 2
+    }
+  ],
+  "employee": {
+    "active": true,
+    "employment_from": null,
+    "employment_to": null,
+    "hourly_cost_minor": 3500,
+    "id": "692d3a6c6da546eaa1bdb720632b026d",
+    "name": "Synthetic technician",
+    "revision": 1,
+    "updated_at": "2026-10-26T12:00:00+00:00",
+    "user_id": "f9b916c96b6448a9a2fe85a49c9f1f03",
+    "weekly_minutes": 2400
+  },
+  "employee_actor": {
+    "email": "technician@example.test",
+    "id": "f9b916c96b6448a9a2fe85a49c9f1f03",
+    "role": "technician"
+  },
+  "payment": {
+    "actor_id": "2437f8dafef342f1bfe2dadce35ab23c",
+    "confirmed": true,
+    "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+    "operation": "payment.record",
+    "request_hash": "20e7c48ef376e495ecd10eb12a7f4b68ddd83c7d12d37d36f46be605a8532cb6",
+    "request_id": "f5ef5a3152964706a4f689e0447eef56",
+    "result": {
+      "after_payment_sequence": 0,
+      "available_before_minor": 3000,
+      "command_hash": "20e7c48ef376e495ecd10eb12a7f4b68ddd83c7d12d37d36f46be605a8532cb6",
+      "content_hash": "88ba170131125c05aed39c3d5eee3862567537abe439f611647f9b9be936c6ea",
+      "created_at": "2026-11-03T12:00:00+00:00",
+      "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+      "details": {
+        "account_id": "0d7d50138264475092d34f1cadf69931",
+        "account_revision": 1,
+        "action": "record",
+        "amount_minor": 3000,
+        "correction_reason": "",
+        "instance_id": "a8f845826f044994ba8a8acaf620427c",
+        "kind": "reimbursement",
+        "paid_on": "2026-10-27",
+        "reference": "Bank 4b99b81f47f14e30867d10ab07824e45",
+        "reference_file_id": "96e30bfaca6d46b89e379400a878e1a3",
+        "settlement_ref": {
+          "content_hash": "057711848890d24291e6688eb4bbc26ba9305641c643887ad20c5a2520f7acf8",
+          "id": "2ff9323b4dda49fa80fef230a4b730d8",
+          "revision": 1
+        }
+      },
+      "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+      "id": "9bbbc97a64a549d5b577f3660dbd6f87",
+      "kind": "payment",
+      "paid_before_minor": 0,
+      "previous_hash": null,
+      "revision": 1,
+      "schema_version": 1,
+      "sources": {
+        "account": {
+          "active": true,
+          "code": "1200",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+          "currency": "EUR",
+          "id": "0d7d50138264475092d34f1cadf69931",
+          "kind": "bank",
+          "name": "Actual bank",
+          "revision": 1
+        },
+        "files": [
+          {
+            "content_hash": "340611d8af4c3b0e1b22953734252e7608f1a56b8fbca2d36286a4bd7667195c",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+            "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+            "filename": "nachweis.pdf",
+            "id": "96e30bfaca6d46b89e379400a878e1a3",
+            "media_type": "application/pdf",
+            "owner_visible": 0,
+            "purpose": "personnel",
+            "sha256": "d0fbde1a8b5cf25fa96fad745d7cb19533d40aa6e9be50e7404a9e3cc0a4e5a6",
+            "size": 76,
+            "supersedes": null
+          }
+        ],
+        "legacy_payment": null,
+        "payroll_processing": [],
+        "settlement": {
+          "calculation": {
+            "blockers": [],
+            "can_approve": true,
+            "can_pay": true,
+            "days": [
+              {
+                "base_minor": 0,
+                "benefit_in_kind_minor": 0,
+                "country": "Deutschland",
+                "date": "2026-10-26",
+                "letter_m": false,
+                "lodging_allowance_minor": 0,
+                "meal_allowance_minor": 0,
+                "meal_reduction_minor": 0,
+                "mileage_allowance_minor": 3000
+              }
+            ],
+            "expense_items": [],
+            "ground_calendar_sources": [],
+            "mileage_items": [
+              {
+                "distance_m": 50000,
+                "evidence_file_id": "67a60a656b3749c692303b562836fd4c",
+                "evidence_sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                "from_site_ref": {
+                  "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+                  "id": "317a97000204450d97ca1dcb5edf2f12",
+                  "revision": 2
+                },
+                "leg_id": "3e26609e85c44db69016f09d4ad4084b",
+                "rate_minor_per_km": 30,
+                "to_site_ref": {
+                  "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+                  "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+                  "revision": 2
+                },
+                "trip_ref": {
+                  "content_hash": "41f80ea52df9c4e0f4e7a1150374804a2af75616fbdb97a14cc7aebd314fca84",
+                  "id": "6225588cf5924e3dbc6178c042dee0d5",
+                  "revision": 2
+                }
+              },
+              {
+                "distance_m": 50000,
+                "evidence_file_id": "df74653f2716449f99d6da46e8a53f42",
+                "evidence_sha256": "3556fd699b874a20d34d0be5022dae4fb9f787aa2bf4f12f6799efa2dd1f334e",
+                "from_site_ref": {
+                  "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+                  "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+                  "revision": 2
+                },
+                "leg_id": "fd206426e78e442a811c111bcc2cb288",
+                "rate_minor_per_km": 30,
+                "to_site_ref": {
+                  "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+                  "id": "317a97000204450d97ca1dcb5edf2f12",
+                  "revision": 2
+                },
+                "trip_ref": {
+                  "content_hash": "41f80ea52df9c4e0f4e7a1150374804a2af75616fbdb97a14cc7aebd314fca84",
+                  "id": "6225588cf5924e3dbc6178c042dee0d5",
+                  "revision": 2
+                }
+              }
+            ],
+            "mixed_program_sources": [],
+            "payroll_required": false,
+            "rule_hash": "0cdc759efe346262a5c8ab04bb71103a115f0df26c5921a4867511d47f778f8f",
+            "rule_version": "de_travel_2026_v4_private_car",
+            "table_hash": "87e508fe0cead2db3e5c09091a3b634d9abb5df5a361175e926dc360f9abb163",
+            "totals": {
+              "already_paid_minor": 0,
+              "benefit_in_kind_minor": 0,
+              "expense_allowance_minor": 0,
+              "expense_already_paid_minor": 0,
+              "flat_taxable_minor": 0,
+              "individual_taxable_minor": 0,
+              "lodging_allowance_minor": 0,
+              "meal_allowance_minor": 0,
+              "meal_base_minor": 0,
+              "meal_reduction_minor": 0,
+              "mileage_allowance_minor": 3000,
+              "mileage_distance_m": 100000,
+              "overpaid_minor": 0,
+              "remaining_minor": 3000,
+              "requested_minor": 3000,
+              "tax_free_minor": 3000
+            },
+            "transport_sources": []
+          },
+          "command_hash": "07d2d2daf77fba5fb1ab8c0c1243e1f29de4363d0c978bae1c4715403bc52ca1",
+          "content_hash": "057711848890d24291e6688eb4bbc26ba9305641c643887ad20c5a2520f7acf8",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+          "details": {
+            "correction_of": null,
+            "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+            "period_from": "2026-10-26",
+            "period_to": "2026-10-26",
+            "requested_lodging_minor": 0,
+            "requested_meal_minor": 0,
+            "review_note": "Independent complete route and private car evidence checked",
+            "settlement_unit": "trip",
+            "tax_choice": "tax_free_only",
+            "trip_refs": [
+              {
+                "content_hash": "41f80ea52df9c4e0f4e7a1150374804a2af75616fbdb97a14cc7aebd314fca84",
+                "id": "6225588cf5924e3dbc6178c042dee0d5",
+                "revision": 2
+              }
+            ]
+          },
+          "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+          "exports": {
+            "json": {
+              "filename": "reise-2ff9323b4dda49fa80fef230a4b730d8-v1.json",
+              "media_type": "application/json",
+              "sha256": "11d61d8e679b9b50ade622ef2e5862236f3f95f907b9c431edc3778a06bab689",
+              "size": 14898
+            },
+            "pdf": {
+              "filename": "reise-2ff9323b4dda49fa80fef230a4b730d8-v1.pdf",
+              "media_type": "application/pdf",
+              "sha256": "37b15e452f9dfe45ebcd683bf695849b09b9cd2de467339bb8ca2cca7f1a522e",
+              "size": 1943
+            }
+          },
+          "id": "2ff9323b4dda49fa80fef230a4b730d8",
+          "kind": "settlement",
+          "preview_hash": "238d7245b09e8eff98eb27dc49ba037fce87ff58bd5fd385e10bd7b734b3ddf8",
+          "previous_hash": null,
+          "revision": 1,
+          "schema_version": 1,
+          "source_hash": "edc5e161064b10383bdfc36806e618353faf9b2d6aab6d8799b0e8f8f64ebe4d",
+          "sources": {
+            "after_payment_sequence": 0,
+            "employee": {
+              "id": "692d3a6c6da546eaa1bdb720632b026d",
+              "name": "Synthetic technician",
+              "revision": 1,
+              "user_id": "f9b916c96b6448a9a2fe85a49c9f1f03"
+            },
+            "expenses": [],
+            "files": [
+              {
+                "content_hash": "e9eee08662ba8fe7876451fba5e148942f5a65f566f979bf1f4528d2f1553645",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                "filename": "nachweis.pdf",
+                "id": "1a6c79b6908a4f77a976ffaffe2f7712",
+                "media_type": "application/pdf",
+                "owner_visible": 1,
+                "purpose": "personnel",
+                "sha256": "54b6b276ddcb5f90baa349da4ff272dafe27f1aef6e2504a9c21f400013cc99e",
+                "size": 92,
+                "supersedes": null
+              },
+              {
+                "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                "filename": "nachweis.pdf",
+                "id": "67a60a656b3749c692303b562836fd4c",
+                "media_type": "application/pdf",
+                "owner_visible": 1,
+                "purpose": "personnel",
+                "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                "size": 98,
+                "supersedes": null
+              },
+              {
+                "content_hash": "b5ee09d6070b184ecf824e4a5c297c9f908dfcabc297355b0ae59bdcefad000a",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                "filename": "nachweis.pdf",
+                "id": "df74653f2716449f99d6da46e8a53f42",
+                "media_type": "application/pdf",
+                "owner_visible": 1,
+                "purpose": "personnel",
+                "sha256": "3556fd699b874a20d34d0be5022dae4fb9f787aa2bf4f12f6799efa2dd1f334e",
+                "size": 80,
+                "supersedes": null
+              }
+            ],
+            "history_trips": [],
+            "sites": [
+              {
+                "command_hash": "acacbae7d34a70cef4d3a9cc2bccd7b5142be85400199766f5b4f64de65e3ba3",
+                "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+                "correction_reason": "Bind actual private personnel original",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                "details": {
+                  "address": "Synthetic address",
+                  "assignment_basis": "Reviewed assignment evidence",
+                  "effective_from": "2026-01-01",
+                  "effective_to": null,
+                  "history_complete_from": "2025-09-01",
+                  "kind": "home",
+                  "name": "Synthetic home",
+                  "prior_visit_dates": [],
+                  "rate_id": "de_2026",
+                  "regular_days_per_week": 2,
+                  "source_file_ids": [
+                    "67a60a656b3749c692303b562836fd4c"
+                  ],
+                  "timezone": "Europe/Berlin"
+                },
+                "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                "id": "317a97000204450d97ca1dcb5edf2f12",
+                "kind": "site",
+                "previous_hash": "caf0fdeaf503b759bf3d563821474f35e0029da36ba5b8946a4689ae7df3d337",
+                "revision": 2,
+                "schema_version": 1,
+                "sources": {
+                  "files": [
+                    {
+                      "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                      "created_at": "2026-11-03T12:00:00+00:00",
+                      "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                      "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                      "filename": "nachweis.pdf",
+                      "id": "67a60a656b3749c692303b562836fd4c",
+                      "media_type": "application/pdf",
+                      "owner_visible": 1,
+                      "purpose": "personnel",
+                      "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                      "size": 98,
+                      "supersedes": null
+                    }
+                  ]
+                },
+                "status": "active"
+              },
+              {
+                "command_hash": "c6e2c4980c31565db039fae283c1a82de05f0fb94cf2f62122363399e2f5636a",
+                "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+                "correction_reason": "Bind actual private personnel original",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                "details": {
+                  "address": "Synthetic address",
+                  "assignment_basis": "Reviewed assignment evidence",
+                  "effective_from": "2026-01-01",
+                  "effective_to": null,
+                  "history_complete_from": "2025-09-01",
+                  "kind": "external_fixed",
+                  "name": "Synthetic external_fixed",
+                  "prior_visit_dates": [],
+                  "rate_id": "de_2026",
+                  "regular_days_per_week": 2,
+                  "source_file_ids": [
+                    "67a60a656b3749c692303b562836fd4c"
+                  ],
+                  "timezone": "Europe/Berlin"
+                },
+                "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+                "kind": "site",
+                "previous_hash": "b65d7d7188ac576979fd191245337ab2b25f2d862c1fdf171996c4a8f06c79ba",
+                "revision": 2,
+                "schema_version": 1,
+                "sources": {
+                  "files": [
+                    {
+                      "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                      "created_at": "2026-11-03T12:00:00+00:00",
+                      "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                      "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                      "filename": "nachweis.pdf",
+                      "id": "67a60a656b3749c692303b562836fd4c",
+                      "media_type": "application/pdf",
+                      "owner_visible": 1,
+                      "purpose": "personnel",
+                      "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                      "size": 98,
+                      "supersedes": null
+                    }
+                  ]
+                },
+                "status": "active"
+              }
+            ],
+            "trips": [
+              {
+                "command_hash": "1a7b85f7df054a7b31fbf3a90e6a563e5e637aff30155480efddb8f17f4df131",
+                "content_hash": "41f80ea52df9c4e0f4e7a1150374804a2af75616fbdb97a14cc7aebd314fca84",
+                "correction_reason": "",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "f9b916c96b6448a9a2fe85a49c9f1f03",
+                "decision": null,
+                "details": {
+                  "departed_at": "2026-10-26T08:00:00+01:00",
+                  "first_workplace_ref": null,
+                  "home_site_ref": {
+                    "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+                    "id": "317a97000204450d97ca1dcb5edf2f12",
+                    "revision": 2
+                  },
+                  "mileage": {
+                    "declaration_file_id": "67a60a656b3749c692303b562836fd4c",
+                    "employee_bears_vehicle_costs": true,
+                    "legs": [
+                      {
+                        "arrived_at": "2026-10-26T09:00:00+01:00",
+                        "departed_at": "2026-10-26T08:00:00+01:00",
+                        "distance_m": 50000,
+                        "evidence_file_id": "67a60a656b3749c692303b562836fd4c",
+                        "from_site_ref": {
+                          "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+                          "id": "317a97000204450d97ca1dcb5edf2f12",
+                          "revision": 2
+                        },
+                        "id": "3e26609e85c44db69016f09d4ad4084b",
+                        "to_site_ref": {
+                          "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+                          "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+                          "revision": 2
+                        }
+                      },
+                      {
+                        "arrived_at": "2026-10-26T13:00:00+01:00",
+                        "departed_at": "2026-10-26T12:00:00+01:00",
+                        "distance_m": 50000,
+                        "evidence_file_id": "df74653f2716449f99d6da46e8a53f42",
+                        "from_site_ref": {
+                          "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+                          "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+                          "revision": 2
+                        },
+                        "id": "fd206426e78e442a811c111bcc2cb288",
+                        "to_site_ref": {
+                          "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+                          "id": "317a97000204450d97ca1dcb5edf2f12",
+                          "revision": 2
+                        }
+                      }
+                    ],
+                    "no_collection_point_or_wide_area": true,
+                    "no_commuting_or_family_home": true,
+                    "no_employer_vehicle": true,
+                    "no_other_reimbursement": true,
+                    "only_business_travel": true,
+                    "review_note": "Actual complete private-car journey and own vehicle costs evidenced",
+                    "schema_version": 1,
+                    "vehicle_file_id": "1a6c79b6908a4f77a976ffaffe2f7712",
+                    "vehicle_kind": "private_car",
+                    "vehicle_registration": "SYNTHETIC-1"
+                  },
+                  "project_id": "1464ae1185ba445d8968aaf9d4438963",
+                  "purpose": "Actual domestic customer measurement",
+                  "returned_at": "2026-10-26T13:00:00+01:00",
+                  "source_file_ids": [
+                    "1a6c79b6908a4f77a976ffaffe2f7712",
+                    "67a60a656b3749c692303b562836fd4c",
+                    "df74653f2716449f99d6da46e8a53f42"
+                  ],
+                  "timezone": "Europe/Berlin"
+                },
+                "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                "id": "6225588cf5924e3dbc6178c042dee0d5",
+                "kind": "trip",
+                "previous_hash": "7c39f6d221eff9fb2ff0bfb1c098955a3b85dd6f52b3fe2272692361f2847a67",
+                "revision": 2,
+                "rule_version": "de_travel_2026_v4_private_car",
+                "schema_version": 1,
+                "sources": {
+                  "expenses": [],
+                  "files": [
+                    {
+                      "content_hash": "e9eee08662ba8fe7876451fba5e148942f5a65f566f979bf1f4528d2f1553645",
+                      "created_at": "2026-11-03T12:00:00+00:00",
+                      "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                      "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                      "filename": "nachweis.pdf",
+                      "id": "1a6c79b6908a4f77a976ffaffe2f7712",
+                      "media_type": "application/pdf",
+                      "owner_visible": 1,
+                      "purpose": "personnel",
+                      "sha256": "54b6b276ddcb5f90baa349da4ff272dafe27f1aef6e2504a9c21f400013cc99e",
+                      "size": 92,
+                      "supersedes": null
+                    },
+                    {
+                      "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                      "created_at": "2026-11-03T12:00:00+00:00",
+                      "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                      "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                      "filename": "nachweis.pdf",
+                      "id": "67a60a656b3749c692303b562836fd4c",
+                      "media_type": "application/pdf",
+                      "owner_visible": 1,
+                      "purpose": "personnel",
+                      "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                      "size": 98,
+                      "supersedes": null
+                    },
+                    {
+                      "content_hash": "b5ee09d6070b184ecf824e4a5c297c9f908dfcabc297355b0ae59bdcefad000a",
+                      "created_at": "2026-11-03T12:00:00+00:00",
+                      "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                      "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                      "filename": "nachweis.pdf",
+                      "id": "df74653f2716449f99d6da46e8a53f42",
+                      "media_type": "application/pdf",
+                      "owner_visible": 1,
+                      "purpose": "personnel",
+                      "sha256": "3556fd699b874a20d34d0be5022dae4fb9f787aa2bf4f12f6799efa2dd1f334e",
+                      "size": 80,
+                      "supersedes": null
+                    }
+                  ],
+                  "sites": [
+                    {
+                      "command_hash": "acacbae7d34a70cef4d3a9cc2bccd7b5142be85400199766f5b4f64de65e3ba3",
+                      "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+                      "correction_reason": "Bind actual private personnel original",
+                      "created_at": "2026-11-03T12:00:00+00:00",
+                      "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                      "details": {
+                        "address": "Synthetic address",
+                        "assignment_basis": "Reviewed assignment evidence",
+                        "effective_from": "2026-01-01",
+                        "effective_to": null,
+                        "history_complete_from": "2025-09-01",
+                        "kind": "home",
+                        "name": "Synthetic home",
+                        "prior_visit_dates": [],
+                        "rate_id": "de_2026",
+                        "regular_days_per_week": 2,
+                        "source_file_ids": [
+                          "67a60a656b3749c692303b562836fd4c"
+                        ],
+                        "timezone": "Europe/Berlin"
+                      },
+                      "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                      "id": "317a97000204450d97ca1dcb5edf2f12",
+                      "kind": "site",
+                      "previous_hash": "caf0fdeaf503b759bf3d563821474f35e0029da36ba5b8946a4689ae7df3d337",
+                      "revision": 2,
+                      "schema_version": 1,
+                      "sources": {
+                        "files": [
+                          {
+                            "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                            "created_at": "2026-11-03T12:00:00+00:00",
+                            "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                            "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                            "filename": "nachweis.pdf",
+                            "id": "67a60a656b3749c692303b562836fd4c",
+                            "media_type": "application/pdf",
+                            "owner_visible": 1,
+                            "purpose": "personnel",
+                            "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                            "size": 98,
+                            "supersedes": null
+                          }
+                        ]
+                      },
+                      "status": "active"
+                    },
+                    {
+                      "command_hash": "c6e2c4980c31565db039fae283c1a82de05f0fb94cf2f62122363399e2f5636a",
+                      "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+                      "correction_reason": "Bind actual private personnel original",
+                      "created_at": "2026-11-03T12:00:00+00:00",
+                      "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                      "details": {
+                        "address": "Synthetic address",
+                        "assignment_basis": "Reviewed assignment evidence",
+                        "effective_from": "2026-01-01",
+                        "effective_to": null,
+                        "history_complete_from": "2025-09-01",
+                        "kind": "external_fixed",
+                        "name": "Synthetic external_fixed",
+                        "prior_visit_dates": [],
+                        "rate_id": "de_2026",
+                        "regular_days_per_week": 2,
+                        "source_file_ids": [
+                          "67a60a656b3749c692303b562836fd4c"
+                        ],
+                        "timezone": "Europe/Berlin"
+                      },
+                      "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                      "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+                      "kind": "site",
+                      "previous_hash": "b65d7d7188ac576979fd191245337ab2b25f2d862c1fdf171996c4a8f06c79ba",
+                      "revision": 2,
+                      "schema_version": 1,
+                      "sources": {
+                        "files": [
+                          {
+                            "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                            "created_at": "2026-11-03T12:00:00+00:00",
+                            "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                            "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                            "filename": "nachweis.pdf",
+                            "id": "67a60a656b3749c692303b562836fd4c",
+                            "media_type": "application/pdf",
+                            "owner_visible": 1,
+                            "purpose": "personnel",
+                            "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                            "size": 98,
+                            "supersedes": null
+                          }
+                        ]
+                      },
+                      "status": "active"
+                    }
+                  ]
+                },
+                "status": "submitted",
+                "submitted_at": "2026-11-03T12:00:00+00:00",
+                "submitted_by": "f9b916c96b6448a9a2fe85a49c9f1f03"
+              }
+            ]
+          },
+          "status": "approved"
+        }
+      },
+      "status": "active"
+    },
+    "result_hash": "9eccd8472a33f38b897dc990784ad531d756e4a66a5659f95bbaabe3abe655f9",
+    "revision": 1,
+    "target_id": "9bbbc97a64a549d5b577f3660dbd6f87",
+    "target_kind": "payment"
+  },
+  "payment_command": {
+    "account_id": "0d7d50138264475092d34f1cadf69931",
+    "account_revision": 1,
+    "action": "record",
+    "amount_minor": 3000,
+    "confirmed": true,
+    "correction_reason": "",
+    "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+    "id": "9bbbc97a64a549d5b577f3660dbd6f87",
+    "instance_id": "a8f845826f044994ba8a8acaf620427c",
+    "kind": "reimbursement",
+    "paid_on": "2026-10-27",
+    "reference": "Bank 4b99b81f47f14e30867d10ab07824e45",
+    "reference_file_id": "96e30bfaca6d46b89e379400a878e1a3",
+    "request_id": "f5ef5a3152964706a4f689e0447eef56",
+    "revision": 0,
+    "settlement_ref": {
+      "content_hash": "057711848890d24291e6688eb4bbc26ba9305641c643887ad20c5a2520f7acf8",
+      "id": "2ff9323b4dda49fa80fef230a4b730d8",
+      "revision": 1
+    },
+    "source_hash": "c799e9558ab3cdfdd110be747f7f26ee3ae34449dff57955af42a302f45c8c48"
+  },
+  "pdf_base64": "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSCj4+CmVuZG9iagoyIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMSAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjMgMCBvYmoKPDwKL0NvbnRlbnRzIDcgMCBSIC9NZWRpYUJveCBbIDAgMCA1OTUuMjc1NiA4NDEuODg5OCBdIC9QYXJlbnQgNiAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKNCAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDYgMCBSIC9UeXBlIC9DYXRhbG9nCj4+CmVuZG9iago1IDAgb2JqCjw8Ci9BdXRob3IgKFNtYXJ0cGxhbikgL0NyZWF0aW9uRGF0ZSAoRDoyMDAwMDEwMTAwMDAwMCswMCcwMCcpIC9DcmVhdG9yIChcKHVuc3BlY2lmaWVkXCkpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDAwMDEwMTAwMDAwMCswMCcwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0IChcKHVuc3BlY2lmaWVkXCkpIC9UaXRsZSAoUmVpc2VhYnJlY2hudW5nKSAvVHJhcHBlZCAvRmFsc2UKPj4KZW5kb2JqCjYgMCBvYmoKPDwKL0NvdW50IDEgL0tpZHMgWyAzIDAgUiBdIC9UeXBlIC9QYWdlcwo+PgplbmRvYmoKNyAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCA2NzUKPj4Kc3RyZWFtCkdhdUkzZ1ElYVcmO0taRidRX3IuOSZeS2dFbjxJUlErR15lKEtHMmIuNUVULSloTHVKLGpPLS4jWlolUCNxQnBsLzpmb25jWzk2SyVnUFJWVEFTPDNpJHM8Pio9IjI+Lj1lSVFLJmQkaC1GNGRNcmQvMm41b0IpWydaQ1tPKzlzdGk+V0pSbXIiPiJrbS5zUUYqKGs9KD9APjt0VS5IQTs8SERoRz06OmdyYDRdQnU6X2ImMWNFby9gPzo0OShPdUhcLzpHaSdwWTErY3BoXyQ/KUsiWlNFJmsqQyorXUZaaDdgQyg8PUZsMGZiYyFAXy88PTBGSSRARDBLNyRwIWpMX25YXC5sJjhbdDpOTU5OXl5gJSImOnMxTWBGViwsVS1PRks/ZnJBVnAnZUVua25QTmBeMyYnNytfIVMlWi11ailMOCMyWzYrUkUiRkstLToyaGBGM2BwdDxHUzlxXEE8ZjlaYDVvWGhBYTIlZ0Q7YDVoKmotMGBsQGNIWz9OLjBmOWlaMWNiPDgqKj1fUUVINldBWkIxcSFIXShPUjU+RC5PUyI4PkA8aEstZ1xDcThCcG8qNT1cT2Y3S2ZOK1JmIlZrZytKZGtRIUg5RVFqaldKYiJtVVNYbzZZUzd1U3BKVVErPCckK3AjZT0hM15jOVVzOFBydS5hSyEwbC4/WS4rX1A7c2E0U0JmX2ksTylmb21NNlpoVkJPSVlOTVtxIVI6RU84SiZvVThZLyRjY2tSJEJkOUloRFk/XUlAWkBCPyEmO3JpRUxlWWd1WW08I15TQDgqcDdHQXI0MUtALzgyVD03TlYsSC9uTUhgPlRJK3VuO091Qj9ubGBicFJcc3RyOW1ZcyJEO0MlRCRgRnFdNkhyMUwiSUs/J2tVXCJ+PmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDgKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAwOTIgMDAwMDAgbiAKMDAwMDAwMDE5OSAwMDAwMCBuIAowMDAwMDAwNDAyIDAwMDAwIG4gCjAwMDAwMDA0NzAgMDAwMDAgbiAKMDAwMDAwMDc0OCAwMDAwMCBuIAowMDAwMDAwODA3IDAwMDAwIG4gCnRyYWlsZXIKPDwKL0lEIApbPDA1YWQ3ZWFhOTU5YjBmYzEwNGZlYTRjYWNjNWJlMDYyPjwwNWFkN2VhYTk1OWIwZmMxMDRmZWE0Y2FjYzViZTA2Mj5dCiUgUmVwb3J0TGFiIGdlbmVyYXRlZCBQREYgZG9jdW1lbnQgLS0gZGlnZXN0IChvcGVuc291cmNlKQoKL0luZm8gNSAwIFIKL1Jvb3QgNCAwIFIKL1NpemUgOAo+PgpzdGFydHhyZWYKMTU3MgolJUVPRgo=",
+  "receipt": {
+    "actor_id": "2437f8dafef342f1bfe2dadce35ab23c",
+    "confirmed": true,
+    "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+    "operation": "settlement.approve",
+    "request_hash": "07d2d2daf77fba5fb1ab8c0c1243e1f29de4363d0c978bae1c4715403bc52ca1",
+    "request_id": "87dc88f933b04c3f8f0955ec3d1549c3",
+    "result": {
+      "calculation": {
+        "blockers": [],
+        "can_approve": true,
+        "can_pay": true,
+        "days": [
+          {
+            "base_minor": 0,
+            "benefit_in_kind_minor": 0,
+            "country": "Deutschland",
+            "date": "2026-10-26",
+            "letter_m": false,
+            "lodging_allowance_minor": 0,
+            "meal_allowance_minor": 0,
+            "meal_reduction_minor": 0,
+            "mileage_allowance_minor": 3000
+          }
+        ],
+        "expense_items": [],
+        "ground_calendar_sources": [],
+        "mileage_items": [
+          {
+            "distance_m": 50000,
+            "evidence_file_id": "67a60a656b3749c692303b562836fd4c",
+            "evidence_sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+            "from_site_ref": {
+              "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+              "id": "317a97000204450d97ca1dcb5edf2f12",
+              "revision": 2
+            },
+            "leg_id": "3e26609e85c44db69016f09d4ad4084b",
+            "rate_minor_per_km": 30,
+            "to_site_ref": {
+              "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+              "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+              "revision": 2
+            },
+            "trip_ref": {
+              "content_hash": "41f80ea52df9c4e0f4e7a1150374804a2af75616fbdb97a14cc7aebd314fca84",
+              "id": "6225588cf5924e3dbc6178c042dee0d5",
+              "revision": 2
+            }
+          },
+          {
+            "distance_m": 50000,
+            "evidence_file_id": "df74653f2716449f99d6da46e8a53f42",
+            "evidence_sha256": "3556fd699b874a20d34d0be5022dae4fb9f787aa2bf4f12f6799efa2dd1f334e",
+            "from_site_ref": {
+              "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+              "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+              "revision": 2
+            },
+            "leg_id": "fd206426e78e442a811c111bcc2cb288",
+            "rate_minor_per_km": 30,
+            "to_site_ref": {
+              "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+              "id": "317a97000204450d97ca1dcb5edf2f12",
+              "revision": 2
+            },
+            "trip_ref": {
+              "content_hash": "41f80ea52df9c4e0f4e7a1150374804a2af75616fbdb97a14cc7aebd314fca84",
+              "id": "6225588cf5924e3dbc6178c042dee0d5",
+              "revision": 2
+            }
+          }
+        ],
+        "mixed_program_sources": [],
+        "payroll_required": false,
+        "rule_hash": "0cdc759efe346262a5c8ab04bb71103a115f0df26c5921a4867511d47f778f8f",
+        "rule_version": "de_travel_2026_v4_private_car",
+        "table_hash": "87e508fe0cead2db3e5c09091a3b634d9abb5df5a361175e926dc360f9abb163",
+        "totals": {
+          "already_paid_minor": 0,
+          "benefit_in_kind_minor": 0,
+          "expense_allowance_minor": 0,
+          "expense_already_paid_minor": 0,
+          "flat_taxable_minor": 0,
+          "individual_taxable_minor": 0,
+          "lodging_allowance_minor": 0,
+          "meal_allowance_minor": 0,
+          "meal_base_minor": 0,
+          "meal_reduction_minor": 0,
+          "mileage_allowance_minor": 3000,
+          "mileage_distance_m": 100000,
+          "overpaid_minor": 0,
+          "remaining_minor": 3000,
+          "requested_minor": 3000,
+          "tax_free_minor": 3000
+        },
+        "transport_sources": []
+      },
+      "command_hash": "07d2d2daf77fba5fb1ab8c0c1243e1f29de4363d0c978bae1c4715403bc52ca1",
+      "content_hash": "057711848890d24291e6688eb4bbc26ba9305641c643887ad20c5a2520f7acf8",
+      "created_at": "2026-11-03T12:00:00+00:00",
+      "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+      "details": {
+        "correction_of": null,
+        "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+        "period_from": "2026-10-26",
+        "period_to": "2026-10-26",
+        "requested_lodging_minor": 0,
+        "requested_meal_minor": 0,
+        "review_note": "Independent complete route and private car evidence checked",
+        "settlement_unit": "trip",
+        "tax_choice": "tax_free_only",
+        "trip_refs": [
+          {
+            "content_hash": "41f80ea52df9c4e0f4e7a1150374804a2af75616fbdb97a14cc7aebd314fca84",
+            "id": "6225588cf5924e3dbc6178c042dee0d5",
+            "revision": 2
+          }
+        ]
+      },
+      "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+      "exports": {
+        "json": {
+          "filename": "reise-2ff9323b4dda49fa80fef230a4b730d8-v1.json",
+          "media_type": "application/json",
+          "sha256": "11d61d8e679b9b50ade622ef2e5862236f3f95f907b9c431edc3778a06bab689",
+          "size": 14898
+        },
+        "pdf": {
+          "filename": "reise-2ff9323b4dda49fa80fef230a4b730d8-v1.pdf",
+          "media_type": "application/pdf",
+          "sha256": "37b15e452f9dfe45ebcd683bf695849b09b9cd2de467339bb8ca2cca7f1a522e",
+          "size": 1943
+        }
+      },
+      "id": "2ff9323b4dda49fa80fef230a4b730d8",
+      "kind": "settlement",
+      "preview_hash": "238d7245b09e8eff98eb27dc49ba037fce87ff58bd5fd385e10bd7b734b3ddf8",
+      "previous_hash": null,
+      "revision": 1,
+      "schema_version": 1,
+      "source_hash": "edc5e161064b10383bdfc36806e618353faf9b2d6aab6d8799b0e8f8f64ebe4d",
+      "sources": {
+        "after_payment_sequence": 0,
+        "employee": {
+          "id": "692d3a6c6da546eaa1bdb720632b026d",
+          "name": "Synthetic technician",
+          "revision": 1,
+          "user_id": "f9b916c96b6448a9a2fe85a49c9f1f03"
+        },
+        "expenses": [],
+        "files": [
+          {
+            "content_hash": "e9eee08662ba8fe7876451fba5e148942f5a65f566f979bf1f4528d2f1553645",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+            "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+            "filename": "nachweis.pdf",
+            "id": "1a6c79b6908a4f77a976ffaffe2f7712",
+            "media_type": "application/pdf",
+            "owner_visible": 1,
+            "purpose": "personnel",
+            "sha256": "54b6b276ddcb5f90baa349da4ff272dafe27f1aef6e2504a9c21f400013cc99e",
+            "size": 92,
+            "supersedes": null
+          },
+          {
+            "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+            "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+            "filename": "nachweis.pdf",
+            "id": "67a60a656b3749c692303b562836fd4c",
+            "media_type": "application/pdf",
+            "owner_visible": 1,
+            "purpose": "personnel",
+            "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+            "size": 98,
+            "supersedes": null
+          },
+          {
+            "content_hash": "b5ee09d6070b184ecf824e4a5c297c9f908dfcabc297355b0ae59bdcefad000a",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+            "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+            "filename": "nachweis.pdf",
+            "id": "df74653f2716449f99d6da46e8a53f42",
+            "media_type": "application/pdf",
+            "owner_visible": 1,
+            "purpose": "personnel",
+            "sha256": "3556fd699b874a20d34d0be5022dae4fb9f787aa2bf4f12f6799efa2dd1f334e",
+            "size": 80,
+            "supersedes": null
+          }
+        ],
+        "history_trips": [],
+        "sites": [
+          {
+            "command_hash": "acacbae7d34a70cef4d3a9cc2bccd7b5142be85400199766f5b4f64de65e3ba3",
+            "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+            "correction_reason": "Bind actual private personnel original",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+            "details": {
+              "address": "Synthetic address",
+              "assignment_basis": "Reviewed assignment evidence",
+              "effective_from": "2026-01-01",
+              "effective_to": null,
+              "history_complete_from": "2025-09-01",
+              "kind": "home",
+              "name": "Synthetic home",
+              "prior_visit_dates": [],
+              "rate_id": "de_2026",
+              "regular_days_per_week": 2,
+              "source_file_ids": [
+                "67a60a656b3749c692303b562836fd4c"
+              ],
+              "timezone": "Europe/Berlin"
+            },
+            "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+            "id": "317a97000204450d97ca1dcb5edf2f12",
+            "kind": "site",
+            "previous_hash": "caf0fdeaf503b759bf3d563821474f35e0029da36ba5b8946a4689ae7df3d337",
+            "revision": 2,
+            "schema_version": 1,
+            "sources": {
+              "files": [
+                {
+                  "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                  "created_at": "2026-11-03T12:00:00+00:00",
+                  "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                  "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                  "filename": "nachweis.pdf",
+                  "id": "67a60a656b3749c692303b562836fd4c",
+                  "media_type": "application/pdf",
+                  "owner_visible": 1,
+                  "purpose": "personnel",
+                  "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                  "size": 98,
+                  "supersedes": null
+                }
+              ]
+            },
+            "status": "active"
+          },
+          {
+            "command_hash": "c6e2c4980c31565db039fae283c1a82de05f0fb94cf2f62122363399e2f5636a",
+            "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+            "correction_reason": "Bind actual private personnel original",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+            "details": {
+              "address": "Synthetic address",
+              "assignment_basis": "Reviewed assignment evidence",
+              "effective_from": "2026-01-01",
+              "effective_to": null,
+              "history_complete_from": "2025-09-01",
+              "kind": "external_fixed",
+              "name": "Synthetic external_fixed",
+              "prior_visit_dates": [],
+              "rate_id": "de_2026",
+              "regular_days_per_week": 2,
+              "source_file_ids": [
+                "67a60a656b3749c692303b562836fd4c"
+              ],
+              "timezone": "Europe/Berlin"
+            },
+            "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+            "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+            "kind": "site",
+            "previous_hash": "b65d7d7188ac576979fd191245337ab2b25f2d862c1fdf171996c4a8f06c79ba",
+            "revision": 2,
+            "schema_version": 1,
+            "sources": {
+              "files": [
+                {
+                  "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                  "created_at": "2026-11-03T12:00:00+00:00",
+                  "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                  "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                  "filename": "nachweis.pdf",
+                  "id": "67a60a656b3749c692303b562836fd4c",
+                  "media_type": "application/pdf",
+                  "owner_visible": 1,
+                  "purpose": "personnel",
+                  "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                  "size": 98,
+                  "supersedes": null
+                }
+              ]
+            },
+            "status": "active"
+          }
+        ],
+        "trips": [
+          {
+            "command_hash": "1a7b85f7df054a7b31fbf3a90e6a563e5e637aff30155480efddb8f17f4df131",
+            "content_hash": "41f80ea52df9c4e0f4e7a1150374804a2af75616fbdb97a14cc7aebd314fca84",
+            "correction_reason": "",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "f9b916c96b6448a9a2fe85a49c9f1f03",
+            "decision": null,
+            "details": {
+              "departed_at": "2026-10-26T08:00:00+01:00",
+              "first_workplace_ref": null,
+              "home_site_ref": {
+                "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+                "id": "317a97000204450d97ca1dcb5edf2f12",
+                "revision": 2
+              },
+              "mileage": {
+                "declaration_file_id": "67a60a656b3749c692303b562836fd4c",
+                "employee_bears_vehicle_costs": true,
+                "legs": [
+                  {
+                    "arrived_at": "2026-10-26T09:00:00+01:00",
+                    "departed_at": "2026-10-26T08:00:00+01:00",
+                    "distance_m": 50000,
+                    "evidence_file_id": "67a60a656b3749c692303b562836fd4c",
+                    "from_site_ref": {
+                      "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+                      "id": "317a97000204450d97ca1dcb5edf2f12",
+                      "revision": 2
+                    },
+                    "id": "3e26609e85c44db69016f09d4ad4084b",
+                    "to_site_ref": {
+                      "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+                      "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+                      "revision": 2
+                    }
+                  },
+                  {
+                    "arrived_at": "2026-10-26T13:00:00+01:00",
+                    "departed_at": "2026-10-26T12:00:00+01:00",
+                    "distance_m": 50000,
+                    "evidence_file_id": "df74653f2716449f99d6da46e8a53f42",
+                    "from_site_ref": {
+                      "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+                      "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+                      "revision": 2
+                    },
+                    "id": "fd206426e78e442a811c111bcc2cb288",
+                    "to_site_ref": {
+                      "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+                      "id": "317a97000204450d97ca1dcb5edf2f12",
+                      "revision": 2
+                    }
+                  }
+                ],
+                "no_collection_point_or_wide_area": true,
+                "no_commuting_or_family_home": true,
+                "no_employer_vehicle": true,
+                "no_other_reimbursement": true,
+                "only_business_travel": true,
+                "review_note": "Actual complete private-car journey and own vehicle costs evidenced",
+                "schema_version": 1,
+                "vehicle_file_id": "1a6c79b6908a4f77a976ffaffe2f7712",
+                "vehicle_kind": "private_car",
+                "vehicle_registration": "SYNTHETIC-1"
+              },
+              "project_id": "1464ae1185ba445d8968aaf9d4438963",
+              "purpose": "Actual domestic customer measurement",
+              "returned_at": "2026-10-26T13:00:00+01:00",
+              "source_file_ids": [
+                "1a6c79b6908a4f77a976ffaffe2f7712",
+                "67a60a656b3749c692303b562836fd4c",
+                "df74653f2716449f99d6da46e8a53f42"
+              ],
+              "timezone": "Europe/Berlin"
+            },
+            "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+            "id": "6225588cf5924e3dbc6178c042dee0d5",
+            "kind": "trip",
+            "previous_hash": "7c39f6d221eff9fb2ff0bfb1c098955a3b85dd6f52b3fe2272692361f2847a67",
+            "revision": 2,
+            "rule_version": "de_travel_2026_v4_private_car",
+            "schema_version": 1,
+            "sources": {
+              "expenses": [],
+              "files": [
+                {
+                  "content_hash": "e9eee08662ba8fe7876451fba5e148942f5a65f566f979bf1f4528d2f1553645",
+                  "created_at": "2026-11-03T12:00:00+00:00",
+                  "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                  "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                  "filename": "nachweis.pdf",
+                  "id": "1a6c79b6908a4f77a976ffaffe2f7712",
+                  "media_type": "application/pdf",
+                  "owner_visible": 1,
+                  "purpose": "personnel",
+                  "sha256": "54b6b276ddcb5f90baa349da4ff272dafe27f1aef6e2504a9c21f400013cc99e",
+                  "size": 92,
+                  "supersedes": null
+                },
+                {
+                  "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                  "created_at": "2026-11-03T12:00:00+00:00",
+                  "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                  "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                  "filename": "nachweis.pdf",
+                  "id": "67a60a656b3749c692303b562836fd4c",
+                  "media_type": "application/pdf",
+                  "owner_visible": 1,
+                  "purpose": "personnel",
+                  "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                  "size": 98,
+                  "supersedes": null
+                },
+                {
+                  "content_hash": "b5ee09d6070b184ecf824e4a5c297c9f908dfcabc297355b0ae59bdcefad000a",
+                  "created_at": "2026-11-03T12:00:00+00:00",
+                  "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                  "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                  "filename": "nachweis.pdf",
+                  "id": "df74653f2716449f99d6da46e8a53f42",
+                  "media_type": "application/pdf",
+                  "owner_visible": 1,
+                  "purpose": "personnel",
+                  "sha256": "3556fd699b874a20d34d0be5022dae4fb9f787aa2bf4f12f6799efa2dd1f334e",
+                  "size": 80,
+                  "supersedes": null
+                }
+              ],
+              "sites": [
+                {
+                  "command_hash": "acacbae7d34a70cef4d3a9cc2bccd7b5142be85400199766f5b4f64de65e3ba3",
+                  "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+                  "correction_reason": "Bind actual private personnel original",
+                  "created_at": "2026-11-03T12:00:00+00:00",
+                  "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                  "details": {
+                    "address": "Synthetic address",
+                    "assignment_basis": "Reviewed assignment evidence",
+                    "effective_from": "2026-01-01",
+                    "effective_to": null,
+                    "history_complete_from": "2025-09-01",
+                    "kind": "home",
+                    "name": "Synthetic home",
+                    "prior_visit_dates": [],
+                    "rate_id": "de_2026",
+                    "regular_days_per_week": 2,
+                    "source_file_ids": [
+                      "67a60a656b3749c692303b562836fd4c"
+                    ],
+                    "timezone": "Europe/Berlin"
+                  },
+                  "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                  "id": "317a97000204450d97ca1dcb5edf2f12",
+                  "kind": "site",
+                  "previous_hash": "caf0fdeaf503b759bf3d563821474f35e0029da36ba5b8946a4689ae7df3d337",
+                  "revision": 2,
+                  "schema_version": 1,
+                  "sources": {
+                    "files": [
+                      {
+                        "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                        "created_at": "2026-11-03T12:00:00+00:00",
+                        "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                        "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                        "filename": "nachweis.pdf",
+                        "id": "67a60a656b3749c692303b562836fd4c",
+                        "media_type": "application/pdf",
+                        "owner_visible": 1,
+                        "purpose": "personnel",
+                        "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                        "size": 98,
+                        "supersedes": null
+                      }
+                    ]
+                  },
+                  "status": "active"
+                },
+                {
+                  "command_hash": "c6e2c4980c31565db039fae283c1a82de05f0fb94cf2f62122363399e2f5636a",
+                  "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+                  "correction_reason": "Bind actual private personnel original",
+                  "created_at": "2026-11-03T12:00:00+00:00",
+                  "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                  "details": {
+                    "address": "Synthetic address",
+                    "assignment_basis": "Reviewed assignment evidence",
+                    "effective_from": "2026-01-01",
+                    "effective_to": null,
+                    "history_complete_from": "2025-09-01",
+                    "kind": "external_fixed",
+                    "name": "Synthetic external_fixed",
+                    "prior_visit_dates": [],
+                    "rate_id": "de_2026",
+                    "regular_days_per_week": 2,
+                    "source_file_ids": [
+                      "67a60a656b3749c692303b562836fd4c"
+                    ],
+                    "timezone": "Europe/Berlin"
+                  },
+                  "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                  "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+                  "kind": "site",
+                  "previous_hash": "b65d7d7188ac576979fd191245337ab2b25f2d862c1fdf171996c4a8f06c79ba",
+                  "revision": 2,
+                  "schema_version": 1,
+                  "sources": {
+                    "files": [
+                      {
+                        "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                        "created_at": "2026-11-03T12:00:00+00:00",
+                        "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                        "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                        "filename": "nachweis.pdf",
+                        "id": "67a60a656b3749c692303b562836fd4c",
+                        "media_type": "application/pdf",
+                        "owner_visible": 1,
+                        "purpose": "personnel",
+                        "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                        "size": 98,
+                        "supersedes": null
+                      }
+                    ]
+                  },
+                  "status": "active"
+                }
+              ]
+            },
+            "status": "submitted",
+            "submitted_at": "2026-11-03T12:00:00+00:00",
+            "submitted_by": "f9b916c96b6448a9a2fe85a49c9f1f03"
+          }
+        ]
+      },
+      "status": "approved"
+    },
+    "result_hash": "d8b3a162665257de07e4054c7fc30051e5f5050d36919c4969ab05ae4d1e0a43",
+    "revision": 1,
+    "target_id": "2ff9323b4dda49fa80fef230a4b730d8",
+    "target_kind": "settlement"
+  },
+  "settlement": {
+    "calculation": {
+      "blockers": [],
+      "can_approve": true,
+      "can_pay": true,
+      "days": [
+        {
+          "base_minor": 0,
+          "benefit_in_kind_minor": 0,
+          "country": "Deutschland",
+          "date": "2026-10-26",
+          "letter_m": false,
+          "lodging_allowance_minor": 0,
+          "meal_allowance_minor": 0,
+          "meal_reduction_minor": 0,
+          "mileage_allowance_minor": 3000
+        }
+      ],
+      "expense_items": [],
+      "ground_calendar_sources": [],
+      "mileage_items": [
+        {
+          "distance_m": 50000,
+          "evidence_file_id": "67a60a656b3749c692303b562836fd4c",
+          "evidence_sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+          "from_site_ref": {
+            "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+            "id": "317a97000204450d97ca1dcb5edf2f12",
+            "revision": 2
+          },
+          "leg_id": "3e26609e85c44db69016f09d4ad4084b",
+          "rate_minor_per_km": 30,
+          "to_site_ref": {
+            "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+            "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+            "revision": 2
+          },
+          "trip_ref": {
+            "content_hash": "41f80ea52df9c4e0f4e7a1150374804a2af75616fbdb97a14cc7aebd314fca84",
+            "id": "6225588cf5924e3dbc6178c042dee0d5",
+            "revision": 2
+          }
+        },
+        {
+          "distance_m": 50000,
+          "evidence_file_id": "df74653f2716449f99d6da46e8a53f42",
+          "evidence_sha256": "3556fd699b874a20d34d0be5022dae4fb9f787aa2bf4f12f6799efa2dd1f334e",
+          "from_site_ref": {
+            "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+            "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+            "revision": 2
+          },
+          "leg_id": "fd206426e78e442a811c111bcc2cb288",
+          "rate_minor_per_km": 30,
+          "to_site_ref": {
+            "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+            "id": "317a97000204450d97ca1dcb5edf2f12",
+            "revision": 2
+          },
+          "trip_ref": {
+            "content_hash": "41f80ea52df9c4e0f4e7a1150374804a2af75616fbdb97a14cc7aebd314fca84",
+            "id": "6225588cf5924e3dbc6178c042dee0d5",
+            "revision": 2
+          }
+        }
+      ],
+      "mixed_program_sources": [],
+      "payroll_required": false,
+      "rule_hash": "0cdc759efe346262a5c8ab04bb71103a115f0df26c5921a4867511d47f778f8f",
+      "rule_version": "de_travel_2026_v4_private_car",
+      "table_hash": "87e508fe0cead2db3e5c09091a3b634d9abb5df5a361175e926dc360f9abb163",
+      "totals": {
+        "already_paid_minor": 0,
+        "benefit_in_kind_minor": 0,
+        "expense_allowance_minor": 0,
+        "expense_already_paid_minor": 0,
+        "flat_taxable_minor": 0,
+        "individual_taxable_minor": 0,
+        "lodging_allowance_minor": 0,
+        "meal_allowance_minor": 0,
+        "meal_base_minor": 0,
+        "meal_reduction_minor": 0,
+        "mileage_allowance_minor": 3000,
+        "mileage_distance_m": 100000,
+        "overpaid_minor": 0,
+        "remaining_minor": 3000,
+        "requested_minor": 3000,
+        "tax_free_minor": 3000
+      },
+      "transport_sources": []
+    },
+    "command_hash": "07d2d2daf77fba5fb1ab8c0c1243e1f29de4363d0c978bae1c4715403bc52ca1",
+    "content_hash": "057711848890d24291e6688eb4bbc26ba9305641c643887ad20c5a2520f7acf8",
+    "created_at": "2026-11-03T12:00:00+00:00",
+    "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+    "details": {
+      "correction_of": null,
+      "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+      "period_from": "2026-10-26",
+      "period_to": "2026-10-26",
+      "requested_lodging_minor": 0,
+      "requested_meal_minor": 0,
+      "review_note": "Independent complete route and private car evidence checked",
+      "settlement_unit": "trip",
+      "tax_choice": "tax_free_only",
+      "trip_refs": [
+        {
+          "content_hash": "41f80ea52df9c4e0f4e7a1150374804a2af75616fbdb97a14cc7aebd314fca84",
+          "id": "6225588cf5924e3dbc6178c042dee0d5",
+          "revision": 2
+        }
+      ]
+    },
+    "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+    "exports": {
+      "json": {
+        "filename": "reise-2ff9323b4dda49fa80fef230a4b730d8-v1.json",
+        "media_type": "application/json",
+        "sha256": "11d61d8e679b9b50ade622ef2e5862236f3f95f907b9c431edc3778a06bab689",
+        "size": 14898
+      },
+      "pdf": {
+        "filename": "reise-2ff9323b4dda49fa80fef230a4b730d8-v1.pdf",
+        "media_type": "application/pdf",
+        "sha256": "37b15e452f9dfe45ebcd683bf695849b09b9cd2de467339bb8ca2cca7f1a522e",
+        "size": 1943
+      }
+    },
+    "id": "2ff9323b4dda49fa80fef230a4b730d8",
+    "kind": "settlement",
+    "preview_hash": "238d7245b09e8eff98eb27dc49ba037fce87ff58bd5fd385e10bd7b734b3ddf8",
+    "previous_hash": null,
+    "revision": 1,
+    "schema_version": 1,
+    "source_hash": "edc5e161064b10383bdfc36806e618353faf9b2d6aab6d8799b0e8f8f64ebe4d",
+    "sources": {
+      "after_payment_sequence": 0,
+      "employee": {
+        "id": "692d3a6c6da546eaa1bdb720632b026d",
+        "name": "Synthetic technician",
+        "revision": 1,
+        "user_id": "f9b916c96b6448a9a2fe85a49c9f1f03"
+      },
+      "expenses": [],
+      "files": [
+        {
+          "content_hash": "e9eee08662ba8fe7876451fba5e148942f5a65f566f979bf1f4528d2f1553645",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+          "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+          "filename": "nachweis.pdf",
+          "id": "1a6c79b6908a4f77a976ffaffe2f7712",
+          "media_type": "application/pdf",
+          "owner_visible": 1,
+          "purpose": "personnel",
+          "sha256": "54b6b276ddcb5f90baa349da4ff272dafe27f1aef6e2504a9c21f400013cc99e",
+          "size": 92,
+          "supersedes": null
+        },
+        {
+          "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+          "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+          "filename": "nachweis.pdf",
+          "id": "67a60a656b3749c692303b562836fd4c",
+          "media_type": "application/pdf",
+          "owner_visible": 1,
+          "purpose": "personnel",
+          "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+          "size": 98,
+          "supersedes": null
+        },
+        {
+          "content_hash": "b5ee09d6070b184ecf824e4a5c297c9f908dfcabc297355b0ae59bdcefad000a",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+          "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+          "filename": "nachweis.pdf",
+          "id": "df74653f2716449f99d6da46e8a53f42",
+          "media_type": "application/pdf",
+          "owner_visible": 1,
+          "purpose": "personnel",
+          "sha256": "3556fd699b874a20d34d0be5022dae4fb9f787aa2bf4f12f6799efa2dd1f334e",
+          "size": 80,
+          "supersedes": null
+        }
+      ],
+      "history_trips": [],
+      "sites": [
+        {
+          "command_hash": "acacbae7d34a70cef4d3a9cc2bccd7b5142be85400199766f5b4f64de65e3ba3",
+          "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+          "correction_reason": "Bind actual private personnel original",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+          "details": {
+            "address": "Synthetic address",
+            "assignment_basis": "Reviewed assignment evidence",
+            "effective_from": "2026-01-01",
+            "effective_to": null,
+            "history_complete_from": "2025-09-01",
+            "kind": "home",
+            "name": "Synthetic home",
+            "prior_visit_dates": [],
+            "rate_id": "de_2026",
+            "regular_days_per_week": 2,
+            "source_file_ids": [
+              "67a60a656b3749c692303b562836fd4c"
+            ],
+            "timezone": "Europe/Berlin"
+          },
+          "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+          "id": "317a97000204450d97ca1dcb5edf2f12",
+          "kind": "site",
+          "previous_hash": "caf0fdeaf503b759bf3d563821474f35e0029da36ba5b8946a4689ae7df3d337",
+          "revision": 2,
+          "schema_version": 1,
+          "sources": {
+            "files": [
+              {
+                "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                "filename": "nachweis.pdf",
+                "id": "67a60a656b3749c692303b562836fd4c",
+                "media_type": "application/pdf",
+                "owner_visible": 1,
+                "purpose": "personnel",
+                "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                "size": 98,
+                "supersedes": null
+              }
+            ]
+          },
+          "status": "active"
+        },
+        {
+          "command_hash": "c6e2c4980c31565db039fae283c1a82de05f0fb94cf2f62122363399e2f5636a",
+          "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+          "correction_reason": "Bind actual private personnel original",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+          "details": {
+            "address": "Synthetic address",
+            "assignment_basis": "Reviewed assignment evidence",
+            "effective_from": "2026-01-01",
+            "effective_to": null,
+            "history_complete_from": "2025-09-01",
+            "kind": "external_fixed",
+            "name": "Synthetic external_fixed",
+            "prior_visit_dates": [],
+            "rate_id": "de_2026",
+            "regular_days_per_week": 2,
+            "source_file_ids": [
+              "67a60a656b3749c692303b562836fd4c"
+            ],
+            "timezone": "Europe/Berlin"
+          },
+          "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+          "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+          "kind": "site",
+          "previous_hash": "b65d7d7188ac576979fd191245337ab2b25f2d862c1fdf171996c4a8f06c79ba",
+          "revision": 2,
+          "schema_version": 1,
+          "sources": {
+            "files": [
+              {
+                "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                "filename": "nachweis.pdf",
+                "id": "67a60a656b3749c692303b562836fd4c",
+                "media_type": "application/pdf",
+                "owner_visible": 1,
+                "purpose": "personnel",
+                "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                "size": 98,
+                "supersedes": null
+              }
+            ]
+          },
+          "status": "active"
+        }
+      ],
+      "trips": [
+        {
+          "command_hash": "1a7b85f7df054a7b31fbf3a90e6a563e5e637aff30155480efddb8f17f4df131",
+          "content_hash": "41f80ea52df9c4e0f4e7a1150374804a2af75616fbdb97a14cc7aebd314fca84",
+          "correction_reason": "",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "f9b916c96b6448a9a2fe85a49c9f1f03",
+          "decision": null,
+          "details": {
+            "departed_at": "2026-10-26T08:00:00+01:00",
+            "first_workplace_ref": null,
+            "home_site_ref": {
+              "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+              "id": "317a97000204450d97ca1dcb5edf2f12",
+              "revision": 2
+            },
+            "mileage": {
+              "declaration_file_id": "67a60a656b3749c692303b562836fd4c",
+              "employee_bears_vehicle_costs": true,
+              "legs": [
+                {
+                  "arrived_at": "2026-10-26T09:00:00+01:00",
+                  "departed_at": "2026-10-26T08:00:00+01:00",
+                  "distance_m": 50000,
+                  "evidence_file_id": "67a60a656b3749c692303b562836fd4c",
+                  "from_site_ref": {
+                    "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+                    "id": "317a97000204450d97ca1dcb5edf2f12",
+                    "revision": 2
+                  },
+                  "id": "3e26609e85c44db69016f09d4ad4084b",
+                  "to_site_ref": {
+                    "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+                    "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+                    "revision": 2
+                  }
+                },
+                {
+                  "arrived_at": "2026-10-26T13:00:00+01:00",
+                  "departed_at": "2026-10-26T12:00:00+01:00",
+                  "distance_m": 50000,
+                  "evidence_file_id": "df74653f2716449f99d6da46e8a53f42",
+                  "from_site_ref": {
+                    "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+                    "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+                    "revision": 2
+                  },
+                  "id": "fd206426e78e442a811c111bcc2cb288",
+                  "to_site_ref": {
+                    "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+                    "id": "317a97000204450d97ca1dcb5edf2f12",
+                    "revision": 2
+                  }
+                }
+              ],
+              "no_collection_point_or_wide_area": true,
+              "no_commuting_or_family_home": true,
+              "no_employer_vehicle": true,
+              "no_other_reimbursement": true,
+              "only_business_travel": true,
+              "review_note": "Actual complete private-car journey and own vehicle costs evidenced",
+              "schema_version": 1,
+              "vehicle_file_id": "1a6c79b6908a4f77a976ffaffe2f7712",
+              "vehicle_kind": "private_car",
+              "vehicle_registration": "SYNTHETIC-1"
+            },
+            "project_id": "1464ae1185ba445d8968aaf9d4438963",
+            "purpose": "Actual domestic customer measurement",
+            "returned_at": "2026-10-26T13:00:00+01:00",
+            "source_file_ids": [
+              "1a6c79b6908a4f77a976ffaffe2f7712",
+              "67a60a656b3749c692303b562836fd4c",
+              "df74653f2716449f99d6da46e8a53f42"
+            ],
+            "timezone": "Europe/Berlin"
+          },
+          "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+          "id": "6225588cf5924e3dbc6178c042dee0d5",
+          "kind": "trip",
+          "previous_hash": "7c39f6d221eff9fb2ff0bfb1c098955a3b85dd6f52b3fe2272692361f2847a67",
+          "revision": 2,
+          "rule_version": "de_travel_2026_v4_private_car",
+          "schema_version": 1,
+          "sources": {
+            "expenses": [],
+            "files": [
+              {
+                "content_hash": "e9eee08662ba8fe7876451fba5e148942f5a65f566f979bf1f4528d2f1553645",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                "filename": "nachweis.pdf",
+                "id": "1a6c79b6908a4f77a976ffaffe2f7712",
+                "media_type": "application/pdf",
+                "owner_visible": 1,
+                "purpose": "personnel",
+                "sha256": "54b6b276ddcb5f90baa349da4ff272dafe27f1aef6e2504a9c21f400013cc99e",
+                "size": 92,
+                "supersedes": null
+              },
+              {
+                "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                "filename": "nachweis.pdf",
+                "id": "67a60a656b3749c692303b562836fd4c",
+                "media_type": "application/pdf",
+                "owner_visible": 1,
+                "purpose": "personnel",
+                "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                "size": 98,
+                "supersedes": null
+              },
+              {
+                "content_hash": "b5ee09d6070b184ecf824e4a5c297c9f908dfcabc297355b0ae59bdcefad000a",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                "filename": "nachweis.pdf",
+                "id": "df74653f2716449f99d6da46e8a53f42",
+                "media_type": "application/pdf",
+                "owner_visible": 1,
+                "purpose": "personnel",
+                "sha256": "3556fd699b874a20d34d0be5022dae4fb9f787aa2bf4f12f6799efa2dd1f334e",
+                "size": 80,
+                "supersedes": null
+              }
+            ],
+            "sites": [
+              {
+                "command_hash": "acacbae7d34a70cef4d3a9cc2bccd7b5142be85400199766f5b4f64de65e3ba3",
+                "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+                "correction_reason": "Bind actual private personnel original",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                "details": {
+                  "address": "Synthetic address",
+                  "assignment_basis": "Reviewed assignment evidence",
+                  "effective_from": "2026-01-01",
+                  "effective_to": null,
+                  "history_complete_from": "2025-09-01",
+                  "kind": "home",
+                  "name": "Synthetic home",
+                  "prior_visit_dates": [],
+                  "rate_id": "de_2026",
+                  "regular_days_per_week": 2,
+                  "source_file_ids": [
+                    "67a60a656b3749c692303b562836fd4c"
+                  ],
+                  "timezone": "Europe/Berlin"
+                },
+                "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                "id": "317a97000204450d97ca1dcb5edf2f12",
+                "kind": "site",
+                "previous_hash": "caf0fdeaf503b759bf3d563821474f35e0029da36ba5b8946a4689ae7df3d337",
+                "revision": 2,
+                "schema_version": 1,
+                "sources": {
+                  "files": [
+                    {
+                      "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                      "created_at": "2026-11-03T12:00:00+00:00",
+                      "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                      "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                      "filename": "nachweis.pdf",
+                      "id": "67a60a656b3749c692303b562836fd4c",
+                      "media_type": "application/pdf",
+                      "owner_visible": 1,
+                      "purpose": "personnel",
+                      "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                      "size": 98,
+                      "supersedes": null
+                    }
+                  ]
+                },
+                "status": "active"
+              },
+              {
+                "command_hash": "c6e2c4980c31565db039fae283c1a82de05f0fb94cf2f62122363399e2f5636a",
+                "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+                "correction_reason": "Bind actual private personnel original",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                "details": {
+                  "address": "Synthetic address",
+                  "assignment_basis": "Reviewed assignment evidence",
+                  "effective_from": "2026-01-01",
+                  "effective_to": null,
+                  "history_complete_from": "2025-09-01",
+                  "kind": "external_fixed",
+                  "name": "Synthetic external_fixed",
+                  "prior_visit_dates": [],
+                  "rate_id": "de_2026",
+                  "regular_days_per_week": 2,
+                  "source_file_ids": [
+                    "67a60a656b3749c692303b562836fd4c"
+                  ],
+                  "timezone": "Europe/Berlin"
+                },
+                "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+                "kind": "site",
+                "previous_hash": "b65d7d7188ac576979fd191245337ab2b25f2d862c1fdf171996c4a8f06c79ba",
+                "revision": 2,
+                "schema_version": 1,
+                "sources": {
+                  "files": [
+                    {
+                      "content_hash": "4d20025e92b5cee112e1caf9a3fe34134e4f2911dba8c6d1a5bd2f9ae038c4e3",
+                      "created_at": "2026-11-03T12:00:00+00:00",
+                      "created_by": "2437f8dafef342f1bfe2dadce35ab23c",
+                      "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+                      "filename": "nachweis.pdf",
+                      "id": "67a60a656b3749c692303b562836fd4c",
+                      "media_type": "application/pdf",
+                      "owner_visible": 1,
+                      "purpose": "personnel",
+                      "sha256": "8502aabba90c21fac11558673c440f7623c831bd6e60b0dad45f6e107779cd49",
+                      "size": 98,
+                      "supersedes": null
+                    }
+                  ]
+                },
+                "status": "active"
+              }
+            ]
+          },
+          "status": "submitted",
+          "submitted_at": "2026-11-03T12:00:00+00:00",
+          "submitted_by": "f9b916c96b6448a9a2fe85a49c9f1f03"
+        }
+      ]
+    },
+    "status": "approved"
+  },
+  "settlement_command": {
+    "confirmed": true,
+    "correction_of": null,
+    "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+    "id": "2ff9323b4dda49fa80fef230a4b730d8",
+    "period_from": "2026-10-26",
+    "period_to": "2026-10-26",
+    "preview_hash": "238d7245b09e8eff98eb27dc49ba037fce87ff58bd5fd385e10bd7b734b3ddf8",
+    "request_id": "87dc88f933b04c3f8f0955ec3d1549c3",
+    "requested_lodging_minor": 0,
+    "requested_meal_minor": 0,
+    "review_note": "Independent complete route and private car evidence checked",
+    "revision": 0,
+    "settlement_unit": "trip",
+    "source_hash": "edc5e161064b10383bdfc36806e618353faf9b2d6aab6d8799b0e8f8f64ebe4d",
+    "tax_choice": "tax_free_only",
+    "trip_refs": [
+      {
+        "content_hash": "41f80ea52df9c4e0f4e7a1150374804a2af75616fbdb97a14cc7aebd314fca84",
+        "id": "6225588cf5924e3dbc6178c042dee0d5",
+        "revision": 2
+      }
+    ]
+  },
+  "synthetic_only": true,
+  "trip_command": {
+    "correction_reason": "",
+    "details": {
+      "departed_at": "2026-10-26T08:00:00+01:00",
+      "first_workplace_ref": null,
+      "home_site_ref": {
+        "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+        "id": "317a97000204450d97ca1dcb5edf2f12",
+        "revision": 2
+      },
+      "mileage": {
+        "declaration_file_id": "67a60a656b3749c692303b562836fd4c",
+        "employee_bears_vehicle_costs": true,
+        "legs": [
+          {
+            "arrived_at": "2026-10-26T09:00:00+01:00",
+            "departed_at": "2026-10-26T08:00:00+01:00",
+            "distance_m": 50000,
+            "evidence_file_id": "67a60a656b3749c692303b562836fd4c",
+            "from_site_ref": {
+              "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+              "id": "317a97000204450d97ca1dcb5edf2f12",
+              "revision": 2
+            },
+            "id": "3e26609e85c44db69016f09d4ad4084b",
+            "to_site_ref": {
+              "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+              "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+              "revision": 2
+            }
+          },
+          {
+            "arrived_at": "2026-10-26T13:00:00+01:00",
+            "departed_at": "2026-10-26T12:00:00+01:00",
+            "distance_m": 50000,
+            "evidence_file_id": "df74653f2716449f99d6da46e8a53f42",
+            "from_site_ref": {
+              "content_hash": "e05ff6ee49d459c41566c99c3853e0fd9d78b9d589f66b9f02720b4151516099",
+              "id": "d736a28dc47c4ab69cc65b7a1fb4525f",
+              "revision": 2
+            },
+            "id": "fd206426e78e442a811c111bcc2cb288",
+            "to_site_ref": {
+              "content_hash": "d7377c391f3ebec45a1dde718746d43d5c84c08dfd20446f51d78621723d6a30",
+              "id": "317a97000204450d97ca1dcb5edf2f12",
+              "revision": 2
+            }
+          }
+        ],
+        "no_collection_point_or_wide_area": true,
+        "no_commuting_or_family_home": true,
+        "no_employer_vehicle": true,
+        "no_other_reimbursement": true,
+        "only_business_travel": true,
+        "review_note": "Actual complete private-car journey and own vehicle costs evidenced",
+        "schema_version": 1,
+        "vehicle_file_id": "1a6c79b6908a4f77a976ffaffe2f7712",
+        "vehicle_kind": "private_car",
+        "vehicle_registration": "SYNTHETIC-1"
+      },
+      "project_id": "1464ae1185ba445d8968aaf9d4438963",
+      "purpose": "Actual domestic customer measurement",
+      "returned_at": "2026-10-26T13:00:00+01:00",
+      "source_file_ids": [
+        "1a6c79b6908a4f77a976ffaffe2f7712",
+        "67a60a656b3749c692303b562836fd4c",
+        "df74653f2716449f99d6da46e8a53f42"
+      ],
+      "timezone": "Europe/Berlin"
+    },
+    "employee_id": "692d3a6c6da546eaa1bdb720632b026d",
+    "id": "6225588cf5924e3dbc6178c042dee0d5",
+    "request_id": "b31b28db88124360b8529317044354ef",
+    "revision": 0
+  },
+  "source_commit": "ae0c851c9b7f3b99736c29f99da24cee070185d0",
+  "source_sha256": {
+    "business_travel_mileage.py": "3cb98199d58443101c23d6fa51a8037e0b1395abd6351d5b341c235a64823e82",
+    "business_travel_allowances.py": "6f1dabdf24d94a418f844efda73b27224ab583b892f36a7bea12b788a90d7239"
+  }
+}

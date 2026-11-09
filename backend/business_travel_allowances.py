@@ -679,14 +679,15 @@ def validate_integrity(office):
                 last_sequence=row['sequence'];validate_record(api,api._view(row))
         # Effective day claims must remain exclusive across different settlement
         # identities. Earlier revisions of the same identity stay historical.
-        seen=set();expense_seen=set();mileage_seen=set();mileage_trip_seen=set()
+        seen=set();expense_seen=set();mileage_trip_seen=set()
+        from business_travel_mileage import reserved_originals,stored_claims
+        reserved_originals(api,verify=False)
         for employee in office.db.execute('SELECT DISTINCT employee_id FROM business_travel_settlements'):
             for record in api._all('settlement',employee['employee_id']):
                 if is_mileage(record):
-                    from business_travel_mileage import _proof_key
-                    key=_proof_key(record['calculation'],record['employee_id']);trip_id=record['sources']['trips'][0]['id']
-                    if key in mileage_seen or trip_id in mileage_trip_seen:raise ValueError('Duplicate effective mileage original')
-                    mileage_seen.add(key);mileage_trip_seen.add(trip_id)
+                    trip_id=record['sources']['trips'][0]['id']
+                    if trip_id in mileage_trip_seen:raise ValueError('Duplicate effective mileage original')
+                    mileage_trip_seen.add(trip_id)
                 for item in record['calculation']['days']:
                     key=(record['employee_id'],item['date'])
                     if key in seen:raise ValueError('Duplicate effective travel day')
@@ -696,7 +697,8 @@ def validate_integrity(office):
                     expense_seen.add(item['receipt_sha256'])
         expected_claims=0
         for row in office.db.execute('SELECT * FROM business_travel_settlements'):
-            record=api._view(row);expected_claims+=len(record['calculation']['days'])+len(record['calculation'].get('expense_items',[]))+(1 if is_mileage(record) else 0)
+            record=api._view(row)
+            expected_claims+=len(stored_claims(api,record)) if is_mileage(record) else len(record['calculation']['days'])+len(record['calculation'].get('expense_items',[]))
         if expected_claims!=office.db.execute('SELECT COUNT(*) FROM business_travel_claims').fetchone()[0]:raise ValueError('Unexpected travel claim row')
         if office.db.execute("SELECT claim_key FROM business_travel_claims WHERE source_kind='mileage' GROUP BY claim_key HAVING COUNT(DISTINCT settlement_id)>1").fetchone():raise ValueError('Mileage original reused by another settlement identity')
         from business_accounting import _evidence

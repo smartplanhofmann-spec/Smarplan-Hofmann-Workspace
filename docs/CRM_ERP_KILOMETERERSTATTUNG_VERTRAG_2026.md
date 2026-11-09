@@ -171,6 +171,14 @@ und `days[0].letter_m:false`. Die steuerfreie Gesamtsumme ist genau einmal der
 Kilometerbetrag. Der Tagesanspruch und die gefahrene Originalquelle werden
 gegen andere Abrechnungs-IDs gesperrt.
 
+Die Sperre gilt für jeden einzelnen SHA-256-Wert der tatsächlichen
+Streckenoriginale, auch bei nur teilweise überlappenden Belegmengen,
+anderem Tag oder anderer Person. Neue interne Claims reservieren jedes
+eindeutige Original separat und erzeugen keinen Geldbetrag. Bereits
+gespeicherte historische Bündelclaims bleiben unverändert lesbar; ihre
+Originalteile werden aus allen erhaltenen Abrechnungsfassungen geprüft.
+Eine eigene Korrektur darf ihre bestehenden Originale weiterverwenden.
+
 Die Berechnung liefert die bisherigen gemeinsamen Metadaten, Tage, Summen,
 Blocker sowie `can_approve`/`can_pay`. Jedes `mileage_items`-Element enthält
 `trip_ref`, `leg_id`, `from_site_ref`, `to_site_ref`, `distance_m`,

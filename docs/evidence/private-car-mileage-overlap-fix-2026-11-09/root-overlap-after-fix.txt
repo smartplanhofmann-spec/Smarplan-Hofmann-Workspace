@@ -1,0 +1,7 @@
+test_extra_route_proof_cannot_release_copied_original_for_another_person (test_mileage_proof_overlap_review.MileageProofOverlapReview.test_extra_route_proof_cannot_release_copied_original_for_another_person) ... ok
+test_extra_route_proof_cannot_release_used_original_on_another_day (test_mileage_proof_overlap_review.MileageProofOverlapReview.test_extra_route_proof_cannot_release_used_original_on_another_day) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 2.195s
+
+OK

@@ -1,0 +1,14 @@
+test_actual_own_submission_independent_approval_and_unchanged_receipts (test_business_travel_mileage.MileageBusinessTests.test_actual_own_submission_independent_approval_and_unchanged_receipts) ... ok
+test_actual_partial_cash_euer_and_private_boundary (test_business_travel_mileage.MileageBusinessTests.test_actual_partial_cash_euer_and_private_boundary) ... ok
+test_default_v3_still_calculates_after_new_v4_and_keeps_both_originals (test_business_travel_mileage.MileageBusinessTests.test_default_v3_still_calculates_after_new_v4_and_keeps_both_originals) ... ok
+test_false_declaration_and_fresh_privacy_rights_and_http_shapes (test_business_travel_mileage.MileageBusinessTests.test_false_declaration_and_fresh_privacy_rights_and_http_shapes) ... ok
+test_negative_correction_preserves_actual_cash_until_real_refund (test_business_travel_mileage.MileageBusinessTests.test_negative_correction_preserves_actual_cash_until_real_refund) ... ok
+test_new_payment_rechecks_originals_and_rejects_advances_and_legacy_write_path (test_business_travel_mileage.MileageBusinessTests.test_new_payment_rechecks_originals_and_rejects_advances_and_legacy_write_path) ... ok
+test_no_payment_before_approval_no_self_approval_and_no_double_person_day (test_business_travel_mileage.MileageBusinessTests.test_no_payment_before_approval_no_self_approval_and_no_double_person_day) ... ok
+test_same_actual_route_original_cannot_be_claimed_by_another_employee (test_business_travel_mileage.MileageBusinessTests.test_same_actual_route_original_cannot_be_claimed_by_another_employee) ... ok
+test_used_original_cannot_be_reused_inside_a_larger_bundle_on_another_day (test_business_travel_mileage.MileageBusinessTests.test_used_original_cannot_be_reused_inside_a_larger_bundle_on_another_day) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 9.531s
+
+OK

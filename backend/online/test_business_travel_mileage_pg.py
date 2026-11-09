@@ -1,5 +1,6 @@
 """Real bound PostgreSQL/MFA mileage originals, cash, archive and restore."""
 import base64
+from copy import deepcopy
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 import io
@@ -154,6 +155,55 @@ class MileagePostgres(unittest.TestCase):
             finally:office.db.close()
         with ThreadPoolExecutor(max_workers=2) as pool:paid=list(pool.map(payer,range(2)))
         self.assertEqual(paid[0],paid[1]);self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM business_travel_payments').fetchone()[0],1)
+        self.assertTrue(business_schema.validate_integrity(self.office))
+
+    def overlapping_workflow(self,first):
+        email='mileage-overlap-'+req()['request_id']+'@example.test';password='Synthetic-overlap-only-123'
+        uid=self.call('POST','/users',dict(email=email,password=password,role='technician'),status=201).json['id']
+        tech=self.login(email,password)
+        employee=self.call('POST','/business/employees',req(user_id=uid,name='Other actual synthetic mileage employee',
+            weekly_minutes=1200,hourly_cost_minor=2300,employment_from='2026-01-01',employment_to=None),status=201).json
+        originals=[]
+        for original in first['files']:
+            raw=self.call('GET','/business/personnel/files/'+original['id']+'/content').data
+            originals.append(self.call('POST','/business/personnel/files',req(employee_id=employee['id'],purpose='personnel',
+                owner_visible=True,filename=original['filename'],media_type='application/pdf',content_base64=base64.b64encode(raw).decode())).json)
+        extra=self.call('POST','/business/personnel/files',req(employee_id=employee['id'],purpose='personnel',owner_visible=True,
+            filename='different-additional-leg.pdf',media_type='application/pdf',content_base64=base64.b64encode(b'%PDF-1.4\nAdditional original Y for another leg\n%%EOF').decode())).json
+        originals.append(extra);sites=[]
+        for original in first['sites']:
+            sites.append(self.call('POST','/business/personnel/travel/sites',req(employee_id=employee['id'],id=req()['request_id'],revision=0,
+                status='active',correction_reason='',details=dict(original['details'],source_file_ids=[originals[1]['id']])),token=tech).json['result'])
+        body=deepcopy(first['draft_command']);body.update(request_id=req()['request_id'],employee_id=employee['id'],id=req()['request_id'],revision=0)
+        d=body['details'];d.update(home_site_ref=_ref(sites[0]),source_file_ids=[x['id'] for x in originals])
+        m=d['mileage'];m.update(vehicle_file_id=originals[0]['id'],declaration_file_id=originals[1]['id'])
+        for key in ('departed_at','returned_at'):d[key]=d[key].replace('2026-10-26','2026-10-27')
+        for index,leg in enumerate(m['legs']):
+            leg.update(id=req()['request_id'],from_site_ref=_ref(sites[index]),to_site_ref=_ref(sites[1-index]),evidence_file_id=originals[1+index]['id'])
+            for key in ('departed_at','arrived_at'):leg[key]=leg[key].replace('2026-10-26','2026-10-27')
+        self.call('POST',PREFIX+'/trips',body,token=tech)
+        source=self.call('GET',PREFIX+'/sources?employee_id='+employee['id'],token=tech).json
+        trip=self.call('POST',PREFIX+'/trips/'+body['id']+'/submit',req(employee_id=employee['id'],revision=1,source_hash=source['source_hash'],confirmed=True),token=tech).json['result']
+        base={k:v for k,v in first['command'].items() if k not in ('id','request_id','revision','source_hash','preview_hash','confirmed')}
+        base.update(employee_id=employee['id'],trip_refs=[_ref(trip)],period_from='2026-10-27',period_to='2026-10-27')
+        preview=self.call('POST',PREFIX+'/settlements/preview',base).json
+        self.assertTrue(preview['can_approve'])
+        return req(**base,id=req()['request_id'],revision=0,source_hash=preview['source_hash'],preview_hash=preview['preview_hash'],confirmed=True)
+
+    def test_concurrent_other_person_and_day_overlapping_originals_allow_only_one_settlement(self):
+        first=self.workflow();second=self.overlapping_workflow(first);barrier=threading.Barrier(2)
+        def writer(command):
+            office=PostgresOffice(self.runtime)
+            try:
+                barrier.wait(timeout=10)
+                try:return MileageTravel(office).approve(self.owner,command)
+                except Problem as error:return error.status
+            finally:office.db.close()
+        with ThreadPoolExecutor(max_workers=2) as pool:results=list(pool.map(writer,[first['command'],second]))
+        accepted=[v for v in results if isinstance(v,dict)];rejected=[v for v in results if isinstance(v,int)]
+        self.assertEqual(len(accepted),1);self.assertEqual(rejected,[409])
+        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM business_travel_settlements').fetchone()[0],1)
+        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM business_travel_payments').fetchone()[0],0)
         self.assertTrue(business_schema.validate_integrity(self.office))
 
 

@@ -1,0 +1,141 @@
+{
+  "base_commit": "49b73d94b47cc2d2d5b800198c9b698ff83f2eb5",
+  "source_binding": "Exact source file hashes below; product commit recorded in publication evidence.",
+  "checks": {
+    "native": {
+      "passed": 89,
+      "failed": 0,
+      "skipped": 0,
+      "elapsed_progress_seconds": 44,
+      "exit_code": 0,
+      "raw_sha256": "6d18ee980c14ee97aa205ac8e1adcde8f5354cdc8fef5c519c70efaa60c9cd26",
+      "raw_bytes": 17635
+    },
+    "analysis": {
+      "issues": 0,
+      "seconds": 24.0,
+      "exit_code": 0,
+      "raw_sha256": "967ae01fc3f771f1ab873e34e443728f3c16eef0e7e4b83f6c2fab6c89e070ad",
+      "raw_bytes": 97
+    },
+    "backend": {
+      "passed": 42,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 24.157,
+      "exit_code": 0,
+      "raw_sha256": "a9f055db108de44e0ad47adfea69b4710a54ac9b0aa109a8660996c8d83c9ad9",
+      "raw_bytes": 8694
+    },
+    "postgres": {
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 62.419,
+      "exit_code": 0,
+      "raw_sha256": "bfe2c3c8979081092f38cd7b80cbb50f4ab5ac97fa5170ff0ba9adc99a87981a",
+      "raw_bytes": 962
+    },
+    "browser": {
+      "actual_mfa_http_workflows_passed": 1,
+      "exit_code": 0,
+      "raw_sha256": "dfa105e8c33848d71cf9e7b31d8de8fe55157bd678b6be0d4f315dda1896dff4",
+      "raw_bytes": 396
+    }
+  },
+  "earlier_runs": [
+    {
+      "label": "old-material-red",
+      "result": "actual unchanged material controller from49b73d9; expected negative reproduction, exit1",
+      "raw_sha256": "39479c3923df74aba3bfc118e49d7d34abd41d9bc9a64cec76e01b85a7eb00c7"
+    },
+    {
+      "label": "initial-mock-order",
+      "result": "two mock JSON-order comparison failures, retained",
+      "raw_sha256": "417b94b4c6c6b6423fcacf0c86ee70b8213c70c3f64c78422ec9972e7f3c008a"
+    },
+    {
+      "label": "intermediate-compile",
+      "result": "temporary Dart conditional parse failure, retained",
+      "raw_sha256": "4734036cf4dda2b6c53a7c5fcdf20186293ea8c86fdd5137ede769dc0104c684"
+    },
+    {
+      "label": "native-interrupted",
+      "result": "interrupted by environment refresh; not a completed pass",
+      "raw_sha256": "32569e863832c20dd06a0f09cb8d9c771f66a2d416e12aaf99444d769f902491"
+    },
+    {
+      "label": "pg-interrupted",
+      "result": "interrupted by environment refresh; not a completed pass",
+      "raw_sha256": "0285a5a658a74a62ca2826b66ae43f3ff848b0a520152ae8455a18a3f3240c68"
+    },
+    {
+      "label": "pg-existing-target",
+      "result": "five cases, one correct existing-target guard error after interruption; not green",
+      "raw_sha256": "d2301fd960a4a3e1648b54764a216b0b477a473c525feb37c2947ef3ece4013f"
+    },
+    {
+      "label": "browser-interrupted",
+      "result": "interrupted before final acceptance; not green",
+      "raw_sha256": "50688c4a144d103e65d455bebf6c5d6171c886c73ed3bb4b54781a4af3af83ef"
+    },
+    {
+      "label": "earlier-native86",
+      "result": "86 completed earlier cases; later exact89 run is separate",
+      "raw_sha256": "781737c10b39dd3a766705a45d49aa696e89293bef9c94b23d76d8f69f319a9c"
+    }
+  ],
+  "old_material_controller_sha256": "c0a2e40b543c688b8ba8bca9d917cbb9b2b5f638304d0a05206c42e49d70a47f",
+  "source_sha256": {
+    "app/lib/business_material_returns.dart": "9130c215e1440b3419a05d9029db7b4e8d35a36f6ebcc32cb22467e5368b4ae2",
+    "app/lib/business_session.dart": "83bc92cebc62e70e562ed9e6a5f1c235464ea1b2ffdea52a0870d49ea05d93b3",
+    "app/lib/business_travel_allowances.dart": "567157892ec0adb7c293bba1313e962e48fd42e65fb6412a83481aff83949cfd",
+    "app/lib/online_command_journal.dart": "46502328ed7bb071b1ecf9543a9e146c784337896daa9d5a4633047d4f23b6db",
+    "app/test/business_material_returns_test.dart": "2a10f87dfebaae6f27d39350fb940c5fa761d01967a080c74ae5401910d25eb6",
+    "app/test/online_command_journal_test.dart": "f5aed40b394225b78c1f4203809a41bffb1dbc3a1abfb2d11d1317ac6ec35bac",
+    "app/test/online_command_restart_http_test.dart": "d30271c751dc81f541408791a1844ea9afef7dfd3eae36943100bb25311f78f2",
+    "app/test/online_command_restart_test.dart": "2d721ddd22430eb4e84f3755186e219b064ec4a192371472daaa8c095148e0ba",
+    "app/test/online_command_restart_widget_test.dart": "ac78072f11e43a3ff081cdc26dc7c30b7b3e8ca6634c3c6d6fc3d26df759287e",
+    "backend/business_inventory.py": "7423491467e32f687d3205cfe483269ecbdb057888d466c7932c74354f5272a1",
+    "backend/online/test_material_returns_http.py": "b0084fc6f77fb28232c654e5def86abba8ef306ef2df77a8c7588658612f65fd",
+    "backend/online/test_material_returns_pg.py": "3fe7e8dfe5830ea0931e9bb9d8ef0aabee9d04521bbb8f12cce9d571b5da887d"
+  },
+  "preserved_originals": {
+    "historical_kernels_unchanged": 32,
+    "payroll_multiple_payments_unchanged": true,
+    "goal_bytes": 23863,
+    "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "isolated_postgres_cleanup": {
+    "containers": [
+      {
+        "container_id": "62c0dbcb5dbb50b3923572c3c1e29137c2dfc90dac0aee1a1a9c17a9fd7f3d68",
+        "name": "/smartplan-command-journal-pg-20261109",
+        "removed": true,
+        "synthetic_only": true
+      },
+      {
+        "container_id": "824e293e64d8087a67c9d11a9b692df836939430cf2ea3b0e95921ea99ab9cd1",
+        "name": "/smartplan-command-journal-pg-final-20261109",
+        "removed": true,
+        "synthetic_only": true
+      }
+    ],
+    "interrupted_target": {
+      "database": "smartplan_release_check",
+      "stock_movements": 5,
+      "backup_sha256": "7c22700855174fe8642ecebd4c26affc02952c09b43d4d613a9eaf02928ec9b1",
+      "backup_bytes": 1149232,
+      "backup_retained": "/tmp/online-command-interrupted-restore-20261109.dump",
+      "retained_repository_file": "interrupted-synthetic-restore.dump.gz"
+    }
+  },
+  "scope_limits": [
+    "native bound online servers only",
+    "browser remains RAM only",
+    "unbound old server remains RAM only",
+    "no offline stock return",
+    "no server installation or physical device acceptance",
+    "unknown rejection without explicit no-effect proof stays retained"
+  ]
+}

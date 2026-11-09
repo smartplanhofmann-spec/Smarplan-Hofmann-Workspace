@@ -9,15 +9,17 @@ Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`
 veröffentlicht; der Remote-Zeiger ist lesend bestätigt. Seine eigenen Läufe
 [Development42670555279](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42670555279)
 und [iPhone42670554193](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42670554193)
-laufen. Beim dokumentierten Zwischenabruf bestehen Update und HTTPS; die
-weiteren sechs Development-Jobs und der unsignierte iPhone-Lauf sind offen.
-Das ist noch kein vollständig grüner CI-, Server- oder Gerätenachweis.
+sind abgeschlossen: Alle acht Development-Jobs einschließlich Windows und
+Mac-Simulator sowie der unsignierte iPhone-Build bestehen. Der signierte Upload
+ist nicht angefordert und übersprungen. Das ist keine neue Serverinstallation
+oder Abnahme auf echten Geräten.
 [Unveränderter erster Ergebnisabruf](evidence/mileage-integration-2026-11-09/publication-initial.json).
+[Abgeschlossene eigene Remoteprüfung](evidence/mileage-integration-2026-11-09/ci-completed.json).
 Der Gesamtumfang benötigt weiterhin mehrere Arbeitstage; eine belastbare
 Stundenzusage lässt sich aus den offenen Code- und Abnahmeaufgaben nicht ableiten.
 Die frühere Angabe von 2–4 Stunden ist keine gültige Gesamtprognose.
 
-Letzter vollständig grün geprüfter Produktcode:
+Vorangegangener vollständig grün geprüfter Produktcode:
 `eef1927b3e357344ad5713bed2633cfe65f813ce`, gemeinsamer Prüfstand
 `ef1259c2e46e75a8c6befddf91de5a92861dee63`. Alle acht Development-Jobs
 und der unsignierte iPhone-Build bestehen; der signierte Upload ist übersprungen.
@@ -89,7 +91,7 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
 Hauptprojekt: `/workspace/Smarplan-Hofmann-Workspace` auf dem lokalen Branch
 `codex/finish-20261108`. Der weitere Integrationskandidat steht in
-`/workspace/smartplan-mileage-integration-20261109`; ältere vollständige
+`/workspace/smartplan-online-command-restart-20261109`; ältere vollständige
 Arbeitskopien und Zwischenstände bleiben erhalten.
 Der lokale gemeinsame Stand enthält die abgeschlossenen Projektmeilensteine,
 die Korrekturen der drei nachgewiesenen CI-Testfehler und den neuen
@@ -161,8 +163,9 @@ ersetzte einen bereits gewechselten Dialog; der bestehende Guard prüft jetzt
 zusätzlich die Dialoggeneration und besteht dieselbe Gegenprobe. Der gemeinsame
 Nachlauf besteht 980 Browsermodul- und 41 native Fälle, Appanalyse ohne Befund.
 [Integrationsnachweis](CRM_ERP_MATERIALRUECKGABE_INTEGRATION_2026-11-09.md).
-Offene Rückgabeaufträge sind bisher sitzungsgebunden; Prozessneustartpersistenz
-und Offline-Materialrückgabe werden nicht als erledigt ausgewiesen.
+Im damaligen Materialstand sind offene Rückgabeaufträge sitzungsgebunden.
+Die native Wiederaufnahme ist inzwischen im nachstehenden Originaljournal
+ergänzt; Browserpersistenz und Offline-Materialrückgabe bleiben offen.
 
 Die enge Kilometererstattung für dienstliche Mitarbeiterfahrten im privaten
 Pkw ist jetzt ebenfalls mit beiden Clients integriert. Ein unabhängiger Root-
@@ -175,6 +178,17 @@ Bündelstand und drei vollständige tatsächliche Browserabläufe (Material,
 Kilometer, Katalog) grün. Appanalyse ohne Befund. Der ältere vollständige
 App-Lauf bleibt seinem eigenen Stand 8273852 zugeordnet.
 [Gesamtintegration und verbleibender Umfang](CRM_ERP_KILOMETER_GESAMTINTEGRATION_2026-11-09.md).
+
+Die native App ergänzt jetzt das
+[verschlüsselte Originaljournal für Material und Kilometer](CRM_ERP_ONLINEAUFTRAEGE_NEUSTART_2026-11-09.md).
+Nach echtem angenommenem POST, verlorener Antwort und vollständiger Controller-/
+Sitzungsneuerstellung wird kein Ersatzauftrag freigegeben. Firmenwechsel mit
+identischen Benutzerkennungen, Projektentzug trotz globaler Lagerrechte,
+unbekannte Antwort, explizite Nichtannahme und konkurrierende Fenster sind
+getrennt geprüft. 89 gemeinsame native Fälle, 42 Backendfälle, fünf tatsächliche
+PostgreSQL-/Konkurrenz-/Restorefälle und der echte Materialbrowser bestehen;
+Appanalyse ohne Befund. Browserpersistenz offener Aufträge, alte ungebundene
+Server, Offline-Rückgaben und reale Geräteabnahme bleiben getrennte Restpunkte.
 
 Der vollständige App-Lauf auf d4df2f5 ist beendet: 1.746 bestanden, vier
 fehlgeschlagen, kein Skip, 38:31 Minuten. Drei Fehler stammen aus zwei

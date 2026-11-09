@@ -100,9 +100,12 @@ Der Server prüft die verbleibende Menge. Eine Lagerrolle benötigt dafür keine
 Zugriff auf Einkaufspreise. Bestand und Projektkosten werden gemeinsam angepasst.
 
 Bei einer unklaren Antwort **Ursprüngliche Rückgabe erneut prüfen** verwenden.
-Der offene Auftrag ist derzeit an die laufende Sitzung gebunden. Nach einem
-Browser-/App-Neustart zuerst das Lagerjournal prüfen, bevor eine neue Rückgabe
-angelegt wird. Die Rückgabe benötigt eine Onlineverbindung.
+Die aktuelle native App erhält den Originalauftrag bei bestätigter Firmenbindung
+auch über einen Neustart. Mit demselben Konto in derselben Firma und demselben
+Projekt erneut **Material zurückgeben** öffnen und die ursprüngliche Rückgabe
+prüfen. Es wird keine neue Vorgangskennung angelegt. Im Browser bleibt der
+offene Auftrag bisher an die laufende Sitzung gebunden; nach einem Browser-
+Neustart zuerst das Lagerjournal prüfen. Die Rückgabe benötigt eine Onlineverbindung.
 
 Die Inventur vergleicht eine ausdrücklich gezählte Menge mit einem gebundenen
 Lagerstand. Differenzen benötigen einen Grund und gegebenenfalls eine Bewertung.
@@ -217,9 +220,14 @@ Bereits verwendete Streckenoriginale werden auch bei neuen Kombinationen mit
 weiteren Belegen gesperrt. Das ist keine Erfassung eigener Unternehmerfahrten,
 von Arbeitswegen, Dienstwagen oder gemischten Reisen.
 
-Der neue Ablauf benötigt eine Onlineverbindung. Unbestätigte Aufträge sind
-derzeit an die aktuelle private Sitzung gebunden; nach einem Neustart zuerst
-Fahrt-, Abrechnungs- und Zahlungsoriginale prüfen.
+Der neue Ablauf benötigt eine Onlineverbindung. In der aktuellen nativen App
+mit bestätigter Firmenbindung bleibt ein unbestätigter Originalauftrag über
+einen Neustart geschützt erhalten. Mit demselben Konto den ursprünglichen
+Mitarbeiter und **Private Pkw-Kilometererstattung** öffnen, dann **Status des
+ursprünglichen Auftrags prüfen** wählen. Nur wenn der Auftrag noch nicht
+angenommen ist, seine unveränderte Wiederholung verwenden. Es wird keine zweite
+Zahlung angelegt. Im Browser bleiben offene Aufträge bisher sitzungsgebunden;
+nach einem Browserneustart zuerst Fahrt-, Abrechnungs- und Zahlungsoriginale prüfen.
 
 Bei zusätzlichen pauschal zu versteuernden Verpflegungszuschüssen wird zuerst
 die betriebliche Steuerentscheidung für den Anmeldezeitraum belegt. Das

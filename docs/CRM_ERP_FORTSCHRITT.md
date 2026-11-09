@@ -3390,3 +3390,44 @@ frühere Schätzung von 2–4 Stunden war für das Gesamtziel zu optimistisch.
 Codeaufgaben wie Neustartpersistenz offener Aufträge, weitere Lohn-/Steuerfälle
 und Offlineübernahme bleiben ebenso offen wie die vollständigen Abnahmen.
 [Veröffentlichungsnachweis](evidence/mileage-integration-2026-11-09/publication-initial.json).
+
+## 09.11.2026 – Eigene Gesamtprüfung auf 19ec4e9 vollständig grün
+
+Die eigenen beiden Remote-Läufe sind abgeschlossen: alle acht Development-Jobs
+einschließlich Windowspaket und Mac-Simulator erfolgreich; der unsignierte
+iPhone-Build ebenfalls erfolgreich. Der nicht angeforderte signierte Upload
+bleibt übersprungen. Die früheren roten Ergebnisse bleiben ihren tatsächlichen
+Quellen zugeordnet. Es wurde kein Server aktualisiert oder echtes Gerät neu
+abgenommen. Die nächste laufende Codeaufgabe ist die verschlüsselte native
+Wiederaufnahme unbestätigter Material- und Kilometeraufträge nach Prozessneustart.
+[Abgeschlossene Remoteergebnisse](evidence/mileage-integration-2026-11-09/ci-completed.json).
+
+## 09.11.2026 – Native Material- und Kilometeraufträge über Neustart erhalten
+
+Die tatsächliche Doppelbuchung mit dem bisherigen Materialcontroller ist
+unabhängig über MFA/TCP/HTTP nachgewiesen; der rote Beleg bleibt erhalten.
+Das neue verschlüsselte Originaljournal speichert vor dem POST und bindet
+Server/API, Konto, Firma, Projekt beziehungsweise Mitarbeiter sowie Handlung,
+Werte und Request-ID. Die Wiederanzeige einer Rückgabenotiz verlangt zusätzlich
+frisches Leserecht an der ursprünglichen Projektbewegung. Ein Firmenwechsel
+mit identischen Kontokennungen kann alte Originale weder lesen noch senden.
+
+Fahrt, Einreichung, unabhängige Freigabe und tatsächlicher Erstattungsnachweis
+werden nach Appneuerstellung zuerst über ihre genaue private Quittung geklärt.
+Eine unbekannte Antwort bleibt erhalten; nur der ausdrücklich unter gesperrtem
+Server-Schreibweg bestätigte Nichtannahmenachweis gibt den Auftrag wieder frei.
+Bereits angenommene Nonce-Kollisionen werden niemals als Nichtannahme markiert.
+Private RAM-Eingaben werden weiterhin beim Verlassen gewischt. Andere Fenster,
+Speicherfehler, verlorene angenommene/nicht angenommene Antworten und zwei
+390-Pixel-Ansichten sind geprüft.
+
+Endergebnis: 89 native Fälle ohne Fehler/Skip, 42 Backendfälle, fünf tatsächliche
+PostgreSQL-/Konkurrenz-/Restorefälle und der vollständige Materialbrowser grün;
+Appanalyse ohne Befund. Die unterbrochenen Vorläufe bleiben unvollständig
+erhalten. Ein korrekt geschütztes vorhandenes Restore-Ziel wurde gesichert,
+statt seine Schutzprüfung zu lockern; der Endlauf verwendet einen frischen
+eigenen Testcontainer. Beide eigenen Testcontainer sind anschließend entfernt.
+
+[Quellen, Rohbelege und Grenzen](CRM_ERP_ONLINEAUFTRAEGE_NEUSTART_2026-11-09.md).
+Die Browserpersistenz und weitere Gesamtzielpunkte bleiben aktive Codearbeit.
+Keine neue Serverinstallation, Signierung oder echte Geräteabnahme erfolgt.

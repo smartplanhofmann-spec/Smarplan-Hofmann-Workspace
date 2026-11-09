@@ -8,6 +8,8 @@ import 'package:smartplan_office/api.dart';
 import 'package:smartplan_office/business_material_returns.dart';
 import 'package:smartplan_office/business_operations.dart';
 import 'package:smartplan_office/business_session.dart';
+import 'package:smartplan_office/service_creation_journal.dart'
+    show serviceCreationCanonical;
 
 final fixture = jsonDecode(
   File('test/fixtures/material_return.json').readAsStringSync(),
@@ -81,7 +83,8 @@ class ReturnApi extends OfficeApi {
       sent.add(copy(body));
       if (!write) throw const ApiException(403, 'Synthetic write withdrawn.');
       final previous = accepted[body['request_id']];
-      if (previous != null && jsonEncode(previous) != jsonEncode(body))
+      if (previous != null &&
+          serviceCreationCanonical(previous) != serviceCreationCanonical(body))
         throw const ApiException(409, 'Synthetic nonce changed.');
       if (previous == null) {
         accepted[body['request_id']] = copy(body);

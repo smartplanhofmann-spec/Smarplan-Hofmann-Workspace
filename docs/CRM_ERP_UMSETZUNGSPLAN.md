@@ -88,13 +88,16 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
 ## Aktive Arbeitspakete ab dem gemeinsamen Kilometerstand
 
 1. Der gemeinsam geprüfte Stand 19ec4e9 ist auf dem autorisierten Testbranch
-   veröffentlicht. Seine eigene Development-/Windows-/iPhone-CI abschließen:
-   Development42670555279 und iPhone42670554193 laufen; Update und HTTPS
-   bestehen im ersten dokumentierten Abruf.
+   veröffentlicht. Seine eigene Development-/Windows-/iPhone-CI ist beendet:
+   Alle acht Jobs von Development42670555279 und der unsignierte iPhone-Build
+   von iPhone42670554193 bestehen; signierter Upload nicht angefordert.
    Frühere Fehl- und Erfolgsstände bleiben ihren tatsächlichen Quellen zugeordnet.
 2. Online-Restaufgaben mit reproduzierbarem Nutzen weiter schließen: insbesondere
-   Prozessneustartpersistenz unbestätigter Material-/privater Reiseaufträge,
+   die verbleibende Browserpersistenz unbestätigter Material-/privater Reiseaufträge,
    weitere konkret benannte Lohn-/Steuerfälle und vorbereitete Länder-/Regeltrennung.
+   Die native Wiederaufnahme auf gebundenen Servern ist inzwischen im
+   [geschützten Originaljournal](CRM_ERP_ONLINEAUFTRAEGE_NEUSTART_2026-11-09.md)
+   implementiert und wird mit eigenen aktuellen Nachweisen geführt.
    Die dokumentierten Fremdwährungs-/Unternehmer-/Mischreisefälle bleiben eigene
    Fach-/Codeaufgaben. Keine fehlende Implementierung als extern blockiert zählen.
 3. Geschützte Übernahme alter ungebundener Offlinebestände und weitere Offline-

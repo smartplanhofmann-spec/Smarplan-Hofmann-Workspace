@@ -12,7 +12,7 @@ Berechtigte Lagerrollen benötigen kein Finanzleserecht. Ihre Quellen und Quittu
 
 Eine verlorene Antwort hält denselben ursprünglichen Auftrag mit derselben Request-ID fest. Die Wiederholung prüft aktuelle Rechte; sie behandelt eine durch die bereits angenommene Rückgabe verringerte Restmenge nicht als neue Rückgabe. Die Bestätigung muss zu Artikel, Projekt, Originalentnahme, Ziellager, Menge und Urheber passen und wird aus dem Lagerjournal zurückgelesen. Bei fehlender eindeutiger Bestätigung bleibt der Auftrag offen.
 
-Offene Aufträge bleiben im Arbeitsspeicher derselben angemeldeten Sitzung erhalten, auch über das Schließen des Rückgabedialogs. Eine dauerhafte Wiederherstellung nach vollständigem Browser-/App-Prozessneustart ist in diesem Abschnitt nicht implementiert. Der separat nachgewiesene Backend-Neustart erhält die bereits angenommenen Quittungen und erlaubt die unveränderte Wiederholung.
+Im ursprünglichen Stand dieses Abschnitts bleiben offene Aufträge nur im Arbeitsspeicher derselben angemeldeten Sitzung erhalten. Die native App ergänzt inzwischen ein [verschlüsseltes Originaljournal](CRM_ERP_ONLINEAUFTRAEGE_NEUSTART_2026-11-09.md) für gebundene Server. Nach vollständigem App-Neustart wird derselbe Auftrag frisch berechtigt wiederaufgenommen; ein Ersatzauftrag bleibt gesperrt. Der Browser bleibt sitzungsgebunden. Der separat nachgewiesene Backend-Neustart erhält die bereits angenommenen Quittungen und erlaubt die unveränderte Wiederholung.
 
 ## Tatsächliche Nachweise
 

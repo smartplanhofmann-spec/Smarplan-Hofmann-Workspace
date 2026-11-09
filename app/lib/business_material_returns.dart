@@ -6,6 +6,7 @@ import 'api.dart';
 import 'business_session.dart';
 import 'design.dart';
 import 'offline_vault.dart' show offlineId;
+import 'online_command_journal.dart';
 
 final _id = RegExp(r'^[a-f0-9]{32}$');
 Never _fail(String message, [int status = 400]) =>
@@ -172,8 +173,7 @@ Map<String, dynamic> _operationalReceipt(Map<String, dynamic> value) => {
             },
 };
 
-/// One original per authenticated session. This is deliberately not a durable
-/// journal: an app/process restart does not retain the unconfirmed instruction.
+/// The complete original is encrypted before any POST on bound online servers.
 class MaterialReturnFlow extends ChangeNotifier {
   MaterialReturnFlow(this.session) {
     session.addListener(_changed);
@@ -183,14 +183,103 @@ class MaterialReturnFlow extends ChangeNotifier {
       _sessions[session] ??= MaterialReturnFlow(session);
   final BusinessSession session;
   Map<String, dynamic>? _pending;
+  OnlineCommandJournalSession? _journal;
+  bool _disposed = false;
+  Map<String, dynamic> _original(Object? raw) {
+    final value = businessMap(raw), body = businessMap(value['body']);
+    if (value.length != 2 ||
+        !value.containsKey('actor_id') ||
+        !_id.hasMatch('${value['actor_id']}') ||
+        body.length != 8 ||
+        ![
+          'kind',
+          'article_id',
+          'project_id',
+          'reversal_of',
+          'to_location_id',
+          'quantity',
+          'note',
+          'request_id',
+        ].every(body.containsKey) ||
+        body['kind'] != 'return' ||
+        [
+          'article_id',
+          'project_id',
+          'reversal_of',
+          'to_location_id',
+          'request_id',
+        ].any((key) => !_id.hasMatch('${body[key]}')) ||
+        session.projectId != null && body['project_id'] != session.projectId ||
+        body['note'] is! String ||
+        body['note'].runes.length > 2000 ||
+        RegExp(r'[\x00-\x08\x0b-\x1f]').hasMatch(body['note'])) {
+      _fail('Der geschützte Rückgabeauftrag ist nicht unverändert lesbar.', 0);
+    }
+    materialReturnQuantity(body['quantity']);
+    return _copy(value);
+  }
+
+  Map<String, dynamic> _saved(Map<String, dynamic> value) =>
+      _original({'actor_id': value['actor_id'], 'body': value['body']});
+
+  Future<void> restorePending() async {
+    final context = contextKey;
+    final actor = await _fresh(context);
+    final journal = await session.openOnlineCommandJournal(
+      actorId: actor,
+      slot: 'material-return:${session.projectId ?? 'global'}',
+      validate: _original,
+      requireCurrent: () => _check(context),
+    );
+    _check(context);
+    final saved = journal?.pending;
+    if (saved != null && saved['actor_id'] != actor)
+      _fail('Der Originalauftrag gehört zu einer anderen Anmeldung.', 403);
+    _journal = journal;
+    if (saved != null) {
+      try {
+        // A global warehouse grant alone is not access to the old project.
+        // This endpoint checks current project rights before the saved note
+        // enters the visible command controller.
+        final body = businessMap(saved['body']);
+        final issue = businessMap(
+          await session.read('/inventory/movements/${body['reversal_of']}'),
+        );
+        _check(context);
+        if (issue['id'] != body['reversal_of'] ||
+            issue['kind'] != 'issue' ||
+            issue['project_id'] != body['project_id'] ||
+            issue['article_id'] != body['article_id']) {
+          _fail(
+            'Der Projektbezug des Originalauftrags konnte nicht bestätigt werden.',
+            0,
+          );
+        }
+      } catch (_) {
+        _pending = null;
+        notifyListeners();
+        rethrow;
+      }
+      _pending = {...saved, 'context': context, 'token': session.api.token};
+      notifyListeners();
+    } else if (journal != null && _pending != null) {
+      // Another authorized window may already have resolved the same original.
+      // An absent journal on an old server does not establish that fact.
+      _pending = null;
+      notifyListeners();
+    }
+  }
+
   bool busy = false;
   String get contextKey => jsonEncode([
     session.api.base,
     session.api.version,
     session.api.token,
     session.projectId,
+    session.projectCreationScope,
   ]);
   bool get readable =>
+      !_disposed &&
       session.allowed &&
       session.hasModule('inventory') &&
       session.can('inventory.read');
@@ -210,7 +299,11 @@ class MaterialReturnFlow extends ChangeNotifier {
 
   @override
   void dispose() {
+    _disposed = true;
     session.removeListener(_changed);
+    _pending?.clear();
+    _pending = null;
+    _journal = null;
     super.dispose();
   }
 
@@ -278,6 +371,12 @@ class MaterialReturnFlow extends ChangeNotifier {
           RegExp(r'[\x00-\x08\x0b-\x1f]').hasMatch(note))
         _fail('Die Buchungsnotiz ist zu lang oder enthält ungültige Zeichen.');
       final data = await sources();
+      await restorePending();
+      if (_pending != null)
+        _fail(
+          'Zuerst die Bestätigung der ursprünglichen Rückgabe klären.',
+          409,
+        );
       final option = businessItems(data['options'])
           .where((v) => v['issue']['id'] == original['id'])
           .firstOrNull;
@@ -298,7 +397,7 @@ class MaterialReturnFlow extends ChangeNotifier {
         );
       if (!businessItems(data['locations']).any((v) => v['id'] == destination))
         _fail('Ein aktuelles aktives Ziellager auswählen.');
-      _pending = {
+      final next = {
         'context': data['context'],
         'token': session.api.token,
         'actor_id': data['actor_id'],
@@ -313,6 +412,9 @@ class MaterialReturnFlow extends ChangeNotifier {
           'request_id': offlineId(),
         },
       };
+      await _journal?.prepare(_saved(next));
+      _check(data['context'], write: true);
+      _pending = next;
       return await _send();
     } finally {
       busy = false;
@@ -341,10 +443,26 @@ class MaterialReturnFlow extends ChangeNotifier {
         'Der ursprüngliche Auftrag gehört zu einer anderen Anmeldung.',
         403,
       );
-    final response = await session.api.call(
-      session.path('/inventory/movements'),
-      _copy(original['body']),
-    );
+    await _journal?.requireOriginal(_saved(original));
+    _check(original['context'], write: true);
+    late dynamic response;
+    try {
+      response = await session.api.call(
+        session.path('/inventory/movements'),
+        _copy(original['body']),
+      );
+    } on ApiException catch (error) {
+      if (error.status == 409 && error.requestResolution == 'not_accepted') {
+        _check(original['context'], write: true);
+        await _journal?.clear(_saved(original));
+        _check(original['context'], write: true);
+        if (identical(original, _pending)) {
+          _pending = null;
+          notifyListeners();
+        }
+      }
+      rethrow;
+    }
     _check(original['context'], write: true);
     if (!identical(original, _pending))
       _fail('Die Materialansicht wurde gewechselt.', 0);
@@ -368,6 +486,8 @@ class MaterialReturnFlow extends ChangeNotifier {
         'Die Rückgabe konnte nicht eindeutig im Lagerjournal bestätigt werden.',
         0,
       );
+    await _journal?.clear(_saved(original));
+    _check(original['context'], write: true);
     _pending = null;
     notifyListeners();
     return result;
@@ -389,6 +509,7 @@ class _MaterialReturnDialogState extends State<MaterialReturnDialog> {
   String? issueId, destination, error;
   late final String opening = widget.flow.contextKey;
   bool loading = true;
+  bool opened = false;
   bool confirmed = false;
   MaterialReturnFlow get flow => widget.flow;
   bool get visible => opening == flow.contextKey && flow.readable;
@@ -413,6 +534,7 @@ class _MaterialReturnDialogState extends State<MaterialReturnDialog> {
 
   Future<void> _load() async {
     try {
+      await flow.restorePending();
       if (flow.pending == null) {
         final data = await flow.sources();
         if (!mounted || !visible) return;
@@ -421,6 +543,7 @@ class _MaterialReturnDialogState extends State<MaterialReturnDialog> {
             .toList();
         locations = businessItems(data['locations']);
       }
+      if (mounted && visible) opened = true;
     } catch (e) {
       if (mounted && visible) error = '$e';
     } finally {
@@ -462,7 +585,7 @@ class _MaterialReturnDialogState extends State<MaterialReturnDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final pending = flow.pending;
+    final pending = opened ? flow.pending : null;
     final selected = options
         .where((v) => v['issue']['id'] == issueId)
         .firstOrNull;
@@ -487,7 +610,7 @@ class _MaterialReturnDialogState extends State<MaterialReturnDialog> {
                         ),
                         Text('Menge: ${pending['quantity']}'),
                         if (pending['note'] != '') Text(pending['note']),
-                      ] else if (!loading) ...[
+                      ] else if (!loading && opened) ...[
                         DropdownButtonFormField<String>(
                           initialValue: issueId,
                           isExpanded: true,

@@ -58,6 +58,7 @@ class MaterialReturnPostgresTests(unittest.TestCase):
 
     test_real_rounding_remainder=http.MaterialReturnHttpTests.test_final_return_carries_original_rounding_remainder
     test_real_fresh_rights_and_price_redaction=http.MaterialReturnHttpTests.test_current_project_write_rights_and_price_redaction_apply_to_original_retry
+    test_real_unaccepted_conflict_and_nonce_collision=http.MaterialReturnHttpTests.test_explicit_unaccepted_conflict_never_labels_an_accepted_nonce_collision
 
     def test_two_runtime_connections_cannot_return_more_than_original_issue(self):
         issue=self.initial_issue()
@@ -75,6 +76,8 @@ class MaterialReturnPostgresTests(unittest.TestCase):
             finally:office.db.close()
         with ThreadPoolExecutor(max_workers=2) as pool:results=list(pool.map(attempt,commands))
         self.assertEqual(sorted(result[0] for result in results),[201,409])
+        rejected=next(payload for status,payload in results if status==409)
+        self.assertEqual(rejected.get('request_resolution'),'not_accepted')
         rows=[row for row in self.movement_rows() if row['reversal_of']==issue['id']]
         self.assertEqual(len(rows),1)
         self.assertEqual(rows[0]['quantity'],'4.0000')

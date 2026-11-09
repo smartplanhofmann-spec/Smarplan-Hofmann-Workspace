@@ -11,6 +11,7 @@ import 'business_travel_mileage.dart';
 import 'design.dart';
 import 'mail_attachment_widgets.dart';
 import 'offline_vault.dart' show offlineId;
+import 'online_command_journal.dart';
 
 const travelStatuses = {
   'draft': 'Entwurf',
@@ -166,6 +167,135 @@ class TravelCommand extends ChangeNotifier {
       (mileage || !path.startsWith('$root/mileage/'));
   final bool Function() allowed;
   Map<String, dynamic>? _pending;
+  OnlineCommandJournalSession? _journal;
+  bool get durablePending => _journal != null;
+  bool _disposed = false;
+  Map<String, dynamic> _saved(Object? raw) {
+    final value = businessMap(raw), body = businessMap(value['body']);
+    final operation = value['operation'], target = value['target_id'];
+    final actions = {
+      'trip.save': ('$mileageRoot/trips', 'trip', 'write'),
+      'trip.submit': ('$mileageRoot/trips/$target/submit', 'trip', 'write'),
+      'trip.reject': ('$mileageRoot/trips/$target/reject', 'trip', 'approve'),
+      'settlement.approve': (
+        '$mileageRoot/settlements',
+        'settlement',
+        'approve',
+      ),
+      'payment.record': ('$mileageRoot/payments', 'payment', 'payments'),
+    };
+    final action = actions[operation];
+    if (value.length != 11 ||
+        ![
+          'path',
+          'body',
+          'operation',
+          'target_kind',
+          'target_id',
+          'request_id',
+          'employee_id',
+          'actor_id',
+          'request_hash',
+          'right',
+          'original_trip',
+        ].every(value.containsKey) ||
+        action == null ||
+        value['path'] != action.$1 ||
+        value['target_kind'] != action.$2 ||
+        value['right'] != action.$3 ||
+        value['employee_id'] != employeeId ||
+        body['employee_id'] != employeeId ||
+        ![
+          target,
+          value['request_id'],
+          value['actor_id'],
+        ].every((id) => _travelId.hasMatch('$id')) ||
+        !_travelHash.hasMatch('${value['request_hash']}') ||
+        body['request_id'] != value['request_id'] ||
+        body['revision'] is! int ||
+        body['revision'] < 0 ||
+        !['trip.submit', 'trip.reject'].contains(operation) &&
+            body['id'] != target) {
+      _fail(
+        'Der geschützte Kilometerauftrag gehört nicht zu seinem Original.',
+        0,
+      );
+    }
+    if (value['original_trip'] != null) {
+      final trip = mileageTrip(value['original_trip'], employeeId);
+      if (!['trip.submit', 'trip.reject'].contains(operation) ||
+          trip['id'] != target ||
+          trip['revision'] != body['revision'])
+        _fail('Die ursprüngliche Fahrthistorie gehört nicht zum Auftrag.', 0);
+    }
+    return _copy(value);
+  }
+
+  Map<String, dynamic> _stored(Map<String, dynamic> value) => _saved({
+    for (final key in const [
+      'path',
+      'body',
+      'operation',
+      'target_kind',
+      'target_id',
+      'request_id',
+      'employee_id',
+      'actor_id',
+      'request_hash',
+      'right',
+      'original_trip',
+    ])
+      key: value[key],
+  });
+
+  Future<void> restorePending() async {
+    if (!mileage) return;
+    final original = stamp, captured = epoch;
+    final access = await fresh();
+    final actor = businessMap(access['actor'])['id'] as String;
+    final journal = await session.openOnlineCommandJournal(
+      actorId: actor,
+      slot: 'mileage:$employeeId',
+      validate: _saved,
+      requireCurrent: () => check(original, captured),
+    );
+    check(original, captured);
+    final saved = journal?.pending;
+    if (saved != null) {
+      if (saved['actor_id'] != actor ||
+          await travelHash([
+                saved['operation'],
+                saved['target_kind'],
+                saved['target_id'],
+                saved['body'],
+              ]) !=
+              saved['request_hash']) {
+        _fail(
+          'Der ursprüngliche Kilometerauftrag konnte nicht bestätigt werden.',
+          0,
+        );
+      }
+      check(original, captured);
+      final existing = _pending;
+      final validator =
+          existing != null && existing['request_hash'] == saved['request_hash']
+          ? existing['validate']
+          : null;
+      _pending = {
+        ...saved,
+        'stamp': original,
+        'epoch': captured,
+        'validate': validator,
+      };
+      notifyListeners();
+    } else if (journal != null && _pending != null) {
+      (_pending!['body'] as Map).clear();
+      _pending = null;
+      notifyListeners();
+    }
+    _journal = journal;
+  }
+
   int epoch = 0;
   Map<String, dynamic>? get pending => _pending == null
       ? null
@@ -181,14 +311,18 @@ class TravelCommand extends ChangeNotifier {
             key: _pending![key],
         };
   String get stamp => jsonEncode([
+    session.api.base,
+    session.api.version,
     session.api.token,
     session.generation,
     session.projectId,
     session.permissions.toList()..sort(),
     session.capabilities.toList()..sort(),
     session.features.toList()..sort(),
+    session.projectCreationScope,
   ]);
   bool get available =>
+      !_disposed &&
       allowed() &&
       session.allowed &&
       session.projectId == null &&
@@ -199,8 +333,16 @@ class TravelCommand extends ChangeNotifier {
     final body = _pending?['body'];
     if (body is Map) body.clear();
     _pending = null;
+    _journal = null;
     epoch++;
-    notifyListeners();
+    if (!_disposed) notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    clear();
+    _disposed = true;
+    super.dispose();
   }
 
   void check(String original, int captured) {
@@ -270,7 +412,9 @@ class TravelCommand extends ChangeNotifier {
     required String targetId,
     String right = 'write',
     Future<void> Function(Map<String, dynamic>)? validate,
+    Map<String, dynamic>? originalTrip,
   }) async {
+    await restorePending();
     if (_pending != null)
       _fail('Zuerst die Bestätigung des offenen Reiseauftrags prüfen.', 409);
     if (!_travelId.hasMatch(targetId) ||
@@ -296,7 +440,7 @@ class TravelCommand extends ChangeNotifier {
       frozen,
     ]);
     check(original, captured);
-    _pending = {
+    final next = {
       'path': path,
       'body': frozen,
       'operation': operation,
@@ -308,9 +452,13 @@ class TravelCommand extends ChangeNotifier {
       'request_hash': requestHash,
       'right': right,
       'validate': validate,
+      'original_trip': originalTrip == null ? null : _copy(originalTrip),
       'stamp': original,
       'epoch': captured,
     };
+    if (_journal != null) await _journal!.prepare(_stored(next));
+    check(original, captured);
+    _pending = next;
     notifyListeners();
     return send();
   }
@@ -325,6 +473,8 @@ class TravelCommand extends ChangeNotifier {
       clear();
       _fail('Der Auftraggeber wurde geändert.', 403);
     }
+    if (_journal != null) await _journal!.requireOriginal(_stored(current));
+    check(current['stamp'], current['epoch']);
     final raw = await read('$root/requests/${current['request_id']}');
     final receipt = await travelReceipt(raw, current);
     check(current['stamp'], current['epoch']);
@@ -341,12 +491,23 @@ class TravelCommand extends ChangeNotifier {
         actorId: current['actor_id'],
         targetId: current['target_id'],
       );
+      final before = current['original_trip'];
+      if (before != null &&
+          (travelCanonical(result['details']) !=
+                  travelCanonical(before['details']) ||
+              travelCanonical(result['sources']) !=
+                  travelCanonical(before['sources']) ||
+              result['previous_hash'] != before['content_hash'])) {
+        _fail('Die Fahrthandlung ersetzt ursprüngliche Strecken oder Belege.');
+      }
     }
     final validator =
         current['validate'] as Future<void> Function(Map<String, dynamic>)?;
     if (validator != null) await validator(businessMap(receipt['result']));
     check(current['stamp'], current['epoch']);
     if (resolve) {
+      if (_journal != null) await _journal!.clear(_stored(current));
+      check(current['stamp'], current['epoch']);
       (current['body'] as Map).clear();
       _pending = null;
       notifyListeners();
@@ -364,14 +525,28 @@ class TravelCommand extends ChangeNotifier {
       clear();
       _fail('Der Auftraggeber wurde geändert.', 403);
     }
+    if (_journal != null) await _journal!.requireOriginal(_stored(current));
+    check(current['stamp'], current['epoch']);
+    var responseReturned = false;
     try {
       await session.api.call(
         session.path(current['path']),
         _copy(current['body']),
       );
+      responseReturned = true;
       check(current['stamp'], current['epoch']);
       return await status(resolve: true);
     } on ApiException catch (error) {
+      if (!responseReturned &&
+          error.status == 409 &&
+          error.requestResolution == 'not_accepted') {
+        check(current['stamp'], current['epoch']);
+        if (_journal != null) await _journal!.clear(_stored(current));
+        check(current['stamp'], current['epoch']);
+        (current['body'] as Map).clear();
+        _pending = null;
+        notifyListeners();
+      }
       if ({401, 403, 410}.contains(error.status)) clear();
       rethrow;
     }
@@ -859,6 +1034,7 @@ class _BusinessTravelAllowancesPageState
       businessMap(await command.read('$root$path'));
   Future<void> load() async {
     await fresh();
+    await command.restorePending();
     final original = command.stamp, captured = command.epoch;
     final values = await Future.wait([
       get('/catalog'),
@@ -969,6 +1145,7 @@ class _BusinessTravelAllowancesPageState
       targetKind: kind,
       targetId: id,
       right: right,
+      originalTrip: originalTrip,
       validate: originalTrip == null
           ? null
           : (result) async {
@@ -3285,10 +3462,21 @@ class _BusinessTravelAllowancesPageState
       await command.retry();
       await load();
     }),
-    action('Private Eingaben verwerfen und Stand neu laden', () async {
-      command.clear();
-      await load();
-    }),
+    if (!widget.mileage)
+      action('Private Eingaben verwerfen und Stand neu laden', () async {
+        command.clear();
+        await load();
+      }),
+    if (widget.mileage && command.durablePending)
+      const Notice(
+        'Der Originalauftrag bleibt geschützt gespeichert, bis seine '
+        'Bestätigung geprüft ist. Das Schließen der Ansicht verwirft ihn nicht.',
+      ),
+    if (widget.mileage && !command.durablePending)
+      const Notice(
+        'Dieser Server erhält den offenen Auftrag nur in dieser Sitzung. '
+        'Vor dem Verlassen zuerst die ursprüngliche Bestätigung prüfen.',
+      ),
   ]);
   Widget calculation(Map<String, dynamic> value) {
     if (widget.mileage) return mileageCalculationView(value);

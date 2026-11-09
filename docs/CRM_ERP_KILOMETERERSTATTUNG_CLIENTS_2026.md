@@ -16,7 +16,7 @@ Neue private Fahrten, Quellen, Abrechnungen, Zahlungsnachweise und Auftragsquitt
 
 Nach verlorener Antwort wird zuerst die genaue ursprüngliche private Quittung geprüft. Ein bereits angenommener Auftrag benötigt keinen zweiten POST. Request-ID, unveränderter Body, Akteur, innerer Auftragshash, Ergebnishash, Originalreferenzen und Fassungen werden geprüft. Ein Entzug des Schreibmerkmals verhindert neue Schreibversuche, verhindert aber nicht das lesende Bestätigen einer bereits angenommenen Originalquittung bei fortbestehendem Leserecht.
 
-Die private Ansicht hält unbestätigte Eingaben im Arbeitsspeicher. Schließen, Verlassen oder Entzug des privaten Lesekontexts verwirft private Eingaben entsprechend dem bestehenden Reiseverfahren. Es wurde keine neue dauerhafte Speicherung oder Wiederherstellung nach Prozessneustart eingeführt. Ein nativer State-Wechsel auf eine andere Sitzung, Person oder einen anderen Reisemodus wischt die ursprünglichen privaten Daten und bindet keine alte Vorgangskennung an den neuen Kontext.
+Der ursprüngliche Stand dieses Abschnitts hält unbestätigte Eingaben nur im Arbeitsspeicher. Die native App ergänzt inzwischen ein [verschlüsseltes Originaljournal](CRM_ERP_ONLINEAUFTRAEGE_NEUSTART_2026-11-09.md) für gebundene Server. Ein angenommener Auftrag wird nach Neustart zunächst ausschließlich über seine ursprüngliche private Quittung geklärt; ein nicht angenommener kann ausdrücklich identisch wiederholt werden. Schließen oder Entzug des privaten Lesekontexts wischt weiterhin die privaten Eingaben im Arbeitsspeicher. Das verschlüsselte Original bleibt erhalten und wird einer anderen Sitzung, Firma, Person oder einem anderen Reisemodus nicht zugeordnet. Der Browser bleibt bislang sitzungsgebunden.
 
 ## Tatsächliche Prüfungen
 

@@ -87,6 +87,22 @@ class MaterialReturnHttpTests(unittest.TestCase):
         self.assertEqual(self.costs()['material_actual_net'],'0.00')
         self.assertTrue(business_schema.validate_integrity(self.office))
 
+    def test_explicit_unaccepted_conflict_never_labels_an_accepted_nonce_collision(self):
+        issue=self.initial_issue();before=self.movement_rows()
+        refused=self.return_body(issue,'7')
+        response=self.call('/business/inventory/movements',refused,status=409)
+        self.assertEqual(response.json.get('request_resolution'),'not_accepted')
+        self.assertEqual(self.movement_rows(),before)
+        self.assertIsNone(self.office.db.execute(
+            'SELECT 1 FROM business_inventory_requests WHERE request_id=?',
+            (refused['request_id'],)).fetchone())
+        command=self.return_body(issue,'2')
+        accepted=self.call('/business/inventory/movements',command,status=201).json
+        collision=self.call('/business/inventory/movements',dict(command,quantity='1'),status=409)
+        self.assertNotIn('request_resolution',collision.json)
+        self.assertEqual(self.call('/business/inventory/movements',command,status=201).json,accepted)
+        self.assertEqual(len(self.movement_rows()),len(before)+1)
+
     def test_current_project_write_rights_and_price_redaction_apply_to_original_retry(self):
         user=self.call('/users',dict(email='return-operator@example.test',password='Synthetic-return-password-123',role='technician'),status=201).json['id']
         tech=self.login('return-operator@example.test','Synthetic-return-password-123')

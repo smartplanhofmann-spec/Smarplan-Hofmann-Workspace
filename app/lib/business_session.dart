@@ -9,6 +9,7 @@ import 'business_company_event_contract.dart';
 import 'offline_vault.dart' show offlineId;
 import 'project_creation_journal.dart' show ProjectCreationScope;
 import 'service_creation_journal.dart';
+import 'online_command_journal.dart';
 
 part 'service_creation_session.dart';
 
@@ -185,9 +186,9 @@ String? organizationCommandSection(String path) {
   return null;
 }
 
-/// One authenticated view. Only an unresolved manual service creation has its
-/// own encrypted, company-bound journal; financial credentials stay in memory.
-/// Offline time uses the separate existing encrypted vault.
+/// One authenticated view. Unresolved manual service, material return and
+/// mileage commands use separate encrypted, company-bound journals. Financial
+/// credentials stay in memory; offline time uses its existing separate vault.
 class BusinessSession extends ChangeNotifier {
   BusinessSession({
     required this.api,
@@ -196,7 +197,9 @@ class BusinessSession extends ChangeNotifier {
     this.projects = const [],
     this.onDenied,
     ServiceCreationJournal? serviceCreationJournal,
+    OnlineCommandJournal? onlineCommandJournal,
   }) : _token = api.token,
+       onlineCommands = onlineCommandJournal ?? OnlineCommandJournal(),
        _serviceCreationJournal =
            serviceCreationJournal ?? ServiceCreationJournal() {
     api.addListener(_accessChanged);
@@ -206,6 +209,60 @@ class BusinessSession extends ChangeNotifier {
   final String? projectId;
   final VoidCallback? onDenied;
   final ServiceCreationJournal _serviceCreationJournal;
+  final OnlineCommandJournal onlineCommands;
+
+  /// Call after fresh identity and resource permissions have been checked.
+  /// Old servers without an authenticated company binding retain their existing
+  /// session-only behavior; an advertised but invalid binding fails closed.
+  Future<OnlineCommandJournalSession?> openOnlineCommandJournal({
+    required String actorId,
+    required String slot,
+    required OnlineCommandValidator validate,
+    required void Function() requireCurrent,
+  }) async {
+    requireCurrent();
+    if (!hasFeature('project_creation_journal')) return null;
+    final token = api.token, host = api.base, version = api.version;
+    final scope = ProjectCreationScope.fromServer(
+      projectCreationScope,
+      server: host,
+      version: version,
+      accountId: actorId,
+    );
+    final captured = generation;
+    void check() {
+      requireCurrent();
+      if (!allowed ||
+          offlineMode ||
+          token == null ||
+          api.token != token ||
+          api.base != host ||
+          api.version != version ||
+          generation != captured ||
+          !hasFeature('project_creation_journal') ||
+          serviceCreationCanonical(projectCreationScope) !=
+              serviceCreationCanonical({
+                'schema_version': 1,
+                'instance_id': scope.instanceId,
+                'account_id': scope.accountId,
+              })) {
+        throw const ApiException(
+          403,
+          'Die ursprüngliche Firmenanmeldung ist nicht mehr verfügbar. '
+          'Der geschützte Auftrag bleibt erhalten.',
+        );
+      }
+    }
+
+    check();
+    return onlineCommands.open(
+      scope: scope,
+      slot: slot,
+      validate: validate,
+      requireCurrent: check,
+    );
+  }
+
   String? _serviceCreationMemoryScope;
   Timer? _metaTimer;
   List<Map<String, dynamic>> projects;
@@ -224,6 +281,7 @@ class BusinessSession extends ChangeNotifier {
       offlineMode: offlineMode,
       projects: projects,
       serviceCreationJournal: _serviceCreationJournal,
+      onlineCommandJournal: onlineCommands,
     );
     global.projects = projects;
     return global;
@@ -250,6 +308,7 @@ class BusinessSession extends ChangeNotifier {
         projectId: id,
         projects: projects,
         serviceCreationJournal: _serviceCreationJournal,
+        onlineCommandJournal: onlineCommands,
       ),
     );
     child._globalOwner = this;

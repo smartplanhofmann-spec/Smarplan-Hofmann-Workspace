@@ -270,7 +270,18 @@ class BusinessInventory(Domain):
 
     def move(self,actor,data):
         project_id=data.get('project_id') if isinstance(data,dict) else None
-        result=self.write(actor,'inventory.write','business.stock.moved',project_id,data,None,lambda fresh,body:self._post_move(fresh,body))
+        def post(fresh,body):
+            try:
+                return self._post_move(fresh,body)
+            except Problem as error:
+                # Domain.write has already checked the actor/nonce receipt
+                # under the transaction lock. An existing accepted request or
+                # a nonce collision never enters this callback. Only a rejected
+                # new return can therefore carry this explicit resolution.
+                if body.get('kind')=='return' and error.status==409:
+                    raise Problem(409,error.message,request_resolution='not_accepted') from None
+                raise
+        result=self.write(actor,'inventory.write','business.stock.moved',project_id,data,None,post)
         return self._public(actor,result,project_id)
 
     def reserve(self,actor,project_id,data):

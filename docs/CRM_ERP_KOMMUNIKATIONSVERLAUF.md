@@ -70,6 +70,13 @@ Einträge oder acht Millionen Textbytes verlangen eine engere Filterung
 (413), statt den Verlauf still abzuschneiden. Es wird keine Gesamtzahl
 unsichtbarer Datensätze ausgegeben.
 
+Bei einer erneut abgeschickten Browsersuche gilt die zuletzt gewählte
+Filterung, auch wenn die ältere HTTP-Antwort später ankommt. Dasselbe gilt
+für schnell nacheinander geöffnete Kunden: ein älterer Abruf kann den zuletzt
+gewählten Kundendialog nicht ersetzen. In der nativen App sind die
+Filterkontrollen während des Abrufs gesperrt. Beide Browserfälle sind auch
+mit echten absichtlich verzögerten HTTP-Antworten geprüft.
+
 ## Nachweise und Grenzen
 
 - [Fach-/HTTP-Tests](../backend/test_communication_history.py): 14 neue Fälle,

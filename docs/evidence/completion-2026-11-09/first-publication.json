@@ -1,0 +1,86 @@
+{
+  "source_commit": "b57f474a7252e3419d0cfdd28a9f712d9dc8291c",
+  "branch": "codex/testupdate-0.7-projects-20261104",
+  "development_run": 42570848045,
+  "iphone_run": 42570848038,
+  "observation": "before publishing final late-response and loading-control corrections",
+  "development_jobs": [
+    {
+      "id": 129007608441,
+      "name": "flutter",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 129007608708,
+      "name": "business-services",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 129007608747,
+      "name": "native-build (windows-latest, flutter build windows --release)",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 129007608749,
+      "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129007608754,
+      "name": "online-api",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 129007608796,
+      "name": "update-flow",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129007608822,
+      "name": "backend",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 129007608837,
+      "name": "https-setup",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "iphone_jobs": [
+    {
+      "id": 129007608494,
+      "name": "Online-Release ohne Apple-Zugang pruefen",
+      "status": "in_progress",
+      "conclusion": null
+    }
+  ],
+  "verified_download_failures": [
+    {
+      "job_id": 129007608441,
+      "status": 504,
+      "source": "PDFium Linux archive",
+      "log": "ci-flutter-pdfium-504.txt"
+    },
+    {
+      "job_id": 129007608747,
+      "status": 504,
+      "source": "PDFium Windows archive",
+      "log": "ci-windows-pdfium-504.txt"
+    }
+  ],
+  "single_job_retry": {
+    "job_id": 129007608441,
+    "accepted": false,
+    "status": 403,
+    "reason": "The workflow run containing this job is already running"
+  },
+  "previous_fully_green_product": "f747311a5c3561fbafc3e9a74095d480b089c9b6"
+}

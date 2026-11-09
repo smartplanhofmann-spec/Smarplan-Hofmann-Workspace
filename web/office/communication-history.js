@@ -30,13 +30,14 @@ export function communicationHistoryPage(value,scope,previous=null){
 
 export function createCommunicationHistory(h){
   const {api,biz,el,button,notice,formatDate,action}=h,instances=new Set();
+  let opening=0;
   const active=()=>{if(!h.allowed()||globalThis.document?.hidden)throw Object.assign(new Error('Der aktuelle Zugang zum Kommunikationsverlauf fehlt.'),{status:403});};
   async function fresh(scope){
     active();const caps=await api.get(biz('/capabilities')+(scope.project_id?'?project_id='+encodeURIComponent(scope.project_id):''));active();
     if(!caps.permissions?.includes('contacts.read')||!caps.features?.includes('communication_history')||!caps.capabilities?.includes('business_sales'))throw Object.assign(new Error('Die aktuelle Lesefreigabe für den Kommunikationsverlauf fehlt.'),{status:403});
     return JSON.stringify({generation:caps.generation,permissions:[...caps.permissions].sort(),features:[...caps.features].sort(),capabilities:[...caps.capabilities].sort()});
   }
-  function clear(root=null){for(const state of instances)if(!root||root.contains(state.node)){state.clear();if(!state.node.isConnected)instances.delete(state);}}
+  function clear(root=null){if(!root)opening++;for(const state of instances)if(!root||root.contains(state.node)){state.clear();if(!state.node.isConnected)instances.delete(state);}}
   globalThis.document?.addEventListener('visibilitychange',()=>{if(document.hidden)clear();});
   globalThis.window?.addEventListener('pagehide',()=>clear());
   async function view(scope,heading=true){
@@ -62,7 +63,7 @@ export function createCommunicationHistory(h){
         page.has_more?button('Weitere Einträge laden',()=>action(()=>load(true))):null);
     }
     async function load(next=false){
-      if(loading)return;loading=true;const connected=node.isConnected,ticket=++sequence,previous=next?page:null,params=Object.fromEntries(Object.entries({...scope,...filters,limit:'50',...(previous?{cursor:previous.next_cursor}:{})}).filter(([,v])=>v!==null&&v!==undefined));
+      if(loading&&next)return;loading=true;const connected=node.isConnected,ticket=++sequence,previous=next?page:null,params=Object.fromEntries(Object.entries({...scope,...filters,limit:'50',...(previous?{cursor:previous.next_cursor}:{})}).filter(([,v])=>v!==null&&v!==undefined));
       results.replaceChildren(notice('Kommunikationsverlauf wird geladen.'));
       try{
         const before=await fresh(scope),value=await api.get(biz('/sales/communication-history')+'?'+new URLSearchParams(params));
@@ -77,6 +78,6 @@ export function createCommunicationHistory(h){
     node.append(...(heading?[el('h2',{},'Kommunikationsverlauf')]:[]),form,button('Verlauf neu laden',()=>action(()=>load())),results);
     await load();return node;
   }
-  async function open(customerId){const stamp=h.stamp(),content=await view({customer_id:customerId},false);active();if(stamp===h.stamp())h.dialog('Kommunikationsverlauf',content);}
+  async function open(customerId){const stamp=h.stamp(),ticket=++opening,content=await view({customer_id:customerId},false);active();if(stamp===h.stamp()&&ticket===opening)h.dialog('Kommunikationsverlauf',content);}
   return {view,open,clear};
 }

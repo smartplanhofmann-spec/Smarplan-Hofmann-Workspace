@@ -3,7 +3,7 @@
   "date": "2026-11-09",
   "baseline_commit": "637d571865a739da44d5b3e99e9c28d83db3c995",
   "feature": "canonical customer/project communication history",
-  "status": "local verification passed; publication/remote CI recorded separately",
+  "status": "final local checks passed; first publication remote PDFium download failures preserved in first-publication.json; corrected publication/CI recorded separately",
   "checks": [
     {
       "name": "domain_http_regression",
@@ -51,7 +51,7 @@
       "log_sha256": "1af03229bc9aeb56865675bc97994870e30f9f2d5a275cc731094f4644433465"
     },
     {
-      "name": "browser_modules",
+      "name": "browser_modules_first_published",
       "log": "browser-modules.txt",
       "tests": 872,
       "skips": 0,
@@ -67,7 +67,7 @@
       "log_sha256": "fc6e164ebab5b629d49b996db19bc2a3de45ef981a36355f87f090a3c1951365"
     },
     {
-      "name": "actual_chromium_mfa_http_history",
+      "name": "actual_chromium_mfa_http_first_published",
       "log": "browser-history-final.txt",
       "result": "passed",
       "sandbox": "namespace, PID, network and seccomp verified; no security disable flags",
@@ -89,6 +89,59 @@
       "name": "python_syntax",
       "result": "passed",
       "modules": 8
+    },
+    {
+      "name": "full_local_native_regression",
+      "tests": 1632,
+      "result": "passed",
+      "log": "native-full-regression.txt",
+      "source_commit": "b57f474a7252e3419d0cfdd28a9f712d9dc8291c",
+      "excluded_tag": "native_pdf",
+      "fixture_python": "backend/.venv/bin/python",
+      "fixture_versions": {
+        "Flask": "3.1.3",
+        "Pillow": "12.3.0",
+        "cryptography": "46.0.7",
+        "psycopg": "3.3.6",
+        "reportlab": "4.5.1"
+      },
+      "note": "Full app before the final two loading-control changes; targeted final controls and current locked-backend/native PDF checks follow.",
+      "log_sha256": "2a384ee1d8905dd8dcf8e4ca6707eed54d200abc327406965fc2064698a279f3"
+    },
+    {
+      "name": "final_history_controls_native_pdf_and_locked_http",
+      "tests": 19,
+      "result": "passed",
+      "log": "native-locked-backend-and-pdf.txt",
+      "fixture_python": ".venv/bin/python",
+      "actual_native_pdf_rendered": true,
+      "includes_repeat_cases_from_full_regression": true,
+      "log_sha256": "6a4a9199327fc8e7c1b7c60add2912a63850a6d4223fc053cbd62084aeef83a0"
+    },
+    {
+      "name": "final_native_analysis_after_loading_controls",
+      "result": "passed",
+      "issues": 0,
+      "log": "native-history-analyze-final-controls.txt",
+      "log_sha256": "b0619ee71a2934314ce018e417b32d588ea3eb78a457d94cf377e05805a52039"
+    },
+    {
+      "name": "final_browser_modules_with_late_customer_and_filter_guards",
+      "tests": 874,
+      "skips": 0,
+      "result": "passed",
+      "log": "browser-modules-races-verified.txt",
+      "includes_previous_872": true,
+      "log_sha256": "b717cbea2349e6a863471f59f78f5ff7d1128d84eed19b0f355fb42fc23d8039"
+    },
+    {
+      "name": "final_actual_chromium_mfa_http_races",
+      "result": "passed",
+      "log": "browser-history-races-verified.txt",
+      "latest_customer_wins": true,
+      "latest_submitted_filter_wins": true,
+      "external_provider_requests": false,
+      "log_sha256": "652a480c75d9356e5a55434bac844e9f85b513253036fca7b2cc7946cf0c82b0"
     }
   ],
   "preserved_failed_runs": {
@@ -131,11 +184,11 @@
   },
   "source_sha256": {
     ".github/workflows/checks.yml": "3cc28633470f7bddd1c226b27733106de47a2b26548b659a6dce3d87c33895b7",
-    "app/lib/business_communication_history.dart": "fb3646c12aec921f5f3b3b8a5f9ae7cfbeb8e4363ba4979795cec9a463c8d6a9",
+    "app/lib/business_communication_history.dart": "dddf330598bfb824f2c175db48974250d8f183ebebb2badbb92c09919130a7fa",
     "app/lib/business_contacts.dart": "1cf41f4d5b14304006a09969d9b564da96fdcfd9e78fadde89a91b7c7a5bfaa4",
     "app/lib/business_shell.dart": "e9345df1f7cf4dc1e20c30804265df57bd35b1cc04e006e42d1e39b64a97b2cb",
     "app/lib/project_workspace_page.dart": "17743efb3c004038d2a6541141825b3b61562f353bbc05dd83f6ad64e412aaf2",
-    "app/test/business_communication_history_test.dart": "b2b68374f19ac349f51c6af0d5051f239659ad2a05eb4943d5056d44799ec186",
+    "app/test/business_communication_history_test.dart": "2e5805755d8c9effaf887149e0b11241a95c984805785611cbb7d98971f409da",
     "app/test/fixtures/communication_history.json": "93782851021cb256cfa8678bb549a275fd9d3de18d4a4d22d0ce910844cc4475",
     "app/test/fixtures/generate_communication_history.py": "3a355ac369f4743771a2a6c0b68259e745a7519db03d7336f061c54e068bb158",
     "app/test/project_business_tabs_navigation_test.dart": "c52e32d251776cffca6b4c88869083738794811da65ab6ae9daf8f1da254fc35",
@@ -146,11 +199,11 @@
     "backend/test_communication_history.py": "2a168bd7a1c3fc261a47e153ef5ac3efac566bc0d88e03d65d4b1856837d013a",
     "scripts/native-release.py": "840939d16d857602696ce27cb89be180474f63e3ee153f0f97b7a8218e6dc384",
     "scripts/package-windows-support.py": "35de5ff95099f9459d0fd155ddaff8f1c4763970e9d9eadacefb68b4b31979d7",
-    "web/office/communication-history.js": "a4e75cb040bfc4591558e8771db36c2f001d078d901a43e21b2a94226066c9f6",
+    "web/office/communication-history.js": "801d155e87ecb68c44bf3af028e9bebb2c57cbf68d7293cfbd22fdad59317d00",
     "web/office/office.css": "19efce276add1f1a2b71280ba68abb97d0eea5369675b1bfe4fec8811449dab0",
     "web/office/office.js": "54e5f46acb11206b274ff65a01163cb20e8ddaf5907bfaac30af6746be92f78e",
-    "web/office/tests/communication-history-flow.cjs": "fe4f2d5c31e7a4dbc979abd5ed160abae03a6acb8c19727a465fed4a0d89abab",
-    "web/office/tests/communication-history.test.mjs": "d8e435d5604046d48050edf4bac9dc8c90a70a324f46a3e7345ed0df837c7af2",
+    "web/office/tests/communication-history-flow.cjs": "837797a74075c495d7c635ee8b7faf4334dbad82a7348f9cbbc080e2d0f73ec4",
+    "web/office/tests/communication-history.test.mjs": "9d3769cc6dc8cb1ba14aef28c5a1bb0cffa992f0103cc224f8c0bf00c34535f2",
     "web/office/tests/e2e.cjs": "0be33b9e36e0e90bc8acc0cd57afdb5f085523eb6b907c9a4cff02ccc09940c0"
   },
   "original_goal": {

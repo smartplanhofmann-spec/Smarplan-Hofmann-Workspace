@@ -4,13 +4,18 @@ Stand: 09.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
-Letzter veröffentlichter Produktcommit:
+Letzter vollständig grün geprüfter Produktcommit:
 `f747311a5c3561fbafc3e9a74095d480b089c9b6` (Faktor-Vollmonat mit Clients).
 Die neuen GitHub-Läufe [Development checks](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42529919023)
 und [iPhone-Prüfworkflow](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42529918991)
 sind inzwischen erfolgreich abgeschlossen: alle acht Development-Jobs und der
 unsignierte iPhone-Build 171 bestehen; signierter Upload bleibt übersprungen.
 [Aktuelle CI-/Artefaktnachweise](evidence/completion-2026-11-09/ci-baseline.json).
+Die neue CRM-Erstveröffentlichung b57f474 und ihre PDFium-Downloadfehler
+sind [gesondert erfasst](evidence/completion-2026-11-09/first-publication.json).
+Die abschließenden Kunden-/Filter- und Ladekorrekturen erhalten einen eigenen
+neuen CI-Lauf; lokale Gesamtnachweise stehen unter
+[verification.json](evidence/completion-2026-11-09/verification.json).
 Der vorherige Lauf auf 3773a60
 bestand sechs Jobs; seine noch laufenden Business-/Online-Jobs wurden durch den
 neuen Branchstand automatisch abgebrochen. Er gilt nicht als vollständig grün.
@@ -88,6 +93,9 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
    Datum, Snapshotseiten und Original/Korrektur erhalten native Quellrechte.
    Tatsächliche MFA-/Browser-/PostgreSQL-/Restoreprüfungen bestanden; alle
    22 nativen Projektregister sind in Desktop-/Mobilbreite nachgeprüft.
+   Der zusätzliche vollständige lokale App-Lauf auf b57f474 besteht 1.632
+   Fälle ohne die gesonderten nativen PDFfälle. Der abschließende Browserstand
+   besteht 874 Modulfälle und echte verspätete Kunden-/Filterantworten.
    [Umfang und Grenzen](CRM_ERP_KOMMUNIKATIONSVERLAUF.md).
 7. **Windows-Artefakt:** Onlinepaket auf f747311 tatsächlich heruntergeladen;
    veröffentlichter Archivdigest und alle 248 Dateihashes stimmen. Es ist
@@ -98,7 +106,11 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 - Die neue vollständige CI auf dem aktuellen Quellstand nachprüfen und
   tatsächliche neue Fehler beheben; auf f747311 inzwischen vollständig grün.
 - Gemeinsamen Kunden-/Projekt-Kommunikationsverlauf auf dem Testbranch liefern
-  und seine neue CI prüfen. Konkrete externe Kanalintegration und tatsächliche
+  und seine neue CI prüfen. Erstveröffentlichung b57f474 ist erfolgt; Linux-
+  App- und Windowsjob stoppten beim externen PDFium-Download mit HTTP504,
+  nicht an einem fehlgeschlagenen Fachtest. HTTPS, Update und Simulator
+  bestehen bereits. Die letzten Kunden-/Filterkorrekturen erhalten einen
+  eigenen neu gestarteten Gesamtlauf. Konkrete externe Kanalintegration und tatsächliche
   Geräte-/Betriebsabnahme bleiben gesonderte Aufgaben.
 - Weitere benannte Standard-Lohnfälle additiv integrieren. Dazu gehören unter
   anderem Faktor-Teilmonate/-Einmalbezüge, individuelle Minijobsteuer, Versicherungsvarianten,

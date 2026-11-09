@@ -1,0 +1,2 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+communication history: actual owner MFA/HTTP, explicit inquiry/sales/service/document/project links, 50-entry paging, stale cursor rejection, original/correction, escaped HTML, private-note exclusion, latest filter despite late HTTP, customer/project UI, mobile and late-response discard passed

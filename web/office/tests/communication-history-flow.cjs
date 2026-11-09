@@ -33,7 +33,19 @@ async function communicationHistoryFlow({page,context,navigate,ready,fixture,scr
     await api('/feed',command({project_id:projectId,text:'PRIVATE PERSONALNOTIZ',visibility:'personnel'}));
     // Canonical API writes above are setup. The history is opened through the real UI.
     await navigate(page,'Kontakte');
-    await page.locator('.list-row').filter({has:page.getByRole('heading',{name:customer.name,exact:true})}).getByRole('button',{name:'Kommunikationsverlauf',exact:true}).click();
+    const openCustomer=name=>page.locator('.list-row').filter({has:page.getByRole('heading',{name,exact:true})}).getByRole('button',{name:'Kommunikationsverlauf',exact:true}).click();
+    let customerStarted,customerRelease;const customerWaiting=new Promise(resolve=>customerStarted=resolve),customerGate=new Promise(resolve=>customerRelease=resolve);
+    const customerPattern='**/api/v1/business/sales/communication-history?*';
+    await context.route(customerPattern,async route=>{
+      if(new URL(route.request().url()).searchParams.get('customer_id')!==customer.id)return route.fallback();
+      const response=await route.fetch();customerStarted();await customerGate;await route.fulfill({response});
+    });
+    await openCustomer(customer.name);await customerWaiting;
+    await openCustomer('Synthetic Workshop Customer');await history().getByText('Kunde: Synthetic Workshop Customer',{exact:true}).waitFor();
+    const lateCustomer=page.waitForResponse(response=>new URL(response.url()).pathname==='/api/v1/business/sales/communication-history'&&new URL(response.url()).searchParams.get('customer_id')===customer.id);
+    customerRelease();await lateCustomer;await context.unroute(customerPattern);await page.waitForTimeout(100);
+    assert.equal(await history().getByText('Kunde: Synthetic Workshop Customer',{exact:true}).count(),1);await close();
+    await openCustomer(customer.name);
     await page.getByRole('dialog',{name:'Kommunikationsverlauf',exact:true}).waitFor();
     await rows().first().waitFor();assert.equal(await rows().count(),50);
     assert.ok((await history().innerText()).includes(literal));assert.equal(await page.evaluate(()=>window.historyExecuted),undefined);assert.equal(await history().locator('img').count(),0);
@@ -52,6 +64,20 @@ async function communicationHistoryFlow({page,context,navigate,ready,fixture,scr
     await history().getByLabel('Verlaufsquelle',{exact:true}).selectOption('sales');
     await history().getByLabel('Kommunikationsverlauf durchsuchen',{exact:true}).fill('Korrigierte Rückrufnotiz');
     await history().getByRole('button',{name:'Verlauf filtern',exact:true}).click();await rows().first().waitFor();assert.equal(await rows().count(),1);
+    // Latest explicit filter wins even when an earlier successful HTTP response arrives late.
+    let firstStarted,firstRelease;const firstWaiting=new Promise(resolve=>firstStarted=resolve),firstGate=new Promise(resolve=>firstRelease=resolve);
+    const filterPattern='**/api/v1/business/sales/communication-history?*';
+    await context.route(filterPattern,async route=>{
+      if(new URL(route.request().url()).searchParams.get('q')!=='Ursprüngliche Rückrufnotiz')return route.fallback();
+      const response=await route.fetch();firstStarted();await firstGate;await route.fulfill({response});
+    });
+    await history().getByLabel('Kommunikationsverlauf durchsuchen',{exact:true}).fill('Ursprüngliche Rückrufnotiz');
+    await history().getByRole('button',{name:'Verlauf filtern',exact:true}).click();await firstWaiting;
+    await history().getByLabel('Kommunikationsverlauf durchsuchen',{exact:true}).fill('Korrigierte Rückrufnotiz');
+    await history().getByRole('button',{name:'Verlauf filtern',exact:true}).click();await rows().first().getByText('Korrigierte Rückrufnotiz',{exact:true}).waitFor();
+    const lateFilter=page.waitForResponse(response=>new URL(response.url()).pathname==='/api/v1/business/sales/communication-history'&&new URL(response.url()).searchParams.get('q')==='Ursprüngliche Rückrufnotiz');
+    firstRelease();await lateFilter;await context.unroute(filterPattern);await page.waitForTimeout(100);
+    assert.equal(await rows().count(),1);assert.ok(!(await history().innerText()).includes('Ursprüngliche Rückrufnotiz'));
     await page.setViewportSize({width:390,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
     await page.screenshot({path:path.join(screenshots,'communication-history-mobile.png'),fullPage:true});
     await rows().first().getByRole('button',{name:'Projekt öffnen',exact:true}).click();await ready(page);
@@ -65,7 +91,7 @@ async function communicationHistoryFlow({page,context,navigate,ready,fixture,scr
     await navigate(page,'Übersicht');release();await context.unroute(pattern);
     await page.waitForTimeout(100);assert.equal(await history().count(),0);assert.equal(await page.getByRole('dialog').count(),0);
     assert.ok(reads.some(r=>r.status===409));assert.ok(reads.some(r=>new URLSearchParams(r.query).get('project_id')===projectId));
-    console.log('communication history: actual owner MFA/HTTP, explicit inquiry/sales/service/document/project links, 50-entry paging, stale cursor rejection, original/correction, escaped HTML, private-note exclusion, customer/project UI, mobile and late-response discard passed');
+    console.log('communication history: actual owner MFA/HTTP, explicit inquiry/sales/service/document/project links, 50-entry paging, stale cursor rejection, original/correction, escaped HTML, private-note exclusion, latest customer and filter despite late HTTP, customer/project UI, mobile and late-response discard passed');
     assert.equal(service.customer_id,customer.id);
   }finally{page.off('request',capture);page.off('response',responseCapture);await fs.writeFile(path.join(screenshots,'communication-history-reads.json'),JSON.stringify(reads,null,2));}
 }

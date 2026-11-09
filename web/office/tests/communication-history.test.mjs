@@ -47,8 +47,8 @@ class Node {
 function content(node){return typeof node==='string'?node:node?.children?.map(content).join(' ')||'';}
 function setup({change=false}={}){
   let reads=0,stamp=1,allowed=true;
-  const el=(...args)=>new Node(...args),caps=()=>({generation:1,permissions:['contacts.read',...(change&&reads>0?[]:['finance.read'])],features:['communication_history'],capabilities:['business_sales']});
-  const h={el,button:(name,fn)=>{const n=el('button',{},name);n.click=fn;return n;},notice:message=>el('p',{},message),formatDate:String,action:fn=>fn(),biz:p=>'/business'+p,stamp:()=>stamp,allowed:()=>allowed,dialog(){},openProject(){},api:{get:async path=>{if(path.includes('/capabilities'))return caps();reads++;return structuredClone(f.full);}}};
+  const nodes=[],el=(...args)=>{const node=new Node(...args);nodes.push(node);return node;},caps=()=>({generation:1,permissions:['contacts.read',...(change&&reads>0?[]:['finance.read'])],features:['communication_history'],capabilities:['business_sales']});
+  const h={el,nodes,button:(name,fn)=>{const n=el('button',{},name);n.click=fn;return n;},notice:message=>el('p',{},message),formatDate:String,action:fn=>fn(),biz:p=>'/business'+p,stamp:()=>stamp,allowed:()=>allowed,dialog(){},openProject(){},api:{get:async path=>{if(path.includes('/capabilities'))return caps();reads++;return structuredClone(f.full);}}};
   return {ui:createCommunicationHistory(h),h,invalidate(){stamp++;},deny(){allowed=false;}};
 }
 test('fresh effective rights after response prevent display of a now-revoked source',async()=>{
@@ -61,4 +61,27 @@ test('clear and context changes discard private results and late responses',asyn
   const b=setup();let release;b.h.api.get=async path=>path.includes('/capabilities')?{generation:1,permissions:['contacts.read'],features:['communication_history'],capabilities:['business_sales']}:new Promise(resolve=>{release=resolve;});
   const pending=b.ui.view(f.scope);while(!release)await new Promise(r=>setImmediate(r));b.invalidate();release(structuredClone(f.full));
   assert.doesNotMatch(content(await pending),/Synthetic corrected call/);
+});
+test('a newly submitted filter supersedes a pending read instead of silently dropping the search',async()=>{
+  const a=setup();let release,reads=0;
+  a.h.api.get=async path=>path.includes('/capabilities')?{generation:1,permissions:['contacts.read'],features:['communication_history'],capabilities:['business_sales']}:
+    ++reads===1?new Promise(resolve=>{release=resolve;}):structuredClone(f.filtered);
+  const pending=a.ui.view(f.scope);while(!release)await new Promise(resolve=>setImmediate(resolve));
+  a.h.nodes.find(n=>n.attrs['aria-label']==='Kommunikationsverlauf durchsuchen').value='corrected';
+  a.h.nodes.find(n=>n.attrs['aria-label']==='Verlaufsquelle').value='sales';
+  a.h.nodes.find(n=>n.tag==='form').events.submit({preventDefault(){}});
+  await new Promise(resolve=>setImmediate(resolve));
+  release(structuredClone(f.full));const node=await pending;
+  assert.equal(reads,2);assert.match(content(node),/Synthetic corrected call/);assert.doesNotMatch(content(node),/Synthetic call original/);
+});
+test('a late first customer dialog cannot replace the most recently selected customer',async()=>{
+  const a=setup(),id='f'.repeat(32),other=structuredClone(f.full),dialogs=[];
+  other.scope.customer_id=id;other.customer={id,name:'Last explicitly selected customer'};other.items=[];
+  let release;
+  a.h.dialog=(_,node)=>dialogs.push(content(node));
+  a.h.api.get=async path=>path.includes('/capabilities')?{generation:1,permissions:['contacts.read'],features:['communication_history'],capabilities:['business_sales']}:
+    path.includes(id)?other:new Promise(resolve=>{release=resolve;});
+  const first=a.ui.open(f.scope.customer_id);while(!release)await new Promise(resolve=>setImmediate(resolve));
+  await a.ui.open(id);release(structuredClone(f.full));await first;
+  assert.equal(dialogs.length,1);assert.match(dialogs[0],/Last explicitly selected customer/);
 });

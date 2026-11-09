@@ -164,6 +164,7 @@ void main() {
       await tester.pumpWidget(page(true));
       await tester.pump();
       expect(api.historyReads, 1);
+      expect(tester.widget<TextField>(find.byType(TextField)).enabled, isFalse);
       await tester.pumpWidget(page(false));
       api.pending!.complete(copy(f['full']));
       await tester.pumpAndSettle();
@@ -172,6 +173,7 @@ void main() {
       await tester.pumpWidget(page(true));
       await tester.pumpAndSettle();
       expect(api.historyReads, 2);
+      expect(tester.widget<TextField>(find.byType(TextField)).enabled, isTrue);
       tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
       await tester.pump();
       expect(find.text(f['full']['items'][0]['title']), findsNothing);

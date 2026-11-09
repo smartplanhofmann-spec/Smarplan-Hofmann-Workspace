@@ -2824,3 +2824,29 @@ das ist keine tatsächliche Windowsbedienung. Freie externe Kommunikationskanäl
 signierte iPhone-Verteilung, neue Serverinstallation und Abnahmen A–G bleiben
 separat. Die übrigen benannten Lohn-/EÜR-Lücken bleiben aktive Codearbeit im
 vollständigen Gesamtziel; kein Fertigstellungsprozent wird daraus abgeleitet.
+
+Die Erstveröffentlichung ist b57f474 auf dem autorisierten Testbranch.
+Development-Lauf 42570848045 besteht zunächst HTTPS, Update und iOS-Simulator;
+die übrigen laufenden Jobs sind damit noch nicht als bestanden bestätigt.
+Linux-App- und Windowsjob brechen beim externen PDFium-Download mit HTTP504
+ab. Die Paketprüfungen und App-Analyse davor bestehen. Der Versuch, nur den
+beendeten Linuxjob zu wiederholen, wird von GitHub mit „workflow run ... is
+already running“ abgewiesen. Dies ist keine Ablehnung durch eine automatische
+Freigabeprüfung und kein Nachweis fehlender Fachfunktion. Die Auszüge bleiben
+als `ci-flutter-pdfium-504.txt` und `ci-windows-pdfium-504.txt` erhalten.
+
+Zusätzlich bestehen auf b57f474 sämtliche 1.632 lokalen Appfälle außerhalb des
+gesonderten Tags `native_pdf`. Die tatsächlichen HTTP-Fixtures dieses Laufs
+verwenden die vorhandene `backend/.venv` (unter anderem Pillow12.3.0,
+cryptography46.0.7); dies wird nicht als identische CI-Abhängigkeitsumgebung
+ausgegeben. Anschließend bestehen 19 gezielte Fälle mit der aktuellen gelockten `.venv`,
+einschließlich echter App-/Backendaufrufe, tatsächlicher nativer PDFdarstellung
+und der abschließenden Ladekontrollen; vollständige Analyse ohne Befund.
+
+Die zusätzliche Prüfung verspäteter Antworten schließt zwei Bedienlücken:
+eine erneut abgeschickte Suche wird nicht mehr verworfen, und ein verspäteter
+erster Kunde ersetzt keinen danach gewählten Kundendialog. Beide Gegenfälle
+bestehen als Modultests und tatsächlicher MFA-/HTTP-/Chromium-Ablauf.
+Alle 874 Browsermodule bestehen. Native Filterfelder sind während eines
+Abrufs gesperrt. Diese abschließende Korrektur wird separat veröffentlicht
+und startet die gemeinsame CI neu; die alten 504-Ergebnisse bleiben erhalten.

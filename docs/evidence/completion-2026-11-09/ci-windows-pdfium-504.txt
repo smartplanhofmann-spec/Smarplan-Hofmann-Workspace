@@ -1,0 +1,44 @@
+2026-11-09T06:06:53.0721725Z 
+2026-11-09T06:06:53.0721827Z Copyright (C) Microsoft Corporation.  All rights reserved.
+2026-11-09T06:06:53.0721975Z 
+2026-11-09T06:06:53.0721978Z 
+2026-11-09T06:06:53.0721981Z 
+2026-11-09T06:07:09.7358489Z PDFium download returned HTTP 504; retrying in 1s.
+2026-11-09T06:07:09.7358792Z 
+2026-11-09T06:07:10.8334412Z PDFium download returned HTTP 504; retrying in 2s.
+2026-11-09T06:07:10.8334628Z 
+2026-11-09T06:07:12.9291711Z PDFium download returned HTTP 504; retrying in 4s.
+2026-11-09T06:07:12.9291925Z 
+2026-11-09T06:07:17.0317679Z Unhandled exception:
+2026-11-09T06:07:17.0318176Z Exception: Failed to download PDFium: HTTP 504 https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7811/pdfium-win-x64.tgz
+2026-11-09T06:07:17.0318764Z #0      _downloadPdfium (file:///c:/users/runneradmin/appdata/local/pub/cache/hosted/pub.dev/pdfium_dart-0.4.0/hook/build.dart:67:5)
+2026-11-09T06:07:17.0319170Z <asynchronous suspension>
+2026-11-09T06:07:17.0319529Z #1      main.<anonymous closure> (file:///c:/users/runneradmin/appdata/local/pub/cache/hosted/pub.dev/pdfium_dart-0.4.0/hook/build.dart:35:5)
+2026-11-09T06:07:17.0319876Z <asynchronous suspension>
+2026-11-09T06:07:17.0320084Z #2      build (package:hooks/src/api/build_and_link.dart:250:5)
+2026-11-09T06:07:17.0322147Z <asynchronous suspension>
+2026-11-09T06:07:17.0322544Z #3      main (file:///c:/users/runneradmin/appdata/local/pub/cache/hosted/pub.dev/pdfium_dart-0.4.0/hook/build.dart:14:3)
+2026-11-09T06:07:17.0322865Z <asynchronous suspension>
+2026-11-09T06:07:17.0322975Z 
+2026-11-09T06:07:17.0594229Z   Building assets for package:pdfium_dart failed.
+2026-11-09T06:07:17.0595284Z   build.dart returned with exit code: 255.
+2026-11-09T06:07:17.0595643Z   To reproduce run:
+2026-11-09T06:07:17.0597423Z   (cd C:\Users\runneradmin\AppData\Local\Pub\Cache\hosted\pub.dev\pdfium_dart-0.4.0\; C:\hostedtoolcache\windows\flutter\stable-3.47.7-x64\flutter\bin\cache\dart-sdk\bin\dart --packages=D:\a\Smarplan-Hofmann-Workspace\Smarplan-Hofmann-Workspace\app\.dart_tool\package_config.json D:\a\Smarplan-Hofmann-Workspace\Smarplan-Hofmann-Workspace\app\.dart_tool\hooks_runner\pdfium_dart\de88d493ac\hook.dill --config=D:\a\Smarplan-Hofmann-Workspace\Smarplan-Hofmann-Workspace\app\.dart_tool\hooks_runner\pdfium_dart\de88d493ac\input.json )
+2026-11-09T06:07:17.0599130Z   stderr:
+2026-11-09T06:07:17.0599352Z   Microsoft (R) C/C++ Optimizing Compiler Version 19.51.36260 for x64
+2026-11-09T06:07:17.0599661Z Copyright (C) Microsoft Corporation.  All rights reserved.
+2026-11-09T06:07:17.0599811Z 
+2026-11-09T06:07:17.0599813Z 
+2026-11-09T06:07:17.0599974Z Microsoft (R) C/C++ Optimizing Compiler Version 19.51.36260 for x64
+2026-11-09T06:07:17.0600334Z 
+2026-11-09T06:07:17.0600428Z Copyright (C) Microsoft Corporation.  All rights reserved.
+2026-11-09T06:07:17.0600589Z 
+2026-11-09T06:07:17.0600591Z 
+2026-11-09T06:07:17.0600700Z PDFium download returned HTTP 504; retrying in 1s.
+2026-11-09T06:07:17.0600927Z PDFium download returned HTTP 504; retrying in 2s.
+2026-11-09T06:07:17.0601147Z PDFium download returned HTTP 504; retrying in 4s.
+2026-11-09T06:07:17.0601371Z Unhandled exception:
+2026-11-09T06:07:17.0601752Z Exception: Failed to download PDFium: HTTP 504 https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7811/pdfium-win-x64.tgz
+2026-11-09T06:07:17.0602287Z #0      _downloadPdfium (file:///c:/users/runneradmin/appdata/local/pub/cache/hosted/pub.dev/pdfium_dart-0.4.0/hook/build.dart:67:5)
+2026-11-09T06:07:17.0602628Z <asynchronous suspension>
+2026-11-09T06:07:17.0602988Z #1      main.<anonymous closure> (file:///c:/users/runneradmin/appdata/local/pub/cache/hosted/pub.dev/pdfium_dart-0.4.0/hook/build.dart:35:5)

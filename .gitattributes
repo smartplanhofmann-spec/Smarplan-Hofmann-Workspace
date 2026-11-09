@@ -13,3 +13,7 @@ docs/evidence/completion-2026-11-09/native-history-analyze.txt whitespace=-blank
 docs/evidence/completion-2026-11-09/native-history-regression.txt whitespace=-blank-at-eol
 docs/evidence/completion-2026-11-09/native-history-second.txt whitespace=-blank-at-eol
 docs/evidence/completion-2026-11-09/native-history-third.txt whitespace=-blank-at-eol
+
+docs/evidence/completion-2026-11-09/ci-flutter-pdfium-504.txt whitespace=-blank-at-eol
+docs/evidence/completion-2026-11-09/ci-windows-pdfium-504.txt whitespace=-blank-at-eol
+docs/evidence/completion-2026-11-09/native-history-analyze-final-controls.txt whitespace=-blank-at-eol

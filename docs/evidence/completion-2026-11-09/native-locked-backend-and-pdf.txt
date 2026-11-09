@@ -1,0 +1,21 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_communication_history_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_communication_history_test.dart: actual customer/project source snapshots bind all six categories
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_communication_history_test.dart: stable paging preserves original and corrected activities once
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_communication_history_test.dart: foreign scope, extra fields, false delivery and invalid timestamps fail closed
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_communication_history_test.dart: mobile history renders source meaning and clears immediately on fresh role withdrawal
+00:02 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/mail_attachment_preview_widget_test.dart: A verified PNG opens the real zoomable image; closing releases bytes and decoded image
+00:02 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_communication_history_test.dart: background and inactive project slot discard pending private response
+00:02 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/mail_attachment_preview_widget_test.dart: A real 5000 by 1000 PNG is decoded to a bounded 2048 by 410 image
+00:03 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_communication_history_test.dart: permissions changed between source and final guard never render old source
+00:03 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/mail_attachment_preview_widget_test.dart: Preview remains closed until download completes and rejects changed size or SHA
+00:03 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/mail_attachment_preview_widget_test.dart: Unauthorized download and a late successful response after logout never expose a preview
+00:03 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/mail_attachment_preview_widget_test.dart: Logout or explicit access revocation hides an open preview and releases the decoded image
+00:03 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/mail_attachment_preview_widget_test.dart: Removing the file from refreshed metadata revokes its already open preview
+00:04 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/mail_attachment_preview_widget_test.dart: A real two-page PDF renders bounded pages in memory, switches pages and releases its images
+00:05 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_backend_integration_test.dart: Real business HTTP preserves draft values and durable own time through the scoped grant
+00:05 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_backend_integration_test.dart: Real business HTTP preserves draft values and durable own time through the scoped grant
+00:05 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_backend_integration_test.dart: Real business HTTP preserves draft values and durable own time through the scoped grant
+00:05 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/business_backend_integration_test.dart: Real business HTTP preserves draft values and durable own time through the scoped grant
+00:06 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+00:07 +18: /workspace/Smarplan-Hofmann-Workspace/app/test/project_economics_backend_integration_test.dart: Real HTTP receipt capture, review, allocation and correction retain original nonces and source history
+00:08 +19: All tests passed!

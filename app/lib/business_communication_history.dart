@@ -461,6 +461,7 @@ class _CommunicationState extends State<BusinessCommunicationHistoryPage>
             children: [
               TextField(
                 controller: query,
+                enabled: !loading,
                 decoration: const InputDecoration(
                   labelText: 'Kommunikationsverlauf durchsuchen',
                 ),
@@ -509,7 +510,9 @@ class _CommunicationState extends State<BusinessCommunicationHistoryPage>
                   ),
                   if (from != null || to != null)
                     TextButton(
-                      onPressed: () => setState(() => from = to = null),
+                      onPressed: loading
+                          ? null
+                          : () => setState(() => from = to = null),
                       child: const Text('Zeitraum entfernen'),
                     ),
                 ],

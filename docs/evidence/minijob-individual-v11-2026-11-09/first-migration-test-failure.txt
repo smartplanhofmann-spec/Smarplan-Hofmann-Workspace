@@ -1,0 +1,23 @@
+test_actual_full_month_compulsory_rv_source_and_employee_statement (test_payroll_individual_minijob.IndividualMinijobTests.test_actual_full_month_compulsory_rv_source_and_employee_statement) ... ok
+test_actual_full_month_exempt_rv_has_different_tax (test_payroll_individual_minijob.IndividualMinijobTests.test_actual_full_month_exempt_rv_has_different_tax) ... ok
+test_actual_payment_ledger_and_individual_annual_projection (test_payroll_individual_minijob.IndividualMinijobTests.test_actual_payment_ledger_and_individual_annual_projection) ... ok
+test_explicit_unsupported_v5_upgrade_retains_original_receipts_and_history (test_payroll_individual_minijob.IndividualMinijobTests.test_explicit_unsupported_v5_upgrade_retains_original_receipts_and_history) ... FAIL
+test_independent_xml_vectors_and_original_32_kernels (test_payroll_individual_minijob.IndividualMinijobTests.test_independent_xml_vectors_and_original_32_kernels) ... ok
+test_missing_or_false_actual_facts_never_calculate (test_payroll_individual_minijob.IndividualMinijobTests.test_missing_or_false_actual_facts_never_calculate) ... ok
+test_new_identity_is_explicit_and_never_a_flat_tax_relabelling (test_payroll_individual_minijob.IndividualMinijobTests.test_new_identity_is_explicit_and_never_a_flat_tax_relabelling) ... ok
+test_original_file_and_version_requirements_are_strict (test_payroll_individual_minijob.IndividualMinijobTests.test_original_file_and_version_requirements_are_strict) ... ok
+test_replaced_original_prevents_new_use_and_preserves_history (test_payroll_individual_minijob.IndividualMinijobTests.test_replaced_original_prevents_new_use_and_preserves_history) ... ok
+test_upgrade_requires_calculable_target_and_unambiguous_unused_sources (test_payroll_individual_minijob.IndividualMinijobTests.test_upgrade_requires_calculable_target_and_unambiguous_unused_sources) ... ok
+
+======================================================================
+FAIL: test_explicit_unsupported_v5_upgrade_retains_original_receipts_and_history (test_payroll_individual_minijob.IndividualMinijobTests.test_explicit_unsupported_v5_upgrade_retains_original_receipts_and_history)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-minijob-individual-v11-20261109/backend/test_payroll_individual_minijob.py", line 127, in test_explicit_unsupported_v5_upgrade_retains_original_receipts_and_history
+    self.assertEqual(annual._project_run(run,as_of_date='2026-11-03')['running_taxable_minor'],50000)
+AssertionError: 0 != 50000
+
+----------------------------------------------------------------------
+Ran 10 tests in 10.422s
+
+FAILED (failures=1)

@@ -206,6 +206,12 @@ class PayrollAccounts:
 
     def _normalize(self,employee_id,kind,details,*,rule_version=None):
         fields=IDENTITY_FIELDS if kind=='identity' else PAYMENT_FIELDS if kind=='payment' else CARRY_FIELDS
+        if not isinstance(details,dict):_shape(details,fields,fields)
+        individual_identity=kind=='identity' and 'identity_source_schema_version' in details
+        if individual_identity:
+            fields+=('identity_source_schema_version',)
+            if type(details['identity_source_schema_version']) is not int or details['identity_source_schema_version']!=2:
+                raise Problem(400,'Individuelle Minijob-Identität benötigt ausdrücklich Quellenfassung 2.')
         if kind=='payment':
             _shape(details,PAYMENT_FIELDS+('payment_source_schema_version','settlement_allocations','prior_payment_ref'),PAYMENT_FIELDS)
             run=self.payroll._event(self.payroll._row(details['run_id'],'run',details['run_revision']))
@@ -238,7 +244,13 @@ class PayrollAccounts:
             if details['tax_source'] not in ('elstam_imported','tax_office_certificate','flat_minijob_evidence'):
                 raise Problem(400,'Tatsächliche Herkunft der Steuermerkmale angeben.')
             mini=profile['profile']['employment_kind']=='minijob'
-            if (details['tax_source']=='flat_minijob_evidence')!=mini:
+            if individual_identity:
+                p=profile['profile']
+                if (not mini or p['minijob_tax']!='individual' or p['health_insurance']!='statutory_other'
+                        or p['tax_class'] not in (1,5) or p['church_tax']!='none'
+                        or details['tax_source']!='elstam_imported'):
+                    raise Problem(400,'Diese neue Identitätsfassung gilt nur für den belegten individuellen gewerblichen GKV-Minijob mit Klasse I/V.')
+            elif (details['tax_source']=='flat_minijob_evidence')!=mini:
                 raise Problem(400,'Nachweisart und Beschäftigungsfall stimmen nicht überein.')
             for field in ('tax_allowance_yearly_minor','tax_addition_yearly_minor'):
                 _integer(details[field])
@@ -250,7 +262,7 @@ class PayrollAccounts:
                 raise Problem(400,'Steuerklasse VI darf keinen Jahreshinzurechnungsbetrag enthalten.')
             if details['standard_case_confirmed'] is not True:
                 raise Problem(400,'Unterstützten inländischen Standardfall ausdrücklich bestätigen.')
-            if not mini and (profile['profile']['church_tax']=='none')!=(details['religion_code']=='none'):
+            if (not mini or individual_identity) and (profile['profile']['church_tax']=='none')!=(details['religion_code']=='none'):
                 raise Problem(400,'Religionsmerkmal und Steuerprofil widersprechen sich.')
             return details,dict(profile=profile),kind+':'+profile['id']+':'+str(profile['revision'])
         if kind=='payment':

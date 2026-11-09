@@ -1,0 +1,6 @@
+test_actual_mfa_private_scope_fresh_denial_and_restart (online.test_business_payroll_individual_minijob_pg.IndividualMinijobPostgres.test_actual_mfa_private_scope_fresh_denial_and_restart) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 19.564s
+
+OK

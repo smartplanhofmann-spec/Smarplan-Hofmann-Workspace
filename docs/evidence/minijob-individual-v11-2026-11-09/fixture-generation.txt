@@ -1,0 +1,1 @@
+/workspace/smartplan-minijob-individual-v11-20261109/app/test/fixtures/individual_minijob_v11.json

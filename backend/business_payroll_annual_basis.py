@@ -152,11 +152,13 @@ class PayrollAnnualBasis:
         from business_payroll import Payroll
         from business_payroll_accounts import PayrollAccounts
         from business_payroll_calculation_cases import PayrollCalculationCases
+        from payroll_calculations_2026 import CALCULATION_RULE_VERSION,SOURCE_CONTRACT_VERSION
         with transaction(self.office):
             result=self.facts.sources(actor,query)
             result.update(annual_facts=self._all(result['employee_id']),payroll_runs=Payroll(self.office)._all('run',result['employee_id']),
                 payroll_payments=[item for item in PayrollAccounts(self.office)._all(result['employee_id']) if item['kind']=='payment'],
-                calculation_cases=PayrollCalculationCases(self.office)._all(result['employee_id'],'calculation_case'))
+                calculation_cases=[item for item in PayrollCalculationCases(self.office)._all(result['employee_id'],'calculation_case')
+                    if item['rule_version']==CALCULATION_RULE_VERSION and item['source_contract_version']==SOURCE_CONTRACT_VERSION])
             return result
 
     def _reference(self,employee_id,value,kind=None,*,fresh,current_one_off_id=None):
@@ -234,7 +236,9 @@ class PayrollAnnualBasis:
                 branches[branch]=dict(eligible_intervals=intervals,contributed_minor=contributed)
             periods.append(dict(source_ref=run_ref,part_key='social:'+str(index),section_key='minijob' if mini else 'regular',
                 start=period['start'],end=period['end'],branches=branches))
-        taxable=(sum(item['gross_minor'] for item in period_details['tax_periods']) if period_details else calc['gross_minor']) if not all(p['employment_kind']=='minijob' for _,p,_ in all_periods) else 0
+        from payroll_individual_minijob_2026 import RULE_VERSION as INDIVIDUAL_MINIJOB_RULE
+        individually_taxed_minijob=calc['rule_version']==INDIVIDUAL_MINIJOB_RULE
+        taxable=(sum(item['gross_minor'] for item in period_details['tax_periods']) if period_details else calc['gross_minor']) if individually_taxed_minijob or not all(p['employment_kind']=='minijob' for _,p,_ in all_periods) else 0
         if payment is not None:
             # The exact accepted payment ref is part of the annual command.
             # Later payments must never rewrite an earlier historical snapshot.
@@ -347,6 +351,9 @@ class PayrollAnnualBasis:
                 from business_payroll_calculation_cases import validate_case_sources
                 if candidate['employee_id']!=employee_id or candidate['kind']!='calculation_case' or candidate['status']!='active' or reference(candidate)!=d['current_calculation_case_ref']:
                     raise Problem(409,'Aktuelle laufende Monatsquelle ist nicht kanonisch an diese Person gebunden.')
+                from payroll_calculations_2026 import CALCULATION_RULE_VERSION,SOURCE_CONTRACT_VERSION
+                if candidate['rule_version']!=CALCULATION_RULE_VERSION or candidate['source_contract_version']!=SOURCE_CONTRACT_VERSION:
+                    raise Problem(409,'Dieser noch nicht abgeschlossene Monatsfall benötigt seinen eigenen Jahresvorschauvertrag; zuerst den verifizierten Monatslauf abschließen.')
                 validate_case_sources(self.office,candidate)
                 if fresh and (reference(api._get(candidate['id']))!=reference(candidate) or api._snapshot(employee,'calculation_case',candidate['details'],candidate['source_file_ids'],
                         planned_on=candidate['sources']['flat_travel_tax']['recording_context']['planned_recording_on'] if candidate['sources']['flat_travel_tax'] else None)!=candidate['sources']):

@@ -24,6 +24,7 @@ from payroll_factor_periods_2026 import (FACTOR_PERIOD_RULE_VERSION,FACTOR_PERIO
 from payroll_periods_2026 import PERIOD_RULES,PERIOD_RULES_SHA256,SCOPES as PERIOD_SCOPES
 from payroll_calculations_2026 import RULES as CALCULATION_RULES,RULES_SHA256 as CALCULATION_RULES_SHA256,SCOPES as CALCULATION_SCOPES
 from workspace_api import BinaryAttachment
+from payroll_individual_minijob_2026 import RULE_VERSION as INDIVIDUAL_MINIJOB_RULE, SCOPE as INDIVIDUAL_MINIJOB_SCOPE
 
 FEATURES = ('german_payroll_2026', 'payroll_employee_statements', 'payroll_factor_periods', 'payroll_source5_positive_corrections')
 TABLES = ('business_payroll_events','business_payroll_requests')
@@ -344,7 +345,7 @@ class Payroll:
         _shape(data,fields,input_fields+('request_id','preview_hash','accepted_scope','confirmed','revision'))
         if data['confirmed'] is not True or not isinstance(data['preview_hash'],str) or not re.fullmatch(r'[a-f0-9]{64}',data['preview_hash']):
             raise Problem(400,'Geprüfte Berechnungsvorschau und ausdrückliche Bestätigung erforderlich.')
-        if data['accepted_scope'] not in ('commercial_minijob_flat_tax','social_contributions_only','regular_standard_monthly', 'regular_standard_factor_monthly',FACTOR_PERIOD_SCOPE,'regular_standard_factor_taxfree_travel_month','regular_transition_monthly')+PERIOD_SCOPES+CALCULATION_SCOPES+('regular_standard_oneoff','regular_standard_multiple_oneoff'):
+        if data['accepted_scope'] not in ('commercial_minijob_flat_tax','social_contributions_only','regular_standard_monthly', 'regular_standard_factor_monthly',FACTOR_PERIOD_SCOPE,'regular_standard_factor_taxfree_travel_month','regular_transition_monthly',INDIVIDUAL_MINIJOB_SCOPE)+PERIOD_SCOPES+CALCULATION_SCOPES+('regular_standard_oneoff','regular_standard_multiple_oneoff'):
             raise Problem(400,'Den tatsächlich verfügbaren Berechnungsumfang ausdrücklich bestätigen.')
         if 'id' in data:
             identifier(data['id'])
@@ -529,6 +530,9 @@ def _calculate_source(source,*,rule_version=None):
         factor_travel=fact['rule_version']==FACTOR_TRAVEL_RULE
         builder=factor_travel_plan if factor_travel else build_calculation_plan
         calculator=factor_travel_calculate if factor_travel else calculate_calculation_source
+        if fact['rule_version']==INDIVIDUAL_MINIJOB_RULE:
+            from payroll_individual_minijob_2026 import build_plan as minijob_plan,calculate_source as minijob_calculate
+            builder,calculator=minijob_plan,minijob_calculate
         plan=builder(snapshot,rule_version=fact['rule_version'],source_contract_version=fact['source_contract_version'])
         selected=next(value for value in snapshot['profiles'] if {key:value[key] for key in ('id','revision','content_hash')}==plan['selected_profile_ref'])
         if (type(source['source_schema_version']) is not int or type(source['input']['source_schema_version']) is not int
@@ -601,6 +605,7 @@ def _render(prepared):
     source,result = prepared['source'],prepared['calculation']
     stream=io.BytesIO(); styles=getSampleStyleSheet()
     title = {'commercial_minijob_flat_tax':'Minijob-Berechnungsbeleg',
+        INDIVIDUAL_MINIJOB_SCOPE:'Individuell besteuerter Minijob – Berechnungsbeleg',
         'commercial_minijob_period_flat_tax':'Minijob-Berechnungsbeleg mit Zeitnachweis',
         'regular_standard_monthly':'Lohnberechnungsbeleg',
         'regular_standard_factor_monthly':'Lohnberechnungsbeleg mit Faktor',
@@ -618,6 +623,9 @@ def _render(prepared):
     line(source['preparation']['snapshot']['employee']['name'])
     line('Regelstand: '+result['rule_version'])
     line('Regel-SHA256: '+result['rules_sha256'])
+    if result['rule_version']==INDIVIDUAL_MINIJOB_RULE:
+        line('Tatsächliche Krankenversicherung: gesetzliche Familienversicherung.')
+        line('Technische PAP-Kennung PKV=1 nach BMF-Randnummer 16: kein eigener KV-/PV-Beitrag aus diesem Minijob; keine private Krankenversicherung.')
     if result.get('pap_version'):
         line('PAP-Implementierung: '+result['pap_version'])
         line('PAP-Quellenmetadaten-SHA256: '+result['pap_provenance_sha256'])
@@ -840,12 +848,14 @@ def dispatch(office,actor,path,method,data):
         with transaction(office):
             require_permission(office,actor,'personnel.read')
             from payroll_factor_taxfree_travel_2026 import RULES as FACTOR_TRAVEL_RULES,RULES_SHA256 as FACTOR_TRAVEL_HASH
+            from payroll_individual_minijob_2026 import RULES as MINIJOB_RULES,RULES_SHA256 as MINIJOB_HASH
             result=dict(rules=RULES,rules_sha256=RULES_SHA256,regular_standard_rules=FULL_RULES,
                 regular_standard_rules_sha256=FULL_RULES_SHA256,pap_provenance=PAP_PROVENANCE,
                 regular_factor_rules=FACTOR_RULES,regular_factor_rules_sha256=FACTOR_RULES_SHA256,
                 factor_period_rules=FACTOR_PERIOD_RULES,factor_period_rules_sha256=FACTOR_PERIOD_RULES_SHA256,
                 factor_pap_provenance=FACTOR_PAP_PROVENANCE,
                 factor_taxfree_travel_rules=FACTOR_TRAVEL_RULES,factor_taxfree_travel_rules_sha256=FACTOR_TRAVEL_HASH,
+                individual_minijob_rules=MINIJOB_RULES,individual_minijob_rules_sha256=MINIJOB_HASH,
                 regular_transition_rules=TRANSITION_RULES,regular_transition_rules_sha256=TRANSITION_RULES_SHA256,
                 period_rules=PERIOD_RULES,period_rules_sha256=PERIOD_RULES_SHA256,
                 calculation_rules=CALCULATION_RULES,calculation_rules_sha256=CALCULATION_RULES_SHA256,

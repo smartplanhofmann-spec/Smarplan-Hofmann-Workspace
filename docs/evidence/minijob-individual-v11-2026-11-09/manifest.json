@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "rule_version": "de_2026_individual_minijob_month_v11",
+  "source_contract_version": 3,
+  "baseline": "a7c1e0b + audit e9a78eb + V10 101ad48/7db66f1/35f94e4",
+  "scope": "Full calendar month2026; classesI/V;17500..60300minor; sole commercial minijob; evidenced contribution-free statutory family health insurance",
+  "no_real_payments_or_external_reports": true,
+  "tests": [
+    {
+      "file": "domain-and-annual-final.txt",
+      "result": "passed",
+      "tests": 26
+    },
+    {
+      "file": "adapter-regressions.txt",
+      "result": "passed",
+      "tests": 25
+    },
+    {
+      "file": "postgres-four-cases.txt",
+      "result": "passed",
+      "tests": 4
+    },
+    {
+      "file": "package-final.txt",
+      "result": "passed",
+      "tests": 16
+    },
+    {
+      "file": "postgres-malformed-input-final.txt",
+      "result": "passed",
+      "tests": 1
+    }
+  ],
+  "independent_xml_cases": 36,
+  "historical_2026_modules_byte_identical": 32,
+  "earlier_failures": [
+    {
+      "file": "first-domain-failure.txt",
+      "reason": "New render period lacked original PAP gross field; fixed in additive V11 metadata only."
+    },
+    {
+      "file": "first-migration-test-failure.txt",
+      "reason": "Test incorrectly expected taxable receipt without a payment; corrected expectation to preserve no invented cash receipt."
+    },
+    {
+      "file": "first-package-environment-failure.txt",
+      "reason": "Own worktree had no backend/.venv; used existing authorized environment via local ignored symlink; production code unchanged."
+    }
+  ],
+  "separate_unfinished": [
+    "Browser/native V11 feature integration",
+    "Actual Windows/iPhone device acceptance",
+    "Full combined repository CI and deployment"
+  ],
+  "artifacts": {
+    "first-domain-failure.txt": {
+      "bytes": 8205,
+      "sha256": "0da45dca52ea108205fa246bab0f10298b4b9a623f91c4c9793106385ddac5a7"
+    },
+    "first-migration-test-failure.txt": {
+      "bytes": 2689,
+      "sha256": "daeba7651fe221a9c280d93c93ac3883d7c7e470e3c908009cc87052a411b580"
+    },
+    "first-package-environment-failure.txt": {
+      "bytes": 4332,
+      "sha256": "7c3c3e13d3af38c8ebc3523c2f707417f87ab63714d94ddf2e8e1060f1e2d68d"
+    },
+    "adapter-regressions.txt": {
+      "bytes": 5354,
+      "sha256": "7e6c0c461e2f968d9ab066cba2b14ee61ad759f39934dbdecbde4cf7780d206b"
+    },
+    "domain-and-annual-final.txt": {
+      "bytes": 5202,
+      "sha256": "1ae7849c6b7cca09eeb385261e45815d1db9e14fb722613b120d216f1dd8f21b"
+    },
+    "postgres-four-cases.txt": {
+      "bytes": 920,
+      "sha256": "4da4a767130aaf80b816a4d053e9b7b8fdd2f45ab0fe34a3b8762b0d79ed7082"
+    },
+    "package-final.txt": {
+      "bytes": 3604,
+      "sha256": "1e31c87ff2a959b0a7113b458973e05ad2f3e9c43a954edf081cf7df6528fe3f"
+    },
+    "fixture-generation.txt": {
+      "bytes": 99,
+      "sha256": "b9b8ea78f619af7ca36ace0591ab3c47c3d3dabf4aece191ef22c19c1a3bac64"
+    },
+    "historical-kernel-hashes.json": {
+      "bytes": 3487,
+      "sha256": "153ef34b21d4c85ce352cae239115f9ebe65d3749c081cd7af34af346d03fb92"
+    },
+    "app/test/fixtures/individual_minijob_v11.json": {
+      "bytes": 1130033,
+      "sha256": "9ccce3483951f8dbe8d853b9ffa75abf42c356e7a7f12a281f7b74a77b6a5e40"
+    },
+    "backend/testdata/minijob_individual_xml_2026.json": {
+      "bytes": 37811,
+      "sha256": "8f02f56963aafb61c86c7ebfd0332679aef83cd6f6f798c9934b26348614bf19"
+    },
+    "postgres-malformed-input-final.txt": {
+      "bytes": 294,
+      "sha256": "6c5c9a699adbb4ceb51e20d5f2453844942ce234d21a0a5f3f4ccf7b63877e60"
+    }
+  }
+}

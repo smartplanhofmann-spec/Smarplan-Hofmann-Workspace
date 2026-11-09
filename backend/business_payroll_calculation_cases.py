@@ -17,7 +17,7 @@ from business_payroll_facts import PayrollFacts,ref,references,reference,file_id
 from payroll_calculations_2026 import CALCULATION_RULE_VERSION,SOURCE_CONTRACT_VERSION,build_calculation_plan,EVENT_FIELDS
 from payroll_travel_tax_2026 import calculate_flat_travel_tax,SIMPLIFIED_RATES,_filing_period
 
-FEATURES=('payroll_calculation_cases','payroll_factor_taxfree_travel')
+FEATURES=('payroll_calculation_cases','payroll_factor_taxfree_travel','payroll_individual_minijob')
 TABLES=('business_payroll_calculation_case_events','business_payroll_calculation_case_requests')
 KINDS=('calculation_case','travel_tax_policy')
 POLICY_RULE_VERSION='de_2026_travel_tax_policy_v1'
@@ -68,6 +68,11 @@ def normalize_details(kind,value):
         _filing_period(dict(value,payroll_month=value['filing_period_from'][:7]))
         return dict(value,verification_note=text(value['verification_note'],'Betriebliche Steuerentscheidung',3000,required=True))
     if kind!='calculation_case':raise Problem(400,'Unbekannte Gesamtfallart.')
+    if 'individual_minijob_assessment' in value:
+        from payroll_individual_minijob_2026 import normalize_assessment,minijob_note
+        base=normalize_details(kind,{key:item for key,item in value.items() if key!='individual_minijob_assessment'})
+        base['verification_note']=minijob_note(base['verification_note'])
+        return dict(base,individual_minijob_assessment=normalize_assessment(value['individual_minijob_assessment']))
     fields=('month','period_case_ref','employment_terms_refs','profile_refs','identity_refs','segment_events','thirty_day_rule',
         'entitlement_case_refs','travel_settlement_refs','flat_tax_decision','verification_note')
     fields=fields+(('travel_payment_refs',) if 'travel_payment_refs' in value else ())
@@ -228,6 +233,10 @@ class PayrollCalculationCases(PayrollFacts):
         if kind=='travel_tax_policy':
             if fresh:self._policy_uniform(details)
             return dict(schema_version=1,policy=details,source_files=self._files(None,ids,fresh=fresh))
+        from payroll_individual_minijob_2026 import RULE_VERSION as INDIVIDUAL_MINIJOB_RULE
+        if rule_version==INDIVIDUAL_MINIJOB_RULE:
+            from payroll_individual_minijob_sources import snapshot
+            return snapshot(self,employee,details,ids,fresh=fresh,actor=actor)
         from payroll_factor_taxfree_travel_2026 import RULE_VERSION as FACTOR_TRAVEL_RULE
         factor_travel=rule_version==FACTOR_TRAVEL_RULE
         employee_id=employee['id'];base=self.facts._fact_ref(employee_id,details['period_case_ref'],'period_case',fresh=fresh)
@@ -358,10 +367,13 @@ class PayrollCalculationCases(PayrollFacts):
     def _versions(data):
         if not isinstance(data.get('details'),dict):raise Problem(400,'Strukturierte Gesamtfalldetails erforderlich.')
         from payroll_factor_taxfree_travel_2026 import RULE_VERSION as FACTOR_TRAVEL_RULE
+        from payroll_individual_minijob_2026 import RULE_VERSION as INDIVIDUAL_MINIJOB_RULE
         is_new=data['kind']=='calculation_case' and data['rule_version']==FACTOR_TRAVEL_RULE
-        expected=FACTOR_TRAVEL_RULE if is_new else CALCULATION_RULE_VERSION if data['kind']=='calculation_case' else POLICY_RULE_VERSION
-        contract=2 if is_new else SOURCE_CONTRACT_VERSION
+        individual=data['kind']=='calculation_case' and data['rule_version']==INDIVIDUAL_MINIJOB_RULE
+        expected=INDIVIDUAL_MINIJOB_RULE if individual else FACTOR_TRAVEL_RULE if is_new else CALCULATION_RULE_VERSION if data['kind']=='calculation_case' else POLICY_RULE_VERSION
+        contract=3 if individual else 2 if is_new else SOURCE_CONTRACT_VERSION
         if data['kind']=='calculation_case' and ('travel_payment_refs' in data['details'])!=is_new:raise Problem(400,'Reisezahlungsnachweise gehören ausschließlich zum neuen Faktorvertrag.')
+        if ('individual_minijob_assessment' in data['details'])!=individual:raise Problem(400,'Die individuelle Minijobprüfung gehört ausschließlich zum ausdrücklichen v11-Vertrag.')
         if data['rule_version']!=expected or type(data['source_contract_version']) is not int or data['source_contract_version']!=contract:
             raise Problem(400,'Regel und Quellenvertrag ausdrücklich in ihrer bekannten Version angeben.')
         if (data['kind']=='travel_tax_policy')!=(data['employee_id'] is None) or data['employee_id'] is None and data['employee_revision'] is not None:
@@ -370,6 +382,9 @@ class PayrollCalculationCases(PayrollFacts):
     @staticmethod
     def _plan(kind,snapshot):
         if kind=='travel_tax_policy':return None
+        from payroll_individual_minijob_2026 import RULE_VERSION as INDIVIDUAL_MINIJOB_RULE,build_plan as minijob_plan
+        if snapshot['rule_version']==INDIVIDUAL_MINIJOB_RULE:
+            return minijob_plan(snapshot,rule_version=snapshot['rule_version'],source_contract_version=snapshot['source_contract_version'])
         from payroll_factor_taxfree_travel_2026 import RULE_VERSION as FACTOR_TRAVEL_RULE,build_plan
         builder=build_plan if snapshot['rule_version']==FACTOR_TRAVEL_RULE else build_calculation_plan
         return builder(snapshot,rule_version=snapshot['rule_version'],source_contract_version=snapshot['source_contract_version'])
@@ -383,6 +398,9 @@ class PayrollCalculationCases(PayrollFacts):
             raise Problem(400,'Tatsächliche geprüfte Vorschau und ausdrückliche Bestätigung erforderlich.')
         _integer(data['revision']);details=normalize_details(data['kind'],data['details']);ids=file_ids(data['source_file_ids'])
         reason=text(data.get('correction_reason',''),'Korrekturgrund',2000,required=bool(data.get('id')))
+        if data['rule_version']=='de_2026_individual_minijob_month_v11':
+            try:reason.encode('utf-8')
+            except UnicodeEncodeError:raise Problem(400,'Korrekturgrund muss aus gültigen Unicode-Zeichen bestehen.') from None
         operation='calculation_fact.saved:'+data['kind'];fingerprint=_sha([operation,data])
         with transaction(self.office):
             fresh,employee=self._access(actor,data['employee_id'],'personnel.approve');self._gate(fresh,new=False)
@@ -398,8 +416,7 @@ class PayrollCalculationCases(PayrollFacts):
                 if (employee['revision'] if employee else None)!=data['employee_revision']:raise Problem(409,'Mitarbeiter wurde geändert; neue Vorschau erforderlich.')
                 previous=self._get(data['id']) if data.get('id') else None
                 if previous and (previous['employee_id']!=data['employee_id'] or previous['kind']!=data['kind']):raise Problem(404,'Korrektur gehört nicht zu diesem Gesamtfall.')
-                if previous and (previous['rule_version']!=data['rule_version'] or previous['source_contract_version']!=data['source_contract_version']):
-                    raise Problem(400,'Eine Korrektur bleibt beim ursprünglichen Regel- und Quellenvertrag.')
+                changes_contract=previous and (previous['rule_version']!=data['rule_version'] or previous['source_contract_version']!=data['source_contract_version'])
                 if data['revision']!=(previous['revision'] if previous else 0):raise Problem(409,'Gesamtfall wurde inzwischen geändert.')
                 identity_key=_key(data['kind'],data['employee_id'],details)
                 existing=self.db.execute('SELECT id FROM business_payroll_calculation_case_events WHERE identity_key=?',(identity_key,)).fetchone()
@@ -412,6 +429,10 @@ class PayrollCalculationCases(PayrollFacts):
                 else:
                     snapshot=self._snapshot(employee,data['kind'],details,ids,planned_on=self.hr.now()[:10],rule_version=data['rule_version'],source_contract_version=data['source_contract_version'],actor=fresh);plan=self._plan(data['kind'],snapshot)
                     if _sha(dict(source_snapshot=snapshot,plan=plan))!=data['preview_hash']:raise Problem(409,'Tatsächliche Quellen oder Erfassungstag seit Vorschau geändert.')
+                if changes_contract:
+                    from payroll_individual_minijob_sources import require_unused_upgrade
+                    require_unused_upgrade(self,previous,dict(kind=data['kind'],status=data['status'],rule_version=data['rule_version'],
+                        source_contract_version=data['source_contract_version'],plan=plan))
                 start,end=_effective(data['kind'],details)
                 payload=dict(rule_version=data['rule_version'],source_contract_version=data['source_contract_version'],details=details,source_file_ids=ids,
                     plan=plan,preview_hash=data['preview_hash'],correction_reason=reason,accepted_command=json.loads(canonical(data)))
@@ -484,6 +505,9 @@ def validate_case_sources(office,value):
             validate_fact_sources(office,source['period_case'])
             employee=source['period_case']['sources']['preparation']['snapshot']['employee']
             if value['status']=='active' and employee['revision']!=command['employee_revision']:raise ValueError('Changed originally accepted employee revision')
+            if (value['rule_version']=='de_2026_individual_minijob_month_v11'
+                    and details['individual_minijob_assessment']['declaration_date']>value['created_at'][:10]):
+                raise ValueError('Minijob assessment did not exist at original acceptance')
             if source['flat_travel_tax'] is not None:planned=source['flat_travel_tax']['recording_context']['planned_recording_on']
         expected=api._snapshot(employee,value['kind'],details,value['source_file_ids'],fresh=False,planned_on=planned,rule_version=value['rule_version'],source_contract_version=value['source_contract_version'])
         plan=api._plan(value['kind'],expected)
@@ -510,6 +534,9 @@ def validate_integrity(office):
                 raise ValueError('Broken calculation case history')
             if value['status']=='void' and (not prior or prior['status']!='active' or any(value[key]!=prior[key] for key in ('details','source_file_ids','sources','source_hash','plan','preview_hash'))):
                 raise ValueError('Changed void calculation case')
+            if prior and (value['rule_version']!=prior['rule_version'] or value['source_contract_version']!=prior['source_contract_version']):
+                from payroll_individual_minijob_sources import is_supported_upgrade
+                if not is_supported_upgrade(prior,value):raise ValueError('Unsupported historical calculation contract transition')
             validate_case_sources(office,value);previous[value['id']]=value
         for receipt in office.db.execute('SELECT * FROM business_payroll_calculation_case_requests'):
             row=api._row(receipt['fact_id'],receipt['fact_revision']);value=api._event(row);key=(value['id'],value['revision']);command=json.loads(row['payload_json'])['accepted_command']

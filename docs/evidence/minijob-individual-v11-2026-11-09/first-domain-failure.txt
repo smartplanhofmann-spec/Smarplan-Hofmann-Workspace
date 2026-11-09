@@ -1,0 +1,68 @@
+test_actual_full_month_compulsory_rv_source_and_employee_statement (test_payroll_individual_minijob.IndividualMinijobTests.test_actual_full_month_compulsory_rv_source_and_employee_statement) ... ERROR
+test_actual_full_month_exempt_rv_has_different_tax (test_payroll_individual_minijob.IndividualMinijobTests.test_actual_full_month_exempt_rv_has_different_tax) ... ERROR
+test_independent_xml_vectors_and_original_32_kernels (test_payroll_individual_minijob.IndividualMinijobTests.test_independent_xml_vectors_and_original_32_kernels) ... ok
+test_missing_or_false_actual_facts_never_calculate (test_payroll_individual_minijob.IndividualMinijobTests.test_missing_or_false_actual_facts_never_calculate) ... ok
+test_original_file_and_version_requirements_are_strict (test_payroll_individual_minijob.IndividualMinijobTests.test_original_file_and_version_requirements_are_strict) ... ok
+test_carryover_is_documented_recomputed_and_excludes_duplicate_local_month (test_business_payroll_accounts.PayrollAccountTests.test_carryover_is_documented_recomputed_and_excludes_duplicate_local_month) ... ok
+test_corrected_identity_requires_fresh_payment_reference_and_preserves_history (test_business_payroll_accounts.PayrollAccountTests.test_corrected_identity_requires_fresh_payment_reference_and_preserves_history) ... ok
+test_missing_or_contradictory_mandatory_fields_and_future_actual_payment_are_rejected (test_business_payroll_accounts.PayrollAccountTests.test_missing_or_contradictory_mandatory_fields_and_future_actual_payment_are_rejected) ... ok
+test_negative_minijob_net_records_real_employee_top_up_without_fictitious_zero_payment (test_business_payroll_accounts.PayrollAccountTests.test_negative_minijob_net_records_real_employee_top_up_without_fictitious_zero_payment) ... ok
+test_rehashed_payment_tamper_still_fails_referenced_run_and_amount_validation (test_business_payroll_accounts.PayrollAccountTests.test_rehashed_payment_tamper_still_fails_referenced_run_and_amount_validation) ... ok
+test_required_fields_and_actual_payment_complete_only_the_supported_employment_period (test_business_payroll_accounts.PayrollAccountTests.test_required_fields_and_actual_payment_complete_only_the_supported_employment_period) ... ok
+test_same_payment_cannot_be_reused_for_two_months_or_hidden_with_unicode (test_business_payroll_accounts.PayrollAccountTests.test_same_payment_cannot_be_reused_for_two_months_or_hidden_with_unicode) ... ok
+test_staff_permissions_source_binding_and_append_only_guards (test_business_payroll_accounts.PayrollAccountTests.test_staff_permissions_source_binding_and_append_only_guards) ... ok
+test_changed_hr_sources_require_a_new_preparation_and_do_not_rewrite_prior_calculation (test_business_payroll.PayrollWorkflowTests.test_changed_hr_sources_require_a_new_preparation_and_do_not_rewrite_prior_calculation) ... ok
+test_corrected_pension_exemption_creates_delta_and_retains_previous_pdf (test_business_payroll.PayrollWorkflowTests.test_corrected_pension_exemption_creates_delta_and_retains_previous_pdf) ... ok
+test_factor_correction_preserves_standard_original_and_exact_retry (test_business_payroll.PayrollWorkflowTests.test_factor_correction_preserves_standard_original_and_exact_retry) ... ok
+test_factor_tampering_is_detected_even_with_rehashed_payroll_envelope (test_business_payroll.PayrollWorkflowTests.test_factor_tampering_is_detected_even_with_rehashed_payroll_envelope) ... ok
+test_legacy_social_only_run_remains_exact_when_tax_profile_is_completed (test_business_payroll.PayrollWorkflowTests.test_legacy_social_only_run_remains_exact_when_tax_profile_is_completed) ... ok
+test_minijob_calculation_from_actual_salary_document_exports_and_replays (test_business_payroll.PayrollWorkflowTests.test_minijob_calculation_from_actual_salary_document_exports_and_replays) ... ok
+test_narrow_fresh_permissions_and_foreign_evidence_are_enforced (test_business_payroll.PayrollWorkflowTests.test_narrow_fresh_permissions_and_foreign_evidence_are_enforced) ... ok
+test_original_historical_store_without_payroll_is_accepted_but_partial_install_is_not (test_business_payroll.PayrollWorkflowTests.test_original_historical_store_without_payroll_is_accepted_but_partial_install_is_not) ... ok
+test_profile_receipt_never_bypasses_revoked_read_permission (test_business_payroll.PayrollWorkflowTests.test_profile_receipt_never_bypasses_revoked_read_permission) ... ok
+test_regular_pap_run_and_allowance_correction_retain_historical_results_and_pdf (test_business_payroll.PayrollWorkflowTests.test_regular_pap_run_and_allowance_correction_retain_historical_results_and_pdf) ... ok
+test_regular_scope_only_records_verified_social_contributions (test_business_payroll.PayrollWorkflowTests.test_regular_scope_only_records_verified_social_contributions) ... ok
+test_rehashed_tampered_result_still_fails_recalculation_on_restore (test_business_payroll.PayrollWorkflowTests.test_rehashed_tampered_result_still_fails_recalculation_on_restore) ... ok
+test_sqlite_period_replace_and_receipt_failure_are_atomic (test_business_payroll.PayrollWorkflowTests.test_sqlite_period_replace_and_receipt_failure_are_atomic) ... ok
+test_unsupported_or_inconsistent_gross_and_stale_preview_cannot_be_finalized (test_business_payroll.PayrollWorkflowTests.test_unsupported_or_inconsistent_gross_and_stale_preview_cannot_be_finalized) ... ok
+
+======================================================================
+ERROR: test_actual_full_month_compulsory_rv_source_and_employee_statement (test_payroll_individual_minijob.IndividualMinijobTests.test_actual_full_month_compulsory_rv_source_and_employee_statement)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-minijob-individual-v11-20261109/backend/test_payroll_individual_minijob.py", line 107, in test_actual_full_month_compulsory_rv_source_and_employee_statement
+    fixture=IndividualMinijobFixture(self);run,command,case,case_command=fixture.run();f=fixture.f
+                                                                         ^^^^^^^^^^^^^
+  File "/workspace/smartplan-minijob-individual-v11-20261109/backend/test_payroll_individual_minijob.py", line 88, in run
+    return self.f.payroll.finalize(self.f.owner,command),command,case,case_command
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-minijob-individual-v11-20261109/backend/business_payroll.py", line 370, in finalize
+    pdf = _render(prepared)
+          ^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-minijob-individual-v11-20261109/backend/business_payroll.py", line 661, in _render
+    line('PAP-Rechenbrutto: '+str(inputs['pap_gross_minor'])+' Cent / Rest '+
+                                  ~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'pap_gross_minor'
+
+======================================================================
+ERROR: test_actual_full_month_exempt_rv_has_different_tax (test_payroll_individual_minijob.IndividualMinijobTests.test_actual_full_month_exempt_rv_has_different_tax)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-minijob-individual-v11-20261109/backend/test_payroll_individual_minijob.py", line 128, in test_actual_full_month_exempt_rv_has_different_tax
+    run,_,_,_=fixture.run();result=run['calculation']
+              ^^^^^^^^^^^^^
+  File "/workspace/smartplan-minijob-individual-v11-20261109/backend/test_payroll_individual_minijob.py", line 88, in run
+    return self.f.payroll.finalize(self.f.owner,command),command,case,case_command
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-minijob-individual-v11-20261109/backend/business_payroll.py", line 370, in finalize
+    pdf = _render(prepared)
+          ^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-minijob-individual-v11-20261109/backend/business_payroll.py", line 661, in _render
+    line('PAP-Rechenbrutto: '+str(inputs['pap_gross_minor'])+' Cent / Rest '+
+                                  ~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'pap_gross_minor'
+
+----------------------------------------------------------------------
+Ran 27 tests in 35.359s
+
+FAILED (errors=2)

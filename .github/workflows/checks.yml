@@ -94,6 +94,7 @@ jobs:
           python -m unittest discover -s backend/online -p test_storage.py -v
           python -m unittest discover -s backend/online -p test_onedrive.py -v
           python -m unittest discover -s backend/online -p 'test_business*.py' -v
+          python -m unittest -v online.test_factor_travel_review_pg
           python -m unittest -v online.test_communication_history_pg
           python -m unittest discover -s backend/online -p test_accounting_year_package_pg.py -v
           python -m unittest -v online.test_accounting_year_package_v2_pg

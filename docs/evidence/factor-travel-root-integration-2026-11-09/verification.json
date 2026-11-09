@@ -1,0 +1,30 @@
+{
+  "browser-global": {
+    "passed": 945,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 39.698625967,
+    "raw_bytes": 96319,
+    "raw_sha256": "e35e46e9f161b210ff3d3bb5530804d9b295da76ab934d41380f178577e7de9c"
+  },
+  "packaging": {
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 41.222,
+    "raw_bytes": 3604,
+    "raw_sha256": "3d47def2a206ffa7d3f129289e14b9d877416d10c13b29c1a02b89d918fb99de"
+  },
+  "source_sha256": {
+    "backend/payroll_factor_taxfree_travel_2026.py": "e5c983e8996f98a66af049728e694710096062ecf45e53d1de1de69d12396566",
+    "backend/payroll_factor_taxfree_sources.py": "93810b9dbe3e33871e873280febbd6978d5a0a878f8660ad11e445e53c11adce",
+    "backend/business_payroll_calculation_cases.py": "e2dfd98b172c0d6601ebb66eb9a5e01bb3ac83620bc306a8fa3d510fd45f3dfd",
+    "backend/business_payroll.py": "6a7384e6123f718f03029db0239fb2462746c3dc0d08e60036c9f1e063060685",
+    "scripts/native-release.py": "09e27610872b2ca5a5cf8cd33d3d1310847fb91c982f9b6fff96922b3a11c0d6",
+    "scripts/package-windows-support.py": "8238c45d5c5d9c44f130c577cc85e5be11d4df430e5c46497b486f5f8fc98429",
+    "web/office/office.js": "acf1680b37dd3619728d722eff12188d21df1a4108a2c363dbf707bd3ffc1eb5"
+  },
+  "base_for_checks": "34a692da3d1e0e81e69dabc2e139c9635585644e",
+  "new_pg_tests_registered_after_checks": true,
+  "live_deployment": false
+}

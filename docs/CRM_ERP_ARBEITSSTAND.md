@@ -4,19 +4,23 @@ Stand: 09.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
-**Neuester lokal geprüfter Integrationskandidat:** Die [geschützte
-Browser-Wiederaufnahme](CRM_ERP_BROWSER_ORIGINALJOURNAL_VERTRAG_2026-11-09.md)
-für Materialrückgaben und private Kilometeraufträge ist integriert. 1.017
+**Neueste Veröffentlichung:** Der gemeinsam geprüfte Browser-/Reisestand
+`03b7b6df8215fa700b1ca94b4ef0bc588e079b4b` ist auf dem autorisierten
+Testbranch veröffentlicht; der Remote-Zeiger ist bestätigt.
+[Development42709776920](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42709776920)
+und [iPhone42709777293](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42709777293)
+laufen. HTTPS besteht im ersten Abruf; die übrigen Jobs sind noch offen.
+[Unveränderter erster Veröffentlichungsnachweis](evidence/browser-original-restart-2026-11-09/publication-initial.json).
+
+Die [geschützte Browser-Wiederaufnahme](CRM_ERP_BROWSER_ORIGINALJOURNAL_VERTRAG_2026-11-09.md)
+für Materialrückgaben und private Kilometeraufträge ist integriert: 1.017
 Browsermodul-, 65 betroffene Backend-, 38 betroffene native und 16 Paketfälle
-bestehen. Die tatsächlichen Browser-Neustart-/MFA-/IndexedDB-Abläufe stehen
-in ihren eigenen Rohläufen. Die [Reisezeitpunktkorrektur](CRM_ERP_REISEZEITPUNKT_2026-11-09.md)
-schließt außerdem den bestätigten Sekundenwechselfehler; vier tatsächliche
-PostgreSQL-/Restorefälle bestehen. Die vorangegangene CI auf 9271be7 endet mit
-sechs erfolgreichen Development-Jobs und zwei Fehlern (Browser/Online-API);
-beide sind lokal korrigiert. Der eigene unsignierte iPhone-Build besteht,
-der signierte Upload ist nicht angefordert und übersprungen.
-Neue Veröffentlichung/CI, Serverinstallation und Geräteabnahme bleiben
-unterschiedliche Nachweise.
+bestehen. Beide tatsächlichen Browser-Neustart-/MFA-Abläufe sowie konkurrierende
+IndexedDB-Originale sind auf dem integrierten Stand geprüft. Die
+[Reisezeitpunktkorrektur](CRM_ERP_REISEZEITPUNKT_2026-11-09.md) schließt den
+bestätigten Sekundenwechselfehler; vier tatsächliche PostgreSQL-/Restorefälle
+bestehen. Der native Code bleibt unverändert.
+Veröffentlichung/CI, Serverinstallation und Geräteabnahme sind getrennte Zustände.
 
 **Vorangegangene Veröffentlichung:** Die native Wiederaufnahme ist als
 `9271be79857e182adc080dcb8b1d86c48776dbdf` auf dem autorisierten Testbranch

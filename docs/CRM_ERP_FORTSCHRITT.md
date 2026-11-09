@@ -3487,3 +3487,10 @@ rot reproduzierter Fehler bei späteren Lesefehlern ist korrigiert: Nur die
 ausdrückliche Nichtannahme des ursprünglichen POST darf das lokale Original
 auflösen. Erste unvollständige und fehlerhafte Testaufbauten bleiben erhalten.
 [Vertrag, tatsächliche Abläufe und Restumfang](CRM_ERP_BROWSER_ORIGINALJOURNAL_VERTRAG_2026-11-09.md).
+
+Der integrierte Produktstand 03b7b6d ist auf dem autorisierten Testbranch
+veröffentlicht. Development42709776920 und iPhone42709777293 laufen; HTTPS
+besteht im ersten dokumentierten Abruf, die übrigen Ergebnisse sind offen.
+Der letzte bestätigte laufende Server bleibt A93. Die vollständige Software
+und die Abnahmen A–G sind damit weiterhin nicht als fertig erklärt.
+[Quellbindung und eigener CI-Start](evidence/browser-original-restart-2026-11-09/publication-initial.json).

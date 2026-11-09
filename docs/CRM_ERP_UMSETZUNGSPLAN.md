@@ -26,8 +26,9 @@ Serviceanlagejournal, Wartungsverträge, Faktor-/Reisefall V10, Minijob V11 und
 Browserzeitabrechnung sind im [gemeinsamen Kandidaten](CRM_ERP_GESAMTINTEGRATION_2026-11-09.md)
 integriert. 972 Browsermodul-, 48 gezielte native und 46 Backend-/Paketfälle
 bestehen; der echte PostgreSQL-Rechnungsablauf ist ebenfalls geprüft.
-Vier Fehler des vollständigen App-Vorlaufs werden vor dem neuen Gesamtbeleg
-behoben. Danach Testbranch veröffentlichen und dessen eigene CI bewerten.
+Vier Fehler des vollständigen App-Vorlaufs sind gezielt behoben und geprüft.
+Den vollständigen App-Lauf wiederholen, den Testbranch veröffentlichen und
+dessen eigene CI bewerten.
 Parallel werden die fehlende Materialrückgabe in beiden Clients und danach
 die belegte Kilometererstattung für rein dienstliche Inlandsfahrten im privaten
 Pkw ergänzt. Historische Planabschnitte

@@ -74,8 +74,8 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
 ## Aktuelle Integration am 09.11.2026
 
-Hauptprojekt: `/workspace/Smarplan-Hofmann-Workspace` auf d4df2f5.
-Der weitere Integrationskandidat steht in
+Hauptprojekt: `/workspace/Smarplan-Hofmann-Workspace` auf dem lokalen Branch
+`codex/finish-20261108`. Der weitere Integrationskandidat steht in
 `/workspace/smartplan-minijob-integration-20261109`; ältere vollständige
 Arbeitskopien und Zwischenstände bleiben erhalten.
 Der lokale gemeinsame Stand enthält die abgeschlossenen Projektmeilensteine,
@@ -143,10 +143,13 @@ Der vollständige App-Lauf auf d4df2f5 ist beendet: 1.746 bestanden, vier
 fehlgeschlagen, kein Skip, 38:31 Minuten. Drei Fehler stammen aus zwei
 inkonsistenten gebundenen Testaufbauten; die Korrektur besteht separat mit
 tatsächlichem HTTP und Temp-Pfadalias und ist im Kandidaten enthalten. Der
-vierte Fehler ist das fünfminütige Zeitlimit des Offene-Posten-Widgettests;
-sein übermäßiger künstlicher Zeitfortschritt und die Exportwartebedingung
-werden im Testhelfer korrigiert. Ein grüner vollständiger Lauf wird damit
-noch nicht behauptet. Auf dem gemeinsamen Stand 487977a bestehen 972
+vierte Fehler war das fünfminütige Zeitlimit des Offene-Posten-Widgettests.
+Sein künstlicher Zeitfortschritt und die Exportwartebedingung sind korrigiert;
+der vollständige einzelne Fall besteht in 2:54 Minuten mit unverändertem
+Gesamtzeitlimit und allen 38 bisherigen Assertions. Analyse ohne Befund.
+[Nachweis](CRM_ERP_OPEN_ITEMS_WIDGET_WARTEZEIT_2026.md).
+Ein grüner vollständiger App-Gesamtlauf wird damit noch nicht behauptet.
+Auf dem gemeinsamen Stand 487977a bestehen 972
 Browsermodulfälle und 48 gezielte native Fälle. Rohprotokolle einschließlich
 der Fehlversuche liegen unter
 [final-assembly-2026-11-09](evidence/final-assembly-2026-11-09/checks-so-far.json).

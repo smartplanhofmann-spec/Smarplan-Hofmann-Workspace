@@ -48,8 +48,11 @@ Instanzprüfung bleibt unverändert streng.
 Der Offene-Posten-Widgettest überschreitet sein fünfminütiges Zeitlimit.
 Sein Helfer lässt beim Warten auf echte IO unnötig künstliche Zeit vergehen
 und wartet beim Export nicht auf den tatsächlichen Dateirückruf. Diese
-Testursache wird getrennt behoben und mit unveränderten Fachassertionen
-geprüft. Ein erneuter vollständiger Gesamtlauf ist noch nachzuweisen.
+Testursache ist getrennt behoben. Der vollständige einzelne Fall besteht in
+2:54 Minuten mit unverändertem fünfminütigem Gesamtlimit und allen 38
+bisherigen Fachassertionen; Analyse ohne Befund.
+[Rohprotokolle und Vergleich](CRM_ERP_OPEN_ITEMS_WIDGET_WARTEZEIT_2026.md).
+Ein erneuter vollständiger App-Gesamtlauf ist noch nachzuweisen.
 
 Die alten CI-Fehler auf 3859a1c sind ebenfalls gezielt behoben. Der alte
 Remote-Lauf bleibt mit sechs erfolgreichen und zwei fehlgeschlagenen

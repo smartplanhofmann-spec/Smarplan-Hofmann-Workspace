@@ -232,6 +232,7 @@ jobs:
             SMARTPLAN_BROWSER_WORKFLOW=migrations node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=custom-fields node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=service node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=maintenance-contracts node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=privacy-cases node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-cash node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=historical-assets node tests/e2e.cjs &&

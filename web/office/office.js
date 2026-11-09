@@ -45,6 +45,7 @@ import {createSales,salesPendingAuthorize} from './sales.js';
 import {createCommunicationHistory} from './communication-history.js';
 import {projectTasksUi,taskPendingAuthorize} from './project-tasks.js';
 import {projectMilestonesUi,milestonePendingAuthorize,milestoneCommandPath} from './project-milestones.js';
+import {maintenanceContractsUi,maintenanceContractPendingAuthorize} from './maintenance-contracts.js';
 export class ApiError extends Error {
   constructor(message, status = 0, requestResolution = null) { super(message); this.name = 'ApiError'; this.status = status; this.requestResolution=status===409&&requestResolution==='not_accepted'?'not_accepted':null; }
 }
@@ -885,10 +886,10 @@ export class OfficeApi {
     const operation=this.#pending.get(key);
     return operation&&operation.path===path?JSON.parse(operation.fingerprint):null;
   }
-  retry(key) {
+  retry(key, options = {}) {
     const operation=this.#pending.get(key);
     if(!operation)throw new ApiError('Vorgang ist nicht mehr offen.');
-    return this.mutate(key,operation.path,JSON.parse(operation.fingerprint));
+    return this.mutate(key,operation.path,JSON.parse(operation.fingerprint),options);
   }
   setToken(token) {
     if (typeof token !== 'string' || token.length < 20 || token.length > 200) throw new Error('Ungültige Sitzung.');
@@ -954,7 +955,7 @@ export class OfficeApi {
   get(path) { return this.request(path); }
   post(path, body) { return this.request(path, {method: 'POST', body}); }
   binary(path) { return this.request(path, {binary: true}); }
-  async mutate(key, path, data, {validate=null} = {}) {
+  async mutate(key, path, data, {validate=null,stillCurrent=null} = {}) {
     const fingerprint = JSON.stringify(data), old = this.#pending.get(key), generation = this.#generation;
     if (old && (old.path !== path || old.fingerprint !== fingerprint)) throw new ApiError('Die vorige Antwort ist noch unklar. Bitte zuerst die unveränderte Eingabe erneut senden.');
     const operation = old || {path, fingerprint, body: {...JSON.parse(fingerprint), request_id: requestId()}, validate};
@@ -974,6 +975,7 @@ export class OfficeApi {
       if(old&&path.startsWith('/business/bank/'))await bankPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/resource-custody/'))await resourceCustodyPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/service/cases'))await servicePendingAuthorize(this,{key,path});
+      if(old&&/^\/business\/maintenance\/contracts(?:\/[a-f0-9]{32})?$/.test(path))await maintenanceContractPendingAuthorize(this,{key,path});
       if(old&&path==='/business/payroll/facts'&&await payrollFactsPendingAuthorize(this,{key,path})!==true)throw new ApiError('Die offene Lohnanfrage konnte nicht eindeutig autorisiert werden.',403);
       if(old&&path==='/business/payroll/entitlements'&&await payrollEntitlementsPendingAuthorize(this,{key,path})!==true)throw new ApiError('Die offene Lohnanfrage konnte nicht eindeutig autorisiert werden.',403);
       if(old&&path==='/business/payroll/travel-tax-policies'&&await payrollTravelTaxPoliciesPendingAuthorize(this,{key,path})!==true)throw new ApiError('Die offene Lohnanfrage konnte nicht eindeutig autorisiert werden.',403);
@@ -991,6 +993,7 @@ export class OfficeApi {
       if(old&&path.startsWith('/business/company-handover/'))await companyHandoverPendingAuthorize(this,{key,path});
       if(old&&(path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')))await inventoryCountPendingAuthorize(this,{key,path});
       if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
+      if(stillCurrent&&!stillCurrent())throw new ApiError('Die ursprüngliche Ansicht wurde geschlossen. Der Auftrag bleibt unbestätigt.',0);
       const result = await this.post(path, operation.body);
       if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
       if(operation.validate)await operation.validate(result,JSON.parse(JSON.stringify(operation.body)));
@@ -999,7 +1002,8 @@ export class OfficeApi {
     } catch (error) {
       const protectedAccounting=path.startsWith('/business/accounting/year-values')||path.startsWith('/business/accounting/open-items')||path.startsWith('/business/company-events/')||path.startsWith('/business/accounting/historical-assets')||datedConsumerCommand(key,path,operation.body)||path.startsWith('/business/catalog-prices/')||key.startsWith('catalog-')||path.startsWith('/business/accounting/opening-balances')||(key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))||path.startsWith('/business/bank/')||path.startsWith('/business/resource-custody/')||path.startsWith('/business/service/cases')||path.startsWith('/business/custom-fields/')||path==='/business/migrations'||path.startsWith('/business/migrations/')||path.startsWith('/business/company-handover/')||path.startsWith('/business/sales/')||path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')||path.startsWith('/business/assistant/')||path.startsWith('/business/payroll/')||path.startsWith('/business/customer-workspace/')||path.startsWith('/business/personnel/')||path==='/business/accounting/euer/confirm'||path==='/business/finance/receipts'||/^\/business\/finance\/receipts\/[a-f0-9]{32}$/.test(path)||path==='/business/receipt-media'||/^\/business\/receipt-media\/[a-f0-9]{32}\/complete$/.test(path)||path==='/business/project-economics/confirm'||path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
       const protectedTask=/^\/projects\/[a-f0-9]{32}\/tasks(?:\/[a-f0-9]{32})?$/.test(path);
-      const uncertainAccounting=(protectedAccounting||milestoneCommandPath(path))&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted')||protectedTask&&[403,404].includes(error.status);
+      const protectedMaintenance=/^\/business\/maintenance\/contracts(?:\/[a-f0-9]{32})?$/.test(path)&&([403,404].includes(error.status)||old&&error.status===409&&error.requestResolution!=='not_accepted');
+      const uncertainAccounting=protectedMaintenance||(protectedAccounting||milestoneCommandPath(path))&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted')||protectedTask&&[403,404].includes(error.status);
       if (generation===this.#generation && this.#pending.get(key)===operation && error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 423 && error.status !== 429 && !uncertainAccounting) this.#pending.delete(key);
       throw error;
     }
@@ -1427,7 +1431,7 @@ function pendingDialog() {
       if(item.path===biz('/accounting/profile/confirm')){await accountingProfileAuthorize(api,{write:true,online:navigator.onLine});if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;}
       if(item.path.startsWith(biz('/accounting/components/'))){componentWritable();await componentPendingAuthorize(api,item);if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;componentWritable();}
       if(item.path.startsWith(biz('/accounting/refunds/'))){refundWritable();await refundPendingAuthorize(api,item);if(!item.path.startsWith(biz('/accounting/refunds/v2/'))){const sources=refundPendingSources.get(item.key);if(!sources||sources.generation!==generation)throw new ApiError('Die Ursprungsrechte können für diese offene Anfrage nicht sicher geprüft werden.',409);await refundAuthorizeCurrent(sources.eventId,sources.origins);}if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;refundWritable();}
-      let result;try{result=await api.retry(item.key);}catch(error){if(milestoneCommandPath(item.path)&&(generation!==api.generation||previous!==modal||initialRender!==state.render))return;throw error;}if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;refundPendingSources.delete(item.key);updatePending();
+      let result;try{result=await api.retry(item.key,/^\/business\/maintenance\/contracts(?:\/[a-f0-9]{32})?$/.test(item.path)?{stillCurrent:()=>generation===api.generation&&previous===modal&&initialRender===state.render}:{});}catch(error){if(milestoneCommandPath(item.path)&&(generation!==api.generation||previous!==modal||initialRender!==state.render))return;throw error;}if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;refundPendingSources.delete(item.key);updatePending();
       if(item.path===biz('/portal/grants')){portalGrantResultDialog({id:result.grant.offer_id,project_id:result.grant.project_id,number:result.grant.number,kind:'offer',status:'final'},result);return;}
       closeModal();const render=state.render+1,section=state.section;await refresh();
       if(item.path===biz('/accounting/profile/confirm')&&generation===api.generation&&state.render===render&&state.section===section&&!modal)await accountingProfileDialog();
@@ -1482,6 +1486,7 @@ async function refresh() {
     if(modal?.querySelector('[data-service-case],[data-resource-custody],[data-purchase-change]'))closeModal();
     if(modal?.querySelector('[data-project-tasks]'))closeModal();
     if(modal?.querySelector('[data-project-milestones]'))closeModal();
+    if(modal?.querySelector('[data-maintenance-contract]'))closeModal();
     if(modal?.querySelector('[data-custom-fields]'))closeModal();
     if(modal?.querySelector('[data-assistant-project]'))closeModal();
     if(modal?.querySelector('[data-company-events]'))closeModal();
@@ -2868,20 +2873,19 @@ async function employeeDialog(employee=null) {
     (data,key)=>mutation(key,'/employees'+(employee?'/'+employee.id:''),{...data,...(employee?{revision:employee.revision}:{})}),{key:'employee-'+(employee?.id||'new')}));
 }
 
+const maintenanceContracts=maintenanceContractsUi({api,field,form,dialog,el,notice,button,action,closeModal,refresh,updatePending,
+  today:dateInput,stamp:()=>`${api.generation}/${state.render}/${dialogGeneration}`,
+  available:project=>state.section==='projects'&&state.tab==='maintenance'&&state.projectId===project&&has('documents.read')&&has('projects.manage')&&!state.readonly&&document.visibilityState!=='hidden'});
 async function maintenancePanel(projectId) {
   const [assets,contracts,visits,reports]=await Promise.all(['assets','maintenance/contracts','maintenance/history','service-reports'].map(path=>api.get(query(biz('/'+path),{project_id:projectId})).then(collection)));
   return el('div',{class:'stack'},panel('Anlagen',has('documents.write')?button('Anlage erfassen',()=>assetDialog(projectId),'primary'):null,assetOrigins.allowed(projectId)?button('Lieferungen und Geräte',()=>action(()=>assetOrigins.sources(projectId)),'primary'):null,rows(assets,item=>row(item.name,`${item.serial_number||'Seriennummer offen'} · ${item.location||'Standort offen'}`,[state.features.has('custom_fields')?button('Zusatzfelder',()=>action(()=>customFields.open('asset',item.id)),'small'):null,has('documents.write')?button('Bearbeiten',()=>assetDialog(projectId,item),'small'):null,assetOrigins.allowed(projectId)?button('Lieferherkunft',()=>action(()=>assetOrigins.origin(projectId,item)),'small'):null]))),
-    panel('Wartungsverträge',has('projects.manage')?button('Wartungsvertrag anlegen',()=>maintenanceContractDialog(projectId,assets),'small'):null,rows(contracts,item=>row(item.title,`${assets.find(asset=>asset.id===item.asset_id)?.name||'Anlage'} · Nächste Fälligkeit ${formatDate(item.next_due_date)}`,[badge(item.active?'Aktiv':'Pausiert')])),
+    panel('Wartungsverträge',has('projects.manage')?button('Wartungsvertrag anlegen',()=>action(()=>maintenanceContracts.edit(projectId,assets)),'small'):null,rows(contracts,item=>row(item.title,`${assets.find(asset=>asset.id===item.asset_id)?.name||'Anlage'} · Nächste Fälligkeit ${formatDate(item.next_due_date)}`,[badge(item.active?'Aktiv':'Pausiert'),has('projects.manage')&&!state.readonly?button('Wartungsvertrag bearbeiten',()=>action(()=>maintenanceContracts.edit(projectId,assets,item.id)),'small'):null])),
       has('projects.manage')?button('Fällige Einsätze planen',()=>action(async()=>{const result=await mutation('maintenance-schedule-'+projectId+'-'+dateInput(),'/maintenance/schedule',{project_id:projectId,as_of:dateInput()});if(result.more_due)main.prepend(notice('Weitere Fälligkeiten vorhanden. Planung erneut ausführen.','warn'));await refresh();}),'small'):null),
     panel('Wartungshistorie',rows(visits,visit=>row(visit.asset_snapshot?.name||'Anlage',`${formatDate(visit.due_date)} · ${visit.contract_snapshot?.title||''}`,[badge(visit.status),visit.status==='completed'?button('Service-PDF',()=>action(()=>download(biz(`/service-reports/${visit.report_id}/pdf`),'Servicebericht.pdf')),'small'):has('documents.write')?button('Mit Servicebericht abschließen',()=>completeVisitDialog(projectId,visit,reports),'small'):null]))));
 }
 function assetDialog(projectId,item=null) {
   dialog(item?'Anlage bearbeiten':'Anlage erfassen',form('',[field('name','Anlage','text',item?.name||'',{required:true}),field('serial_number','Seriennummer','text',item?.serial_number||''),field('asset_type','Anlagentyp','text',item?.asset_type||''),field('location','Standort / Raum','text',item?.location||''),field('notes','Anlagenhinweise','textarea',item?.notes||'')],
     (data,key)=>mutation(key,'/assets'+(item?'/'+item.id:''),{...data,project_id:projectId,...(item?{revision:item.revision}:{})}),{key:'asset-'+(item?.id||'new')}));
-}
-function maintenanceContractDialog(projectId,assets) {
-  dialog('Wartungsvertrag',form('',[field('asset_id','Anlage','select','',{options:options(assets),required:true}),field('title','Vertragsbezeichnung','text','',{required:true}),field('anchor_date','Erste Fälligkeit','date',dateInput(),{required:true}),field('interval_unit','Intervalltyp','select','months',{options:[['months','Kalendermonate'],['days','Tage']]}),field('interval_count','Intervall','integer',12,{required:true,min:1,max:120}),field('notes','Vertragshinweise','textarea')],
-    (data,key)=>mutation(key,'/maintenance/contracts',{...data,project_id:projectId}),{key:'maintenance-contract-'+projectId}),'Monatsintervalle bleiben am ursprünglichen Kalendertag verankert. Monatsende und Schaltjahre werden serverseitig berücksichtigt.');
 }
 function completeVisitDialog(projectId,visit,reports) {
   const signed=reports.filter(report=>report.status==='signed');
@@ -2944,7 +2948,7 @@ if(typeof document!=='undefined') {
     addEventListener('online',networkState);addEventListener('offline',networkState);
     matchMedia('(max-width:760px)').addEventListener('change',updateDrawer);
     addEventListener('beforeunload',event=>{if(api.pendingCount){event.preventDefault();event.returnValue='';}});
-    document.addEventListener('visibilitychange',()=>{if(document.hidden){companyEvents.clear();yearPackageWorkspace.clear();accountingEuer.invalidateExport();openItemWorkspace.clear();if(modal?.querySelector('[data-accounting-openings], [data-historical-assets], [data-company-events], [data-open-items], [data-year-package], [data-year-export]'))closeModal();}});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden){if(modal?.querySelector('[data-maintenance-contract]'))closeModal();companyEvents.clear();yearPackageWorkspace.clear();accountingEuer.invalidateExport();openItemWorkspace.clear();if(modal?.querySelector('[data-accounting-openings], [data-historical-assets], [data-company-events], [data-open-items], [data-year-package], [data-year-export]'))closeModal();}});
     document.addEventListener('visibilitychange',()=>{if(document.hidden){yearValuesWorkspace.clear();accountingEuer.invalidatePrivateContext();if(modal?.querySelector('[data-year-values],[data-year-values-euer]'))closeModal();}});
     addEventListener('pagehide',()=>endSession());
   }

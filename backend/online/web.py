@@ -191,7 +191,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     def office_browser(asset='index.html'):
         types = {'index.html': 'text/html', 'office.js': 'text/javascript', 'office.css': 'text/css',
                  'time-tracking.js': 'text/javascript',
-                 'project-economics.js': 'text/javascript', 'project-milestones.js': 'text/javascript', 'asset-provenance.js': 'text/javascript',
+                 'project-economics.js': 'text/javascript', 'project-milestones.js': 'text/javascript', 'maintenance-contracts.js': 'text/javascript', 'asset-provenance.js': 'text/javascript',
                  'customer-workspace.html': 'text/html', 'customer-workspace.js': 'text/javascript',
                  'customer-workspace-staff.js': 'text/javascript',
                  'personnel-workflow.js': 'text/javascript', 'accounting-euer.js': 'text/javascript', 'accounting-openings.js': 'text/javascript', 'accounting-open-items.js': 'text/javascript', 'accounting-open-items-contract.js': 'text/javascript', 'accounting-year-values-contract.js': 'text/javascript', 'accounting-year-values.js': 'text/javascript', 'accounting-year-package-contract.js': 'text/javascript', 'accounting-year-package.js': 'text/javascript', 'accounting-historical-assets.js': 'text/javascript', 'accounting-historical-assets-contract.js': 'text/javascript',

@@ -104,7 +104,7 @@ def strict_workflow_path(path):
     if not isinstance(path, str):
         return False
     return re.fullmatch(
-        r'/business/(?:offline/(?:access/v2|recovery/lookup)|(?:project-economics|customer-workspace|receipt-media|personnel|payroll|accounting/euer|accounting/opening-balances|accounting/historical-assets|accounting/open-items|accounting/year-values|assistant|company-events|sales|company-handover|migrations|custom-fields|privacy/cases|service|bank|resource-custody|catalog-prices)(?:/.*)?|overview/metrics|inventory/(?:counts(?:/.*)?|count-sources)|'
+        r'/business/(?:offline/(?:access/v2|recovery/(?:lookup|time-event))|(?:project-economics|customer-workspace|receipt-media|personnel|payroll|accounting/euer|accounting/opening-balances|accounting/historical-assets|accounting/open-items|accounting/year-values|assistant|company-events|sales|company-handover|migrations|custom-fields|privacy/cases|service|bank|resource-custody|catalog-prices)(?:/.*)?|overview/metrics|inventory/(?:counts(?:/.*)?|count-sources)|'
         r'projects/[a-f0-9]{32}/milestones(?:/[a-f0-9]{32}(?:/history)?)?|'
         r'finance/receipts(?:/[a-f0-9]{32}(?:/original)?)?|adapters(?:/.*)?|'
         r'assets/(?:from-delivery|origin-sources|[a-f0-9]{32}/origin)|'
@@ -285,7 +285,7 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
                            and re.fullmatch(r'/adapters/imports/[a-f0-9]{32}/catalog-preview', relative) is not None
                            or method == 'POST' and module.__name__ == 'business_catalog_prices'
                            and re.fullmatch(r'/catalog-prices/(?:candidates|imports/[a-f0-9]{32}/preview)', relative) is not None)
-        recovery_lookup = (module.__name__ == 'business_offline_binding' and relative == '/offline/recovery/lookup' and method == 'POST')
+        recovery_lookup = (module.__name__ == 'business_offline_binding' and relative in module.RECOVERY_PATHS and method == 'POST')
         if module.__name__ not in active and not ((method == 'GET' or security_revoke or catalog_preview or recovery_lookup) and module.__name__ in readable):
             raise Problem(409, 'Dieses Modul ist im aktuellen Betriebsmodus nicht schreibend freigegeben.')
         if method != 'GET' and not catalog_preview and not recovery_lookup and 'business_organization' in readable:

@@ -4,6 +4,20 @@ Stand: 09.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
+**Aktueller Codeabschnitt:** Der [lesende Abgleich alter nativer Zeitereigniskerne](CRM_ERP_OFFLINE_ALTZEITEN_2026-11-09.md)
+ist lokal fertig integriert. 64 App-, 81 Backend-, fünf tatsächliche
+PostgreSQL-/Restore- und 16 Paketfälle bestehen; vollständige Appanalyse ohne
+Befund. Fehlende alte Mitarbeiterbasis wird nicht aus dem aktuellen Profil
+rekonstruiert. Keine Altdaten werden übertragen, neu gesendet oder verändert.
+Veröffentlichung des neuen Abschnitts folgt; er ist noch nicht live installiert.
+
+**Neuer vollständig grüner Produktstand:** `ab632c0b680b563169ec9e846ab9b406762bcc97`
+besteht inzwischen sämtliche acht eigenen Development-Jobs einschließlich
+Windows und Mac-Simulator sowie den unsignierten iPhone-Releasebuild.
+Der signierte Upload ist übersprungen. Der erste Abruf unten bleibt historisch;
+[abgeschlossener tatsächlicher Abruf](evidence/offline-legacy-time-core-2026-11-09/previous-product-ci-completed.json).
+Keine neue Serverinstallation oder echte Geräteabnahme ist damit erfolgt.
+
 **Neueste Veröffentlichung:** Die geprüfte native Einzelprüfung alter
 Planaufträge ist als `ab632c0b680b563169ec9e846ab9b406762bcc97` auf dem
 autorisierten Testbranch veröffentlicht; der Remote-Zeiger ist bestätigt.
@@ -136,7 +150,7 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
 Hauptprojekt: `/workspace/Smarplan-Hofmann-Workspace` auf dem lokalen Branch
 `codex/finish-20261108`. Der weitere Integrationskandidat steht in
-`/workspace/smartplan-browser-original-restart-20261109`; ältere vollständige
+`/workspace/smartplan-offline-v1-time-recovery-20261109`; ältere vollständige
 Arbeitskopien und Zwischenstände bleiben erhalten.
 Der lokale gemeinsame Stand enthält die abgeschlossenen Projektmeilensteine,
 die Korrekturen der drei nachgewiesenen CI-Testfehler und den neuen

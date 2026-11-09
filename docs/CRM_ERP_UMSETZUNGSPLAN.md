@@ -64,6 +64,13 @@ Restarbeiten in diesem Plan.
 
 ## Bereits belegte Entwicklungsabschnitte
 
+Der [lesende Abgleich alter Zeitereigniskerne](CRM_ERP_OFFLINE_ALTZEITEN_2026-11-09.md)
+ist jetzt mit tatsächlicher alter Mitarbeiterbasis, neuer enger Metadatenroute
+und nativer Bedienung integriert. 81 Backend-, 64 native und fünf tatsächliche
+PostgreSQL-/Restorefälle bestehen; vollständige Appanalyse ohne Befund.
+Nicht vollständig belegte Zeiten und vollständige Altdatenübernahme bleiben
+eigenständige Arbeit. Es gibt keine Freigabe zum erneuten Senden alter Zeiten.
+
 Ergänzt ist die [bedienbare lesende Einzelprüfung alter nativer Planaufträge](CRM_ERP_OFFLINE_ALTBELEGE_NATIVE_2026-11-09.md).
 Sie erhält den ursprünglichen Gerätebestand vollständig und verbindet den
 bestehenden Hash-Endpunkt mit Navigation, Geräteentsperrung und aktueller
@@ -109,8 +116,9 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    von iPhone42670554193 bestehen; signierter Upload nicht angefordert.
    Frühere Fehl- und Erfolgsstände bleiben ihren tatsächlichen Quellen zugeordnet.
 2. Online-Restaufgaben mit reproduzierbarem Nutzen weiter schließen: insbesondere
-   die verbleibende Browserpersistenz unbestätigter Material-/privater Reiseaufträge,
    weitere konkret benannte Lohn-/Steuerfälle und vorbereitete Länder-/Regeltrennung.
+   Die Browserpersistenz unbestätigter Material-/privater Reiseaufträge ist
+   inzwischen implementiert und tatsächlich mit erneuter MFA geprüft.
    Die native Wiederaufnahme auf gebundenen Servern ist inzwischen im
    [geschützten Originaljournal](CRM_ERP_ONLINEAUFTRAEGE_NEUSTART_2026-11-09.md)
    implementiert und wird mit eigenen aktuellen Nachweisen geführt.

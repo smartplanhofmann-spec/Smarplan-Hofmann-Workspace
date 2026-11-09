@@ -3526,3 +3526,31 @@ und seine iPhone-Prüfungen beim Nachfolger abgebrochen sind. Kein abgebrochener
 Lauf wird nachträglich grün dargestellt. Der laufende Server bleibt zuletzt
 als A93 bestätigt.
 [Eigene Veröffentlichung und vorheriger tatsächlicher Status](evidence/offline-legacy-recovery-native-2026-11-09/publication-initial.json).
+
+
+## 09.11.2026 – Alte native Zeitereigniskerne lesend bestätigt
+
+Der eigene neue Metadatenvertrag und die vorhandene Geräteansicht bestätigen
+nun einen bereits angenommenen alten Zeitereigniskern. Die ursprüngliche
+Mitarbeiter-/Kategoriebasis muss im alten verschlüsselten Bestand erhalten sein;
+ein aktuelles Profil ersetzt sie nicht. Erst nach exaktem Original-, Firmen-,
+Konto-, Nonce- und Hashabgleich erscheinen Aktion und Zeitpunkt. Fehlende oder
+beschädigte Originale bleiben ungeklärt. Es gibt keine neue Sendeerlaubnis,
+Altdatenlöschung oder Rekonstruktion des damaligen GPS-/Rohbefehls.
+
+Die gemeinsame Prüfung besteht mit 81 Backend-, 64 nativen, fünf tatsächlichen
+PostgreSQL-/Restore- und 16 Paketfällen sowie vollständiger Appanalyse ohne
+Befund. Getrennte Firmen mit gleichen Konto-/Projekt-/Ereigniskennungen,
+frische Rechte, Lesemodus, App-Pause, verschlüsselter Bestand, Tagesfreigabe,
+Standortlöschung, echte TCP-Rohlimits und Datenbankfingerprints sind enthalten.
+Zwei falsche lokale Testaufbauten (Python-Pfad und erwartetes Backend-Virtualenv)
+sind korrigiert und bleiben als fehlgeschlagene Rohläufe erhalten.
+[Vertrag und Grenzen](CRM_ERP_OFFLINE_ALTZEITEN_2026-11-09.md),
+[Quellhashes und Rohläufe](evidence/offline-legacy-time-core-2026-11-09/manifest.json).
+
+Der vorherige Produktstand ab632c0 hat inzwischen alle acht eigenen
+Development-Jobs und den unsignierten iPhone-Build bestanden. Signierter
+Upload übersprungen; der [abgeschlossene Abruf](evidence/offline-legacy-time-core-2026-11-09/previous-product-ci-completed.json)
+ändert den damaligen ersten Zwischenstand nicht. Veröffentlichung des neuen
+Abschnitts folgt gesondert. Der zuletzt bestätigte Server bleibt A93;
+Gesamtsoftware und reale Abnahmen A–G sind weiterhin nicht fertig erklärt.

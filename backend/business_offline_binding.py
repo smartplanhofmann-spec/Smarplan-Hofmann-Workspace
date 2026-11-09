@@ -12,7 +12,8 @@ import time
 from core import Problem, canonical, digest, text_field
 from business_foundation import _fresh, require_permission
 
-FEATURES = ('offline_instance_binding',)
+FEATURES = ('offline_instance_binding', 'offline_time_event_recovery')
+RECOVERY_PATHS = ('/offline/recovery/lookup', '/offline/recovery/time-event')
 TABLE = 'business_offline_instance_grants'
 HEADER = 'X-Smartplan-Offline-Binding'
 ID = r'[a-f0-9]{32}'
@@ -192,8 +193,79 @@ def legacy_lookup(office, actor, data):
                     request_hash=fingerprint, original=original)
 
 
+def legacy_time_lookup(office, actor, data):
+    """Confirm a recorded event core; never reconstruct an old command or GPS.
+
+    The client must retain the OLD employee/category basis to derive this hash.
+    A current profile is not a source for an unbound device's missing fields.
+    """
+    fields = {'schema_version', 'nonce', 'kind', 'project_id', 'entry_id', 'request_id', 'request_hash'}
+    if (not isinstance(data, dict) or set(data) != fields or type(data['schema_version']) is not int
+            or data['schema_version'] != 3 or data['kind'] != 'time_event_core'):
+        raise Problem(400, 'Nur Kennungen und den erhaltenen Zeitereignishash zum lesenden Abgleich senden.')
+    nonce = _identifier(data['nonce'], 'Abgleichkennung')
+    project = _identifier(data['project_id'], 'Projektkennung')
+    entry = _identifier(data['entry_id'], 'Ursprüngliche Zeitkennung')
+    request = _identifier(data['request_id'], 'Ursprüngliche Auftragskennung')
+    fingerprint = data['request_hash']
+    if not isinstance(fingerprint, str) or re.fullmatch(r'[a-f0-9]{64}', fingerprint) is None:
+        raise Problem(400, 'Eindeutigen ursprünglichen SHA-256-Hash senden.')
+    encoded = canonical(data)
+    if len(encoded.encode('utf-8')) > 4096:
+        raise Problem(413, 'Zeitabgleich ist zu groß.')
+    from business_schema import state
+    from business_time import TimeTracking, _instant
+    with office.lock, office.db:
+        fresh = require_permission(office, actor, 'time.own', project)
+        scope = binding(office, fresh, required=True)
+        mode = state(office)
+        readable = mode['capabilities'] if mode.get('compatibility_mode') == 'business' else mode.get('read_capabilities', [])
+        if 'business_time' not in readable:
+            raise Problem(409, 'Die ursprünglichen Zeitereignisse sind nicht lesbar freigegeben.')
+        row = office.db.execute('''SELECT v.*,e.employee_id,e.project_id,e.category_id
+            FROM business_time_events v JOIN business_time_entries e ON e.id=v.entry_id
+            WHERE v.user_id=? AND v.request_id=?''', (fresh['id'], request)).fetchone()
+        if row is None:
+            raise Problem(404, 'Keine eindeutig passende ursprüngliche Zeitannahme gefunden. Der lokale Auftrag bleibt ungeklärt.')
+        if row['entry_id'] != entry or row['project_id'] != project or row['request_hash'] != fingerprint:
+            raise Problem(409, 'Die gespeicherte Zeitannahme passt nicht zum erhaltenen Originalereignis.')
+        api = TimeTracking(office)
+        fresh, employee = api._employee(fresh, row['employee_id'])
+        if employee['user_id'] != fresh['id']:
+            raise Problem(403, 'Dieser Abgleich ist ausschließlich für eigene ursprüngliche Zeitereignisse bestimmt.')
+        api._project_access(fresh, employee, project)
+        core = dict(entry_id=row['entry_id'], employee_id=row['employee_id'], project_id=row['project_id'],
+            category_id=row['category_id'], action=row['action'], occurred_at=row['occurred_at'],
+            device_id=row['device_id'], sequence=row['sequence'], revision=row['expected_revision'])
+        try:
+            for key in ('entry_id', 'employee_id', 'project_id'):
+                _identifier(core[key], 'Originalbezug')
+            if core['category_id'] is not None:
+                _identifier(core['category_id'], 'Ursprüngliche Zeitkategorie')
+            if (row['id'] != request or row['user_id'] != fresh['id']
+                    or core['action'] not in ('start', 'pause', 'resume', 'stop')
+                    or type(core['sequence']) is not int or not 1 <= core['sequence'] <= 10**9
+                    or type(core['revision']) is not int or not 0 <= core['revision'] < 10**9
+                    or core['sequence'] != core['revision'] + 1
+                    or (core['action'] == 'start') != (core['sequence'] == 1)
+                    or not isinstance(core['device_id'], str) or not 1 <= len(core['device_id']) <= 128
+                    or not core['device_id'].isprintable() or any(c.isspace() for c in core['device_id'])
+                    or _instant(core['occurred_at']).isoformat() != core['occurred_at']
+                    or _instant(row['received_at']).isoformat() != row['received_at']
+                    or digest(canonical(core)) != fingerprint):
+                raise ValueError('Invalid original event core')
+        except (ValueError, TypeError, KeyError, Problem):
+            raise Problem(409, 'Das ursprüngliche Zeitereignis ist nicht eindeutig und unverändert verfügbar.') from None
+        original = dict(schema_version=1, event_id=row['id'], request_id=request, actor_id=fresh['id'],
+                        request_hash=fingerprint, received_at=row['received_at'], core=core)
+        # No position, current timer, approval, money or recalculated durations.
+        return dict(schema_version=3, nonce=nonce, lookup_hash=digest(encoded), binding=scope,
+                    kind='time_event_core', project_id=project, entry_id=entry, request_id=request,
+                    request_hash=fingerprint, original=original)
+
+
 def methods(path):
-    return 'POST' if path == '/offline/recovery/lookup' else None
+    return 'POST' if path in RECOVERY_PATHS else None
 
 
 def dispatch(office, actor, path, method, data):
@@ -201,4 +273,5 @@ def dispatch(office, actor, path, method, data):
         return None
     if method != 'POST':
         raise Problem(405, 'Nur der lesende POST-Abgleich ist verfügbar.')
-    return legacy_lookup(office, actor, data), 200, 'application/json'
+    lookup = legacy_lookup if path == '/offline/recovery/lookup' else legacy_time_lookup
+    return lookup(office, actor, data), 200, 'application/json'

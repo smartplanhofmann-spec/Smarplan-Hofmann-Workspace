@@ -49,6 +49,7 @@ jobs:
           PYTHONPATH=backend python -m unittest test_project_creation_replay -v
           python -m unittest discover -s backend/online -p test_project_milestones_http.py -v
           python -m unittest discover -s backend/online -p test_offline_instance_binding.py -v
+          PYTHONPATH=backend python -m unittest -v online.test_legacy_time_recovery online.test_legacy_time_recovery_pg
           PYTHONPATH=backend python -m unittest test_project_creation_counterreview.ProjectCreationPostgresCounterreview -v
           PYTHONPATH=backend python -m unittest online.test_project_creation_journal online.test_project_creation_journal_pg -v
           python -m unittest discover -s backend/online -p test_organization_pg.py -v

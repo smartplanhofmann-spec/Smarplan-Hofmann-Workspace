@@ -57,6 +57,13 @@ fehlender Treffer ist keine Erlaubnis, den alten Auftrag neu anzulegen oder
 zu senden. Alte Dateien und übrige Eingaben bleiben unverändert erhalten;
 dies ist ein einzelner lesender Abgleich und keine vollständige Altdatenübernahme.
 
+Bei einem prüfbaren alten Zeitauftrag **Ursprüngliches Zeitereignis prüfen**
+wählen. Eine passende Bestätigung zeigt Aktion und ursprünglichen Zeitpunkt
+in Gerätezeit. Fehlt die damals gespeicherte Mitarbeiterbasis, bleibt der
+Auftrag ungeklärt erhalten. Der Ablauf ergänzt keine Daten aus einem heutigen
+Profil und startet oder beendet keinen Timer. Details zum
+[begrenzten Zeitabgleich](CRM_ERP_OFFLINE_ALTZEITEN_2026-11-09.md).
+
 ## Zeiterfassung finden und Zeiten abrechnen
 
 Im Browser liegt die Zeiterfassung unter **Personal → Personal & Zeiten**.

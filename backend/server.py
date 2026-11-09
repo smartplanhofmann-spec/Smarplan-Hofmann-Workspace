@@ -87,7 +87,7 @@ def make_handler(office,drive,launch_id=""):
                 if self.command=="POST":
                     size=int(self.headers.get("Content-Length","0"))
                     maximum = 2_600_000 if path == '/api/business/assistant/speech/transcribe' else 1_000_000
-                    if path == '/api/business/offline/recovery/lookup':
+                    if path in ('/api/business/offline/recovery/lookup', '/api/business/offline/recovery/time-event'):
                         maximum = 4096
                     if re.fullmatch(r'/api/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files|adapters/[a-f0-9]{32}/import|catalog-prices/sources/[a-f0-9]{32}/imports)', path):
                         maximum = 2_850_000

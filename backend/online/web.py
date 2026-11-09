@@ -449,10 +449,10 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         elif request.method == 'POST' and (path == '/business/service-reports/offline' or business_api.strict_workflow_path(path)):
             if not request.is_json:
                 raise Problem(415, 'JSON-Erfassung erwartet.')
-            if path == '/business/offline/recovery/lookup':
+            if path in ('/business/offline/recovery/lookup', '/business/offline/recovery/time-event'):
                 request.max_content_length = 4096
             data = business_api.decode_offline_report(request.get_data(cache=False),
-                max_bytes=(4096 if path == '/business/offline/recovery/lookup' else
+                max_bytes=(4096 if path in ('/business/offline/recovery/lookup', '/business/offline/recovery/time-event') else
                     2_600_000 if path == '/business/assistant/speech/transcribe' else
                     2_850_000 if re.fullmatch(r'/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files|adapters/[a-f0-9]{32}/import|catalog-prices/sources/[a-f0-9]{32}/imports)', path) else
                     7_100_000 if path in ('/business/bank/import/preview', '/business/bank/statements', '/business/accounting/opening-balances/originals', '/business/accounting/historical-assets/originals', '/business/accounting/open-items/originals', '/business/accounting/year-values/originals') or re.fullmatch(r'/business/catalog-prices/imports/[a-f0-9]{32}/(?:preview|apply)',path) else 1_000_000))

@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'api.dart';
 import 'offline_binding.dart';
 import 'offline_vault.dart';
+import 'offline_time_recovery.dart';
 
 enum LegacyPlanStatus {
   unchecked,
@@ -49,6 +50,22 @@ class _RetainedPlan {
   final Map<String, dynamic>? command;
 }
 
+class LegacyTimeCheck {
+  const LegacyTimeCheck(this.number, this.status, this.confirmation);
+  final int number;
+  final LegacyPlanStatus status;
+  final LegacyTimeConfirmation? confirmation;
+  bool get canCheck => LegacyPlanCheck(number, status).canCheck;
+  String get label => LegacyPlanCheck(number, status).label;
+}
+
+class _RetainedTime {
+  _RetainedTime(this.original);
+  final LegacyTimeOriginal original;
+  LegacyPlanStatus status = LegacyPlanStatus.unchecked;
+  LegacyTimeConfirmation? confirmation;
+}
+
 /// A read-only inspection, never a V1 cache migration or upload authority.
 /// A title is exposed only from a freshly authorized, fully matched server
 /// original. Unproven local geometry and project details never enter the view.
@@ -73,6 +90,7 @@ class LegacyOfflineRecovery extends ChangeNotifier {
   String? _snapshotHash;
   int? _generation;
   final _plans = <_RetainedPlan>[];
+  final _times = <_RetainedTime>[];
   int _epoch = 0;
   bool _disposed = false;
   bool busy = false, unlocking = false, inspected = false, found = false;
@@ -84,6 +102,10 @@ class LegacyOfflineRecovery extends ChangeNotifier {
         _plans[i].status,
         serverTitle: _plans[i].serverTitle,
       ),
+  ]);
+  List<LegacyTimeCheck> get times => List.unmodifiable([
+    for (var i = 0; i < _times.length; i++)
+      LegacyTimeCheck(i + 1, _times[i].status, _times[i].confirmation),
   ]);
   String get _server => '${api.base}|${api.version}';
   void _accessChanged() {
@@ -103,6 +125,10 @@ class LegacyOfflineRecovery extends ChangeNotifier {
     for (final entry in _plans) {
       entry.command?.clear();
     }
+    for (final entry in _times) {
+      entry.original.clear();
+    }
+    _times.clear();
     _plans.clear();
     _vault = null;
     _binding = null;
@@ -177,6 +203,63 @@ class LegacyOfflineRecovery extends ChangeNotifier {
     final value = await vault.read();
     _current(epoch);
     return value;
+  }
+
+  Future<bool> _supportsTime(int epoch) async {
+    _current(epoch);
+    try {
+      final caps = await api.call('/api/business/capabilities');
+      _current(epoch);
+      return caps is Map &&
+          caps['features'] is List &&
+          caps['features'].contains('offline_time_event_recovery') &&
+          caps['capabilities'] is List &&
+          caps['capabilities'].contains('business_time') &&
+          caps['permissions'] is List &&
+          caps['permissions'].contains('time.own');
+    } on ApiException catch (error) {
+      _current(epoch);
+      if (error.status == 401) rethrow;
+      // Missing/failed capability proof never permits a time lookup or upload.
+      return false;
+    }
+  }
+
+  List<_RetainedTime> _timeCandidates(
+    Map<String, dynamic> state,
+    String account,
+  ) {
+    final queue = state['business_time_outbox'] as List? ?? const [],
+        records = state['business_time_records'];
+    if (records is! Map) return [];
+    final result = <_RetainedTime>[];
+    for (final op in queue) {
+      try {
+        final original = LegacyTimeOriginal.fromCache(
+          op,
+          op is Map ? records[op['entry_id']] : null,
+          accountId: account,
+        );
+        result.add(_RetainedTime(original));
+      } on ApiException {
+        /* No old basis: no inferred employee or probe. */
+      } on FormatException {
+        /* Keep unproved input in the other retained count. */
+      }
+    }
+    return result;
+  }
+
+  Future<void> _unchangedSnapshot(int epoch) async {
+    _current(epoch);
+    final state = await _read(_vault!, epoch);
+    if (state == null ||
+        _vault!.generation != _generation ||
+        _hash(state) != _snapshotHash)
+      throw const ApiException(
+        409,
+        'Der Gerätebestand wurde geändert. Erneut prüfen.',
+      );
   }
 
   _RetainedPlan _plan(dynamic value) {
@@ -280,13 +363,22 @@ class LegacyOfflineRecovery extends ChangeNotifier {
         other += queue.length;
       }
       final parsed = pending.map(_plan).toList();
+      final timeCandidates = _timeCandidates(state, binding.accountId);
+      final timeSupported =
+          timeCandidates.isNotEmpty && await _supportsTime(epoch);
       _current(epoch);
       _vault = vault;
       _binding = binding;
       _generation = vault.generation;
       _snapshotHash = _hash(state);
       _plans.addAll(parsed);
-      otherPending = other;
+      if (timeSupported)
+        _times.addAll(timeCandidates);
+      else
+        for (final candidate in timeCandidates) {
+          candidate.original.clear();
+        }
+      otherPending = other - _times.length;
       found = inspected = true;
       _changed();
     } catch (_) {
@@ -313,14 +405,7 @@ class LegacyOfflineRecovery extends ChangeNotifier {
       final binding = await _fresh(epoch);
       if (binding != _binding)
         throw const ApiException(409, 'Die Firma wurde gewechselt.');
-      final state = await _read(_vault!, epoch);
-      if (state == null ||
-          _vault!.generation != _generation ||
-          _hash(state) != _snapshotHash)
-        throw const ApiException(
-          409,
-          'Der Gerätebestand wurde geändert. Erneut prüfen.',
-        );
+      await _unchangedSnapshot(epoch);
       final request = offlineRecoveryRequest(
         nonce: offlineId(),
         projectId: candidate.project!,
@@ -341,6 +426,56 @@ class LegacyOfflineRecovery extends ChangeNotifier {
       );
       _current(epoch);
       candidate.serverTitle = verified['original']['title'] as String;
+      candidate.status = LegacyPlanStatus.confirmed;
+    } catch (error) {
+      if (!_disposed && epoch == _epoch) {
+        if (error is ApiException && error.status == 401)
+          _drop();
+        else
+          candidate.status = LegacyPlanStatus.unresolved;
+      }
+      rethrow;
+    } finally {
+      busy = false;
+      _changed();
+    }
+  }
+
+  Future<void> checkTime(int index) async {
+    if (busy || index < 0 || index >= _times.length || !times[index].canCheck)
+      throw const ApiException(
+        0,
+        'Diesen Zeitauftrag zuerst aus dem erhaltenen Bestand neu prüfen.',
+      );
+    final epoch = _epoch, candidate = _times[index];
+    candidate.confirmation = null;
+    candidate.status = LegacyPlanStatus.unchecked;
+    busy = true;
+    _changed();
+    try {
+      final binding = await _fresh(epoch);
+      if (binding != _binding)
+        throw const ApiException(409, 'Die Firma wurde gewechselt.');
+      if (!await _supportsTime(epoch))
+        throw const ApiException(
+          409,
+          'Die aktuelle Freigabe für den Zeitabgleich fehlt.',
+        );
+      await _unchangedSnapshot(epoch);
+      _current(epoch);
+      final request = candidate.original.query(nonce: offlineId());
+      final reply = await api.call(
+        '/api/business/offline/recovery/time-event',
+        request,
+      );
+      _current(epoch);
+      final confirmed = candidate.original.match(
+        reply,
+        request: request,
+        binding: binding,
+      );
+      _current(epoch);
+      candidate.confirmation = confirmed;
       candidate.status = LegacyPlanStatus.confirmed;
     } catch (error) {
       if (!_disposed && epoch == _epoch) {

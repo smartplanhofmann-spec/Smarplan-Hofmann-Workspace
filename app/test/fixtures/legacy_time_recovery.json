@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "source_contract": "Native V1 retained time CORE; old acknowledged employee/category basis; no location proof or current timer snapshot",
+  "historical_native_commit": "7b54dddfeb85bdef718bf4c76d369b0f673a5ede",
+  "account_id": "56714d35f63041a2a687392c65ad687c",
+  "binding": {
+    "account_id": "56714d35f63041a2a687392c65ad687c",
+    "instance_id": "80f668996a5143a9a22b3b28e7af5520",
+    "schema_version": 1
+  },
+  "cache_record": {
+    "approved_work_dates": [],
+    "break_seconds": 0,
+    "category_id": null,
+    "corrections": [],
+    "employee_id": "ac3cc9da6a6940daad616496ed617012",
+    "ended_at": null,
+    "events": [
+      {
+        "action": "start",
+        "device_id": "6002bae229a04bc2b36abffcd2fef321",
+        "id": "f3cd7d87fdfd4e3096084d07cd434b50",
+        "occurred_at": "2026-11-08T09:00:00.123000+00:00",
+        "received_at": "2026-11-09T22:58:56+00:00",
+        "sequence": 1
+      }
+    ],
+    "id": "4f76bacd403c4240891b116896cf7a8f",
+    "last_at": "2026-11-08T09:00:00.123000+00:00",
+    "last_sequence": 1,
+    "project_id": "a65cd96622b447e4a95217aa5dde8cc5",
+    "revision": 2,
+    "sequence": 2,
+    "start_at": "2026-11-08T09:00:00.123000+00:00",
+    "started_at": "2026-11-08T09:00:00.123000+00:00",
+    "status": "stopped",
+    "timezone": "Europe/Berlin",
+    "updated_at": "2026-11-09T22:58:56+00:00",
+    "work_dates": [],
+    "worked_seconds": 0,
+    "user_id": "56714d35f63041a2a687392c65ad687c",
+    "sync_status": "Auf diesem Gerät gesichert"
+  },
+  "retained_operation": {
+    "entry_id": "4f76bacd403c4240891b116896cf7a8f",
+    "project_id": "a65cd96622b447e4a95217aa5dde8cc5",
+    "body": {
+      "request_id": "53b7308857584d8aba07523e65ab0400",
+      "entry_id": "4f76bacd403c4240891b116896cf7a8f",
+      "device_id": "6002bae229a04bc2b36abffcd2fef321",
+      "sequence": 2,
+      "revision": 1,
+      "action": "stop",
+      "occurred_at": "2026-11-08T09:30:00.456789Z",
+      "project_id": "a65cd96622b447e4a95217aa5dde8cc5",
+      "event_id": "53b7308857584d8aba07523e65ab0400"
+    }
+  },
+  "expected_core": {
+    "entry_id": "4f76bacd403c4240891b116896cf7a8f",
+    "employee_id": "ac3cc9da6a6940daad616496ed617012",
+    "project_id": "a65cd96622b447e4a95217aa5dde8cc5",
+    "category_id": null,
+    "action": "stop",
+    "occurred_at": "2026-11-08T09:30:00.456789+00:00",
+    "device_id": "6002bae229a04bc2b36abffcd2fef321",
+    "sequence": 2,
+    "revision": 1
+  },
+  "lookup_command": {
+    "schema_version": 3,
+    "nonce": "fad374e52ce948679f258d44cc03cb4b",
+    "kind": "time_event_core",
+    "project_id": "a65cd96622b447e4a95217aa5dde8cc5",
+    "entry_id": "4f76bacd403c4240891b116896cf7a8f",
+    "request_id": "53b7308857584d8aba07523e65ab0400",
+    "request_hash": "dc659422b97b291ea0092c25e37df4eb9197ae57371e7e3173b53eb22c6be1f8"
+  },
+  "lookup_result": {
+    "binding": {
+      "account_id": "56714d35f63041a2a687392c65ad687c",
+      "instance_id": "80f668996a5143a9a22b3b28e7af5520",
+      "schema_version": 1
+    },
+    "entry_id": "4f76bacd403c4240891b116896cf7a8f",
+    "kind": "time_event_core",
+    "lookup_hash": "5f52941a8254d042df2f3558e123aacdacebad8524b113ceb2833606fd06237e",
+    "nonce": "fad374e52ce948679f258d44cc03cb4b",
+    "original": {
+      "actor_id": "56714d35f63041a2a687392c65ad687c",
+      "core": {
+        "action": "stop",
+        "category_id": null,
+        "device_id": "6002bae229a04bc2b36abffcd2fef321",
+        "employee_id": "ac3cc9da6a6940daad616496ed617012",
+        "entry_id": "4f76bacd403c4240891b116896cf7a8f",
+        "occurred_at": "2026-11-08T09:30:00.456789+00:00",
+        "project_id": "a65cd96622b447e4a95217aa5dde8cc5",
+        "revision": 1,
+        "sequence": 2
+      },
+      "event_id": "53b7308857584d8aba07523e65ab0400",
+      "received_at": "2026-11-09T22:58:56+00:00",
+      "request_hash": "dc659422b97b291ea0092c25e37df4eb9197ae57371e7e3173b53eb22c6be1f8",
+      "request_id": "53b7308857584d8aba07523e65ab0400",
+      "schema_version": 1
+    },
+    "project_id": "a65cd96622b447e4a95217aa5dde8cc5",
+    "request_hash": "dc659422b97b291ea0092c25e37df4eb9197ae57371e7e3173b53eb22c6be1f8",
+    "request_id": "53b7308857584d8aba07523e65ab0400",
+    "schema_version": 3
+  }
+}

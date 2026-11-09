@@ -68,3 +68,8 @@ und Berichte benötigen ihre eigenen Abgleiche beziehungsweise geschützte
 Konfliktklärung. Reale Betriebssystementsperrung, Geräteinstallation und
 Kundenabnahme bleiben getrennte Auslieferungsnachweise. Der zuletzt vom Nutzer
 bestätigte Server bleibt A93; ein neuer Serverstand wird hier nicht behauptet.
+
+Ergänzung: Vollständig belegte alte Zeitereigniskerne besitzen inzwischen
+einen [eigenen lesenden Abgleich](CRM_ERP_OFFLINE_ALTZEITEN_2026-11-09.md)
+in derselben Ansicht. Zeiten ohne erhaltene alte Mitarbeiterbasis und die
+anderen genannten Warteschlangen bleiben ungeklärt.

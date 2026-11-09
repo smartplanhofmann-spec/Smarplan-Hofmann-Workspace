@@ -1,0 +1,254 @@
+{
+  "date": "2026-11-09",
+  "base_commit": "6db12cf06709531c9f1441bce163f1fb544abff6",
+  "scope": "Read-only retained native V1 time EVENT CORE proof; no replay, full raw/GPS proof, dequeue or cache migration",
+  "results": {
+    "backend": {
+      "passed": 81,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 37.608,
+      "new_actual_mfa_and_local_tcp": 11
+    },
+    "native_affected": {
+      "passed": 64,
+      "failed": 0,
+      "skipped": 0,
+      "reporter_elapsed": "00:17",
+      "actual_mfa_http": 3
+    },
+    "actual_postgresql": {
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 36.217,
+      "actual_dump_restore": true,
+      "separate_runtime_connections": true
+    },
+    "packages": {
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 17.096,
+      "actual_unpacked_import": true
+    },
+    "source_inventory": {
+      "passed": 2,
+      "failed": 0
+    },
+    "full_analysis": {
+      "result": "No issues found",
+      "seconds": 19.0
+    }
+  },
+  "failed_setups": {
+    "offline-v1-time-final-native-20261109.txt.gz": "Three actual HTTP fixtures failed before process start: absent default backend/.venv; corrected explicit SMARTPLAN_TEST_PYTHON. Original retained.",
+    "offline-v1-time-final-packages-20261109.txt.gz": "16 cases executed, one package-import fixture failed for absent backend/.venv; corrected ignored local link to already installed project environment."
+  },
+  "historical_v1_commit": "7b54dddfeb85bdef718bf4c76d369b0f673a5ede",
+  "fixture_generation": "Existing project venv python scripts/generate-legacy-time-recovery-fixture.py; actual bound MFA server, acknowledged initial old employee/category basis; no current replacement-firm inference",
+  "source_sha256": {
+    "app/lib/legacy_offline_recovery.dart": "304880663b9e2d4e844df45855c53b7fa0f73f658497987d83ebdd7222091ef9",
+    "app/lib/legacy_offline_recovery_page.dart": "f771e8fdfb9df0a07c11292343f592842cdc03d78d9d6241ac9c06f7a835a719",
+    "app/lib/offline_time_recovery.dart": "1b617677d0bc42075969d8648e166e248283a5897995ca18129ee05272746af0",
+    "app/test/fixtures/legacy_time_recovery.json": "54af658eda6c27df5e281c67abca3777db1d0488edb4f9437beb9c875a0f2933",
+    "app/test/legacy_time_recovery_http_test.dart": "321a870198eccc38758c916f70a7a0986f52883b1ae9eea1f5cd2f0104362a79",
+    "app/test/legacy_time_recovery_test.dart": "317acb0c4c69605841223154c703a7364e7a7d0ff3a6a9f5a4f93b1330d660e1",
+    "app/test/offline_time_recovery_test.dart": "bae9cf672e14927b3f48c3b88a16da8d08b98aba95006ca2e0cf17597995a156",
+    "backend/business_api.py": "d7adb49591840c0e18f8bee47d4eee8b528c272acbe8646841f9a29d72fd55d5",
+    "backend/business_offline_binding.py": "0572f96c5b35640fe278b66dd2267ea47f6b3af36bca6268dba8dcd30e120f63",
+    "backend/online/test_legacy_time_recovery.py": "b4e2517f89e44ca2914265a0e5bc40deb53a295a95445e542b28729a29f222a9",
+    "backend/online/test_legacy_time_recovery_pg.py": "a5eda3398e287319ea26425164f2dde83c51863691c63ca7374865bdbcd609e1",
+    "backend/online/web.py": "2cee03a45a840e2dfe15c491e72d5660bd2680f28562494bed9c5069477dbb2b",
+    "backend/server.py": "b160414cab4a095e1ada58ae5b417334ad9eff19d649dc883e43ef458368d682",
+    "scripts/generate-legacy-time-recovery-fixture.py": "8ff55b341d3e694bb4c4e808afedfc2a5e4ebc1e418a463a644dcc4669773a75",
+    ".github/workflows/checks.yml": "42e0ffccfeca4eeabd93a663734fea186ea5c21bca250e81a95df09fe252b6cb"
+  },
+  "goal": {
+    "bytes": 23863,
+    "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "historical_kernels_unchanged": [
+    {
+      "path": "backend/payroll_annual_basis_2026.py",
+      "sha256": "5b17e71d13ed596a2f4a18ec49f12970e95329ac17dd69ef17709978191ad431"
+    },
+    {
+      "path": "backend/payroll_calculations_2026.py",
+      "sha256": "5133cc7b0a52471bcfd08c76960461799bd92e335ac7e5d141368dc69f14b553"
+    },
+    {
+      "path": "backend/payroll_claims_composition_2026.py",
+      "sha256": "e8a08c7402ae06803045cf5a4421cee1bca0a50183e43677788194c9242e342d"
+    },
+    {
+      "path": "backend/payroll_de_2026.py",
+      "sha256": "c1365355ab501f194f37ede7c4bb0ab2c2347a1252dfda97ae360708593a9789"
+    },
+    {
+      "path": "backend/payroll_entitlements_2026.py",
+      "sha256": "c495a10a871f68dcc13d656a303d5d671855a7b5ea522b454ad141829cb457e7"
+    },
+    {
+      "path": "backend/payroll_factor_2026.py",
+      "sha256": "c55d017120f56b0e2539c793018839820d17aef54611c3ede636e1ee20d1df25"
+    },
+    {
+      "path": "backend/payroll_factor_periods_2026.py",
+      "sha256": "f18b0254d6c96b981433d519adb4895de7e97fcb7e4e9d951105cf95773c63c0"
+    },
+    {
+      "path": "backend/payroll_holidays_2026.py",
+      "sha256": "d8ed5b71ce2f334d5670e707e421212e71abfad953121271efb81ea0eac99280"
+    },
+    {
+      "path": "backend/payroll_multiple_oneoff_2026.py",
+      "sha256": "c6ea0b98dab3528055c7e0b190b93e062dc1469466f670513bd75c8d856f33c7"
+    },
+    {
+      "path": "backend/payroll_oneoff_2026.py",
+      "sha256": "a52973b0f88f0658906db61b610762959b84f1cefe2ded866a663d718f9f1ce8"
+    },
+    {
+      "path": "backend/payroll_oneoff_composition_2026.py",
+      "sha256": "9b48ef4898b043c647b1c238a6f37d8b05bf8f78dcf9967fb691b9803454d0d7"
+    },
+    {
+      "path": "backend/payroll_pap_2026.py",
+      "sha256": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071"
+    },
+    {
+      "path": "backend/payroll_pap_factor_2026.py",
+      "sha256": "92c6dee2d41b5c8985b52d9d8e86831919c05b16bbb504f4bdfc7176be7d088c"
+    },
+    {
+      "path": "backend/payroll_pap_oneoff_2026.py",
+      "sha256": "f2fc8ced86ab844e5c7b4ea592fab2ba5870a7843f47b78bc379b9f874b2f456"
+    },
+    {
+      "path": "backend/payroll_pap_periods_2026.py",
+      "sha256": "9307e599d25512db069bc42b8662ff0aa84b5436808745916bc97018b2675444"
+    },
+    {
+      "path": "backend/payroll_periods_2026.py",
+      "sha256": "c3df3ae3ee93c756010290f382bf17050676a7bbc6a327082ea07b83e7b96890"
+    },
+    {
+      "path": "backend/payroll_segments_2026.py",
+      "sha256": "819894663d24ae4a74e15d4f22c2b421ec34fbf4fc1d8a10a868a62b6270c83d"
+    },
+    {
+      "path": "backend/payroll_sickness_2026.py",
+      "sha256": "05dc76065032993b9ec59035cf17bc99c388b1b119ac30feb4540d937cb45e33"
+    },
+    {
+      "path": "backend/payroll_sickness_phases_2026.py",
+      "sha256": "3a9f7bcc4262d2594e94c6f87bb6f5035901411e64a73f91586fc5b7b9d19c0b"
+    },
+    {
+      "path": "backend/payroll_sickness_start_2026.py",
+      "sha256": "dc69e48b0ef255893b962d6d20ba8dadc478c17a53ccb438b7f12565c1a979c7"
+    },
+    {
+      "path": "backend/payroll_transition_2026.py",
+      "sha256": "b3b649e5179990ed54058ee4daee497a8744277cfe64c98750a5b333963d1897"
+    },
+    {
+      "path": "backend/payroll_travel_2026.py",
+      "sha256": "7c4be0176679fd9d6dcfe1b1049c223e33a1a8b75804f2864df7b0ccd65935fb"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v1.py",
+      "sha256": "03cbcb42b4a5c0eedfc11536c5997a53509c1ab5304a89e2c69c8fbc775164cb"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v2.py",
+      "sha256": "83b2673315b2e828abbf72fef26841bd80e8e8bbd70da45f587a01a5037527e5"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v3.py",
+      "sha256": "6c8496f63c3f44ea56054d7eafa17aa75dbba71bc131306fcf59925d93faf45e"
+    },
+    {
+      "path": "backend/payroll_travel_expenses_2026.py",
+      "sha256": "2d96af39ded426f9868f3011ad3b47cdfc74c25c29f49ade56b6b178f67587d1"
+    },
+    {
+      "path": "backend/payroll_travel_ground_2026.py",
+      "sha256": "9fbc82efc589654ed2eb1425ce50fb4fe6a59b30bcde5ae29d27ec5f595deebc"
+    },
+    {
+      "path": "backend/payroll_travel_mixed_2026.py",
+      "sha256": "0e640106f0d70e3a0f0c54e3154f22e3576d5120dabb9117dbfcf3bde0f6dced"
+    },
+    {
+      "path": "backend/payroll_travel_rates_2026.py",
+      "sha256": "b327e00ea0624b6e41b45843077984af077917eb83400b341a3f88842192b7c0"
+    },
+    {
+      "path": "backend/payroll_travel_tax_2026.py",
+      "sha256": "8b28d2a38923fe64e7e640a1e3487834dea38ab701f07e010bb62dda81495f21"
+    },
+    {
+      "path": "backend/payroll_travel_transport_2026.py",
+      "sha256": "60cc47920cd49bd6daf6ca8a8bba94b49c46b5963d940b655ad100461d2be7d5"
+    },
+    {
+      "path": "backend/payroll_wage_interruptions_2026.py",
+      "sha256": "3039dc435c9c689fbc5a50b005581393e4093c8703a9ae9b74e52d559a236aa9"
+    }
+  ],
+  "additional_unchanged_kernels": {
+    "backend/business_time.py": "65f8c4b58ddac49367dec78af555b1ea6556feee2cbd468f177940f104687d4b",
+    "backend/payroll_multiple_payments.py": "06b281118921401ac02d9b33086b989fbc30aa47e67fe26ff7983b4a44a5ef86"
+  },
+  "old_files_keys_tokens_selection_changed": false,
+  "schema_or_sql_checksums_changed": false,
+  "own_pg_container_removed": true,
+  "own_pg_container": "6ff940f71beff7e4b9093ad1b86433240c8c81f7e27a29379320a3b850554869",
+  "live_server_changed": false,
+  "last_user_confirmed_server": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "remaining": [
+    "incomplete legacy time basis",
+    "other old queues and numbers",
+    "protected conflicts and full cache migration",
+    "actual device installation/unlock",
+    "production/fachliche acceptance A-G"
+  ],
+  "evidence_sha256": {
+    "offline-v1-time-client-analysis-first-20261109.txt.gz": "ffe23ff749f5b30770fd56dea670ec5b7bf5b59c2b9146b3584d11b4ce43c855",
+    "offline-v1-time-client-first-20261109.txt.gz": "8376cc216cbdfe9dadc165019865a5f9d1d64ebc8da7ccee4b57b29453a2d855",
+    "offline-v1-time-client-format-20261109.txt.gz": "9439194262853d22fef064b91463bc50c8036c324256b4dccba83bf92cd287d9",
+    "offline-v1-time-core-analysis-first-20261109.txt.gz": "ac7a4b6cb673b09c299365d85ebb2c97003fcbacfd67e2a18d95a8501e067b21",
+    "offline-v1-time-core-native-first-20261109.txt.gz": "f3f9ce1aa52d56c7b931c601555e14f4e6246db49b1220998886d735ccb11b25",
+    "offline-v1-time-final-analyze-20261109.txt.gz": "c86e44f3ecd6d18b1ee7c1bc076fe8552fac2eae7c3a75119dba8e4301e23125",
+    "offline-v1-time-final-backend-20261109.txt.gz": "1adfd091039683b3f149ff9a784a5e04d873ac0bc0d32039178827d1b3a63a3a",
+    "offline-v1-time-final-native-20261109.txt.gz": "cfac8ee8123b848119e39bd88eaa6e1119b872fcab7e7449c063e596996ddac6",
+    "offline-v1-time-final-native-correct-env-20261109.txt.gz": "571a336ebd4b37ed22012b3b22cf8b324f1e0b346a65af0dd6a451079266b441",
+    "offline-v1-time-final-packages-20261109.txt.gz": "c8d8f0e56ac797ef3eeb69470f968c98a4825644029e9232d2af772c5cbd8b6f",
+    "offline-v1-time-final-packages-linked-20261109.txt.gz": "cd66042904e822b16ba8ce91a7eb830049b8d707d972825ca1ecffe3f2f34ea0",
+    "offline-v1-time-fixture-20261109.txt.gz": "903f1812f17a70722dbaee846693fdb931b4bccb6ada7f016342fa14331780f2",
+    "offline-v1-time-format-20261109.txt.gz": "3f52f55fd6a0c3ce443d3d3c568afe086965073a51175142d2a1bde9b37e0aa9",
+    "offline-v1-time-http-format-20261109.txt.gz": "b9d40941aba745097660ce24b522cac69090a737052c212b1b065f74cdc8b900",
+    "offline-v1-time-native-http-first-20261109.txt.gz": "a2c5ab385587dbc3b85046f5b9aeaaaf5b3864a4da2f156fafad258c735d1c69",
+    "offline-v1-time-own-pg-cleanup-20261109.txt.gz": "593055e4ec5ea198c74dab86ff4daac7ab3231becfaffccaaf28ce4e02f28a9b",
+    "offline-v1-time-pg-first-20261109.txt.gz": "6365509c24537e06a6743e089802a14d547070f49a5179e6d2b32ec70e56982c",
+    "offline-v1-time-pub-20261109.txt.gz": "33e704fc20f0db5a9a37ee8f146d3084685cdb8c352aaa2fd21f09a54fab7cf4",
+    "offline-v1-time-recovery-first-20261109.txt.gz": "62bdb7baf594946afb6801d430292ae5029dd62e247da48b4e3f1965750cf238",
+    "offline-v1-time-recovery-readonly-20261109.txt.gz": "e0f85e3488572f7112a48d911cdcb87981af8813cf066a8b2e0c993564fc6eed",
+    "offline-v1-time-source-inventory-20261109.txt.gz": "c8b9b4537eb200786b28b6372d2d18dd87f05e518379611c24a9e9c496e437eb",
+    "offline-v1-time-test-format-20261109.txt.gz": "c918680c5b07b2bb26b9ee134e8feff08fe93cfdb15defd76e477764d5273b9f",
+    "previous-product-ci-completed.json": "8294daa060397f80ce9029aadd76da0c302c3dbcf0ab73c11612a828c7826cf3"
+  },
+  "ci_registration": "online-api now explicitly executes both new MFA/local TCP and real PostgreSQL legacy-time modules; no implicit discovery claim",
+  "reproduction": {
+    "backend_cwd": "backend",
+    "backend": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:business_tests:online <project-venv-python> -m unittest -v online.test_legacy_time_recovery online.test_offline_instance_binding test_offline_binding_storage test_business_time test_business_schema online.test_client_originals online.test_project_creation_journal",
+    "postgres": "Disposable guarded loopback smartplan_check database; actual pg_dump/pg_restore wrappers forwarding to own container; PYTHONPATH=.:business_tests:online SMARTPLAN_TEST_DSN=<own-disposable-dsn> <project-venv-python> -m unittest -v online.test_legacy_time_recovery_pg online.test_business_offline_binding_pg",
+    "native_cwd": "app",
+    "native": "SMARTPLAN_TEST_PYTHON=<project-venv-python> PUB_CACHE=<existing-cache> flutter test --no-pub --reporter expanded test/legacy_offline_recovery_test.dart test/legacy_offline_recovery_http_test.dart test/business_shell_widget_test.dart test/workspace_shell_test.dart test/offline_binding_test.dart test/offline_instance_test.dart test/offline_time_recovery_test.dart test/legacy_time_recovery_test.dart test/legacy_time_recovery_http_test.dart test/offline_instance_http_test.dart test/business_offline_time_test.dart",
+    "packages": "Existing backend/.venv required by package import fixture; <project-venv-python> -m unittest -v scripts.test_native_release",
+    "inventory": "<project-venv-python> -m unittest -v scripts.test_product_inventory",
+    "analysis": "flutter analyze --no-pub"
+  }
+}

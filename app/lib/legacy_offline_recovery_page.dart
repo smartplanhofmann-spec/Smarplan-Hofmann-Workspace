@@ -13,6 +13,18 @@ class LegacyOfflineRecoveryPage extends StatefulWidget {
 class _LegacyOfflineRecoveryPageState extends State<LegacyOfflineRecoveryPage>
     with WidgetsBindingObserver {
   String? error;
+  String confirmedTime(LegacyTimeCheck row) {
+    final value = row.confirmation!, at = value.occurredAt.toLocal();
+    String two(int n) => n.toString().padLeft(2, '0');
+    const actions = {
+      'start': 'Beginn',
+      'pause': 'Pause',
+      'resume': 'Fortsetzung',
+      'stop': 'Ende',
+    };
+    return '${actions[value.action]} · ${two(at.day)}.${two(at.month)}.${at.year} ${two(at.hour)}:${two(at.minute)}:${two(at.second)} (Gerätezeit)';
+  }
+
   @override
   void initState() {
     super.initState();
@@ -61,7 +73,7 @@ class _LegacyOfflineRecoveryPageState extends State<LegacyOfflineRecoveryPage>
             ),
             const SizedBox(height: 12),
             const Text(
-              'Alte Planaufträge können bereits beim ursprünglichen Server angekommen sein. Der Abgleich überträgt ausschließlich Kennungen und Originalhashes. Erst nach passender Serverbestätigung erscheint der Titel des dort geprüften Originals.',
+              'Alte Plan- und Zeitaufträge können bereits beim ursprünglichen Server angekommen sein. Der Abgleich überträgt ausschließlich Kennungen und Originalhashes. Erst nach passender Serverbestätigung erscheint das dort geprüfte Original.',
             ),
             const SizedBox(height: 12),
             const Text(
@@ -96,7 +108,7 @@ class _LegacyOfflineRecoveryPageState extends State<LegacyOfflineRecoveryPage>
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Text(
-                  '${recovery.plans.length} alte Planaufträge · ${recovery.otherPending} weitere erhaltene Aufträge',
+                  '${recovery.plans.length} alte Planaufträge · ${recovery.times.length} Zeitaufträge · ${recovery.otherPending} weitere erhaltene Aufträge',
                 ),
               ),
               for (final row in recovery.plans)
@@ -132,10 +144,44 @@ class _LegacyOfflineRecoveryPageState extends State<LegacyOfflineRecoveryPage>
                     ),
                   ),
                 ),
+              for (final row in recovery.times)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Zeitauftrag ${row.number}',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(row.label),
+                        if (row.confirmation != null)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Text(confirmedTime(row)),
+                          ),
+                        const SizedBox(height: 8),
+                        if (row.canCheck)
+                          OutlinedButton(
+                            onPressed: recovery.busy
+                                ? null
+                                : () => run(
+                                    () => recovery.checkTime(row.number - 1),
+                                  ),
+                            child: const Text(
+                              'Ursprüngliches Zeitereignis prüfen',
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Text(
-                  'Eine bestätigte Originalannahme gilt nur für diesen einzelnen Auftrag. Andere alte Eingaben, Fotos, Zeiten und Berichte benötigen einen gesonderten Abgleich.',
+                  'Eine bestätigte Originalannahme gilt nur für diesen einzelnen Auftrag. Weitere unbewiesene Eingaben, Zeiten, Fotos und Berichte benötigen einen gesonderten Abgleich.',
                 ),
               ),
             ],

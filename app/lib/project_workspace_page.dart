@@ -46,6 +46,7 @@ const _businessSectionSlots = [
   'Fotos',
   'Wartung',
   'Kommunikation',
+  'Meilensteine',
 ];
 
 const _sectionIcons = [
@@ -159,6 +160,10 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
       'Arbeitszeit',
     if (business.hasModule('planning') && business.can('planning.read'))
       'Einsatzplanung',
+    if (business.hasModule('project_milestones') &&
+        business.hasFeature('project_milestones') &&
+        business.can('planning.read'))
+      'Meilensteine',
     if (business.hasModule('inventory') && business.can('inventory.read'))
       'Material',
     if (business.hasModule('inventory') && business.can('finance.read'))
@@ -190,6 +195,7 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
           'Kommunikation' => Icons.forum_outlined,
           'Arbeitszeit' => Icons.timer_outlined,
           'Einsatzplanung' => Icons.calendar_view_week_outlined,
+          'Meilensteine' => Icons.flag_outlined,
           'Material' => Icons.inventory_2_outlined,
           'Dokumentation' => Icons.photo_library_outlined,
           _ => Icons.handyman_outlined,

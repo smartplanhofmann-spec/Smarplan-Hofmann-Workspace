@@ -11,6 +11,7 @@ import 'business_accounting_euer.dart';
 import 'business_finance.dart';
 import 'business_settings.dart';
 import 'business_project_economics.dart';
+import 'business_project_milestones.dart';
 import 'business_customer_workspace.dart';
 import 'business_media.dart';
 import 'business_document_access.dart';
@@ -622,6 +623,10 @@ class BusinessProjectFeature extends StatelessWidget {
     'Assistent' => BusinessAssistantPage(session: session),
     'Belege' => BusinessDocumentsPage(session: session),
     'Einsatzplanung' => BusinessPlanningPage(session: session),
+    'Meilensteine' => BusinessProjectMilestonesPage(
+      session: session,
+      active: visible,
+    ),
     'Arbeitszeit' => BusinessTimePage(session: session, repository: repository),
     'Material' => BusinessAreaPage(session: session, area: 'material'),
     'Dokumentation' => BusinessAreaPage(

@@ -50,6 +50,14 @@ bool _catalogCommand(String key, String path) {
           : '/adapters/imports/${match.group(2)}/apply');
 }
 
+bool _projectMilestoneCommand(String key, String path) {
+  final match = RegExp(
+    r'^/projects/([a-f0-9]{32})/milestones(?:/([a-f0-9]{32}))?$',
+  ).firstMatch(path);
+  return match != null &&
+      key == 'project-milestone-${match.group(1)}-${match.group(2) ?? 'new'}';
+}
+
 bool _catalogPricesCommand(String key, String path) {
   if (key == 'catalog-v2-source') return path == '/catalog-prices/sources';
   final match = RegExp(r'^catalog-v2-(import|apply|withdraw)-([a-f0-9]{32})$')
@@ -130,7 +138,8 @@ String? organizationCommandSection(String path) {
   }.contains(first)) {
     return 'personnel';
   }
-  if (const {'resources', 'appointments', 'planning'}.contains(first)) {
+  if (const {'resources', 'appointments', 'planning'}.contains(first) ||
+      RegExp(r'^/projects/[a-f0-9]{32}/milestones(?:/|$)').hasMatch(route)) {
     return 'planning';
   }
   if (first == 'inventory' ||
@@ -2935,6 +2944,7 @@ class BusinessSession extends ChangeNotifier {
     _pending.clear();
     _pendingEditorValues.clear();
     _metaTimer?.cancel();
+    _milestoneReceipts.clear();
     error =
         'Der Zugang ist nicht mehr verfügbar. Bitte melden Sie sich erneut an.';
     _changed();
@@ -3103,6 +3113,117 @@ class BusinessSession extends ChangeNotifier {
     void Function(dynamic)? validateResult,
   }) => _command(key, path, values, validateResult: validateResult);
 
+  final _milestoneWrites =
+      <String, ({String values, String? requestId, Future<dynamic> future})>{};
+  // A reopened form can finish its original operation after another waiter has
+  // consumed the pending entry. These verified receipts never grant access.
+  final _milestoneReceipts =
+      <String, ({String path, String values, Map<String, dynamic> result})>{};
+
+  /// Unlike pendingCommandValues, this returns the original transport nonce.
+  String? pendingProjectMilestoneRequest(String project, String? milestone) {
+    if (!allowed || projectId != project || !can('planning.read')) return null;
+    final key = 'project-milestone-$project-${milestone ?? 'new'}';
+    final path =
+        '/projects/$project/milestones'
+        '${milestone == null ? '' : '/$milestone'}';
+    final operation = _pending[key];
+    if (!_projectMilestoneCommand(key, path) || operation?.path != path)
+      return null;
+    return operation!.body['request_id'] as String;
+  }
+
+  Future<dynamic> projectMilestoneCommand(
+    String project,
+    String? milestone,
+    Map<String, dynamic> values, {
+    required void Function(dynamic) validateResult,
+    String? expectedRequestId,
+  }) async {
+    final path =
+        '/projects/$project/milestones'
+        '${milestone == null ? '' : '/$milestone'}';
+    final key = 'project-milestone-$project-${milestone ?? 'new'}';
+    final originalRequest =
+        expectedRequestId ?? _pending[key]?.body['request_id'];
+    final epoch = _epoch;
+    _guard(epoch);
+    await load();
+    _guard(epoch);
+    if (error != null)
+      throw const ApiException(
+        0,
+        'Die aktuellen Projektberechtigungen konnten nicht geprüft werden.',
+      );
+    if (projectId != project ||
+        !hasFeature('project_milestones') ||
+        !hasModule('project_milestones') ||
+        !can('planning.read') ||
+        !canWrite('projects.manage') ||
+        !sectionEnabled('planning')) {
+      throw const ApiException(
+        403,
+        'Die aktuelle Berechtigung zur Änderung der Projektmeilensteine fehlt.',
+      );
+    }
+    if (!_projectMilestoneCommand(key, path))
+      throw const ApiException(0, 'Ungültige Projektbindung des Meilensteins.');
+    final canonical = jsonEncode(values), running = _milestoneWrites[key];
+    if (originalRequest != null &&
+        _pending[key]?.body['request_id'] != originalRequest) {
+      if (running != null &&
+          running.requestId == originalRequest &&
+          running.values == canonical)
+        return running.future;
+      final accepted = _milestoneReceipts[originalRequest];
+      if (accepted != null &&
+          accepted.path == path &&
+          accepted.values == canonical)
+        return Map<String, dynamic>.from(
+          jsonDecode(jsonEncode(accepted.result)),
+        );
+      throw const ApiException(
+        0,
+        'Dieser ursprüngliche Auftrag wurde inzwischen beantwortet. Bitte schließen und den aktuellen Projektstand prüfen.',
+      );
+    }
+    if (running != null) {
+      if (running.values != canonical)
+        throw const ApiException(
+          409,
+          'Der unveränderte Meilensteinauftrag wird noch übertragen.',
+        );
+      return running.future;
+    }
+    final future = _command(
+      key,
+      path,
+      values,
+      documentaryRetry: true,
+      validateResult: validateResult,
+    );
+    final requestId = _pending[key]?.body['request_id'] as String?;
+    _milestoneWrites[key] = (
+      values: canonical,
+      requestId: requestId,
+      future: future,
+    );
+    try {
+      final result = await future;
+      if (allowed && requestId != null) {
+        _milestoneReceipts[requestId] = (
+          path: path,
+          values: canonical,
+          result: Map<String, dynamic>.from(jsonDecode(jsonEncode(result))),
+        );
+      }
+      return result;
+    } finally {
+      if (identical(_milestoneWrites[key]?.future, future))
+        _milestoneWrites.remove(key);
+    }
+  }
+
   Future<dynamic> _command(
     String key,
     String path,
@@ -3123,6 +3244,7 @@ class BusinessSession extends ChangeNotifier {
       r'^/accounting/(components|refunds)/(?:v2/)?events/([a-f0-9]{32})/confirm$',
     ).firstMatch(path);
     final documentaryCommand =
+        _projectMilestoneCommand(key, path) ||
         _datedCatalogConsumer(key, path, values) ||
         _catalogPricesCommand(key, path) ||
         _companyEventCommand(key, path, values) ||
@@ -3503,6 +3625,7 @@ class BusinessSession extends ChangeNotifier {
     api.removeListener(_accessChanged);
     _pending.clear();
     _pendingEditorValues.clear();
+    _milestoneReceipts.clear();
     super.dispose();
   }
 }

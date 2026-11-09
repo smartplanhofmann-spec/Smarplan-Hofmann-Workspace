@@ -1,0 +1,166 @@
+{
+  "date": "2026-11-09",
+  "base_commit": "6a454caae4b31e6b4a4ede056bedeb1408a1cbe4",
+  "backend_contract_commit": "854218f36c19c8874f58fb1ed669390e9ac056b6",
+  "backend_contract_document": "docs/CRM_ERP_PROJEKTMEILENSTEINE_2026.md",
+  "scope": [
+    "Online-Projektregister Meilensteine, Anlegen, vollständige Änderung, Fälligkeit, Projektteamverantwortung, manuell planned/achieved/cancelled und vollständige unveränderte Historie.",
+    "Eigene Feature-/Modul-/Projekt-/Rechteprüfung vor Lesen und Schreiben, klare Sperre bei fehlendem Feature.",
+    "Verlorene Antworten, paralleles erneutes Öffnen und bereits angenommene Originalquittungen bleiben derselben Request-ID zugeordnet.",
+    "Keine Aufgaben-, Termin-, Lohn-, Finanz- oder Offline-Outbox-Automatik."
+  ],
+  "fixture_sha256": "abee67cc3b6865c5ea6811fbb554b61b9caa7dfb023cbab99ca26155658b7c52",
+  "sources": {
+    "app/lib/business_project_milestone_contract.dart": "e393476833e227e503056c28532f2d653c045e1ffb6fbdae65b6fec0e8f38154",
+    "app/lib/business_project_milestones.dart": "02af2eeed4941857e0138319ff3f724187cb7fdd7becacb4c07f186502133a77",
+    "app/lib/business_session.dart": "b176b716b4a054991023d1687c866f9d244c24e76b9452e39ef3cee7b898f418",
+    "app/lib/business_widgets.dart": "511c6801dd5b3cad3d2866be33d82689143cc671abcb28ab5d3cf92abb30078a",
+    "app/lib/business_shell.dart": "34179f2d683900d632f268d9e508826b2757684a9c19c94265b5f8cabad1753a",
+    "app/lib/project_workspace_page.dart": "8b051b815d58aff74ac44183d6c34a6dddde88a84a7ca6ef873f2f31969f6ac0",
+    "app/test/business_project_milestone_contract_test.dart": "de2c3a26449d7c07b264a48dada2ec184f1c845ca692c119aef565d5f1cf84b5",
+    "app/test/business_project_milestones_test.dart": "b83d139a97de8664c6763bd21c0dc8075555d20055347256f430093ac7842ebb",
+    "app/test/business_project_milestones_http_test.dart": "9d3c2861c99d8dde23d098310f3883dcf1c0142e4bfa97f44ff41d76e6dd7436",
+    "app/test/fixtures/project_milestones.json": "abee67cc3b6865c5ea6811fbb554b61b9caa7dfb023cbab99ca26155658b7c52"
+  },
+  "original_goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "offline_files_changed": false,
+  "final_checks": {
+    "regression_passed": 96,
+    "additional_navigation_http_passed": 1,
+    "both_race_reorders_passed": 2,
+    "analysis": "No issues found",
+    "note": "Der abschließende Navigations-/CRLF-Fall präzisiert den zuvor enthaltenen HTTP-Fall; Zahlen nicht als 99 unabhängige Fälle addieren."
+  },
+  "commands": {
+    "regression": "flutter test --no-pub test/business_project_milestone_contract_test.dart test/business_project_milestones_test.dart test/business_project_milestones_http_test.dart test/business_session_test.dart test/business_project_economics_test.dart test/project_business_tabs_navigation_test.dart test/business_company_events_test.dart test/business_sales_test.dart",
+    "navigation": "flutter test --no-pub test/business_project_milestones_http_test.dart",
+    "analysis": "flutter analyze --no-pub"
+  },
+  "environment": {
+    "os": "Linux cloud workspace",
+    "flutter": "/workspace/toolchains/flutter/bin/flutter",
+    "PUB_CACHE": "/workspace/toolchains/pub-cache",
+    "PATH_prefix": "/workspace/toolchains/clang-19/bin",
+    "SMARTPLAN_TEST_PYTHON": "/workspace/Smarplan-Hofmann-Workspace/.venv/bin/python",
+    "SMARTPLAN_TEST_BACKEND": "/workspace/smartplan-project-milestones-backend-20261109/backend",
+    "test_data": "Synthetic disposable local SQLite/HTTP only",
+    "test_sockets": "authorized local test listeners"
+  },
+  "runs": [
+    {
+      "name": "pub",
+      "status": "passed",
+      "passed_tests": null,
+      "description": "Offline-Abhängigkeiten mit unveränderter Lockdatei.",
+      "artifact": "pub.log.gz",
+      "raw_bytes": 68,
+      "raw_sha256": "d4cb7a3c68b4133b4f6e58c67ff5bfd13725d8021e930388cdc98da8a575919d",
+      "gzip_sha256": "33e704fc20f0db5a9a37ee8f146d3084685cdb8c352aaa2fd21f09a54fab7cf4"
+    },
+    {
+      "name": "analyze-first",
+      "status": "passed",
+      "passed_tests": null,
+      "description": "Früher Implementierungsstand, keine Analysebefunde.",
+      "artifact": "analyze-first.log.gz",
+      "raw_bytes": 97,
+      "raw_sha256": "78ccd973aae5d1c001194a32ec175c923bd149ada7d6d42c435d3808b198cc13",
+      "gzip_sha256": "06ec828fd714358575cd5d329a0f78fb5a61e8051b8c27cc5407c883ecb55913"
+    },
+    {
+      "name": "first",
+      "status": "failed",
+      "passed_tests": 15,
+      "description": "Erster Widgetlauf: historisches Listenelement war noch nicht in den sichtbaren Bereich gescrollt; Originalassertion und Fehlprotokoll erhalten.",
+      "artifact": "first.log.gz",
+      "raw_bytes": 5333,
+      "raw_sha256": "bff49c34171de4dfdfbd1b3ae36cbd9f203da6801ce18f95e54edde15dbe2a86",
+      "gzip_sha256": "aa7cd2b45fbfeba37ef44e42e48d0dbc3720e8b4a982a06871b188c815a14610"
+    },
+    {
+      "name": "second",
+      "status": "passed",
+      "passed_tests": 19,
+      "description": "Zwischenstand vor zusätzlichem Wiederöffnungs-Race-Nachweis.",
+      "artifact": "second.log.gz",
+      "raw_bytes": 3676,
+      "raw_sha256": "d3cc6eabf5fa21e567f641626242319d33fb3a529bde713a7cfa562937fa5133",
+      "gzip_sha256": "1bd95edd572d4c0d42d06365b9d680c6ac3f8b0005a8a0e2464a4b409c237467"
+    },
+    {
+      "name": "third",
+      "status": "failed",
+      "passed_tests": 19,
+      "description": "Neuer Race-Test weist eine zweite Request-ID nach verspäteter alter Bestätigung während erneuter Identitätsprüfung nach.",
+      "artifact": "third.log.gz",
+      "raw_bytes": 7060,
+      "raw_sha256": "27f17e7973ebe0a33732151af6ef4b2d16ccd640455ceb2c59f48f20bc41718c",
+      "gzip_sha256": "1d3c5c540df5ec14ce16fa3b381a17056c3900bf413acfdd99744537ee94e7d1"
+    },
+    {
+      "name": "fourth",
+      "status": "failed",
+      "passed_tests": 19,
+      "description": "Zwischenkorrektur noch unvollständig: pendingCommandValues enthält absichtlich keinen Transportnonce; derselbe Race-Test bleibt rot.",
+      "artifact": "fourth.log.gz",
+      "raw_bytes": 7060,
+      "raw_sha256": "e3dcbf5dcf422be4ec83ce39a653ead0d9021581e8efba5060509f3db8b26bfd",
+      "gzip_sha256": "a0a0624c7c753712d58c77585bf3d7fd539f7c9aad10bd56e1276e13007bc9b5"
+    },
+    {
+      "name": "races",
+      "status": "passed",
+      "passed_tests": 2,
+      "description": "Beide Reihenfolgen nach eigener Noncebindung, geteilter laufender Future und unveränderter bestätigter Originalquittung.",
+      "artifact": "races.log.gz",
+      "raw_bytes": 345,
+      "raw_sha256": "4346f9397fe403ccc49eba1875960b546a77718083b2ba5ffe9577566034b864",
+      "gzip_sha256": "df2397ad88ccb9ce76526c769f02044d0cf6f71f50c855296deef57fb2ca95fa"
+    },
+    {
+      "name": "final-regression",
+      "status": "passed",
+      "passed_tests": 96,
+      "description": "Meilenstein-Vertrag/UI/HTTP und bestehende Session-, Kalkulations-, Projektregister-, Unternehmensereignis-/Vertriebsabläufe.",
+      "artifact": "final-regression.log.gz",
+      "raw_bytes": 19487,
+      "raw_sha256": "139117a2a390c15bc14fc2abd86cf4b1c9bc89dbdfc14056bd518e7aa6d1f9be",
+      "gzip_sha256": "aa1427a5ff463a5fb7c1088e0f1e557976dece98198b1a55de89b0f20a4a1bac"
+    },
+    {
+      "name": "final-analyze",
+      "status": "warning",
+      "passed_tests": null,
+      "description": "Eine überflüssige Typumwandlung im HTTP-Test gefunden und entfernt.",
+      "artifact": "final-analyze.log.gz",
+      "raw_bytes": 229,
+      "raw_sha256": "f203122362ee16f9967cae484faf5189e717b7c812678155594bc093840a3c11",
+      "gzip_sha256": "ede978e731eb0be0856471f6c278d410b1f23e59e98dc5f59c5e5594e34cbbaa"
+    },
+    {
+      "name": "navigation-crlf",
+      "status": "passed",
+      "passed_tests": 1,
+      "description": "Abschließende echte Projektmappe bei390px: Meilensteinregister, HTTP, verlorene Antwort, exakte CRLF-Texte, manueller Status, Historie und unveränderte vorhandene Aufgaben.",
+      "artifact": "navigation-crlf.log.gz",
+      "raw_bytes": 254,
+      "raw_sha256": "325bceb447870996ab2080cfdc3d9f6f6be44431c8a54e3a5a5699cc1c396bfa",
+      "gzip_sha256": "6dcef575680abd11a5b4a8e436031140e4dd4367e2c6011167e1730ef5a26578"
+    },
+    {
+      "name": "analysis-final",
+      "status": "passed",
+      "passed_tests": null,
+      "description": "Abschließende gesamte App-Analyse ohne Befund (23,9s).",
+      "artifact": "analysis-final.log.gz",
+      "raw_bytes": 97,
+      "raw_sha256": "460ba4102d39da0fc3529d232939845903f7f0338b69567da4b7f2ec1ef1a161",
+      "gzip_sha256": "ac9e1585dd4bd30a83945602162ef1f6e4a32aa47e0323eb0b0f7068ee530be0"
+    }
+  ],
+  "limits": [
+    "Keine neue Remote-CI, Gerätefreigabe, Veröffentlichung oder Serverinstallation durch diesen Commit.",
+    "Neue Meilensteine sind bewusst online; bestehende Offline-Daten/Queues/Verträge bleiben unverändert.",
+    "Historische Verantwortlichenkennungen sind Originaldaten. Heutige Teamadresse ist keine behauptete historische Bezeichnung."
+  ]
+}

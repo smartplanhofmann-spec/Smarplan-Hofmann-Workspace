@@ -75,6 +75,7 @@ class BusinessField {
     this.initial,
     this.hint,
     this.omitIfEmpty = false,
+    this.trimInput = true,
   });
   final String name, label;
   final BusinessInput type;
@@ -83,6 +84,9 @@ class BusinessField {
   final Object? initial;
   final String? hint;
   final bool omitIfEmpty;
+
+  /// Some versioned originals preserve whitespace as part of their content.
+  final bool trimInput;
 }
 
 class BusinessEmpty extends StatelessWidget {
@@ -261,7 +265,8 @@ class _BusinessEditorState extends State<BusinessEditor> {
         values[field.name] = choices[field.name];
         continue;
       }
-      final text = controllers[field.name]!.text.trim();
+      final raw = controllers[field.name]!.text;
+      final text = field.trimInput ? raw.trim() : raw;
       if (text.isEmpty) {
         if (field.omitIfEmpty) continue;
         values[field.name] =
@@ -344,7 +349,8 @@ class _BusinessEditorState extends State<BusinessEditor> {
     if (field.required && text.isEmpty)
       return 'Bitte ${field.label.toLowerCase()} eingeben.';
     if (text.isEmpty) return null;
-    if (text.length > 10000) return 'Der Text ist zu lang.';
+    if ((field.trimInput ? text.length : text.runes.length) > 10000)
+      return 'Der Text ist zu lang.';
     try {
       if (field.type == BusinessInput.decimal) businessDecimal(text);
       if (field.type == BusinessInput.integer) int.parse(text);
@@ -400,7 +406,9 @@ class _BusinessEditorState extends State<BusinessEditor> {
       final current = choices[field.name] as String?;
       final options = {
         ...field.choices,
-        if (current != null && !field.choices.containsKey(current))
+        if (current != null &&
+            (current.isNotEmpty || field.required) &&
+            !field.choices.containsKey(current))
           current: 'Nicht mehr in der aktuellen Auswahl',
       };
       return DropdownButtonFormField<String>(
@@ -456,8 +464,8 @@ class _BusinessEditorState extends State<BusinessEditor> {
                                 controllers[field.name]!.text,
                               ) ??
                               now,
-                          firstDate: DateTime(2000),
-                          lastDate: DateTime(2200),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2200, 12, 31),
                         );
                         if (date != null && mounted) {
                           if (field.type == BusinessInput.instant) {

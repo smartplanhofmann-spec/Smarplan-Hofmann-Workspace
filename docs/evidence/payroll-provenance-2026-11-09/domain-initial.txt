@@ -1,0 +1,28 @@
+test_actual_crlf_calculation_matches_only_exact_trusted_provenance_pair (test_business_payroll_provenance.FactorOriginalTransport.test_actual_crlf_calculation_matches_only_exact_trusted_provenance_pair) ... ok
+test_actual_payment_and_remittance_sources_do_not_reject_original_encoding (test_business_payroll_provenance.FactorOriginalTransport.test_actual_payment_and_remittance_sources_do_not_reject_original_encoding) ... ERROR
+test_native_factor_correction_keeps_cross_platform_original_and_delta (test_business_payroll_provenance.FactorOriginalTransport.test_native_factor_correction_keeps_cross_platform_original_and_delta) ... ok
+test_original_pdf_hash_receipt_statement_ledger_and_fresh_rights_are_preserved (test_business_payroll_provenance.FactorOriginalTransport.test_original_pdf_hash_receipt_statement_ledger_and_fresh_rights_are_preserved) ... FAIL
+
+======================================================================
+ERROR: test_actual_payment_and_remittance_sources_do_not_reject_original_encoding (test_business_payroll_provenance.FactorOriginalTransport.test_actual_payment_and_remittance_sources_do_not_reject_original_encoding)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_provenance.py", line 102, in test_actual_payment_and_remittance_sources_do_not_reject_original_encoding
+    from payroll_cash_sources import PayrollCashSources
+ImportError: cannot import name 'PayrollCashSources' from 'payroll_cash_sources' (/workspace/Smarplan-Hofmann-Workspace/backend/payroll_cash_sources.py)
+
+======================================================================
+FAIL: test_original_pdf_hash_receipt_statement_ledger_and_fresh_rights_are_preserved (test_business_payroll_provenance.FactorOriginalTransport.test_original_pdf_hash_receipt_statement_ledger_and_fresh_rights_are_preserved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_provenance.py", line 77, in test_original_pdf_hash_receipt_statement_ledger_and_fresh_rights_are_preserved
+    f.problem(403,lambda:f.payroll.get(f.technician,'run',run['id']))
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_planning.py", line 46, in problem
+    with self.assertRaises(Problem) as raised:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 16.709s
+
+FAILED (failures=1, errors=1)

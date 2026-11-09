@@ -107,7 +107,7 @@ def validate_tax_recording(office,run):
 def validate_integrity(office):
     from business_schema import _tables
     if TABLES[0] not in _tables(office):return True
-    from business_payroll import Payroll,_calculate_source
+    from business_payroll import Payroll,calculation_matches_source
     from business_payroll_calculation_cases import validate_case_sources
     api=Payroll(office);expected=set()
     try:
@@ -121,7 +121,7 @@ def validate_integrity(office):
             if run['source'].get('source_schema_version')==5:
                 from business_payroll_multiple_cases import validate_case_sources as validate_multiple,validate_run_consumption
                 validate_multiple(office,run['source']['multiple_one_off_case']);validate_run_consumption(office,run)
-            if _calculate_source(run['source'],rule_version=run['calculation']['rule_version'])!=run['calculation']:raise ValueError('Changed recorded payroll calculation')
+            if not calculation_matches_source(run['source'],run['calculation']):raise ValueError('Changed recorded payroll calculation')
             if validate_tax_recording(office,run) is not None:expected.add((run['id'],run['revision']))
         actual={(row['run_id'],row['run_revision']) for row in office.db.execute('SELECT run_id,run_revision FROM business_payroll_travel_tax_recordings')}
         if actual!=expected:raise ValueError('Orphan payroll tax recording')

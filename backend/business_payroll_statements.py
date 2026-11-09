@@ -220,13 +220,13 @@ class PayrollStatements:
         return fresh, employee, can_export
 
     def _verified(self, row):
-        from business_payroll import _calculate_source
+        from business_payroll import calculation_matches_source
         record = self.payroll._event(row)
         if record['source'].get('source_schema_version') in (3, 4, 5):
             self.payroll._verify_calculation_record(record)
         elif record['source'].get('source_schema_version') == 2:
             self.payroll._verify_period_record(record)
-        elif _calculate_source(record['source'], rule_version=record['calculation']['rule_version']) != record['calculation']:
+        elif not calculation_matches_source(record['source'],record['calculation']):
             raise Problem(500, 'Der gespeicherte Lohnnachweis ist nicht reproduzierbar.')
         return project(record)
 

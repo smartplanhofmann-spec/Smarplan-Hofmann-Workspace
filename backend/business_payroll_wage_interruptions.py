@@ -157,8 +157,8 @@ class PayrollWageInterruptions(PayrollFacts):
             if fresh and reference(payroll._event(payroll._row(value['id'],'run')))!=value:raise Problem(409,'Aktuelle tatsächliche Laufrevision für den neuen U-Nachweis binden.')
             if run['source'].get('source_schema_version')==3:payroll._verify_calculation_record(run)
             else:
-                from business_payroll import _calculate_source
-                if _calculate_source(run['source'],rule_version=run['calculation']['rule_version'])!=run['calculation']:raise Problem(500,'Lohnquelle lässt sich nicht historisch reproduzieren.')
+                from business_payroll import calculation_matches_source
+                if not calculation_matches_source(run['source'],run['calculation']):raise Problem(500,'Lohnquelle lässt sich nicht historisch reproduzieren.')
             runs.append(run)
         claims=[claims_api._ref(employee_id,value,fresh=fresh) for value in details['entitlement_case_refs']]
         for value in claims:validate_entitlement_sources(self.office,value)

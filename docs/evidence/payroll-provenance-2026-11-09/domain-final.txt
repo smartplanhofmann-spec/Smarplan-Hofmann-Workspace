@@ -1,0 +1,10 @@
+test_actual_crlf_calculation_matches_only_exact_trusted_provenance_pair (test_business_payroll_provenance.FactorOriginalTransport.test_actual_crlf_calculation_matches_only_exact_trusted_provenance_pair) ... ok
+test_actual_payment_and_remittance_sources_do_not_reject_original_encoding (test_business_payroll_provenance.FactorOriginalTransport.test_actual_payment_and_remittance_sources_do_not_reject_original_encoding) ... ok
+test_crlf_runtime_also_recognizes_unchanged_lf_original (test_business_payroll_provenance.FactorOriginalTransport.test_crlf_runtime_also_recognizes_unchanged_lf_original) ... ok
+test_native_factor_correction_keeps_cross_platform_original_and_delta (test_business_payroll_provenance.FactorOriginalTransport.test_native_factor_correction_keeps_cross_platform_original_and_delta) ... ok
+test_original_pdf_hash_receipt_statement_ledger_and_fresh_rights_are_preserved (test_business_payroll_provenance.FactorOriginalTransport.test_original_pdf_hash_receipt_statement_ledger_and_fresh_rights_are_preserved) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 16.681s
+
+OK

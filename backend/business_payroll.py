@@ -120,7 +120,7 @@ class Payroll:
             raise Problem(500,'Die historische Lohnfaktenquelle wurde verändert.')
         try:validate_fact_sources(self.office,fact)
         except ValueError as error:raise Problem(500,'Die historische Lohnfaktenquelle ist nicht reproduzierbar.') from error
-        if _calculate_source(record['source'],rule_version=record['calculation']['rule_version'])!=record['calculation']:
+        if not calculation_matches_source(record['source'],record['calculation']):
             raise Problem(500,'Die historische Periodenberechnung wurde verändert.')
 
     def _period_read_access(self,actor,employee_id,records):
@@ -144,7 +144,7 @@ class Payroll:
         try:
             validate_case_sources(self.office,fact);validate_tax_recording(self.office,record)
         except ValueError as error:raise Problem(500,'Historische Quellen oder tatsächliche Steuererfassung sind nicht reproduzierbar.') from error
-        if _calculate_source(record['source'],rule_version=record['calculation']['rule_version'])!=record['calculation']:
+        if not calculation_matches_source(record['source'],record['calculation']):
             raise Problem(500,'Die historische Gesamtberechnung wurde verändert.')
 
     def _write(self, actor, employee_id, permission, operation, data, callback):
@@ -436,7 +436,7 @@ class Payroll:
         histories={}
         for record in records:
             if record['source'].get('source_schema_version') in (3,4,5):self._verify_calculation_record(record)
-            if _calculate_source(record['source'],rule_version=record['calculation']['rule_version'])!=record['calculation']:
+            if not calculation_matches_source(record['source'],record['calculation']):
                 raise Problem(500,'Die archivierte Monatsberechnung lässt sich nicht reproduzieren.')
             chain=[self._event(row) for row in self.db.execute('SELECT '+COLUMNS+
                 ' FROM business_payroll_events WHERE id=? ORDER BY revision',(record['id'],)).fetchall()]
@@ -500,6 +500,14 @@ class Payroll:
             manifest=export_manifest(ledger,contents)[format_]
             self.office.audit(fresh,'payroll.ledger.exported',query['employee_id']+':'+query['year']+':'+ledger['snapshot_hash'])
             return BinaryAttachment(contents[format_],manifest['filename']),manifest['media_type']
+
+
+def calculation_matches_source(source,original):
+    calculated=_calculate_source(source,rule_version=original['rule_version'])
+    if calculated==original:return True
+    if source.get('source_schema_version') not in (None,1):return False
+    from payroll_provenance_compat import matches_factor_monthly
+    return matches_factor_monthly(calculated,original)
 
 
 def _calculate_source(source,*,rule_version=None):
@@ -755,7 +763,7 @@ def validate_integrity(office):
                             or source['input']['profile_revision']!=profile['revision'] or source['input']['preparation_id']!=preparation['id']
                             or source['input']['preparation_revision']!=preparation['revision']):
                         raise ValueError('Changed payroll input references')
-                if (_calculate_source(source,rule_version=calculated.get('rule_version'))!=calculated or not calculated['social_contributions_available']
+                if (not calculation_matches_source(source,calculated) or not calculated['social_contributions_available']
                         or _sha(dict(source=source,calculation=calculated))!=value['preview_hash']
                         or value['accepted_scope']!=calculated['scope'] or value['confirmed'] is not True
                         or value['transmission_status']!='not_transmitted' or value['status']!='calculation_recorded'):

@@ -174,7 +174,7 @@ class PayrollAnnualBasis:
         return result
 
     def _run(self,employee_id,value,*,fresh):
-        from business_payroll import Payroll,_calculate_source
+        from business_payroll import Payroll,calculation_matches_source
         api=Payroll(self.office);value=ref(value);run=api._event(api._row(value['id'],'run',value['revision']))
         if run['employee_id']!=employee_id:raise Problem(404,'Lohnperiode gehört nicht zu diesem Mitarbeiter.')
         if reference(run)!=value or fresh and reference(api._latest(value['id'],'run'))!=value:raise Problem(409,'Die wirksame Lohnperiode wurde geändert.')
@@ -183,7 +183,7 @@ class PayrollAnnualBasis:
         else:
             from business_payroll import validate_integrity as validate_payroll_integrity
             validate_payroll_integrity(self.office)
-            if _calculate_source(run['source'],rule_version=run['calculation']['rule_version'])!=run['calculation']:raise Problem(500,'Historische Lohnperiode ist nicht unverändert nachrechenbar.')
+            if not calculation_matches_source(run['source'],run['calculation']):raise Problem(500,'Historische Lohnperiode ist nicht unverändert nachrechenbar.')
         return run
 
     def _project_run(self,run,*,candidate=False,as_of_date,payment=None,basis_year=None,coverage_to=None):

@@ -1,0 +1,7 @@
+test_cross_encoding_actual_dump_restore_retains_all_original_hashes (online.test_business_payroll_provenance_pg.FactorOriginalTransportPostgres.test_cross_encoding_actual_dump_restore_retains_all_original_hashes) ... ok
+test_cross_encoding_original_replay_mfa_statement_and_restart (online.test_business_payroll_provenance_pg.FactorOriginalTransportPostgres.test_cross_encoding_original_replay_mfa_statement_and_restart) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 37.434s
+
+OK

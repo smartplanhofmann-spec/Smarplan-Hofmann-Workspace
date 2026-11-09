@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-09",
+  "product_commit": "877266ab1382b61a897122fe6bfa1734e9efe2e6",
+  "remote_branch": "codex/testupdate-0.7-projects-20261104",
+  "push_success": true,
+  "development_run": 42599674604,
+  "iphone_run": 42599674595,
+  "development_jobs": [
+    {
+      "id": 129100747620,
+      "name": "online-api",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 129100747987,
+      "name": "https-setup",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129100747997,
+      "name": "backend",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 129100748000,
+      "name": "update-flow",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129100748072,
+      "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129100748106,
+      "name": "native-build (windows-latest, flutter build windows --release)",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 129100748108,
+      "name": "business-services",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 129100748156,
+      "name": "flutter",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "iphone_jobs": [
+    {
+      "id": 129100747502,
+      "name": "Online-Release ohne Apple-Zugang pruefen",
+      "status": "in_progress",
+      "conclusion": null
+    }
+  ],
+  "all_development_jobs_green": false,
+  "actual_server_deployment": false,
+  "last_fully_green_product_commit": "2598c9671f5158e9a85a7a1e4602408385b23e30"
+}

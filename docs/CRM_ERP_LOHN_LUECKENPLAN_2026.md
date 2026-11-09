@@ -8,8 +8,9 @@ Zahlungs-/Bank-/EÜR-Kette geprüft. Ansprüche, Reisen, Midijobs und Einmalbez�
 mit Faktor sowie die übrigen unten benannten Lücken bleiben Codearbeit.
 Der Vergleich mit tatsächlichen Windows-Paketquellen zeigt zusätzlich alte
 plattformabhängige Lohn-Quellmetadaten. Neue v9-Metadaten sind portabel geprüft;
-die sichere Wiederverwendung alter Originale ist ein eigener noch offener
-Kompatibilitätsfall. Historische Rechenkerne und Originalhashes bleiben erhalten.
+der [v8-Faktor-Vollmonat](CRM_ERP_LOHN_PLATTFORMHISTORIE_2026.md) wird jetzt
+mit exakt hergeleiteten Metadatenpaaren ohne Originaländerung wiederverwendet.
+Andere rohe Dateihash-Nachweise bei Einmalbezügen/Reisen bleiben zu prüfen. Historische Rechenkerne und Originalhashes bleiben erhalten.
 
 Bestandsaufnahme und Quellenprüfung: 03.11.2026. Maßstab bleibt die gewünschte erste Version für **reguläre Mitarbeiter und gewerbliche Minijobs**, nicht nur der bisher berechenbare Vollmonat. Diese Analyse ändert keine Rechenlogik und erklärt keine fachliche oder amtliche Zulassung.
 

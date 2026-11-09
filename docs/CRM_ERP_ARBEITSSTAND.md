@@ -13,8 +13,11 @@ b57f474 und abgebrochene Vorgängerläufe bleiben in den historischen Nachweisen
 unter `evidence/completion-2026-11-09/` erhalten. Der Produktstand 2598c96 ist
 inzwischen vollständig grün: [Development](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42572643368),
 [iPhone unsigniert](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42572643353).
-Die folgende neue v9-Erweiterung ist damit noch nicht als remote geprüft
-oder auf dem Server installiert ausgewiesen.
+Die neue v9-Erweiterung ist als 877266ab1382b61a897122fe6bfa1734e9efe2e6
+auf dem Testbranch veröffentlicht. [Development](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42599674604)
+und [iPhone](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42599674595)
+laufen noch; vollständig grün oder auf dem Server installiert ist dieser neue
+Stand damit noch nicht ausgewiesen.
 
 ## Ziel und fachlicher Umfang
 
@@ -50,7 +53,9 @@ Der letzte tatsächlich durch den Nutzer bestätigte Serverstand bleibt
 `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5`: Updateabschluss, drei Dienste,
 Sandbox-/Datenbankbindung und aktiver Sicherungstimer bestätigt. Für das spätere
 Browserupdate auf 5880f88 wurde ein Befehl bereitgestellt; sein Ergebnis ist
-noch nicht vom Nutzer bestätigt. Eine Statusfrage ist gestellt.
+noch nicht vom Nutzer bestätigt. Eine Statusfrage ist gestellt. Der rein lesende Cloudabruf vom 09.11.
+erreicht den Server wegen HTTP403 am Cloudproxy-CONNECT nicht; das ist kein
+nachgewiesener Anwendungsfehler und bestätigt keine neuere Serverrevision.
 
 Windows 0.13.0 und der unsignierte iPhone-Prüfbuild sind tatsächlich gebaut.
 Der Remote-Lauf auf 5880f88 besteht Windows, Simulator, Flutter, Backend,
@@ -67,14 +72,21 @@ Mitarbeiterbeleg, Zahlung/EÜR, drei neue tatsächliche PG-/MFA-/Restore-/Bankf�
 und die drei bisherigen Perioden-PG-Fälle bestehen. 313 native Lohnfälle,
 879 Browsermodule, beide tatsächlichen Perioden-Browserwege und 16 Paketfälle
 bestehen; App-Analyse ohne Befund. Alle 644 unterschiedlichen Python-Lohnfälle
-bestehen ohne Skip. Die Veröffentlichung wird gesondert abgeschlossen.
+bestehen ohne Skip. Die Erweiterung ist als 877266a veröffentlicht; ihre
+eigene Remote-CI läuft.
 
 Die historischen Kernmodule bleiben bytegleich. Neue v9-Quellmetadaten verwenden
 LF-normalisierte Dateihashes. Der Vergleich mit 146 verifizierten Quellen aus
 einem tatsächlichen Windows-Paket bestätigt dasselbe vollständige v9-Ergebnis.
 Er zeigt zugleich eine reale Restlücke: alte v8-Quellmetadaten unterscheiden
-sich bei Windows-/Linux-Zeilenenden. Historische Originale brauchen einen
-sicheren Folgeabgleich ohne Umschreibung ihrer Hashes oder Finanzdaten.
+sich bei Windows-/Linux-Zeilenenden. Der neue [historische v8-Abgleich](CRM_ERP_LOHN_PLATTFORMHISTORIE_2026.md)
+prüft exakt hergeleitete Metadatenpaare bei sonst vollständiger Gleichheit.
+Fünf neue Fachkettenfälle, zwei tatsächliche PG-/MFA-/Neustart-/Restorefälle
+und der Vergleich mit den veröffentlichten Windowsquellen bestehen. Originale,
+Geldbeträge, PDF- und Quellhashes bleiben erhalten. Alle 649 unterschiedlichen
+Python-Lohnfälle bestehen ohne Skip; die Veröffentlichung dieses Folgeabschnitts
+wird gesondert nachgetragen. Andere rohe
+Dateihash-Nachweise bei Einmalbezügen und Reisen bleiben zu prüfen.
 
 1. **Wiederherstellung/Originalziel:** abgeschlossen und per Hash geprüft.
 2. **Browserregressionen:** Assistent, Zusatzfelder und Kundenbereich verwenden
@@ -116,8 +128,9 @@ sicheren Folgeabgleich ohne Umschreibung ihrer Hashes oder Finanzdaten.
 
 - Die neue Erweiterung vollständig veröffentlichen und ihre eigene Remote-CI
   nachprüfen. 2598c96 bleibt bis dahin der letzte vollständig grüne Produktstand.
-- Historische plattformabhängige Lohnmetadaten reproduzierbar abgleichen,
-  damit ein Wechsel zwischen Windows und Linux alte Originale nicht sperrt.
+- Historische plattformabhängige Lohn-/Reisemetadaten vollständig abgleichen.
+  Der v8-Faktor-Vollmonat ist eng begrenzt reproduzierbar korrigiert; andere
+  rohe Dateihash-Nachweise sind noch keine geprüfte Plattformmigration.
 - Weitere benannte Standard-Lohnfälle additiv integrieren. Dazu gehören unter
   anderem Faktor-Ansprüche/-Einmalbezüge und Midijobs mit Faktor, individuelle Minijobsteuer, Versicherungsvarianten,
   Minijob-Jahresgrenzen und weitere Leistungen/Sachbezüge. Der

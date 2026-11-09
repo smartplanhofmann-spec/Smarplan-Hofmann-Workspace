@@ -67,8 +67,9 @@ mit dem Repository verifizierte Pythonquellen. Mit diesen CRLF-Quellen und
 dem ebenfalls auf CRLF umgestellten neuen Modul entsteht unter Linux exakt
 dasselbe v9-Ergebnis einschließlich Regelhash wie mit LF. Das ist keine
 Bedienung auf einem Windowsgerät. Der Abgleich zeigt zugleich unterschiedliche
-Metadaten der unveränderten alten v8-Regel; die Wiederverwendung alter
-plattformabhängiger Originale ist ein eigener offener Kompatibilitätsfall.
+Metadaten der unveränderten alten v8-Regel; der anschließende [v8-Abgleich](CRM_ERP_LOHN_PLATTFORMHISTORIE_2026.md)
+schließt diesen eng begrenzten Fall inzwischen ohne Änderung alter Originale.
+Andere rohe Dateihash-Nachweise bei Einmalbezügen/Reisen bleiben zu prüfen.
 
 ## Ausgeführte Prüfungen
 

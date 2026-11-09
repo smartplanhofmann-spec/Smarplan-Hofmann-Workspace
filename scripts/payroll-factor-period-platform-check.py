@@ -37,8 +37,10 @@ def main():
     from core import canonical
     from payroll_factor_periods_2026 import calculate_factor_period_source,FACTOR_PERIOD_RULES_SHA256
     from payroll_pap_factor_2026 import FACTOR_PAP_SHA256
+    from business_payroll import calculation_matches_source
     fixture=json.loads((ROOT/'app/test/fixtures/payroll_factor_periods_2026_workflow.json').read_text())
     snapshot=fixture['period_case']['sources'];expected=calculate_factor_period_source(snapshot)
+    monthly=json.loads((ROOT/'app/test/fixtures/payroll_factor_2026_workflow.json').read_text())['run']['source']
     verified=[]
     with zipfile.ZipFile(io.BytesIO(raw)) as outer:
         name='Smartplan_Windows_Start_und_Sicherung.zip';inner=outer.read(name)
@@ -61,18 +63,25 @@ def main():
         (target/'payroll_factor_periods_2026.py').write_bytes(kernel.replace(b'\n',b'\r\n'))
         program=('import json,sys; from payroll_factor_periods_2026 import calculate_factor_period_source,FACTOR_PERIOD_RULES_SHA256; '
                  'from payroll_pap_factor_2026 import FACTOR_PAP_SHA256; '
-                 'print(json.dumps(dict(calculation=calculate_factor_period_source(json.load(sys.stdin)),rules_sha256=FACTOR_PERIOD_RULES_SHA256,legacy_pap_sha256=FACTOR_PAP_SHA256)))')
+                 'from business_payroll import _calculate_source; data=json.load(sys.stdin); source=data["factor_source"]; '
+                 'legacy=_calculate_source(source); '
+                 'print(json.dumps(dict(calculation=calculate_factor_period_source(data["period_snapshot"]),rules_sha256=FACTOR_PERIOD_RULES_SHA256,legacy_pap_sha256=FACTOR_PAP_SHA256,legacy_factor_calculation=legacy)))')
         env={'PATH':os.environ.get('PATH',''),'LANG':'C.UTF-8','PYTHONPATH':str(target),'PYTHONDONTWRITEBYTECODE':'1'}
-        result=subprocess.run([sys.executable,'-c',program],input=json.dumps(snapshot),text=True,
+        result=subprocess.run([sys.executable,'-c',program],input=json.dumps(dict(period_snapshot=snapshot,factor_source=monthly)),text=True,
             capture_output=True,check=True,cwd=target,env=env,timeout=40)
         actual=json.loads(result.stdout)
         if actual['calculation']!=expected or actual['rules_sha256']!=FACTOR_PERIOD_RULES_SHA256:
             raise ValueError('Factor-period output or rules differ with verified Windows/CRLF sources')
+        if not calculation_matches_source(monthly,actual['legacy_factor_calculation']):
+            raise ValueError('Actual released Windows v8 factor result cannot be exactly reproduced')
     proof=dict(source_commit=args.source_commit,archive_sha256=args.archive_sha256,
         actual_windows_runtime_executed=False,source_files_verified=len(verified),sources=verified,
         new_kernel_uses_crlf=True,v9_calculation_identical=True,v9_rules_sha256=FACTOR_PERIOD_RULES_SHA256,
         result_sha256=sha(canonical(expected).encode()),legacy_v8_pap_metadata_identical=actual['legacy_pap_sha256']==FACTOR_PAP_SHA256,
         legacy_metadata_followup_required=actual['legacy_pap_sha256']!=FACTOR_PAP_SHA256)
+    proof.update(legacy_v8_compat_verified=True,
+        legacy_v8_result_sha256=sha(canonical(actual['legacy_factor_calculation']).encode()),
+        compatibility_rewrites_original=False,other_historical_period_metadata_followup_required=True)
     args.output.write_text(json.dumps(proof,indent=2)+'\n')
     print(json.dumps({key:value for key,value in proof.items() if key!='sources'}))
 

@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/payroll-factor-period-platform-check.py", line 89, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/payroll-factor-period-platform-check.py", line 76, in main
+    raise ValueError('Actual released Windows v8 factor result cannot be exactly reproduced')
+ValueError: Actual released Windows v8 factor result cannot be exactly reproduced

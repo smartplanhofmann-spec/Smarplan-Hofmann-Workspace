@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-09",
+  "url": "https://office.smartplan-hofmann.de/ready",
+  "operation": "GET_READ_ONLY",
+  "result": "CLOUD_PROXY_CONNECT_DENIED_403",
+  "headers": [
+    "HTTP/1.1 403 Forbidden"
+  ],
+  "application_http_status": null,
+  "server_revision_confirmed": false,
+  "production_changed": false
+}

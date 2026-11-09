@@ -89,8 +89,11 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    Der [belegte reguläre Faktor-Teilmonat](CRM_ERP_LOHN_FAKTOR_TEILMONATE_2026.md)
    ist als neue v9-Regel mit beiden Clients und tatsächlicher PG-/Restore-/
    Bank-/EÜR-Kette integriert, ohne Änderung der bisherigen Rechenkerne.
-   Nächster konkreter Fehler: alte Windows-/Linux-Quellmetadaten historischer
-   Abrechnungen sicher reproduzieren, ohne Originale umzuschreiben. Fälle mit Ansprüchen, Reisen, Übergangsbereich
+   Die [alte v8-Faktorhistorie](CRM_ERP_LOHN_PLATTFORMHISTORIE_2026.md)
+   besitzt jetzt einen eng begrenzten exakten Windows-/Linux-Abgleich; fünf
+   Fachketten-, zwei echte PG-/Restorefälle und alle 649 Python-Lohnfälle bestehen.
+   Veröffentlichung abschließen, danach weitere rohe Dateihash-Nachweise
+   bei Einmalbezügen und Reisen vollständig prüfen. Fälle mit Ansprüchen, Reisen, Übergangsbereich
    oder Einmalbezügen bleiben in ihren eigenen noch auszuarbeitenden Zweigen.
    Der [reguläre Faktor-Vollmonat](CRM_ERP_LOHN_FAKTOR_2026.md) ist jetzt mit
    beiden Clients, tatsächlichem PG-Restore, Zahlungen/EÜR und unabhängigen

@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-09",
+  "base_commit": "877266ab1382b61a897122fe6bfa1734e9efe2e6",
+  "change": "EXACT_HISTORICAL_V8_LF_CRLF_METADATA_REPRODUCTION",
+  "supported_source_schema": 1,
+  "historical_rule_version": "de_2026_standard_factor_monthly_v8",
+  "trusted_metadata_pairs": 4,
+  "all_other_fields_require_exact_equality": true,
+  "originals_rewritten": false,
+  "money_recalculated": true,
+  "root_payroll_tests": {
+    "unique": 649,
+    "passed": 649,
+    "skipped": 0,
+    "seconds": 617.953
+  },
+  "new_workflow_test_methods": 5,
+  "final_new_workflow_seconds": 16.681,
+  "postgres": {
+    "actual_mfa_http": 2,
+    "passed": 2,
+    "skipped": 0,
+    "seconds": 37.434,
+    "actual_dump_restore": true,
+    "protected_table_fingerprints_unchanged": true,
+    "owned_container_removed": true
+  },
+  "packaging": {
+    "passed": 16,
+    "seconds": 16.887
+  },
+  "windows_source_check": "windows-source-check.json",
+  "unchanged_calculation_modules": 32,
+  "original_goal_unchanged": true,
+  "actual_windows_runtime": false,
+  "production_deployment": false,
+  "initial_failed_raw_logs_retained": true,
+  "server_read": "CLOUD_PROXY_CONNECT_DENIED_403_NOT_APPLICATION_STATUS",
+  "remote_ci_for_this_followup": "not_yet_started",
+  "log_sha256": {
+    "domain-final.txt": "42ca27d01ef8d9157f5ec1445b33579afa91ae695f3d7ba019ffecc8c8d0fd55",
+    "domain-initial.txt": "f3acf2d278d8bd1c61c7c2133dcf5eef7dec39a9950bf468d211f6113b443200",
+    "domain-second.txt": "2ae3306871fb549e18dd1b6b85c27b5df458d886b8be2510df3261636796a4aa",
+    "domain-third.txt": "ff6958d15bcf7d7402f31c110191208368ab3e5f934b903bf07c4a76a0b67b52",
+    "packaging-initial.txt": "cbd60d537e8f5e97255036085c2f476a98899e61ffff87633271c724c1b6bde6",
+    "packaging-second.txt": "7c7770f8d19645a5459895fb42eb07c997364f438efabb5ba00461078bb8dad4",
+    "payroll-regression.txt": "bb0b3e6f08c6088f8ae091bf01dbd07a23820f3a5a36179c6250d51a04a7690f",
+    "postgres-initial.txt": "0e7dfda3673da8392485cde3cf56ed7b2e208d6b5fa1f38993b5243f6e22779b",
+    "windows-source-check-second.txt": "bd69d00fd1f61114ca00f1dd8f4ee11236a2063526142dd4abbc89561dc4669d",
+    "windows-source-check.txt": "6e8362bc2a0ed14d900dec66939b298433b4636734f2185e63c01e938966c842"
+  }
+}

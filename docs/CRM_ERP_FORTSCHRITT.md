@@ -2907,3 +2907,56 @@ HTTP403; Quellenbasis bleibt die vorher dokumentierte gepinnte XML samt Normen.
 Die Veröffentlichung dieses neuen Produktstands und dessen eigene Remote-CI
 werden gesondert nachgetragen. Ansprüche/Reisen/Midijobs/Einmalbezüge mit Faktor,
 weitere benannte Lohn-/EÜR-Fälle, Integrationen und Abnahmen A–G bleiben Arbeit.
+
+
+Der Faktor-Teilmonatsstand ist als
+`877266ab1382b61a897122fe6bfa1734e9efe2e6` erfolgreich auf dem autorisierten
+Testbranch veröffentlicht. Development42599674604 und iPhone42599674595
+sind gestartet. Beim nachfolgenden Abruf bestehen HTTPS, Update, App-Prüfung
+und iOS-Simulator; die übrigen vier Development-Jobs und der unsignierte
+Prüfbuild laufen noch. Das ist kein vollständig grüner neuer Gesamtstand.
+[Veröffentlichungsstand](evidence/payroll-factor-periods-2026-11-09/publication.json).
+
+## 09.11.2026 – alte Faktororiginale zwischen Windows und Linux erhalten
+
+Die beim tatsächlichen Windows-Paketabgleich gefundene v8-Metadatenabweichung
+ist für Quelle1-Faktor-Vollmonate behoben. Die Anwendung berechnet zuerst
+alle Quellen und Geldkomponenten erneut. Nur die vier exakt aus installierten
+unveränderten Kernelbytes hergeleiteten LF-/CRLF-Metadatenpaare können danach
+abweichen; ansonsten muss die ursprüngliche Berechnung vollständig identisch
+sein. Alte Regelhashes, Originale, PDF und Quittungen werden nicht umgeschrieben.
+Keine global veränderten Rechenregeln, keine Migration, kein Unterprozess im
+Produkt und keine externe Übertragung.
+
+Fünf neue Fachkettenfälle bestehen: tatsächliche CRLF-Berechnung, unveränderte
+Originalquittung/PDF, eigener Mitarbeiterbeleg, private Exportrechte, Jahreskonto,
+Faktorkorrektur und belegte Zahlungs-/Abführungsquellen. Unbekannte Hashes,
+vertauschte einzeln richtige Metadatenpaare und veränderte Beträge/Faktoren
+bleiben gesperrt. Auch LF-Originale werden unter CRLF-Programmquellen unverändert
+nachgerechnet. Zwei tatsächliche PostgreSQL-/MFA-/HTTP-Fälle mit Neustart und
+echtem Dump/Restore bestehen; alle geschützten Tabellenfingerabdrücke bleiben
+erhalten. Der eigens angelegte Container ist anschließend entfernt.
+16 Paketfälle bestehen; beide Windowslisten und die CI-Kopierliste enthalten
+den neuen Prüfer. Der tatsächliche veröffentlichte Windows-Dispatcher auf
+2598c96 ist separat aus 146 verifizierten Paketquellen ausgeführt worden und
+liefert einen vom neuen Prüfer exakt akzeptierten alten v8-Beleg. v9 bleibt
+plattformneutral identisch. Keine tatsächliche Windowsbedienung ist daraus
+abgeleitet. Die zuerst fehlerhaften Testeinrichtungen und der zunächst zu
+kurze direkte Kernelaufruf im Paketvergleich bleiben als Rohprotokolle erhalten.
+
+Der breite Lohnlauf und die Veröffentlichung werden anschließend nachgetragen.
+Andere rohe Dateihash-Nachweise bei Einmalbezügen sowie Reiseboden-/Misch-/
+Transportregeln sind noch zu prüfen; die normale v4-Tagesregel wird nicht
+pauschal als fehlerhaft behauptet. Ein lesender Abruf des bekannten öffentlichen
+Serverendpunkts erreicht wegen HTTP403 am Cloudproxy-CONNECT die Anwendung
+nicht. Dies ist keine automatische Freigabeablehnung und kein nachgewiesener
+Serverfehler; der letzte bestätigte Serverstand bleibt A93.
+[Umfang und Grenze](CRM_ERP_LOHN_PLATTFORMHISTORIE_2026.md).
+
+
+Der anschließende breite Lauf besteht alle 649 unterschiedlichen Python-
+Lohnfälle ohne Skip in 617,953 Sekunden. Die gezielten fünf neuen Fälle bestehen
+nach Ergänzung vertauschter Metadatenpaare erneut; 32 versionierte Rechenmodule
+sind gegen 877266a bytegleich. Originalziel unverändert. Die vollständige
+Veröffentlichung samt eigener Remote-CI wird gesondert nachgetragen.
+[Genauer Prüfnachweis](evidence/payroll-provenance-2026-11-09/verification.json).

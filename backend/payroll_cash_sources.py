@@ -2,7 +2,7 @@
 from business_accounting import _evidence
 from business_operations import identifier
 from business_personnel_workflow import _sha,_shape,_integer
-from business_payroll import _calculate_source
+from business_payroll import calculation_matches_source
 from core import Problem
 
 COMPONENTS=('employee_tax','employee_social','employer_social','employer_levies','employer_flat_tax')
@@ -64,7 +64,7 @@ class Sources:
         if record['kind']=='payment':
             run=record['sources']['run'];month=run['source']['month']
             if run['source'].get('source_schema_version') in (3,4,5):self.payroll._verify_calculation_record(run)
-            if _calculate_source(run['source'],rule_version=calculation['rule_version'])!=calculation:
+            if not calculation_matches_source(run['source'],calculation):
                 raise Problem(409,'Lohnrechnung besteht die Quellenprüfung nicht.')
             if current and self.payroll._row(run['id'],'run')['revision']!=run['revision']:
                 raise Problem(409,'Für neue Zahlungen den aktuellen wirksamen Lohnlauf nachweisen.')
@@ -91,7 +91,7 @@ class Sources:
             raise Problem(409,'Genau passende wirksame Lohnrevision auswählen.')
         calculation=record['calculation'];calculated(calculation)
         if record['source'].get('source_schema_version') in (3,4,5):self.payroll._verify_calculation_record(record)
-        if _calculate_source(record['source'],rule_version=calculation['rule_version'])!=calculation:
+        if not calculation_matches_source(record['source'],calculation):
             raise Problem(409,'Lohnrechnung besteht die Quellenprüfung nicht.')
         profile=record['source']['profile'];origin=self.file(actor,profile['source_file']['id'],record['employee_id'])
         if any(origin[key]!=profile['source_file'][key] for key in profile['source_file']):

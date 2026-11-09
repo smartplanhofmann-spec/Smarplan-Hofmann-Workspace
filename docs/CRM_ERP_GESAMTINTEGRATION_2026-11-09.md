@@ -26,6 +26,7 @@ Einzeldokumenten des [aktuellen Arbeitsstands](CRM_ERP_ARBEITSSTAND.md).
 | --- | --- |
 | Alle Browsermodultests auf 487977a | 972 bestanden, 0 fehlgeschlagen, 0 übersprungen, 25,519 Sekunden |
 | Acht betroffene native Testsuiten auf 487977a | 48 bestanden, 0 fehlgeschlagen, 0 übersprungen, 36 Sekunden |
+| Echter nativer PDF-Renderer auf 281ced9 | Drei Fälle bestanden: Seitenwechsel, extrem große Seite mit begrenztem Bitmap und beschädigtes Original mit geprüftem Speichern |
 | V10, V11, positive Source5-Korrekturen und Paketprüfungen auf 487977a | 46 bestanden, 302,710 Sekunden |
 | Echte PostgreSQL-/MFA-/Chromium-Zeitabrechnung auf 487977a | Rechnung, zwei Zeitbindungen, PDF, Rechte, Wiederholung, Quellenänderung und Doppelabrechnungsschutz bestanden |
 | Historische Rechenmodule | Alle 32 Module und ursprüngliche Zahlungsarithmetik bytegleich zur Basis af98278 |

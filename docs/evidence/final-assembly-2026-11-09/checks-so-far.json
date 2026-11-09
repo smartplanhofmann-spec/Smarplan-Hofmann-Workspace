@@ -65,5 +65,14 @@
     "issues": 0,
     "raw_bytes": 97,
     "raw_sha256": "41758fdf0e29ade168f4966859b62e36799c0ffd8684033ff09fd609ff1a64b8"
+  },
+  "combined-native-pdf": {
+    "source_commit": "281ced9",
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "raw_bytes": 419,
+    "raw_sha256": "7fb9bf0016e1ff3af89d30f79266f479ea253e6964d029a051d6f75bc1dd28cc"
   }
 }

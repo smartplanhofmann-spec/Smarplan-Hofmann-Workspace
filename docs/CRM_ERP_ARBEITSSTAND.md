@@ -148,8 +148,10 @@ Sein künstlicher Zeitfortschritt und die Exportwartebedingung sind korrigiert;
 der vollständige einzelne Fall besteht in 2:54 Minuten mit unverändertem
 Gesamtzeitlimit und allen 38 bisherigen Assertions. Analyse ohne Befund.
 [Nachweis](CRM_ERP_OPEN_ITEMS_WIDGET_WARTEZEIT_2026.md).
-Ein grüner vollständiger App-Gesamtlauf wird damit noch nicht behauptet.
-Auf dem gemeinsamen Stand 487977a bestehen 972
+Der erneute vollständige App-Lauf auf 8273852 ist jetzt grün: 1.770 bestanden,
+kein Fehler oder Skip, 22:03 Minuten laut Fortschrittslog. Die drei mit dem
+echten nativen PDF-Renderer geprüften Fälle bestehen getrennt. Das vollständige
+Maschinenprotokoll ist ebenfalls erhalten. Auf dem gemeinsamen Stand 487977a bestehen 972
 Browsermodulfälle und 48 gezielte native Fälle. Rohprotokolle einschließlich
 der Fehlversuche liegen unter
 [final-assembly-2026-11-09](evidence/final-assembly-2026-11-09/checks-so-far.json).
@@ -161,10 +163,16 @@ ohne erzwungenes Überschreiben auf dem autorisierten Testbranch veröffentlicht
 Seine neuen Prüfungen laufen:
 [Development42654230472](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42654230472),
 [iPhone42654230385](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42654230385).
-HTTPS besteht bereits, die übrigen sieben Development-Jobs und der unsignierte
-iPhone-Build sind noch aktiv. Parallel läuft die vollständige lokale Appprüfung
-auf genau diesem Stand. Der signierte Upload ist nicht angefordert.
+Vier Development-Jobs bestehen: Update, HTTPS, Flutter und Mac-Simulator.
+Online-API scheitert an einem veralteten V1-Zugangsaufbau in einer gebundenen
+Testfirma. Windows scheitert am Import einer POSIX-Serverprovisionierung im
+eingebetteten Testserver. Beide Testursachen werden separat korrigiert; 52
+betroffene Buchhaltungs-/Berechtigungsfälle bestehen bereits. Backend und
+Business-/Browserjob sowie der unsignierte iPhone-Build sind noch aktiv.
+Die vollständige lokale Appprüfung auf genau diesem Stand ist inzwischen grün.
+Der signierte Upload ist nicht angefordert.
 [Veröffentlichungsnachweis](evidence/final-assembly-2026-11-09/publication.json).
+[Zwischenstand der tatsächlichen CI-Ergebnisse](evidence/final-assembly-2026-11-09/ci-827-intermediate.json).
 Der vorherige 3859a1c bleibt mit sechs Erfolgen und zwei Fehlern dokumentiert.
 Der letzte vollständig grüne Produktstand bleibt bis zum neuen Ergebnis eef1927.
 Keine neuere Serverinstallation oder echte Geräteabnahme ist bestätigt.

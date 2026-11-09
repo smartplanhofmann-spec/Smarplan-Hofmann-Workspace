@@ -3286,3 +3286,21 @@ Kundenserver, echte Geräte und produktive Nachrichten/Zahlungen/Meldungen
 sind aus dieser Veröffentlichung nicht verändert worden.
 
 [Veröffentlichung und erster tatsächlicher CI-Status](evidence/final-assembly-2026-11-09/publication.json).
+
+## 09.11.2026 – Vollständige gemeinsame Appprüfung grün
+
+Der erneute Lauf auf 8273852 besteht alle 1.770 Fälle ohne Fehler oder Skip.
+Fortschrittslog: 22:03 Minuten; Maschinenabschluss einschließlich Runnerabbau:
+1.334,388 Sekunden. Die drei tatsächlichen nativen PDF-Rendererfälle sind
+separat bestanden. Der frühere Lauf mit vier Fehlern bleibt unverändert erhalten.
+
+Auch remote bestehen Flutter, Mac-Simulator, Update und HTTPS. Zwei neu
+bestätigte Testaufbaufehler bleiben im eigenen fehlgeschlagenen CI-Ergebnis:
+Online-API erwartet einen V1-Zugang in einer inzwischen fest gebundenen Firma;
+Windows importiert im Testserver eine POSIX-Provisionierung. 52 betroffene
+Buchhaltungs-/Rechtefälle sind mit echtem gebundenem Zugang bereits grün.
+Die Windowskorrektur trennt portablen Client-/HTTP-Nachweis und tatsächlichen
+POSIX-Onlineservernachweis; kein Produktguard wird abgeschaltet.
+
+[Rohlog und Maschinenbericht](evidence/final-assembly-2026-11-09/checks-so-far.json),
+[tatsächlicher CI-Zwischenstand](evidence/final-assembly-2026-11-09/ci-827-intermediate.json).

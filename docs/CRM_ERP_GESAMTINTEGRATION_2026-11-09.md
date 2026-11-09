@@ -28,6 +28,7 @@ Einzeldokumenten des [aktuellen Arbeitsstands](CRM_ERP_ARBEITSSTAND.md).
 | Acht betroffene native Testsuiten auf 487977a | 48 bestanden, 0 fehlgeschlagen, 0 übersprungen, 36 Sekunden |
 | Echter nativer PDF-Renderer auf 281ced9 | Drei Fälle bestanden: Seitenwechsel, extrem große Seite mit begrenztem Bitmap und beschädigtes Original mit geprüftem Speichern |
 | V10, V11, positive Source5-Korrekturen und Paketprüfungen auf 487977a | 46 bestanden, 302,710 Sekunden |
+| Erneute vollständige Appprüfung auf 8273852 | 1.770 bestanden, kein Fehler/Skip, 22:03 Minuten im Fortschrittslog; drei native PDF-Fälle separat bestanden |
 | Echte PostgreSQL-/MFA-/Chromium-Zeitabrechnung auf 487977a | Rechnung, zwei Zeitbindungen, PDF, Rechte, Wiederholung, Quellenänderung und Doppelabrechnungsschutz bestanden |
 | Historische Rechenmodule | Alle 32 Module und ursprüngliche Zahlungsarithmetik bytegleich zur Basis af98278 |
 | Ursprüngliches Gesamtziel | Unverändert, 23.863 Bytes, SHA-256 `a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5` |
@@ -52,12 +53,19 @@ Testursache ist getrennt behoben. Der vollständige einzelne Fall besteht in
 2:54 Minuten mit unverändertem fünfminütigem Gesamtlimit und allen 38
 bisherigen Fachassertionen; Analyse ohne Befund.
 [Rohprotokolle und Vergleich](CRM_ERP_OPEN_ITEMS_WIDGET_WARTEZEIT_2026.md).
-Ein erneuter vollständiger App-Gesamtlauf ist noch nachzuweisen.
+Der erneute vollständige App-Gesamtlauf auf 8273852 ist jetzt grün: 1.770
+bestandene Fälle ohne Fehler oder Skip. Das Fortschrittslog endet nach 22:03
+Minuten; das vollständige Maschinenprotokoll ist ebenfalls archiviert. Die
+ausgenommenen drei nativen PDF-Fälle sind separat tatsächlich bestanden.
 
 Die alten CI-Fehler auf 3859a1c sind ebenfalls gezielt behoben. Der alte
 Remote-Lauf bleibt mit sechs erfolgreichen und zwei fehlgeschlagenen
 Development-Jobs sowie fehlgeschlagenem unsigniertem iPhone-Lauf dokumentiert.
-Ein neuer Remote-Lauf muss den neuen Kandidaten selbst prüfen.
+Der neue Remote-Lauf auf 8273852 ist aktiv. Vier Jobs bestehen einschließlich
+Flutter und Mac-Simulator. Die beiden Fehler in Online-API und Windows sind
+konkret auf alte Offline-Testaufbauten bzw. POSIX-Serverimport zurückgeführt;
+die gezielten Korrekturen bleiben von diesem fehlgeschlagenen Remote-Ergebnis
+getrennt. Backend, Business-/Browserjob und unsignierter iPhone-Build laufen noch.
 
 ## Verbleibende Arbeit
 

@@ -74,5 +74,33 @@
     "exit_code": 0,
     "raw_bytes": 419,
     "raw_sha256": "7fb9bf0016e1ff3af89d30f79266f479ea253e6964d029a051d6f75bc1dd28cc"
+  },
+  "entire-app-final": {
+    "source_commit": "82738522d132918b0f139011302e5862f40c1e92",
+    "exit_code": 0,
+    "passed": 1770,
+    "failed": 0,
+    "skipped": 0,
+    "excluded_tags": [
+      "native_pdf"
+    ],
+    "separate_native_pdf_passed": 3,
+    "log": {
+      "file": "entire-app-final.txt.gz",
+      "raw_bytes": 359720,
+      "raw_sha256": "155100c6ebd3a1311f0e5f8583edfdf4520a2aee5af615cf1ebb4804a3d71435"
+    },
+    "machine_report": {
+      "file": "entire-app-final.jsonl.gz",
+      "raw_bytes": 1044399,
+      "raw_sha256": "9af37edb4fb5456b5908819b267d9bddf8b5711079c24af1a2e6456369ff1409"
+    },
+    "done_event": {
+      "success": true,
+      "type": "done",
+      "time": 1334388
+    },
+    "elapsed_log_seconds": 1323,
+    "machine_elapsed_seconds": 1334.388
   }
 }

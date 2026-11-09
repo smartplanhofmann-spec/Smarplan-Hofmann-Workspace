@@ -3449,3 +3449,10 @@ erlaubt weiterhin den alten RAM-Ablauf. Die ursprünglichen privaten Inhalte
 werden ohne passende Firmenfreigabe nicht offengelegt.
 
 [Eigener Befund, Nachprüfung und Grenzen](CRM_ERP_ORIGINALJOURNAL_SERVER_RUECKFALL_2026-11-09.md).
+
+Der zusätzliche Schutz ist als 9271be7 auf dem autorisierten Testbranch
+veröffentlicht. Development42702226560 und iPhone42702226835 laufen; HTTPS
+und Update bestehen im ersten dokumentierten Abruf. Der Vorgänger 29f526d
+hat sechs erfolgreiche Development-Jobs; Online-API, Browser und iPhone
+sind beim Nachfolger abgebrochen, nicht nachträglich grün.
+[Veröffentlichung und tatsächliche Ergebnisse](evidence/native-journal-downgrade-2026-11-09/publication-initial.json).

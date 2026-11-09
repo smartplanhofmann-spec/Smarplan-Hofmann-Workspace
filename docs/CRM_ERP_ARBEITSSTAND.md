@@ -5,12 +5,21 @@ Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
 **Neueste Veröffentlichung:** Die geprüfte native Wiederaufnahme ist als
-`29f526d86f3995949d9967c4a6ff3394cb417b25` auf dem autorisierten Testbranch
+`9271be79857e182adc080dcb8b1d86c48776dbdf` einschließlich zusätzlicher
+schreibfreier Altbestandserkennung auf dem autorisierten Testbranch
 veröffentlicht. Ihre eigenen Läufe
+[Development42702226560](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42702226560)
+und [iPhone42702226835](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42702226835)
+laufen; HTTPS und Update bestehen im ersten dokumentierten Abruf. Die übrigen
+Jobs sind noch offen. [Veröffentlichung und tatsächliche Ergebnisse](evidence/native-journal-downgrade-2026-11-09/publication-initial.json).
+
+Die vorangegangene Veröffentlichung 29f526d und ihre Läufe
 [Development42697887605](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42697887605)
 und [iPhone42697887724](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42697887724)
-laufen; HTTPS besteht im dokumentierten ersten Abruf, die übrigen Jobs sind
-noch offen. [Veröffentlichung und tatsächlicher Zwischenstand](evidence/online-command-restart-2026-11-09/publication-initial.json).
+haben sechs erfolgreiche Development-Jobs; Online-API, Browser und beide
+iPhone-Jobs sind beim Nachfolger abgebrochen. Ein vollständiger grüner Lauf
+wird für 29f526d nicht behauptet. Der frühere erste Abruf bleibt unverändert:
+[damaliger Zwischenstand](evidence/online-command-restart-2026-11-09/publication-initial.json).
 
 **Letzter vollständig grüner Produktstand:** Der gemeinsam geprüfte Produktstand
 `19ec4e9dbca6c54dd964075cac6591442abb63ee` ist auf dem autorisierten Testbranch

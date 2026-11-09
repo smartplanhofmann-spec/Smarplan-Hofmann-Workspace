@@ -76,7 +76,7 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
 Hauptprojekt: `/workspace/Smarplan-Hofmann-Workspace` auf dem lokalen Branch
 `codex/finish-20261108`. Der weitere Integrationskandidat steht in
-`/workspace/smartplan-material-integration-20261109`; ältere vollständige
+`/workspace/smartplan-mileage-integration-20261109`; ältere vollständige
 Arbeitskopien und Zwischenstände bleiben erhalten.
 Der lokale gemeinsame Stand enthält die abgeschlossenen Projektmeilensteine,
 die Korrekturen der drei nachgewiesenen CI-Testfehler und den neuen
@@ -151,6 +151,18 @@ Nachlauf besteht 980 Browsermodul- und 41 native Fälle, Appanalyse ohne Befund.
 Offene Rückgabeaufträge sind bisher sitzungsgebunden; Prozessneustartpersistenz
 und Offline-Materialrückgabe werden nicht als erledigt ausgewiesen.
 
+Die enge Kilometererstattung für dienstliche Mitarbeiterfahrten im privaten
+Pkw ist jetzt ebenfalls mit beiden Clients integriert. Ein unabhängiger Root-
+Review bestätigt vor Veröffentlichung einen tatsächlichen Doppelbelegfehler
+bei teilweise überlappenden Originalmengen. Er ist pro Original-SHA geschlossen;
+erhaltene alte Bündel und eigene Korrekturen bleiben unverändert nutzbar.
+Beide tatsächlichen negativen Gegenproben bestehen jetzt. Gemeinsamer Stand:
+992 Browsermodul-, 65 native, 45 Backend-/Paketfälle sowie ein echter alter
+Bündelstand und drei vollständige tatsächliche Browserabläufe (Material,
+Kilometer, Katalog) grün. Appanalyse ohne Befund. Der ältere vollständige
+App-Lauf bleibt seinem eigenen Stand 8273852 zugeordnet.
+[Gesamtintegration und verbleibender Umfang](CRM_ERP_KILOMETER_GESAMTINTEGRATION_2026-11-09.md).
+
 Der vollständige App-Lauf auf d4df2f5 ist beendet: 1.746 bestanden, vier
 fehlgeschlagen, kein Skip, 38:31 Minuten. Drei Fehler stammen aus zwei
 inkonsistenten gebundenen Testaufbauten; die Korrektur besteht separat mit
@@ -172,7 +184,7 @@ und die Gesamtzieldatei sind erneut bytegleich geprüft.
 
 Der gemeinsame Stand 82738522d132918b0f139011302e5862f40c1e92 ist am 09.11.
 ohne erzwungenes Überschreiben auf dem autorisierten Testbranch veröffentlicht.
-Seine neuen Prüfungen laufen:
+Seine eigenen Prüfungen sind beendet:
 [Development42654230472](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42654230472),
 [iPhone42654230385](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42654230385).
 Fünf Development-Jobs bestehen: Backend, Update, HTTPS, Flutter und Mac-Simulator.
@@ -183,7 +195,13 @@ betroffene Buchhaltungs-/Berechtigungsfälle, beide tatsächlichen nativen HTTP-
 Fälle und die portable Testauswahl bestehen. Die Windows-Auswahl ist lokal
 auf Linux geprüft; eine tatsächliche neue Windows-CI wird damit nicht ersetzt.
 [Testkorrektur und ursprüngliche Fehlprotokolle](CRM_ERP_CI_OFFLINE_FIXTURES_2026-11-09.md).
-Der Business-/Browserjob ist noch aktiv. Der unsignierte iPhone-Lauf scheitert
+Der Business-/Browserjob scheitert an der alten Erwartung eines zweiten
+Entwurfsdialogs trotz offener Originalantwort. Die Anwendung verlangt hier
+ausdrücklich Originalklärung; der aktualisierte tatsächliche Katalogablauf
+prüft diese Sperre und erhält weiterhin Dialog-/Fokusschutz bei verspäteter
+Antwort. Derselbe Ablauf ist auf dem gemeinsamen letzten Stand grün.
+[Katalogabnahme und ursprüngliche Fehler](CRM_ERP_KATALOG_OFFENE_BELEGANTWORT_2026-11-09.md).
+Der unsignierte iPhone-Lauf scheitert
 an drei Service-Journal-Fällen mit nicht aufgelöstem macOS-Temp-Pfad. Genau der
 Fehler ist mit unverändertem Server und tatsächlichem Pfadlink reproduziert,
 im Testaufbau korrigiert und mit allen drei vollständigen Fällen sowie Analyse
@@ -193,6 +211,11 @@ Die vollständige lokale Appprüfung auf genau diesem Stand ist inzwischen grün
 Der signierte Upload ist nicht angefordert.
 [Veröffentlichungsnachweis](evidence/final-assembly-2026-11-09/publication.json).
 [Zwischenstand der tatsächlichen CI-Ergebnisse](evidence/final-assembly-2026-11-09/ci-827-intermediate.json).
+[Abgeschlossene Ergebnisse auf genau 8273852](evidence/final-assembly-2026-11-09/ci-827-completed.json):
+fünf Development-Jobs erfolgreich, drei fehlgeschlagen; unsignierter iPhone-
+Lauf fehlgeschlagen, signierter Upload übersprungen. Alle vier konkreten
+Testaufbau-/Bedienerwartungsursachen sind inzwischen lokal nachgeprüft behoben;
+die neue vollständige Remoteprüfung des aktuellen Kandidaten steht noch aus.
 Der vorherige 3859a1c bleibt mit sechs Erfolgen und zwei Fehlern dokumentiert.
 Der letzte vollständig grüne Produktstand bleibt bis zum neuen Ergebnis eef1927.
 Keine neuere Serverinstallation oder echte Geräteabnahme ist bestätigt.

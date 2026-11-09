@@ -30,11 +30,13 @@ Vier Fehler des vollständigen App-Vorlaufs sind gezielt behoben und geprüft.
 Die neue vollständige Appprüfung besteht mit 1.770 Fällen. Der Testbranch
 ist als 8273852 veröffentlicht. Seine beiden nachgewiesenen Testaufbaufehler
 sind [lokal korrigiert und gezielt grün](CRM_ERP_CI_OFFLINE_FIXTURES_2026-11-09.md);
-die eigene neue Remoteprüfung dieser Korrektur steht noch aus.
+die eigene neue Remoteprüfung des aktuellen Gesamtstands steht noch aus.
 Die [Materialrückgabe in beiden Clients](CRM_ERP_MATERIALRUECKGABE_INTEGRATION_2026-11-09.md)
 ist inzwischen mit tatsächlichen Quellen integriert und gemeinsam geprüft.
-Die belegte Kilometererstattung für rein dienstliche Inlandsfahrten im privaten
-Pkw wird weiter ergänzt. Historische Planabschnitte
+Die [belegte Kilometererstattung](CRM_ERP_KILOMETER_GESAMTINTEGRATION_2026-11-09.md)
+für rein dienstliche Mitarbeiterfahrten im privaten Pkw ist inzwischen mit
+beiden Clients, tatsächlicher Geld-/EÜR-Kette und geschlossenem Doppelbeleg-
+Review integriert. Historische Planabschnitte
 weiter unten sind keine Rücknahme dieser abgeschlossenen Erweiterungen.
 
 Einzelunternehmen mit EÜR, Regelbesteuerung, Ist-Versteuerung, 19 %
@@ -83,7 +85,24 @@ Die native Kataloghistorie und Originalübernahme sind nach dem gemeinsamen
 Anfangssaldo-/Browserstand fertig integriert: 1.163 Fluttertests und Analyse
 ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
 
-## Aktive Arbeitspakete
+## Aktive Arbeitspakete ab dem gemeinsamen Kilometerstand
+
+1. Den gemeinsam geprüften Kandidaten auf dem autorisierten Testbranch
+   veröffentlichen; seine eigene Development-/Windows-/iPhone-CI abschließen.
+   Frühere Fehl- und Erfolgsstände bleiben ihren tatsächlichen Quellen zugeordnet.
+2. Online-Restaufgaben mit reproduzierbarem Nutzen weiter schließen: insbesondere
+   Prozessneustartpersistenz unbestätigter Material-/privater Reiseaufträge,
+   weitere konkret benannte Lohn-/Steuerfälle und vorbereitete Länder-/Regeltrennung.
+   Die dokumentierten Fremdwährungs-/Unternehmer-/Mischreisefälle bleiben eigene
+   Fach-/Codeaufgaben. Keine fehlende Implementierung als extern blockiert zählen.
+3. Geschützte Übernahme alter ungebundener Offlinebestände und weitere Offline-
+   Dokumentarten vervollständigen, ohne Originale einer neuen Firma ungeprüft
+   zuzuordnen. Ganze technische Abnahmen A–G bleiben getrennte Endnachweise.
+4. Konkrete Geräte-/Server-/Signierungs-, unabhängige Sicherheits- und fachliche
+   Freigaben für den tatsächlich unterstützten Produktivumfang nachweisen.
+   Provider-/Meldezugänge und echte Betriebsdaten nur im autorisierten Verfahren.
+
+## Vorangegangene Arbeitspakete und erhaltene Nachweise
 
 1. Wiederhergestellten Gesamtstand und Originalziel sichern; umgesetzt.
 2. Offene CI-/Browserregressionen der ausdrücklichen Projekt-/Quellenauswahl

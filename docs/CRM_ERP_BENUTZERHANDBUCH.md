@@ -200,6 +200,27 @@ wird dabei nicht erneut ausgezahlt. Aufhebung einer dokumentierten Zahlung
 erfindet keine Rückzahlung; ein tatsächlicher Geldrückfluss braucht einen eigenen
 Nachweis. [Reisebedienung](CRM_ERP_REISEPAUSCHALEN_CLIENTS.md).
 
+**Kilometererstattungen** verwenden im Personal-/Reisebereich einen eigenen
+Ablauf für dienstliche Inlands-Rundfahrten eines Mitarbeiters im privaten Pkw.
+Wohnung beziehungsweise erste Tätigkeitsstätte, tatsächliche auswärtige Orte,
+Abfahrts-/Ankunftszeiten, Teilstrecken in Metern und die geforderten Originale
+erfassen. Die Erklärungen zu Fahrzeugkosten, Dienstwagen, Privatanteilen,
+Arbeitswegen und anderer Erstattung bewusst prüfen; sie sind nicht vorbestätigt.
+Eine andere berechtigte Person prüft die eingereichte Fahrt und gibt die
+berechnete Erstattung frei.
+
+Eine Freigabe ist kein Zahlungsnachweis. Tatsächliche Überweisungen oder
+Rückzahlungen gesondert mit ihren Originalen erfassen. Bei einer späteren
+Streckenkorrektur bleiben alte Auszahlungen erhalten. Eine ausgewiesene
+Überzahlung verschwindet erst mit belegter tatsächlicher Rückzahlung.
+Bereits verwendete Streckenoriginale werden auch bei neuen Kombinationen mit
+weiteren Belegen gesperrt. Das ist keine Erfassung eigener Unternehmerfahrten,
+von Arbeitswegen, Dienstwagen oder gemischten Reisen.
+
+Der neue Ablauf benötigt eine Onlineverbindung. Unbestätigte Aufträge sind
+derzeit an die aktuelle private Sitzung gebunden; nach einem Neustart zuerst
+Fahrt-, Abrechnungs- und Zahlungsoriginale prüfen.
+
 Bei zusätzlichen pauschal zu versteuernden Verpflegungszuschüssen wird zuerst
 die betriebliche Steuerentscheidung für den Anmeldezeitraum belegt. Das
 Kirchensteuerverfahren und die Betriebsstätte werden ausdrücklich gewählt.

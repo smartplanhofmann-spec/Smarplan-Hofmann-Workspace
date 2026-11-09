@@ -3336,3 +3336,40 @@ Fälle bestehen danach. Die aktuellen Produktguards werden nicht gelockert.
 
 [Gemeinsame Quellen, Rohlogs und Grenzen](CRM_ERP_MATERIALRUECKGABE_INTEGRATION_2026-11-09.md).
 Kilometererstattung bleibt in eigenem Arbeitsstand in Entwicklung.
+
+## 09.11.2026 – Kilometerablauf integriert, unabhängigen Doppelbelegfehler geschlossen
+
+Der neue enge Mitarbeiter-/Privat-Pkw-Vertrag verbindet belegte Originalmeter,
+bewusste Erklärungen, unabhängige Freigabe, tatsächliche Zahlung, Korrektur und
+Rückzahlung in Browser und App. V3-Originale werden nicht umgedeutet; der neue
+Betrag wird nicht nochmals zum Nettolohn addiert. Beide Root-Konflikte der
+Import-/Workflowregistrierung sind als Vereinigung von Material und Kilometer
+gelöst und im tatsächlichen gemeinsamen Browser nachgeprüft.
+
+Die unabhängige Nachprüfung konnte zunächst tatsächlich zweimal denselben
+Originalteil in einer neuen Belegkombination freigeben – anderer Tag oder
+andere Person. Das ist ein echter fachlicher Fehler des unveröffentlichten
+Kandidaten, kein erfolgreicher Abnahmetest. Beide roten Rohbelege bleiben.
+Der enge Folgefix sperrt einzelne Original-SHAs auch gegenüber historischen
+Bündeln; alte Zeilen/Quittungen bleiben unverändert und eigene Korrekturen
+zulässig. Beide unveränderten Root-Gegenproben bestehen danach, ohne Zahlung.
+Der tatsächlich mit früherem Code erzeugte alte Bündelstand bleibt lesbar und
+seine eigene Korrektur geprüft. Drei echte PostgreSQL-/Konkurrenz-/Bank-/EÜR-/
+Archiv-/Restorefälle des Folgefixes bestehen separat.
+
+Gemeinsam: 992 Browsermodul-, 65 native, 45 Backend-/Paketfälle und ein
+tatsächlicher Altbündelfall grün. Appanalyse ohne Befund. Die drei echten
+Browserabläufe Materialrückgabe, Kilometererstattung und datierte Katalogpreise
+bestehen auf dem letzten gemeinsamen Produktstand. 32 historische Rechenmodule,
+alte Zahlungsarithmetik, Originalziel und Clientfixture sind unverändert.
+Der vollständige frühere App-Lauf bleibt mit 1.770 Fällen auf 8273852 belegt.
+
+Der letzte Remote-Lauf auf 8273852 ist beendet: fünf erfolgreiche und drei
+fehlgeschlagene Development-Jobs; unsignierter iPhone-Lauf fehlgeschlagen,
+signierter Upload übersprungen. Alle vier konkreten Testaufbau-/Bedienerwartungs-
+ursachen sind lokal reproduziert/nachgeprüft korrigiert. Die neue vollständige
+Remoteprüfung des korrigierten Gesamtstands wird separat gestartet.
+
+[Gemeinsame Quellen, Nachweise und Grenzen](CRM_ERP_KILOMETER_GESAMTINTEGRATION_2026-11-09.md).
+Offene Clientaufträge dieses Onlineumfangs sind bislang sitzungsgebunden;
+Prozessneustartpersistenz und die übrigen offenen Gesamtzielpunkte bleiben aktiv.

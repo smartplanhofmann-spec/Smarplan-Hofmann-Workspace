@@ -1,0 +1,115 @@
+{
+  "checks": {
+    "browser-modules": {
+      "source_commit": "135aec512e0a6b48e35013b103778601fc332114",
+      "passed": 992,
+      "failed": 0,
+      "skipped": 0,
+      "milliseconds": 13367.156517,
+      "exit_code": 0,
+      "raw_bytes": 101301,
+      "raw_sha256": "a92ba144e0f4d8524615f4b8b0460bb7965876f7c4b505f69a6c97597b53ab9b"
+    },
+    "native-combined": {
+      "source_commit": "135aec512e0a6b48e35013b103778601fc332114",
+      "passed": 65,
+      "failed": 0,
+      "skipped": 0,
+      "elapsed_log_seconds": 52,
+      "exit_code": 0,
+      "raw_bytes": 12740,
+      "raw_sha256": "005c1f7c26d9d4676c14aa977faea8bedbd9ed977ba4a66eb8ba0d163e566a5f"
+    },
+    "app-analysis": {
+      "source_commit": "135aec512e0a6b48e35013b103778601fc332114",
+      "issues": 0,
+      "seconds": 23.7,
+      "exit_code": 0,
+      "raw_bytes": 97,
+      "raw_sha256": "95153c92357e7d0cb1eb81d31cf6900253af9230f58247d836feba541b9e1743"
+    },
+    "backend-package": {
+      "source_commit": "04063d5d1d51649239ae04ece4759970fd98dde8",
+      "passed": 45,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 45.165,
+      "includes_independent_overlap_cases": 2,
+      "exit_code": 0,
+      "raw_bytes": 9183,
+      "raw_sha256": "2b634a228150a29e485d599e6f27555472006675640030f29b80b37fd6e6818b"
+    },
+    "actual-old-bundle": {
+      "source_commit": "04063d5d1d51649239ae04ece4759970fd98dde8",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 0.842,
+      "exit_code": 0,
+      "raw_bytes": 318,
+      "raw_sha256": "a8be848650dbc6079c3101210a56cff52ce4b2c1655ea6be39e33949c0c498ee"
+    },
+    "browser-material": {
+      "source_commit": "1ff52f56f0e7e4ba2180aa0771bbd9ce80799471",
+      "actual_mfa_http_workflows_passed": 1,
+      "exit_code": 0,
+      "raw_bytes": 396,
+      "raw_sha256": "dfa105e8c33848d71cf9e7b31d8de8fe55157bd678b6be0d4f315dda1896dff4"
+    },
+    "browser-mileage": {
+      "source_commit": "1ff52f56f0e7e4ba2180aa0771bbd9ce80799471",
+      "actual_two_mfa_http_cash_euer_workflows_passed": 1,
+      "exit_code": 0,
+      "raw_bytes": 401,
+      "raw_sha256": "1799159e81d5ea49777f7262bb89072fd4afa9f25fd7210d056eaad46e54d934"
+    },
+    "browser-catalog": {
+      "source_commit": "1ff52f56f0e7e4ba2180aa0771bbd9ce80799471",
+      "actual_mfa_http_workflows_passed": 1,
+      "exit_code": 0,
+      "raw_bytes": 535,
+      "raw_sha256": "c75d51d8261962c16a1805660bfc7b48cb52f0db9e006097997d37398ecffc27"
+    },
+    "pub-get": {
+      "lockfile_changes": false,
+      "exit_code": 0,
+      "raw_bytes": 68,
+      "raw_sha256": "d4cb7a3c68b4133b4f6e58c67ff5bfd13725d8021e930388cdc98da8a575919d"
+    }
+  },
+  "last_final_browser_source": "1ff52f56f0e7e4ba2180aa0771bbd9ce80799471",
+  "app_and_browser_sources_unchanged_after_135aec5": true,
+  "preserved_originals": {
+    "old_kernels_unchanged": 32,
+    "original_payment_module_unchanged": true,
+    "goal_bytes": 23863,
+    "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+    "client_fixture_sha256": "30c0d2388a83458259d7cd8c1d98caf69cf08cf8e5396ba36ec9b02ba6aac71b"
+  },
+  "mileage_screenshots": [
+    {
+      "path": "mileage-private-car-mileage-history-mobile.png",
+      "sha256": "0175d0ec4193e53a2033278d95b16541272c4fade239b06042796bba5c26f326"
+    }
+  ],
+  "material_screenshots": [
+    {
+      "path": "material-material-return-warehouse-mobile.png",
+      "sha256": "d794283a76fcfd0a7f440ddbd050d10010539eaed8f59b4838088439e978d803"
+    },
+    {
+      "path": "material-material-return-mobile.png",
+      "sha256": "8afea36c8877c9fcacf722972914905c0cd9be9bf487266ffe433e737d0bbf26"
+    }
+  ],
+  "catalog_screenshots": [
+    {
+      "path": "catalog-catalog-v2-preview-390px.png",
+      "sha256": "c8d8a26e5888f0c258f9770afa7f43130144808d503d167d844a86d2b1ffdc1d"
+    },
+    {
+      "path": "catalog-catalog-v2-preview-desktop.png",
+      "sha256": "98084f1e4a55c036d9885c6cff7ce0835307f0c0f86da7a48798378e25bd725f"
+    }
+  ]
+}

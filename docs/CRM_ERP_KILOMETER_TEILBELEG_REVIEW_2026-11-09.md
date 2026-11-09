@@ -21,4 +21,14 @@ tatsächlich akzeptierten Doppeloriginal. Die Quelle ist noch nicht veröffentli
 [Unveränderte Vorherbelege](evidence/mileage-overlap-review-2026-11-09/before.json).
 Der enge Folgefix soll jedes tatsächliche Original unabhängig von weiteren
 Belegen schützen, erhaltene alte Bündeloriginale mitprüfen und die eigene
-Korrekturkette zulassen. Ein erfolgreicher Nachlauf steht noch aus.
+Korrekturkette zulassen.
+
+Der Folgefix 03fbded ist inzwischen integriert. Beide unveränderten
+unabhängigen Gegenproben bestehen im gemeinsamen 45-Fälle-Lauf auf 04063d5.
+Die tatsächliche zweite Freigabe wird mit 409 abgewiesen; ein ursprünglicher
+Abschluss und null Zahlungen bleiben bestehen. Der echte frühere Bündelstand
+einschließlich Originalquittung, Sperre einer Teilüberschneidung und eigener
+Korrektur besteht zusätzlich in einem separaten Fall. Die drei tatsächlichen
+Browsernachläufe auf dem gemeinsamen Stand sind ebenfalls grün.
+[Nachherbeleg](evidence/mileage-overlap-review-2026-11-09/after.json),
+[gemeinsamer Integrationsnachweis](CRM_ERP_KILOMETER_GESAMTINTEGRATION_2026-11-09.md).

@@ -1,0 +1,16 @@
+✔ real partial and final returns keep original issue and historical price after article change (5.502417ms)
+✔ real per-original rounding remainder is kept by the last return (0.683348ms)
+✔ zero, excess quantity, malformed decimal, missing confirmation, and foreign journal are rejected before POST (1.397232ms)
+✔ operational users validate an actual redacted return without private price fields (0.373178ms)
+✔ return receipt rejects changed quantity, project, original, recipient or readback (1.33236ms)
+✔ accepted unknown return retains exact request through permission loss and zero remaining quantity (52.209975ms)
+✔ fresh first write rejects changed remaining quantity but same original replay still authorizes (0.8187ms)
+✔ closing retry during fresh read preserves original without a second POST (2.706451ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 81.221148

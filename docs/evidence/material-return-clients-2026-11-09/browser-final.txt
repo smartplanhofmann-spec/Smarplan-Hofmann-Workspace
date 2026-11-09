@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+material return: actual MFA/HTTP issue selection, original price after catalogue change, no over-return POST, exact accepted lost-ACK retry, partial/final quantities, unchanged originals and project costs, price-free warehouse role and mobile view passed
+1 targeted material return browser workflow passed

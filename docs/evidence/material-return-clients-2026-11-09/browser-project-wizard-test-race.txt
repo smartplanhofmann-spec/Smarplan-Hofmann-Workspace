@@ -1,0 +1,42 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+locator.waitFor: Timeout 15000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('dialog', { name: 'Material zurückgeben', exact: true }) to be visible[22m
+
+    at start (/workspace/smartplan-material-return-clients-20261109/web/office/tests/material-return-flow.cjs:9:501)
+    at async selectIssue (/workspace/smartplan-material-return-clients-20261109/web/office/tests/material-return-flow.cjs:10:36)
+    at async Object.materialReturnFlow (/workspace/smartplan-material-return-clients-20261109/web/office/tests/material-return-flow.cjs:24:3)
+    at async main (/workspace/smartplan-material-return-clients-20261109/web/office/tests/e2e.cjs:124:7)
+Browser launch context: {"browser":"/usr/bin/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: [ 'Failed to load resource: net::ERR_FAILED' ]
+Visible headings: [
+  'Material',
+  'Bestellungen',
+  'Lagerbestand',
+  'Artikel per Code finden',
+  'Artikel & Leistungen',
+  'Projekt der Materialrückgabe'
+]
+Active section: material
+Pending API requests: []
+Fixture log tail:
+i/v1/business/inventory/articles?limit=200 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:21:24] "GET /api/v1/business/purchasing/orders HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:21:25] "GET /api/v1/business/inventory/stock?location_id=1bebc928242c4858a616c407df6c96ca&article_id=58e1ef8fad164b75a3a2e4e1fc44004d HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:21:25] "GET /api/v1/business/projects/deba1dbe8cd4488a9cf993313fd3aed2/costs HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:21:25] "GET /api/v1/business/inventory/movements/10541fa9d8114a9ba418ee23ef1964a5 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:21:25] "GET /api/v1/business/inventory/movements/b43874a11bfa4013b021621123eea052 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:21:25] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:21:25] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:21:25] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:21:25] "GET /api/v1/business/inventory/locations HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:21:25] "GET /api/v1/business/inventory/stock HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:21:25] "GET /api/v1/business/articles HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:21:25] "GET /api/v1/business/inventory/articles?limit=200 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:21:25] "GET /api/v1/business/purchasing/orders HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:21:25] "GET /api/v1/projects HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

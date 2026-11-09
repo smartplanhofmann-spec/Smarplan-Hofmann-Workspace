@@ -1,0 +1,9 @@
+test_real_fresh_rights_and_price_redaction (test_material_returns_pg.MaterialReturnPostgresTests.test_real_fresh_rights_and_price_redaction) ... ok
+test_real_rounding_remainder (test_material_returns_pg.MaterialReturnPostgresTests.test_real_rounding_remainder) ... ok
+test_real_runtime_returns_restart_dump_restore_and_historical_replay (test_material_returns_pg.MaterialReturnPostgresTests.test_real_runtime_returns_restart_dump_restore_and_historical_replay) ... ok
+test_two_runtime_connections_cannot_return_more_than_original_issue (test_material_returns_pg.MaterialReturnPostgresTests.test_two_runtime_connections_cannot_return_more_than_original_issue) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 45.467s
+
+OK

@@ -1,0 +1,15 @@
+✔ web/office/tests/asset-provenance.test.mjs (193.542646ms)
+✔ web/office/tests/inventory-article-refs.test.mjs (344.657577ms)
+✔ web/office/tests/inventory-counts.test.mjs (419.017003ms)
+✔ web/office/tests/purchase-changes.test.mjs (384.577407ms)
+✔ web/office/tests/purchasing-catalog.test.mjs (338.20335ms)
+✔ web/office/tests/purchasing.test.mjs (325.676027ms)
+✔ web/office/tests/stock-returns.test.mjs (343.262872ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 949.306626

@@ -1,0 +1,41 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: late return GET must not replace another dialog
++ actual - expected
+
++ 'Material zurückgeben'
+- 'Lagerort'
+
+    at Object.materialReturnFlow (/workspace/smartplan-material-return-clients-20261109/web/office/tests/material-return-flow.cjs:23:237)
+    at async main (/workspace/smartplan-material-return-clients-20261109/web/office/tests/e2e.cjs:124:7)
+Browser launch context: {"browser":"/usr/bin/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: []
+Visible headings: [
+  'Material',
+  'Bestellungen',
+  'Lagerbestand',
+  'Artikel per Code finden',
+  'Artikel & Leistungen'
+]
+Active section: material
+Pending API requests: []
+Fixture log tail:
+ventory/stock HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:58:32] "GET /api/v1/business/inventory/locations HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:58:32] "GET /api/v1/business/articles HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:58:32] "GET /api/v1/business/inventory/articles?limit=200 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:58:32] "GET /api/v1/business/purchasing/orders HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:58:33] "[35m[1mPOST /api/v1/business/inventory/locations HTTP/1.1[0m" 201 -
+127.0.0.1 - - [09/Nov/2026 17:58:33] "POST /api/v1/business/articles HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:58:33] "[35m[1mPOST /api/v1/business/inventory/movements HTTP/1.1[0m" 201 -
+127.0.0.1 - - [09/Nov/2026 17:58:33] "[35m[1mPOST /api/v1/business/inventory/movements HTTP/1.1[0m" 201 -
+127.0.0.1 - - [09/Nov/2026 17:58:33] "GET /api/v1/business/projects/969b8d1f8bf540b0ab7b4587db4e4b35/costs HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:58:33] "POST /api/v1/business/articles/15c9418917404c5cbae52b51d786d21a HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:58:33] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:58:33] "GET /api/v1/business/capabilities?project_id=969b8d1f8bf540b0ab7b4587db4e4b35 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:58:33] "GET /api/v1/business/inventory/locations HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 17:58:33] "GET /api/v1/business/inventory/movements?project_id=969b8d1f8bf540b0ab7b4587db4e4b35 HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

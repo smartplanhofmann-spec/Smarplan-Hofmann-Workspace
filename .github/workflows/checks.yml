@@ -96,6 +96,7 @@ jobs:
           python -m unittest discover -s backend/online -p 'test_business*.py' -v
           python -m unittest -v online.test_factor_travel_review_pg
           python -m unittest -v online.test_minijob_v11_independent_pg
+          python -m unittest -v online.test_material_returns_pg
           python -m unittest -v online.test_communication_history_pg
           python -m unittest discover -s backend/online -p test_accounting_year_package_pg.py -v
           python -m unittest -v online.test_accounting_year_package_v2_pg
@@ -221,6 +222,7 @@ jobs:
             SMARTPLAN_BROWSER_WORKFLOW=project-milestones node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=project-customer node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=inventory-article-refs node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=material-return node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=time-tracking node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-transition node tests/e2e.cjs &&

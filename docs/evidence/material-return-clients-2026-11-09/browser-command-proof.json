@@ -1,0 +1,75 @@
+{
+  "synthetic": true,
+  "returns": [
+    {
+      "original_command": {
+        "kind": "return",
+        "article_id": "8a09ac7ddf3941e69b955521b6e62aa0",
+        "project_id": "b6baf853673245138242e02d4a21d695",
+        "reversal_of": "2ab86dc73b79413dab1c818dafbb90ec",
+        "to_location_id": "29a8bc16e1884458a9fca4ff86eb4c0b",
+        "quantity": "2.0000",
+        "note": "Synthetic first return",
+        "request_id": "e2ad5dd9a2da43bfbc400970aa292f10"
+      },
+      "status": 201,
+      "response_canonical_sha256": "c823301f1ca7376b63594cae58bd340b31db5669b284c20d4cd601733926c20e"
+    },
+    {
+      "original_command": {
+        "kind": "return",
+        "article_id": "8a09ac7ddf3941e69b955521b6e62aa0",
+        "project_id": "b6baf853673245138242e02d4a21d695",
+        "reversal_of": "2ab86dc73b79413dab1c818dafbb90ec",
+        "to_location_id": "29a8bc16e1884458a9fca4ff86eb4c0b",
+        "quantity": "2.0000",
+        "note": "Synthetic first return",
+        "request_id": "e2ad5dd9a2da43bfbc400970aa292f10"
+      },
+      "status": 201,
+      "response_canonical_sha256": "c823301f1ca7376b63594cae58bd340b31db5669b284c20d4cd601733926c20e"
+    },
+    {
+      "original_command": {
+        "kind": "return",
+        "article_id": "8a09ac7ddf3941e69b955521b6e62aa0",
+        "project_id": "b6baf853673245138242e02d4a21d695",
+        "reversal_of": "2ab86dc73b79413dab1c818dafbb90ec",
+        "to_location_id": "29a8bc16e1884458a9fca4ff86eb4c0b",
+        "quantity": "1.0000",
+        "note": "Synthetic second return",
+        "request_id": "3bb5ae8b312b4a5f94c4971984d95ab5"
+      },
+      "status": 201,
+      "response_canonical_sha256": "397c8adaabe15038c65044156da9c20fa872fce992adab0a0264c1ee0e307a9f"
+    },
+    {
+      "original_command": {
+        "kind": "return",
+        "article_id": "8a09ac7ddf3941e69b955521b6e62aa0",
+        "project_id": "b6baf853673245138242e02d4a21d695",
+        "reversal_of": "2ab86dc73b79413dab1c818dafbb90ec",
+        "to_location_id": "29a8bc16e1884458a9fca4ff86eb4c0b",
+        "quantity": "3.0000",
+        "note": "Synthetic final return",
+        "request_id": "8fc3ced75356472c83ba4f3e12cafd15"
+      },
+      "status": 201,
+      "response_canonical_sha256": "7a2132c309eba855182831bd2680d83109a67c7cb26f9e6c5d196dc3e0f1b615"
+    },
+    {
+      "original_command": {
+        "kind": "return",
+        "article_id": "8a09ac7ddf3941e69b955521b6e62aa0",
+        "project_id": "b6baf853673245138242e02d4a21d695",
+        "reversal_of": "159c0f006d2d468aa5d4c39fa0ae53c7",
+        "to_location_id": "29a8bc16e1884458a9fca4ff86eb4c0b",
+        "quantity": "1.0000",
+        "note": "Synthetic warehouse price-free return",
+        "request_id": "ef170f13c9f443acabe42e88f66db41d"
+      },
+      "status": 201,
+      "response_canonical_sha256": "ee81b6125452a152d16bc1f61184c5c9295d938fd46ca20b56ce6e5df14ff7bc"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+00:00 +0: loading /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart
+00:00 +0: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: real partial and final returns retain exact original quantities and historical valuation
+00:00 +1: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: first return binds original project and article and never sends current price or source warehouse
+00:00 +2: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: fresh remaining balance prevents over-return and changed source before any POST
+00:00 +3: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: accepted lost response repeats exact original after all material is already returned
+00:00 +4: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: price-free original acknowledgement survives finance withdrawal but write withdrawal preserves it
+00:00 +5: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: wrong acknowledgement and changed account cannot consume or resend another original
+00:00 +6: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: concurrent first submissions cannot create two return commands
+00:00 +7: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: changed author metadata or readback value cannot confirm the original
+00:00 +8: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: real HTTP lost response retains its original request and produces one stored return
+00:00 +9: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: closing and reopening an unconfirmed return retains only the original retry
+00:04 +10: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_document_access_test.dart: Warehouse role selects a paginated price-free article in the actual reservation dialog
+00:07 +11: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: actual material area opens an original-bound return form without price inputs
+00:07 +12: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: actual material area opens an original-bound return form without price inputs
+00:08 +13: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: actual material area opens an original-bound return form without price inputs
+00:08 +14: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_document_access_test.dart: Broken pagination never exposes partial material choices
+00:08 +15: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_document_access_test.dart: Open document position dialog enforces its current write permission
+00:10 +16: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_document_access_test.dart: Open template position dialog enforces its current write permission
+00:10 +17: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_document_access_test.dart: Open template position dialog enforces its current write permission
+00:10 +18: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_document_access_test.dart: Open template position dialog enforces its current write permission
+00:10 +19: /workspace/smartplan-material-return-clients-20261109/app/test/business_material_document_access_test.dart: Open template position dialog enforces its current write permission
+00:11 +20: /workspace/smartplan-material-return-clients-20261109/app/test/business_inventory_counts_test.dart: physical count UI records quantities then displays the approved valuation
+00:11 +21: /workspace/smartplan-material-return-clients-20261109/app/test/business_inventory_counts_test.dart: physical count UI records quantities then displays the approved valuation
+00:12 +22: /workspace/smartplan-material-return-clients-20261109/app/test/business_inventory_counts_test.dart: physical count UI records quantities then displays the approved valuation
+00:14 +23: /workspace/smartplan-material-return-clients-20261109/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:20 +24: /workspace/smartplan-material-return-clients-20261109/app/test/business_catalog_price_consumers_test.dart: pricing BOM sends explicit purchase source without rounding one euro per three units
+00:22 +25: /workspace/smartplan-material-return-clients-20261109/app/test/business_catalog_price_consumers_test.dart: bound root cost skips manual required zero and sends only authoritative source
+00:23 +26: /workspace/smartplan-material-return-clients-20261109/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after background
+00:24 +27: /workspace/smartplan-material-return-clients-20261109/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after generation
+00:25 +28: /workspace/smartplan-material-return-clients-20261109/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after read
+00:25 +29: /workspace/smartplan-material-return-clients-20261109/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after write
+00:26 +30: /workspace/smartplan-material-return-clients-20261109/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after module
+00:27 +31: /workspace/smartplan-material-return-clients-20261109/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after background
+00:29 +32: /workspace/smartplan-material-return-clients-20261109/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after generation
+00:29 +33: /workspace/smartplan-material-return-clients-20261109/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after read
+00:30 +34: /workspace/smartplan-material-return-clients-20261109/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after write
+00:32 +35: /workspace/smartplan-material-return-clients-20261109/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after module
+00:33 +36: All tests passed!

@@ -1,0 +1,89 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart
+00:00 +0: real partial and final returns retain exact original quantities and historical valuation
+00:00 +1: first return binds original project and article and never sends current price or source warehouse
+00:00 +2: fresh remaining balance prevents over-return and changed source before any POST
+00:00 +3: accepted lost response repeats exact original after all material is already returned
+00:00 +4: price-free original acknowledgement survives finance withdrawal but write withdrawal preserves it
+00:00 +4 -1: price-free original acknowledgement survives finance withdrawal but write withdrawal preserves it [E]
+  Die aktuelle Material- oder Projektberechtigung fehlt.
+  package:smartplan_office/business_material_returns.dart 12:5    _fail
+  package:smartplan_office/business_material_returns.dart 168:7   MaterialReturnFlow._check
+  package:smartplan_office/business_material_returns.dart 172:5   MaterialReturnFlow._fresh
+  package:smartplan_office/business_material_returns.dart 287:25  MaterialReturnFlow._send
+  package:smartplan_office/business_material_returns.dart 278:20  MaterialReturnFlow.retry
+  test/business_material_returns_test.dart 241:18                 main.<fn>
+  
+00:00 +4 -1: wrong acknowledgement and changed account cannot consume or resend another original
+00:00 +5 -1: concurrent first submissions cannot create two return commands
+00:00 +6 -1: closing and reopening an unconfirmed return retains only the original retry
+Pending timers:
+Timer (duration: 0:00:30.000000, periodic: true), created:
+#0      new FakeTimer._ (package:fake_async/fake_async.dart:342:62)
+#1      FakeAsync._createTimer (package:fake_async/fake_async.dart:260:29)
+#2      FakeAsync.run.<anonymous closure> (package:fake_async/fake_async.dart:187:15)
+#5      BusinessSession._loadCapabilities (package:smartplan_office/business_session.dart:3097:30)
+<asynchronous suspension>
+#6      BusinessSession.load.<anonymous closure> (package:smartplan_office/business_session.dart:3018:7)
+<asynchronous suspension>
+(elided 2 frames from dart:async)
+
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+A Timer is still pending even after the widget tree was disposed.
+'package:flutter_test/src/binding.dart':
+Failed assertion: line 2543 pos 12: '!timersPending'
+
+When the exception was thrown, this was the stack:
+#2      AutomatedTestWidgetsFlutterBinding._verifyInvariants (package:flutter_test/src/binding.dart:2543:12)
+#3      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1974:7)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+
+The test description was:
+  closing and reopening an unconfirmed return retains only the original retry
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:05 +6 -2: closing and reopening an unconfirmed return retains only the original retry [E]
+  Test failed. See exception logs above.
+  The test description was: closing and reopening an unconfirmed return retains only the original retry
+  
+00:05 +6 -2: actual material area opens an original-bound return form without price inputs
+Pending timers:
+Timer (duration: 0:00:30.000000, periodic: true), created:
+#0      new FakeTimer._ (package:fake_async/fake_async.dart:342:62)
+#1      FakeAsync._createTimer (package:fake_async/fake_async.dart:260:29)
+#2      FakeAsync.run.<anonymous closure> (package:fake_async/fake_async.dart:187:15)
+#5      BusinessSession._loadCapabilities (package:smartplan_office/business_session.dart:3097:30)
+<asynchronous suspension>
+#6      BusinessSession.load.<anonymous closure> (package:smartplan_office/business_session.dart:3018:7)
+<asynchronous suspension>
+(elided 2 frames from dart:async)
+
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+A Timer is still pending even after the widget tree was disposed.
+'package:flutter_test/src/binding.dart':
+Failed assertion: line 2543 pos 12: '!timersPending'
+
+When the exception was thrown, this was the stack:
+#2      AutomatedTestWidgetsFlutterBinding._verifyInvariants (package:flutter_test/src/binding.dart:2543:12)
+#3      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1974:7)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+
+The test description was:
+  actual material area opens an original-bound return form without price inputs
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:09 +6 -3: actual material area opens an original-bound return form without price inputs [E]
+  Test failed. See exception logs above.
+  The test description was: actual material area opens an original-bound return form without price inputs
+  
+00:09 +6 -3: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: actual material area opens an original-bound return form without price inputs
+  /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: closing and reopening an unconfirmed return retains only the original retry
+  /workspace/smartplan-material-return-clients-20261109/app/test/business_material_returns_test.dart: price-free original acknowledgement survives finance withdrawal but write withdrawal preserves it

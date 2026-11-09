@@ -13,6 +13,7 @@ import 'business_service_reports.dart';
 import 'business_asset_provenance.dart';
 import 'business_personnel_workflow.dart';
 import 'business_inventory_counts.dart';
+import 'business_material_returns.dart';
 import 'offline_plans.dart';
 import 'design.dart';
 
@@ -653,7 +654,6 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
         choices: {
           'receive': 'Zugang',
           'issue': 'Projektentnahme',
-          'return': 'Rückgabe',
           'transfer': 'Umlagerung',
         },
       ),
@@ -1293,7 +1293,25 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
                                   widget.session.canWrite('time.approve'))
                         ? (record) => workflow(section.id, record)
                         : null,
-                    actions: section.id == 'assets' && assetOriginsAvailable
+                    actions:
+                        section.id == 'inventory/movements' &&
+                            widget.session.canWrite('inventory.write')
+                        ? OutlinedButton.icon(
+                            onPressed: () async {
+                              await showDialog<bool>(
+                                context: context,
+                                builder: (_) => MaterialReturnDialog(
+                                  flow: MaterialReturnFlow.forSession(
+                                    widget.session,
+                                  ),
+                                ),
+                              );
+                              if (mounted) setState(() => refreshSerial++);
+                            },
+                            icon: const Icon(Icons.keyboard_return),
+                            label: const Text('Material zurückgeben'),
+                          )
+                        : section.id == 'assets' && assetOriginsAvailable
                         ? OutlinedButton.icon(
                             onPressed: () => openAssetOrigins(),
                             icon: const Icon(Icons.inventory_2_outlined),

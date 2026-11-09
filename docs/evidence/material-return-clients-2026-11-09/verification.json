@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "tested_base": "487977a",
+  "fixture_sha256": "43b2600219fb712ed832113c49155159a18b3c140ffad61d4ac0e6122360eb38",
+  "source_files": {
+    "web/office/stock-returns.js": "584d22303b4080702a875a436d552a1e5bb0cbdf89c160af15faf1aca9e48199",
+    "web/office/office.js": "031df0e084068ef57f38df196b7676e2bf43ae6f89ad2870ed9a7581700e6962",
+    "app/lib/business_material_returns.dart": "c0a2e40b543c688b8ba8bca9d917cbb9b2b5f638304d0a05206c42e49d70a47f",
+    "app/lib/business_operations.dart": "4162382f9f2ef7043da500e114efd78141047781e678c751e8eb91bac5feb28d",
+    "backend/online/web.py": "3f52678145c1dafa4c3ec4b5c2b3166d7c17ed4486add5c60f4b4b5bf0d6fff8"
+  },
+  "http_passed": 3,
+  "postgres_passed": 4,
+  "browser_regression_passed_files": 7,
+  "browser_contracts_passed": 8,
+  "native_passed": 36,
+  "native_new_passed": 11,
+  "native_analysis_files": 3,
+  "browser_actual_mfa_http_passed": true,
+  "late_dialog_red_reproduced": true,
+  "late_dialog_fixed_in_final_browser": true,
+  "price_free_warehouse_browser_passed": true,
+  "production_backend_contract_changed": false,
+  "live_install_or_provider_action": false,
+  "unconfirmed_command_persistence": "same authenticated in-memory session; no process-restart persistence"
+}

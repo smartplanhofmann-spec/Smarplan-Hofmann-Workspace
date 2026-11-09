@@ -1,0 +1,8 @@
+test_actual_http_partial_multiple_overreturn_and_restart_preserve_original_cost (test_material_returns_http.MaterialReturnHttpTests.test_actual_http_partial_multiple_overreturn_and_restart_preserve_original_cost) ... ok
+test_current_project_write_rights_and_price_redaction_apply_to_original_retry (test_material_returns_http.MaterialReturnHttpTests.test_current_project_write_rights_and_price_redaction_apply_to_original_retry) ... ok
+test_final_return_carries_original_rounding_remainder (test_material_returns_http.MaterialReturnHttpTests.test_final_return_carries_original_rounding_remainder) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 3.014s
+
+OK

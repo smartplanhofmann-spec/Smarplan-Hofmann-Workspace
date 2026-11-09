@@ -1,0 +1,44 @@
+{
+  "source_commit": "4c72f084fde007778475fd64c0ea80e8d07b2547",
+  "production_source_matches_verified_material_commit": "564fc7de6c9205b4f46ce8445ac65d3ade7a47e4",
+  "checks": {
+    "browser-modules": {
+      "passed": 980,
+      "failed": 0,
+      "skipped": 0,
+      "milliseconds": 13607.374899,
+      "exit_code": 0,
+      "raw_bytes": 99972,
+      "raw_sha256": "b21dc596776ab020a9c0b5ad85cb0f927ac00a662d83f3749aaf3cb9770fedb1"
+    },
+    "native-combined": {
+      "passed": 41,
+      "failed": 0,
+      "skipped": 0,
+      "elapsed_log_seconds": 65,
+      "exit_code": 0,
+      "raw_bytes": 8127,
+      "raw_sha256": "e86c6b0e5fe8878a976ef484befd3fc2cfc4dd39bb909d4dc1c900f6c619b72a"
+    },
+    "app-analysis": {
+      "issues": 0,
+      "seconds": 26.9,
+      "exit_code": 0,
+      "raw_bytes": 97,
+      "raw_sha256": "917ddf19babf9f3798f557b55405dd518c9d205465a4fb9d6e17efae582f3f4b"
+    },
+    "pub-get": {
+      "lockfile_changes": false,
+      "exit_code": 0,
+      "raw_bytes": 68,
+      "raw_sha256": "d4cb7a3c68b4133b4f6e58c67ff5bfd13725d8021e930388cdc98da8a575919d"
+    }
+  },
+  "preserved_originals": {
+    "old_2026_kernels": 32,
+    "original_payment_module_unchanged": true,
+    "goal_bytes": 23863,
+    "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "workflow_addition": "Explicit material-return SQLite HTTP suite added alongside its PG suite; YAML parsed locally. Remote rerun pending."
+}

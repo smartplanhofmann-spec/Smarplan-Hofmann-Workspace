@@ -92,6 +92,18 @@ Abschluss stellt keine Rechnung aus und verändert kein Budget automatisch.
 Bestellungen enthalten konkrete Positionen. Teil- und Restlieferungen werden
 gegen diese Positionen erfasst; der Original-Lieferschein bleibt erhalten.
 Lagerbewegungen, Reservierungen und Projektentnahmen sind eigene belegte Schritte.
+Für eine Rückgabe im Bereich der Lagerbewegungen **Material zurückgeben** wählen.
+Projekt und ursprüngliche Entnahme ausdrücklich auswählen, Ziellager und
+tatsächlich zurückgegebene Menge angeben und bestätigen. Artikel und historischer
+Einstand stammen aus der Originalentnahme; sie werden nicht neu festgelegt.
+Der Server prüft die verbleibende Menge. Eine Lagerrolle benötigt dafür keinen
+Zugriff auf Einkaufspreise. Bestand und Projektkosten werden gemeinsam angepasst.
+
+Bei einer unklaren Antwort **Ursprüngliche Rückgabe erneut prüfen** verwenden.
+Der offene Auftrag ist derzeit an die laufende Sitzung gebunden. Nach einem
+Browser-/App-Neustart zuerst das Lagerjournal prüfen, bevor eine neue Rückgabe
+angelegt wird. Die Rückgabe benötigt eine Onlineverbindung.
+
 Die Inventur vergleicht eine ausdrücklich gezählte Menge mit einem gebundenen
 Lagerstand. Differenzen benötigen einen Grund und gegebenenfalls eine Bewertung.
 

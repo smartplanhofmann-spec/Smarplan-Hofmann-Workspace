@@ -97,6 +97,7 @@ jobs:
           python -m unittest -v online.test_factor_travel_review_pg
           python -m unittest -v online.test_minijob_v11_independent_pg
           python -m unittest -v online.test_material_returns_pg
+          python -m unittest -v online.test_material_returns_http
           python -m unittest -v online.test_communication_history_pg
           python -m unittest discover -s backend/online -p test_accounting_year_package_pg.py -v
           python -m unittest -v online.test_accounting_year_package_v2_pg

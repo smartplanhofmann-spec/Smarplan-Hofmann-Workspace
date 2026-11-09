@@ -3304,3 +3304,35 @@ POSIX-Onlineservernachweis; kein Produktguard wird abgeschaltet.
 
 [Rohlog und Maschinenbericht](evidence/final-assembly-2026-11-09/checks-so-far.json),
 [tatsächlicher CI-Zwischenstand](evidence/final-assembly-2026-11-09/ci-827-intermediate.json).
+
+## 09.11.2026 – Materialrückgabe in beiden Clients gemeinsam integriert
+
+Der vorhandene Lagervertrag ist nun in Browser und App vollständig für den
+beschriebenen Onlineablauf bedienbar. Auswahl der Originalentnahme, verbleibende
+Menge, tatsächliches Ziellager und Bestätigung ersetzen die bisher fehlende
+Browseraktion bzw. ungültige native Rückgabe ohne Originalbezug. Einstand und
+Projekt kommen aus dem ursprünglichen Lagerjournal. Mengen- und Geldarithmetik
+des Backendvertrags bleiben unverändert.
+
+Vier tatsächliche PostgreSQL-Fälle einschließlich konkurrierender Rückgaben,
+Neustart und Dump/Restore sowie drei SQLite-/MFA-/HTTP-Fälle bestehen. Der echte
+Chromiumablauf prüft historische Preise, Teil-/Vollrückgabe, Rundungsrest,
+Originalretry, Bestand/Projektkosten und Lagerrolle ohne Preiszugriff.
+Ein zusätzlich reproduzierter Dialogwechsel-Fehler bei spätem GET ist behoben
+und mit derselben tatsächlichen Gegenprobe nachgeprüft. Rohfehler bleiben erhalten.
+
+Gemeinsam bestehen 980 Browsermodul- und 41 native Material-/Bestands-/Beleg-/
+Preis-/Offline-/Servicefälle. Appanalyse ohne Befund. Die für den Browser und
+PostgreSQL ergänzte CI ruft nun auch die SQLite-/HTTP-Fälle ausdrücklich auf.
+32 historische Rechenmodule, ursprüngliche Zahlungsarithmetik und Originalziel
+sind erneut unverändert geprüft. Neue Server- oder Geräteabnahme ist nicht erfolgt.
+Offene Materialaufträge überstehen derzeit keinen Prozessneustart; ein
+Offline-Rückgabeablauf ist nicht implementiert.
+
+Der gesonderte iPhone-CI-Fehler betrifft drei Service-HTTP-Testaufbauten unter
+macOS `/var`. Der echte unveränderte Binderfehler ist mit einem Pfadlink
+reproduziert und durch Kanonisierung der Testwurzel behoben; alle drei realen
+Fälle bestehen danach. Die aktuellen Produktguards werden nicht gelockert.
+
+[Gemeinsame Quellen, Rohlogs und Grenzen](CRM_ERP_MATERIALRUECKGABE_INTEGRATION_2026-11-09.md).
+Kilometererstattung bleibt in eigenem Arbeitsstand in Entwicklung.

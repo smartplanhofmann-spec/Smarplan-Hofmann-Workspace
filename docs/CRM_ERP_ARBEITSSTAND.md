@@ -76,7 +76,7 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
 Hauptprojekt: `/workspace/Smarplan-Hofmann-Workspace` auf dem lokalen Branch
 `codex/finish-20261108`. Der weitere Integrationskandidat steht in
-`/workspace/smartplan-minijob-integration-20261109`; ältere vollständige
+`/workspace/smartplan-material-integration-20261109`; ältere vollständige
 Arbeitskopien und Zwischenstände bleiben erhalten.
 Der lokale gemeinsame Stand enthält die abgeschlossenen Projektmeilensteine,
 die Korrekturen der drei nachgewiesenen CI-Testfehler und den neuen
@@ -139,6 +139,18 @@ bestätigt Rechnung, zwei Zeitbindungen, PDF-Hash und beide Integritätsprüfer.
 [Browserzeitabrechnung](CRM_ERP_ZEITABRECHNUNG_BROWSER_2026.md),
 [gemeinsamer Integrationsnachweis](CRM_ERP_ZEITABRECHNUNG_INTEGRATION_2026-11-09.md).
 
+Die Materialrückgabe ist inzwischen in beiden Clients mit dem vorhandenen
+Lagervertrag integriert. Originalentnahme, historische Bewertung, Restmenge,
+Teil-/Vollrückgabe, Bestand und Projektkosten sind im tatsächlichen PostgreSQL-/
+MFA-/HTTP-/Restore-/Konkurrenz- und Browserablauf geprüft. Die Lagerrolle
+benötigt keine Finanzrechte. Ein tatsächlich reproduzierter verspäteter GET
+ersetzte einen bereits gewechselten Dialog; der bestehende Guard prüft jetzt
+zusätzlich die Dialoggeneration und besteht dieselbe Gegenprobe. Der gemeinsame
+Nachlauf besteht 980 Browsermodul- und 41 native Fälle, Appanalyse ohne Befund.
+[Integrationsnachweis](CRM_ERP_MATERIALRUECKGABE_INTEGRATION_2026-11-09.md).
+Offene Rückgabeaufträge sind bisher sitzungsgebunden; Prozessneustartpersistenz
+und Offline-Materialrückgabe werden nicht als erledigt ausgewiesen.
+
 Der vollständige App-Lauf auf d4df2f5 ist beendet: 1.746 bestanden, vier
 fehlgeschlagen, kein Skip, 38:31 Minuten. Drei Fehler stammen aus zwei
 inkonsistenten gebundenen Testaufbauten; die Korrektur besteht separat mit
@@ -171,7 +183,12 @@ betroffene Buchhaltungs-/Berechtigungsfälle, beide tatsächlichen nativen HTTP-
 Fälle und die portable Testauswahl bestehen. Die Windows-Auswahl ist lokal
 auf Linux geprüft; eine tatsächliche neue Windows-CI wird damit nicht ersetzt.
 [Testkorrektur und ursprüngliche Fehlprotokolle](CRM_ERP_CI_OFFLINE_FIXTURES_2026-11-09.md).
-Business-/Browserjob sowie der unsignierte iPhone-Build sind noch aktiv.
+Der Business-/Browserjob ist noch aktiv. Der unsignierte iPhone-Lauf scheitert
+an drei Service-Journal-Fällen mit nicht aufgelöstem macOS-Temp-Pfad. Genau der
+Fehler ist mit unverändertem Server und tatsächlichem Pfadlink reproduziert,
+im Testaufbau korrigiert und mit allen drei vollständigen Fällen sowie Analyse
+erneut grün. Der produktive POSIX-Guard ist unverändert. Der signierte Upload
+bleibt übersprungen. Diese Korrektur ist ebenfalls im Materialkandidaten.
 Die vollständige lokale Appprüfung auf genau diesem Stand ist inzwischen grün.
 Der signierte Upload ist nicht angefordert.
 [Veröffentlichungsnachweis](evidence/final-assembly-2026-11-09/publication.json).

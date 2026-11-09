@@ -46,11 +46,31 @@ Reise-Testmodus korrigiert ausschließlich diesen Aufbau.
 Zwölf neue native Fälle bestehen gegen dieselbe echte Backendfixture,
 einschließlich exakter Widget-Quellenwahl, Faktorkorrektur, Zahlungssumme,
 Faktor-/Quellenbindung, aufgehobener Zahlungsfassung und ursprünglichem
-Lohnlauf bei später entzogenem Funktionszugang. Die 18 bisherigen Source3-Fälle
-bleiben geprüft; die Dart-Analyse meldet keinen Befund.
+Lohnlauf bei später entzogenem Funktionszugang. Der gemeinsame finale Lauf besteht 26 ausgewählte native Fälle, einschließlich
+der zwölf neuen Fälle und bestehender Source3-/Kontextgegenfälle. Die
+Dart-Analyse von vier Produktdateien und dem neuen Test meldet keinen Befund.
 
-Die gemeinsame Integrationsprüfung gegen den finalen Backendnachlauf wird
-nach dessen Übernahme ergänzt.
+## Gemeinsame Integrationsbasis
+
+Die Prüfung verwendet den zusammengeführten Backendstand einschließlich
+`35f94e4` (in der Integrationsarbeitskopie `69ddb4a`) mit getrennten
+v10-Periodenmetadaten für die Jahresprojektion. Offline V2, Servicejournal,
+Projektmeilensteine und die Wartungsvertragsbearbeitung bleiben erhalten.
+Die gemeinsame Originalwiederholung in `OfficeApi` berücksichtigt sowohl
+Wartungsverträge als auch den neuen Faktorfall und dessen Lohnlauf.
+
+41 Browser-Testdateien einschließlich der Wartungsvertragsregression bestehen.
+26 ausgewählte native Fälle bestehen; die Analyse meldet keinen Befund.
+Der abschließende gemeinsame Chromiumlauf besteht mit tatsächlicher MFA, HTTP und
+geprüften Chromium-Namespace-/PID-/Netzwerk-/Seccomp-Sandboxes.
+
+Die unabhängige native Gegenprüfung reproduzierte zunächst drei fehlende
+Quervergleiche: Zahlungssumme gegen Plan, Planfaktor gegen Originalprofil und
+Rechnungsfaktor gegen Plan. Die korrigierten Gegenfälle und die Erhaltung
+aufgehobener Zahlungsfassungen sind jetzt geprüft. Die ursprünglichen roten
+Protokolle bleiben zusammen mit den erfolgreichen Läufen erhalten.
+
+[Maschinenlesbarer Nachweis und Protokolle](evidence/factor-travel-clients-2026-11-09/verification.json).
 
 Die Prüfungen verwenden synthetische Daten. Sie belegen keine neue
 Serverinstallation, Geräteabnahme, fachliche Gesamtfreigabe oder amtliche

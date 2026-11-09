@@ -1,0 +1,36 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: /personnel/travel/sources?employee_id=319e88c282054286af359372147d1904 {"error":"Operator muss die Unternehmensinstanz zuerst fest binden."}
+
+    at api (/workspace/smartplan-factor-travel-clients-20261109/web/office/tests/payroll-factor-travel-flow.cjs:12:259)
+    at async Object.payrollFactorTravelFlow (/workspace/smartplan-factor-travel-clients-20261109/web/office/tests/payroll-factor-travel-flow.cjs:55:23)
+    at async main (/workspace/smartplan-factor-travel-clients-20261109/web/office/tests/e2e.cjs:115:7)
+Browser launch context: {"browser":"/usr/bin/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: []
+Visible headings: [
+  'Personal & Zeiten',
+  'Nettoarbeitszeit im Monat',
+  'Arbeitszeiteinträge',
+  'Tagesfreigaben',
+  'Mitarbeiterprofile'
+]
+Active section: personnel
+Pending API requests: []
+Fixture log tail:
+16:34:41] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 16:34:41] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 16:34:41] "GET /api/v1/business/employees HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 16:34:41] "GET /api/v1/business/time/entries?employee_id=319e88c282054286af359372147d1904&from=2026-11-01&to=2026-11-09 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 16:34:41] "GET /api/v1/business/time/summary?employee_id=319e88c282054286af359372147d1904&from=2026-11-01&to=2026-11-09 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 16:34:41] "POST /api/v1/business/personnel/travel/sites HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 16:34:41] "POST /api/v1/business/personnel/travel/sites HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 16:34:41] "POST /api/v1/business/personnel/travel/trips HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 16:34:41] "GET /api/v1/business/personnel/travel/sources?employee_id=319e88c282054286af359372147d1904 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 16:34:42] "POST /api/v1/business/personnel/travel/trips/71d1ecae7142424794ecbfc166d390b2/submit HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 16:34:42] "POST /api/v1/business/personnel/travel/settlements/preview HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 16:34:42] "POST /api/v1/business/personnel/travel/settlements HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 16:34:42] "[31m[1mGET /api/v1/business/personnel/travel/sources?employee_id=319e88c282054286af359372147d1904 HTTP/1.1[0m" 409 -
+
+SMARTPLAN_BROWSER_FAILURE_END

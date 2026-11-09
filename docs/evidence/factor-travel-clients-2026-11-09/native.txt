@@ -1,0 +1,30 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_factor_travel_test.dart
+00:00 +0: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_factor_travel_test.dart: real backend fixture preserves v10 source selection, payment proof and exact payroll amounts
+00:00 +1: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:00 +2: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:00 +3: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:00 +4: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:00 +5: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:00 +6: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:00 +7: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:00 +8: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:00 +9: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:00 +10: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:01 +11: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:01 +12: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:02 +13: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:03 +14: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:06 +15: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+00:06 +16: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+00:09 +17: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: late private source error remains cleared after background
+00:13 +18: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: late inspect response cannot repopulate a hidden private page
+00:14 +19: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: background clears an open editor containing private original details
+00:17 +20: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: month switch requests the new month and clears selected original and plan
+00:18 +21: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: original callback receives the exact selected historical file
+00:19 +22: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: flat tax recording remains an explicit new instruction on correction
+00:21 +23: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: late preview after background cannot restore editor or submit a command
+00:23 +24: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: pending original blocks month change and new calculation-case actions
+00:23 +25: /workspace/smartplan-factor-travel-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: revoked read right prevents original opening after a visible selection
+00:24 +26: All tests passed!

@@ -1,0 +1,31 @@
+00:00 +0: loading /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_factor_travel_test.dart
+00:00 +0: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_calculation_case_contract_test.dart: actual evidence policy binds ELStAM identity and separately evidenced membership
+00:00 +1: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_calculation_case_contract_test.dart: actual v5 typed case command and accepted plan preserve all original sources
+00:00 +2: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_calculation_case_contract_test.dart: actual v5 net includes taxable travel once and subtracts documented employee flat tax costs
+00:00 +3: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_calculation_case_contract_test.dart: foreign private source, replaced case, unsupported rules and altered accepted body fail
+00:01 +4: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_factor_travel_test.dart: real backend fixture preserves v10 source selection, payment proof and exact payroll amounts
+00:01 +5: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_factor_travel_test.dart: payment selection must bind the actual settlement and cannot select unapproved scope
+00:01 +6: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_factor_travel_test.dart: real factor correction preserves the old travel original and changes only the confirmed payroll source
+00:01 +7: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_factor_travel_test.dart: history rejects changed payment prefix, cash proof, factor, rule or net additions
+00:02 +8: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_factor_travel_test.dart: frozen plan total must equal all original travel payment proofs
+00:02 +9: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_factor_travel_test.dart: retired payment versions remain explicitly bound in the complete source selection
+00:02 +10: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_factor_travel_test.dart: frozen plan factor must equal the original selected profile factor
+00:02 +11: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_factor_travel_test.dart: calculation factor must equal its frozen plan factor
+00:02 +12: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_factor_travel_test.dart: accepted v10 reply loss retries the exact original only after current feature and employee checks
+00:02 +13: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:10 +14: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:11 +15: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:11 +16: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:16 +17: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:16 +18: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+00:17 +19: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+00:22 +20: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: late private source error remains cleared after background
+00:25 +21: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: late inspect response cannot repopulate a hidden private page
+00:26 +22: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: background clears an open editor containing private original details
+00:29 +23: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: month switch requests the new month and clears selected original and plan
+00:31 +24: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: original callback receives the exact selected historical file
+00:32 +25: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: flat tax recording remains an explicit new instruction on correction
+00:36 +26: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: late preview after background cannot restore editor or submit a command
+00:40 +27: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: pending original blocks month change and new calculation-case actions
+00:41 +28: /workspace/smartplan-factor-travel-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: revoked read right prevents original opening after a visible selection
+00:43 +29: All tests passed!

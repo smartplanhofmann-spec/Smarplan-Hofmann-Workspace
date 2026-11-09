@@ -1,0 +1,195 @@
+{
+  "synthetic_only": true,
+  "commands": [
+    {
+      "path": "/api/v1/business/payroll/calculation-cases",
+      "status": 200,
+      "body": {
+        "employee_id": "f3e989bbd737446da7c2f37925fc82ac",
+        "employee_revision": 2,
+        "kind": "calculation_case",
+        "rule_version": "de_2026_factor_taxfree_travel_month_v10",
+        "source_contract_version": 2,
+        "details": {
+          "month": "2026-10",
+          "period_case_ref": {
+            "id": "fbf85734ced24fd39d5f217776738fc1",
+            "revision": 1,
+            "content_hash": "e70d47c00d62698f85e7275124ce7c810e525376f2b2ff76ba0976b5fe83f8ba"
+          },
+          "employment_terms_refs": [
+            {
+              "id": "cea1a5d0bf9547488d04dd70c03c71b6",
+              "revision": 1,
+              "content_hash": "d73c595c4a309221a5c21d17293418038fb00abb05dd0367d91f0ad40db460a3"
+            }
+          ],
+          "profile_refs": [
+            {
+              "id": "888808198cd94ecca9d73a177310310d",
+              "revision": 1,
+              "content_hash": "61c8d47cc7f8d0888df2a86a172c60ac9d23aaf8b02132fe5bf9afefd2fcd3c1"
+            }
+          ],
+          "identity_refs": [
+            {
+              "id": "03c9f5aada334463a75ce3b79ff26363",
+              "revision": 1,
+              "content_hash": "faef27ea04f83125c1283aa29f7fc74c5ad781fc7a3d36fe7c9ce1c4ad616bcc"
+            }
+          ],
+          "segment_events": [],
+          "thirty_day_rule": null,
+          "entitlement_case_refs": [],
+          "travel_settlement_refs": [
+            {
+              "id": "37b964c731d74c4ca184d47924475fbd",
+              "revision": 1,
+              "content_hash": "13f771b34217fd6cec76e4cd819491f1bacc1b542a42b813ef0e67b08fe13ecd"
+            }
+          ],
+          "travel_payment_refs": [
+            {
+              "id": "2681e261442d43548bf1f78a8c328a76",
+              "revision": 1,
+              "content_hash": "87b0f41ff8947afc90a92f7236fae4557b01514898d9e11a5b5d155a386f58f9"
+            }
+          ],
+          "flat_tax_decision": null,
+          "verification_note": "Synthetic factor month and already paid tax-free travel originals reviewed"
+        },
+        "source_file_ids": [
+          "90dacef75f274fb0b2ebe6c0252c8de0"
+        ],
+        "revision": 0,
+        "status": "active",
+        "confirmed": true,
+        "preview_hash": "966fbe888cb1ca65a03640816115aba6946303030f8dfd9f6821f79de134fe2d",
+        "request_id": "4afeafdac5de44c9b6705fae9e475343"
+      },
+      "response_sha256": "ab41cfe5cc8130b721849c573bf01ab04a48d12d5256a9730f1d2f35dd2dd739",
+      "result_id": "4f2caf0f7d4546a18591c13ad45451e6",
+      "result_revision": 1,
+      "content_hash": "49b052d56846074671bd2051f1f168d874862e4f109563168a9577bea8d45953",
+      "net_minor": null
+    },
+    {
+      "path": "/api/v1/business/payroll/calculation-cases",
+      "status": 200,
+      "body": {
+        "employee_id": "f3e989bbd737446da7c2f37925fc82ac",
+        "employee_revision": 2,
+        "kind": "calculation_case",
+        "rule_version": "de_2026_factor_taxfree_travel_month_v10",
+        "source_contract_version": 2,
+        "details": {
+          "month": "2026-10",
+          "period_case_ref": {
+            "id": "fbf85734ced24fd39d5f217776738fc1",
+            "revision": 1,
+            "content_hash": "e70d47c00d62698f85e7275124ce7c810e525376f2b2ff76ba0976b5fe83f8ba"
+          },
+          "employment_terms_refs": [
+            {
+              "id": "cea1a5d0bf9547488d04dd70c03c71b6",
+              "revision": 1,
+              "content_hash": "d73c595c4a309221a5c21d17293418038fb00abb05dd0367d91f0ad40db460a3"
+            }
+          ],
+          "profile_refs": [
+            {
+              "id": "888808198cd94ecca9d73a177310310d",
+              "revision": 1,
+              "content_hash": "61c8d47cc7f8d0888df2a86a172c60ac9d23aaf8b02132fe5bf9afefd2fcd3c1"
+            }
+          ],
+          "identity_refs": [
+            {
+              "id": "03c9f5aada334463a75ce3b79ff26363",
+              "revision": 1,
+              "content_hash": "faef27ea04f83125c1283aa29f7fc74c5ad781fc7a3d36fe7c9ce1c4ad616bcc"
+            }
+          ],
+          "segment_events": [],
+          "thirty_day_rule": null,
+          "entitlement_case_refs": [],
+          "travel_settlement_refs": [
+            {
+              "id": "37b964c731d74c4ca184d47924475fbd",
+              "revision": 1,
+              "content_hash": "13f771b34217fd6cec76e4cd819491f1bacc1b542a42b813ef0e67b08fe13ecd"
+            }
+          ],
+          "travel_payment_refs": [
+            {
+              "id": "2681e261442d43548bf1f78a8c328a76",
+              "revision": 1,
+              "content_hash": "87b0f41ff8947afc90a92f7236fae4557b01514898d9e11a5b5d155a386f58f9"
+            }
+          ],
+          "flat_tax_decision": null,
+          "verification_note": "Synthetic factor month and already paid tax-free travel originals reviewed"
+        },
+        "source_file_ids": [
+          "90dacef75f274fb0b2ebe6c0252c8de0"
+        ],
+        "revision": 0,
+        "status": "active",
+        "confirmed": true,
+        "preview_hash": "966fbe888cb1ca65a03640816115aba6946303030f8dfd9f6821f79de134fe2d",
+        "request_id": "4afeafdac5de44c9b6705fae9e475343"
+      },
+      "response_sha256": "ab41cfe5cc8130b721849c573bf01ab04a48d12d5256a9730f1d2f35dd2dd739",
+      "result_id": "4f2caf0f7d4546a18591c13ad45451e6",
+      "result_revision": 1,
+      "content_hash": "49b052d56846074671bd2051f1f168d874862e4f109563168a9577bea8d45953",
+      "net_minor": null
+    },
+    {
+      "path": "/api/v1/business/payroll/runs",
+      "status": 200,
+      "body": {
+        "source_schema_version": 3,
+        "employee_id": "f3e989bbd737446da7c2f37925fc82ac",
+        "calculation_case_ref": {
+          "id": "4f2caf0f7d4546a18591c13ad45451e6",
+          "revision": 1,
+          "content_hash": "49b052d56846074671bd2051f1f168d874862e4f109563168a9577bea8d45953"
+        },
+        "preview_hash": "dee459731916cad9db93f5588b4131c0cedafbe8dce103c38e04792f5c0ddb0a",
+        "accepted_scope": "regular_standard_factor_taxfree_travel_month",
+        "confirmed": true,
+        "revision": 0,
+        "request_id": "f24a2650f6364b46aa2e3bb2944ced5d"
+      },
+      "response_sha256": "caa70b4922a3e1feaccb2b0dc2620e07d93e5749896c5887e065375e77770b06",
+      "result_id": "3db4b240e13b4029baca8fbe32f146de",
+      "result_revision": 1,
+      "content_hash": "06f37937f9971569ca905d0a29d4d1ab9c829c62e4993cacf174b78d98d50eb8",
+      "net_minor": 332342
+    },
+    {
+      "path": "/api/v1/business/payroll/runs",
+      "status": 200,
+      "body": {
+        "source_schema_version": 3,
+        "employee_id": "f3e989bbd737446da7c2f37925fc82ac",
+        "calculation_case_ref": {
+          "id": "4f2caf0f7d4546a18591c13ad45451e6",
+          "revision": 1,
+          "content_hash": "49b052d56846074671bd2051f1f168d874862e4f109563168a9577bea8d45953"
+        },
+        "preview_hash": "dee459731916cad9db93f5588b4131c0cedafbe8dce103c38e04792f5c0ddb0a",
+        "accepted_scope": "regular_standard_factor_taxfree_travel_month",
+        "confirmed": true,
+        "revision": 0,
+        "request_id": "f24a2650f6364b46aa2e3bb2944ced5d"
+      },
+      "response_sha256": "caa70b4922a3e1feaccb2b0dc2620e07d93e5749896c5887e065375e77770b06",
+      "result_id": "3db4b240e13b4029baca8fbe32f146de",
+      "result_revision": 1,
+      "content_hash": "06f37937f9971569ca905d0a29d4d1ab9c829c62e4993cacf174b78d98d50eb8",
+      "net_minor": 332342
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+factor travel: actual MFA/HTTP full factor month, original paid tax-free travel, explicit source/payment choice, exact case/run lost-ACK retries, unchanged net/payment, private original/PDF and mobile flow passed
+1 targeted factor travel browser workflow passed

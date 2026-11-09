@@ -1,0 +1,72 @@
+{
+  "date": "2026-11-09",
+  "scope": "regular_standard_factor_taxfree_travel_month",
+  "rule_version": "de_2026_factor_taxfree_travel_month_v10",
+  "source_contract_version": 2,
+  "source_schema_version": 3,
+  "backend_followup_original": "35f94e4",
+  "backend_followup_integrated": "69ddb4a",
+  "isolated_client_commit": "d04e987",
+  "integrated_client_commit": "054ba73",
+  "final_tested_product_commit": "8d38627",
+  "tests": {
+    "browser_module_files": {
+      "passed": 41,
+      "failed": 0,
+      "log": "browser-contracts.txt"
+    },
+    "native_selected": {
+      "passed": 26,
+      "failed": 0,
+      "new_cases": 12,
+      "log": "native.txt"
+    },
+    "dart_analyze": {
+      "items": 5,
+      "issues": 0,
+      "log": "analyze.txt"
+    },
+    "browser": {
+      "passed": true,
+      "actual_mfa": true,
+      "actual_http": true,
+      "namespace_sandbox_verified": true,
+      "log": "browser-final.txt",
+      "unchanged_request_response_pairs": 2
+    }
+  },
+  "original_net_unchanged": true,
+  "original_travel_payment_unchanged": true,
+  "actual_payment_created_by_payroll": false,
+  "review_failed_before_preserved": "native-review-before.txt",
+  "initial_fixture_failure_preserved": "browser-initial-fixture-failure.txt",
+  "official_software_approval": false,
+  "production_deployment": false,
+  "device_acceptance": false,
+  "source_sha256": {
+    "app/lib/business_payroll.dart": "1d3b35772784b29da6ebe61e5c5a247369423914580c0d694df51c051179ca96",
+    "app/lib/business_payroll_calculation_case_contract.dart": "26229e8a3b60e08d1c17a8ad224d7297dd37dcd244685eaf50f9da704dc858e5",
+    "app/lib/business_payroll_calculation_cases.dart": "5cc926d795c92f3fbcfbb9e85d84e9a1a2f9246ff5d788cf78af7e52f8388318",
+    "app/lib/business_session.dart": "150eb9208295a9ff39484563662774b56e48d8803d57725c8511e1b84aaad7a6",
+    "app/test/business_payroll_factor_travel_test.dart": "985c3928e2967f2cc5d2523f7b864ef0c0bbbf4701db91324cbb05dd64d318a2",
+    "web/office/office.js": "acf1680b37dd3619728d722eff12188d21df1a4108a2c363dbf707bd3ffc1eb5",
+    "web/office/payroll-calculation-cases.js": "64028041d400d2ae6e5ea55f06534dbce61d8ac02f807d78e9ed4299dfc00d21",
+    "web/office/payroll-factor-travel.js": "51d888206b09fcce00657716fe4372a951a68101922e28218de16ee6a54d2fdb",
+    "web/office/payroll.js": "c60fb03152652b8f4303e2fdd3bdd79ae9e6c7c58b9349c0085f1b7576429627",
+    "web/office/tests/payroll-factor-travel-flow.cjs": "ca80e96ec6d8a85524240824fbbaac707c53d3d866474e4ee2a245c7105010e1",
+    "web/office/tests/payroll-factor-travel.test.mjs": "a5366b5844399ea7032bd58d8bf856f847f99e92f5cd271abeb2aaae2a58692e",
+    "app/test/fixtures/payroll_factor_travel.json": "2cefdf221d9e1ad7e223478574c256e91ee97f2e5293be9979c5966d08195bf2"
+  },
+  "evidence_sha256": {
+    "analyze.txt": "774c2b2d96c5c7c02784620f68ecc38e87070c8ec45a80ccc748612cc9130ad2",
+    "browser-command-proof.json": "08ae7f2a3a06d250d7f43809e89367fe799d2611ca062a5eb34c0c8983749861",
+    "browser-contracts.txt": "bb130b552022a3528d8dda979262c023325c19f1563e92dd4209c63a4e042ddc",
+    "browser-final.txt": "9becc088797d015929b9eef4e88aeafd88b5c2f57879fa2b6171d8cb676fc211",
+    "browser-history-mobile.png": "9b5a6b3c0db6ec470da755e8d26901f05a39cd3bdf3b05f0463d8da7843ef7ff",
+    "browser-initial-fixture-failure.txt": "d8ba1f77801608602e9f846b268720944afaeeaf8a8791270cd713316979643a",
+    "browser-mobile.png": "c9bd21c7a4d18fa8e656e98fca554d34f13cd451b4743585938c6c12000c16c6",
+    "native-review-after.txt": "f1245ede73762dac81c0b940be6365631dba501a3aa9f69bd1c4f55ab6e98c17",
+    "native-review-before.txt": "bc668fcc6060bbbff3a07b2897330f26f884b8e3d2a09f22f7b6b3f2b5aee3a9",
+    "native.txt": "57377ce420d439fb11bfa4ddeb5b94db5a1a92f7a4c501c4f92bd63f4f711f86"
+  }
+}

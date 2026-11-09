@@ -3456,3 +3456,15 @@ und Update bestehen im ersten dokumentierten Abruf. Der Vorgänger 29f526d
 hat sechs erfolgreiche Development-Jobs; Online-API, Browser und iPhone
 sind beim Nachfolger abgebrochen, nicht nachträglich grün.
 [Veröffentlichung und tatsächliche Ergebnisse](evidence/native-journal-downgrade-2026-11-09/publication-initial.json).
+
+## 09.11.2026 – Zwei konkrete Remote-Fehler untersucht und korrigiert
+
+Development42702226560 auf 9271be7 endet mit sechs erfolgreichen Jobs und zwei
+Fehlern. Der Sekundenwechsel bei Reiseeinreichungen ist deterministisch auf
+dem alten Code reproduziert und durch einen gemeinsamen Ereigniszeitpunkt
+korrigiert. Die strenge historische Integritätsprüfung bleibt erhalten.
+Fünf Workflow-Fälle und vier tatsächliche PostgreSQL-/MFA-/Rechte-/Restore-
+Fälle bestehen. Der Aufgaben-Browsertest wartet jetzt vor seiner parallelen
+Änderung auf den tatsächlich geladenen alten Editor und besteht ebenfalls.
+Die ersten fehlgeschlagenen Läufe bleiben mit eigener Erklärung erhalten.
+[Befund, genaue Grenzen und Nachweise](CRM_ERP_REISEZEITPUNKT_2026-11-09.md).

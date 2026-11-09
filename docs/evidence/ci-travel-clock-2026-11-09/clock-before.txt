@@ -1,0 +1,26 @@
+test_submission_across_clock_second_uses_one_original_event_timestamp (test_business_travel_allowances.TravelWorkflowTests.test_submission_across_clock_second_uses_one_original_event_timestamp) ... ERROR
+
+======================================================================
+ERROR: test_submission_across_clock_second_uses_one_original_event_timestamp (test_business_travel_allowances.TravelWorkflowTests.test_submission_across_clock_second_uses_one_original_event_timestamp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-ci-final-repair-20261109/backend/test_business_travel_allowances.py", line 65, in test_submission_across_clock_second_uses_one_original_event_timestamp
+    accepted=self.api.trip_action(self.technician,draft['id'],'submit',command)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-ci-final-repair-20261109/backend/business_travel_allowances.py", line 425, in trip_action
+    return self._command(actor,'trip','trip.'+action,data,save,permission='personnel.approve' if action=='reject' else 'personnel.write',own=action!='reject',original_body=original_body)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-ci-final-repair-20261109/backend/business_travel_allowances.py", line 277, in _command
+    return self._receipt(row,fresh)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-ci-final-repair-20261109/backend/business_travel_allowances.py", line 250, in _receipt
+    self._read_sources(actor,item);validate_record(self,item)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-ci-final-repair-20261109/backend/business_travel_allowances.py", line 612, in validate_record
+    raise Problem(409,'Ungültige historische Reiseeinreichung.')
+core.Problem: (409, 'Ungültige historische Reiseeinreichung.')
+
+----------------------------------------------------------------------
+Ran 1 test in 0.989s
+
+FAILED (errors=1)

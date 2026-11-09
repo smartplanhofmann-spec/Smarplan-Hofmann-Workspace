@@ -1,5 +1,6 @@
 """Actual private travel journals and source-bound public reimbursements."""
 import copy
+from datetime import timedelta
 import json
 from pathlib import Path
 import unittest
@@ -54,6 +55,19 @@ class TravelWorkflowTests(BusinessFixture,unittest.TestCase):
             settlement_unit='trip',tax_choice='tax_free_only',requested_meal_minor=1400,requested_lodging_minor=0,correction_of=None,review_note='Originals and complete travel checked')
         body.update(changes);preview=self.api.preview(self.owner,body)
         return dict(body,id=rid(),request_id=rid(),revision=0,source_hash=preview['source_hash'],preview_hash=preview['preview_hash'],confirmed=True)
+    def test_submission_across_clock_second_uses_one_original_event_timestamp(self):
+        draft=self.api.save_trip(self.technician,self.trip_body())['result']
+        command=dict(request_id=rid(),employee_id=self.employee['id'],revision=draft['revision'],
+            source_hash=self.api._basis(self.employee['id']),confirmed=True)
+        baseline=self.now
+        ticks=iter(baseline+timedelta(seconds=i) for i in range(100))
+        self.api.clock=lambda:next(ticks)
+        accepted=self.api.trip_action(self.technician,draft['id'],'submit',command)
+        submitted=accepted['result']
+        self.assertEqual(submitted['submitted_at'],submitted['created_at'])
+        self.assertTrue(validate_integrity(self.office))
+        self.assertEqual(self.api.trip_action(self.technician,draft['id'],'submit',command),accepted)
+        self.assertEqual(self.api._get('trip',draft['id'],1),draft)
     def payment(self,settlement,amount=1400,**changes):
         original=self.upload(marker=rid().encode())
         return dict(request_id=rid(),employee_id=self.employee['id'],id=rid(),revision=0,action='record',settlement_ref=_ref(settlement),

@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-09",
+  "base_commit": "95f4c5cb7de5e25988427530af261d536f89ecd0",
+  "scope": "one event timestamp for new legacy travel submissions; real loaded editor barrier in task test",
+  "results": {
+    "clock_before": "reproduced original 409 integrity rejection",
+    "travel_after": {
+      "passed": 5,
+      "skipped": 0
+    },
+    "postgres_after": {
+      "passed": 4,
+      "skipped": 0,
+      "seconds": 67.441,
+      "real_dump_restore": true
+    },
+    "project_browser": "passed real MFA/HTTP/concurrent edit/rights/mobile"
+  },
+  "source_sha256": {
+    "backend/business_travel_allowances.py": "cb5403cedaf241ee3b475da728e8b18592e053ad06a88a0a79625edd52d7b73a",
+    "backend/test_business_travel_allowances.py": "e4a307c5cf319aed8d0788caca50500c504d46b87947c3dc95770ff864d6a83c",
+    "web/office/tests/project-tasks-flow.cjs": "f387b6d570cdbdd019955796d99b64639536250af1ce877f12ceb69c7ade75ec"
+  },
+  "log_sha256": {
+    "clock-after.txt": "b5cbdd6dc970733e50943da513a4650f3c0471c5f74293eb97657f47c5aab31f",
+    "clock-before.txt": "d1644c2f8b98d8473a6a0e176964c24f0c3a4cccbe47e15b4f6789e757f74a5e",
+    "failed-job-129449792261-excerpt.txt": "54b387721a2532482b7217a661cd89549c67f59bd7609addd66e3668b4a766b0",
+    "failed-job-129449792634-excerpt.txt": "23cb87719c8dad4ea08b762244b071bbcd4dd0b8387395a0b7602c1bac973562",
+    "pg-first-missing-tool.txt": "d83edc1581f9f75dfc1b93d7c38cf8bd801ee581c419087d0d1ec4211d744a0f",
+    "pg-verified.txt": "ac1470425134ab411a57be0f9e6f045b35fa38a47e667d358d6d3fdbe8c3e61d",
+    "project-tasks-browser.txt": "1fe96ecdd107e6a6d7d6f0f2d61948f286195fb58d509b68b85958ab9d6db6c1"
+  },
+  "live_server_changed": false
+}

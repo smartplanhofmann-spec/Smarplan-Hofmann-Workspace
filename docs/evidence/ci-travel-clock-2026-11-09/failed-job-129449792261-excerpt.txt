@@ -1,0 +1,46 @@
+2026-11-09T21:51:28.1705067Z sales: real inquiry/contact/person→versioned forecast→activity/correction→single canonical project after lost ACK→source-priced offer→history and mobile pipeline passed
+2026-11-09T21:51:28.1840935Z 1 targeted sales workflow passed (real MFA/HTTP, canonical CRM adoptions and lost ACK)
+2026-11-09T21:51:41.3872378Z communication history: actual owner MFA/HTTP, explicit inquiry/sales/service/document/project links, 50-entry paging, stale cursor rejection, original/correction, escaped HTML, private-note exclusion, latest customer and filter despite late HTTP, customer/project UI, mobile and late-response discard passed
+2026-11-09T21:51:56.3372203Z 1 project-context browser workflow passed (real MFA/HTTP, global navigation, late response, scoped denial, explicit clock project and mobile layout)
+2026-11-09T21:52:23.5146490Z SMARTPLAN_BROWSER_FAILURE_BEGIN
+2026-11-09T21:52:23.5147596Z locator.waitFor: Timeout 15000ms exceeded.
+2026-11-09T21:52:23.5148179Z Call log:
+2026-11-09T21:52:23.5149630Z   - waiting for getByRole('dialog', { name: 'Aufgabe bearbeiten', exact: true }).getByText(/inzwischen geändert/) to be visible
+2026-11-09T21:52:23.5150517Z 
+2026-11-09T21:52:23.5151554Z     at Object.projectTasksFlow (/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/web/office/tests/project-tasks-flow.cjs:60:55)
+2026-11-09T21:52:23.5152841Z     at async main (/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:144:7)
+2026-11-09T21:52:23.5155000Z Browser launch context: {"browser":"/opt/google/chrome/chrome","uid":1001,"apparmor_enabled":"Y","apparmor_profile":"unconfined","apparmor_restrict_unprivileged_userns":"1","unprivileged_userns_clone":"1","max_user_namespaces":"58121"}
+2026-11-09T21:52:23.5174932Z Visible alerts: []
+2026-11-09T21:52:23.5175591Z Page errors: []
+2026-11-09T21:52:23.5177379Z Browser console errors: [ 'Failed to load resource: net::ERR_FAILED' ]
+2026-11-09T21:52:23.5200624Z Visible headings: [ 'Synthetic Workshop', 'Aufgaben' ]
+2026-11-09T21:52:23.5218525Z Active section: projects
+2026-11-09T21:52:23.5219246Z Pending API requests: []
+2026-11-09T21:52:23.5798687Z Fixture log tail:
+2026-11-09T21:52:23.5799263Z ecd92a5461293e7633134de0e89 HTTP/1.1" 200 -
+2026-11-09T21:52:23.5800742Z 127.0.0.1 - - [09/Nov/2026 22:52:08] "GET /api/v1/projects/38442a8af4104f859bb040378b2036f6/workspace HTTP/1.1" 200 -
+2026-11-09T21:52:23.5801985Z 127.0.0.1 - - [09/Nov/2026 22:52:08] "GET /api/v1/me HTTP/1.1" 200 -
+2026-11-09T21:52:23.5803012Z 127.0.0.1 - - [09/Nov/2026 22:52:08] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+2026-11-09T21:52:23.5804657Z 127.0.0.1 - - [09/Nov/2026 22:52:08] "GET /api/v1/projects/38442a8af4104f859bb040378b2036f6/tasks/a26feecd92a5461293e7633134de0e89 HTTP/1.1" 200 -
+2026-11-09T21:52:23.5806574Z 127.0.0.1 - - [09/Nov/2026 22:52:08] "POST /api/v1/projects/38442a8af4104f859bb040378b2036f6/tasks/a26feecd92a5461293e7633134de0e89 HTTP/1.1" 200 -
+2026-11-09T21:52:23.5808410Z 127.0.0.1 - - [09/Nov/2026 22:52:08] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+2026-11-09T21:52:23.5809315Z 127.0.0.1 - - [09/Nov/2026 22:52:08] "GET /api/v1/projects HTTP/1.1" 200 -
+2026-11-09T21:52:23.5809917Z 127.0.0.1 - - [09/Nov/2026 22:52:08] "GET /api/v1/business/overview HTTP/1.1" 200 -
+2026-11-09T21:52:23.5810671Z 127.0.0.1 - - [09/Nov/2026 22:52:08] "GET /api/v1/business/projects/38442a8af4104f859bb040378b2036f6/profile HTTP/1.1" 200 -
+2026-11-09T21:52:23.5811590Z 127.0.0.1 - - [09/Nov/2026 22:52:08] "GET /api/v1/business/projects/38442a8af4104f859bb040378b2036f6/profile HTTP/1.1" 200 -
+2026-11-09T21:52:23.5812441Z 127.0.0.1 - - [09/Nov/2026 22:52:08] "GET /api/v1/projects/38442a8af4104f859bb040378b2036f6/workspace HTTP/1.1" 200 -
+2026-11-09T21:52:23.5813081Z 127.0.0.1 - - [09/Nov/2026 22:52:08] "GET /api/v1/me HTTP/1.1" 200 -
+2026-11-09T21:52:23.5813736Z 127.0.0.1 - - [09/Nov/2026 22:52:08] "GET /api/v1/projects/38442a8af4104f859bb040378b2036f6/tasks HTTP/1.1" 200 -
+2026-11-09T21:52:23.5814401Z 127.0.0.1 - - [09/Nov/2026 22:52:08] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+2026-11-09T21:52:23.5814714Z 
+2026-11-09T21:52:23.5814840Z SMARTPLAN_BROWSER_FAILURE_END
+2026-11-09T21:52:28.7022623Z ##[error]locator.waitFor: Timeout 15000ms exceeded.
+Call log:
+  - waiting for getByRole('dialog', { name: 'Aufgabe bearbeiten', exact: true }).getByText(/inzwischen geändert/) to be visible
+
+    at Object.projectTasksFlow (/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/web/office/tests/project-tasks-flow.cjs:60:55)
+    at async main (/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:144:7)
+Browser launch context: {"browser":"/opt/google/chrome/chrome","uid":1001,"apparmor_enabled":"Y","apparmor_profile":"unconfined","apparmor_restrict_unprivileged_userns":"1","unprivileged_userns_clone":"1","max_user_namespaces":"58121"}
+Visible alerts: []
+Page errors: []
+Browser console errors: [ 'Failed to load resource: net::ERR_FAILED' ]

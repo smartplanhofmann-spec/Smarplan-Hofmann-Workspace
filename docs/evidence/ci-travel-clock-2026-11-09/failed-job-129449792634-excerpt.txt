@@ -1,0 +1,46 @@
+2026-11-09T21:54:08.4694951Z test_paid_prefix_repayment_freshness_and_immutable_original_replay (online.test_factor_travel_review_pg.FactorTravelPostgresReview.test_paid_prefix_repayment_freshness_and_immutable_original_replay) ... ok
+2026-11-09T21:54:18.8130489Z test_v9_v10_corrected_factor_originals_and_actual_dump_restore (online.test_factor_travel_review_pg.FactorTravelPostgresReview.test_v9_v10_corrected_factor_originals_and_actual_dump_restore) ... ok
+2026-11-09T21:54:18.8131425Z 
+2026-11-09T21:54:18.8131883Z ======================================================================
+2026-11-09T21:54:18.8135958Z FAIL: test_financial_and_personnel_revocation_are_fresh_for_sources_and_replays (online.test_factor_travel_review_pg.FactorTravelPostgresReview.test_financial_and_personnel_revocation_are_fresh_for_sources_and_replays)
+2026-11-09T21:54:18.8136944Z ----------------------------------------------------------------------
+2026-11-09T21:54:18.8137764Z Traceback (most recent call last):
+2026-11-09T21:54:18.8145665Z   File "/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/backend/online/test_factor_travel_review_pg.py", line 357, in test_financial_and_personnel_revocation_are_fresh_for_sources_and_replays
+2026-11-09T21:54:18.8146210Z     data = self.workflow()
+2026-11-09T21:54:18.8146353Z            ^^^^^^^^^^^^^^^
+2026-11-09T21:54:18.8146784Z   File "/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/backend/online/test_factor_travel_review_pg.py", line 208, in workflow
+2026-11-09T21:54:18.8147160Z     data['travel'] = self.trip(data)
+2026-11-09T21:54:18.8147311Z                      ^^^^^^^^^^^^^^^
+2026-11-09T21:54:18.8147666Z   File "/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/backend/online/test_factor_travel_review_pg.py", line 125, in trip
+2026-11-09T21:54:18.8148057Z     local = travel.TravelPostgres.workflow(self, local)
+2026-11-09T21:54:18.8148247Z             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-09T21:54:18.8148611Z   File "/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/backend/online/test_business_travel_pg.py", line 54, in workflow
+2026-11-09T21:54:18.8149258Z     trip=self.call('POST','/business/personnel/travel/trips/'+draft['id']+'/submit',req(employee_id=employee['id'],revision=1,source_hash=current['source_hash'],confirmed=True),token=data['tech']).json['result']
+2026-11-09T21:54:18.8149787Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-09T21:54:18.8150236Z   File "/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/backend/online/test_factor_travel_review_pg.py", line 42, in call
+2026-11-09T21:54:18.8150811Z     self.assertEqual(response.status_code, status,
+2026-11-09T21:54:18.8151903Z AssertionError: 409 != 200 : ('POST', '/business/personnel/travel/trips/057166e296a84677af22a0bd4c3b00ef/submit', 409, 'Ungültige historische Reiseeinreichung.')
+2026-11-09T21:54:18.8152235Z 
+2026-11-09T21:54:18.8152328Z ----------------------------------------------------------------------
+2026-11-09T21:54:18.8152518Z Ran 4 tests in 19.705s
+2026-11-09T21:54:18.8162232Z 
+2026-11-09T21:54:18.8162293Z FAILED (failures=1)
+2026-11-09T21:54:18.8711932Z ##[error]Process completed with exit code 1.
+2026-11-09T21:54:18.8794358Z Post job cleanup.
+2026-11-09T21:54:18.9382196Z [command]/usr/bin/git version
+2026-11-09T21:54:18.9413741Z git version 2.56.0
+2026-11-09T21:54:18.9439143Z Temporarily overriding HOME='/home/runner/work/_temp/cd8230a4-a356-4670-b877-86706f425503' before making global git config changes
+2026-11-09T21:54:18.9439641Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-09T21:54:18.9442948Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace
+2026-11-09T21:54:18.9478232Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-09T21:54:18.9507891Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-09T21:54:18.9719766Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-09T21:54:18.9753312Z http.https://github.com/.extraheader
+2026-11-09T21:54:18.9762420Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-09T21:54:18.9797257Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-09T21:54:19.0023135Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-09T21:54:19.0060929Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-09T21:54:19.0405312Z Print service container logs: 975536583a0b4eef9cf0124ba32f4199_postgres16bookworm_8428ba
+2026-11-09T21:54:19.0408292Z ##[command]/usr/bin/docker logs --details ffa8bea87ef09099f14ac5863241598d2268cf4d26cca9c452d79797e9391f67
+2026-11-09T21:54:19.0521042Z  The files belonging to this database system will be owned by user "postgres".
+2026-11-09T21:54:19.0522461Z  initdb: warning: enabling "trust" authentication for local connections

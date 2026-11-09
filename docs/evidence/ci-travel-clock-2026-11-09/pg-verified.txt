@@ -1,0 +1,9 @@
+test_actual_http_private_rights_bad_shapes_hashes_and_m_are_rejected (online.test_factor_travel_review_pg.FactorTravelPostgresReview.test_actual_http_private_rights_bad_shapes_hashes_and_m_are_rejected) ... ok
+test_financial_and_personnel_revocation_are_fresh_for_sources_and_replays (online.test_factor_travel_review_pg.FactorTravelPostgresReview.test_financial_and_personnel_revocation_are_fresh_for_sources_and_replays) ... ok
+test_paid_prefix_repayment_freshness_and_immutable_original_replay (online.test_factor_travel_review_pg.FactorTravelPostgresReview.test_paid_prefix_repayment_freshness_and_immutable_original_replay) ... ok
+test_v9_v10_corrected_factor_originals_and_actual_dump_restore (online.test_factor_travel_review_pg.FactorTravelPostgresReview.test_v9_v10_corrected_factor_originals_and_actual_dump_restore) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 67.441s
+
+OK

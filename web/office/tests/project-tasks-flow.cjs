@@ -55,6 +55,7 @@ async function projectTasksFlow({page,context,login,ready,navigate,fixture,scree
   await history.getByRole('button',{name:'Dialog schließen',exact:true}).click();
   // A stale editor cannot overwrite a real concurrent revision.
   await row(page,current.title).getByRole('button',{name:'Bearbeiten',exact:true}).click();
+  await editor(page).getByText(/Änderung an Version 5\./).waitFor();
   current=await api(taskPath,command({revision:5,title:'Parallel geänderte Aufgabe'}));
   await editor(page).getByLabel('Aufgabe',{exact:true}).fill('Überholter Browserentwurf');await editor(page).getByRole('button',{name:'Speichern',exact:true}).click();
   await editor(page).getByText(/inzwischen geändert/).waitFor();assert.deepEqual(await api(taskPath),current);await editor(page).getByRole('button',{name:'Dialog schließen',exact:true}).click();

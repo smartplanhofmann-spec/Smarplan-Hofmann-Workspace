@@ -172,11 +172,11 @@ class TravelAllowances:
     def _all(self,kind,employee_id):
         table=KIND_TABLE[kind]
         return [self._view(row) for row in self.db.execute(f'SELECT e.* FROM {table} e WHERE employee_id=? AND revision=(SELECT MAX(x.revision) FROM {table} x WHERE x.id=e.id) ORDER BY e.sequence',(employee_id,))]
-    def _append(self,kind,actor,employee,object_id,data,previous=None,pdf=False):
+    def _append(self,kind,actor,employee,object_id,data,previous=None,pdf=False,created_at=None):
         table=KIND_TABLE[kind];revision=previous['revision']+1 if previous else 1
         sequence=self.db.execute(f'SELECT COALESCE(MAX(sequence),0)+1 AS n FROM {table}').fetchone()['n']
         value=dict(schema_version=1,id=object_id,kind=kind,revision=revision,employee_id=employee['id'],
-            created_by=actor['id'],created_at=self.now(),previous_hash=previous['content_hash'] if previous else None,**data)
+            created_by=actor['id'],created_at=self.now() if created_at is None else created_at,previous_hash=previous['content_hash'] if previous else None,**data)
         content_hash=_sha(value);content=_pdf(value) if pdf else None;pdf_sha=_sha(content) if content else None
         self.db.execute(f'INSERT INTO {table}(id,revision,sequence,employee_id,payload_json,content_hash,previous_hash,created_by,created_at,pdf,pdf_sha256) VALUES(?,?,?,?,?,?,?,?,?,?,?)',
             (object_id,revision,sequence,employee['id'],canonical(value),content_hash,value['previous_hash'],actor['id'],value['created_at'],content,pdf_sha))
@@ -421,7 +421,8 @@ class TravelAllowances:
                 status='rejected';decision=dict(by=fresh['id'],reason=text(data['reason'],'Prüfgrund',1000,required=True));submitted_by=old['submitted_by'];submitted_at=old['submitted_at']
             else:raise Problem(404,'Unbekannte Reiseaktion.')
             return self._append('trip',fresh,employee,trip_id,dict(status=status,details=old['details'],sources=old['sources'],correction_reason=old['correction_reason'],
-                rule_version=RULE_VERSION if action=='submit' else old.get('rule_version','de_travel_2026_v1'),submitted_by=submitted_by,submitted_at=submitted_at,decision=decision,command_hash=fingerprint),old)
+                rule_version=RULE_VERSION if action=='submit' else old.get('rule_version','de_travel_2026_v1'),submitted_by=submitted_by,submitted_at=submitted_at,decision=decision,command_hash=fingerprint),old,
+                created_at=submitted_at if action=='submit' else None)
         return self._command(actor,'trip','trip.'+action,data,save,permission='personnel.approve' if action=='reject' else 'personnel.write',own=action!='reject',original_body=original_body)
     def _preview(self,actor,data,*,historical=False):
         fields=('employee_id','trip_refs','period_from','period_to','settlement_unit','tax_choice','requested_meal_minor','requested_lodging_minor','correction_of','review_note')

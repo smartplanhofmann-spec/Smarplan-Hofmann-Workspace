@@ -1,0 +1,34 @@
+test_actual_http_private_rights_bad_shapes_hashes_and_m_are_rejected (online.test_factor_travel_review_pg.FactorTravelPostgresReview.test_actual_http_private_rights_bad_shapes_hashes_and_m_are_rejected) ... ok
+test_financial_and_personnel_revocation_are_fresh_for_sources_and_replays (online.test_factor_travel_review_pg.FactorTravelPostgresReview.test_financial_and_personnel_revocation_are_fresh_for_sources_and_replays) ... ok
+test_paid_prefix_repayment_freshness_and_immutable_original_replay (online.test_factor_travel_review_pg.FactorTravelPostgresReview.test_paid_prefix_repayment_freshness_and_immutable_original_replay) ... ok
+test_v9_v10_corrected_factor_originals_and_actual_dump_restore (online.test_factor_travel_review_pg.FactorTravelPostgresReview.test_v9_v10_corrected_factor_originals_and_actual_dump_restore) ... ERROR
+
+======================================================================
+ERROR: test_v9_v10_corrected_factor_originals_and_actual_dump_restore (online.test_factor_travel_review_pg.FactorTravelPostgresReview.test_v9_v10_corrected_factor_originals_and_actual_dump_restore)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-ci-final-repair-20261109/backend/online/test_factor_travel_review_pg.py", line 279, in test_v9_v10_corrected_factor_originals_and_actual_dump_restore
+    with disposable_restore(self.runtime) as (target, runtime, report):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/workspace/smartplan-ci-final-repair-20261109/backend/online/test_postgres_accounting_components_integration.py", line 67, in disposable_restore
+    report = restore(backup(journey.DSN, directory), journey.DSN, target,
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-ci-final-repair-20261109/backend/online/backup.py", line 17, in backup
+    result = subprocess.run(['pg_dump', '--format=custom', '--no-owner', '--no-acl', '--dbname', dsn],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'pg_dump'
+
+----------------------------------------------------------------------
+Ran 4 tests in 49.861s
+
+FAILED (errors=1)

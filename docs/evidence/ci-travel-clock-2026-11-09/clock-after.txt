@@ -1,0 +1,10 @@
+test_documentary_void_is_no_synthetic_refund_and_historical_original_remains (test_business_travel_allowances.TravelWorkflowTests.test_documentary_void_is_no_synthetic_refund_and_historical_original_remains) ... ok
+test_immutable_guards_and_rehashed_false_calculation_are_detected (test_business_travel_allowances.TravelWorkflowTests.test_immutable_guards_and_rehashed_false_calculation_are_detected) ... ok
+test_own_trip_foreign_approval_exact_receipts_exports_and_actual_partial_cash (test_business_travel_allowances.TravelWorkflowTests.test_own_trip_foreign_approval_exact_receipts_exports_and_actual_partial_cash) ... ok
+test_source_drift_self_approval_and_later_rights_do_not_rewrite_history (test_business_travel_allowances.TravelWorkflowTests.test_source_drift_self_approval_and_later_rights_do_not_rewrite_history) ... ok
+test_submission_across_clock_second_uses_one_original_event_timestamp (test_business_travel_allowances.TravelWorkflowTests.test_submission_across_clock_second_uses_one_original_event_timestamp) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 6.193s
+
+OK

@@ -1,5 +1,14 @@
 # Erster gemeinsamer Projekttest mit Version 0.13.0
 
+**Einordnung vom 09.11.2026:** Die folgenden Server- und Paketnachweise beziehen
+sich auf den tatsächlich bestätigten A93-Stand vom 05.11. Die neue gemeinsame
+Entwicklung 8273852 ist inzwischen auf dem Testbranch veröffentlicht und wird
+erneut geprüft; ihre Serverinstallation und Geräteabnahme sind noch nicht
+bestätigt. Die neue Browserübernahme freigegebener Stunden, Meilensteine und
+weitere Ergänzungen sind erst nach einem passenden kontrollierten Update
+verfügbar. [Aktueller Stand](CRM_ERP_ARBEITSSTAND.md),
+[Bedienung der neuen Zeitübernahme](CRM_ERP_BENUTZERHANDBUCH.md#zeiterfassung-finden-und-zeiten-abrechnen).
+
 Ziel ist ein gemeinsames Testprojekt in Browser, Windows und iPhone: Kunde,
 Angebot, Auftrag, Arbeitszeit, Dokumentation und Rechnung. Lohnabrechnung und
 Buchhaltung gehören nicht zu dieser Testphase.

@@ -1,8 +1,8 @@
 # Smartplan Office – Arbeitsabläufe der CRM-/ERP-Version
 
-Stand: 3. November 2026. Dieses Handbuch beschreibt den entwickelten Funktionsumfang.
+Stand: 9. November 2026. Dieses Handbuch beschreibt den entwickelten Funktionsumfang.
 Welche Abläufe aktuell getestet sind und welche Freigaben fehlen, steht im
-[Integrationsstand](CRM_ERP_INTEGRATIONSSTAND_2026-11-03.md). Die vorhandene
+[aktuellen Arbeitsstand](CRM_ERP_ARBEITSSTAND.md). Die vorhandene
 Installation erhält diese Erweiterungen erst durch ein kontrolliertes Update.
 
 ## Einstieg und Unternehmenseinstellungen
@@ -46,6 +46,47 @@ Die zusammenhängende technische Prüfung und ihre Rechenbeispiele stehen unter
 Originale werden im [Kundenarbeitsbereich](CRM_ERP_KUNDENARBEITSBEREICH.md)
 einzeln veröffentlicht. Ein Kundenupload wird erst nach interner Prüfung übernommen.
 
+## Zeiterfassung finden und Zeiten abrechnen
+
+Im Browser liegt die Zeiterfassung unter **Personal → Personal & Zeiten**.
+**Zeit starten** beginnt einen Vorgang für das gewählte Projekt; laufende Zeit
+kann geöffnet, pausiert und beendet werden. Fehlt diese Aktion, muss dem
+angemeldeten Benutzer ein aktives Mitarbeiterprofil zugeordnet sein. Modul-
+und Zugriffsrechte gelten zusätzlich. In der Windows-/iPhone-Oberfläche liegt
+**Arbeitszeit** im konkreten Projekt; schmale Fenster zeigen dafür das Auswahlfeld
+**Projektbereich**.
+
+Für die Übernahme in einen Browserbeleg:
+
+1. Den Arbeitstag prüfen und die abzurechnenden Projektzeiten freigeben.
+2. Im selben Projekt einen Angebots- oder Rechnungsentwurf öffnen.
+3. Unter **Freigegebene Arbeitszeiten übernehmen** die gewünschten Zeiten
+   auswählen und **Abrechnungssatz netto je Stunde (€)** sowie
+   **Umsatzsteuer für Arbeitszeiten (%)** ausdrücklich eintragen.
+4. Den Entwurf speichern und die angenommenen Zeitpositionen zusammen mit
+   bestehenden freien und Katalogpositionen prüfen. Eine geänderte Zeitquelle
+   verlangt eine erneute Prüfung; ein gespeicherter Entwurf ist noch keine
+   ausgestellte Rechnung.
+5. Die Rechnung gesondert prüfen und ausstellen. Bereits endgültig abgerechnete
+   Zeiten dürfen nicht erneut berechnet werden.
+
+Werden keine Zeiten angezeigt, Projekt, Freigabe, Abrechenbarkeit, bestehende
+Zeitpositionen und Zugriffsrechte prüfen. **Freigegebene Zeiten neu laden**
+aktualisiert die Auswahl. Bei einer unklaren Speicherantwort den angebotenen
+ursprünglichen Auftrag erneut prüfen; keine Ersatzrechnung anlegen, solange
+das Ergebnis des ersten Auftrags unbekannt ist.
+
+Der Projektwähler erscheint nur in projektbezogenen Ansichten. Übersicht,
+Kontakte und andere allgemeine Unternehmensbereiche benötigen keinen
+pauschalen Projektfilter.
+
+## Projektaufgaben und Meilensteine
+
+Aufgaben und Meilensteine gehören zum geöffneten Projekt. Ein Meilenstein
+hat einen Titel, optionalen Termin und Verantwortlichen sowie einen manuell
+gepflegten Status. Bei Änderungen bleibt der bisherige Verlauf lesbar. Sein
+Abschluss stellt keine Rechnung aus und verändert kein Budget automatisch.
+
 ## Einkauf, Lager, Geräte und Betriebsmittel
 
 Bestellungen enthalten konkrete Positionen. Teil- und Restlieferungen werden
@@ -75,6 +116,17 @@ Abschluss werden dokumentiert. Eine Wiedereröffnung benötigt eine Begründung.
 Der Fallabschluss löst keine Zahlung oder Gewährleistungsentscheidung aus.
 
 Details: [Kundenservice in beiden Oberflächen](CRM_ERP_SERVICE_CLIENTS.md).
+
+Im Browser können Wartungsverträge bearbeitet, pausiert und wieder aktiviert
+werden. Eine Pause verhindert die Erzeugung weiterer Einsätze; bereits geplante
+Besuche und ihre Nachweise bleiben erhalten. Für eine andere Serie kann ein
+neuer Vertrag erforderlich sein. Beim Speichern einer inzwischen geänderten
+Fassung zuerst den aktuellen Vertrag laden und die Eingabe abgleichen.
+
+In der App bleibt eine unbestätigte manuelle Serviceanlage auch nach einem
+Neustart als ursprünglicher Auftrag erhalten. Nach erneuter Anmeldung in
+derselben Firma den angebotenen offenen Auftrag prüfen, damit ein bereits
+angenommener Servicefall nicht ein zweites Mal angelegt wird.
 
 ## Finanzen, EÜR und Banknachweise
 

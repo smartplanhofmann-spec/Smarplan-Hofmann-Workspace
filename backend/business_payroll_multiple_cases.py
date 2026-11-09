@@ -308,6 +308,8 @@ def validate_case_sources(office, value):
         if employee['id'] != value['employee_id'] or value['status'] == 'active' and employee['revision'] != command['employee_revision']:
             raise ValueError('Changed originally accepted employee revision')
         expected = api._snapshot(employee, details, value['source_file_ids'], fresh=False); plan = api._plan(expected)
+        from oneoff_provenance_compat import calculation_matches
+        if calculation_matches(expected['calculation_source'],plan,value['plan']):plan=value['plan']
         if expected != value['sources'] or plan != value['plan'] or value['preview_hash'] != _sha(dict(source_snapshot=expected, plan=plan)):
             raise ValueError('Changed one-off historical originals or arithmetic')
         return True

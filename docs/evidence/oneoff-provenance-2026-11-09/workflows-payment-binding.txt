@@ -1,0 +1,9 @@
+test_actual_source4_case_run_receipts_pdf_and_integrity_survive_native_read (test_business_payroll_oneoff_provenance.OneoffOriginalTransport.test_actual_source4_case_run_receipts_pdf_and_integrity_survive_native_read) ... ok
+test_actual_source5_paid_running_and_new_bonus_reach_cash_euer_once (test_business_payroll_oneoff_provenance.OneoffOriginalTransport.test_actual_source5_paid_running_and_new_bonus_reach_cash_euer_once) ... ok
+test_v6_and_march_clause_reproduce_exact_independent_crlf_metadata (test_business_payroll_oneoff_provenance.OneoffOriginalTransport.test_v6_and_march_clause_reproduce_exact_independent_crlf_metadata) ... ok
+test_v7_single_original_and_month_group_keep_their_dependent_hashes (test_business_payroll_oneoff_provenance.OneoffOriginalTransport.test_v7_single_original_and_month_group_keep_their_dependent_hashes) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 18.184s
+
+OK

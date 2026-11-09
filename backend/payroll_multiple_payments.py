@@ -119,8 +119,11 @@ def resolve_single_payment_plan(accounts,run,details):
         if any(original[key]!=paid['source_file'][key] for key in paid['source_file']):
             raise Problem(500,'Vorheriger privater Zahlungsbeleg wurde verändert.')
         prior=dict(run=old,payment=paid)
-    return build_single_payment_plan(run['source']['multiple_one_off_case']['sources']['calculation_source'],
+    snapshot=run['source']['multiple_one_off_case']['sources']['calculation_source']
+    plan=build_single_payment_plan(snapshot,
         payments=details['payments'],allocations=details['settlement_allocations'],as_of=accounts.hr.now()[:10],prior_settlement=prior)
+    from oneoff_provenance_compat import bind_single_payment_plan
+    return bind_single_payment_plan(snapshot,plan,run['calculation'])
 
 
 def previous_actual_settlements(accounts,run):

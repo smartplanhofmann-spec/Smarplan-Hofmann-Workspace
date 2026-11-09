@@ -1,0 +1,50 @@
+{
+  "base_commit": "ef1259c2e46e75a8c6befddf91de5a92861dee63",
+  "source_sha256": {
+    "backend/oneoff_provenance_compat.py": "6995ad95e77aa119fda9de66d3070289ea32b1978f69a311a37a4e71312053b9",
+    "backend/business_payroll_oneoff_cases.py": "7b82b660c0660a87c46da224e6c15f290ad61bd5d67279a4df5dba44b026a60b",
+    "backend/business_payroll_multiple_cases.py": "5a1f2eabd891852782d946c5baf8a6ecc3bff57a45b7255d8fa433701b9dca4a",
+    "backend/payroll_oneoff_runs.py": "d3910eae4a16b3f00f7bb45d569b8af775ba70828b1711dbe903c8ce125f213e",
+    "backend/payroll_multiple_runs.py": "66abe3e3ffbd4045b540cce937f3c4f902e59ab6cedc5da59763c81d635924ba",
+    "backend/payroll_multiple_payments.py": "06b281118921401ac02d9b33086b989fbc30aa47e67fe26ff7983b4a44a5ef86",
+    "app/test/fixtures/oneoff_provenance_workflow.json": "ba0a2ce5da89518d526222d7b0f4fbb1dccdd37f766722ddae71b4da7ab16a58"
+  },
+  "checks": {
+    "new_workflow_cases": {
+      "passed": 7,
+      "skipped": 0,
+      "source": "new-workflow-cases.txt"
+    },
+    "actual_postgres": {
+      "passed": 4,
+      "skipped": 0,
+      "seconds": 186.817,
+      "version": "16.15",
+      "owned_container_removed": true
+    },
+    "browser_modules": {
+      "passed": 884,
+      "skipped": 0
+    },
+    "native_selected": {
+      "passed": 31,
+      "skipped": 0
+    },
+    "native_analysis": "No issues found (34.6s)",
+    "packaging": {
+      "passed": 16,
+      "skipped": 0,
+      "seconds": 18.064
+    },
+    "actual_released_windows_source_comparison": {
+      "source_files_verified": 146,
+      "archived_v6_v7_originals": "exactly identical",
+      "archived_payment_v1": "exactly identical",
+      "actual_windows_runtime_executed": false
+    }
+  },
+  "broad_regression": "694 unique cases running; local listener cases require an authorized socket rerun",
+  "remote_ci": "not published yet",
+  "server_installation_verified": false,
+  "device_acceptance": false
+}

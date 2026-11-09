@@ -1,0 +1,30 @@
+test_actual_crlf_source4_prior_months_remain_usable_in_later_annual_basis (test_business_payroll_oneoff_provenance.OneoffOriginalTransport.test_actual_crlf_source4_prior_months_remain_usable_in_later_annual_basis) ... ok
+test_actual_source4_case_run_receipts_pdf_and_integrity_survive_native_read (test_business_payroll_oneoff_provenance.OneoffOriginalTransport.test_actual_source4_case_run_receipts_pdf_and_integrity_survive_native_read) ... ok
+test_actual_source5_paid_running_and_new_bonus_reach_cash_euer_once (test_business_payroll_oneoff_provenance.OneoffOriginalTransport.test_actual_source5_paid_running_and_new_bonus_reach_cash_euer_once) ... ok
+test_unresolved_v7_multiple_claims_remain_blocked_with_exact_old_hashes (test_business_payroll_oneoff_provenance.OneoffOriginalTransport.test_unresolved_v7_multiple_claims_remain_blocked_with_exact_old_hashes) ... ERROR
+test_v6_and_march_clause_reproduce_exact_independent_crlf_metadata (test_business_payroll_oneoff_provenance.OneoffOriginalTransport.test_v6_and_march_clause_reproduce_exact_independent_crlf_metadata) ... ok
+test_v7_single_original_and_month_group_keep_their_dependent_hashes (test_business_payroll_oneoff_provenance.OneoffOriginalTransport.test_v7_single_original_and_month_group_keep_their_dependent_hashes) ... ok
+
+======================================================================
+ERROR: test_unresolved_v7_multiple_claims_remain_blocked_with_exact_old_hashes (test_business_payroll_oneoff_provenance.OneoffOriginalTransport.test_unresolved_v7_multiple_claims_remain_blocked_with_exact_old_hashes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-oneoff-provenance-20261109/backend/test_business_payroll_oneoff_provenance.py", line 81, in test_unresolved_v7_multiple_claims_remain_blocked_with_exact_old_hashes
+    f=self.fixture5();snapshot,_=f.c.source(january=True,bonus=100000,previous=True)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-oneoff-provenance-20261109/backend/test_payroll_multiple_oneoff_2026.py", line 94, in source
+    old=original_source if original_source is not None else self.c.source(**changes)
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-oneoff-provenance-20261109/backend/test_payroll_oneoff_composition_2026.py", line 44, in source
+    terms = f.api.save(f.owner, f.body('employment_terms', td))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-oneoff-provenance-20261109/backend/business_payroll_facts.py", line 472, in save
+    raise Problem(409, error.message, request_resolution='not_accepted') from None
+core.Problem: (409, 'Aktive Beschäftigungsfakten dürfen sich nicht überlappen.')
+
+----------------------------------------------------------------------
+Ran 6 tests in 304.407s
+
+FAILED (errors=1)
+SOURCE4_SUCCESSOR_SIZES_BYTES [206183, 217530, 228168]
+SOURCE4_THREE_MONTH_SOURCE_CATALOG_BYTES 2340035

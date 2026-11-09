@@ -29,6 +29,7 @@ def main():
     parser.add_argument('--source-commit',required=True)
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--travel-fixture',type=Path,help='Also verify a controlled original travel acceptance against released sources.')
+    parser.add_argument('--oneoff-fixture',type=Path,help='Also verify controlled original v6/v7 calculations and a v1 payment plan.')
     args=parser.parse_args()
     if not re.fullmatch('[a-f0-9]{64}',args.archive_sha256) or not re.fullmatch('[a-f0-9]{40}',args.source_commit):
         raise ValueError('Exact archive digest and repository commit required')
@@ -43,6 +44,8 @@ def main():
     snapshot=fixture['period_case']['sources'];expected=calculate_factor_period_source(snapshot)
     monthly=json.loads((ROOT/'app/test/fixtures/payroll_factor_2026_workflow.json').read_text())['run']['source']
     travel=json.loads(args.travel_fixture.read_text()) if args.travel_fixture else None
+    oneoff=json.loads(args.oneoff_fixture.read_text()) if args.oneoff_fixture else None
+    oneoff_proof=[]
     verified=[]
     with zipfile.ZipFile(io.BytesIO(raw)) as outer:
         name='Smartplan_Windows_Start_und_Sicherung.zip';inner=outer.read(name)
@@ -86,6 +89,31 @@ def main():
             if old!=travel['record']['calculation'] or not calculation_matches(travel['calculation_lf'],old,
                     trips=travel['payload']['trips'],sites=travel['payload']['sites']):
                 raise ValueError('Actual released Windows travel original cannot be exactly reproduced')
+        if oneoff is not None:
+            from oneoff_provenance_compat import calculation_matches as oneoff_matches
+            for key,case_key,module,function in (
+                    ('single','one_off_case','payroll_oneoff_composition_2026','calculate_oneoff_source'),
+                    ('multiple','multiple_one_off_case','payroll_multiple_oneoff_2026','calculate_multiple_source')):
+                item=oneoff[key];record=item['preview']['source'][case_key];source=record['sources']['calculation_source']
+                code=('import json,sys;from '+module+' import '+function+' as calculate;d=json.load(sys.stdin);'
+                    'print(json.dumps(calculate(d["source"],rule_version=d["rule_version"],source_contract_version=1)))')
+                run=subprocess.run([sys.executable,'-c',code],input=json.dumps(dict(source=source,rule_version=record['rule_version'])),
+                    text=True,capture_output=True,check=True,cwd=target,env=env,timeout=40)
+                calculated=json.loads(run.stdout)
+                if calculated!=record['plan'] or not oneoff_matches(source,item['calculation_lf'],calculated):
+                    raise ValueError('Actual released Windows one-off original differs: '+key)
+                oneoff_proof.append(dict(kind=key,rule_version=record['rule_version'],
+                    result_sha256=sha(canonical(calculated).encode()),source_sha256=sha(canonical(source).encode())))
+            paid=oneoff['multiple_payment'];record=oneoff['multiple']['preview']['source']['multiple_one_off_case']
+            payload=dict(source=record['sources']['calculation_source'],payments=paid['details']['payments'],
+                allocations=paid['details']['settlement_allocations'],as_of='2026-11-09',
+                prior_settlement=dict(run=paid['prior_payment']['sources']['run'],payment=paid['prior_payment']))
+            code=('import json,sys;from payroll_multiple_payments import build_single_payment_plan;d=json.load(sys.stdin);'
+                's=d.pop("source");print(json.dumps(build_single_payment_plan(s,**d)))')
+            run=subprocess.run([sys.executable,'-c',code],input=json.dumps(payload),text=True,
+                capture_output=True,check=True,cwd=target,env=env,timeout=40)
+            if json.loads(run.stdout)!=paid['plan']:
+                raise ValueError('Actual released Windows v1 original payment plan differs')
     proof=dict(source_commit=args.source_commit,archive_sha256=args.archive_sha256,
         actual_windows_runtime_executed=False,source_files_verified=len(verified),sources=verified,
         new_kernel_uses_crlf=True,v9_calculation_identical=True,v9_rules_sha256=FACTOR_PERIOD_RULES_SHA256,
@@ -100,6 +128,9 @@ def main():
             travel_rule_hash=old['rule_hash'],travel_lf_rule_hash=travel['calculation_lf']['rule_hash'],
             travel_input_sha256=sha(canonical(travel['payload']).encode()),
             travel_fixture_sha256=sha(args.travel_fixture.read_bytes()))
+    if oneoff is not None:
+        proof.update(oneoff_originals_match_released_windows_results=True,oneoff_calculations=oneoff_proof,
+            oneoff_v1_payment_plan_matches_released_windows_result=True,oneoff_fixture_sha256=sha(args.oneoff_fixture.read_bytes()))
     args.output.write_text(json.dumps(proof,indent=2)+'\n')
     print(json.dumps({key:value for key,value in proof.items() if key!='sources'}))
 

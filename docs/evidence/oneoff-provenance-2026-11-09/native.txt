@@ -1,0 +1,66 @@
+Waiting for another flutter command to release the startup lock...
+Resolving dependencies...
+Downloading packages...
+  archive 4.5.2 (4.6.0 available)
+  code_assets 2.1.0 (2.2.0 available)
+  cross_file 0.3.5+5 (0.4.0 available)
+  crypto 3.0.7 (3.0.8 available)
+  cupertino_ui 1.1.4 (1.1.6 available)
+  file_selector_ios 0.5.3+6 (0.5.3+7 available)
+  file_selector_macos 0.9.5+1 (0.9.5+2 available)
+  image_picker_ios 0.8.13+13 (0.8.13+15 available)
+  jni 1.1.0 (1.1.2 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  material_ui 1.8.0 (1.10.0 available)
+  native_toolchain_c 0.19.5 (0.19.6 available)
+  objective_c 9.6.2 (9.6.3 available)
+  pdfium_dart 0.4.0 (0.4.1 available)
+  pdfium_flutter 0.4.0 (0.4.1 available)
+  pdfrx 2.10.1 (2.12.0 available)
+  pdfrx_engine 0.8.0 (0.9.1 available)
+  posix 6.5.2 (6.5.4 available)
+  qr 3.0.2 (4.0.1 available)
+  synchronized 3.5.0 (3.6.1 available)
+  test_api 0.7.12 (0.7.15 available)
+  url_launcher 6.3.2 (6.3.3 available)
+  vector_math 2.4.3 (2.4.4 available)
+  vm_service 15.3.0 (15.4.0 available)
+  web 1.1.1 (1.1.2 available)
+Got dependencies!
+25 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/smartplan-oneoff-provenance-20261109/app/test/business_oneoff_provenance_test.dart
+00:00 +0: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_oneoff_provenance_test.dart: actual CRLF v6/v7 originals retain their complete source and money contract
+00:00 +1: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_case_contract_test.dart: actual oneoff choices preserve full canonical original command and preview
+00:00 +2: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_case_contract_test.dart: actual oneoff choices preserve full canonical original command and preview
+00:01 +3: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_case_contract_test.dart: actual oneoff choices preserve full canonical original command and preview
+00:01 +4: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_case_contract_test.dart: actual correction, void and historical original remain precisely bound
+00:01 +5: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_case_contract_test.dart: original running net and bonus cannot be counted twice
+00:01 +6: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_case_contract_test.dart: preview refuses substituted claim, previous year, employee or original
+00:01 +7: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_case_contract_test.dart: receipt verifier keeps sealed original after editor changes
+00:01 +8: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_case_contract_test.dart: unknown current source and foreign personal originals are refused
+00:41 +9: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_runs_test.dart: actual correction keeps original run, full delta and existing paid part
+00:42 +10: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_runs_test.dart: actual paid_v5_upgrade keeps original run, full delta and existing paid part
+00:42 +11: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_runs_test.dart: actual Source4 general adapters retain running travel, bonus and deductions
+00:42 +12: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_multiple_contract_test.dart: actual canonical case, source, preview and sealed receipt preserve all originals
+00:42 +13: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_multiple_contract_test.dart: actual canonical case, source, preview and sealed receipt preserve all originals
+00:42 +14: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_multiple_contract_test.dart: actual canonical case, source, preview and sealed receipt preserve all originals
+00:42 +15: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_runs_test.dart: actual Source4 account and yearly ledger require original amount and receipt day
+00:42 +16: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_multiple_contract_test.dart: real initial and paid v5 correction run receipts and deltas are bound
+00:42 +17: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:43 +18: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:43 +19: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:43 +20: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:43 +21: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:43 +22: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:43 +23: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:43 +24: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:50 +25: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+00:56 +26: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+00:56 +27: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+00:56 +28: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_multiple_payments_test.dart: changed bonus day, crossed event, missing running amount and fabricated allocation are refused
+00:56 +29: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_multiple_payments_test.dart: paid v5 original prefix may never be relabelled or omitted by UI builder
+00:56 +30: /workspace/smartplan-oneoff-provenance-20261109/app/test/business_payroll_multiple_payments_test.dart: receipt validator seals actual prior-source projection and all original payments
+00:57 +31: All tests passed!

@@ -1,5 +1,6 @@
 """Explicit Source5 run adapter; single full bonus with explicit separate payment allocations."""
 import json
+from copy import deepcopy
 
 from core import Problem,canonical
 from business_personnel_workflow import _shape
@@ -24,8 +25,9 @@ def calculate_run_source(source,*,rule_version=None):
             or fact['rule_version']!=MULTIPLE_RULE_VERSION or rule_version is not None and rule_version!=fact['rule_version']):
         raise Problem(400,'Einmalfall, laufender Originalfall und tatsächliche Lohnquelle widersprechen sich.')
     result=calculate_multiple_source(snapshot,rule_version=fact['rule_version'],source_contract_version=fact['source_contract_version'])
-    if fact['plan']!=result:raise Problem(400,'Angenommener Einmalfall ist nicht unverändert nachrechenbar.')
-    return result
+    from oneoff_provenance_compat import calculation_matches
+    if not calculation_matches(snapshot,result,fact['plan']):raise Problem(400,'Angenommener Einmalfall ist nicht unverändert nachrechenbar.')
+    return deepcopy(fact['plan'])
 
 
 def prepare(payroll,actor,data):

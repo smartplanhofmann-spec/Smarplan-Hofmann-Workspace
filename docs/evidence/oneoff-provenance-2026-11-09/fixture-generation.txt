@@ -1,0 +1,1 @@
+{"bytes": 1045671, "single_rule": "de_2026_oneoff_composition_v6", "multiple_rule": "de_2026_multiple_oneoff_v7"}

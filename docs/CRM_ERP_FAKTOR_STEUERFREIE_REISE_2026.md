@@ -57,3 +57,15 @@ Reisezahlungen, ursprüngliche v9-/v8-Beträge, Faktorkorrektur mit alten PDF-/J
 Originalen, Zahlungspräfix nach Rückzahlung, Rechte und gesperrte M-/Steuerfälle
 wurden geprüft. Alle 32 zuvor archivierten Rechenkerne sind bytegleich.
 Clientintegration und unabhängiger PostgreSQL-/Restorelauf folgen getrennt.
+
+Die Nachprüfung ergänzt einen bewiesenen Anschluss an die vorhandene
+Jahresbasisprojektion: neue V10-Steuer-/SV-Perioden tragen die bereits belegte
+Profilreferenz und dasselbe Brutto. Die v9-Originalstruktur bleibt erhalten.
+Neun neue Workflowfälle bestehen auf diesem Stand, einschließlich einer echten
+Cash-/EÜR-Kette mit 6.192 Euro Lohnaufwand und genau 14 Euro Reiseerstattung.
+Alle 16 Paketprüfungen bestehen; der erste Versuch fand nur die fehlende lokale
+Venv-Verknüpfung der neuen Arbeitskopie. Ein unabhängig tatsächlich per
+PostgreSQL/MFA reproduzierter Null-Details-Fehler wird nun für Vorschau und
+Speichern mit HTTP400 abgewiesen. Die ursprünglichen Fehlprotokolle bleiben
+getrennt erhalten. Ungeprüfte Bonus-/Mehrfachbezüge bekommen keine V10-Basis
+in ihrer Auswahl.

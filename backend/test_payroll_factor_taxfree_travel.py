@@ -116,6 +116,10 @@ class FactorTravelTests(FactorTravelFixture):
         self.assertNotIn('cash_source_hash',canonical(statement))
         self.assertNotIn('account_id',canonical(saved['sources']['travel_sources']))
         self.assertEqual(f.office.db.execute('SELECT COUNT(*) FROM business_travel_payments').fetchone()[0],1)
+        from business_payroll_annual_basis import PayrollAnnualBasis
+        annual=PayrollAnnualBasis(f.office)._project_run(run,candidate=True,as_of_date='2026-11-03')
+        self.assertEqual(annual['running_taxable_minor'],500000)
+        self.assertEqual(annual['periods'][0]['branches']['pension']['contributed_minor'],500000)
         self.assertTrue(validate_integrity(f.office))
 
     def test_missing_payment_and_foreign_month_are_not_a_zero_money_shortcut(self):

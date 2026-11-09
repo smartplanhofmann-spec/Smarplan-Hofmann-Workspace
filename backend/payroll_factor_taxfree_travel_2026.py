@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 
 from core import Problem, canonical
-from business_payroll_facts import reference
+from business_payroll_facts import reference, ref
 from payroll_de_2026 import month_range
 from payroll_factor_2026 import calculate_factor
 from payroll_factor_periods_2026 import build_factor_period_plan, calculate_factor_period_source, FACTOR_PERIOD_RULE_VERSION
@@ -39,6 +39,7 @@ def build_plan(snapshot, *, rule_version=RULE_VERSION, source_contract_version=S
     if (not isinstance(snapshot, dict) or set(snapshot) != keys or type(snapshot['schema_version']) is not int
             or snapshot['schema_version'] != 1 or rule_version != RULE_VERSION or snapshot['rule_version'] != RULE_VERSION
             or type(source_contract_version) is not int or source_contract_version != SOURCE_CONTRACT_VERSION
+            or type(snapshot['source_contract_version']) is not int
             or snapshot['source_contract_version'] != SOURCE_CONTRACT_VERSION):
         raise Problem(400, 'Expliziten neuen Faktor-/Reise-Quellenvertrag verwenden.')
     base = snapshot['period_case']; original = base['sources']
@@ -65,8 +66,9 @@ def build_plan(snapshot, *, rule_version=RULE_VERSION, source_contract_version=S
     if not snapshot['travel_sources']:
         block('factor_travel_original_missing', 'Mindestens eine vollständig erstattete steuerfreie Originalreise binden.')
     travel = _travel_totals(snapshot['travel_sources'], snapshot['employee_id'], snapshot['month'])
-    payment_refs=[]
+    payment_refs=[];all_payment_ids=set()
     for source in snapshot['travel_sources']:
+        ref(source['settlement_ref'])
         proof = source.get('payment_proof', {})
         if (not isinstance(proof,dict) or set(proof) != {'schema_version', 'cutoff_sequence', 'paid_minor', 'payments'}
                 or type(proof['schema_version']) is not int or proof['schema_version'] != 1
@@ -81,27 +83,31 @@ def build_plan(snapshot, *, rule_version=RULE_VERSION, source_contract_version=S
             raise Problem(400,'Gültige ursprüngliche Zahlungsjournalgrenze erforderlich.')
         for payment in proof['payments']:
             fields={'id','revision','content_hash','sequence','status','kind','paid_on','amount_minor','cash_source_hash'}
-            if (not isinstance(payment,dict) or set(payment)!=fields or payment['id'] in seen
+            if (not isinstance(payment,dict) or set(payment)!=fields or payment['id'] in seen or payment['id'] in all_payment_ids
                     or payment['status'] not in ('active','void') or payment['kind'] not in ('reimbursement','repayment')
                     or type(payment['amount_minor']) is not int or payment['amount_minor']<=0
                     or type(payment['sequence']) is not int or not 1<=payment['sequence']<=proof['cutoff_sequence']
-                    or payment['sequence'] in sequences or not payment['paid_on'].startswith(snapshot['month']+'-')):
+                    or payment['sequence'] in sequences or not isinstance(payment['paid_on'],str)
+                    or not payment['paid_on'].startswith(snapshot['month']+'-')):
                 raise Problem(400,'Eindeutige ursprüngliche Zahlungsbelege für den Lohnmonat erforderlich.')
             if not re.fullmatch('[a-f0-9]{64}',str(payment['cash_source_hash'])):
                 raise Problem(400,'Unveränderten Reisegeldfluss nachweisen.')
-            payment_refs.append(reference(payment))
+            payment_refs.append(ref(reference(payment)))
+            all_payment_ids.add(payment['id'])
             seen.add(payment['id']);sequences.add(payment['sequence'])
             if payment['status']=='active':paid+=payment['amount_minor']*(1 if payment['kind']=='reimbursement' else -1)
         if paid!=proof['paid_minor'] or max(sequences)!=proof['cutoff_sequence']:
             raise Problem(409,'Der Zahlungspräfix bestätigt die vollständig erstattete Reisesumme nicht.')
     profile_ref, identity_ref = ordinary['selected_profile_ref'], ordinary['selected_identity_ref']
     earnings = [dict(row, start=first.isoformat(), end=last.isoformat(), claim_dates=[]) for row in ordinary['earnings']]
+    tax_periods=[dict(row,profile_ref=profile_ref,gross_minor=ordinary['gross_minor']) for row in ordinary['tax_periods']]
+    social_periods=[dict(row,profile_ref=profile_ref,gross_minor=ordinary['gross_minor']) for row in ordinary['social_periods']]
     plan = dict(schema_version=1, rule_version=RULE_VERSION, source_contract_version=SOURCE_CONTRACT_VERSION,
                 rules_sha256=RULES_SHA256, source_snapshot_hash=hashlib.sha256(canonical(snapshot).encode()).hexdigest(),
                 claims_component_hash=hashlib.sha256(canonical([]).encode()).hexdigest(), employee_id=snapshot['employee_id'],
                 month=snapshot['month'], employment_intervals=ordinary['employment_intervals'],
                 identity_intervals=[dict(start=first.isoformat(), end=last.isoformat(), profile_ref=profile_ref, identity_ref=identity_ref)],
-                earnings=earnings, tax_periods=ordinary['tax_periods'], social_periods=ordinary['social_periods'],
+                earnings=earnings, tax_periods=tax_periods, social_periods=social_periods,
                 entitlement_sources=[], unpaid_dates=[], social_continuation=[], travel=travel, flat_travel_tax=None,
                 travel_source_hashes=[row['source_hash'] for row in snapshot['travel_sources']], gross_minor=ordinary['gross_minor'],
                 travel_payment_refs=sorted(payment_refs, key=lambda value:value['id']),

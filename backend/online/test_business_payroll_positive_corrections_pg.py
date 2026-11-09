@@ -11,6 +11,7 @@ import business_schema
 from business_accounting_euer import EuerAccounting
 from business_payroll import Payroll
 from business_payroll_accounts import PayrollAccounts
+from business_payroll_annual_basis import PayrollAnnualBasis
 from business_payroll_cash import PayrollCash
 from business_payroll_facts import reference
 from core import Problem
@@ -179,6 +180,21 @@ class PositiveCorrectionPostgres(unittest.TestCase):
         report=self.call('GET','/business/accounting/euer/report?year=2026').json
         self.assertEqual(Decimal(report['totals']['confirmed_expenses']),
             Decimal(run['calculation']['net_minor']-run['calculation']['net_deductions_minor'])/100)
+        annual_details=deepcopy(data['annual_basis']['details'])
+        annual_details.update(as_of_date='2026-11-01',current_calculation_case_ref=None,
+            payroll_run_refs=[reference(run)],payroll_payment_refs=[reference(payment)])
+        proposal=dict(employee_id=data['employee']['id'],employee_revision=data['employee']['revision'],
+            kind='annual_basis',details=annual_details,source_file_ids=[data['file']['id']])
+        annual_preview=self.call('POST','/business/payroll/annual-facts/preview',proposal).json
+        annual_command=req(**proposal,revision=0,status='active',confirmed=True,preview_hash=annual_preview['preview_hash'])
+        annual=self.call('POST','/business/payroll/annual-facts',annual_command).json
+        self.assertEqual(annual['plan']['earlier_other_taxable_minor'],50000)
+        self.assertEqual(len(annual['plan']['projection']['prior_one_offs']),1)
+        self.assertEqual(annual['sources']['payroll_runs'][0]['projection_format'],'source5_annual_reference_v1')
+        self.call('GET','/business/payroll/annual-facts/'+annual['id'],token=data['tech'],status=403)
+        own=self.call('GET','/business/payroll/employee-statements/'+run['id'],token=data['tech']).json
+        for secret in ('settlement_review','remittance_observation',run['settlement_transition']['settlement_review']['evidence_ref']['id']):
+            self.assertNotIn(secret,str(own))
         self.call('GET','/business/payroll/runs/'+run['id'],token=data['tech'],status=403)
         self.call('GET','/business/payroll/account-records/'+payment['id'],token=data['tech'],status=403)
         offline=self.call('POST','/business/offline/access',{},status=201).json['token']
@@ -194,6 +210,8 @@ class PositiveCorrectionPostgres(unittest.TestCase):
             try:
                 self.assertEqual(Payroll(restored).finalize(self.owner,command),run)
                 self.assertEqual(PayrollAccounts(restored).save(self.owner,payment_command),payment)
+                self.assertEqual(PayrollAnnualBasis(restored).save(self.owner,annual_command),annual)
+                self.assertEqual(PayrollAnnualBasis(restored).resolve(self.owner,data['employee']['id'],reference(annual)),annual)
                 self.assertEqual(PayrollCash(restored).confirm(self.owner,cash_command),batch)
                 self.assertEqual(Payroll(restored).export(self.owner,old['id'],'pdf',revision='1')[0],old_pdf)
                 self.assertEqual(EuerAccounting(restored).report(self.owner,2026)['totals'],report['totals'])

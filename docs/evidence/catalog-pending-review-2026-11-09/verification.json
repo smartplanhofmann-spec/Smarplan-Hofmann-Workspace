@@ -1,0 +1,21 @@
+{
+  "source_base": "ec90a8b7b68559c4aaf6daf64622346f7a381ed1",
+  "exit_code": 0,
+  "actual_browser_workflows_passed": 1,
+  "actual_auth_and_backend": true,
+  "production_source_changed": false,
+  "changed_test": {
+    "path": "web/office/tests/catalog-prices-flow.cjs",
+    "sha256": "5a55df04bd6051627d274a9aa31c3c9cc2d5010763cc3e5994264b93c97a0e3e"
+  },
+  "assertions": [
+    "real MFA, original import/file/hash and dated price binding",
+    "unknown original prevents a second new document form",
+    "late accepted POST preserves replacement clarification dialog, content and focus",
+    "new draft available after actual original response",
+    "exactly one original offer; old document and price retained after source correction",
+    "December boundary, immutable original download and 390px layout"
+  ],
+  "raw_bytes": 535,
+  "raw_sha256": "c75d51d8261962c16a1805660bfc7b48cb52f0db9e006097997d37398ecffc27"
+}

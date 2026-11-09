@@ -1,0 +1,75 @@
+{
+  "source_commit": "82738522d132918b0f139011302e5862f40c1e92",
+  "development": {
+    "run_id": 42654230472,
+    "jobs": [
+      {
+        "id": 129288305481,
+        "name": "online-api",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 129288305939,
+        "name": "backend",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129288306032,
+        "name": "update-flow",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129288306110,
+        "name": "business-services",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 129288306207,
+        "name": "https-setup",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129288306291,
+        "name": "flutter",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129288306410,
+        "name": "native-build (windows-latest, flutter build windows --release)",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 129288306563,
+        "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "iphone": {
+    "run_id": 42654230385,
+    "jobs": [
+      {
+        "id": 129288306130,
+        "name": "Online-Release ohne Apple-Zugang pruefen",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 129308038535,
+        "name": "Ausdruecklich angeforderten TestFlight-Upload ausfuehren",
+        "status": "completed",
+        "conclusion": "skipped"
+      }
+    ],
+    "signed_upload_requested": false
+  },
+  "interpretation": "Completed source-specific run: five Development successes, three failures; unsigned iPhone failed and signed upload skipped. Four concrete test-fixture/expectation causes are separately reproduced and locally corrected; no retroactive success is claimed."
+}

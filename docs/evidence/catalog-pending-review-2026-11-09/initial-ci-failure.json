@@ -1,0 +1,11 @@
+{
+  "source_commit": "82738522d132918b0f139011302e5862f40c1e92",
+  "run_id": 42654230472,
+  "job_id": 129288306110,
+  "result": "failure",
+  "workflow": "catalog-prices",
+  "expected_dialog": "Neuer Belegentwurf",
+  "actual_dialog": "Belegantwort kl\u00e4ren",
+  "raw_bytes": 534132,
+  "raw_sha256": "01b9a51cb8eb0f3e1d0dc60758ae64eb34c96768b1da0a9879cf2d17314f3edb"
+}

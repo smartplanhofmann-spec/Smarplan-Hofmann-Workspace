@@ -1,0 +1,370 @@
+{
+  "uploads": [
+    {
+      "request_id": "66d5dcf7559242c78dbd3ecaf16df4be",
+      "status": 400
+    },
+    {
+      "request_id": "983c40ec14e042239615230ccbe0a26d",
+      "status": 200,
+      "id": "26f13e46ff834055b0f4cad4ddecbc67",
+      "original": {
+        "filename": "Synthetic-v2.csv",
+        "sha256": "76a52c31eeb087c922d29fd62466daa837b2a7fcc388a5faa2e26a5763102fe1",
+        "size": 377
+      }
+    },
+    {
+      "request_id": "983c40ec14e042239615230ccbe0a26d",
+      "status": 200,
+      "id": "26f13e46ff834055b0f4cad4ddecbc67",
+      "original": {
+        "filename": "Synthetic-v2.csv",
+        "sha256": "76a52c31eeb087c922d29fd62466daa837b2a7fcc388a5faa2e26a5763102fe1",
+        "size": 377
+      }
+    },
+    {
+      "request_id": "03bb3fdccac6442da48f7c9ea05cb9ef",
+      "status": 200,
+      "id": "38ecf8517a424c41ad008f335a4c4d04",
+      "original": {
+        "filename": "Synthetic-v2.csv",
+        "sha256": "12b491b73fba0854a4e2a7856e2cdb11325f755d8a2d7cadd59580150997e4d0",
+        "size": 377
+      }
+    }
+  ],
+  "applications": [
+    {
+      "command": {
+        "expected_source_version": 0,
+        "replacements": {},
+        "bindings": {
+          "SYN-DATED": {
+            "action": "create",
+            "article_id": null,
+            "article_revision": null,
+            "expected_binding_revision": 0,
+            "confirm_name_difference": false
+          }
+        },
+        "preview_sha256": "6e4806b923a66664fc99c973d86357fd5aea485f1d44fdb5af953c651726b39d",
+        "confirmation": true,
+        "request_id": "32bd69d6cc5d47efbc0ac5cfd3d0b82b"
+      },
+      "status": 200,
+      "value": {
+        "bindings": [
+          {
+            "article_id": "f118cd08c82840fba39db11916924e15",
+            "article_revision": 1,
+            "code": "SYN-DATED",
+            "revision": 1,
+            "source_id": "0e765c0134d34f9db7390ba154655b9a",
+            "unit": "ST"
+          }
+        ],
+        "created_at": "2026-11-09T17:29:31.433522+00:00",
+        "created_by": "6212c050a4e04387bee2a26a3c44bbe0",
+        "import_id": "26f13e46ff834055b0f4cad4ddecbc67",
+        "original_sha256": "76a52c31eeb087c922d29fd62466daa837b2a7fcc388a5faa2e26a5763102fe1",
+        "preview_sha256": "6e4806b923a66664fc99c973d86357fd5aea485f1d44fdb5af953c651726b39d",
+        "prices": [
+          {
+            "price_id": "c222565436f15c73b1300ce5a5e44236",
+            "revision": 1,
+            "sha256": "63307fff080b2bba6848ea8d45abe7c16fb9ad6c372523feea50aa8d676f49c0"
+          },
+          {
+            "price_id": "f87f0df0abb5557fa5e5b995cfb8c654",
+            "revision": 1,
+            "sha256": "64fcb4e59d7975f650b6ef3699cc66131f81e060428431704d269be8a30422bd"
+          },
+          {
+            "price_id": "9834d4643baf5577a2ad50ce90008ee2",
+            "revision": 1,
+            "sha256": "f8ad29119283d90aab00788efd7a8057ebf9b1753a3cf7b7cbb5e487d5a12376"
+          }
+        ],
+        "request_id": "32bd69d6cc5d47efbc0ac5cfd3d0b82b",
+        "request_sha256": "509e4d48304b9dae4884c78489529f76df8c8126dad1e3771ee2bb4cc00ef437",
+        "source_id": "0e765c0134d34f9db7390ba154655b9a",
+        "source_version": 4
+      }
+    },
+    {
+      "command": {
+        "expected_source_version": 0,
+        "replacements": {},
+        "bindings": {
+          "SYN-DATED": {
+            "action": "create",
+            "article_id": null,
+            "article_revision": null,
+            "expected_binding_revision": 0,
+            "confirm_name_difference": false
+          }
+        },
+        "preview_sha256": "6e4806b923a66664fc99c973d86357fd5aea485f1d44fdb5af953c651726b39d",
+        "confirmation": true,
+        "request_id": "32bd69d6cc5d47efbc0ac5cfd3d0b82b"
+      },
+      "status": 200,
+      "value": {
+        "bindings": [
+          {
+            "article_id": "f118cd08c82840fba39db11916924e15",
+            "article_revision": 1,
+            "code": "SYN-DATED",
+            "revision": 1,
+            "source_id": "0e765c0134d34f9db7390ba154655b9a",
+            "unit": "ST"
+          }
+        ],
+        "created_at": "2026-11-09T17:29:31.433522+00:00",
+        "created_by": "6212c050a4e04387bee2a26a3c44bbe0",
+        "import_id": "26f13e46ff834055b0f4cad4ddecbc67",
+        "original_sha256": "76a52c31eeb087c922d29fd62466daa837b2a7fcc388a5faa2e26a5763102fe1",
+        "preview_sha256": "6e4806b923a66664fc99c973d86357fd5aea485f1d44fdb5af953c651726b39d",
+        "prices": [
+          {
+            "price_id": "c222565436f15c73b1300ce5a5e44236",
+            "revision": 1,
+            "sha256": "63307fff080b2bba6848ea8d45abe7c16fb9ad6c372523feea50aa8d676f49c0"
+          },
+          {
+            "price_id": "f87f0df0abb5557fa5e5b995cfb8c654",
+            "revision": 1,
+            "sha256": "64fcb4e59d7975f650b6ef3699cc66131f81e060428431704d269be8a30422bd"
+          },
+          {
+            "price_id": "9834d4643baf5577a2ad50ce90008ee2",
+            "revision": 1,
+            "sha256": "f8ad29119283d90aab00788efd7a8057ebf9b1753a3cf7b7cbb5e487d5a12376"
+          }
+        ],
+        "request_id": "32bd69d6cc5d47efbc0ac5cfd3d0b82b",
+        "request_sha256": "509e4d48304b9dae4884c78489529f76df8c8126dad1e3771ee2bb4cc00ef437",
+        "source_id": "0e765c0134d34f9db7390ba154655b9a",
+        "source_version": 4
+      }
+    },
+    {
+      "command": {
+        "expected_source_version": 4,
+        "replacements": {
+          "NOV": {
+            "revision": 1,
+            "sha256": "63307fff080b2bba6848ea8d45abe7c16fb9ad6c372523feea50aa8d676f49c0"
+          }
+        },
+        "bindings": {
+          "SYN-DATED": {
+            "action": "bind",
+            "article_id": "f118cd08c82840fba39db11916924e15",
+            "article_revision": 1,
+            "expected_binding_revision": 1,
+            "confirm_name_difference": false
+          }
+        },
+        "preview_sha256": "bba50a958b939e003ba3eea658fd3c7914a63c0c8a4be2e543fa052076718344",
+        "confirmation": true,
+        "request_id": "62a3bb973e614e60a8ad1a8db988a192"
+      },
+      "status": 200,
+      "value": {
+        "bindings": [
+          {
+            "article_id": "f118cd08c82840fba39db11916924e15",
+            "article_revision": 1,
+            "code": "SYN-DATED",
+            "revision": 1,
+            "source_id": "0e765c0134d34f9db7390ba154655b9a",
+            "unit": "ST"
+          }
+        ],
+        "created_at": "2026-11-09T17:29:37.870531+00:00",
+        "created_by": "6212c050a4e04387bee2a26a3c44bbe0",
+        "import_id": "38ecf8517a424c41ad008f335a4c4d04",
+        "original_sha256": "12b491b73fba0854a4e2a7856e2cdb11325f755d8a2d7cadd59580150997e4d0",
+        "preview_sha256": "bba50a958b939e003ba3eea658fd3c7914a63c0c8a4be2e543fa052076718344",
+        "prices": [
+          {
+            "price_id": "c222565436f15c73b1300ce5a5e44236",
+            "revision": 2,
+            "sha256": "a29d9fe00b80654dca542c4893f51b246196a224bf697a77f80c193fe4a4e500"
+          },
+          {
+            "price_id": "f87f0df0abb5557fa5e5b995cfb8c654",
+            "revision": 1,
+            "sha256": "64fcb4e59d7975f650b6ef3699cc66131f81e060428431704d269be8a30422bd"
+          },
+          {
+            "price_id": "9834d4643baf5577a2ad50ce90008ee2",
+            "revision": 1,
+            "sha256": "f8ad29119283d90aab00788efd7a8057ebf9b1753a3cf7b7cbb5e487d5a12376"
+          }
+        ],
+        "request_id": "62a3bb973e614e60a8ad1a8db988a192",
+        "request_sha256": "f66884a018c9f48aea207a7abe433d16179ddc65594603323f5911b48a2935d2",
+        "source_id": "0e765c0134d34f9db7390ba154655b9a",
+        "source_version": 6
+      }
+    }
+  ],
+  "november_document": {
+    "id": "c817ca3ff54c4fc9a3202f93b72c539d",
+    "positions": [
+      {
+        "article_id": "f118cd08c82840fba39db11916924e15",
+        "article_revision": 1,
+        "catalog_price_snapshot": {
+          "binding_sha256": "15340fd8ba566891388d1036d8830681a23ce484eef3cdcea06de0a21475f62d",
+          "contract": "catalog_csv_v2",
+          "effective_on": "2026-11-30",
+          "line_number": 1,
+          "original_import_id": "26f13e46ff834055b0f4cad4ddecbc67",
+          "original_sha256": "76a52c31eeb087c922d29fd62466daa837b2a7fcc388a5faa2e26a5763102fe1",
+          "price": {
+            "article_id": "f118cd08c82840fba39db11916924e15",
+            "binding_revision": 1,
+            "code": "SYN-DATED",
+            "currency": "EUR",
+            "name": "Synthetischer datierter Artikel",
+            "price_base_quantity": "1",
+            "price_id": "NOV",
+            "price_net": "10",
+            "price_role": "sales_net",
+            "tax_rate": "19",
+            "unit": "ST",
+            "valid_from": "2026-11-01",
+            "valid_until": "2026-11-30"
+          },
+          "price_id": "c222565436f15c73b1300ce5a5e44236",
+          "price_revision": 1,
+          "price_sha256": "63307fff080b2bba6848ea8d45abe7c16fb9ad6c372523feea50aa8d676f49c0",
+          "snapshot_sha256": "4eee64f52024975492f663148212edfe1e1cbe29243be82c7110fda3456895cc",
+          "source_id": "0e765c0134d34f9db7390ba154655b9a",
+          "source_name": "Synthetische datierte Quelle"
+        },
+        "code": "SYN-DATED",
+        "components": [],
+        "description": "Synthetischer datierter Artikel",
+        "discount_percent": "0",
+        "id": "d3beebabefb74411a0efa80570ad2548",
+        "index": 1,
+        "kind": "material",
+        "net": "30.00",
+        "price_base_quantity": "1",
+        "quantity": "3",
+        "tax_category": "S",
+        "tax_exemption_reason": "",
+        "tax_rate": "19",
+        "unit": "ST",
+        "unit_price_net": "10"
+      }
+    ],
+    "totals": {
+      "by_kind": {
+        "labor": {
+          "gross": "0.00",
+          "net": "0.00",
+          "tax": "0.00"
+        },
+        "machine": {
+          "gross": "0.00",
+          "net": "0.00",
+          "tax": "0.00"
+        },
+        "material": {
+          "gross": "35.70",
+          "net": "30.00",
+          "tax": "5.70"
+        },
+        "service": {
+          "gross": "0.00",
+          "net": "0.00",
+          "tax": "0.00"
+        }
+      },
+      "gross": "35.70",
+      "labor_gross": "0.00",
+      "labor_net": "0.00",
+      "labor_tax": "0.00",
+      "material_gross": "35.70",
+      "material_net": "30.00",
+      "material_tax": "5.70",
+      "net": "30.00",
+      "payable": "35.70",
+      "tax": "5.70",
+      "tax_breakdown": [
+        {
+          "category": "S",
+          "net": "30.00",
+          "rate": "19",
+          "reason": "",
+          "tax": "5.70"
+        }
+      ]
+    }
+  },
+  "december_candidates": {
+    "article_id": "f118cd08c82840fba39db11916924e15",
+    "effective_on": "2026-12-01",
+    "items": [
+      {
+        "effective_on": "2026-12-01",
+        "price": {
+          "article_id": "f118cd08c82840fba39db11916924e15",
+          "binding_revision": 1,
+          "code": "SYN-DATED",
+          "currency": "EUR",
+          "name": "Synthetischer datierter Artikel",
+          "price_base_quantity": "1",
+          "price_id": "NOV",
+          "price_net": "11",
+          "price_role": "sales_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-11-01",
+          "valid_until": "2026-11-30"
+        },
+        "price_id": "c222565436f15c73b1300ce5a5e44236",
+        "price_revision": 2,
+        "price_sha256": "a29d9fe00b80654dca542c4893f51b246196a224bf697a77f80c193fe4a4e500",
+        "source_id": "0e765c0134d34f9db7390ba154655b9a",
+        "source_name": "Synthetische datierte Quelle",
+        "source_reference": "SYN-CSV-V2",
+        "status": "expired"
+      },
+      {
+        "effective_on": "2026-12-01",
+        "price": {
+          "article_id": "f118cd08c82840fba39db11916924e15",
+          "binding_revision": 1,
+          "code": "SYN-DATED",
+          "currency": "EUR",
+          "name": "Synthetischer datierter Artikel",
+          "price_base_quantity": "1",
+          "price_id": "DEC",
+          "price_net": "12",
+          "price_role": "sales_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-12-01",
+          "valid_until": null
+        },
+        "price_id": "f87f0df0abb5557fa5e5b995cfb8c654",
+        "price_revision": 1,
+        "price_sha256": "64fcb4e59d7975f650b6ef3699cc66131f81e060428431704d269be8a30422bd",
+        "source_id": "0e765c0134d34f9db7390ba154655b9a",
+        "source_name": "Synthetische datierte Quelle",
+        "source_reference": "SYN-CSV-V2",
+        "status": "eligible"
+      }
+    ],
+    "managed": true,
+    "price_role": "sales_net"
+  }
+}

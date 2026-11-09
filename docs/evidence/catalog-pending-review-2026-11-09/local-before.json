@@ -1,0 +1,7 @@
+{
+  "source_commit": "ec90a8b7b68559c4aaf6daf64622346f7a381ed1",
+  "exit_code": 1,
+  "result": "same old second-draft assertion reproduced against actual pending-original guard",
+  "raw_bytes": 2770,
+  "raw_sha256": "f9bcb2f5b05160ed55fd3edbb5c4f5b2f9dcb6444a91467ed160dc4c1d3e603b"
+}

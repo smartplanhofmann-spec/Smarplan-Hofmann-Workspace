@@ -1,0 +1,8 @@
+{
+  "result": "cancelled_incomplete_harness_run",
+  "elapsed_more_than_seconds": 300,
+  "source_changed": false,
+  "reason": "Adjusted harness retained an unbounded wait while the original POST response was intentionally held. No assertion success is inferred. Replace with a bounded same-page pending-dialog control.",
+  "raw_bytes": 90,
+  "raw_sha256": "50688c4a144d103e65d455bebf6c5d6171c886c73ed3bb4b54781a4af3af83ef"
+}

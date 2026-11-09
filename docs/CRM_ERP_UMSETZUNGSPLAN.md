@@ -92,8 +92,12 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    Die [alte v8-Faktorhistorie](CRM_ERP_LOHN_PLATTFORMHISTORIE_2026.md)
    besitzt jetzt einen eng begrenzten exakten Windows-/Linux-Abgleich; fünf
    Fachketten-, zwei echte PG-/Restorefälle und alle 649 Python-Lohnfälle bestehen.
-   Als 3025747 veröffentlicht; eigene Remote-CI ausstehend. Weitere rohe Dateihash-Nachweise
-   bei Einmalbezügen und Reisen vollständig prüfen. Fälle mit Ansprüchen, Reisen, Übergangsbereich
+   Als 3025747 veröffentlicht; sieben Remote-Jobs bestehen, Browser-Testfehler
+   im aktuellen Nachfolger korrigiert. Der [v2/v3-Reiseabgleich](CRM_ERP_REISEN_PLATTFORMHISTORIE_2026.md)
+   besteht sieben Fachketten-, drei echte PG-/Restorefälle sowie alle 687
+   Python-Lohn-/Reise-, 24 native Reise- und 881 Browsermodulfälle. Neue
+   Veröffentlichung und Gesamtprüfung abschließen. Rohe Dateihash-Nachweise
+   bei Einmalbezügen vollständig prüfen. Fälle mit Ansprüchen, Reisen, Übergangsbereich
    oder Einmalbezügen bleiben in ihren eigenen noch auszuarbeitenden Zweigen.
    Der [reguläre Faktor-Vollmonat](CRM_ERP_LOHN_FAKTOR_2026.md) ist jetzt mit
    beiden Clients, tatsächlichem PG-Restore, Zahlungen/EÜR und unabhängigen

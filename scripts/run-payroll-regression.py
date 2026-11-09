@@ -1,4 +1,5 @@
 """Run every root payroll test once; PostgreSQL suites use separate DSN guards."""
+import argparse
 import json
 from pathlib import Path
 import sys
@@ -6,7 +7,12 @@ import unittest
 
 ROOT=Path(__file__).resolve().parent.parent
 sys.path[:0]=[str(ROOT/'backend'),str(ROOT/'backend/business_tests'),str(ROOT/'backend/online')]
-modules=[path.stem for path in sorted((ROOT/'backend').glob('test*payroll*.py'))]
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--include-travel',action='store_true',help='Include travel sources, receipts, cash and EÜR consumers.')
+args=parser.parse_args()
+paths=set((ROOT/'backend').glob('test*payroll*.py'))
+if args.include_travel:paths.update((ROOT/'backend').glob('test*travel*.py'))
+modules=[path.stem for path in sorted(paths)]
 suite=unittest.defaultTestLoader.loadTestsFromNames(modules)
 seen=set();unique=[];duplicates=[]
 

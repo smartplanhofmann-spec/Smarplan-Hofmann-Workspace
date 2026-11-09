@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-09",
+  "source_commit": "3025747c156604646f5cca93288402369b30fa51",
+  "development_run": 42601772720,
+  "development_jobs": [
+    {
+      "id": 129107845892,
+      "name": "flutter",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129107846209,
+      "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 129107846211,
+      "name": "https-setup",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129107846371,
+      "name": "update-flow",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129107846382,
+      "name": "online-api",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129107846403,
+      "name": "business-services",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 129107846410,
+      "name": "native-build (windows-latest, flutter build windows --release)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129107846416,
+      "name": "backend",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "iphone_run": 42601772533,
+  "iphone_jobs": [
+    {
+      "id": 129107876816,
+      "name": "Online-Release ohne Apple-Zugang pruefen",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129119547331,
+      "name": "Ausdruecklich angeforderten TestFlight-Upload ausfuehren",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ],
+  "fully_green": false,
+  "browser_failure": "Playwright response body read after navigation in tests/profile-flow.cjs:58",
+  "macos_original_log_fetch": {
+    "error": "GitHub API error 404: ﻿<?xml version=\"1.0\" encoding=\"utf-8\"?><Error><Code>BlobNotFound</Code><Message>The specified blob does not exist.\nRequestId:642a038f-d01e-0041-7d3e-7078e6000000\nTime:2026-11-09T11:37:07.5002689Z</Message></Error>",
+    "error_code": "NOT_FOUND",
+    "error_data": {
+      "error_str": "GitHub API error 404: ﻿<?xml version=\"1.0\" encoding=\"utf-8\"?><Error><Code>BlobNotFound</Code><Message>The specified blob does not exist.\nRequestId:642a038f-d01e-0041-7d3e-7078e6000000\nTime:2026-11-09T11:37:07.5002689Z</Message></Error>"
+    }
+  },
+  "macos_retry_requested": true,
+  "macos_failure_cause_confirmed": false
+}

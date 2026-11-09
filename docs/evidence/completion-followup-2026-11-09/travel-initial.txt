@@ -1,0 +1,10 @@
+test_actual_original_exports_receipt_and_private_sources_remain_unchanged (test_business_travel_provenance.TravelOriginalTransport.test_actual_original_exports_receipt_and_private_sources_remain_unchanged) ... ok
+test_actual_partial_payments_still_use_original_and_never_duplicate_cash (test_business_travel_provenance.TravelOriginalTransport.test_actual_partial_payments_still_use_original_and_never_duplicate_cash) ... ok
+test_genuine_crlf_ground_and_mixed_sources_require_exact_metadata_and_money (test_business_travel_provenance.TravelOriginalTransport.test_genuine_crlf_ground_and_mixed_sources_require_exact_metadata_and_money) ... ok
+test_native_correction_keeps_old_crlf_original_and_actual_overpayment (test_business_travel_provenance.TravelOriginalTransport.test_native_correction_keeps_old_crlf_original_and_actual_overpayment) ... ok
+test_transport_metadata_is_exact_for_both_historical_v2_and_v3 (test_business_travel_provenance.TravelOriginalTransport.test_transport_metadata_is_exact_for_both_historical_v2_and_v3) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 21.428s
+
+OK

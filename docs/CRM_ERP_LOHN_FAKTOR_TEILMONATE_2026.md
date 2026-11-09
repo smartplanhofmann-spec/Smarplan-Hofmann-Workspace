@@ -69,7 +69,9 @@ dasselbe v9-Ergebnis einschließlich Regelhash wie mit LF. Das ist keine
 Bedienung auf einem Windowsgerät. Der Abgleich zeigt zugleich unterschiedliche
 Metadaten der unveränderten alten v8-Regel; der anschließende [v8-Abgleich](CRM_ERP_LOHN_PLATTFORMHISTORIE_2026.md)
 schließt diesen eng begrenzten Fall inzwischen ohne Änderung alter Originale.
-Andere rohe Dateihash-Nachweise bei Einmalbezügen/Reisen bleiben zu prüfen.
+Der [v2/v3-Reiseabgleich](CRM_ERP_REISEN_PLATTFORMHISTORIE_2026.md) ist
+inzwischen ebenfalls geprüft. Rohe Dateihash-Nachweise bei Einmalbezügen bleiben
+zu prüfen.
 
 ## Ausgeführte Prüfungen
 

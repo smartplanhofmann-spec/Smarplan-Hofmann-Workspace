@@ -17,10 +17,14 @@ Aktueller veröffentlichter Produktstand mit Faktor-Teilmonaten und sicherem
 alten v8-Plattformabgleich: `3025747c156604646f5cca93288402369b30fa51`.
 [Development42601772720](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42601772720)
 und [iPhone42601772533](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42601772533)
-sind gestartet, beim ersten Abruf noch ausstehend. Der Vorgänger 877266a besteht
-App, iOS-Simulator, HTTPS und Update; noch laufende übrige Jobs werden durch
-den neuen Branchstand beendet. Weder Vorgänger noch Nachfolger gilt damit als
-vollständig grün. [Aktueller Veröffentlichungsnachweis](evidence/payroll-provenance-2026-11-09/publication.json).
+sind abgeschlossen. Nach tatsächlicher Wiederholung besteht auch der zunächst
+fehlgeschlagene Simulatorjob; seine erste Ursache bleibt mangels abrufbarem Log
+unbestätigt. Sieben Development-Jobs und der unsignierte iPhone-Build bestehen.
+Der vollständige Browserjob scheitert am späteren Lesen einer Antwort nach
+Seitenwechsel im Unternehmensprofiltest. Die Korrektur liegt im aktuellen
+Arbeitsstand und der gezielte echte Browserablauf besteht. 3025747 bleibt damit
+vollständig betrachtet nicht grün. [Befund und Wiederholung](evidence/completion-followup-2026-11-09/ci-macos-retry.json).
+
 Eine neue Serverinstallation oder Geräteabnahme ist nicht erfolgt.
 
 ## Ziel und fachlicher Umfang
@@ -69,6 +73,17 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
 ## Konkrete aktuelle Arbeit
 
+Aktiv: [alte Reiseoriginale zwischen Windows/Linux erhalten](CRM_ERP_REISEN_PLATTFORMHISTORIE_2026.md).
+Die v2/v3-Transportnachweise und v3-Boden-/Programmquellen werden mit exakt
+hergeleiteten LF-/CRLF-Metadaten nachgerechnet, während alle Originale und
+Finanzdaten erhalten bleiben. Sieben neue Fachkettenfälle, drei tatsächliche
+PG-/MFA-/Konkurrenz-/Restorefälle, EÜR/Bankabgleich, beide Browserabläufe und
+881 Browsermodule, 24 native Reiseprüfungen und alle 687 unterschiedlichen
+Python-Lohn-/Reisefälle bestehen ohne Skip. App-Analyse ohne Befund. Die alte
+tatsächliche Windows-Paketberechnung stimmt unabhängig mit dem Original
+überein. Veröffentlichung und neue Remote-CI werden gesondert erfasst.
+
+
 Der [belegte Faktor-Teilmonat](CRM_ERP_LOHN_FAKTOR_TEILMONATE_2026.md) ist als
 additive v9-Regel mit Quelle2 in Backend, Browser und nativer App integriert.
 200 unabhängige PAP-XML-Vektoren stimmen überein. Original/Korrektur,
@@ -77,7 +92,8 @@ und die drei bisherigen Perioden-PG-Fälle bestehen. 313 native Lohnfälle,
 879 Browsermodule, beide tatsächlichen Perioden-Browserwege und 16 Paketfälle
 bestehen; App-Analyse ohne Befund. Alle 644 unterschiedlichen Python-Lohnfälle
 bestehen ohne Skip. Die Erweiterung ist über 877266a und den Folgefix 3025747
-veröffentlicht; die eigene Remote-Gesamtprüfung des Nachfolgers ist ausstehend.
+veröffentlicht; die neue Remote-Prüfung besteht sieben Jobs, während der
+oben beschriebene Browser-Testfehler im Nachfolger korrigiert wird.
 
 Die historischen Kernmodule bleiben bytegleich. Neue v9-Quellmetadaten verwenden
 LF-normalisierte Dateihashes. Der Vergleich mit 146 verifizierten Quellen aus
@@ -89,8 +105,8 @@ Fünf neue Fachkettenfälle, zwei tatsächliche PG-/MFA-/Neustart-/Restorefälle
 und der Vergleich mit den veröffentlichten Windowsquellen bestehen. Originale,
 Geldbeträge, PDF- und Quellhashes bleiben erhalten. Alle 649 unterschiedlichen
 Python-Lohnfälle bestehen ohne Skip. Der Folgeabschnitt ist als 3025747
-veröffentlicht; seine eigene Remote-Gesamtprüfung ist ausstehend. Andere rohe
-Dateihash-Nachweise bei Einmalbezügen und Reisen bleiben zu prüfen.
+veröffentlicht. Der zusätzliche Reiseabgleich ist oben beschrieben. Rohe
+Dateihash-Nachweise bei Einmalbezügen bleiben ein offener Folgefall.
 
 1. **Wiederherstellung/Originalziel:** abgeschlossen und per Hash geprüft.
 2. **Browserregressionen:** Assistent, Zusatzfelder und Kundenbereich verwenden
@@ -130,11 +146,11 @@ Dateihash-Nachweise bei Einmalbezügen und Reisen bleiben zu prüfen.
 
 ## Weitere unabhängige Entwicklungsarbeit
 
-- Die vollständige Remote-CI von 3025747 nachprüfen. 2598c96 bleibt bis dahin
-  der letzte vollständig grüne Produktstand.
+- Korrigierten Browser-Gesamtlauf und neue eigene Remote-CI abschließen.
+  2598c96 bleibt der letzte vollständig grüne Produktstand.
 - Historische plattformabhängige Lohn-/Reisemetadaten vollständig abgleichen.
-  Der v8-Faktor-Vollmonat ist eng begrenzt reproduzierbar korrigiert; andere
-  rohe Dateihash-Nachweise sind noch keine geprüfte Plattformmigration.
+  Der v8-Faktor-Vollmonat und die v2/v3-Reisekosten sind eng begrenzt geprüft;
+  rohe Dateihash-Nachweise bei Einmalbezügen bleiben eigener Folgeumfang.
 - Weitere benannte Standard-Lohnfälle additiv integrieren. Dazu gehören unter
   anderem Faktor-Ansprüche/-Einmalbezüge und Midijobs mit Faktor, individuelle Minijobsteuer, Versicherungsvarianten,
   Minijob-Jahresgrenzen und weitere Leistungen/Sachbezüge. Der

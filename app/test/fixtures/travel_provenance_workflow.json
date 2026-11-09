@@ -1,0 +1,1029 @@
+{
+  "record": {
+    "calculation": {
+      "blockers": [],
+      "can_approve": true,
+      "can_pay": true,
+      "days": [
+        {
+          "absence_seconds": 36000,
+          "base_minor": 933,
+          "benefit_in_kind_minor": 0,
+          "business_share": {
+            "denominator": 3,
+            "numerator": 2
+          },
+          "claim_kind": "short",
+          "country": "Deutschland",
+          "date": "2026-10-26",
+          "full_minor": 2800,
+          "letter_m": false,
+          "lodging_allowance_minor": 0,
+          "meal_allowance_minor": 933,
+          "meal_reduction_minor": 0,
+          "rate_id": "de_2026",
+          "reasons": [
+            {
+              "code": "mixed_program_share_before_meals",
+              "source": "BMF 25.11.2020 Rz.90/Beispiel59",
+              "text": "Belegte berufliche Programmquote vor der vollen Mahlzeitenkürzung angewandt."
+            }
+          ],
+          "region": null,
+          "sources": [
+            {
+              "content_hash": "bf1c27be16a1985f919d753fd98b07c3505b66d98825a714856fe18f738674dc",
+              "id": "133f484d093e42d7929b6e72fcafb48b",
+              "revision": 2
+            }
+          ],
+          "three_month": {
+            "eligible": true,
+            "expires_on": null,
+            "reason": "less_than_three_days_weekly",
+            "reset_on": null,
+            "started_on": null
+          },
+          "unapportioned_base_minor": 1400
+        }
+      ],
+      "expense_items": [],
+      "ground_calendar_sources": [
+        {
+          "boundaries": [
+            {
+              "from_local": "2026-10-26T08:00:00+01:00",
+              "segment_id": "4a8f1f44dbda4b92b1fd5f5fef6ab7ea",
+              "site_ref": {
+                "content_hash": "faeea36007ceba2b40fb3a1a7a0e8340d71123c0b42125545bf963560bd0dd64",
+                "id": "b0cdd187515a41358de5154cd05b1d55",
+                "revision": 1
+              },
+              "timezone": "Europe/Berlin",
+              "to_local": "2026-10-26T18:00:00+01:00"
+            }
+          ],
+          "days": {
+            "2026-10-26": {
+              "absence_seconds": 36000,
+              "intervals": [
+                {
+                  "segment_id": "4a8f1f44dbda4b92b1fd5f5fef6ab7ea",
+                  "site_ref": {
+                    "content_hash": "faeea36007ceba2b40fb3a1a7a0e8340d71123c0b42125545bf963560bd0dd64",
+                    "id": "b0cdd187515a41358de5154cd05b1d55",
+                    "revision": 1
+                  },
+                  "timezone": "Europe/Berlin",
+                  "utc_from": "2026-10-26T07:00:00+00:00",
+                  "utc_to": "2026-10-26T17:00:00+00:00"
+                }
+              ],
+              "last_site_ref": {
+                "content_hash": "faeea36007ceba2b40fb3a1a7a0e8340d71123c0b42125545bf963560bd0dd64",
+                "id": "b0cdd187515a41358de5154cd05b1d55",
+                "revision": 1
+              },
+              "timezone": "Europe/Berlin"
+            }
+          },
+          "facts_hash": "8c4054d72890d8c5dcb2b297aa8291948c6a4b834f49e0fde136f92ea04a34d2",
+          "module_hash": "1262323c5d23169e432e81d96a2eab265b376c2cefe4ee1156d02f96d5d172f2",
+          "rule_version": "de_travel_ground_2026_v1",
+          "source": "https://www.gesetze-im-internet.de/estg/__9.html",
+          "trip": {
+            "content_hash": "bf1c27be16a1985f919d753fd98b07c3505b66d98825a714856fe18f738674dc",
+            "id": "133f484d093e42d7929b6e72fcafb48b",
+            "revision": 2
+          }
+        }
+      ],
+      "mixed_program_sources": [
+        {
+          "blockers": [],
+          "business_seconds": 14400,
+          "can_calculate": true,
+          "denominator": 3,
+          "facts_hash": "71767d7cec21cac3860d2c7b6c3375ad86811cbc4d74111469befbdde475b02a",
+          "method": "documented_program_ratio",
+          "module_hash": "555e230cf41ef2b72f4ca427ae4dc26898960e10fec1d1fbddcce28f3456713b",
+          "numerator": 2,
+          "private_seconds": 7200,
+          "rule_version": "de_travel_mixed_program_2026_v1",
+          "source": "https://www.ihk.de/blueprint/servlet/resource/blob/5260010/6167648501baf85de6053f701b93e9b5/bmf-schreiben-25-11-2020-data.pdf",
+          "source_file_ids": [
+            "3627a0c6b5e548aaae33fda9bdf96f25"
+          ],
+          "trip": {
+            "content_hash": "bf1c27be16a1985f919d753fd98b07c3505b66d98825a714856fe18f738674dc",
+            "id": "133f484d093e42d7929b6e72fcafb48b",
+            "revision": 2
+          }
+        }
+      ],
+      "payroll_required": false,
+      "rule_hash": "0d05f2476643e8211467f264677419dcaf4cd0ce8cf13a65c7683b48dd522563",
+      "rule_version": "de_travel_2026_v3",
+      "table_hash": "1a9d3fdaf1323e72225a038be25540d6b4a659d953c7f9c469330fa8f9ba7e91",
+      "totals": {
+        "already_paid_minor": 0,
+        "benefit_in_kind_minor": 0,
+        "expense_allowance_minor": 0,
+        "expense_already_paid_minor": 0,
+        "flat_taxable_minor": 0,
+        "individual_taxable_minor": 0,
+        "lodging_allowance_minor": 0,
+        "meal_allowance_minor": 933,
+        "meal_base_minor": 933,
+        "meal_reduction_minor": 0,
+        "overpaid_minor": 0,
+        "remaining_minor": 933,
+        "requested_minor": 933,
+        "tax_free_minor": 933
+      },
+      "transport_sources": []
+    },
+    "command_hash": "53d598d7f614caaf3caf6bc7a82f7c364f06e2173e1025d67b994e895b1acb2f",
+    "created_at": "2026-11-03T12:00:00+00:00",
+    "created_by": "5dbae2f3a21f4729b4b687aa48d45a04",
+    "details": {
+      "correction_of": null,
+      "employee_id": "8ee6694db968449cb9836079543c8d91",
+      "period_from": "2026-10-26",
+      "period_to": "2026-10-26",
+      "requested_lodging_minor": 0,
+      "requested_meal_minor": 933,
+      "review_note": "Originals and complete travel checked",
+      "settlement_unit": "trip",
+      "tax_choice": "tax_free_only",
+      "trip_refs": [
+        {
+          "content_hash": "bf1c27be16a1985f919d753fd98b07c3505b66d98825a714856fe18f738674dc",
+          "id": "133f484d093e42d7929b6e72fcafb48b",
+          "revision": 2
+        }
+      ]
+    },
+    "employee_id": "8ee6694db968449cb9836079543c8d91",
+    "id": "169c35ae1eef434fb308ed48fb9c4cf9",
+    "kind": "settlement",
+    "preview_hash": "474e54ab8bd52b5395a6f2b384a8fe136842d4cec61ce5afa72fa58f4bb0eeaf",
+    "previous_hash": null,
+    "revision": 1,
+    "schema_version": 1,
+    "source_hash": "9059ee3df983c2629845e2b425d57d8db10de435c16ae9d5ef5526313e00aa15",
+    "sources": {
+      "after_payment_sequence": 0,
+      "employee": {
+        "id": "8ee6694db968449cb9836079543c8d91",
+        "name": "Synthetic technician",
+        "revision": 1,
+        "user_id": "179763d7df894dc69ccce1569453d338"
+      },
+      "expenses": [],
+      "files": [
+        {
+          "content_hash": "aca619cf2185ac499569b03bc841ad1ec431226791eb790db506f165ebc03caa",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "179763d7df894dc69ccce1569453d338",
+          "employee_id": "8ee6694db968449cb9836079543c8d91",
+          "filename": "nachweis.pdf",
+          "id": "3627a0c6b5e548aaae33fda9bdf96f25",
+          "media_type": "application/pdf",
+          "owner_visible": 1,
+          "purpose": "expense_receipt",
+          "sha256": "cbf09427319d2033f1e5fa1559f337a6c11540e00c2f9b310af06f99a0db527a",
+          "size": 76,
+          "supersedes": null
+        },
+        {
+          "content_hash": "34779e42f069c3ea0f355222a8ae13a166f81c65cbb58dc3ac98cacfa0eadfad",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "179763d7df894dc69ccce1569453d338",
+          "employee_id": "8ee6694db968449cb9836079543c8d91",
+          "filename": "nachweis.pdf",
+          "id": "c880653615884484930bdf7e5c4f331d",
+          "media_type": "application/pdf",
+          "owner_visible": 1,
+          "purpose": "expense_receipt",
+          "sha256": "a888874f9f3240142c19cef6d1d7dc01181dc0a7ca1c8d425384aba757fae7ad",
+          "size": 47,
+          "supersedes": null
+        }
+      ],
+      "history_trips": [],
+      "sites": [
+        {
+          "command_hash": "ca821de03907df6bcab888a27b4aa6741843e36879f41101fc5fd437d488648a",
+          "content_hash": "20ffb7f9c1afbb1dd60e3cf7409fcc7410bb347554c63163707e94bb9fde67cc",
+          "correction_reason": "",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "179763d7df894dc69ccce1569453d338",
+          "details": {
+            "address": "Synthetic address",
+            "assignment_basis": "Reviewed assignment evidence",
+            "effective_from": "2026-01-01",
+            "effective_to": null,
+            "history_complete_from": "2025-09-01",
+            "kind": "home",
+            "name": "Synthetic home",
+            "prior_visit_dates": [],
+            "rate_id": "de_2026",
+            "regular_days_per_week": 2,
+            "source_file_ids": [
+              "c880653615884484930bdf7e5c4f331d"
+            ],
+            "timezone": "Europe/Berlin"
+          },
+          "employee_id": "8ee6694db968449cb9836079543c8d91",
+          "id": "2ca9bf268dda48c1bfa5b4a4a64e7085",
+          "kind": "site",
+          "previous_hash": null,
+          "revision": 1,
+          "schema_version": 1,
+          "sources": {
+            "files": [
+              {
+                "content_hash": "34779e42f069c3ea0f355222a8ae13a166f81c65cbb58dc3ac98cacfa0eadfad",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "179763d7df894dc69ccce1569453d338",
+                "employee_id": "8ee6694db968449cb9836079543c8d91",
+                "filename": "nachweis.pdf",
+                "id": "c880653615884484930bdf7e5c4f331d",
+                "media_type": "application/pdf",
+                "owner_visible": 1,
+                "purpose": "expense_receipt",
+                "sha256": "a888874f9f3240142c19cef6d1d7dc01181dc0a7ca1c8d425384aba757fae7ad",
+                "size": 47,
+                "supersedes": null
+              }
+            ]
+          },
+          "status": "active"
+        },
+        {
+          "command_hash": "cf025f5b057db869cce16e5b16ea17c627e859e042d32917a18109f234077358",
+          "content_hash": "faeea36007ceba2b40fb3a1a7a0e8340d71123c0b42125545bf963560bd0dd64",
+          "correction_reason": "",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "179763d7df894dc69ccce1569453d338",
+          "details": {
+            "address": "Synthetic address",
+            "assignment_basis": "Reviewed assignment evidence",
+            "effective_from": "2026-01-01",
+            "effective_to": null,
+            "history_complete_from": "2025-09-01",
+            "kind": "external_fixed",
+            "name": "Synthetic external_fixed",
+            "prior_visit_dates": [],
+            "rate_id": "de_2026",
+            "regular_days_per_week": 2,
+            "source_file_ids": [
+              "c880653615884484930bdf7e5c4f331d"
+            ],
+            "timezone": "Europe/Berlin"
+          },
+          "employee_id": "8ee6694db968449cb9836079543c8d91",
+          "id": "b0cdd187515a41358de5154cd05b1d55",
+          "kind": "site",
+          "previous_hash": null,
+          "revision": 1,
+          "schema_version": 1,
+          "sources": {
+            "files": [
+              {
+                "content_hash": "34779e42f069c3ea0f355222a8ae13a166f81c65cbb58dc3ac98cacfa0eadfad",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "179763d7df894dc69ccce1569453d338",
+                "employee_id": "8ee6694db968449cb9836079543c8d91",
+                "filename": "nachweis.pdf",
+                "id": "c880653615884484930bdf7e5c4f331d",
+                "media_type": "application/pdf",
+                "owner_visible": 1,
+                "purpose": "expense_receipt",
+                "sha256": "a888874f9f3240142c19cef6d1d7dc01181dc0a7ca1c8d425384aba757fae7ad",
+                "size": 47,
+                "supersedes": null
+              }
+            ]
+          },
+          "status": "active"
+        }
+      ],
+      "trips": [
+        {
+          "command_hash": "37ba18331cf9a3c48093fc25d00ea6df79fcc49f191161bb27372d7a86e6590e",
+          "content_hash": "bf1c27be16a1985f919d753fd98b07c3505b66d98825a714856fe18f738674dc",
+          "correction_reason": "",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "179763d7df894dc69ccce1569453d338",
+          "decision": null,
+          "details": {
+            "departed_at": "2026-10-26T08:00:00+01:00",
+            "expense_refs": [],
+            "first_workplace_ref": null,
+            "home_site_ref": {
+              "content_hash": "20ffb7f9c1afbb1dd60e3cf7409fcc7410bb347554c63163707e94bb9fde67cc",
+              "id": "2ca9bf268dda48c1bfa5b4a4a64e7085",
+              "revision": 1
+            },
+            "meals": [],
+            "mixed_assessment": {
+              "cost_allocation_reviewed": true,
+              "method": "documented_program_ratio",
+              "program_complete": true,
+              "program_sessions": [
+                {
+                  "from": "2026-10-26T08:00:00+01:00",
+                  "id": "00000000000000000000000000000384",
+                  "kind": "business",
+                  "source_file_ids": [
+                    "3627a0c6b5e548aaae33fda9bdf96f25"
+                  ],
+                  "to": "2026-10-26T12:00:00+01:00"
+                },
+                {
+                  "from": "2026-10-26T13:00:00+01:00",
+                  "id": "00000000000000000000000000000385",
+                  "kind": "private",
+                  "source_file_ids": [
+                    "3627a0c6b5e548aaae33fda9bdf96f25"
+                  ],
+                  "to": "2026-10-26T15:00:00+01:00"
+                }
+              ],
+              "review_note": "Original complete actual programme checked.",
+              "source_file_ids": [
+                "3627a0c6b5e548aaae33fda9bdf96f25"
+              ]
+            },
+            "overnights": [],
+            "private_intervals": [
+              {
+                "from": "2026-10-26T13:00:00+01:00",
+                "to": "2026-10-26T15:00:00+01:00"
+              }
+            ],
+            "project_id": "c944d39f5a0748b28da12d8f4996b4cd",
+            "purpose": "Actual customer visit",
+            "requested_lodging_minor": 0,
+            "requested_meal_minor": 933,
+            "returned_at": "2026-10-26T18:00:00+01:00",
+            "segments": [
+              {
+                "activity": "work",
+                "from": "2026-10-26T08:00:00+01:00",
+                "id": "4a8f1f44dbda4b92b1fd5f5fef6ab7ea",
+                "necessary_stopover": false,
+                "site_ref": {
+                  "content_hash": "faeea36007ceba2b40fb3a1a7a0e8340d71123c0b42125545bf963560bd0dd64",
+                  "id": "b0cdd187515a41358de5154cd05b1d55",
+                  "revision": 1
+                },
+                "to": "2026-10-26T18:00:00+01:00",
+                "transport": "ground"
+              }
+            ],
+            "source_file_ids": [
+              "c880653615884484930bdf7e5c4f331d"
+            ],
+            "tax_choice": "tax_free_only",
+            "timezone": "Europe/Berlin"
+          },
+          "employee_id": "8ee6694db968449cb9836079543c8d91",
+          "id": "133f484d093e42d7929b6e72fcafb48b",
+          "kind": "trip",
+          "previous_hash": "6f1beeaadacd0331325ab7f190e189dfb41eafd6e0a34d778e392004ef4be821",
+          "revision": 2,
+          "rule_version": "de_travel_2026_v3",
+          "schema_version": 1,
+          "sources": {
+            "expenses": [],
+            "files": [
+              {
+                "content_hash": "aca619cf2185ac499569b03bc841ad1ec431226791eb790db506f165ebc03caa",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "179763d7df894dc69ccce1569453d338",
+                "employee_id": "8ee6694db968449cb9836079543c8d91",
+                "filename": "nachweis.pdf",
+                "id": "3627a0c6b5e548aaae33fda9bdf96f25",
+                "media_type": "application/pdf",
+                "owner_visible": 1,
+                "purpose": "expense_receipt",
+                "sha256": "cbf09427319d2033f1e5fa1559f337a6c11540e00c2f9b310af06f99a0db527a",
+                "size": 76,
+                "supersedes": null
+              },
+              {
+                "content_hash": "34779e42f069c3ea0f355222a8ae13a166f81c65cbb58dc3ac98cacfa0eadfad",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "179763d7df894dc69ccce1569453d338",
+                "employee_id": "8ee6694db968449cb9836079543c8d91",
+                "filename": "nachweis.pdf",
+                "id": "c880653615884484930bdf7e5c4f331d",
+                "media_type": "application/pdf",
+                "owner_visible": 1,
+                "purpose": "expense_receipt",
+                "sha256": "a888874f9f3240142c19cef6d1d7dc01181dc0a7ca1c8d425384aba757fae7ad",
+                "size": 47,
+                "supersedes": null
+              }
+            ],
+            "sites": [
+              {
+                "command_hash": "ca821de03907df6bcab888a27b4aa6741843e36879f41101fc5fd437d488648a",
+                "content_hash": "20ffb7f9c1afbb1dd60e3cf7409fcc7410bb347554c63163707e94bb9fde67cc",
+                "correction_reason": "",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "179763d7df894dc69ccce1569453d338",
+                "details": {
+                  "address": "Synthetic address",
+                  "assignment_basis": "Reviewed assignment evidence",
+                  "effective_from": "2026-01-01",
+                  "effective_to": null,
+                  "history_complete_from": "2025-09-01",
+                  "kind": "home",
+                  "name": "Synthetic home",
+                  "prior_visit_dates": [],
+                  "rate_id": "de_2026",
+                  "regular_days_per_week": 2,
+                  "source_file_ids": [
+                    "c880653615884484930bdf7e5c4f331d"
+                  ],
+                  "timezone": "Europe/Berlin"
+                },
+                "employee_id": "8ee6694db968449cb9836079543c8d91",
+                "id": "2ca9bf268dda48c1bfa5b4a4a64e7085",
+                "kind": "site",
+                "previous_hash": null,
+                "revision": 1,
+                "schema_version": 1,
+                "sources": {
+                  "files": [
+                    {
+                      "content_hash": "34779e42f069c3ea0f355222a8ae13a166f81c65cbb58dc3ac98cacfa0eadfad",
+                      "created_at": "2026-11-03T12:00:00+00:00",
+                      "created_by": "179763d7df894dc69ccce1569453d338",
+                      "employee_id": "8ee6694db968449cb9836079543c8d91",
+                      "filename": "nachweis.pdf",
+                      "id": "c880653615884484930bdf7e5c4f331d",
+                      "media_type": "application/pdf",
+                      "owner_visible": 1,
+                      "purpose": "expense_receipt",
+                      "sha256": "a888874f9f3240142c19cef6d1d7dc01181dc0a7ca1c8d425384aba757fae7ad",
+                      "size": 47,
+                      "supersedes": null
+                    }
+                  ]
+                },
+                "status": "active"
+              },
+              {
+                "command_hash": "cf025f5b057db869cce16e5b16ea17c627e859e042d32917a18109f234077358",
+                "content_hash": "faeea36007ceba2b40fb3a1a7a0e8340d71123c0b42125545bf963560bd0dd64",
+                "correction_reason": "",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "179763d7df894dc69ccce1569453d338",
+                "details": {
+                  "address": "Synthetic address",
+                  "assignment_basis": "Reviewed assignment evidence",
+                  "effective_from": "2026-01-01",
+                  "effective_to": null,
+                  "history_complete_from": "2025-09-01",
+                  "kind": "external_fixed",
+                  "name": "Synthetic external_fixed",
+                  "prior_visit_dates": [],
+                  "rate_id": "de_2026",
+                  "regular_days_per_week": 2,
+                  "source_file_ids": [
+                    "c880653615884484930bdf7e5c4f331d"
+                  ],
+                  "timezone": "Europe/Berlin"
+                },
+                "employee_id": "8ee6694db968449cb9836079543c8d91",
+                "id": "b0cdd187515a41358de5154cd05b1d55",
+                "kind": "site",
+                "previous_hash": null,
+                "revision": 1,
+                "schema_version": 1,
+                "sources": {
+                  "files": [
+                    {
+                      "content_hash": "34779e42f069c3ea0f355222a8ae13a166f81c65cbb58dc3ac98cacfa0eadfad",
+                      "created_at": "2026-11-03T12:00:00+00:00",
+                      "created_by": "179763d7df894dc69ccce1569453d338",
+                      "employee_id": "8ee6694db968449cb9836079543c8d91",
+                      "filename": "nachweis.pdf",
+                      "id": "c880653615884484930bdf7e5c4f331d",
+                      "media_type": "application/pdf",
+                      "owner_visible": 1,
+                      "purpose": "expense_receipt",
+                      "sha256": "a888874f9f3240142c19cef6d1d7dc01181dc0a7ca1c8d425384aba757fae7ad",
+                      "size": 47,
+                      "supersedes": null
+                    }
+                  ]
+                },
+                "status": "active"
+              }
+            ]
+          },
+          "status": "submitted",
+          "submitted_at": "2026-11-03T12:00:00+00:00",
+          "submitted_by": "179763d7df894dc69ccce1569453d338"
+        }
+      ]
+    },
+    "status": "approved",
+    "content_hash": "6792a20e2bf10f3fef775ecc8bb52714a7bba4827be076eea2c3768f843c1db5",
+    "exports": {
+      "pdf": {
+        "filename": "reise-169c35ae1eef434fb308ed48fb9c4cf9-v1.pdf",
+        "media_type": "application/pdf",
+        "size": 1879,
+        "sha256": "145ef83722604bb8e4940152a1c080f84567ae0b7e6f084ba019bd2f9f2756cc"
+      },
+      "json": {
+        "filename": "reise-169c35ae1eef434fb308ed48fb9c4cf9-v1.json",
+        "media_type": "application/json",
+        "size": 14305,
+        "sha256": "ac7614e043954d6f41bb82aa7afb2cafed531f8c5e88e236947551ee1e16af31"
+      }
+    }
+  },
+  "payload": {
+    "trips": [
+      {
+        "command_hash": "37ba18331cf9a3c48093fc25d00ea6df79fcc49f191161bb27372d7a86e6590e",
+        "content_hash": "bf1c27be16a1985f919d753fd98b07c3505b66d98825a714856fe18f738674dc",
+        "correction_reason": "",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "created_by": "179763d7df894dc69ccce1569453d338",
+        "decision": null,
+        "details": {
+          "departed_at": "2026-10-26T08:00:00+01:00",
+          "expense_refs": [],
+          "first_workplace_ref": null,
+          "home_site_ref": {
+            "content_hash": "20ffb7f9c1afbb1dd60e3cf7409fcc7410bb347554c63163707e94bb9fde67cc",
+            "id": "2ca9bf268dda48c1bfa5b4a4a64e7085",
+            "revision": 1
+          },
+          "meals": [],
+          "mixed_assessment": {
+            "cost_allocation_reviewed": true,
+            "method": "documented_program_ratio",
+            "program_complete": true,
+            "program_sessions": [
+              {
+                "from": "2026-10-26T08:00:00+01:00",
+                "id": "00000000000000000000000000000384",
+                "kind": "business",
+                "source_file_ids": [
+                  "3627a0c6b5e548aaae33fda9bdf96f25"
+                ],
+                "to": "2026-10-26T12:00:00+01:00"
+              },
+              {
+                "from": "2026-10-26T13:00:00+01:00",
+                "id": "00000000000000000000000000000385",
+                "kind": "private",
+                "source_file_ids": [
+                  "3627a0c6b5e548aaae33fda9bdf96f25"
+                ],
+                "to": "2026-10-26T15:00:00+01:00"
+              }
+            ],
+            "review_note": "Original complete actual programme checked.",
+            "source_file_ids": [
+              "3627a0c6b5e548aaae33fda9bdf96f25"
+            ]
+          },
+          "overnights": [],
+          "private_intervals": [
+            {
+              "from": "2026-10-26T13:00:00+01:00",
+              "to": "2026-10-26T15:00:00+01:00"
+            }
+          ],
+          "project_id": "c944d39f5a0748b28da12d8f4996b4cd",
+          "purpose": "Actual customer visit",
+          "requested_lodging_minor": 0,
+          "requested_meal_minor": 933,
+          "returned_at": "2026-10-26T18:00:00+01:00",
+          "segments": [
+            {
+              "activity": "work",
+              "from": "2026-10-26T08:00:00+01:00",
+              "id": "4a8f1f44dbda4b92b1fd5f5fef6ab7ea",
+              "necessary_stopover": false,
+              "site_ref": {
+                "content_hash": "faeea36007ceba2b40fb3a1a7a0e8340d71123c0b42125545bf963560bd0dd64",
+                "id": "b0cdd187515a41358de5154cd05b1d55",
+                "revision": 1
+              },
+              "to": "2026-10-26T18:00:00+01:00",
+              "transport": "ground"
+            }
+          ],
+          "source_file_ids": [
+            "c880653615884484930bdf7e5c4f331d"
+          ],
+          "tax_choice": "tax_free_only",
+          "timezone": "Europe/Berlin"
+        },
+        "employee_id": "8ee6694db968449cb9836079543c8d91",
+        "id": "133f484d093e42d7929b6e72fcafb48b",
+        "kind": "trip",
+        "previous_hash": "6f1beeaadacd0331325ab7f190e189dfb41eafd6e0a34d778e392004ef4be821",
+        "revision": 2,
+        "rule_version": "de_travel_2026_v3",
+        "schema_version": 1,
+        "sources": {
+          "expenses": [],
+          "files": [
+            {
+              "content_hash": "aca619cf2185ac499569b03bc841ad1ec431226791eb790db506f165ebc03caa",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "179763d7df894dc69ccce1569453d338",
+              "employee_id": "8ee6694db968449cb9836079543c8d91",
+              "filename": "nachweis.pdf",
+              "id": "3627a0c6b5e548aaae33fda9bdf96f25",
+              "media_type": "application/pdf",
+              "owner_visible": 1,
+              "purpose": "expense_receipt",
+              "sha256": "cbf09427319d2033f1e5fa1559f337a6c11540e00c2f9b310af06f99a0db527a",
+              "size": 76,
+              "supersedes": null
+            },
+            {
+              "content_hash": "34779e42f069c3ea0f355222a8ae13a166f81c65cbb58dc3ac98cacfa0eadfad",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "179763d7df894dc69ccce1569453d338",
+              "employee_id": "8ee6694db968449cb9836079543c8d91",
+              "filename": "nachweis.pdf",
+              "id": "c880653615884484930bdf7e5c4f331d",
+              "media_type": "application/pdf",
+              "owner_visible": 1,
+              "purpose": "expense_receipt",
+              "sha256": "a888874f9f3240142c19cef6d1d7dc01181dc0a7ca1c8d425384aba757fae7ad",
+              "size": 47,
+              "supersedes": null
+            }
+          ],
+          "sites": [
+            {
+              "command_hash": "ca821de03907df6bcab888a27b4aa6741843e36879f41101fc5fd437d488648a",
+              "content_hash": "20ffb7f9c1afbb1dd60e3cf7409fcc7410bb347554c63163707e94bb9fde67cc",
+              "correction_reason": "",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "179763d7df894dc69ccce1569453d338",
+              "details": {
+                "address": "Synthetic address",
+                "assignment_basis": "Reviewed assignment evidence",
+                "effective_from": "2026-01-01",
+                "effective_to": null,
+                "history_complete_from": "2025-09-01",
+                "kind": "home",
+                "name": "Synthetic home",
+                "prior_visit_dates": [],
+                "rate_id": "de_2026",
+                "regular_days_per_week": 2,
+                "source_file_ids": [
+                  "c880653615884484930bdf7e5c4f331d"
+                ],
+                "timezone": "Europe/Berlin"
+              },
+              "employee_id": "8ee6694db968449cb9836079543c8d91",
+              "id": "2ca9bf268dda48c1bfa5b4a4a64e7085",
+              "kind": "site",
+              "previous_hash": null,
+              "revision": 1,
+              "schema_version": 1,
+              "sources": {
+                "files": [
+                  {
+                    "content_hash": "34779e42f069c3ea0f355222a8ae13a166f81c65cbb58dc3ac98cacfa0eadfad",
+                    "created_at": "2026-11-03T12:00:00+00:00",
+                    "created_by": "179763d7df894dc69ccce1569453d338",
+                    "employee_id": "8ee6694db968449cb9836079543c8d91",
+                    "filename": "nachweis.pdf",
+                    "id": "c880653615884484930bdf7e5c4f331d",
+                    "media_type": "application/pdf",
+                    "owner_visible": 1,
+                    "purpose": "expense_receipt",
+                    "sha256": "a888874f9f3240142c19cef6d1d7dc01181dc0a7ca1c8d425384aba757fae7ad",
+                    "size": 47,
+                    "supersedes": null
+                  }
+                ]
+              },
+              "status": "active"
+            },
+            {
+              "command_hash": "cf025f5b057db869cce16e5b16ea17c627e859e042d32917a18109f234077358",
+              "content_hash": "faeea36007ceba2b40fb3a1a7a0e8340d71123c0b42125545bf963560bd0dd64",
+              "correction_reason": "",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "179763d7df894dc69ccce1569453d338",
+              "details": {
+                "address": "Synthetic address",
+                "assignment_basis": "Reviewed assignment evidence",
+                "effective_from": "2026-01-01",
+                "effective_to": null,
+                "history_complete_from": "2025-09-01",
+                "kind": "external_fixed",
+                "name": "Synthetic external_fixed",
+                "prior_visit_dates": [],
+                "rate_id": "de_2026",
+                "regular_days_per_week": 2,
+                "source_file_ids": [
+                  "c880653615884484930bdf7e5c4f331d"
+                ],
+                "timezone": "Europe/Berlin"
+              },
+              "employee_id": "8ee6694db968449cb9836079543c8d91",
+              "id": "b0cdd187515a41358de5154cd05b1d55",
+              "kind": "site",
+              "previous_hash": null,
+              "revision": 1,
+              "schema_version": 1,
+              "sources": {
+                "files": [
+                  {
+                    "content_hash": "34779e42f069c3ea0f355222a8ae13a166f81c65cbb58dc3ac98cacfa0eadfad",
+                    "created_at": "2026-11-03T12:00:00+00:00",
+                    "created_by": "179763d7df894dc69ccce1569453d338",
+                    "employee_id": "8ee6694db968449cb9836079543c8d91",
+                    "filename": "nachweis.pdf",
+                    "id": "c880653615884484930bdf7e5c4f331d",
+                    "media_type": "application/pdf",
+                    "owner_visible": 1,
+                    "purpose": "expense_receipt",
+                    "sha256": "a888874f9f3240142c19cef6d1d7dc01181dc0a7ca1c8d425384aba757fae7ad",
+                    "size": 47,
+                    "supersedes": null
+                  }
+                ]
+              },
+              "status": "active"
+            }
+          ]
+        },
+        "status": "submitted",
+        "submitted_at": "2026-11-03T12:00:00+00:00",
+        "submitted_by": "179763d7df894dc69ccce1569453d338"
+      }
+    ],
+    "sites": [
+      {
+        "command_hash": "ca821de03907df6bcab888a27b4aa6741843e36879f41101fc5fd437d488648a",
+        "content_hash": "20ffb7f9c1afbb1dd60e3cf7409fcc7410bb347554c63163707e94bb9fde67cc",
+        "correction_reason": "",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "created_by": "179763d7df894dc69ccce1569453d338",
+        "details": {
+          "address": "Synthetic address",
+          "assignment_basis": "Reviewed assignment evidence",
+          "effective_from": "2026-01-01",
+          "effective_to": null,
+          "history_complete_from": "2025-09-01",
+          "kind": "home",
+          "name": "Synthetic home",
+          "prior_visit_dates": [],
+          "rate_id": "de_2026",
+          "regular_days_per_week": 2,
+          "source_file_ids": [
+            "c880653615884484930bdf7e5c4f331d"
+          ],
+          "timezone": "Europe/Berlin"
+        },
+        "employee_id": "8ee6694db968449cb9836079543c8d91",
+        "id": "2ca9bf268dda48c1bfa5b4a4a64e7085",
+        "kind": "site",
+        "previous_hash": null,
+        "revision": 1,
+        "schema_version": 1,
+        "sources": {
+          "files": [
+            {
+              "content_hash": "34779e42f069c3ea0f355222a8ae13a166f81c65cbb58dc3ac98cacfa0eadfad",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "179763d7df894dc69ccce1569453d338",
+              "employee_id": "8ee6694db968449cb9836079543c8d91",
+              "filename": "nachweis.pdf",
+              "id": "c880653615884484930bdf7e5c4f331d",
+              "media_type": "application/pdf",
+              "owner_visible": 1,
+              "purpose": "expense_receipt",
+              "sha256": "a888874f9f3240142c19cef6d1d7dc01181dc0a7ca1c8d425384aba757fae7ad",
+              "size": 47,
+              "supersedes": null
+            }
+          ]
+        },
+        "status": "active"
+      },
+      {
+        "command_hash": "cf025f5b057db869cce16e5b16ea17c627e859e042d32917a18109f234077358",
+        "content_hash": "faeea36007ceba2b40fb3a1a7a0e8340d71123c0b42125545bf963560bd0dd64",
+        "correction_reason": "",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "created_by": "179763d7df894dc69ccce1569453d338",
+        "details": {
+          "address": "Synthetic address",
+          "assignment_basis": "Reviewed assignment evidence",
+          "effective_from": "2026-01-01",
+          "effective_to": null,
+          "history_complete_from": "2025-09-01",
+          "kind": "external_fixed",
+          "name": "Synthetic external_fixed",
+          "prior_visit_dates": [],
+          "rate_id": "de_2026",
+          "regular_days_per_week": 2,
+          "source_file_ids": [
+            "c880653615884484930bdf7e5c4f331d"
+          ],
+          "timezone": "Europe/Berlin"
+        },
+        "employee_id": "8ee6694db968449cb9836079543c8d91",
+        "id": "b0cdd187515a41358de5154cd05b1d55",
+        "kind": "site",
+        "previous_hash": null,
+        "revision": 1,
+        "schema_version": 1,
+        "sources": {
+          "files": [
+            {
+              "content_hash": "34779e42f069c3ea0f355222a8ae13a166f81c65cbb58dc3ac98cacfa0eadfad",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "179763d7df894dc69ccce1569453d338",
+              "employee_id": "8ee6694db968449cb9836079543c8d91",
+              "filename": "nachweis.pdf",
+              "id": "c880653615884484930bdf7e5c4f331d",
+              "media_type": "application/pdf",
+              "owner_visible": 1,
+              "purpose": "expense_receipt",
+              "sha256": "a888874f9f3240142c19cef6d1d7dc01181dc0a7ca1c8d425384aba757fae7ad",
+              "size": 47,
+              "supersedes": null
+            }
+          ]
+        },
+        "status": "active"
+      }
+    ],
+    "parameters": {
+      "history_trips": [],
+      "settlement_unit": "trip",
+      "tax_choice": "tax_free_only",
+      "requested_meal_minor": 933,
+      "requested_lodging_minor": 0,
+      "already_paid_minor": 0,
+      "rule_version": "de_travel_2026_v3"
+    }
+  },
+  "calculation_lf": {
+    "rule_version": "de_travel_2026_v3",
+    "rule_hash": "e5c49054666714c9cdb4f0ed336ab102dfb144b067783e2fc71d7eb83872e01f",
+    "table_hash": "1a9d3fdaf1323e72225a038be25540d6b4a659d953c7f9c469330fa8f9ba7e91",
+    "days": [
+      {
+        "date": "2026-10-26",
+        "rate_id": "de_2026",
+        "country": "Deutschland",
+        "region": null,
+        "claim_kind": "short",
+        "absence_seconds": 36000,
+        "full_minor": 2800,
+        "unapportioned_base_minor": 1400,
+        "business_share": {
+          "numerator": 2,
+          "denominator": 3
+        },
+        "base_minor": 933,
+        "meal_reduction_minor": 0,
+        "meal_allowance_minor": 933,
+        "lodging_allowance_minor": 0,
+        "benefit_in_kind_minor": 0,
+        "letter_m": false,
+        "three_month": {
+          "started_on": null,
+          "expires_on": null,
+          "reset_on": null,
+          "eligible": true,
+          "reason": "less_than_three_days_weekly"
+        },
+        "reasons": [
+          {
+            "code": "mixed_program_share_before_meals",
+            "text": "Belegte berufliche Programmquote vor der vollen Mahlzeitenkürzung angewandt.",
+            "source": "BMF 25.11.2020 Rz.90/Beispiel59"
+          }
+        ],
+        "sources": [
+          {
+            "id": "133f484d093e42d7929b6e72fcafb48b",
+            "revision": 2,
+            "content_hash": "bf1c27be16a1985f919d753fd98b07c3505b66d98825a714856fe18f738674dc"
+          }
+        ]
+      }
+    ],
+    "expense_items": [],
+    "transport_sources": [],
+    "ground_calendar_sources": [
+      {
+        "trip": {
+          "id": "133f484d093e42d7929b6e72fcafb48b",
+          "revision": 2,
+          "content_hash": "bf1c27be16a1985f919d753fd98b07c3505b66d98825a714856fe18f738674dc"
+        },
+        "rule_version": "de_travel_ground_2026_v1",
+        "module_hash": "9fbc82efc589654ed2eb1425ce50fb4fe6a59b30bcde5ae29d27ec5f595deebc",
+        "source": "https://www.gesetze-im-internet.de/estg/__9.html",
+        "days": {
+          "2026-10-26": {
+            "intervals": [
+              {
+                "segment_id": "4a8f1f44dbda4b92b1fd5f5fef6ab7ea",
+                "site_ref": {
+                  "content_hash": "faeea36007ceba2b40fb3a1a7a0e8340d71123c0b42125545bf963560bd0dd64",
+                  "id": "b0cdd187515a41358de5154cd05b1d55",
+                  "revision": 1
+                },
+                "timezone": "Europe/Berlin",
+                "utc_from": "2026-10-26T07:00:00+00:00",
+                "utc_to": "2026-10-26T17:00:00+00:00"
+              }
+            ],
+            "absence_seconds": 36000,
+            "last_site_ref": {
+              "content_hash": "faeea36007ceba2b40fb3a1a7a0e8340d71123c0b42125545bf963560bd0dd64",
+              "id": "b0cdd187515a41358de5154cd05b1d55",
+              "revision": 1
+            },
+            "timezone": "Europe/Berlin"
+          }
+        },
+        "boundaries": [
+          {
+            "segment_id": "4a8f1f44dbda4b92b1fd5f5fef6ab7ea",
+            "site_ref": {
+              "content_hash": "faeea36007ceba2b40fb3a1a7a0e8340d71123c0b42125545bf963560bd0dd64",
+              "id": "b0cdd187515a41358de5154cd05b1d55",
+              "revision": 1
+            },
+            "timezone": "Europe/Berlin",
+            "from_local": "2026-10-26T08:00:00+01:00",
+            "to_local": "2026-10-26T18:00:00+01:00"
+          }
+        ],
+        "facts_hash": "1ba9cc5ec413c002bef05a696539625fc2e3129f29752a09ba878c5946a5c12f"
+      }
+    ],
+    "mixed_program_sources": [
+      {
+        "trip": {
+          "id": "133f484d093e42d7929b6e72fcafb48b",
+          "revision": 2,
+          "content_hash": "bf1c27be16a1985f919d753fd98b07c3505b66d98825a714856fe18f738674dc"
+        },
+        "rule_version": "de_travel_mixed_program_2026_v1",
+        "module_hash": "0e640106f0d70e3a0f0c54e3154f22e3576d5120dabb9117dbfcf3bde0f6dced",
+        "source": "https://www.ihk.de/blueprint/servlet/resource/blob/5260010/6167648501baf85de6053f701b93e9b5/bmf-schreiben-25-11-2020-data.pdf",
+        "method": "documented_program_ratio",
+        "business_seconds": 14400,
+        "private_seconds": 7200,
+        "numerator": 2,
+        "denominator": 3,
+        "source_file_ids": [
+          "3627a0c6b5e548aaae33fda9bdf96f25"
+        ],
+        "can_calculate": true,
+        "blockers": [],
+        "facts_hash": "62f9395857d944e24b8636dcc8639ee1f7259ea541c7eeaa9138f25e8bc293b9"
+      }
+    ],
+    "totals": {
+      "meal_base_minor": 933,
+      "meal_reduction_minor": 0,
+      "meal_allowance_minor": 933,
+      "lodging_allowance_minor": 0,
+      "expense_allowance_minor": 0,
+      "expense_already_paid_minor": 0,
+      "requested_minor": 933,
+      "tax_free_minor": 933,
+      "flat_taxable_minor": 0,
+      "individual_taxable_minor": 0,
+      "benefit_in_kind_minor": 0,
+      "already_paid_minor": 0,
+      "remaining_minor": 933,
+      "overpaid_minor": 0
+    },
+    "blockers": [],
+    "payroll_required": false,
+    "can_approve": true,
+    "can_pay": true
+  }
+}

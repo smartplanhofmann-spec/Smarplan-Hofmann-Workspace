@@ -2971,3 +2971,52 @@ beendet. Ein vollständig grüner neuer Gesamtstand wird nicht daraus abgeleitet
 2598c96 bleibt der letzte vollständig grüne Produktcommit. Keine neue
 Serverinstallation, echte Gerätebedienung, Meldung oder signierte Verteilung.
 [Veröffentlichung und vorherige Jobzustände](evidence/payroll-provenance-2026-11-09/publication.json).
+
+
+## 09.11.2026 – Reiseoriginale plattformübergreifend erhalten und Gesamtprüfung fortgesetzt
+
+Die tatsächliche CI auf 3025747 besteht nach Wiederholung des zuvor ohne
+abrufbares Log fehlgeschlagenen Simulatorjobs sieben Development-Jobs sowie
+den unsignierten iPhone-Build. Die Ursache des ursprünglichen Simulatorfehlers
+bleibt unbestätigt. Der komplette Browserjob bricht im Unternehmensprofiltest
+ab: Die Antwort wird erst nach einer Seitennavigation ausgelesen. Der Test
+verwendet jetzt die bereits gelesene echte HTTP-Antwort seines Beobachters.
+Der gezielte MFA-/HTTP-Ablauf besteht einschließlich verlorener Antwort,
+Profilversionshistorie, Rechteentzug und unveränderten Finanz-/Offenpostenquellen.
+Die vorherigen CI-Fehler und die fehlgeschlagene Logabfrage bleiben erhalten.
+
+Der nächste bestätigte Gesamtziel-Fehler ist behoben: Alte v2/v3-Transport-
+und v3-Boden-/Programmquellen von Reiseabrechnungen besitzen unter Windows
+andere rohe Dateihashes. Ein zusätzlicher reiner Prüfer berechnet nach der
+vollständigen Fachrechnung höchstens acht exakt hergeleitete LF-/CRLF-
+Metadatenvarianten aus unveränderten installierten Kernelbytes. Er erhält
+Originaldaten, angenommene Hashes, Quittungen, Geldflüsse und Exporte; andere
+Quellen/Beträge und unbekannte oder falsch zusammengesetzte Hashes bleiben Fehler.
+Keine Schemaänderung, globale Regelmutation, Netzwerk-/Unterprozessausführung
+im Produkt oder echte Zahlung.
+
+Sieben neue Fachkettenfälle bestehen, einschließlich beider Transportrule-
+Versionen, umgekehrter LF-Originalprüfung unter CRLF, tatsächlichen Teilzahlungen,
+Bank/EÜR und begründeter Korrektur nach Zahlung mit ausgewiesener Überzahlung.
+Drei tatsächliche PG-/MFA-/HTTP-Fälle prüfen Neustart, zwei konkurrierende
+Verbindungen und echten Dump/Restore unter anschließend älterem Reisestandard.
+Der eigens dafür angelegte Datenbankcontainer ist nach Abschluss entfernt.
+Die tatsächliche alte Windows-Paketberechnung aus 146 verifizierten Quellen
+stimmt exakt mit dem eingefrorenen Original überein; dies ist Linuxausführung
+verifizierter Windowsquellen, keine tatsächliche Windowsbedienung.
+
+Alle 687 unterschiedlichen Python-Lohn-/Reisefälle bestehen ohne Skip in
+690,291 Sekunden; 881 Browsermodule, 24 native Reiseprüfungen und 16 Paketfälle
+bestehen. Beide Clients lesen das tatsächliche alte Original mit seinen Hashes.
+App-Analyse ohne Befund. Die anfänglich nicht ausgewählte vorhandene Compilerkette
+und danach verweigerte lokale Flutter-Sockets sind nur in der Testausführung
+berichtigt; die fehlgeschlagenen Rohprotokolle bleiben neben dem vollständigen
+bestandenen Nachlauf. Alle 32 versionierten Rechenmodule und das Originalziel
+sind bytegleich erhalten. Die vollständige zuvor abgebrochene Browserfolge
+läuft separat nach; ihre Annahmen werden nicht aus dem gezielten Erfolg abgeleitet.
+
+[Umfang und verbleibende Grenzen](CRM_ERP_REISEN_PLATTFORMHISTORIE_2026.md),
+[genaue Läufe, Versionen und Hashes](evidence/completion-followup-2026-11-09/verification.json).
+Weitere Einmalbezug-Metadaten, bezahlte Source5-Folgekorrekturen, benannte
+Lohn-/EÜR-Fälle, Integrationen und Abnahmen A–G bleiben Arbeit. Veröffentlichung
+und neue Remote-CI werden gesondert nachgetragen.

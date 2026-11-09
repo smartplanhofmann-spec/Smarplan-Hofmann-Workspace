@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-09",
+  "base_commit": "401bfc6e68d24d94519199fd662cd2849ef4795f",
+  "scope": "EXACT_TRAVEL_V2_V3_ORIGINAL_METADATA_REPRODUCTION_AND_PROFILE_BROWSER_TEST_FIX",
+  "root_payroll_travel": {
+    "unique": 687,
+    "passed": 687,
+    "skipped": 0,
+    "seconds": 690.291,
+    "duplicate_discovery_entries_removed": 0
+  },
+  "new_workflow_methods": 7,
+  "new_workflow_seconds": 34.978,
+  "postgres": {
+    "passed": 3,
+    "skipped": 0,
+    "seconds": 63.081,
+    "actual_mfa_http": true,
+    "actual_dump_restore": true,
+    "concurrent_connections": true,
+    "owned_container_removed": true
+  },
+  "node": {
+    "passed": 881,
+    "skipped": 0,
+    "new_contract_cases": 2
+  },
+  "flutter": {
+    "travel": 24,
+    "passed": 24,
+    "new_contract_cases": 2,
+    "analysis": "No issues found",
+    "initial_toolchain_and_socket_failures_retained": true
+  },
+  "packaging": {
+    "passed": 16,
+    "seconds": 16.21
+  },
+  "browser": {
+    "targeted_workflows": [
+      "accounting-profile",
+      "travel-v3"
+    ],
+    "actual_mfa_http": true,
+    "namespace_sandbox_verified": true,
+    "full_previously_failing_workflow": "running_separately"
+  },
+  "trusted_travel_metadata_variants": 8,
+  "unchanged_versioned_calculation_modules": 32,
+  "original_goal_unchanged": true,
+  "originals_rewritten": false,
+  "actual_windows_device": false,
+  "production_deployment": false,
+  "windows_source_check": "windows-source-check.json",
+  "ci_original_failures_retained": true,
+  "remote_ci_for_this_product": "not_yet_started",
+  "log_sha256": {
+    "ci-browser-before.txt": "7275ecaca7472ae174f8510e3f793712cc22b33d1b77ba78a268953aa47fab29",
+    "flutter-analyze.txt": "d53957a89a2c046e0a27d9b5d53ada070cb8291207b34570d0932afc430bdac5",
+    "flutter-travel-final.txt": "1a88bc6d413825cba865b2531183514ecb65607d0cd07dcd08be1b3959dd50a5",
+    "flutter-travel-initial.txt": "5a0b1c80cfee13c18350eaffe146235e23f02d0e89d986308e35aa07dbd15be0",
+    "flutter-travel-socket-denied.txt": "6977da6a9e585936d62f628b0ab07694649e561a9366bca1d4e38b1676bb2046",
+    "node-all-final.txt": "2398282237c9a1040133a151dbe8a2caabc11c263dca7ec9d45d4f8654057f5b",
+    "node-all.txt": "6413afc35695b68e25d372eee916b172a1c9557e29066b2cdc987159dd6fd16b",
+    "packaging.txt": "3162e5d803062842c7da4063c21f951b6b2ff5a3cf10a1519238af0ae07aeaf6",
+    "payroll-travel-regression.txt": "e862196e2c020f760c7ae2e26fda1d2d1bad843ad258f419f3afd32a22efbba5",
+    "profile-browser.txt": "f6508dea47a2301518e60141fd1308d4586f620bd6cc8a9d9725af2aee373486",
+    "travel-browser.txt": "b12e0f2001356aa6916e43c6174bce338fce4825ded516ccbc7116610ad1521e",
+    "travel-final.txt": "1024f9ee3f51e72136e7ac1d1fdd6163692e1fbb23a1bfa3f44fddbe860a6899",
+    "travel-fixture.txt": "f62f8688e60bfd73709252b6ace19fb36751278b65618a5eb9576ab44f0e7799",
+    "travel-initial.txt": "c4a1534b6bf6bfcdb7668a7e13aab633a0931eeb4e559623d2ed56f25366f369",
+    "travel-postgres.txt": "274e961843c78248d435edfd5cec12323f33d040a99ed5cdd7c28de9a8c1a9a8",
+    "windows-source-check.txt": "41605933b2465ba1537a208f320f712dc117527fcdef00443c6f608868d78c6d"
+  }
+}

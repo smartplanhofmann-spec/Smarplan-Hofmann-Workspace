@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-09",
+  "source_commit": "3025747c156604646f5cca93288402369b30fa51",
+  "development_run": 42601772720,
+  "latest_jobs": [
+    {
+      "id": 129137745953,
+      "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129137747398,
+      "name": "update-flow",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129137747965,
+      "name": "online-api",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129137748045,
+      "name": "https-setup",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129137749107,
+      "name": "flutter",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129137805818,
+      "name": "business-services",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 129137806201,
+      "name": "native-build (windows-latest, flutter build windows --release)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129137815964,
+      "name": "backend",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "macos_retry_success": true,
+  "original_failure_cause_confirmed": false,
+  "all_development_jobs_green": false,
+  "browser_fix_currently_local": true
+}

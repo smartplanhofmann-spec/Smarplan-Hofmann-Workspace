@@ -1,0 +1,755 @@
+{
+  "source_commit": "2598c9671f5158e9a85a7a1e4602408385b23e30",
+  "archive_sha256": "56851207721052687559375cb24447dadddaf989e1d7f79229285dc17e4495e9",
+  "actual_windows_runtime_executed": false,
+  "source_files_verified": 146,
+  "sources": [
+    {
+      "name": "accounting_asset_opening_rules.py",
+      "sha256": "2a4d19de8d0f678bd9353539d3cb1041794c0901a1cc88bfc93ca31d4d93a059",
+      "crlf": 118
+    },
+    {
+      "name": "accounting_asset_opening_sources.py",
+      "sha256": "0aa6156e5baa69111af5d6f05fec3db66e06ad9d05bc6c9fc62cdb6263b7c598",
+      "crlf": 91
+    },
+    {
+      "name": "accounting_component_segments.py",
+      "sha256": "23c335e618e2d494cdb9482e7bc08e90280469493195b6d4efc2116efaf747a8",
+      "crlf": 107
+    },
+    {
+      "name": "accounting_invoice_sources.py",
+      "sha256": "2c72462cfeccbb80eee079e093e0238ab8052f33ab1fb9636ea2dc12c46c6a3d",
+      "crlf": 185
+    },
+    {
+      "name": "accounting_joint_access.py",
+      "sha256": "c9ebb35e6e7ba0e202b73db4fc9441d24165f522499fde828c73d937e42e9cbc",
+      "crlf": 83
+    },
+    {
+      "name": "accounting_joint_ledger.py",
+      "sha256": "db6c4d3b4ce31838d68da6efa4d5b601a31da22f2f1ab0eaab16d4aed059e8e1",
+      "crlf": 114
+    },
+    {
+      "name": "accounting_joint_order.py",
+      "sha256": "d98c9812b698c5740ad0a10b4211283ce7b976f88ae544265ed6525efe81f317",
+      "crlf": 94
+    },
+    {
+      "name": "accounting_open_item_rules.py",
+      "sha256": "66ca2e5836d10d7faacfbfe3f0bcf9ce46d8f58a8500e330821c82cc1e94160b",
+      "crlf": 81
+    },
+    {
+      "name": "accounting_open_item_sources.py",
+      "sha256": "f409a192f8728d3f9c909fa4722060277ebe60955ff1d258be2b0086b167326f",
+      "crlf": 55
+    },
+    {
+      "name": "accounting_return_lots.py",
+      "sha256": "765abc8544aaccc38d9b43301cbd44228b724066df1e4be965a252dfd7256e9f",
+      "crlf": 85
+    },
+    {
+      "name": "accounting_travel_sources.py",
+      "sha256": "3e637bdf31e97d4dd5d2a5851da3318bc76ccfd55290128456a19445a74587ee",
+      "crlf": 96
+    },
+    {
+      "name": "accounting_year_opening_rules.py",
+      "sha256": "b6979924e7bfef3b210b7aba30fc6b6bbe8be73dbd84144cbba4b80312c3092b",
+      "crlf": 103
+    },
+    {
+      "name": "accounting_year_opening_sources.py",
+      "sha256": "c8f13acffeec9fde39cb066df18ceb01d1d5c919d6682d059acf491a65ca125a",
+      "crlf": 67
+    },
+    {
+      "name": "accounting_year_package_v1.py",
+      "sha256": "df545d13268a9593698ec5ac5363840fd3b4d91369b8abbf1fe773345694c26e",
+      "crlf": 380
+    },
+    {
+      "name": "accounting_year_package_v2.py",
+      "sha256": "474ee794752707444528a4508fe3a566d50ab5b1cad886215dd3fd28312835a6",
+      "crlf": 163
+    },
+    {
+      "name": "accounting_year_verify_v1.py",
+      "sha256": "d52d1a1d82f217b6a340e0b789ea179a7c291c8d25043bd204db4b11e42d97e6",
+      "crlf": 353
+    },
+    {
+      "name": "accounting_year_verify_v2.py",
+      "sha256": "0df1c445538cd1eaf23922ed3b2fe2d2faf16d6655f1b94233976d61de8c6776",
+      "crlf": 423
+    },
+    {
+      "name": "backup.py",
+      "sha256": "7da59376163bd6155a2171f105e9b839f99170314c42e35156dcc8b43c590d89",
+      "crlf": 38
+    },
+    {
+      "name": "business_accounting.py",
+      "sha256": "42c4231d2fec021ad533b6b6298bee45a0a63b43017bf33a62b036929580c80a",
+      "crlf": 729
+    },
+    {
+      "name": "business_accounting_allocations.py",
+      "sha256": "5eca9cd5fb2ce846a3e8c987a72422281d33d7c509dcee98e1e2b29885a0ea04",
+      "crlf": 605
+    },
+    {
+      "name": "business_accounting_asset_openings.py",
+      "sha256": "60b535389d898a68cebcd5fc052986d63efe34a0d8b236d71afd505fe659da69",
+      "crlf": 386
+    },
+    {
+      "name": "business_accounting_capacity.py",
+      "sha256": "b185041eb44cb6a2caa5e3133514982b8fe595050fa7f621be232215a13a855f",
+      "crlf": 912
+    },
+    {
+      "name": "business_accounting_components.py",
+      "sha256": "90769d6004fccfb72278ead94f92935b3d6355ddef20c56c725e5b03389950ab",
+      "crlf": 678
+    },
+    {
+      "name": "business_accounting_euer.py",
+      "sha256": "6f2141bc75d0c522d1ffb046c2731e812a54f7f352ec228a409f899814b63a26",
+      "crlf": 1193
+    },
+    {
+      "name": "business_accounting_open_items.py",
+      "sha256": "7c1e77d94970302e01e159b579eada60b8bef08479e953d609ec317fb4e3e989",
+      "crlf": 476
+    },
+    {
+      "name": "business_accounting_openings.py",
+      "sha256": "e780df11c0119108bb88ddd396fd21f8a5349d88f952cb96af374fd1b565a6d7",
+      "crlf": 675
+    },
+    {
+      "name": "business_accounting_profile.py",
+      "sha256": "77535be11856b6c2ef61db85a95fb7838a44e292c106116e65e15e0cf15b355f",
+      "crlf": 321
+    },
+    {
+      "name": "business_accounting_refunds.py",
+      "sha256": "7a1b4ca90f667fca4b3f8431eec215fd55a05ee411fc5eb243ebe84aa6268ac3",
+      "crlf": 652
+    },
+    {
+      "name": "business_accounting_refunds_v2.py",
+      "sha256": "016e34f69ea02188500bec1a2cb995a712689f61cf5570a0e70d69d6191ad4d2",
+      "crlf": 681
+    },
+    {
+      "name": "business_accounting_year_openings.py",
+      "sha256": "7e7e6c41921a12d763cb0e7bfd9a59c266d1d4f5f6b1dc6c37948814cba663ba",
+      "crlf": 459
+    },
+    {
+      "name": "business_adapters.py",
+      "sha256": "2e249f8f8088ea26b1eed41bf07ec1a3f71e5d8a42aa121f03801e6a876c1d8c",
+      "crlf": 1269
+    },
+    {
+      "name": "business_api.py",
+      "sha256": "2508e7ce8c9adafe505d6607f73a995e302ef53a150486b8cbff396cef6480c1",
+      "crlf": 410
+    },
+    {
+      "name": "business_asset_provenance.py",
+      "sha256": "6f9544fd5ead6e9ed70ffacb7a6ac6d225e027eaeb67d6cfb76a2dad4fd8c039",
+      "crlf": 513
+    },
+    {
+      "name": "business_assistant.py",
+      "sha256": "d553a12b82722d19edffbaec33bfa4fc61ea26af54c093a23a452bcf9aeb767f",
+      "crlf": 968
+    },
+    {
+      "name": "business_assistant_provider.py",
+      "sha256": "0347a7fce7ed8982f8f1f52acf92eb6368ab7b98e86384b0c2ad99c1357efd03",
+      "crlf": 186
+    },
+    {
+      "name": "business_assistant_sources.py",
+      "sha256": "16673fd9e70c08fbb40f046b67361ca81614a1b395ad12649e9bb434a1882e85",
+      "crlf": 265
+    },
+    {
+      "name": "business_assistant_speech.py",
+      "sha256": "b45d0bfc98dedbf9e5388b5c19fc1a79500a8336663c90915666c20ebd052929",
+      "crlf": 354
+    },
+    {
+      "name": "business_bank_reconciliation.py",
+      "sha256": "068bb71784d4f20f8bf7908bc6b9811360a8df2dea72938f2782da2282a2c798",
+      "crlf": 669
+    },
+    {
+      "name": "business_catalog_imports.py",
+      "sha256": "e334b6384368395f4163317e007fadd8dc64edfd322face1e236759b6a7d25a0",
+      "crlf": 389
+    },
+    {
+      "name": "business_catalog_prices.py",
+      "sha256": "6bead03bba315837a07039722447f128da7d7f978b64244e9e66811077e3e930",
+      "crlf": 888
+    },
+    {
+      "name": "business_company_events.py",
+      "sha256": "849c46843fd5e9202aebc0223682b547f70e884d2f9abb3db7537ad64175ee42",
+      "crlf": 842
+    },
+    {
+      "name": "business_company_handover.py",
+      "sha256": "f3d4398e1512e0aa9a77801399060b3667db1d5a2775ca4b1c28f065d250b4b6",
+      "crlf": 300
+    },
+    {
+      "name": "business_custom_fields.py",
+      "sha256": "6609cdc05216abdaee26d091baa2d1d325cc8dc6dd42ef5554d668a0532b39d3",
+      "crlf": 435
+    },
+    {
+      "name": "business_customer_workspace.py",
+      "sha256": "d502af2ac571812bf62749d2f8dff1f44fd932edb99370bd8855883c2c138f52",
+      "crlf": 852
+    },
+    {
+      "name": "business_delivery.py",
+      "sha256": "ce1547dc0b21f5cfac0e250187b97f459fd14c9932fb556c2aad9bafeedb8b43",
+      "crlf": 217
+    },
+    {
+      "name": "business_documents.py",
+      "sha256": "bfa0a9c3cd4e6f3de2a3df040d69bd956acd582bc0c1b449954e93a57310700f",
+      "crlf": 1591
+    },
+    {
+      "name": "business_einvoice.py",
+      "sha256": "3126b9e83c4dfec321ce67c8314b11141e827ba32074c2c579b6588e2a3e2306",
+      "crlf": 383
+    },
+    {
+      "name": "business_finance.py",
+      "sha256": "51497c738368856710852aa09b63bd9c9c4b0a109002e36dcd3df67c1c866092",
+      "crlf": 772
+    },
+    {
+      "name": "business_foundation.py",
+      "sha256": "6edc122369a15a420186d19d5b9aafc16f64c4ba6bddff19a4b99a730cb0c9a5",
+      "crlf": 1093
+    },
+    {
+      "name": "business_instance.py",
+      "sha256": "e919628b925462748bb1fedcf156f6e5899aa26899e6264a31a579cf7b086029",
+      "crlf": 52
+    },
+    {
+      "name": "business_inventory.py",
+      "sha256": "2dc0f29293fff69429953773ed3512ef734d8cc06ed1d0e10667629c71d962bf",
+      "crlf": 658
+    },
+    {
+      "name": "business_inventory_counts.py",
+      "sha256": "3e743ab8b01a0526e1534e46fee7c60174e9068b9c337619d4f7c3fb405e6369",
+      "crlf": 462
+    },
+    {
+      "name": "business_maintenance.py",
+      "sha256": "1dcefa20d16df75380a0a11270e40d14681ec2168e79d175da45d499e9fec070",
+      "crlf": 278
+    },
+    {
+      "name": "business_migrations.py",
+      "sha256": "1d129a3f7eebb5ad5b5d02351a90f85f518dd35934f158ec26c8aab61b12a2a3",
+      "crlf": 669
+    },
+    {
+      "name": "business_offline_reports.py",
+      "sha256": "8122286113647654221597e6b955c21ad7fcd5bef2803970fe4bc5c3ea37552a",
+      "crlf": 187
+    },
+    {
+      "name": "business_operations.py",
+      "sha256": "7f8318bfd954d11ec79d37e1956b9ee5125ef8adfeac328cedade35cc7cb481c",
+      "crlf": 1038
+    },
+    {
+      "name": "business_organization.py",
+      "sha256": "455ea5bf28c1bde1498a1182504889c291b2ae6a17b46a81e27b81374a41da7c",
+      "crlf": 247
+    },
+    {
+      "name": "business_overview.py",
+      "sha256": "727e7125e38495aca1a5d2a50928cac057094295b305fd4b25b6bb84ed53d595",
+      "crlf": 123
+    },
+    {
+      "name": "business_payroll.py",
+      "sha256": "60009776b4c1e80603fae783cf4a0a885303cbebe4afe8bed7b17f168305a4b5",
+      "crlf": 838
+    },
+    {
+      "name": "business_payroll_accounts.py",
+      "sha256": "89c8ff197a1a6eeeae351b2c2095cf65379dd03e37f21efdb8617609ccd03d98",
+      "crlf": 460
+    },
+    {
+      "name": "business_payroll_annual_basis.py",
+      "sha256": "ad339d17d1c9d9c76e88e32a42f226ff8ccb738262dee44266bfeb76240a914e",
+      "crlf": 599
+    },
+    {
+      "name": "business_payroll_calculation_cases.py",
+      "sha256": "dc1edb93a12b2da8983f1a61f345f8ceac8d0dbb0e301c8fba5293f052d97825",
+      "crlf": 508
+    },
+    {
+      "name": "business_payroll_cash.py",
+      "sha256": "0c7a9bdca4bed6c0f6dd5bbd7741e1ad7d2cab1e9d4f607e6290a2bffdfcf3a6",
+      "crlf": 415
+    },
+    {
+      "name": "business_payroll_entitlements.py",
+      "sha256": "1f5b38bc9cfe73ac7d873323c62b1c0af0fe5caa2ae77da31a30e98a682ca3f1",
+      "crlf": 456
+    },
+    {
+      "name": "business_payroll_facts.py",
+      "sha256": "f462d8e96af0068672421641b00b9ba34ed32d88a93012b4465805b11d184d81",
+      "crlf": 599
+    },
+    {
+      "name": "business_payroll_multiple_cases.py",
+      "sha256": "fcca8d5f864df221c0c0b8c39a7cc97f4d0ec95744067ec82f3511f36dd3c444",
+      "crlf": 462
+    },
+    {
+      "name": "business_payroll_oneoff_cases.py",
+      "sha256": "beccb2702ca3a8aa7684e3a0728cc185421f290e612dd6996fd94cf44c6f40f4",
+      "crlf": 420
+    },
+    {
+      "name": "business_payroll_statements.py",
+      "sha256": "5911fc9bae27126d062602b9d9077af68526b445a280ecd11a20fac5026768f7",
+      "crlf": 304
+    },
+    {
+      "name": "business_payroll_wage_interruptions.py",
+      "sha256": "8c6881954aa7abcabe9a5c04a712cd49e9f4b68c302bf2dd01eaab813acdfcc8",
+      "crlf": 384
+    },
+    {
+      "name": "business_personnel_workflow.py",
+      "sha256": "a0d0e1d304a08cc316581318cb026d189dbb0bf03be1265f9ee9be47562f3547",
+      "crlf": 817
+    },
+    {
+      "name": "business_planning.py",
+      "sha256": "cb2e05e9e70d485d050f552bf1fa15c99c30a6b7552dd17852c11de29fb69230",
+      "crlf": 800
+    },
+    {
+      "name": "business_portal.py",
+      "sha256": "31bc97a84984de4c3a74f4c4a3bf32788b759279d89cf347f608b1bf9381205e",
+      "crlf": 660
+    },
+    {
+      "name": "business_pricing.py",
+      "sha256": "20bb216e91d4dc135fec35231e0e4225e9a886629fbb786d61058895f684f682",
+      "crlf": 208
+    },
+    {
+      "name": "business_privacy_cases.py",
+      "sha256": "61371c4a669a3b4c9ae2c890c939e821758c7f928f4fd17a6c858367590af4f2",
+      "crlf": 571
+    },
+    {
+      "name": "business_project_economics.py",
+      "sha256": "50ce0a22614dc243466ea341b292ab152d1ad6905156139ee701bc5bfef59346",
+      "crlf": 473
+    },
+    {
+      "name": "business_purchase_changes.py",
+      "sha256": "5eb4a1e3f7a0d49a2edda72a540ff870e057af80e498880ce7fa77c6956a93c0",
+      "crlf": 581
+    },
+    {
+      "name": "business_purchasing.py",
+      "sha256": "8fa3ccaf4f7c6441fa8495f6ee40caed3e9a95dfb96576c6473322c5e0f34743",
+      "crlf": 561
+    },
+    {
+      "name": "business_resource_custody.py",
+      "sha256": "427d1d197acf577690ddbe066a1580842596ab216d37498b16ccc6b0315acccb",
+      "crlf": 506
+    },
+    {
+      "name": "business_sales.py",
+      "sha256": "fa5abcc0fa13208a30a68439959484db0ab4da56c37478ddb21e54c845b5bb2d",
+      "crlf": 430
+    },
+    {
+      "name": "business_schema.py",
+      "sha256": "1a26aa82948993b9cd71e062db003725b647afcb47d9869e098161f68cf1ea7c",
+      "crlf": 1318
+    },
+    {
+      "name": "business_service.py",
+      "sha256": "92bb071ff3de92f9819bac23928cb6f2ae2f8a5545696f866a6f51d0dfe38068",
+      "crlf": 476
+    },
+    {
+      "name": "business_time.py",
+      "sha256": "d542543b1c06d61abc0d9fad4a65f8f8d8b847bf3376220d47c971802085f670",
+      "crlf": 779
+    },
+    {
+      "name": "business_travel_allowances.py",
+      "sha256": "d33b66a45ef7a4dcca16ca2e081f1960e9791c79305498153780c0b33ce817da",
+      "crlf": 753
+    },
+    {
+      "name": "communication_history.py",
+      "sha256": "4d803b5252e6ad68eb5404cf253074de7fabcc4b364d6261f528e9663c1c92da",
+      "crlf": 312
+    },
+    {
+      "name": "company_event_sources.py",
+      "sha256": "561c1e99aaa00f30d50aede2515100538d909f910165d1621c615c22296aadd1",
+      "crlf": 257
+    },
+    {
+      "name": "company_event_worker.py",
+      "sha256": "16ccc0c7b645b96b834bf6dcabedda2f4c9b9d1d197acea451d0025cf5220a17",
+      "crlf": 22
+    },
+    {
+      "name": "company_export_archive.py",
+      "sha256": "fba3b1ac8016c9a14c0c40fd71ec7098aa435bcbb98ba527b1b7b5885619ebe8",
+      "crlf": 206
+    },
+    {
+      "name": "company_export_catalog.py",
+      "sha256": "cf1a3bee3863ad3f3d80c6483f6e17cbf9e1f256fa1397fe16adbfa49f7fd4a8",
+      "crlf": 469
+    },
+    {
+      "name": "company_export_verify.py",
+      "sha256": "a33525f52c67af143c5cdfb43d3b31ddbb2040b8d5a0451b296c5a2f6fe22fd0",
+      "crlf": 136
+    },
+    {
+      "name": "core.py",
+      "sha256": "5e5bae281d2b1471757c29ba3d7102a30e461a519b393e9aaecf9dd562892d72",
+      "crlf": 654
+    },
+    {
+      "name": "external_integrations.py",
+      "sha256": "db8df7844a19945257cb28870a0d182f19055d3170daf61c43a7f68343a0156c",
+      "crlf": 826
+    },
+    {
+      "name": "inbound_connectors.py",
+      "sha256": "fd55c1acd99f71342871dd31420d04c8bb57436c8be1caae9b9006745ed9d1a1",
+      "crlf": 184
+    },
+    {
+      "name": "inquiries.py",
+      "sha256": "40f8fc371b0c7fd4bd27f069c88f4ed0e6952971ee0d68af79133415a50b0442",
+      "crlf": 538
+    },
+    {
+      "name": "inquiry_attachments.py",
+      "sha256": "d9ac5b2c72ee617556a325c23f549ab951119331c840e65c65b8cd45c5d4f99d",
+      "crlf": 515
+    },
+    {
+      "name": "integration_bridge.py",
+      "sha256": "9bd9bdb46509e307329f26378c0d97704007be4ec73e681793df63537239c67a",
+      "crlf": 467
+    },
+    {
+      "name": "onedrive.py",
+      "sha256": "d965733c872ce555eb838c2e9ff658ece30124f187db6f6bc9ede541cfa2627f",
+      "crlf": 114
+    },
+    {
+      "name": "payroll_annual_basis_2026.py",
+      "sha256": "0853ec356245c1b9daf863bb3a78e3ae35bc6ad7d628084b8c7a429151952429",
+      "crlf": 293
+    },
+    {
+      "name": "payroll_calculations_2026.py",
+      "sha256": "0b2ef85bc288ba04386291da09bf65946b846710bfad0abc5c64d321c7398476",
+      "crlf": 327
+    },
+    {
+      "name": "payroll_cash_sources.py",
+      "sha256": "18d3f3a4d7f9ab8b93fa0698da36c13265f845d117b801b80738ec1a200e784c",
+      "crlf": 149
+    },
+    {
+      "name": "payroll_claims_composition_2026.py",
+      "sha256": "21d9dbdcbd3fb8affae89901ad69a46774a0f14a676b8a9444a5234fbb86eb40",
+      "crlf": 146
+    },
+    {
+      "name": "payroll_de_2026.py",
+      "sha256": "08b539117102b67a321bbcdb87d9d56e4b501faf93ba984633ca84e2b34f0ff5",
+      "crlf": 319
+    },
+    {
+      "name": "payroll_entitlement_dispatch.py",
+      "sha256": "40f05cf6b5b996b8c07673fe8b045393e12609952fa7fc1022ffb75d44723ea4",
+      "crlf": 58
+    },
+    {
+      "name": "payroll_entitlements_2026.py",
+      "sha256": "60189a6041ae94f162454be4a1485609f1a64e9ef2cc760e7d2bce9040f95f0c",
+      "crlf": 374
+    },
+    {
+      "name": "payroll_factor_2026.py",
+      "sha256": "6f7b2e03473707f5b89edeeed0c31e28ab484605c60f12a8ccabab646dc4028d",
+      "crlf": 73
+    },
+    {
+      "name": "payroll_holidays_2026.py",
+      "sha256": "72915a796879cf4c97e2e4c3a79ed076ffc4cb89b408a9a24f337a922e55eb04",
+      "crlf": 49
+    },
+    {
+      "name": "payroll_ledger.py",
+      "sha256": "5e1f35dbf38c637b32877fc9150e0d8e642c4f8890447a7bd69fcc439b7d7f7b",
+      "crlf": 393
+    },
+    {
+      "name": "payroll_multiple_oneoff_2026.py",
+      "sha256": "89314aa27b861af83f3e9dc29329c980989052e9271e38ffc0af3aec9af3108a",
+      "crlf": 240
+    },
+    {
+      "name": "payroll_multiple_payments.py",
+      "sha256": "ecff687e05a31024f0acf535590c7c2f25f05501ad6910fc413083167a4b2543",
+      "crlf": 153
+    },
+    {
+      "name": "payroll_multiple_runs.py",
+      "sha256": "17185be3ba49dd0d06b586df3bb373f4ce877e978d860011fb0f94e570c491e0",
+      "crlf": 84
+    },
+    {
+      "name": "payroll_oneoff_2026.py",
+      "sha256": "f5f4a9bbf962fe4c700c5f0e4e4d97c1163c24bf342790c016c721fce1e48433",
+      "crlf": 414
+    },
+    {
+      "name": "payroll_oneoff_composition_2026.py",
+      "sha256": "db9e610231c1e7388146c85ee131ebaefbf1ed9016722f9dd77c384fc62bdc4a",
+      "crlf": 325
+    },
+    {
+      "name": "payroll_oneoff_runs.py",
+      "sha256": "9d1914c43e89f65ce687ca62d63b18629a102b14ae953f4f4c1c226e27dbed1a",
+      "crlf": 61
+    },
+    {
+      "name": "payroll_pap_2026.py",
+      "sha256": "e49c48579172508f0eef8d61e2038e407aaa83ba432cdf6c98dcb8c9baed2bb1",
+      "crlf": 120
+    },
+    {
+      "name": "payroll_pap_factor_2026.py",
+      "sha256": "72fa282b980f6e19f7714f5c465bc126a033a910cee88642cbfc5d81b3a9bf70",
+      "crlf": 78
+    },
+    {
+      "name": "payroll_pap_oneoff_2026.py",
+      "sha256": "f07e949fae71dd3ea9137420009ae1e8526d6bf8f62b86b1aec28f6b3ea719ef",
+      "crlf": 59
+    },
+    {
+      "name": "payroll_pap_periods_2026.py",
+      "sha256": "36148eeebbf25ff6b6f4549c6627b2b697ec4f76a50d4aac11b1b00a06801abe",
+      "crlf": 86
+    },
+    {
+      "name": "payroll_periods_2026.py",
+      "sha256": "1d087274126d5558476e9f99c85ecb684b16862b1f435d50ce6a2ae51402aea0",
+      "crlf": 316
+    },
+    {
+      "name": "payroll_segments_2026.py",
+      "sha256": "a96e87cca6b4a95b8eeebc828407e2e5049cc1f1a1a4524d2f14ccdc14c12828",
+      "crlf": 185
+    },
+    {
+      "name": "payroll_sickness_2026.py",
+      "sha256": "acdcf1a79b7325ccdb5c882739c06e384be7c5b810fac3eccfdf4222cff8a666",
+      "crlf": 126
+    },
+    {
+      "name": "payroll_sickness_phases_2026.py",
+      "sha256": "ff18588a269e44717b778729e4f758b59110e598377ce1aae39454187eec6b11",
+      "crlf": 158
+    },
+    {
+      "name": "payroll_sickness_start_2026.py",
+      "sha256": "7ce1eeb6aa9195fb67cefca31f770295f055338173a167c5451bec3e18da34ab",
+      "crlf": 63
+    },
+    {
+      "name": "payroll_transition_2026.py",
+      "sha256": "5818f27a716eda81557033193c8e6889953460dfe898b9f65d513b37a98948dc",
+      "crlf": 162
+    },
+    {
+      "name": "payroll_travel_2026.py",
+      "sha256": "6f7c932a8df8f80e4c825ae214f1c6b31430db15adf5e2782f27705dc0c6cd32",
+      "crlf": 190
+    },
+    {
+      "name": "payroll_travel_2026_v1.py",
+      "sha256": "e081952f970f860e3ae921224b36b5f9f2cccfcc03145f52c6b78522aca01522",
+      "crlf": 372
+    },
+    {
+      "name": "payroll_travel_2026_v2.py",
+      "sha256": "56b65ee117ebda61df9199b5a22ad5f9fa29ccc1387930c9e2914495ebbb780e",
+      "crlf": 419
+    },
+    {
+      "name": "payroll_travel_2026_v3.py",
+      "sha256": "f0dc1304eace3c10abcca9a3add8d2adfea9192bcbac4a195dea505616c02bb1",
+      "crlf": 443
+    },
+    {
+      "name": "payroll_travel_expenses_2026.py",
+      "sha256": "4b3b80f0d20ca42d6434b87e81afa506252fa2e7ae14ac633b3e0c8e4d3a888c",
+      "crlf": 90
+    },
+    {
+      "name": "payroll_travel_ground_2026.py",
+      "sha256": "1262323c5d23169e432e81d96a2eab265b376c2cefe4ee1156d02f96d5d172f2",
+      "crlf": 42
+    },
+    {
+      "name": "payroll_travel_link.py",
+      "sha256": "c378b706793bc10821f64484a5c97ee1e331ebdaf9e48ff0319b68e373e1cdee",
+      "crlf": 42
+    },
+    {
+      "name": "payroll_travel_mixed_2026.py",
+      "sha256": "555e230cf41ef2b72f4ca427ae4dc26898960e10fec1d1fbddcce28f3456713b",
+      "crlf": 107
+    },
+    {
+      "name": "payroll_travel_rates_2026.py",
+      "sha256": "6d577ecf55a521f72b135e2ecee82f10bb36eb32233716358b71a65248370f7f",
+      "crlf": 269
+    },
+    {
+      "name": "payroll_travel_recording.py",
+      "sha256": "f114ff52610cd16375322139b7a753e13821314e4408dcaff078c70dd5af447f",
+      "crlf": 129
+    },
+    {
+      "name": "payroll_travel_tax_2026.py",
+      "sha256": "6676346a996a875ddf2b576ef6f3ea1f4ac9f26a0949c2d21d25716f2a28ac51",
+      "crlf": 171
+    },
+    {
+      "name": "payroll_travel_transport_2026.py",
+      "sha256": "74e3cde2bcc0b58840c4ef509568f1c970c309e5aaa96903a8851933ac39b13b",
+      "crlf": 284
+    },
+    {
+      "name": "payroll_wage_interruptions_2026.py",
+      "sha256": "3a9b8763f69bd64b68e0199e1cc5a4dc07e80e1e30002b652801e6ce5d423d4a",
+      "crlf": 82
+    },
+    {
+      "name": "plan_access.py",
+      "sha256": "a2a87831d6357f421b7dd9f95b80dee96215907065376566ad7c7c6b67096519",
+      "crlf": 87
+    },
+    {
+      "name": "plan_deletions.py",
+      "sha256": "477282e47b5458b71fd34fd0e5fbb6cbfce337af7161464b2522c4520f7f6f51",
+      "crlf": 204
+    },
+    {
+      "name": "plans.py",
+      "sha256": "366e2ee8408589498130663f5711c09d100e60c043f9c39eb7829ce19c667d72",
+      "crlf": 27
+    },
+    {
+      "name": "privacy_case_sources.py",
+      "sha256": "7de9c066a2f28d9e61a486781ab004bfa069c849c66e907a8c5df716583a45f4",
+      "crlf": 189
+    },
+    {
+      "name": "project_workspace.py",
+      "sha256": "18affd72e4e1bfa6dc96ecbf505b08226a0a4a6f121ded54722689de69a61ac1",
+      "crlf": 450
+    },
+    {
+      "name": "restore.py",
+      "sha256": "315b11e4f11519b9b696a11de184dcec2adf16b3b5be092298f31c011d39ea7a",
+      "crlf": 54
+    },
+    {
+      "name": "server.py",
+      "sha256": "dd7a17ca9fd44c7357eb6f3b0f84efeab6bc7893b72bc4540d5de7e19a58ba04",
+      "crlf": 259
+    },
+    {
+      "name": "travel_allowance_cash.py",
+      "sha256": "f62ab72a3f6e61ff409f70722d29e2e55783dac1dd30e2a1bf9736c4469d72ca",
+      "crlf": 207
+    },
+    {
+      "name": "travel_payroll_sources.py",
+      "sha256": "9fe87a991d31f4400fefc83d6b93f93ec3c93c55ca0c3929cb13f88085a9afe8",
+      "crlf": 41
+    },
+    {
+      "name": "windows_office.py",
+      "sha256": "8af93785155cde59456863697395671a316e8c9f28ae172906a16dd2c643b068",
+      "crlf": 364
+    },
+    {
+      "name": "workspace_api.py",
+      "sha256": "e765844a5b4cdfd21e1b09121ee0d2b81e8f442d4134070b409047d99a3b43c0",
+      "crlf": 170
+    }
+  ],
+  "new_kernel_uses_crlf": true,
+  "v9_calculation_identical": true,
+  "v9_rules_sha256": "f213696a86c1f44c52cadabf4b9a588ebf436c5d78675660acc4fbfe640ada9b",
+  "result_sha256": "ab0528e76961c603ac4167a1e3b1023b9a26248751699e0b9763891e407d514c",
+  "legacy_v8_pap_metadata_identical": false,
+  "legacy_metadata_followup_required": true,
+  "legacy_v8_compat_verified": true,
+  "legacy_v8_result_sha256": "cc350cb35817ee97a2c45e77411bdb404ed1b41757efa9937a9f212f09747466",
+  "compatibility_rewrites_original": false,
+  "other_historical_period_metadata_followup_required": true,
+  "travel_original_matches_released_windows_result": true,
+  "travel_result_sha256": "f110dbfb739630e9663bfe43cb74a38eb0170e3ce27ff515e411c2b20c82f8a8",
+  "travel_rule_version": "de_travel_2026_v3",
+  "travel_rule_hash": "0d05f2476643e8211467f264677419dcaf4cd0ce8cf13a65c7683b48dd522563",
+  "travel_lf_rule_hash": "e5c49054666714c9cdb4f0ed336ab102dfb144b067783e2fc71d7eb83872e01f",
+  "travel_input_sha256": "d033a28d1ce52ffa4293d217886b67596056220cdb9774a86a1733ea63eca97b",
+  "travel_fixture_sha256": "65f4a29d54217213efd839824bd258dad843ad0309e9993cf145c88faf946738"
+}

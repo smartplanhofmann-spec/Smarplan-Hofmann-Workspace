@@ -37,8 +37,9 @@ Es ist keine Migration erforderlich.
 
 Die neue Faktor-Teilmonatsregel v9 ist bereits ausdrücklich LF-normalisiert
 und benötigt diesen historischen Sonderabgleich nicht. Andere alte Dateihash-
-Nachweise, insbesondere Einmalbezüge sowie Reiseboden-/Misch-/Transportregeln,
-sind gesonderte noch zu prüfende Kompatibilitätsfälle. Die normale alte
+Nachweise bei Einmalbezügen sind gesonderte noch zu prüfende Kompatibilitätsfälle.
+Der anschließende [v2/v3-Reiseabgleich](CRM_ERP_REISEN_PLATTFORMHISTORIE_2026.md)
+erhält inzwischen auch die alten Boden-/Misch-/Transportnachweise. Die normale alte
 v4-Tages-PAP-Metadatei enthält keine rohen Dateihashes; ihre Inhalte werden
 aus dieser v8-Korrektur nicht pauschal als fehlerhaft eingestuft.
 

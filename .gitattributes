@@ -23,3 +23,7 @@ docs/evidence/payroll-factor-periods-2026-11-09/flutter-analyze-final.txt whites
 docs/evidence/payroll-factor-periods-2026-11-09/flutter-initial.txt whitespace=-blank-at-eol
 docs/evidence/payroll-factor-periods-2026-11-09/flutter-second.txt whitespace=-blank-at-eol
 docs/evidence/payroll-factor-periods-2026-11-09/flutter-third.txt whitespace=-blank-at-eol
+
+docs/evidence/completion-followup-2026-11-09/ci-browser-before.txt whitespace=-blank-at-eol
+docs/evidence/completion-followup-2026-11-09/flutter-analyze.txt whitespace=-blank-at-eol
+docs/evidence/completion-followup-2026-11-09/flutter-travel-socket-denied.txt whitespace=-blank-at-eol

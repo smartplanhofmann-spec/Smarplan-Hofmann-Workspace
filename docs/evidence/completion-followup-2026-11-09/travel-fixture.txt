@@ -1,0 +1,1 @@
+{"rule": "de_travel_2026_v3", "tax_free_minor": 933, "original_crlf_rule_hash": "0d05f2476643e8211467f264677419dcaf4cd0ce8cf13a65c7683b48dd522563", "lf_rule_hash": "e5c49054666714c9cdb4f0ed336ab102dfb144b067783e2fc71d7eb83872e01f"}

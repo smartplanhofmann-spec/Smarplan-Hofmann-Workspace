@@ -1,0 +1,8 @@
+test_actual_crlf_mixed_original_and_dump_restore_under_old_default (online.test_business_travel_provenance_pg.TravelOriginalTransportPostgres.test_actual_crlf_mixed_original_and_dump_restore_under_old_default) ... ok
+test_concurrent_claim_and_exact_cash_receipt_remain_valid_under_lf (online.test_business_travel_provenance_pg.TravelOriginalTransportPostgres.test_concurrent_claim_and_exact_cash_receipt_remain_valid_under_lf) ... ok
+test_original_mfa_http_cash_private_boundary_and_restart (online.test_business_travel_provenance_pg.TravelOriginalTransportPostgres.test_original_mfa_http_cash_private_boundary_and_restart) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 63.081s
+
+OK

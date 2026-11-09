@@ -28,6 +28,7 @@ def main():
     parser.add_argument('--archive-sha256',required=True)
     parser.add_argument('--source-commit',required=True)
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--travel-fixture',type=Path,help='Also verify a controlled original travel acceptance against released sources.')
     args=parser.parse_args()
     if not re.fullmatch('[a-f0-9]{64}',args.archive_sha256) or not re.fullmatch('[a-f0-9]{40}',args.source_commit):
         raise ValueError('Exact archive digest and repository commit required')
@@ -41,6 +42,7 @@ def main():
     fixture=json.loads((ROOT/'app/test/fixtures/payroll_factor_periods_2026_workflow.json').read_text())
     snapshot=fixture['period_case']['sources'];expected=calculate_factor_period_source(snapshot)
     monthly=json.loads((ROOT/'app/test/fixtures/payroll_factor_2026_workflow.json').read_text())['run']['source']
+    travel=json.loads(args.travel_fixture.read_text()) if args.travel_fixture else None
     verified=[]
     with zipfile.ZipFile(io.BytesIO(raw)) as outer:
         name='Smartplan_Windows_Start_und_Sicherung.zip';inner=outer.read(name)
@@ -74,6 +76,16 @@ def main():
             raise ValueError('Factor-period output or rules differ with verified Windows/CRLF sources')
         if not calculation_matches_source(monthly,actual['legacy_factor_calculation']):
             raise ValueError('Actual released Windows v8 factor result cannot be exactly reproduced')
+        if travel is not None:
+            from travel_provenance_compat import calculation_matches
+            code=('import json,sys;from payroll_travel_2026 import calculate;d=json.load(sys.stdin);'
+                'print(json.dumps(calculate(d["trips"],d["sites"],**d["parameters"])))')
+            run=subprocess.run([sys.executable,'-c',code],input=json.dumps(travel['payload']),text=True,
+                capture_output=True,check=True,cwd=target,env=env,timeout=40)
+            old=json.loads(run.stdout)
+            if old!=travel['record']['calculation'] or not calculation_matches(travel['calculation_lf'],old,
+                    trips=travel['payload']['trips'],sites=travel['payload']['sites']):
+                raise ValueError('Actual released Windows travel original cannot be exactly reproduced')
     proof=dict(source_commit=args.source_commit,archive_sha256=args.archive_sha256,
         actual_windows_runtime_executed=False,source_files_verified=len(verified),sources=verified,
         new_kernel_uses_crlf=True,v9_calculation_identical=True,v9_rules_sha256=FACTOR_PERIOD_RULES_SHA256,
@@ -82,6 +94,12 @@ def main():
     proof.update(legacy_v8_compat_verified=True,
         legacy_v8_result_sha256=sha(canonical(actual['legacy_factor_calculation']).encode()),
         compatibility_rewrites_original=False,other_historical_period_metadata_followup_required=True)
+    if travel is not None:
+        proof.update(travel_original_matches_released_windows_result=True,
+            travel_result_sha256=sha(canonical(old).encode()),travel_rule_version=old['rule_version'],
+            travel_rule_hash=old['rule_hash'],travel_lf_rule_hash=travel['calculation_lf']['rule_hash'],
+            travel_input_sha256=sha(canonical(travel['payload']).encode()),
+            travel_fixture_sha256=sha(args.travel_fixture.read_bytes()))
     args.output.write_text(json.dumps(proof,indent=2)+'\n')
     print(json.dumps({key:value for key,value in proof.items() if key!='sources'}))
 

@@ -621,7 +621,8 @@ def validate_record(api,value):
         paid=_paid(api,value['id'],through_sequence=after)
         result=calculate(sources['trips'],sources['sites'],history_trips=sources['history_trips'],settlement_unit=d['settlement_unit'],tax_choice=d['tax_choice'],
             requested_meal_minor=d['requested_meal_minor'],requested_lodging_minor=d['requested_lodging_minor'],already_paid_minor=paid,rule_version=value['calculation']['rule_version'])
-        if result!=value['calculation'] or not result['can_approve']:
+        from travel_provenance_compat import calculation_matches
+        if not calculation_matches(result,value['calculation'],trips=sources['trips'],sites=sources['sites']) or not result['can_approve']:
             raise Problem(409,'Historische Reiseberechnung ist nicht reproduzierbar.')
         if [_ref(t) for t in sources['trips']]!=d['trip_refs']:raise Problem(409,'Reiseabrechnung bindet andere Eingangsreisen.')
         first,last=day(d['period_from']),day(d['period_to'])

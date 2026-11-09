@@ -3517,3 +3517,12 @@ Abgleiche anderer Warteschlangen bleiben eigenständige Restarbeit.
 Sie umfassen den tatsächlichen MFA-/HTTP-Firmenwechsel, den historischen
 V1-Dateiaufbau, sichere Entsperrung, Zugangswechsel und mobile Navigation.
 [Eigener Quell- und Rohlaufnachweis](evidence/offline-legacy-recovery-native-2026-11-09/manifest.json).
+
+Die native Einzelprüfung ist als ab632c0 auf dem autorisierten Testbranch
+veröffentlicht. Development42713870349 und iPhone42713870363 laufen; HTTPS
+und Update bestehen im ersten Abruf. Der Vorgänger 03b7b6d hat sechs
+vollständig erfolgreiche Development-Jobs, während die beiden übrigen Jobs
+und seine iPhone-Prüfungen beim Nachfolger abgebrochen sind. Kein abgebrochener
+Lauf wird nachträglich grün dargestellt. Der laufende Server bleibt zuletzt
+als A93 bestätigt.
+[Eigene Veröffentlichung und vorheriger tatsächlicher Status](evidence/offline-legacy-recovery-native-2026-11-09/publication-initial.json).

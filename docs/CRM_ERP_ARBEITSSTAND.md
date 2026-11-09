@@ -4,32 +4,34 @@ Stand: 09.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
-**Weiterer lokal geprüfter Abschnitt:** Der [native lesende Abgleich alter
-Planaufträge](CRM_ERP_OFFLINE_ALTBELEGE_NATIVE_2026-11-09.md) ist integriert.
-43 gemeinsame Offline-/Navigations-/Originalfälle bestehen, darunter der
-tatsächliche MFA-/HTTP-Abgleich gegen zwei Firmen mit gleichen Kennungen und
-der reale verschlüsselte V1-Dateiaufbau. Alle alten Dateien, Schlüssel, Token
-und die Auswahl bleiben erhalten. Ein Treffer bestätigt nur einen alten
-angenommenen Auftrag; vollständige Migration und andere Altwarteschlangen
-bleiben eigenständige Restarbeit. Veröffentlichung und eigene CI folgen getrennt.
+**Neueste Veröffentlichung:** Die geprüfte native Einzelprüfung alter
+Planaufträge ist als `ab632c0b680b563169ec9e846ab9b406762bcc97` auf dem
+autorisierten Testbranch veröffentlicht; der Remote-Zeiger ist bestätigt.
+[Development42713870349](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42713870349)
+und [iPhone42713870363](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42713870363)
+laufen. HTTPS und Update bestehen im ersten Abruf, die übrigen Jobs sind offen.
+[Veröffentlichung und ursprünglicher Abruf](evidence/offline-legacy-recovery-native-2026-11-09/publication-initial.json).
 
-**Neueste Veröffentlichung:** Der gemeinsam geprüfte Browser-/Reisestand
-`03b7b6df8215fa700b1ca94b4ef0bc588e079b4b` ist auf dem autorisierten
-Testbranch veröffentlicht; der Remote-Zeiger ist bestätigt.
-[Development42709776920](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42709776920)
-und [iPhone42709777293](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42709777293)
-laufen. HTTPS besteht im ersten Abruf; die übrigen Jobs sind noch offen.
-[Unveränderter erster Veröffentlichungsnachweis](evidence/browser-original-restart-2026-11-09/publication-initial.json).
+43 gemeinsame Offline-/Navigations-/Originalfälle und die vollständige
+Appanalyse bestehen. Die [neue Ansicht](CRM_ERP_OFFLINE_ALTBELEGE_NATIVE_2026-11-09.md)
+verwendet den tatsächlichen historischen V1-Dateiaufbau, Geräteentsperrung und
+frische Firmen-/Originalprüfung. Alte Dateien, Schlüssel, Token und Auswahl
+bleiben erhalten. Ein Treffer bestätigt nur einen einzelnen alten Auftrag;
+vollständige Migration und andere Altwarteschlangen bleiben Restarbeit.
 
+Der vorangegangene Browser-/Reisestand
+`03b7b6df8215fa700b1ca94b4ef0bc588e079b4b` besitzt sechs erfolgreiche eigene
+Development-Jobs, einschließlich Windows, Mac-Simulator und vollständiger
+Appprüfung. Online-API und Business-Browser sowie beide iPhone-Jobs sind
+beim Nachfolger abgebrochen; sie werden nicht als erfolgreich ausgegeben.
+[Ursprünglicher erster Abruf](evidence/browser-original-restart-2026-11-09/publication-initial.json),
+[späterer tatsächlicher Status](evidence/offline-legacy-recovery-native-2026-11-09/publication-initial.json).
 Die [geschützte Browser-Wiederaufnahme](CRM_ERP_BROWSER_ORIGINALJOURNAL_VERTRAG_2026-11-09.md)
-für Materialrückgaben und private Kilometeraufträge ist integriert: 1.017
-Browsermodul-, 65 betroffene Backend-, 38 betroffene native und 16 Paketfälle
-bestehen. Beide tatsächlichen Browser-Neustart-/MFA-Abläufe sowie konkurrierende
-IndexedDB-Originale sind auf dem integrierten Stand geprüft. Die
-[Reisezeitpunktkorrektur](CRM_ERP_REISEZEITPUNKT_2026-11-09.md) schließt den
-bestätigten Sekundenwechselfehler; vier tatsächliche PostgreSQL-/Restorefälle
-bestehen. Der native Code bleibt unverändert.
-Veröffentlichung/CI, Serverinstallation und Geräteabnahme sind getrennte Zustände.
+bleibt mit 1.017 Browsermodul-, 65 Backend-, 38 nativen und 16 Paketfällen
+sowie beiden tatsächlichen Browser-/MFA-/IndexedDB-Neustartabläufen geprüft.
+Die [Reisezeitpunktkorrektur](CRM_ERP_REISEZEITPUNKT_2026-11-09.md) besteht ihre
+vier tatsächlichen PostgreSQL-/Restorefälle. Veröffentlichung/CI, laufender
+Server und Geräteabnahme sind weiterhin getrennte Zustände.
 
 **Vorangegangene Veröffentlichung:** Die native Wiederaufnahme ist als
 `9271be79857e182adc080dcb8b1d86c48776dbdf` auf dem autorisierten Testbranch

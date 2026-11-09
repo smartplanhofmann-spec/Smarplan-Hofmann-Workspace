@@ -39,6 +39,14 @@ A–G bleiben offen. Mehrere Bonus-Steuergruppen, negative Korrekturen und ander
 tatsächliche Nachzahlungstage sind durch den neuen positiven Einzelvertrag
 weiterhin nicht abgedeckt.
 
+## Aktive Isolationskorrektur
+
+Bei einem synthetischen Wechsel zwischen zwei Unternehmen mit gleicher
+Serveradresse und übernommenen Benutzer-/Projektkennungen wurde eine fehlende
+Instanzbindung alter Offlineaufträge reproduziert. Die Korrektur wird
+vorbereitet; alte Aufträge bleiben erhalten. Der veröffentlichte Teststand
+ist damit weiterhin keine vollständige Produktivfreigabe.
+
 ## Tatsächlicher Betriebsstand
 
 Der letzte vom Nutzer bestätigte Serverstand bleibt `a93cb4d`; eine neuere

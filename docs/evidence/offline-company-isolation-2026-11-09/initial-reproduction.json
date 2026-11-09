@@ -1,0 +1,30 @@
+{
+  "tested_source": "60f9001",
+  "meaning": "Synthetic vulnerability reproduction, not a passing security acceptance",
+  "evidence": {
+    "smartplan-offline-instance-client-probe-20261109.txt": {
+      "file": "smartplan-offline-instance-client-probe-20261109.txt.gz",
+      "raw_bytes": 405,
+      "raw_sha256": "e97ef5bea1e3b5c530d30c7bb9aa2bbddde81c6081ea2475aab8c16aab5b90fd",
+      "gzip_sha256": "ac2a4880b6d97290180629add01528e205b3ec3b5bb7776c44730d700de08412"
+    },
+    "smartplan-offline-instance-probe-20261109_test.dart": {
+      "file": "smartplan-offline-instance-probe-20261109_test.dart.gz",
+      "raw_bytes": 3145,
+      "raw_sha256": "6395ffc1db8680df0cba45b418b108459e7c96c75852a928541a4366708fd90c",
+      "gzip_sha256": "e97b7c67e164e941cf3346ce6cdca12f915a9d8bdfc5a33bbeb7ddf81bb6cc03"
+    },
+    "offline-tenant-server-audit-20261109.py": {
+      "file": "offline-tenant-server-audit-20261109.py.gz",
+      "raw_bytes": 3793,
+      "raw_sha256": "e35652cbf3030eabfc1aa4a32d6fe4c8e41a79cc77d9d464b92576cca1f3ac66",
+      "gzip_sha256": "738c31d458307f7dd1e2fdc662a760c3d3ad68e3d90ef62fe8b3fc37c66c5b90"
+    },
+    "offline-tenant-server-audit-20261109.txt": {
+      "file": "offline-tenant-server-audit-20261109.txt.gz",
+      "raw_bytes": 374,
+      "raw_sha256": "66aec067ff18c24d57e5409e10f36c65d3a263335cdb607f197cc24cd914938e",
+      "gzip_sha256": "678754e29277ef69f4e954208c127e603914ddfae412aeb82fee517e5cbdbba5"
+    }
+  }
+}

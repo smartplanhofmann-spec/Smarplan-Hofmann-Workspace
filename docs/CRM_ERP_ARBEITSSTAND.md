@@ -246,6 +246,22 @@ rechtliche Abnahme und erzeugt keine automatische Rechnung oder Zahlung.
 Backend/Browser/App und aktuelle Fixtures werden zusammengeführt und erst
 nach den tatsächlichen Prüfungen als neuer Lieferstand ausgewiesen.
 
+## Unmittelbar folgende Isolationskorrektur
+
+Ein tatsächlicher synthetischer Client-/Servernachweis auf 60f9001 bestätigt
+am 09.11.2026 einen Fehler des bisherigen Offline-Caches: Bei gleicher
+Serveradresse, Benutzer- und Projektkennung kann eine neue Anmeldung an
+Unternehmensinstanz B alte verschlüsselte Planaufträge aus A mit dem neuen
+B-Token synchronisieren. Das alte A-Token wird von B korrekt abgewiesen;
+der Fehler ist die fehlende Instanzbindung bei Wiederanmeldung im Client.
+Dies ist eine konkrete offene R03.04-Korrektur, keine Produktivfreigabe.
+
+[Unveränderte Reproduktion](evidence/offline-company-isolation-2026-11-09/initial-reproduction.json).
+Ein additiver Grant-/Cachevertrag und sichere Behandlung vorhandener noch
+nicht gebundener Offlineaufträge werden vorbereitet. Vorhandene Dateien und
+Aufträge dürfen nicht gelöscht oder ungeprüft einer neuen Instanz zugewiesen
+werden. Der Fix folgt mit eigenem Nachweis auf die laufende Meilensteinintegration.
+
 ## Weitere unabhängige Entwicklungsarbeit
 
 - Korrigierten Browser-Gesamtlauf und neue eigene Remote-CI abschließen.

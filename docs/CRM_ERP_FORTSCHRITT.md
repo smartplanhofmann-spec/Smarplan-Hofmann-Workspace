@@ -3173,3 +3173,22 @@ belegt. Der signierte Upload ist nicht angefordert. Der separate Meilenstein-
 Abschnitt wird währenddessen entwickelt, ohne den veröffentlichten Stand
 oder den Kundenserver zu verändern.
 [Veröffentlichungsnachweis](evidence/project-delivery-2026-11-09/publication.json).
+
+
+## 09.11.2026 – Konkrete Offline-Isolationslücke reproduziert
+
+Die weitere Gesamtzielprüfung reproduziert auf 60f9001 einen Firmenwechsel
+bei gleicher Serveradresse und gleichen Benutzer-/Projektkennungen. Ein
+produktiver OfflinePlans-/OfflineVault-Test lädt den alten A-Plan und sendet
+ihn nach neuer B-Anmeldung mit deren Token. Zwei tatsächlich getrennt
+gebundene synthetische Datenbanken mit eigenen Schlüsseln/Storages und MFA
+bestätigen das Serververhalten: A-Token an B gibt401, neuer B-Token mit altem
+Planauftrag gibt201. Die fehlende Client-Instanzbindung ist somit ein konkreter
+P1-Befund. Der erfolgreiche Reproduktionslauf ist kein bestandener Sicherheits-
+Abnahmetest. [Rohbelege](evidence/offline-company-isolation-2026-11-09/initial-reproduction.json).
+
+Ein additiver Instanzvertrag für Grants und Cache wird geplant. Vorhandene
+Offlineaufträge bleiben erhalten; sie dürfen bei der Migration keiner neuen
+Instanz ungeprüft zugeordnet werden. Diese Korrektur hat nach der laufenden
+Meilensteinintegration Priorität. Keine Kundendaten oder Liveinstanz wurden
+für die Reproduktion benutzt oder geändert.

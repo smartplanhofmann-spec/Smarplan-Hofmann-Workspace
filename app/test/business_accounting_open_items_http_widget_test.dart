@@ -4,6 +4,7 @@ library;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,14 @@ import 'backend_integration_test.dart' show BackendHttp;
 import 'business_accounting_openings_http_widget_test.dart'
     show openingHttpFixture;
 
+// Opt-in diagnostics contain method/path/duration only, never credentials or
+// document bodies. Keep ordinary full-suite output quiet.
+final _traceEnabled =
+    Platform.environment['SMARTPLAN_TEST_TRACE_OPEN_ITEMS'] == '1';
+void _traceOpenItems(String message) {
+  if (_traceEnabled) print(message);
+}
+
 class OpenItemsHttpApi extends OfficeApi {
   OpenItemsHttpApi(String base) : super(baseUrl: base, apiVersion: 'v1');
   final originals = <Map<String, dynamic>>[],
@@ -28,6 +37,18 @@ class OpenItemsHttpApi extends OfficeApi {
   @override
   Future<dynamic> call(String path, [Map<String, dynamic>? body]) async {
     inFlight++;
+    final timer = Stopwatch()..start();
+    final method = body == null ? "GET" : "POST";
+    final origin =
+        _traceEnabled &&
+            StackTrace.current.toString().contains(
+              "_loadCapabilities.<anonymous closure>",
+            )
+        ? "timer"
+        : "action";
+    _traceOpenItems(
+      "TRACE begin $method $path inFlight=$inFlight origin=$origin",
+    );
     try {
       final original = path.endsWith('$openItemPath/originals') && body != null,
           confirm = path.endsWith('$openItemPath/confirm') && body != null,
@@ -56,6 +77,28 @@ class OpenItemsHttpApi extends OfficeApi {
       return result;
     } finally {
       inFlight--;
+      _traceOpenItems(
+        "TRACE end $method $path ms=${timer.elapsedMilliseconds} inFlight=$inFlight",
+      );
+    }
+  }
+
+  @override
+  Future<Uint8List> bytes(
+    String path, {
+    required String mediaType,
+    int maxBytes = 20 * 1024 * 1024,
+  }) async {
+    inFlight++;
+    final timer = Stopwatch()..start();
+    _traceOpenItems('TRACE begin GET-BYTES $path inFlight=$inFlight');
+    try {
+      return await super.bytes(path, mediaType: mediaType, maxBytes: maxBytes);
+    } finally {
+      inFlight--;
+      _traceOpenItems(
+        'TRACE end GET-BYTES $path ms=${timer.elapsedMilliseconds} inFlight=$inFlight',
+      );
     }
   }
 }
@@ -113,6 +156,30 @@ void main() {
             baseUrl: 'http://127.0.0.1:${setup['port']}',
             apiVersion: 'v1',
           )..token = setup['admin_token'];
+          // Socket/file work advances in real time. Do not fast-forward the
+          // 30-second metadata timer while only waiting for that work. Frames
+          // needed by navigation and scrolling still advance after IO is idle.
+          bool waitingForIo() =>
+              // The status bar can be outside the lazy scroll viewport while
+              // file IO is still pending, before the next HTTP call starts.
+              tester
+                  .stateList(find.byType(BusinessOpenItemsPage))
+                  .any((state) => (state as dynamic).busy == true) ||
+              api!.inFlight > 0 ||
+              session!.loading ||
+              find.byType(LinearProgressIndicator).evaluate().isNotEmpty ||
+              find.byType(CircularProgressIndicator).evaluate().isNotEmpty;
+          Future<void> tick() async {
+            await tester.runAsync(
+              () => Future<void>.delayed(const Duration(milliseconds: 10)),
+            );
+            await tester.pump(
+              !waitingForIo() && tester.binding.hasScheduledFrame
+                  ? const Duration(milliseconds: 100)
+                  : Duration.zero,
+            );
+          }
+
           Future<T> request<T>(Future<T> Function() action) async {
             T? value;
             Object? error;
@@ -127,11 +194,9 @@ void main() {
                 done = true;
               },
             );
-            for (var i = 0; i < 1500 && !done; i++) {
-              await tester.runAsync(
-                () => Future<void>.delayed(const Duration(milliseconds: 10)),
-              );
-              await tester.pump(const Duration(milliseconds: 20));
+            final deadline = Stopwatch()..start();
+            while (!done && deadline.elapsed < const Duration(seconds: 40)) {
+              await tick();
             }
             expect(done, true, reason: 'HTTP timed out. $diagnostics');
             if (error != null) throw error!;
@@ -152,17 +217,25 @@ void main() {
               .widgetList<Text>(find.byType(Text))
               .map((v) => v.data)
               .join(' | ');
-          Future<void> settled() async {
-            var quiet = 0;
-            for (var i = 0; i < 1500; i++) {
-              await tester.runAsync(
-                () => Future<void>.delayed(const Duration(milliseconds: 10)),
-              );
-              await tester.pump(const Duration(milliseconds: 20));
-              if (api!.inFlight == 0) {
+          var settleNumber = 0;
+          Future<void> settled([bool Function()? ready]) async {
+            final number = ++settleNumber;
+            final timer = Stopwatch()..start();
+            _traceOpenItems("TRACE settle begin $number");
+            var quiet = 0, frames = 0;
+            while (timer.elapsed < const Duration(seconds: 40)) {
+              await tick();
+              frames++;
+              final exception = tester.takeException();
+              if (exception != null) throw exception;
+              if (!waitingForIo() &&
+                  !tester.binding.hasScheduledFrame &&
+                  (ready?.call() ?? true)) {
                 quiet++;
-                if (quiet >= 8) {
-                  await tester.pumpAndSettle();
+                if (quiet >= 2) {
+                  _traceOpenItems(
+                    "TRACE settle end $number ms=${timer.elapsedMilliseconds} loops=$frames",
+                  );
                   return;
                 }
               } else {
@@ -182,7 +255,6 @@ void main() {
               fail('Missing $f: ${ui()} $diagnostics');
             }
             await tester.ensureVisible(f.first);
-            await tester.pumpAndSettle();
             await settled();
           }
 
@@ -211,9 +283,9 @@ void main() {
             );
             await visible(f);
             await tester.tap(f);
-            await tester.pumpAndSettle();
+            await settled();
             await tester.tap(find.text(option).last);
-            await tester.pumpAndSettle();
+            await settled();
           }
 
           await request(() => session!.load());
@@ -389,6 +461,7 @@ void main() {
           expect(state['items'][0]['remaining'], '79.33');
           expect(state['payments'], isEmpty);
           await tap('invoice.pdf');
+          await settled(() => saved.length == 1);
           expect(
             saved.single.bytes,
             await tester.runAsync(() => files.first.readAsBytes()),
@@ -516,7 +589,7 @@ void main() {
             final f = find.text(label);
             await visible(f);
             await tester.ensureVisible(f.last);
-            await tester.pumpAndSettle();
+            await settled();
             await tester.tap(f.last);
             await tester.pump();
             await settled();
@@ -681,7 +754,7 @@ void main() {
             }),
           );
           await request(() => session!.load());
-          await tester.pumpAndSettle();
+          await settled();
           expect(find.textContaining('Synthetic old customer'), findsNothing);
           expect(find.text('invoice.pdf'), findsNothing);
           expect(find.textContaining('nicht freigegeben'), findsOneWidget);

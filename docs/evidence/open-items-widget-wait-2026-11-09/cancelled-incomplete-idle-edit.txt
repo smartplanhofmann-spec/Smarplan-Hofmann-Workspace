@@ -1,0 +1,63 @@
+00:00 +0: loading /workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart
+00:00 +0: actual opening-item 390px HTTP original import, prior cents, two rest payments, lost ACK, EÜR, correction, void and access loss
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE end GET /api/business/capabilities ms=92 inFlight=0
+TRACE begin GET /api/business/accounting/opening-balances inFlight=1 origin=action
+TRACE end GET /api/business/accounting/opening-balances ms=56 inFlight=0
+TRACE begin POST /api/business/accounting/opening-balances/originals inFlight=1 origin=action
+TRACE end POST /api/business/accounting/opening-balances/originals ms=101 inFlight=0
+TRACE begin POST /api/business/accounting/opening-balances/preview inFlight=1 origin=action
+TRACE end POST /api/business/accounting/opening-balances/preview ms=78 inFlight=0
+TRACE begin POST /api/business/accounting/opening-balances/confirm inFlight=1 origin=action
+TRACE end POST /api/business/accounting/opening-balances/confirm ms=81 inFlight=0
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE settle begin 1
+TRACE end GET /api/business/capabilities ms=800 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=82 inFlight=0
+TRACE begin GET /api/business/accounting/accounts inFlight=1 origin=action
+TRACE end GET /api/business/accounting/accounts ms=51 inFlight=0
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE end GET /api/business/capabilities ms=66 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=111 inFlight=0
+TRACE settle end 1 ms=668 loops=19
+TRACE settle begin 2
+TRACE settle end 2 ms=34 loops=2
+TRACE settle begin 3
+TRACE settle end 3 ms=433 loops=8
+TRACE settle begin 4
+TRACE settle end 4 ms=200 loops=5
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE settle begin 5
+TRACE end GET /api/business/capabilities ms=632 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=258 inFlight=0
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE end GET /api/business/capabilities ms=302 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=236 inFlight=0
+TRACE begin POST /api/business/accounting/open-items/originals inFlight=1 origin=action
+TRACE end POST /api/business/accounting/open-items/originals ms=77 inFlight=0
+TRACE settle end 5 ms=1862 loops=30
+TRACE settle begin 6
+unhandled error during finalization of test:
+/workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart
+PathNotFoundException: Deletion failed, path = '/tmp/flutter_tools.LULABV/flutter_test_listener.BMPBIS' (OS Error: No such file or directory, errno = 2)
+#0      _Directory._deleteSync (dart:io/directory_impl.dart:216:7)
+#1      FileSystemEntity.deleteSync (dart:io/file_system_entity.dart:425:7)
+#2      ForwardingFileSystemEntity.deleteSync (package:file/src/forwarding/forwarding_file_system_entity.dart:70:16)
+#3      ErrorHandlingDirectory.deleteSync.<anonymous closure> (package:flutter_tools/src/base/error_handling_io.dart:717:22)
+#4      _runSync (package:flutter_tools/src/base/error_handling_io.dart:1118:16)
+#5      ErrorHandlingDirectory.deleteSync (package:flutter_tools/src/base/error_handling_io.dart:716:12)
+#6      FlutterPlatform._createListenerDart.<anonymous closure> (package:flutter_tools/src/test/flutter_platform.dart:786:15)
+#7      FlutterPlatform._startTest.finalize (package:flutter_tools/src/test/flutter_platform.dart:591:26)
+<asynchronous suspension>
+#8      asyncGuard.<anonymous closure> (package:flutter_tools/src/base/async_guard.dart:108:24)
+<asynchronous suspension>
+
+00:09 +0: actual opening-item 390px HTTP original import, prior cents, two rest payments, lost ACK, EÜR, correction, void and access loss - did not complete [E]
+00:09 +0: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart: actual opening-item 390px HTTP original import, prior cents, two rest payments, lost ACK, EÜR, correction, void and access loss (did not complete)

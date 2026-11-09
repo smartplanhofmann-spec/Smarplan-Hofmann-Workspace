@@ -1,0 +1,22 @@
+00:00 +0: loading /workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart
+test/business_accounting_open_items_http_widget_test.dart:155:20: Error: Type argument 'dynamic' doesn't conform to the bound 'State<StatefulWidget>' of the type variable 'T' on 'WidgetTester.stateList'.
+ - 'State' is from 'package:flutter/src/widgets/framework.dart' ('../../toolchains/flutter/packages/flutter/lib/src/widgets/framework.dart').
+ - 'StatefulWidget' is from 'package:flutter/src/widgets/framework.dart' ('../../toolchains/flutter/packages/flutter/lib/src/widgets/framework.dart').
+ - 'WidgetTester' is from 'package:flutter_test/src/widget_tester.dart' ('../../toolchains/flutter/packages/flutter_test/lib/src/widget_tester.dart').
+Try changing type arguments so that they conform to the bounds.
+                  .stateList<dynamic>(find.byType(BusinessOpenItemsPage))
+                   ^
+00:00 +0 -1: loading /workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart [E]
+  Failed to load "/workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart":
+  Compilation failed for testPath=/workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart: test/business_accounting_open_items_http_widget_test.dart:155:20: Error: Type argument 'dynamic' doesn't conform to the bound 'State<StatefulWidget>' of the type variable 'T' on 'WidgetTester.stateList'.
+   - 'State' is from 'package:flutter/src/widgets/framework.dart' ('../../toolchains/flutter/packages/flutter/lib/src/widgets/framework.dart').
+   - 'StatefulWidget' is from 'package:flutter/src/widgets/framework.dart' ('../../toolchains/flutter/packages/flutter/lib/src/widgets/framework.dart').
+   - 'WidgetTester' is from 'package:flutter_test/src/widget_tester.dart' ('../../toolchains/flutter/packages/flutter_test/lib/src/widget_tester.dart').
+  Try changing type arguments so that they conform to the bounds.
+                    .stateList<dynamic>(find.byType(BusinessOpenItemsPage))
+                     ^
+  .
+00:00 +0 -1: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart: loading /workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart

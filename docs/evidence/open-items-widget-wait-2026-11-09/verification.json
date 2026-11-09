@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "base_commit": "d4df2f562200fd5f527309c983bb3c9593ab2563",
+  "scope": "isolated real HTTP and file IO widget-test wait only",
+  "production_files_changed": false,
+  "synthetic_data_only": true,
+  "total_test_timeout_seconds": 300,
+  "expect_calls_before": 38,
+  "expect_calls_after": 38,
+  "parallel_load_caveat": "The root full-app run ended during diagnosis; faster timings cannot be attributed solely to helper changes.",
+  "runs": {
+    "baseline_timeout": {
+      "path": "baseline-timeout.txt",
+      "sha256": "797820a4fd4ed8283d9429d289fd644c7c701c60dd439dace0083f932addeb89",
+      "bytes": 58030,
+      "completed_http_operations": 309,
+      "max_operation_ms": 7822,
+      "sum_operation_ms": 105847,
+      "periodic_refreshes": null,
+      "passed": false,
+      "final_report": "  /workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart: actual opening-item 390px HTTP original import, prior cents, two rest payments, lost ACK, EÜR, correction, void and access loss"
+    },
+    "incomplete_io_race": {
+      "path": "incomplete-io-race.txt",
+      "sha256": "4dc95976f2793901c72ec3a98fbe4f94441adab20abeb20cf5f685acec0a76f2",
+      "bytes": 15806,
+      "completed_http_operations": 52,
+      "max_operation_ms": 2486,
+      "sum_operation_ms": 17958,
+      "periodic_refreshes": 0,
+      "passed": false,
+      "final_report": "  /workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart: actual opening-item 390px HTTP original import, prior cents, two rest payments, lost ACK, EÜR, correction, void and access loss"
+    },
+    "helper_typing_failure": {
+      "path": "helper-typing-failure.txt",
+      "sha256": "2875729a031cc3e8387c715bbde8c7a05a8a1bab14294c605278d0ace1dfa4cf",
+      "bytes": 2477,
+      "completed_http_operations": 0,
+      "max_operation_ms": 0,
+      "sum_operation_ms": 0,
+      "periodic_refreshes": null,
+      "passed": false,
+      "final_report": "  /workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart: loading /workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart"
+    },
+    "first_complete_pass": {
+      "path": "first-complete-pass.txt",
+      "sha256": "58ddb3fd9d968c5f223388f901f0d94167add63120e9c912ce1b6a63d5170b7d",
+      "bytes": 74233,
+      "completed_http_operations": 372,
+      "max_operation_ms": 2083,
+      "sum_operation_ms": 58418,
+      "periodic_refreshes": 5,
+      "passed": true,
+      "final_report": "02:37 +1: All tests passed!"
+    },
+    "cancelled_incomplete_idle_edit": {
+      "path": "cancelled-incomplete-idle-edit.txt",
+      "sha256": "000613bcb37f715b9f61580de28d1df3c3f354e722077e33fcdd5eb17f912ac5",
+      "bytes": 4509,
+      "completed_http_operations": 15,
+      "max_operation_ms": 800,
+      "sum_operation_ms": 3023,
+      "periodic_refreshes": 0,
+      "passed": false,
+      "final_report": "  /workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart: actual opening-item 390px HTTP original import, prior cents, two rest payments, lost ACK, EÜR, correction, void and access loss (did not complete)",
+      "note": "Intentionally stopped own run: intended idle-only timing edit was absent; not a success claim."
+    },
+    "final_pass": {
+      "path": "final-pass.txt",
+      "sha256": "4c6203c64e08ab99191780269ef67bf8ebb95f05dc1f8ad4e21b119e0931afd1",
+      "bytes": 74116,
+      "completed_http_operations": 371,
+      "max_operation_ms": 1042,
+      "sum_operation_ms": 57273,
+      "periodic_refreshes": 4,
+      "passed": true,
+      "final_report": "02:54 +1: All tests passed!"
+    }
+  },
+  "analysis": {
+    "path": "analysis.txt",
+    "passed": true
+  },
+  "final_test_file_sha256": "762c33250fdb8445cf8de5028edb053fef3afbc0dbbcb3d94480790e71229371",
+  "fake_time_advanced_during_http_or_file_io": false,
+  "fake_time_advanced_during_idle_frames": false,
+  "explicit_original_download_completion": true
+}

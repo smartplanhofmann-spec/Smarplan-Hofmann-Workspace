@@ -1,0 +1,341 @@
+00:00 +0: loading /workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart
+00:00 +0: actual opening-item 390px HTTP original import, prior cents, two rest payments, lost ACK, EÜR, correction, void and access loss
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE end GET /api/business/capabilities ms=93 inFlight=0
+TRACE begin GET /api/business/accounting/opening-balances inFlight=1 origin=action
+TRACE end GET /api/business/accounting/opening-balances ms=89 inFlight=0
+TRACE begin POST /api/business/accounting/opening-balances/originals inFlight=1 origin=action
+TRACE end POST /api/business/accounting/opening-balances/originals ms=61 inFlight=0
+TRACE begin POST /api/business/accounting/opening-balances/preview inFlight=1 origin=action
+TRACE end POST /api/business/accounting/opening-balances/preview ms=77 inFlight=0
+TRACE begin POST /api/business/accounting/opening-balances/confirm inFlight=1 origin=action
+TRACE end POST /api/business/accounting/opening-balances/confirm ms=75 inFlight=0
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE settle begin 1
+TRACE end GET /api/business/capabilities ms=1175 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=134 inFlight=0
+TRACE begin GET /api/business/accounting/accounts inFlight=1 origin=action
+TRACE end GET /api/business/accounting/accounts ms=63 inFlight=0
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE end GET /api/business/capabilities ms=100 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=345 inFlight=0
+TRACE settle end 1 ms=1330 loops=22
+TRACE settle begin 2
+TRACE settle end 2 ms=51 loops=2
+TRACE settle begin 3
+TRACE settle end 3 ms=72 loops=2
+TRACE settle begin 4
+TRACE settle end 4 ms=1028 loops=32
+TRACE settle begin 5
+TRACE settle end 5 ms=367 loops=13
+TRACE settle begin 6
+TRACE settle end 6 ms=58 loops=2
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE settle begin 7
+TRACE end GET /api/business/capabilities ms=610 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=403 inFlight=0
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE end GET /api/business/capabilities ms=208 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=303 inFlight=0
+TRACE begin POST /api/business/accounting/open-items/originals inFlight=1 origin=action
+TRACE end POST /api/business/accounting/open-items/originals ms=128 inFlight=0
+TRACE settle end 7 ms=2285 loops=39
+TRACE settle begin 8
+TRACE settle end 8 ms=1115 loops=13
+TRACE settle begin 9
+TRACE settle end 9 ms=77 loops=2
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE settle begin 10
+TRACE end GET /api/business/capabilities ms=271 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=244 inFlight=0
+TRACE begin POST /api/business/accounting/open-items/originals inFlight=1 origin=action
+TRACE end POST /api/business/accounting/open-items/originals ms=116 inFlight=0
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE end GET /api/business/capabilities ms=100 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=97 inFlight=0
+TRACE begin GET /api/business/accounting/accounts inFlight=1 origin=action
+TRACE end GET /api/business/accounting/accounts ms=920 inFlight=0
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE end GET /api/business/capabilities ms=72 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=130 inFlight=0
+TRACE settle end 10 ms=2189 loops=42
+TRACE settle begin 11
+TRACE settle end 11 ms=301 loops=13
+TRACE settle begin 12
+TRACE settle end 12 ms=29 loops=2
+TRACE settle begin 13
+TRACE settle end 13 ms=667 loops=32
+TRACE settle begin 14
+TRACE settle end 14 ms=526 loops=13
+TRACE settle begin 15
+TRACE settle end 15 ms=29 loops=2
+TRACE settle begin 16
+TRACE settle end 16 ms=88 loops=2
+TRACE settle begin 17
+TRACE settle end 17 ms=355 loops=13
+TRACE settle begin 18
+TRACE settle end 18 ms=69 loops=2
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE settle begin 19
+TRACE end GET /api/business/capabilities ms=879 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=910 inFlight=0
+TRACE settle end 19 ms=1380 loops=9
+TRACE settle begin 20
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE end GET /api/business/capabilities ms=395 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=492 inFlight=0
+TRACE begin POST /api/business/accounting/open-items/originals inFlight=1 origin=action
+TRACE end POST /api/business/accounting/open-items/originals ms=351 inFlight=0
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE end GET /api/business/capabilities ms=514 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=559 inFlight=0
+TRACE settle end 20 ms=4688 loops=45
+TRACE settle begin 21
+TRACE settle end 21 ms=103 loops=2
+TRACE settle begin 22
+TRACE settle end 22 ms=1568 loops=19
+TRACE settle begin 23
+TRACE settle end 23 ms=1070 loops=19
+TRACE settle begin 24
+TRACE settle end 24 ms=473 loops=12
+TRACE settle begin 25
+TRACE settle end 25 ms=40 loops=2
+TRACE settle begin 26
+TRACE settle end 26 ms=524 loops=9
+TRACE settle begin 27
+TRACE settle end 27 ms=66 loops=2
+TRACE settle begin 28
+TRACE settle end 28 ms=611 loops=9
+TRACE settle begin 29
+TRACE settle end 29 ms=116 loops=2
+TRACE settle begin 30
+TRACE settle end 30 ms=1038 loops=9
+TRACE settle begin 31
+TRACE settle end 31 ms=131 loops=2
+TRACE settle begin 32
+TRACE settle end 32 ms=398 loops=9
+TRACE settle begin 33
+TRACE settle end 33 ms=59 loops=2
+TRACE settle begin 34
+TRACE settle end 34 ms=567 loops=9
+TRACE settle begin 35
+TRACE settle end 35 ms=60 loops=2
+TRACE settle begin 36
+TRACE settle end 36 ms=408 loops=9
+TRACE settle begin 37
+TRACE settle end 37 ms=63 loops=2
+TRACE settle begin 38
+TRACE settle end 38 ms=409 loops=9
+TRACE settle begin 39
+TRACE settle end 39 ms=100 loops=2
+TRACE settle begin 40
+TRACE settle end 40 ms=421 loops=9
+TRACE settle begin 41
+TRACE settle end 41 ms=85 loops=2
+TRACE settle begin 42
+TRACE settle end 42 ms=394 loops=9
+TRACE settle begin 43
+TRACE settle end 43 ms=75 loops=2
+TRACE settle begin 44
+TRACE settle end 44 ms=405 loops=9
+TRACE settle begin 45
+TRACE settle end 45 ms=57 loops=2
+TRACE settle begin 46
+TRACE settle end 46 ms=928 loops=9
+TRACE settle begin 47
+TRACE settle end 47 ms=41 loops=2
+TRACE settle begin 48
+TRACE settle end 48 ms=300 loops=9
+TRACE settle begin 49
+TRACE settle end 49 ms=55 loops=2
+TRACE settle begin 50
+TRACE settle end 50 ms=224 loops=9
+TRACE settle begin 51
+TRACE settle end 51 ms=45 loops=2
+TRACE settle begin 52
+TRACE settle end 52 ms=965 loops=19
+TRACE settle begin 53
+TRACE settle end 53 ms=669 loops=19
+TRACE settle begin 54
+TRACE settle end 54 ms=216 loops=9
+TRACE settle begin 55
+TRACE settle end 55 ms=46 loops=2
+TRACE settle begin 56
+TRACE settle end 56 ms=1274 loops=19
+TRACE settle begin 57
+TRACE settle end 57 ms=816 loops=19
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=68 inFlight=0
+TRACE settle begin 58
+TRACE settle end 58 ms=269 loops=9
+TRACE settle begin 59
+TRACE settle end 59 ms=42 loops=2
+TRACE settle begin 60
+TRACE settle end 60 ms=898 loops=19
+TRACE settle begin 61
+TRACE settle end 61 ms=906 loops=19
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=82 inFlight=0
+TRACE settle begin 62
+TRACE settle end 62 ms=215 loops=9
+TRACE settle begin 63
+TRACE settle end 63 ms=72 loops=2
+TRACE settle begin 64
+TRACE settle end 64 ms=1067 loops=19
+TRACE settle begin 65
+TRACE settle end 65 ms=1090 loops=19
+TRACE settle begin 66
+TRACE settle end 66 ms=327 loops=9
+TRACE settle begin 67
+TRACE settle end 67 ms=84 loops=2
+TRACE settle begin 68
+TRACE settle end 68 ms=1102 loops=32
+TRACE settle begin 69
+TRACE settle end 69 ms=280 loops=9
+TRACE settle begin 70
+TRACE settle end 70 ms=721 loops=2
+TRACE settle begin 71
+TRACE settle end 71 ms=370 loops=9
+TRACE settle begin 72
+TRACE settle end 72 ms=54 loops=2
+TRACE settle begin 73
+TRACE settle end 73 ms=1213 loops=9
+TRACE settle begin 74
+TRACE settle end 74 ms=50 loops=2
+TRACE settle begin 75
+TRACE settle end 75 ms=332 loops=9
+TRACE settle begin 76
+TRACE settle end 76 ms=48 loops=2
+TRACE settle begin 77
+TRACE settle end 77 ms=417 loops=9
+TRACE settle begin 78
+TRACE settle end 78 ms=431 loops=2
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=104 inFlight=0
+TRACE settle begin 79
+TRACE settle end 79 ms=326 loops=9
+TRACE settle begin 80
+TRACE settle end 80 ms=78 loops=2
+TRACE settle begin 81
+TRACE settle end 81 ms=546 loops=19
+TRACE settle begin 82
+TRACE settle end 82 ms=1682 loops=19
+TRACE settle begin 83
+TRACE settle end 83 ms=228 loops=9
+TRACE settle begin 84
+TRACE settle end 84 ms=36 loops=2
+TRACE settle begin 85
+TRACE settle end 85 ms=977 loops=32
+TRACE settle begin 86
+TRACE settle end 86 ms=711 loops=9
+TRACE settle begin 87
+TRACE settle end 87 ms=54 loops=2
+TRACE settle begin 88
+TRACE settle end 88 ms=903 loops=32
+TRACE settle begin 89
+TRACE settle end 89 ms=191 loops=9
+TRACE settle begin 90
+TRACE settle end 90 ms=41 loops=2
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE settle begin 91
+TRACE end GET /api/business/capabilities ms=190 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=195 inFlight=0
+TRACE begin POST /api/business/accounting/open-items/preview inFlight=1 origin=action
+TRACE end POST /api/business/accounting/open-items/preview ms=294 inFlight=0
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE end GET /api/business/capabilities ms=2486 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=242 inFlight=0
+TRACE settle end 91 ms=4350 loops=28
+TRACE settle begin 92
+TRACE settle end 92 ms=56 loops=3
+TRACE settle begin 93
+TRACE settle end 93 ms=38 loops=2
+TRACE settle begin 94
+TRACE settle end 94 ms=3005 loops=32
+TRACE settle begin 95
+TRACE settle end 95 ms=65 loops=3
+TRACE settle begin 96
+TRACE settle end 96 ms=44 loops=2
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE settle begin 97
+TRACE end GET /api/business/capabilities ms=453 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=178 inFlight=0
+TRACE begin POST /api/business/accounting/open-items/confirm inFlight=1 origin=action
+TRACE end POST /api/business/accounting/open-items/confirm ms=119 inFlight=0
+TRACE settle end 97 ms=4549 loops=24
+TRACE settle begin 98
+TRACE settle end 98 ms=546 loops=13
+TRACE settle begin 99
+TRACE settle end 99 ms=62 loops=2
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE settle begin 100
+TRACE end GET /api/business/capabilities ms=355 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=234 inFlight=0
+TRACE begin POST /api/business/accounting/open-items/confirm inFlight=1 origin=action
+TRACE end POST /api/business/accounting/open-items/confirm ms=216 inFlight=0
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE end GET /api/business/capabilities ms=2057 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=159 inFlight=0
+TRACE begin GET /api/business/accounting/accounts inFlight=1 origin=action
+TRACE end GET /api/business/accounting/accounts ms=128 inFlight=0
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE end GET /api/business/capabilities ms=68 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=144 inFlight=0
+TRACE settle end 100 ms=3433 loops=43
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=57 inFlight=0
+TRACE settle begin 101
+TRACE settle end 101 ms=198 loops=9
+TRACE settle begin 102
+TRACE settle end 102 ms=39 loops=2
+TRACE begin GET /api/business/capabilities inFlight=1 origin=action
+TRACE settle begin 103
+TRACE end GET /api/business/capabilities ms=110 inFlight=0
+TRACE begin GET /api/business/accounting/open-items inFlight=1 origin=action
+TRACE end GET /api/business/accounting/open-items ms=105 inFlight=0
+TRACE settle end 103 ms=204 loops=10
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      List.single (dart:core-patch/growable_array.dart:362:22)
+#1      main.<anonymous closure>.<anonymous closure> (file:///workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart:426:19)
+<asynchronous suspension>
+#2      main.<anonymous closure> (file:///workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart:120:9)
+<asynchronous suspension>
+#3      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#4      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  actual opening-item 390px HTTP original import, prior cents, two rest payments, lost ACK, EÜR,
+  correction, void and access loss
+════════════════════════════════════════════════════════════════════════════════════════════════════
+01:29 +0 -1: actual opening-item 390px HTTP original import, prior cents, two rest payments, lost ACK, EÜR, correction, void and access loss [E]
+  Test failed. See exception logs above.
+  The test description was: actual opening-item 390px HTTP original import, prior cents, two rest payments, lost ACK, EÜR, correction, void and access loss
+  
+01:29 +0 -1: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-open-items-widget-hang-20261109/app/test/business_accounting_open_items_http_widget_test.dart: actual opening-item 390px HTTP original import, prior cents, two rest payments, lost ACK, EÜR, correction, void and access loss

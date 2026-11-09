@@ -1,0 +1,43 @@
+[
+  {
+    "file": "source-before.json",
+    "sha256": "b6b301c334b7eb1e46675916aa8fa31e4f83769d7f8dd7ae4445c24932149715",
+    "bytes": 824
+  },
+  {
+    "file": "source-after.json",
+    "sha256": "8c31640b6a8e1cff940cab6cd54a03117f8f9d8e6cd11da419ec0664ed31cd33",
+    "bytes": 912
+  },
+  {
+    "file": "integration-review.json",
+    "sha256": "1310bfb0a4d6b9eface4204816ca3dc3fb296ee1332ff48d3bc950ffccde6e85",
+    "bytes": 1470
+  },
+  {
+    "file": "postgres-verification.json",
+    "sha256": "318080635563d887f930cc54cf7a2106c619844af248e2359a16658ba0e033e8",
+    "bytes": 927
+  },
+  {
+    "file": "browser-result.json",
+    "sha256": "991e1f10070f4ffa3fba86f88b016faf4a09bdfda4067f3151439b7c5cdc8033",
+    "bytes": 33074
+  },
+  {
+    "file": "browser-mobile.png",
+    "sha256": "8690a44f79d4055859c9184c0204b2a363b25abb931dd685d69d71d0f8b9e3da",
+    "bytes": 43724
+  },
+  {
+    "file": "browser.log.gz",
+    "sha256": "d88f5f515a30eb3bad6c5518d5c03b86ecb324bd4abef36135bd95a5ef154595",
+    "original_sha256": "4d29a75a4c29fb50d06b466700f43d24affe8cfc3532566ce1751da450c15451",
+    "original_bytes": 253
+  },
+  {
+    "file": "cleanup.json",
+    "sha256": "9b0a81839c9fe5ed10910aa0963af92bb461bd75278f10b9feb30700d157000b",
+    "bytes": 182
+  }
+]

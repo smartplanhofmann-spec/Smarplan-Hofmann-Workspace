@@ -1,0 +1,14 @@
+{
+  "head": "487977a94d15f16a387a8995d51dcdcd44d86e9e",
+  "files": {
+    "web/office/office.js": "927e94904644a1f022da8bfd9c48a9151a783cafaf9f275609b4d57ad0cfa044",
+    "web/office/document-time-sources.js": "c257ae4d859b748686314d17a81061e9488e9775dbbac6aa5c857ed8600abc9e",
+    "web/office/tests/e2e.cjs": "508c8c55bbe5946d3527f38fcda8c35c08049de93f11bca337c192e39d4a58d5",
+    "web/office/tests/document-time-billing-flow.cjs": "126fb44e177c62514ef50654a5efa735a4b165f61e7e3e76f36faff038f3bedd",
+    "web/office/tests/serve_document_time_fixture.py": "d0be958d513ca36a0d5aa85d6d5977d759e215f214836a093c282a16ecb807dd",
+    "backend/business_time.py": "65f8c4b58ddac49367dec78af555b1ea6556feee2cbd468f177940f104687d4b",
+    "backend/online/web.py": "36bb3dec0fe24e0b8770e3a58ada9952df287e30571e10fab19ba241bb07a0c7"
+  },
+  "git_status": "?? docs/evidence/final-assembly-2026-11-09/\n",
+  "changed_files": []
+}

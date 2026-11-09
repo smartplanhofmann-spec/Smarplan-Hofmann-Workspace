@@ -1,0 +1,27 @@
+{
+  "reviewed_head": "487977a94d15f16a387a8995d51dcdcd44d86e9e",
+  "files": {
+    "web/office/document-time-sources.js": {
+      "implementation_sha256": "c257ae4d859b748686314d17a81061e9488e9775dbbac6aa5c857ed8600abc9e",
+      "integrated_sha256": "c257ae4d859b748686314d17a81061e9488e9775dbbac6aa5c857ed8600abc9e",
+      "same_bytes": true
+    },
+    "web/office/tests/document-time-sources.test.mjs": {
+      "implementation_sha256": "b3dc209fe7029a123bf9d8f8fdee7c6d9047b847e48bd6b17b4b08441e5b9482",
+      "integrated_sha256": "b3dc209fe7029a123bf9d8f8fdee7c6d9047b847e48bd6b17b4b08441e5b9482",
+      "same_bytes": true
+    },
+    "web/office/tests/document-time-billing-flow.cjs": {
+      "implementation_sha256": "126fb44e177c62514ef50654a5efa735a4b165f61e7e3e76f36faff038f3bedd",
+      "integrated_sha256": "126fb44e177c62514ef50654a5efa735a4b165f61e7e3e76f36faff038f3bedd",
+      "same_bytes": true
+    },
+    "web/office/tests/serve_document_time_fixture.py": {
+      "implementation_sha256": "d0be958d513ca36a0d5aa85d6d5977d759e215f214836a093c282a16ecb807dd",
+      "integrated_sha256": "d0be958d513ca36a0d5aa85d6d5977d759e215f214836a093c282a16ecb807dd",
+      "same_bytes": true
+    }
+  },
+  "independent_review": "No concrete regression: document-time OfficeApi authorization, pending retention, immutable original replay, picker busy protection, modal/project guards and receipt warning preserved. V10/V11 changes are additive.",
+  "code_changes": false
+}

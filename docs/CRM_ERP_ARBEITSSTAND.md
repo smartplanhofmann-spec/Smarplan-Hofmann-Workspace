@@ -74,7 +74,10 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
 ## Aktuelle Integration am 09.11.2026
 
-Arbeitskopie: `/workspace/smartplan-offline-instance-integration-20261109`.
+Hauptprojekt: `/workspace/Smarplan-Hofmann-Workspace` auf d4df2f5.
+Der weitere Integrationskandidat steht in
+`/workspace/smartplan-minijob-integration-20261109`; ältere vollständige
+Arbeitskopien und Zwischenstände bleiben erhalten.
 Der lokale gemeinsame Stand enthält die abgeschlossenen Projektmeilensteine,
 die Korrekturen der drei nachgewiesenen CI-Testfehler und den neuen
 [Wartungsvertragseditor](CRM_ERP_WARTUNGSVERTRAEGE_BROWSER_2026.md).
@@ -89,8 +92,9 @@ native Umstellung ist mit 186 gemeinsamen und zwei ergänzenden tatsächlichen
 HTTP-Fällen abgeschlossen; die Analyse ist ohne Befund. Die vollständige
 Appprüfung des kombinierten Stands folgt.
 V1-Dateien werden erhalten und keiner neuen Firma automatisch zugeordnet.
-Zusätzlich werden die bestehenden gebundenen Lohn- und Portaltests auf echte
-V2-Zugänge umgestellt; die Berechtigungsgrenzen werden nicht gelockert.
+Die bestehenden gebundenen Lohn- und Portaltests verwenden nun echte
+V2-Zugänge; elf zusätzliche HTTP-/Portal- und drei tatsächliche Lohn-/PG-/
+Restorefälle bestehen. Die Berechtigungsgrenzen werden nicht gelockert.
 
 Eine weitere echte HTTP-Reproduktion bestätigt doppelte manuelle Servicefälle
 nach angenommener Anfrage, verlorener Antwort und vollständigem App-Neustart.
@@ -99,18 +103,36 @@ implementiert und integriert. 24 gezielte sowie 45 bestehende Service-/Editor-
 Fälle bestehen, einschließlich tatsächlicher App-Neuerstellung und 390px-UI.
 Die vollständige gemeinsame Appprüfung folgt noch.
 
-Beim Lohn folgt der eng begrenzte reguläre Faktor-Vollmonat mit ausschließlich
+Beim Lohn ist der eng begrenzte reguläre Faktor-Vollmonat mit ausschließlich
 steuerfreien, tatsächlich bereits erstatteten Reisebelegen als neuer
-Source3-Vertrag. Basislohn und bestehende Rechenkerne bleiben unverändert;
-die Zahlung darf nicht nochmals zum Netto addiert werden. Backend und beide
-Clients entstehen in getrennten Arbeitskopien. Der individuell besteuerte
-Minijob bleibt eigenständige Arbeit. Eine zusätzliche
+Source3-Vertrag in Backend und beiden Clients integriert. Basislohn und
+bestehende Rechenkerne bleiben unverändert; die Zahlung wird nicht nochmals
+zum Netto addiert. Vier unabhängige PostgreSQL-Szenarien, tatsächlicher
+Dump/Restore, ursprüngliche CRLF-Belege, der echte Browserablauf und 945
+Browsermodulfälle bestehen. Der individuell besteuerte Minijob ist der
+anschließende enge neue Backendvertrag. Eine zusätzliche
 [Primärquellenprüfung](CRM_ERP_MINIJOB_PAP_MERKMALE_AUDIT_2026.md) belegt jetzt
 die zuvor fehlende technische PKV-Zuordnung anhand des BMF-Schreibens für 2026
 und reproduziert zwei passende Steuerwerte unabhängig mit der gepinnten XML.
-Ein enger neuer Rechenvertrag wird darauf aufbauend vorbereitet. Die tatsächliche
-Krankenversicherung darf dabei nicht als privat umgeschrieben werden;
-bestehende Versionen und Sperren bleiben erhalten.
+36 unabhängige XML-Vektoren, private Originale, Lohnkonto, Jahresprojektion
+und vier tatsächliche PostgreSQL-/Restore-/Konkurrenzfälle sind für diesen
+Backendkandidaten geprüft. Die tatsächliche Krankenversicherung wird dabei
+nicht als privat umgeschrieben. Browser und App werden noch ergänzt;
+bestehende Versionen und ihre Originale bleiben erhalten.
+
+Eine konkrete verbleibende Alltagslücke betrifft den Browser: Der Belegdialog
+hat bislang keine Auswahl der bereits im Backend verfügbaren freigegebenen
+Zeiten. Diese Ergänzung verwendet den vorhandenen Zeit-/Preisvertrag und wird
+einschließlich überholter Auswahl, unverändertem Originalretry und
+Doppelabrechnungsschutz umgesetzt. Die frühere allgemeine Statusangabe zur
+Browser-Zeitübernahme wird in der Anforderungsmatrix korrigiert.
+
+Der vollständige App-Lauf auf dem Hauptprojektstand ist noch aktiv. Bislang
+betreffen seine Fehler zwei inkonsistente ältere Service-Testaufbauten; die
+Korrektur ist separat mit tatsächlichem HTTP und Temp-Pfadalias geprüft und
+im Integrationskandidaten enthalten. Ein vollständig grüner Gesamtlauf wird
+noch nicht behauptet. Alle 32 historischen Rechenmodule, die ursprüngliche
+V1-Zahlungsarithmetik und die Gesamtzieldatei sind erneut bytegleich geprüft.
 
 Der veröffentlichte Produktstand bleibt vor dieser Integration 3859a1c. Seine
 eigene Remoteprüfung hat sechs erfolgreiche Development-Jobs und zwei lokal

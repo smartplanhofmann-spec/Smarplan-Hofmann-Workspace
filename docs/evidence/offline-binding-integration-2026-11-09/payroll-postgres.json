@@ -1,0 +1,10 @@
+{
+  "passed": 3,
+  "skipped": 0,
+  "seconds": 587.643,
+  "container_id": "68ec0cb461fe1c32f06e8fa43f7b10a417d20a3cfdec4800cab31e8589c0aea0",
+  "container_removed": true,
+  "source_commit": "d4df2f5",
+  "raw_sha256": "0f91c4768aa3bb81cb956d169807cab26c1ff9548de01bdef1293b52e7475377",
+  "raw_bytes": 771
+}

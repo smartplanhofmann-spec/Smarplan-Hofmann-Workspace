@@ -1,0 +1,9 @@
+{
+  "passed": 16,
+  "skipped": 0,
+  "seconds": 24.559,
+  "scope": "Real support archive and packaged backend import; not a Windows executable build",
+  "source_commit": "d4df2f5",
+  "raw_sha256": "b190339c264adbf3c65ece7c1548a379520d2289d3011477dd88db681da0ac50",
+  "raw_bytes": 3604
+}

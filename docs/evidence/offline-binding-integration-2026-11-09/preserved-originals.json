@@ -1,0 +1,8 @@
+{
+  "checked_commit": "d4df2f5",
+  "math_kernels_unchanged": 32,
+  "comparison_evidence": "../source5-positive-correction-2026-11-09/unchanged-kernels.json",
+  "v1_payment_module_unchanged_to": "af98278",
+  "original_goal_bytes": 23863,
+  "original_goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+}

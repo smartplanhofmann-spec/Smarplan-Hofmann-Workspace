@@ -46,7 +46,9 @@ void main() {
     test(
       'actual $kind HTTP keeps one accepted original across closed-view retry and explicit replay',
       () async {
-        final backend = Directory('../backend').absolute;
+        final backend = Directory(
+          Platform.environment['SMARTPLAN_TEST_BACKEND'] ?? '../backend',
+        ).absolute;
         final python =
             Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
             '${backend.path}/.venv/${Platform.isWindows ? 'Scripts/python.exe' : 'bin/python'}';
@@ -62,8 +64,8 @@ void main() {
         try {
           final seed = fixture
               .replaceFirst('app = create_app(', r'''
-import tempfile
-tempfile.tempdir = sys.argv[1]
+import tempfile, uuid
+tempfile.tempdir = str(root)
 from test_business_resource_custody import ResourceCustodyTests, req
 from business_schema import ensure_schema
 from business_service import Service
@@ -72,6 +74,13 @@ domain = ResourceCustodyTests('runTest')
 domain.setUp()
 office = domain.office
 ensure_schema(office, activate=True)
+# The replacement database needs its own matching key, marker and storage.
+# Keep the original fixture's company files separate and untouched.
+key = Fernet.generate_key()
+instance_id = uuid.uuid4().hex
+storage = Storage(office, key, 'office.example.test', config={
+    'server': {'path': str(root / 'service-review-storage')}})
+bind(office, instance_id, 'office.example.test', key, storage)
 token = office.login('custody-owner@example.test', 'Synthetic-resource-owner-password')
 user = office.user(token)
 project = domain.project
@@ -84,7 +93,7 @@ incident = service.save(user, req(revision=0, customer_id=domain.customer['id'],
 app = create_app(''')
               .replaceFirst(
                 'projects=office.projects(user), project_id=project)',
-                "projects=office.projects(user), project_id=project, service_id=incident['id'], resource_id=domain.resource['id'])",
+                "projects=office.projects(user), project_id=project, service_id=incident['id'], resource_id=domain.resource['id'], instance_id=instance_id)",
               );
           process = await Process.start(python, [
             '-u',
@@ -115,6 +124,15 @@ app = create_app(''')
             );
             await session!.load();
             expect(session!.allowed, true, reason: session!.error);
+            expect(await api!.call('/api/offline/context'), {
+              'schema_version': 2,
+              'mode': 'bound_v2',
+              'binding': {
+                'schema_version': 1,
+                'instance_id': hello['instance_id'],
+                'account_id': hello['user']['id'],
+              },
+            });
             final id = hello[kind == 'service' ? 'service_id' : 'resource_id'];
             final readPath = kind == 'service'
                 ? '/service/cases/$id'

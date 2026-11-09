@@ -1,0 +1,129 @@
+{
+  "base": "d4df2f562200fd5f527309c983bb3c9593ab2563",
+  "base_fixture": "app/test/import_backend_integration_test.dart",
+  "direct_consumers": 20,
+  "total_including_base": 21,
+  "method": "Read all direct import consumers and their inserted seed fragments; searched Office replacement, key/storage replacement and bind calls. Shared seedInvoice inspected separately and preserves Office.",
+  "consumers": [
+    {
+      "path": "app/test/business_accounting_allocations_http_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_accounting_capacity_http_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_accounting_components_http_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_accounting_euer_http_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_accounting_http_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_accounting_profile_http_widget_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_accounting_refunds_http_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_accounting_refunds_v2_http_widget_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_backend_integration_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_catalog_imports_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_catalog_prices_http_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_company_events_http_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": true,
+      "changed": true
+    },
+    {
+      "path": "app/test/business_document_completion_http_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_module_pause_integration_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_portal_http_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_project_milestones_http_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_purchasing_http_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/business_service_equipment_http_review_test.dart",
+      "replaces_office": true,
+      "old_rebinding_removed": false,
+      "changed": true
+    },
+    {
+      "path": "app/test/offline_service_report_backend_integration_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    },
+    {
+      "path": "app/test/project_economics_backend_integration_test.dart",
+      "replaces_office": false,
+      "old_rebinding_removed": false,
+      "changed": false
+    }
+  ]
+}

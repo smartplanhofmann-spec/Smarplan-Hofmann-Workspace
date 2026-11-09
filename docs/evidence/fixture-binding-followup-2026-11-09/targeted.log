@@ -1,0 +1,7 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/smartplan-fixture-binding-followup-20261109/app/test/business_service_equipment_http_review_test.dart
+00:00 +0: /workspace/smartplan-fixture-binding-followup-20261109/app/test/business_service_equipment_http_review_test.dart: actual service HTTP keeps one accepted original across closed-view retry and explicit replay
+00:02 +1: /workspace/smartplan-fixture-binding-followup-20261109/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:04 +2: /workspace/smartplan-fixture-binding-followup-20261109/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+00:05 +3: All tests passed!

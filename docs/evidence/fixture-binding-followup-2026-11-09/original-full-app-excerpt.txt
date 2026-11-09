@@ -1,0 +1,48 @@
+04:04 +246 -1: /workspace/smartplan-offline-instance-integration-20261109/app/test/business_service_equipment_http_review_test.dart: actual service HTTP keeps one accepted original across closed-view retry and explicit replay [E]
+  Expected: <true>
+    Actual: <false>
+  Traceback (most recent call last):
+    File "<string>", line 42, in <module>
+    File "/workspace/smartplan-offline-instance-integration-20261109/backend/online/web.py", line 152, in create_app
+      instance = verify_instance(office, instance_id if instance_id is not None else
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/workspace/smartplan-offline-instance-integration-20261109/backend/online/instance.py", line 109, in verify
+      _fail()
+    File "/workspace/smartplan-offline-instance-integration-20261109/backend/online/instance.py", line 29, in _fail
+      raise InstanceConfigurationError(ERROR)
+  online.instance.InstanceConfigurationError: Unternehmensinstanz stimmt nicht mit Datenbank, Host, Schlüssel oder Serverablage überein.
+  
+  
+  package:matcher                                               expect
+  package:flutter_test/src/widget_tester.dart 473:18            expect
+  test/business_service_equipment_http_review_test.dart 103:11  main.<fn>
+  
+04:04 +247 -1: /workspace/smartplan-offline-instance-integration-20261109/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+04:05 +248 -1: /workspace/smartplan-offline-instance-integration-20261109/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+04:06 +249 -1: /workspace/smartplan-offline-instance-integration-20261109/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+04:06 +250 -1: /workspace/smartplan-offline-instance-integration-20261109/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+04:07 +251 -1: /workspace/smartplan-offline-instance-integration-20261109/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+04:07 +251 -2: /workspace/smartplan-offline-instance-integration-20261109/app/test/business_accounting_profile_test.dart: logout during preview drops late profile details
+04:07 +251 -2: /workspace/smartplan-offline-instance-integration-20261109/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay [E]
+  Expected: <true>
+    Actual: <false>
+  Traceback (most recent call last):
+    File "<string>", line 42, in <module>
+    File "/workspace/smartplan-offline-instance-integration-20261109/backend/online/web.py", line 152, in create_app
+      instance = verify_instance(office, instance_id if instance_id is not None else
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/workspace/smartplan-offline-instance-integration-20261109/backend/online/instance.py", line 109, in verify
+      _fail()
+    File "/workspace/smartplan-offline-instance-integration-20261109/backend/online/instance.py", line 29, in _fail
+      raise InstanceConfigurationError(ERROR)
+  online.instance.InstanceConfigurationError: Unternehmensinstanz stimmt nicht mit Datenbank, Host, Schlüssel oder Serverablage überein.
+  
+  
+  package:matcher                                               expect
+  package:flutter_test/src/widget_tester.dart 473:18            expect
+  test/business_service_equipment_http_review_test.dart 103:11  main.<fn>
+  
+04:09 +252 -2: /workspace/smartplan-offline-instance-integration-20261109/app/test/business_accounting_capacity_session_test.dart: pending /accounting/components/events/11111111111111111111111111111111/confirm survives generation change and replays exact original command
+04:09 +253 -2: /workspace/smartplan-offline-instance-integration-20261109/app/test/business_accounting_capacity_session_test.dart: pending /accounting/components/v2/events/11111111111111111111111111111111/confirm survives generation change and replays exact original command
+04:09 +254 -2: /workspace/smartplan-offline-instance-integration-20261109/app/test/business_accounting_capacity_session_test.dart: first component confirm /accounting/components/events/11111111111111111111111111111111/confirm status 403 keeps exact request for authorized retry
+04:09 +255 -2: /workspace/smartplan-offline-instance-integration-20261109/app/test/business_accounting_capacity_session_test.dart: first component confirm /accounting/components/events/11111111111111111111111111111111/confirm status 404 keeps exact request for authorized retry

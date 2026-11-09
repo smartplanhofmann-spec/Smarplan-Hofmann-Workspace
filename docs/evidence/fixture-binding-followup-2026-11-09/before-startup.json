@@ -1,0 +1,18 @@
+[
+  {
+    "test": "business_service_equipment_http_review_test.dart",
+    "base": "d4df2f5",
+    "source_sha256": "36a994b3052e7448418937c96ff14315df7d3c231698e23ad6ccdcb6bbf64a83",
+    "exit_code": 1,
+    "server_announced": false,
+    "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 44, in <module>\n  File \"/workspace/smartplan-fixture-binding-followup-20261109/backend/online/web.py\", line 152, in create_app\n    instance = verify_instance(office, instance_id if instance_id is not None else\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/smartplan-fixture-binding-followup-20261109/backend/online/instance.py\", line 109, in verify\n    _fail()\n  File \"/workspace/smartplan-fixture-binding-followup-20261109/backend/online/instance.py\", line 29, in _fail\n    raise InstanceConfigurationError(ERROR)\nonline.instance.InstanceConfigurationError: Unternehmensinstanz stimmt nicht mit Datenbank, Host, Schl\u00fcssel oder Serverablage \u00fcberein.\n"
+  },
+  {
+    "test": "business_company_events_http_test.dart",
+    "base": "d4df2f5",
+    "source_sha256": "ad5a656a932a59b5dd54dade4db6ed671fc269b0a039c11050f8be73c95fea48",
+    "exit_code": 1,
+    "server_announced": false,
+    "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 36, in <module>\n  File \"/workspace/smartplan-fixture-binding-followup-20261109/backend/online/instance.py\", line 157, in bind\n    _fail()\n  File \"/workspace/smartplan-fixture-binding-followup-20261109/backend/online/instance.py\", line 29, in _fail\n    raise InstanceConfigurationError(ERROR)\nonline.instance.InstanceConfigurationError: Unternehmensinstanz stimmt nicht mit Datenbank, Host, Schl\u00fcssel oder Serverablage \u00fcberein.\n"
+  }
+]

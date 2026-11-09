@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "base": "d4df2f562200fd5f527309c983bb3c9593ab2563",
+  "date": "2026-11-09",
+  "production_changed": false,
+  "targeted": {
+    "exit_code": 0,
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0,
+    "log": "targeted.log",
+    "command": "env PATH=/workspace/toolchains/clang-19/bin:$PATH PUB_CACHE=/workspace/toolchains/pub-cache SMARTPLAN_TEST_PYTHON=/workspace/Smarplan-Hofmann-Workspace/.venv/bin/python SMARTPLAN_TEST_BACKEND=/workspace/smartplan-fixture-binding-followup-20261109/backend /workspace/toolchains/flutter/bin/flutter test --no-pub test/business_service_equipment_http_review_test.dart test/business_company_events_http_test.dart",
+    "cwd": "app"
+  },
+  "before": {
+    "reproduced_failed_startups": 2,
+    "evidence": "before-startup.json",
+    "full_app_log": "/tmp/smartplan-entire-app-offline-service-configured-20261109.txt",
+    "full_app_original_lines": [
+      254,
+      301
+    ],
+    "excerpt": "original-full-app-excerpt.txt"
+  },
+  "additional": {
+    "symlink_started_and_read_bound_context": 2,
+    "evidence": "symlink-startup.json",
+    "direct_import_consumers_reviewed": 20,
+    "including_base_fixture": 21,
+    "consumer_review": "consumer-review.json"
+  },
+  "file_sha256": {
+    "app/test/business_service_equipment_http_review_test.dart": "c9e65e03e2501e38d4bb521588d728aec7bb29496f919e921dfa219c40237937",
+    "app/test/business_company_events_http_test.dart": "15a27fe88c45c388fe8a561482cfea402c3ad017aa498548ee518d0de7f56b31",
+    "docs/evidence/fixture-binding-followup-2026-11-09/before-startup.json": "54bcff557893863bed4bba7f71d526c1fca7215ea3d993eb348730ad0d28dc43",
+    "docs/evidence/fixture-binding-followup-2026-11-09/consumer-review.json": "d99e79bde8056523acbc08c8979325cc85aee3d86dafdd636d47588d347eb4f7",
+    "docs/evidence/fixture-binding-followup-2026-11-09/original-full-app-excerpt.txt": "00a9ffb43f973ed30fe015b7b4def7b50b65df1d9c567ceb52270af11bec3619",
+    "docs/evidence/fixture-binding-followup-2026-11-09/symlink-startup.json": "956ff3e06676366033cdbd0a0ba1cc06bb1810deeffaa9be18b844663d51e3db",
+    "docs/evidence/fixture-binding-followup-2026-11-09/targeted.log": "0bde3905c301d6d22698f33ca0fcf6ba92929ef6ebb4c9debfcedd0871d972d4"
+  }
+}

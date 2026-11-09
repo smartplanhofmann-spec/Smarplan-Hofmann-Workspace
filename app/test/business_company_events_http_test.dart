@@ -36,7 +36,9 @@ class EventHttpApi extends OfficeApi {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   test('actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task', () async {
-    final backend = Directory('../backend').absolute;
+    final backend = Directory(
+      Platform.environment['SMARTPLAN_TEST_BACKEND'] ?? '../backend',
+    ).absolute;
     final python =
         Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
         '${backend.path}/.venv/${Platform.isWindows ? 'Scripts/python.exe' : 'bin/python'}';
@@ -58,20 +60,15 @@ from project_workspace import ProjectWorkspace
 from business_operations import transaction
 import uuid
 ensure_schema(office, activate=True)
-from online.instance import bind
-from online.storage import Storage
-instance_key=Fernet.generate_key()
-instance_id=uuid.uuid4().hex
-instance_storage=Storage(office,instance_key,'office.example.test',config={'server':{'path':str(Path(sys.argv[1]).resolve(strict=True)/'private-storage')}})
-bind(office,instance_id,'office.example.test',instance_key,instance_storage)
+# The shared fixture already bound this exact database and storage.
 with transaction(office):
     ProjectWorkspace(office).save_item(user,project,'tasks',dict(request_id=uuid.uuid4().hex,
         title='Synthetic native HTTP overdue task',details='Exact original source',status='todo',priority='normal',
         due_date=(datetime.now(timezone.utc)-timedelta(days=3)).date().isoformat(),assignee_id=user['id']))
 app = create_app(''')
           .replaceFirst(
-            "key=Fernet.generate_key(), host='office.example.test', storage_config={}",
-            "key=instance_key, host='office.example.test', storage=instance_storage, instance_id=instance_id",
+            'project_id=project)',
+            'project_id=project, instance_id=instance_id)',
           );
       process = await Process.start(python, [
         '-u',
@@ -103,6 +100,15 @@ app = create_app(''')
           reason: session!.error,
         );
         companyEventStatus(await session!.read('/company-events/status'));
+        expect(await api!.call('/api/offline/context'), {
+          'schema_version': 2,
+          'mode': 'bound_v2',
+          'binding': {
+            'schema_version': 1,
+            'instance_id': hello['instance_id'],
+            'account_id': hello['user']['id'],
+          },
+        });
         final body = <String, dynamic>{
           'id': offlineId(),
           'revision': 0,

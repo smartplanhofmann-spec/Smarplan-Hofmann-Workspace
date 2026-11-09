@@ -1,0 +1,16 @@
+[
+  {
+    "test": "business_service_equipment_http_review_test.dart",
+    "startup_from_symlink": true,
+    "context_mode": "bound_v2",
+    "account_matches_replacement": true,
+    "source_sha256": "0b8b902d9ed933009e4d02360210c65cf6a8e70e15053f3a0e71a3df52b60d50"
+  },
+  {
+    "test": "business_company_events_http_test.dart",
+    "startup_from_symlink": true,
+    "context_mode": "bound_v2",
+    "account_matches_replacement": true,
+    "source_sha256": "28446c2856f17b684f35f45dbce4ec29fa00b3e7e306cb7f27925615bacd8cb2"
+  }
+]

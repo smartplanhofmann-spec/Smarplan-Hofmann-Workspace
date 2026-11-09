@@ -3373,3 +3373,20 @@ Remoteprüfung des korrigierten Gesamtstands wird separat gestartet.
 [Gemeinsame Quellen, Nachweise und Grenzen](CRM_ERP_KILOMETER_GESAMTINTEGRATION_2026-11-09.md).
 Offene Clientaufträge dieses Onlineumfangs sind bislang sitzungsgebunden;
 Prozessneustartpersistenz und die übrigen offenen Gesamtzielpunkte bleiben aktiv.
+
+## 09.11.2026 – Gemeinsamen Kilometer-/Materialstand veröffentlicht
+
+Produktstand 19ec4e9 ist auf dem autorisierten Testbranch veröffentlicht und
+der Remote-Zeiger lesend bestätigt. Die neuen eigenen Läufe
+Development42670555279 und iPhone42670554193 sind gestartet. Im dokumentierten
+ersten Abruf bestehen Update und HTTPS; sechs weitere Development-Jobs und
+der unsignierte iPhone-Lauf sind noch nicht abgeschlossen. Die vorherigen
+Fehler auf 8273852 bleiben dessen tatsächliches Ergebnis. Es ist keine neue
+Serverinstallation, Signierung oder Geräteabnahme erfolgt.
+
+Zur Nutzerfrage nach der Gesamtdauer: weiterhin mehrere Arbeitstage als grobe
+Einordnung, keine belegbare exakte Stunden- oder Fertigstellungszusage. Die
+frühere Schätzung von 2–4 Stunden war für das Gesamtziel zu optimistisch.
+Codeaufgaben wie Neustartpersistenz offener Aufträge, weitere Lohn-/Steuerfälle
+und Offlineübernahme bleiben ebenso offen wie die vollständigen Abnahmen.
+[Veröffentlichungsnachweis](evidence/mileage-integration-2026-11-09/publication-initial.json).

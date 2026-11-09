@@ -4,6 +4,19 @@ Stand: 09.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
+**Neueste Veröffentlichung:** Der gemeinsam lokal geprüfte Produktstand
+`19ec4e9dbca6c54dd964075cac6591442abb63ee` ist auf dem autorisierten Testbranch
+veröffentlicht; der Remote-Zeiger ist lesend bestätigt. Seine eigenen Läufe
+[Development42670555279](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42670555279)
+und [iPhone42670554193](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42670554193)
+laufen. Beim dokumentierten Zwischenabruf bestehen Update und HTTPS; die
+weiteren sechs Development-Jobs und der unsignierte iPhone-Lauf sind offen.
+Das ist noch kein vollständig grüner CI-, Server- oder Gerätenachweis.
+[Unveränderter erster Ergebnisabruf](evidence/mileage-integration-2026-11-09/publication-initial.json).
+Der Gesamtumfang benötigt weiterhin mehrere Arbeitstage; eine belastbare
+Stundenzusage lässt sich aus den offenen Code- und Abnahmeaufgaben nicht ableiten.
+Die frühere Angabe von 2–4 Stunden ist keine gültige Gesamtprognose.
+
 Letzter vollständig grün geprüfter Produktcode:
 `eef1927b3e357344ad5713bed2633cfe65f813ce`, gemeinsamer Prüfstand
 `ef1259c2e46e75a8c6befddf91de5a92861dee63`. Alle acht Development-Jobs

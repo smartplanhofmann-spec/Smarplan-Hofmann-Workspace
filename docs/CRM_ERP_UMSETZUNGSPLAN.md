@@ -87,8 +87,10 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
 
 ## Aktive Arbeitspakete ab dem gemeinsamen Kilometerstand
 
-1. Den gemeinsam geprüften Kandidaten auf dem autorisierten Testbranch
-   veröffentlichen; seine eigene Development-/Windows-/iPhone-CI abschließen.
+1. Der gemeinsam geprüfte Stand 19ec4e9 ist auf dem autorisierten Testbranch
+   veröffentlicht. Seine eigene Development-/Windows-/iPhone-CI abschließen:
+   Development42670555279 und iPhone42670554193 laufen; Update und HTTPS
+   bestehen im ersten dokumentierten Abruf.
    Frühere Fehl- und Erfolgsstände bleiben ihren tatsächlichen Quellen zugeordnet.
 2. Online-Restaufgaben mit reproduzierbarem Nutzen weiter schließen: insbesondere
    Prozessneustartpersistenz unbestätigter Material-/privater Reiseaufträge,

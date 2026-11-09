@@ -68,3 +68,10 @@ nicht. Der vorherige vollständige App-Lauf betrifft genau 8273852 mit 1.770
 Fällen und drei separat bestandenen nativen PDF-Fällen. Offene Clientaufträge
 dieses Onlineablaufs liegen bislang im Arbeitsspeicher der aktuellen privaten
 Sitzung. Prozessneustartpersistenz ist keine gelieferte Eigenschaft.
+
+Der gemeinsame Stand ist als 19ec4e9 auf dem autorisierten Testbranch
+veröffentlicht. Die eigenen vollständigen Remoteprüfungen laufen:
+Development42670555279 und iPhone42670554193. Update und HTTPS bestehen im
+ersten Abruf, alle übrigen Jobs sind noch offen. Dieser Zwischenstand ersetzt
+keinen Abschluss; Server und echte Geräte sind nicht neu abgenommen.
+[Veröffentlichung und tatsächlicher erster Abruf](evidence/mileage-integration-2026-11-09/publication-initial.json).

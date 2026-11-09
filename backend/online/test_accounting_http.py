@@ -73,9 +73,15 @@ class AccountingHTTPTests(unittest.TestCase):
             code='NO_GLOBAL_ADMIN', name='Not allowed', kind='bank', confirmation=True), token=token, status=403)
         self.permission(company, user, 'finance.read', effect='deny')
         self.call(company, '/business/accounting/status', token=token, status=403)
-        offline = self.call(company, '/offline/access', {}, status=201).json['token']
+        grant = self.call(company, '/offline/access/v2', {}, status=201).json
+        offline = grant['token']
+        offline_origin = grant['binding']['instance_id'] + ':' + grant['binding']['account_id']
+        # A real accepted bound device reaches its normal project route before
+        # accounting denial; a missing-origin rejection would not prove this ACL.
+        self.call(company, '/projects', token=offline, offline_origin=offline_origin)
         for credential in (None, offline, 'SPPT_' + 's' * 43, 'SPPI_' + 'i' * 43):
-            self.call(company, '/business/accounting/status', token=credential, status=(401, 403))
+            self.call(company, '/business/accounting/status', token=credential, offline_origin=offline_origin if credential == offline else None,
+                      status=403 if credential == offline else (401, 403))
         for suffix in ('/status?project_id=' + company['project'], '/accounts?company_id=other',
                        '/events?limit=1&limit=2', '/events?offset=-1', '/events?limit=101',
                        '/sources/payments?limit=0', '/sources/receipts?offset=100001'):

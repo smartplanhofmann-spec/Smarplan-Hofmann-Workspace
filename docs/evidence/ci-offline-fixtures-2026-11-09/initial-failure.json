@@ -1,0 +1,12 @@
+{
+  "source_commit": "82738522d132918b0f139011302e5862f40c1e92",
+  "run_id": 42654230472,
+  "job_id": 129288305481,
+  "result": "failure",
+  "test": "test_accounting_http.AccountingHTTPTests.test_scope_methods_unknown_fields_and_customer_offline_tokens_never_open_accounting",
+  "actual": 409,
+  "expected": 201,
+  "path": "/offline/access",
+  "raw_bytes": 105083,
+  "raw_sha256": "57e62b9c8fa4099820de8e45679e82f2782f4c7bb0f8a6f37b23d2b56a563707"
+}

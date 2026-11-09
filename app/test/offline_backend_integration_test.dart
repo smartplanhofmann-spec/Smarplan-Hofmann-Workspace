@@ -40,116 +40,187 @@ void main() {
   final python =
       Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
       '${backend.path}/.venv/${Platform.isWindows ? 'Scripts/python.exe' : 'bin/python'}';
-  test('Real backend accepts an offline draft after client restart using its plan-only device grant', () async {
-    await HttpOverrides.runWithHttpOverrides(() async {
-      final directory = await Directory.systemTemp.createTemp(
-        'smartplan-offline-http-',
-      );
-      Process? process;
-      StreamIterator<String>? output;
-      StreamSubscription<String>? errors;
-      OfficeApi? full;
-      ConnectionApi? connection;
-      OfflinePlans? repository;
-      try {
-        process = await Process.start(python, [
-          '-u',
-          '-c',
-          boundOfflineFixture,
-          directory.path,
-        ], workingDirectory: backend.path);
-        final diagnostics = StringBuffer();
-        errors = process.stderr
-            .transform(utf8.decoder)
-            .listen(diagnostics.write);
-        output = StreamIterator(
-          process.stdout
-              .transform(utf8.decoder)
-              .transform(const LineSplitter()),
-        );
-        expect(
-          await output.moveNext().timeout(const Duration(seconds: 20)),
-          true,
-          reason: diagnostics.toString(),
-        );
-        final port = int.parse(output.current.substring(5));
-        final base = 'http://127.0.0.1:$port';
-        full = OfficeApi(baseUrl: base);
-        full.token = (await full.call('/api/login', {
-          'email': 'owner@example.test',
-          'password': 'Integration-password-123',
-        }))['token'];
-        final user = Map<String, dynamic>.from(await full.call('/api/me'));
-        final project = await full.call('/api/projects', {
-          'name': 'Offline project',
-          'customer': 'Synthetic customer',
-        });
-        final projects = List<dynamic>.from(await full.call('/api/projects'));
-        final device = TestDevice(Directory('${directory.path}/device'));
-        connection = ConnectionApi(base);
-        repository = OfflinePlans(
-          api: full,
-          transport: connection,
-          device: device,
-        );
-        await repository.login(user, projects);
-        await idle(repository);
-        connection.connected = false;
-        final wall = {
-          'id': 'wall_1',
-          'points': [
-            [10, 20],
-            [200, 20],
-          ],
-        };
-        final local = await repository.save(project['id'], {
-          'title': 'Ground floor offline',
-          'walls': [wall],
-        });
-        await idle(repository);
-        expect(repository.pending, 1);
-        await repository.leave();
-        repository.dispose();
-        repository = OfflinePlans(
-          api: full,
-          transport: connection,
-          device: device,
-        );
-        await repository.resume();
-        await idle(repository);
-        expect(repository.get(local['local_id'])['walls'], [wall]);
-        connection.connected = true;
-        await repository.sync();
-        expect(repository.pending, 0);
-        final saved = await full.call('/api/projects/${project['id']}/plans');
-        expect(saved, hasLength(1));
-        expect(saved.single['title'], 'Ground floor offline');
-        expect(saved.single['walls'], [wall]);
-        await expectLater(
-          connection.call('/api/users'),
-          throwsA(isA<ApiException>().having((e) => e.status, 'status', 403)),
-        );
-      } finally {
-        // Disposing cancels timers but does not await an already queued vault
-        // write. Drain it before removing files; Windows keeps open files locked.
-        await repository?.leave();
-        repository?.dispose();
-        full?.dispose();
-        connection?.dispose();
-        if (process != null) {
-          process.kill();
-          await process.exitCode.timeout(
-            const Duration(seconds: 10),
-            onTimeout: () async {
-              process!.kill(ProcessSignal.sigkill);
-              return await process.exitCode;
-            },
+  // The local compatibility backend is portable. Actual online instance
+  // provisioning requires a POSIX server (flock/openat/private storage marker),
+  // independently of the client's operating system. Windows still verifies the
+  // actual unbound-server refusal and preservation of prior local files. The
+  // complete bound V2 restart/upload journey uses actual POSIX provisioning.
+  for (final fixture in [
+    (
+      label: 'portable local backend',
+      source: backendFixture,
+      mode: 'unbound_legacy',
+      tags: <String>[],
+    ),
+    (
+      label: 'bound V2 online server',
+      source: boundOfflineFixture,
+      mode: 'bound_v2',
+      tags: <String>['posix_backend'],
+    ),
+  ]) {
+    test(
+      fixture.mode == 'bound_v2'
+          ? 'Real bound V2 backend accepts an offline draft after client restart using its plan-only device grant'
+          : 'Actual portable backend refuses fresh unbound offline access and preserves prior files',
+      () async {
+        await HttpOverrides.runWithHttpOverrides(() async {
+          final directory = await Directory.systemTemp.createTemp(
+            'smartplan-offline-http-',
           );
-        }
-        await output?.cancel();
-        await errors?.cancel();
-        await directory.delete(recursive: true);
-      }
-    }, BackendHttp());
-  }, skip: File(python).existsSync() ? false : 'Backend virtualenv required');
+          Process? process;
+          StreamIterator<String>? output;
+          StreamSubscription<String>? errors;
+          OfficeApi? full;
+          ConnectionApi? connection;
+          OfflinePlans? repository;
+          try {
+            process = await Process.start(python, [
+              '-u',
+              '-c',
+              fixture.source,
+              directory.path,
+            ], workingDirectory: backend.path);
+            final diagnostics = StringBuffer();
+            errors = process.stderr
+                .transform(utf8.decoder)
+                .listen(diagnostics.write);
+            output = StreamIterator(
+              process.stdout
+                  .transform(utf8.decoder)
+                  .transform(const LineSplitter()),
+            );
+            expect(
+              await output.moveNext().timeout(const Duration(seconds: 20)),
+              true,
+              reason: diagnostics.toString(),
+            );
+            final port = int.parse(output.current.substring(5));
+            final base = 'http://127.0.0.1:$port';
+            full = OfficeApi(baseUrl: base);
+            full.token = (await full.call('/api/login', {
+              'email': 'owner@example.test',
+              'password': 'Integration-password-123',
+            }))['token'];
+            final user = Map<String, dynamic>.from(await full.call('/api/me'));
+            final context = Map<String, dynamic>.from(
+              await full.call('/api/offline/context'),
+            );
+            expect(context['mode'], fixture.mode);
+            if (fixture.mode == 'bound_v2') {
+              expect(context['binding'], {
+                'schema_version': 1,
+                'instance_id': '11111111111111111111111111111111',
+                'account_id': user['id'],
+              });
+            }
+            final project = await full.call('/api/projects', {
+              'name': 'Offline project',
+              'customer': 'Synthetic customer',
+            });
+            final projects = List<dynamic>.from(
+              await full.call('/api/projects'),
+            );
+            final device = TestDevice(Directory('${directory.path}/device'));
+            connection = ConnectionApi(base);
+            repository = OfflinePlans(
+              api: full,
+              transport: connection,
+              device: device,
+            );
+            if (fixture.mode == 'unbound_legacy') {
+              await device.folder.create(recursive: true);
+              final prior = File('${device.folder.path}/legacy-original.bin');
+              const original = [17, 29, 43, 71, 113, 211];
+              await prior.writeAsBytes(original, flush: true);
+              await expectLater(
+                repository.login(user, projects),
+                throwsA(
+                  isA<ApiException>()
+                      .having((error) => error.status, 'status', 0)
+                      .having(
+                        (error) => error.message,
+                        'binding message',
+                        contains('keine Firmenbindung'),
+                      ),
+                ),
+              );
+              expect(repository.active, false);
+              expect(repository.pending, 0);
+              expect(device.keys, isEmpty);
+              expect(device.sessions, isEmpty);
+              expect(device.accounts, isEmpty);
+              expect(await prior.readAsBytes(), original);
+              expect((await full.call('/api/me'))['id'], user['id']);
+              expect(await full.call('/api/projects'), hasLength(1));
+              return;
+            }
+            await repository.login(user, projects);
+            await idle(repository);
+            connection.connected = false;
+            final wall = {
+              'id': 'wall_1',
+              'points': [
+                [10, 20],
+                [200, 20],
+              ],
+            };
+            final local = await repository.save(project['id'], {
+              'title': 'Ground floor offline',
+              'walls': [wall],
+            });
+            await idle(repository);
+            expect(repository.pending, 1);
+            await repository.leave();
+            repository.dispose();
+            repository = OfflinePlans(
+              api: full,
+              transport: connection,
+              device: device,
+            );
+            await repository.resume();
+            await idle(repository);
+            expect(repository.get(local['local_id'])['walls'], [wall]);
+            connection.connected = true;
+            await repository.sync();
+            expect(repository.pending, 0);
+            final saved = await full.call(
+              '/api/projects/${project['id']}/plans',
+            );
+            expect(saved, hasLength(1));
+            expect(saved.single['title'], 'Ground floor offline');
+            expect(saved.single['walls'], [wall]);
+            await expectLater(
+              connection.call('/api/users'),
+              throwsA(
+                isA<ApiException>().having((e) => e.status, 'status', 403),
+              ),
+            );
+          } finally {
+            // Disposing cancels timers but does not await an already queued vault
+            // write. Drain it before removing files; Windows keeps open files locked.
+            await repository?.leave();
+            repository?.dispose();
+            full?.dispose();
+            connection?.dispose();
+            if (process != null) {
+              process.kill();
+              await process.exitCode.timeout(
+                const Duration(seconds: 10),
+                onTimeout: () async {
+                  process!.kill(ProcessSignal.sigkill);
+                  return await process.exitCode;
+                },
+              );
+            }
+            await output?.cancel();
+            await errors?.cancel();
+            await directory.delete(recursive: true);
+          }
+        }, BackendHttp());
+      },
+      tags: fixture.tags,
+      skip: File(python).existsSync() ? false : 'Backend virtualenv required',
+    );
+  }
 }

@@ -1,0 +1,85 @@
+{
+  "accounting-final": {
+    "passed": 52,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 137.663,
+    "exit_code": 0,
+    "raw_bytes": 12498,
+    "raw_sha256": "d209f5fefdf417ff0f44f3099f0f3ad6fd87000ff5cdcfe5d4c2f883f6c68cd0"
+  },
+  "offline-http-final": {
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "raw_bytes": 351,
+    "raw_sha256": "48b71601c6e0f9bac5d809508e7cb79d1b17e89c21fccabe5a0028d35d16469e"
+  },
+  "portable-selection": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "interpretation": "Same exclusion used by Windows CI, executed on Linux. No claim of a native Windows rerun.",
+    "exit_code": 0,
+    "raw_bytes": 240,
+    "raw_sha256": "82d2c9c212b2e97791dfb5a2e99d3dd3bf1365df0a3d5a667237805b1c8c08e6"
+  },
+  "native-analysis": {
+    "issues": 0,
+    "seconds": 9.7,
+    "exit_code": 0,
+    "raw_bytes": 96,
+    "raw_sha256": "68e347e9f727fa894a34b89e738ac8e3dcd202adead9c1c9563dcc60eebc65c8"
+  },
+  "pub-get": {
+    "lockfiles_changed": false,
+    "exit_code": 0,
+    "raw_bytes": 68,
+    "raw_sha256": "d4cb7a3c68b4133b4f6e58c67ff5bfd13725d8021e930388cdc98da8a575919d"
+  },
+  "source_files": [
+    {
+      "path": "app/test/offline_backend_integration_test.dart",
+      "sha256": "382fb8ab0fa74c286eeea736326a0dab56666a1bc512d61502a6b621f583d6ac"
+    },
+    {
+      "path": "backend/online/test_accounting_allocations_http.py",
+      "sha256": "3a568b4e1fe60577f5c9b22c42f40d1b60cda901200e6be7f784218bcc247e84"
+    },
+    {
+      "path": "backend/online/test_accounting_capacity_http.py",
+      "sha256": "1701462852c290d1902daab70e1e2507c58fbb1e0380d9d5404177b2f083eea3"
+    },
+    {
+      "path": "backend/online/test_accounting_components_http.py",
+      "sha256": "0dc2ab3333ffbdfb74c47556e3e8dc84d085f938a6e4bdf59b5f21fcffc59aec"
+    },
+    {
+      "path": "backend/online/test_accounting_http.py",
+      "sha256": "94fceac3234cbb675eee1969ed5d2540e63ad0e030a2bb6694e5f001624b81e8"
+    },
+    {
+      "path": "backend/online/test_accounting_journey.py",
+      "sha256": "5326d3069a87b045ed9d650713e78dc091c8d841e9d9c020b9d84abf27396bee"
+    },
+    {
+      "path": "backend/online/test_accounting_profile_http.py",
+      "sha256": "73ddfb77f75cbaf622845a646ac5deb68f25b3889630c8379cca2bee18ed844e"
+    },
+    {
+      "path": "backend/online/test_accounting_refunds_http.py",
+      "sha256": "b61bffa619e632fbb3c7ba347c2fe0b7cde6869e0396d75718d7ace6130d364a"
+    },
+    {
+      "path": "backend/online/test_accounting_refunds_v2_http.py",
+      "sha256": "6b06bb55df695f13a1351c92d2f2ad949147ff69125c895dac0078c1888a5050"
+    },
+    {
+      "path": "backend/online/test_company_events_http.py",
+      "sha256": "e96b6ac6e227815d92282a860ad3ce8f851c616f36fa9babdbc5f7ddd166d292"
+    }
+  ],
+  "base_commit": "79fe2498dda3d5e355a5fcd888f69f9f21e1235a",
+  "production_source_changed": false
+}

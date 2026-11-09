@@ -1,0 +1,8 @@
+{
+  "grant": "valid_bound_workspace_v2",
+  "project_read": 200,
+  "project_count": 1,
+  "business_capabilities": 403,
+  "accounting_read": 403,
+  "interpretation": "Workspace grants intentionally do not expose business capabilities. Positive control must use the allowed project route."
+}

@@ -228,9 +228,15 @@ class AccountingAllocationHTTPTests(unittest.TestCase):
         self.call(self.company, prefix + '/assign', method='GET', status=405)
         self.call(self.company, prefix + '/history', {}, status=405)
         self.call(self.company, prefix + '/preview', {'actor': {'role': 'owner'}}, status=400)
-        offline = self.call(self.company, '/offline/access', {}, status=201).json['token']
+        grant = self.call(self.company, '/offline/access/v2', {}, status=201).json
+        offline = grant['token']
+        offline_origin = grant['binding']['instance_id'] + ':' + grant['binding']['account_id']
+        # A real accepted bound device reaches its normal project route before
+        # accounting denial; a missing-origin rejection would not prove this ACL.
+        self.call(self.company, '/projects', token=offline, offline_origin=offline_origin)
         for token in (None, offline, 'SPPT_' + 'p' * 43, 'SPPI_' + 'i' * 43):
-            self.call(self.company, prefix, token=token, status=(401, 403))
+            self.call(self.company, prefix, token=token, offline_origin=offline_origin if token == offline else None,
+                      status=403 if token == offline else (401, 403))
         user, token = self.user(self.company)
         self.call(self.company, prefix, token=token, status=403)
         self.permission(self.company, user, 'accounting.read')

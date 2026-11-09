@@ -323,9 +323,15 @@ class AccountingRefundHTTPTests(unittest.TestCase):
         for data in ({**command, '_query': {}}, {**command, 'actor': {'role': 'owner'}}):
             self.call(self.company, path + '/confirm', data, status=400)
         self.call(self.company, path + '/confirm?unexpected=1', command, status=400)
-        offline = self.call(self.company, '/offline/access', {}, status=201).json['token']
+        grant = self.call(self.company, '/offline/access/v2', {}, status=201).json
+        offline = grant['token']
+        offline_origin = grant['binding']['instance_id'] + ':' + grant['binding']['account_id']
+        # A real accepted bound device reaches its normal project route before
+        # accounting denial; a missing-origin rejection would not prove this ACL.
+        self.call(self.company, '/projects', token=offline, offline_origin=offline_origin)
         for token in (None, offline, 'SPPT_' + 'p' * 43, 'SPPI_' + 'i' * 43):
-            self.call(self.company, path, token=token, status=(401, 403))
+            self.call(self.company, path, token=token, offline_origin=offline_origin if token == offline else None,
+                      status=403 if token == offline else (401, 403))
         _, token = self.user(self.company)
         self.call(self.company, path, token=token, status=403)
         self.assertEqual(self.call(self.company, path + '/history').json['items'], [])

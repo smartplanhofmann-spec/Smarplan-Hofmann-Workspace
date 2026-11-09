@@ -1,0 +1,10 @@
+{
+  "source_commit": "82738522d132918b0f139011302e5862f40c1e92",
+  "run_id": 42654230472,
+  "job_id": 129288306410,
+  "result": "failure",
+  "test": "offline_backend_integration_test.dart",
+  "cause": "POSIX online storage binding imported fcntl in embedded Windows server fixture.",
+  "raw_bytes": 471498,
+  "raw_sha256": "05892aa4d74d0fe94bf6d49896909f144734391381f85c56da2a134f5ec56d96"
+}

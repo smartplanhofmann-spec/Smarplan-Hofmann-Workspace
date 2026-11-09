@@ -62,12 +62,16 @@ class AccountingJourneyTests(unittest.TestCase):
         company['client'] = create_app(office=company['office'], key=company['key'],
             host=company['host'], instance_id=company['instance_id'], storage=storage).test_client()
 
-    def call(self, company, path, body=None, *, token='owner', status=200, method=None):
+    def call(self, company, path, body=None, *, token='owner', status=200, method=None,
+             offline_origin=None):
         token = company.get('token') if token == 'owner' else token
         method = method or ('POST' if body is not None else 'GET')
+        headers = {'Authorization': 'Bearer ' + token} if token else {}
+        if offline_origin is not None:
+            headers['X-Smartplan-Offline-Binding'] = offline_origin
         reply = company['client'].open('/api/v1' + path, method=method,
             base_url='https://' + company['host'], json=body,
-            headers={'Authorization': 'Bearer ' + token} if token else {})
+            headers=headers)
         # Diagnostics do not print authentication responses or original files.
         if isinstance(status, tuple):
             self.assertIn(reply.status_code, status, (method, path, reply.status_code))

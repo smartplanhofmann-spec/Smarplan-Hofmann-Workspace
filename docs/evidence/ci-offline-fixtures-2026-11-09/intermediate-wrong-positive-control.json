@@ -1,0 +1,9 @@
+{
+  "exit_code": 1,
+  "tests": 52,
+  "failures": 7,
+  "seconds": 136.785,
+  "interpretation": "A valid workspace grant intentionally cannot access business capabilities. All seven new positive controls chose the wrong allowed route; separate actual probe proves project access 200 and both business/accounting access 403. No production change or ACL weakening.",
+  "raw_sha256": "e4cbc5ac1fff5c3facbfef866ee35a7dccc9543ddc93f2e24e2729766dfa040a",
+  "raw_bytes": 19319
+}

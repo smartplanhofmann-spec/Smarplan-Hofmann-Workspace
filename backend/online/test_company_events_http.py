@@ -81,8 +81,12 @@ class CompanyEventsHTTPTests(unittest.TestCase):
         for path in ('/status?extra=1','/plans?limit=01','/runs?limit=0','/events?extra=1'):
             self.staff_call('/business/company-events'+path,status=400)
         self.call('/business/company-events/status',token='SPCT_'+'a'*43,status=401)
-        device=self.staff_call('/business/offline/access',{},status=201).json['token']
-        self.call('/business/company-events/status',token=device,status=403)
+        grant=self.staff_call('/business/offline/access/v2',{},status=201).json
+        device=grant['token']
+        origin=grant['binding']['instance_id']+':'+grant['binding']['account_id']
+        headers={'X-Smartplan-Offline-Binding':origin}
+        self.call('/business/capabilities',token=device,headers=headers)
+        self.call('/business/company-events/status',token=device,headers=headers,status=403)
         self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM business_company_event_rules').fetchone()[0],0)
 
 

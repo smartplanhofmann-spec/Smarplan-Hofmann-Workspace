@@ -172,10 +172,16 @@ class AccountingProfileHTTPTests(unittest.TestCase):
         for changes in ({'confirmation': 1}, {'request_id': 'A'*32}, {'preview_hash': 'x'*64}):
             self.call(self.company, PREFIX+'/confirm', {**command, **changes}, status=400)
         self.assertEqual(self.database(), before)
-        offline = self.call(self.company, '/offline/access', {}, status=201).json['token']
+        grant = self.call(self.company, '/offline/access/v2', {}, status=201).json
+        offline = grant['token']
+        offline_origin = grant['binding']['instance_id'] + ':' + grant['binding']['account_id']
+        # A real accepted bound device reaches its normal project route before
+        # accounting denial; a missing-origin rejection would not prove this ACL.
+        self.call(self.company, '/projects', token=offline, offline_origin=offline_origin)
         for credential in (None, offline, 'SPPT_'+'s'*43, 'SPPI_'+'i'*43):
             for suffix, payload in (('', None), ('/history', None), ('/preview', body), ('/confirm', command)):
-                self.call(self.company, PREFIX+suffix, payload, token=credential, status=(401, 403))
+                self.call(self.company, PREFIX+suffix, payload, token=credential, offline_origin=offline_origin if credential == offline else None,
+                          status=403 if credential == offline else (401, 403))
         self.assertEqual(self.state()['revision'], 0)
 
     def test_schema10_requires_exact_profile_inventory_even_empty_and_old_h6_cannot_unlock(self):

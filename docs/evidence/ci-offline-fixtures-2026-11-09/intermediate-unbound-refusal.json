@@ -1,0 +1,8 @@
+{
+  "passed": 1,
+  "failed": 1,
+  "exit_code": 1,
+  "interpretation": "First split wrongly expected a new offline login on an unbound portable local server. The real client correctly refused it. Preserve that refusal and prior files as the portable Windows test; retain the complete actual V2 server restart/upload test on POSIX.",
+  "raw_bytes": 1145,
+  "raw_sha256": "cdb5c91da9f54ec0df241d94b211ba63aadfc13f5ff40c232810d30dc88a12a7"
+}

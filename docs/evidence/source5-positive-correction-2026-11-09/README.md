@@ -15,6 +15,7 @@ tatsächliche PostgreSQL-/HTTP-/MFA-Prüfungen sowie Jahres-/EÜR-/Restorewege.
 | Native betroffene Vertrags-/Oberflächenprüfungen | 23 bestanden, kein Skip | `native-combined-23.gz` |
 | Native Analyse | keine Befunde | `native-analysis.gz` |
 | Tatsächliche Paketimporte | 16 bestanden, 21,768 s | `packaging-combined.gz` |
+| Lohn-/Reisegesamtlauf | 713 unterschiedliche Fälle bestanden, kein Skip, 1519,359 s | `payroll-travel-713.gz` |
 | Metadatenvorauswahl gegen vollständige Variantensuche | bestanden, 5,262 s | `variant-filter-equivalence.txt` |
 
 Diese Gruppen überlappen; sie werden nicht zu einer angeblich eindeutigen

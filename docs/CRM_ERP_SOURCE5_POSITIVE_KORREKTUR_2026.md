@@ -195,7 +195,8 @@ Datengrenzen vor und nach echtem Dump/Restore; ebenfalls bestanden.
 
 Zwei echte Browserdurchläufe, 902 Browsermodulfälle, 23 ausgewählte Appfälle,
 Appanalyse ohne Befund und 16 Paketprüfungen bestehen. Der umfassende Lohn-/
-Reisesammellauf wird gesondert dokumentiert. Das beschleunigte Prüfen historischer
+Reisesammellauf besteht mit allen 713 unterschiedlichen Fällen ohne Skip
+in 1519,359 Sekunden; der unveränderte Stream ist separat erhalten. Das beschleunigte Prüfen historischer
 Originale wählt bekannte Metadatenvarianten vor und behält die vollständige
 Gleichheitsprüfung; ein Vergleich mit der bisherigen vollständigen Variantensuche
 besteht. Alle 32 Rechenmodule und die komplette alte v1-Zahlungsdatei sind

@@ -15,7 +15,7 @@ Die ausdrücklich manuell gestarteten Prüfungen:
 [Veröffentlichungsnachweis](evidence/completion-followup-2026-11-09/publication.json).
 Der frühere vollständig grüne Stand 2598c96 und die älteren fehlgeschlagenen
 Läufe bleiben in ihren historischen Nachweisen erhalten. Die zusätzlichen Änderungen sind anschließend als 4b8ec08/894ecdd veröffentlicht.
-Die neue eigene Prüfung auf 894ecdd ist beendet: sieben Development-Jobs bestehen; der Browserjob scheitert am mobilen Sichtbarkeitskriterium der Anmeldung. Der iPhone-Prüflauf scheitert an einer festen Warteannahme beim echten Dateischreiben. Gezielte Korrekturen und Nachprüfungen laufen: [Development42624525741](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42624525741),
+Die neue eigene Prüfung auf 894ecdd ist beendet: sieben Development-Jobs bestehen; der Browserjob scheitert am mobilen Sichtbarkeitskriterium der Anmeldung. Der iPhone-Prüflauf scheitert an einer festen Warteannahme beim echten Dateischreiben. Beide Fehler sind lokal korrigiert und gezielt nachgeprüft; die neue Remoteprüfung steht noch aus: [Development42624525741](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42624525741),
 [iPhone42624525589](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42624525589).
 [Veröffentlichungsnachweis](evidence/oneoff-provenance-2026-11-09/publication.json).
 Der signierte Upload ist nicht angefordert.
@@ -91,20 +91,24 @@ Vier echte PostgreSQL-/MFA-/HTTP-/Konkurrenz-/Restorefälle bestehen. Der zusät
 finale Jahres-/Mitarbeiter-/Restorefall besteht ebenfalls. 902 Browsermodul-,
 23 ausgewählte native und 16 Paketfälle bestehen; Appanalyse ohne Befund.
 Zwei echte Browserdurchläufe des neuen Falls mit verlorenen Antworten bestehen.
-Der neue vollständige Lohn-/Reisesammellauf ist noch nicht abgeschlossen.
+Der neue vollständige Lohn-/Reisesammellauf besteht mit 713 unterschiedlichen Fällen ohne Skip in 1519,359 Sekunden.
 [Vertrag](CRM_ERP_SOURCE5_POSITIVE_KORREKTUR_2026.md).
 
 Der neue Abschnitt ist noch nicht veröffentlicht. Vor der Veröffentlichung
-werden die unabhängig auf 894ecdd gefundenen mobilen Anmelde- und nativen
-Dateispeicher-Testfehler behoben. Der letzte vollständig grüne gemeinsame
+sind die unabhängig auf 894ecdd gefundenen mobilen Anmelde- und nativen
+Dateispeicher-Testfehler korrigiert; echte mobile Anmeldung und 66 native
+Datei-/Originalfälle bestehen. Der letzte vollständig grüne gemeinsame
 Remote-Prüfstand bleibt ef1259c. Bereits gezahlte negative Korrekturen,
 spätere tatsächliche Zahlungstage und mehrere Bonus-Steuergruppen bleiben
 separate Code-/Fachaufgaben; [konkreter Gruppenplan](CRM_ERP_SOURCE5_MEHRFACH_GRUPPEN_RESTPLAN_2026.md).
 
-Als nächste Aufgaben außerhalb der Lohnrechnung laufen die über Neustart
-haltbare unbestätigte Projektanlage und vollständige Browser-Projektaufgaben.
-Beide schließen bestätigte Lücken im Kunden-/Projektweg und sind noch keine
-fertigen oder veröffentlichten Bestandteile.
+Außerhalb der Lohnrechnung sind die [vollständigen Browser-Projektaufgaben](CRM_ERP_PROJEKTAUFGABEN_BROWSER_2026.md) bereits integriert und getrennt geprüft.
+Die [über Neustart haltbare unbestätigte Projektanlage](CRM_ERP_PROJEKTANLAGE_NEUSTART_2026.md) ist ebenfalls integriert.
+Der [gemeinsame Liefernachweis](CRM_ERP_PROJEKT_LIEFERSTAND_2026-11-09.md) hält
+183 native, 45 Backend-, vier tatsächliche PG-/Konkurrenz-/Restore-,
+912 Browsermodul- und 16 Paketfälle sowie den echten Browsernachlauf fest.
+Die Veröffentlichung dieses gemeinsamen Stands wird vorbereitet; explizite
+Projektmeilensteine werden bereits getrennt entwickelt.
 
 Der [Einmalbezugs-Abgleich](CRM_ERP_LOHN_EINMALBEZUG_PLATTFORMHISTORIE_2026.md)
 ist aus der eigenen Arbeitskopie als 894ecdd in den Hauptstand übernommen.

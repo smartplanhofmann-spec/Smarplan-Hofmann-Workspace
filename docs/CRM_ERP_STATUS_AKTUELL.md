@@ -12,7 +12,7 @@ bestanden. Der später veröffentlichte Stand `894ecdd` enthält zusätzlich die
 beschleunigte Übersicht und den plattformübergreifenden Erhalt alter
 Einmalbezugsoriginale. Seine neue CI besteht sieben Development-Jobs;
 der Browserjob und ein Dateispeicher-Test im iPhone-Prüflauf sind fehlgeschlagen.
-Die Fehler werden mit eigenen Regressionstests behoben. Ein neuer vollständig
+Beide Fehler sind mit eigenen Regressionstests behoben (echte mobile Anmeldung sowie 66 native Datei-/Originalprüfungen). Ein neuer vollständig
 grüner Stand wird erst nach dessen tatsächlicher Prüfung ausgewiesen.
 
 Die begrenzte positive Nachzahlung zu einem bereits bezahlten Source5-Lauf
@@ -21,19 +21,23 @@ bleiben erhalten; zusätzliche Zahlungsteile, Vollständigkeitsnachweis,
 Abführungsgrenzen, Jahresfortschreibung und Mitarbeiter-Datenschutz sind
 geprüft. Vier echte PostgreSQL-Fälle und der zusätzliche Jahres-/Restorefall,
 902 Browsermodulfälle, 23 ausgewählte Appfälle und 16 Paketprüfungen bestehen.
-Die breitere Lohn-/Reiseregression und die neue Veröffentlichung laufen separat.
+Die breitere Lohn-/Reiseregression besteht mit allen 713 Fällen ohne Skip. Die gemeinsame neue Veröffentlichung wird vorbereitet; [vollständiger Liefernachweis](CRM_ERP_PROJEKT_LIEFERSTAND_2026-11-09.md).
 [Vertrag und Grenzen](CRM_ERP_SOURCE5_POSITIVE_KORREKTUR_2026.md).
 
-## Nächste Arbeiten am Gesamtziel
+## Projektbetrieb und nächste Arbeiten
 
-- Unbestätigte Projektanlage über einen vollständigen App-Neustart erhalten,
-  damit eine verlorene Antwort keine zweite Anlage auslöst.
-- Browser-Projektaufgaben um Bearbeitung, Zuständigkeit, Wiederöffnung und
-  Stornierung ergänzen; die bisher angebotene ungültige Priorität korrigieren.
-- Weitere ausdrücklich benannte Lohn-/EÜR-Fälle, Integrationen und die
-  durchgängigen Abnahmen A–G vervollständigen. Mehrere Bonus-Steuergruppen,
-  negative Korrekturen und andere tatsächliche Nachzahlungstage sind durch
-  den neuen positiven Einzelvertrag weiterhin nicht abgedeckt.
+Die [Projektanlage nach Neustart](CRM_ERP_PROJEKTANLAGE_NEUSTART_2026.md) und
+[vollständigen Browser-Projektaufgaben](CRM_ERP_PROJEKTAUFGABEN_BROWSER_2026.md)
+sind gemeinsam integriert und geprüft: 183 native Journal-/Offline-/Lohn-/
+Dateifälle, 45 Backendfälle, vier tatsächliche PostgreSQLfälle, 912 unveränderte
+Browsermodulfälle und 16 Paketfälle bestehen. Der echte Browserablauf wurde
+auf dem gemeinsamen Serverstand wiederholt. Die Testgruppen überlappen.
+
+Explizite Projektmeilensteine werden als nächster eigener Baustein entwickelt.
+Weitere benannte Lohn-/EÜR-Fälle, Integrationen und die durchgängigen Abnahmen
+A–G bleiben offen. Mehrere Bonus-Steuergruppen, negative Korrekturen und andere
+tatsächliche Nachzahlungstage sind durch den neuen positiven Einzelvertrag
+weiterhin nicht abgedeckt.
 
 ## Tatsächlicher Betriebsstand
 

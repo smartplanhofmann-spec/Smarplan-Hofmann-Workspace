@@ -1,0 +1,32 @@
+{
+  "postgres-final": {
+    "file": "postgres-final.gz",
+    "raw_bytes": 946,
+    "raw_sha256": "664fb489cf61594851b29310f288f3e48a4d331d6de811d80d6e023030f8cc54",
+    "gzip_sha256": "46a64b093f9b15b0c8bfe0e235f05083c4fb46000fa6ffdc1aa9b91fa4e1c138"
+  },
+  "browser-final": {
+    "file": "browser-final.gz",
+    "raw_bytes": 259,
+    "raw_sha256": "1fe96ecdd107e6a6d7d6f0f2d61948f286195fb58d509b68b85958ab9d6db6c1",
+    "gzip_sha256": "afc03d88cdfe12c2d8c43d1245fdcde54a3bafcf87847b7d31f0c42f12cbdbba"
+  },
+  "backend-final": {
+    "file": "backend-final.gz",
+    "raw_bytes": 9103,
+    "raw_sha256": "540b76da013df214868bfaffc6b15720364788ce1dbe073117c33346b561af76",
+    "gzip_sha256": "2a48a2e8a6bf40a946a2de28fed3224484dc3e04bb76317475fb4fe2776e8f97"
+  },
+  "native-final": {
+    "file": "native-final.gz",
+    "raw_bytes": 35089,
+    "raw_sha256": "ff1b8a4c2032e99e15b9055ebe8863119aaa56000fb3fbd4509f51167153adc8",
+    "gzip_sha256": "067a6360e3e583f174a1d926269d7851d0a38cb0b5968251da62f3de654772e1"
+  },
+  "package-final": {
+    "file": "package-final.gz",
+    "raw_bytes": 3604,
+    "raw_sha256": "c2f47a64623347e4212f3feec46a8d3e38650d800c2f78f4f0f5e6117a7b67e3",
+    "gzip_sha256": "2db307d78580286ae79fe7b21eebd5e5489c9e6f95e4f07751ccba70f7280aea"
+  }
+}

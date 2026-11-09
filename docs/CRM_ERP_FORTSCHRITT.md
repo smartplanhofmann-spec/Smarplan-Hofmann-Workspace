@@ -3118,3 +3118,49 @@ vollständige Browser-Projektaufgaben einschließlich gültiger Prioritäten.
 Mehrfach-Steuergruppen bleiben ein separater [belegter Restplan](CRM_ERP_SOURCE5_MEHRFACH_GRUPPEN_RESTPLAN_2026.md).
 Der Gesamtauftrag und die Abnahmen A–G sind weiterhin offen; kein Prozentwert
 oder Fertigstellungstermin wird aus den Prüfzahlen abgeleitet.
+
+
+### Abgeschlossener Sammellauf und ergänzte Projektaufgaben
+
+Alle 713 unterschiedlichen Lohn-/Reisefälle bestehen ohne Skip in 1519,359
+Sekunden, Exit 0. Der vorherige 694er Lauf und seine Socket-Fehler bleiben
+historisch erhalten; der neue vollständig grüne Lauf ist separat archiviert.
+Die mobile Anmeldung besteht mit echter MFA-/Recoveryfolge; die korrigierte
+Dateischreibprüfung besteht in 66 nativen Original-/Dateizugriffsfällen.
+
+Die [Browser-Projektaufgaben](CRM_ERP_PROJEKTAUFGABEN_BROWSER_2026.md) sind mit
+Bearbeitung aller vorhandenen Felder, Zuständigkeit, Erledigen/Stornieren/
+Wiederöffnung und schreibgeschützter Versionshistorie integriert. Der neue
+History-GET verwendet bestehende Revisionen und Projektleserechte, ohne
+Schemaänderung. 912 Browsermodule, 21 Domain- und vier gezielte echte HTTP-
+prüfungen sowie ein vollständiger echter Chromiumablauf bestehen. Sieben
+Revisionen, Konkurrenz, verlorene Antworten bei Anlage/Änderung, Rechteentzug,
+späte Antworten und 390px sind einbezogen. Der gemeinsame Endstand wird noch
+nachgeprüft; eine Serverinstallation ist damit nicht erfolgt.
+
+
+### Gemeinsamer Projekt-Lieferstand einschließlich dauerhaftem Anlagenjournal
+
+Die geschützte unbestätigte Projektanlage ist nach unabhängiger Prüfung und
+Behebung dreier konkreter Grenzen integriert: angenommene POSTs dürfen nach
+fehlgeschlagener Quittungsabfrage nicht gelöscht werden, gespeicherte Details
+brauchen eine frische Owner-Rolle, und parallele Erstanlagen dürfen keinen
+bereits verwendeten Verschlüsselungsschlüssel überschreiben. Quarantänisierte
+neuste Zustände erlauben keinen stillen Rückgriff auf ältere Aufträge.
+
+Die gemeinsame Endprüfung besteht: 183 native Journal-/Offline-/Lohn-/Dateifälle,
+45 Backend-/HTTP-Fälle, vier echte PostgreSQLfälle in 47,206 Sekunden sowie
+16 Paketfälle. Der echte Projektaufgaben-Browserablauf besteht auf der neuen
+Serverfassung ebenfalls. Die 912 Browsermodulfälle betreffen unveränderte
+JavaScript-Dateien. PostgreSQL prüft zusätzlich zwei konkurrierende Anlagen,
+eine ursprüngliche Scope-/Auftragsquittung nach echtem Dump/Restore und den
+vorher im Sammellauf übersprungenen Workspacefall mit Aufgabenhistorie.
+Der eigene zweite Datenbankcontainer ist nach Prüfung entfernt.
+
+[Gemeinsamer Liefernachweis](CRM_ERP_PROJEKT_LIEFERSTAND_2026-11-09.md).
+Die bisherige Anforderungszeile R06.01 nannte entgegen §6 des Originalziels keine
+Meilensteine. Diese Anforderung ist ergänzt und bis zum eigenen Meilenstein-
+Lieferumfang ausdrücklich als teilweise/offen ausgewiesen. Es folgt daraus
+keine belastbare Gesamtprozentzahl. Die separate Umsetzung läuft bereits.
+Veröffentlichung und tatsächliche neue CI-Ergebnisse werden nachgetragen;
+Kundenserver und echte Geräte wurden nicht verändert.

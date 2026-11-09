@@ -82,5 +82,11 @@
     "raw_bytes": 2003,
     "raw_sha256": "47f9c09d5a2e3a903d5b993ff4c0ce1801d1d655d53eeb80e9d433847ae44d9a",
     "gzip_sha256": "625700d81a654b50fbbf213cc7ec39664cc2d93eaa887ca0e8b4ef53940a9963"
+  },
+  "payroll-travel-713": {
+    "file": "payroll-travel-713.gz",
+    "raw_bytes": 142565,
+    "raw_sha256": "5c24878134ca1f891e3337380b8b9441de6bef5ce438a9a9c68395f9852ce1aa",
+    "gzip_sha256": "a5911f7b2d2cb0407c69338ba31cba8733557fc35e3cb1b285c9c7d6f264813f"
   }
 }

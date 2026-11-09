@@ -1,0 +1,118 @@
+{
+  "date": "2026-11-09",
+  "feature_checkpoint": "6a454caae4b31e6b4a4ede056bedeb1408a1cbe4",
+  "base": "af9827879e25375e6ce3b29f44f9abeb510ee5a5",
+  "source_sha256": {
+    ".github/workflows/checks.yml": "401032d3dce08f7e6995cd84baa60041fb56443884c307d9d36b545ebadacfb6",
+    ".github/workflows/ios-testflight.yml": "285df4f5bc38720c92526ab28f3df5a09b916f981d2c881ddba9c6caca8eae9a",
+    "app/lib/business_payroll.dart": "a83785b9113a567c5732cf93865ed52cdc622091460c69fbafe57933165c5844",
+    "app/lib/business_payroll_accounts.dart": "cdbbcc50055ab0e2a3d83abe76102bf390d22b09ce35f124dcb9c919b66cbde3",
+    "app/lib/business_payroll_multiple_case_contract.dart": "959d08840f4d9e76657480e32c230c98e20b2ab3ea3e829dec97c7f226e364db",
+    "app/lib/business_payroll_source5_transition.dart": "e4cb3534fe32308bdc8b8a8f7e4e2d1ea3b17c0e823f28c708eeee9b9a1f0f76",
+    "app/lib/business_session.dart": "c3a831936fc3ebd29e2ab38649a4f0525ac84b751d610cd98283786712e149cc",
+    "app/lib/main.dart": "dfeb70986ac435971dbd33356a5866a467a041c0e28a0bbc50ce5075347dae6c",
+    "app/lib/offline_vault.dart": "aebfd4bcaaa6e28c12884f6fb00b8f523099bcb7c6f0fc39d98ec6c52ec8c622",
+    "app/lib/project_creation_journal.dart": "cfcee68baa67d9ef20c0d1c678e78216435da6375fb54d3ec18c02090713de9a",
+    "app/test/business_accounting_year_evidence_independent_review_test.dart": "4cb5ddbc70de99c6f22598ff3f8b0e14ba34865f695813b5c0705be70e8999f9",
+    "app/test/business_accounting_year_evidence_v2_independent_review_test.dart": "ec23de089f05e1d1e34a65c44189a5b66d9ea608c741d9dc10d578a63f0efed4",
+    "app/test/business_source5_positive_contract_test.dart": "73596f168d6d122a4c8bf5cb39b23963e1ed2b232675e33266cd5f64fc422b06",
+    "app/test/business_source5_positive_page_test.dart": "3db6b65c746af961e7172dbb99e3a4d216b00aa52170b55515709bd9bf292e4c",
+    "app/test/fixtures/generate_source5_positive.py": "c30eadbfa6eccf5c221d3e385b22b5bc0dbab6fb4488c997c52ab11edfd60b35",
+    "app/test/fixtures/source5_positive_corrections.json": "61c1654deaddb10ccfa1601ea94f9dd40df283b3eaaa99e2d08e7ef2647d5ff9",
+    "app/test/project_create_replay_test.dart": "7847b0629c0045b8f68ae9232031e84266472989939b8a8a88529e0a382879f1",
+    "app/test/project_creation_journal_http_test.dart": "fc9e9d46952f82d528570a66f93b58c58ddd8bf74f16ea91e2869831d24eb15c",
+    "app/test/project_creation_journal_test.dart": "b8f1adcd7c3e6e44de473b3f4b93e80267149ca5ede21c8d805f0199787124ea",
+    "app/test/project_creation_journal_widget_test.dart": "47882af8116f4f865ad0877f20760831b8efea64570a211a4ea4e681c26e6556",
+    "backend/business_api.py": "ceff759b6d64360889ec87d96531dd97de53f42b17804177c5634e5476145770",
+    "backend/business_foundation.py": "b437fce8f7c496ff11c58401f1e8793f3b9620af403f90d32ccb01661f42613f",
+    "backend/business_payroll.py": "a781daacd1c4fb491e83f7a13f1e151a1140777003e99e5f2d28e1342f461a36",
+    "backend/business_payroll_accounts.py": "232352ec2d16ac01ac23f0ad46a33d800b38016dbcc05c1b908597f122e65b6f",
+    "backend/oneoff_provenance_compat.py": "9122ed9defff2f6752bc635749b15275f990e757821374328adaf067eae97d72",
+    "backend/online/test_business_payroll_positive_corrections_pg.py": "ddeee6db78beb26625c07e5c08bd2c9055b124b6b652c546ff6048e3a2d712f0",
+    "backend/online/test_project_creation_journal.py": "0e0eb009d3ef818f24acffd701524b3e0b2bb770c817762a4d382d0623d99560",
+    "backend/online/test_project_creation_journal_pg.py": "2feb174cd7b4c44b44f6c64282d3801abafdeb39a438a8662cc368b7ec863bd0",
+    "backend/online/test_workspace_api.py": "605f0c749b657a198d6d545f4870e534aee0bbb67384360a534b45f9f6a6578c",
+    "backend/online/web.py": "222bb8e706a8e1d9efdaba0c81d14440a7694507a11e913cf0dbea3ae95a7723",
+    "backend/payroll_correction_remittances.py": "90e7a6f5b9ff42e1eee9a0e7f440ad2303e842ab360980d3b7fb0475ffb3fa69",
+    "backend/payroll_multiple_corrections.py": "d267bc630881dc2845b4bfa5a32cdd47a4f8d0338a992889956bd89f82dbc232",
+    "backend/payroll_multiple_runs.py": "f4bd9774a743ee6f0b66b31146b16bd95179f98b566b017502dce970ca47d113",
+    "backend/project_workspace.py": "4d27aab3816045e617b8756fbefbb88700cbc1c8184c125056cf993d67a5bfb2",
+    "backend/test_business_payroll_oneoff_provenance.py": "ffd5b0532a32b4b716c0f86f17add2bfb6be64d35a7d37af323a36884ae5b92c",
+    "backend/test_business_payroll_positive_corrections.py": "72c9dffab8dcda08521d21aa6c5542390e537841b52e657d2093255bb0cdfc40",
+    "backend/test_payroll_correction_remittances.py": "8adb2a3ba73045b814e3f7e4730d935fa55f72f9fc23b74f4c642d996932f2ff",
+    "backend/test_project_workspace.py": "046032ffba160e66743618d6eb73afb5813987fb57d2de10c21de2d52ac789af",
+    "backend/workspace_api.py": "3dc0e2346bfb4b88acde13f5b269978de60f05907e2ee73e76ea34159ab7dd85",
+    "web/office/office.js": "15d4f8e5166dc3657a6fbbcbd46d61253dff99de61a702e5b4f020d0fe05aee8",
+    "web/office/payroll-accounts.js": "e6984771fc2f2dd34d906135c2405634098bc82891c1f1d13314a2cc626f4140",
+    "web/office/payroll-positive-correction.js": "4be83ffd5cf608d284093cb231433cd12a75e5e2bf5604e9d39915ff36b9212c",
+    "web/office/payroll.js": "d7b4ddc4a2d99be59917ed343becb27da71e9571b2bdd53565368baa1bb33dc3",
+    "web/office/project-tasks.js": "9b5fbd0af604f0ae2b6dfd55851abeba6a56d65730717ed7ebb2ce075f8e42fa",
+    "web/office/tests/e2e.cjs": "f5174e9d534fbd3bd14f7838197ff35305f321a1c8184492298934d97f923c89",
+    "web/office/tests/mobile-login-flow.cjs": "b59f4a6b3f014b7e4b68050206a179c96bb3c6068c44ba9828330b49fd4df0ff",
+    "web/office/tests/payroll-positive-annual-consumer.test.mjs": "73c57a43f31879bc85f913692b15ba0e668525371be781e52ae738103036102f",
+    "web/office/tests/payroll-positive-correction-flow.cjs": "08095881b63afdd47c85731a53ea4bdc4b6e01b74e89aace530295994b861c14",
+    "web/office/tests/payroll-positive-correction-negotiation.test.mjs": "b84283b96ee6d3653b6182a56fbefd2385cb76dbea3c251b3707f2bf22d1013a",
+    "web/office/tests/payroll-positive-correction.test.mjs": "d5ac50ae6891a264878610ba9f1731de6b3263d6caeee4f7a4aeb0f7541dc473",
+    "web/office/tests/payroll-positive-payment-ui.test.mjs": "18bd3c09988e40a188c5250f7e6ee780a031f97742b07c45d508c4dc505a46c9",
+    "web/office/tests/payroll-positive-pending.test.mjs": "c1aa5f9c3346e2e93addba254f7e0b57401e31efcc3bf370afb80021ddc224ac",
+    "web/office/tests/payroll-positive-review-ui.test.mjs": "1c098790c5156fe38e93e21690b8fe970ad70b5b5bf7a06a422163c2346d410a",
+    "web/office/tests/project-tasks-flow.cjs": "41d035b88c7e33a9496ee672c8f243eadbb161d7cc33995094e230f0964eb137",
+    "web/office/tests/project-tasks.test.mjs": "3cabfdfad6ae9cbdcd9fa5c1a68f458a9607ad6b73d0f4e54a11848f3efc4971",
+    "web/office/tests/source5-positive-fixture.mjs": "94e64470d1687880ac4904ae5eb2def0d3cfbaaf455d46a9e27c63eb87edbf48"
+  },
+  "checks": {
+    "payroll_travel": {
+      "passed": 713,
+      "skipped": 0,
+      "seconds": 1519.359,
+      "evidence": "../source5-positive-correction-2026-11-09/payroll-travel-713.gz"
+    },
+    "browser_modules": {
+      "passed": 912,
+      "skipped": 0,
+      "source": "../project-tasks-browser-2026-11-09/integrated-node.gz",
+      "web_sources_unchanged_since_run": true
+    },
+    "native_integrated": {
+      "passed": 183,
+      "skipped": 0,
+      "source": "native-final.gz"
+    },
+    "backend_integrated": {
+      "passed": 45,
+      "skipped": 0,
+      "seconds": 33.456,
+      "source": "backend-final.gz"
+    },
+    "postgres_integrated": {
+      "passed": 4,
+      "skipped": 0,
+      "seconds": 47.206,
+      "source": "postgres-final.gz"
+    },
+    "packaging_final": {
+      "passed": 16,
+      "skipped": 0,
+      "seconds": 21.326,
+      "source": "package-final.gz"
+    },
+    "actual_browser": {
+      "exit_code": 0,
+      "workflow": "project-tasks",
+      "source": "browser-final.gz"
+    }
+  },
+  "preservation": {
+    "math_kernels": 32,
+    "v1_payment_module": "byte identical",
+    "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "postgres_container": {
+    "id": "86a5ac9f7b473340dbd669df32366876a1e09cb91a931b69d2c2d23e54ef1c01",
+    "label": "smartplan.disposable=project-journal-20261109",
+    "removed": true
+  },
+  "remote_ci": "not yet started",
+  "server_installation_verified": false,
+  "actual_device_acceptance": false
+}

@@ -130,7 +130,8 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    expliziter Vollständigkeitsnachweis und Abführungsgrenzen sind Pflicht.
    Vier echte PostgreSQL-Fälle plus finaler Jahres-/Restorefall, 902 Browser-
    module, 23 ausgewählte native und 16 Paketfälle bestehen. Der breite
-   Lohn-/Reisesammellauf und die neue Remoteprüfung sind noch abzuschließen.
+   Lohn-/Reisesammellauf besteht mit allen 713 Fällen ohne Skip; die neue
+   Remoteprüfung steht aus.
    Negative Korrekturen, andere tatsächliche Zahlungstage und mehrere
    Steuergruppen bleiben eigene Aufgaben. Der
    [Gruppenplan](CRM_ERP_SOURCE5_MEHRFACH_GRUPPEN_RESTPLAN_2026.md) dokumentiert
@@ -160,12 +161,16 @@ keinen echten Zahlungs-, Nachrichten-, Melde- oder signierten Uploadauftrag.
   Neustart mit exakt demselben Auftrag wieder aufgenommen. Vorhandene
   verschlüsselte Vault-/Geräteschlüssel werden verwendet; eigene Instanz- und
   Benutzerbindung, frische Rechte und geprüfte Quittungen bleiben erforderlich.
-  Umsetzung und tatsächlicher HTTP-/Neustartnachweis laufen getrennt.
-- **Browser-Projektaufgaben:** Bearbeiten, Zuständigkeit, Statuswechsel und
-  Historie anhand des vorhandenen Backendvertrags ergänzen. Die bisher
-  angebotene Priorität `low` ist serverseitig ungültig und wird berichtigt.
-  Konflikte, verlorene Antworten und geschlossene Ansichten werden geprüft.
-- Explizite Projektmeilensteine bleiben ein separater additiver Codeabschnitt.
+  [Implementiert und geprüft](CRM_ERP_PROJEKTANLAGE_NEUSTART_2026.md), einschließlich
+  echten HTTP-/MFA-App-Neuaufbaus und separatem PostgreSQL-/Restoreanschluss.
+- **Browser-Projektaufgaben:** [Implementiert und geprüft](CRM_ERP_PROJEKTAUFGABEN_BROWSER_2026.md): Bearbeiten, Zuständigkeit, Statuswechsel und
+  unveränderter Verlauf. Die ungültige Priorität `low` ist entfernt.
+  Konflikte, verlorene Antworten, Rechteentzug und geschlossene Ansichten
+  sind in echten HTTP-/Browserabläufen geprüft; die gemeinsame Endprüfung
+  mit Projektjournal und nativen Originalfällen besteht.
+- Explizite Projektmeilensteine werden als separater additiver Codeabschnitt
+  für Backend, Browser und native App entwickelt; der gemeinsame Vertrag ist
+  abgestimmt. Aktuelle Aufgaben-/Termindaten bleiben dabei unverändert.
 
 ## Bisheriger Projektphasenblock
 

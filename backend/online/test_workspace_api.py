@@ -143,6 +143,8 @@ class WorkspaceHttpFlow:
                         'due_date': '2000-01-01', 'priority': 'high'}
         task = self.call('POST', base + '/tasks', task_request, token=technician, status=201).json
         self.assertEqual(self.call('POST', base + '/tasks', task_request, token=technician, status=201).json, task)
+        task_history = self.call('GET', base + '/tasks/' + task['id'] + '/history', token=technician).json
+        self.assertEqual(task_history, {'items': [task]})
         diary = self.call('POST', base + '/diary', {
             'request_id': request_id(), 'entry_date': '2026-10-24',
             'work_performed': 'Synthetischer Ortstermin und Unterlagenprüfung',
@@ -223,6 +225,7 @@ class WorkspaceHttpFlow:
         self.assertEqual(dashboard['counters']['tasks_open'], 1)
         self.assertEqual(len(self.call('GET', base + '/plan-deletions').json), 2)
         self.assertEqual(self.call('GET', entry_path).json['project_id'], self.project)
+        self.assertEqual(self.call('GET', base + '/tasks/' + task['id'] + '/history').json, task_history)
         self.assertTrue(validate_imports(self.office))
         workspace_api.validate_integrity(self.office)
 

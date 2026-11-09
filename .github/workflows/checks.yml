@@ -48,6 +48,7 @@ jobs:
           python -m unittest discover -s backend/online -p test_inventory_article_references_api.py -v
           PYTHONPATH=backend python -m unittest test_project_creation_replay -v
           PYTHONPATH=backend python -m unittest test_project_creation_counterreview.ProjectCreationPostgresCounterreview -v
+          PYTHONPATH=backend python -m unittest online.test_project_creation_journal online.test_project_creation_journal_pg -v
           python -m unittest discover -s backend/online -p test_organization_pg.py -v
           python -m unittest discover -s backend/online -p test_purchasing_journey.py -v
           python -m unittest discover -s backend/online -p test_purchasing_catalog_http.py -v

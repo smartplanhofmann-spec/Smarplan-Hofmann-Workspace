@@ -1,0 +1,26 @@
+{
+  "integrated-node": {
+    "file": "integrated-node.gz",
+    "raw_bytes": 92675,
+    "raw_sha256": "34aeca338499b7eb2e046f413e235a7fc69102347302915ebe44be3fac597b06",
+    "gzip_sha256": "53ff0d8372a8b1f9529a5731ec3964aebea74084e4e4329294b33ee432b13d2e"
+  },
+  "integrated-workspace": {
+    "file": "integrated-workspace.gz",
+    "raw_bytes": 6615,
+    "raw_sha256": "e1d28f0f3f4e1384afb9191389e4efee6f95598676855d4b0ef1da5f62afb2d1",
+    "gzip_sha256": "e3257b156a702e5fd1be7d2ddf9e2714076a41eb8db145a0a130a7bb204e97dd"
+  },
+  "integrated-package": {
+    "file": "integrated-package.gz",
+    "raw_bytes": 3604,
+    "raw_sha256": "06082785b613ce43d880f9e83ca809ff104b3771a32c714a830aaf1e969e1a5c",
+    "gzip_sha256": "7b33e946418e4e1f550d20beb9fe0b99ee7b36a96629109f1ea41018c8a1d400"
+  },
+  "package-command-before": {
+    "file": "package-command-before.gz",
+    "raw_bytes": 799,
+    "raw_sha256": "7a6da93fc81e88d70c35a679ebf9b8e535b83e2d8f7e8d1ab5d7fd380a80d3de",
+    "gzip_sha256": "7fcb75073f2e0fbabd91e06aa1ebdc6b6a9439b91039cce2dde774800157eb60"
+  }
+}

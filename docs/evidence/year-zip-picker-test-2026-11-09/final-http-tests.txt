@@ -1,0 +1,5 @@
+00:00 +0: loading /workspace/smartplan-year-zip-picker-test-20261109/app/test/business_accounting_year_evidence_http_test.dart
+00:00 +0: /workspace/smartplan-year-zip-picker-test-20261109/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:24 +1: loading /workspace/smartplan-year-zip-picker-test-20261109/app/test/business_accounting_year_evidence_v2_http_test.dart
+00:26 +1: /workspace/smartplan-year-zip-picker-test-20261109/app/test/business_accounting_year_evidence_v2_http_test.dart: actual v2 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:48 +2: All tests passed!

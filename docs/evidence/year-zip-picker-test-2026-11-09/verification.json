@@ -1,0 +1,56 @@
+{
+  "base_commit": "3859a1cb223f134e1eec14d4978e13be1ca8b039",
+  "ci_run": "3859a1c / Flutter job 129219853750",
+  "scope": "Test-only async completion; no production changes",
+  "before_reproducer": {
+    "exit_code": 1,
+    "seconds": 21,
+    "reason": "HTTP-only settle returned while actual file output was gated",
+    "decoded_log_sha256": "5882bb155fb817a9e7038ad20fee8ea8559f70ad6f827c72e3f55320ce2417f3"
+  },
+  "final_http_tests": {
+    "passed": 2,
+    "failed": 0,
+    "exit_code": 0,
+    "reporter_seconds": 48,
+    "real_http": true,
+    "real_filesystem": true,
+    "native_os_picker": false,
+    "production_timeouts_changed": false,
+    "test_timeouts_changed": false
+  },
+  "dart_analyze": {
+    "exit_code": 0,
+    "issues": 0
+  },
+  "checks": [
+    "zero HTTP and zero export callbacks while YearEvidence UI remains busy",
+    "post-authorize file write held beyond eight quiet polls",
+    "original lost ZIP response and identical read-only retry",
+    "project-only source revocation after chooser opens",
+    "actual filesystem error retains earlier ZIP byte-for-byte",
+    "closing the original page prevents a late chooser from saving or changing replacement page",
+    "offline ZIP verifier checks unchanged SHA-256"
+  ],
+  "test_sources": {
+    "app/test/business_accounting_year_evidence_http_test.dart": {
+      "before_sha256": "2b160e0bdcfb1ea95b9756c78dd96ff21fa49946af6f68d7035678379d03580f",
+      "after_sha256": "ed880e403f26ed21a01baa5ba85071b83c4ff7d286a97abd6134670e38efb476",
+      "fixture_prefix_unchanged": true
+    },
+    "app/test/business_accounting_year_evidence_v2_http_test.dart": {
+      "before_sha256": "23ba708d7d2e5c946905c3eee4a3e872b2d91d81780303c3254a45388e4baef4",
+      "after_sha256": "9c282006b80f965d8cc9975938d2908fe8664a9d7c690b89b06424dcff2fcf68",
+      "fixture_prefix_unchanged": true
+    }
+  },
+  "evidence_sha256": {
+    "ci-original.json": "b68b289ab209d0a825c15d57095f5ee91f604ff81eb324414aa04f55dc969ec1",
+    "reproducer-before-fix.dart.txt": "9cba7812f50aa7f9fc81fc61bae0910194e2c2453d2c889181fcf24f3212ae98",
+    "after-export-counter.txt": "452e9fd057b45dd706c1a98e89a183f86a66974be309fd7415e9f6de48ccac9c",
+    "final-http-tests.txt": "b5030a0a3f6890ed9338285e4a6b626df828c35468af8d6cb3ffb48abcb51449",
+    "analysis.txt": "4924c0fd35204a57ea223659748ad412eefe719e40df835be15830b90b2f191e",
+    "reproducer-before-fix.json": "7e5c189088d1b6b65663326005d14129e5dfd20a3142c7919ff248b0a4bb8d68"
+  },
+  "post_test_cleanup": "Removed analyzer-reported redundant non-null assertions; final analysis has no issues."
+}

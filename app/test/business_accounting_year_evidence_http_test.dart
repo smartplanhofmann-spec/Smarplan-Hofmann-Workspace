@@ -53,6 +53,8 @@ class YearHttpApi extends OfficeApi {
   YearHttpApi(String base) : super(baseUrl: base, apiVersion: 'v1');
   int inFlight = 0, metadataReads = 0, archiveReads = 0, posts = 0;
   bool lose = true;
+  Completer<void>? archiveReplyGate;
+  bool archiveReplyReady = false;
   @override
   Future<dynamic> call(String path, [Map<String, dynamic>? body]) async {
     inFlight++;
@@ -73,12 +75,9 @@ class YearHttpApi extends OfficeApi {
   }) async {
     inFlight++;
     archiveReads++;
+    late Uint8List raw;
     try {
-      final raw = await super.bytes(
-        path,
-        mediaType: mediaType,
-        maxBytes: maxBytes,
-      );
+      raw = await super.bytes(path, mediaType: mediaType, maxBytes: maxBytes);
       if (lose) {
         lose = false;
         throw const ApiException(
@@ -86,10 +85,14 @@ class YearHttpApi extends OfficeApi {
           'Synthetic ZIP reply lost after actual read',
         );
       }
-      return raw;
     } finally {
       inFlight--;
     }
+    // The transport is idle while a completed read is not yet delivered to
+    // the page. This probes the gap before the exporter callback starts.
+    archiveReplyReady = true;
+    if (archiveReplyGate != null) await archiveReplyGate!.future;
+    return raw;
   }
 }
 
@@ -106,6 +109,14 @@ void main() {
       BusinessSession? session;
       YearHttpApi? api;
       OfficeApi? admin;
+      int pendingExports = 0;
+      final heldGates = <Completer<void>>[];
+      Completer<void> newGate() {
+        final gate = Completer<void>();
+        heldGates.add(gate);
+        return gate;
+      }
+
       final diagnostics = StringBuffer();
       await t.binding.setSurfaceSize(const Size(390, 844));
       try {
@@ -162,14 +173,26 @@ void main() {
             return value as T;
           }
 
-          Future<void> settle() async {
+          bool yearBusy() => find
+              .descendant(
+                of: find.byType(BusinessYearEvidencePage),
+                matching: find.byWidgetPredicate(
+                  (widget) =>
+                      widget is ButtonStyleButton && widget.onPressed == null,
+                ),
+              )
+              .evaluate()
+              .isNotEmpty;
+
+          Future<void> settle({void Function(int)? onPoll}) async {
             int quiet = 0;
             for (var i = 0; i < 1500; i++) {
               await t.runAsync(
                 () => Future<void>.delayed(const Duration(milliseconds: 10)),
               );
               await t.pump(const Duration(milliseconds: 20));
-              if (api!.inFlight == 0) {
+              onPoll?.call(i);
+              if (api!.inFlight == 0 && pendingExports == 0 && !yearBusy()) {
                 if (++quiet == 8) {
                   await t.pumpAndSettle();
                   return;
@@ -216,6 +239,9 @@ void main() {
           int saveCount = 0;
           bool chooserReady = false;
           Completer<void>? chooser;
+          Completer<void>? writeGate;
+          bool writeReady = false;
+          bool failWrite = false;
           // Dispose the navigation host before replacing its route with the
           // test exporter; otherwise its existing pushed production route stays.
           await t.pumpWidget(const SizedBox.shrink());
@@ -226,16 +252,27 @@ void main() {
                 session: session!,
                 exportEntry: opened.exportEntry,
                 exportFile: (attachment, authorize) async {
-                  chooserReady = true;
-                  if (chooser != null) await chooser.future;
-                  if (await authorize()) {
-                    try {
-                      await saved.writeAsBytes(attachment.bytes, flush: true);
-                    } catch (e) {
-                      diagnostics.write('Actual output error: $e');
-                      rethrow;
+                  pendingExports++;
+                  try {
+                    chooserReady = true;
+                    if (chooser != null) await chooser.future;
+                    if (await authorize()) {
+                      writeReady = true;
+                      if (writeGate != null) await writeGate.future;
+                      final destination = failWrite
+                          ? File(temporary.path)
+                          : saved;
+                      await destination.writeAsBytes(
+                        attachment.bytes,
+                        flush: true,
+                      );
+                      saveCount++;
                     }
-                    saveCount++;
+                  } catch (e) {
+                    diagnostics.write('Actual output error: $e');
+                    rethrow;
+                  } finally {
+                    pendingExports--;
                   }
                 },
               ),
@@ -245,7 +282,48 @@ void main() {
           await tap('Original-/Journal-ZIP speichern');
           expect(saveCount, 0);
           await tap('Originalnachweis erneut lesen');
-          await tap('Original-/Journal-ZIP speichern');
+          writeGate = newGate();
+          api!.archiveReplyGate = newGate();
+          bool waitedForExport = false;
+          try {
+            await tap('Original-/Journal-ZIP speichern', settled: false);
+            await request(() async {
+              while (!api!.archiveReplyReady) {
+                await Future<void>.delayed(const Duration(milliseconds: 10));
+              }
+            });
+            expect(api!.inFlight, 0);
+            expect(pendingExports, 0);
+            expect(yearBusy(), true);
+            expect(saveCount, 0);
+            // Probe both zero-counter gaps and the real pending file output,
+            // each longer than eight quiet polls, with one async driver.
+            var writePolls = 0;
+            await settle(
+              onPoll: (poll) {
+                if (poll == 12) api!.archiveReplyGate!.complete();
+                if (writeReady && ++writePolls == 12) writeGate!.complete();
+              },
+            );
+            waitedForExport = pendingExports == 0 && !yearBusy();
+          } finally {
+            if (!api!.archiveReplyGate!.isCompleted) {
+              api!.archiveReplyGate!.complete();
+            }
+            if (!writeGate.isCompleted) writeGate.complete();
+            await request(() async {
+              while (api!.inFlight != 0 || pendingExports != 0 || yearBusy()) {
+                await Future<void>.delayed(const Duration(milliseconds: 10));
+              }
+            });
+            api!.archiveReplyGate = null;
+            writeGate = null;
+          }
+          expect(
+            waitedForExport,
+            true,
+            reason: 'HTTP-idle must not finish before the actual file output.',
+          );
           expect(
             saveCount,
             1,
@@ -268,7 +346,7 @@ void main() {
           expect(api!.metadataReads, greaterThanOrEqualTo(5));
           // Global finance access remains; only one included project's source right
           // is revoked while the native chooser is open, before the final save.
-          chooser = Completer<void>();
+          chooser = newGate();
           chooserReady = false;
           await tap('Original-/Journal-ZIP speichern', settled: false);
           await request(() async {
@@ -301,6 +379,64 @@ void main() {
           );
           expect(find.text(metadata['filename']), findsNothing);
           expect(api!.posts, 0);
+          expect(pendingExports, 0);
+
+          // A failed real filesystem write must retire the callback without
+          // reporting success or replacing the ZIP already saved above.
+          await request(
+            () => admin!.call('/api/business/settings/permissions', {
+              'request_id': 'd' * 32,
+              'user_id': setup['user_id'],
+              'permission': 'finance.read',
+              'scope': setup['project'],
+              'effect': 'allow',
+              'revision': 1,
+            }),
+          );
+          chooser = null;
+          await t.tap(find.text('Zugriff erneut prüfen'));
+          await t.pump();
+          await settle();
+          failWrite = true;
+          await tap('Original-/Journal-ZIP speichern');
+          expect(pendingExports, 0);
+          expect(saveCount, 1);
+          expect(find.text(metadata['filename']), findsNothing);
+          expect(
+            find.textContaining('nicht sicher gelesen werden'),
+            findsOneWidget,
+          );
+          expect(
+            (await t.runAsync(() => saved.readAsBytes()))!,
+            orderedEquals(raw),
+          );
+
+          // Closing the original route while its chooser is open prevents
+          // that callback from saving or populating the replacement route.
+          failWrite = false;
+          await tap('Originalnachweis erneut lesen');
+          chooser = newGate();
+          chooserReady = false;
+          await tap('Original-/Journal-ZIP speichern', settled: false);
+          await request(() async {
+            while (!chooserReady) {
+              await Future<void>.delayed(const Duration(milliseconds: 10));
+            }
+          });
+          await t.pumpWidget(
+            const MaterialApp(home: Scaffold(body: Text('Nachfolgeansicht'))),
+          );
+          chooser.complete();
+          await settle();
+          expect(pendingExports, 0);
+          expect(saveCount, 1);
+          expect(find.text('Nachfolgeansicht'), findsOneWidget);
+          expect(find.text(metadata['filename']), findsNothing);
+          expect(
+            (await t.runAsync(() => saved.readAsBytes()))!,
+            orderedEquals(raw),
+          );
+          expect(api!.posts, 0);
           expect(t.takeException(), null);
           final checked = await t.runAsync(
             () => Process.run(
@@ -322,7 +458,20 @@ void main() {
           expect(verification['intrinsic_dependency_closure'], false);
         }, BackendHttp());
       } finally {
+        for (final gate in heldGates) {
+          if (!gate.isCompleted) gate.complete();
+        }
         await t.pumpWidget(const SizedBox.shrink());
+        for (
+          var i = 0;
+          i < 1500 && (pendingExports != 0 || (api?.inFlight ?? 0) != 0);
+          i++
+        ) {
+          await t.runAsync(
+            () => Future<void>.delayed(const Duration(milliseconds: 10)),
+          );
+          await t.pump(const Duration(milliseconds: 20));
+        }
         session?.dispose();
         api?.dispose();
         admin?.dispose();

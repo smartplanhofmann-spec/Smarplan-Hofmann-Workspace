@@ -204,6 +204,7 @@ jobs:
             SMARTPLAN_BROWSER_WORKFLOW=communication-history node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=project-context node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=project-tasks node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=project-milestones node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=project-customer node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=inventory-article-refs node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=time-tracking node tests/e2e.cjs &&

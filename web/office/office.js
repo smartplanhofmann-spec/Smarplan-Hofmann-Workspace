@@ -44,6 +44,7 @@ import {inventoryCountsUi,inventoryCountPendingAuthorize} from './inventory-coun
 import {createSales,salesPendingAuthorize} from './sales.js';
 import {createCommunicationHistory} from './communication-history.js';
 import {projectTasksUi,taskPendingAuthorize} from './project-tasks.js';
+import {projectMilestonesUi,milestonePendingAuthorize,milestoneCommandPath} from './project-milestones.js';
 export class ApiError extends Error {
   constructor(message, status = 0, requestResolution = null) { super(message); this.name = 'ApiError'; this.status = status; this.requestResolution=status===409&&requestResolution==='not_accepted'?'not_accepted':null; }
 }
@@ -984,6 +985,7 @@ export class OfficeApi {
       if(old&&path.startsWith('/business/payroll/')&&!path.startsWith('/business/payroll/cash/')&&!['/business/payroll/facts','/business/payroll/entitlements','/business/payroll/travel-tax-policies','/business/payroll/calculation-cases','/business/payroll/wage-interruptions','/business/payroll/annual-facts','/business/payroll/one-off-cases','/business/payroll/multiple-one-off-cases'].includes(path))await payrollPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/sales/'))await salesPendingAuthorize(this,{key,path});
       if(old&&/^\/projects\/[a-f0-9]{32}\/tasks(?:\/[a-f0-9]{32})?$/.test(path))await taskPendingAuthorize(this,{key,path});
+      if(old&&milestoneCommandPath(path))await milestonePendingAuthorize(this,{key,path});
       if(old&&(path==='/business/migrations'||path.startsWith('/business/migrations/')))await migrationPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/custom-fields/'))await customFieldsPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/company-handover/'))await companyHandoverPendingAuthorize(this,{key,path});
@@ -997,7 +999,7 @@ export class OfficeApi {
     } catch (error) {
       const protectedAccounting=path.startsWith('/business/accounting/year-values')||path.startsWith('/business/accounting/open-items')||path.startsWith('/business/company-events/')||path.startsWith('/business/accounting/historical-assets')||datedConsumerCommand(key,path,operation.body)||path.startsWith('/business/catalog-prices/')||key.startsWith('catalog-')||path.startsWith('/business/accounting/opening-balances')||(key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))||path.startsWith('/business/bank/')||path.startsWith('/business/resource-custody/')||path.startsWith('/business/service/cases')||path.startsWith('/business/custom-fields/')||path==='/business/migrations'||path.startsWith('/business/migrations/')||path.startsWith('/business/company-handover/')||path.startsWith('/business/sales/')||path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')||path.startsWith('/business/assistant/')||path.startsWith('/business/payroll/')||path.startsWith('/business/customer-workspace/')||path.startsWith('/business/personnel/')||path==='/business/accounting/euer/confirm'||path==='/business/finance/receipts'||/^\/business\/finance\/receipts\/[a-f0-9]{32}$/.test(path)||path==='/business/receipt-media'||/^\/business\/receipt-media\/[a-f0-9]{32}\/complete$/.test(path)||path==='/business/project-economics/confirm'||path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
       const protectedTask=/^\/projects\/[a-f0-9]{32}\/tasks(?:\/[a-f0-9]{32})?$/.test(path);
-      const uncertainAccounting=protectedAccounting&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted')||protectedTask&&[403,404].includes(error.status);
+      const uncertainAccounting=(protectedAccounting||milestoneCommandPath(path))&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted')||protectedTask&&[403,404].includes(error.status);
       if (generation===this.#generation && this.#pending.get(key)===operation && error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 423 && error.status !== 429 && !uncertainAccounting) this.#pending.delete(key);
       throw error;
     }
@@ -1362,6 +1364,7 @@ function updateDrawer() {
 function networkState() { if(!banner)return;banner.replaceChildren(...(navigator.onLine?[]:[notice('Keine Internetverbindung. Browseränderungen werden erst nach bestätigter Serverantwort gespeichert. Dieses Fenster geöffnet lassen.','warn')])); }
 function updatePending() { const button_=root?.querySelector('[data-pending-indicator]');if(button_){button_.hidden=api.pendingCount===0;button_.textContent=api.pendingCount+' Antwort'+(api.pendingCount===1?'':'en')+' offen';} }
 function operationLabel(path) {
+  if(milestoneCommandPath(path))return 'Ursprüngliche Meilensteinänderung bestätigen';
   if(/^\/projects\/[a-f0-9]{32}\/tasks(?:\/[a-f0-9]{32})?$/.test(path))return 'Ursprüngliche Aufgabenänderung bestätigen';
   if(path.startsWith('/business/accounting/open-items/'))return 'Ursprünglichen Altpostenauftrag prüfen';
   if(path===biz('/accounting/year-values/originals'))return 'Ursprüngliches Jahresoriginal speichern';
@@ -1424,7 +1427,7 @@ function pendingDialog() {
       if(item.path===biz('/accounting/profile/confirm')){await accountingProfileAuthorize(api,{write:true,online:navigator.onLine});if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;}
       if(item.path.startsWith(biz('/accounting/components/'))){componentWritable();await componentPendingAuthorize(api,item);if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;componentWritable();}
       if(item.path.startsWith(biz('/accounting/refunds/'))){refundWritable();await refundPendingAuthorize(api,item);if(!item.path.startsWith(biz('/accounting/refunds/v2/'))){const sources=refundPendingSources.get(item.key);if(!sources||sources.generation!==generation)throw new ApiError('Die Ursprungsrechte können für diese offene Anfrage nicht sicher geprüft werden.',409);await refundAuthorizeCurrent(sources.eventId,sources.origins);}if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;refundWritable();}
-      const result=await api.retry(item.key);if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;refundPendingSources.delete(item.key);updatePending();
+      let result;try{result=await api.retry(item.key);}catch(error){if(milestoneCommandPath(item.path)&&(generation!==api.generation||previous!==modal||initialRender!==state.render))return;throw error;}if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;refundPendingSources.delete(item.key);updatePending();
       if(item.path===biz('/portal/grants')){portalGrantResultDialog({id:result.grant.offer_id,project_id:result.grant.project_id,number:result.grant.number,kind:'offer',status:'final'},result);return;}
       closeModal();const render=state.render+1,section=state.section;await refresh();
       if(item.path===biz('/accounting/profile/confirm')&&generation===api.generation&&state.render===render&&state.section===section&&!modal)await accountingProfileDialog();
@@ -1478,6 +1481,7 @@ async function refresh() {
     if(modal?.querySelector('[data-file-migration]'))closeModal();
     if(modal?.querySelector('[data-service-case],[data-resource-custody],[data-purchase-change]'))closeModal();
     if(modal?.querySelector('[data-project-tasks]'))closeModal();
+    if(modal?.querySelector('[data-project-milestones]'))closeModal();
     if(modal?.querySelector('[data-custom-fields]'))closeModal();
     if(modal?.querySelector('[data-assistant-project]'))closeModal();
     if(modal?.querySelector('[data-company-events]'))closeModal();
@@ -1537,7 +1541,7 @@ async function newProjectDialog(customerId='') {
 }
 async function projectView() {
   const id=state.projectId,profile=await api.get(biz(`/projects/${id}/profile`));
-  const tabs=[['overview','Übersicht'],['tasks','Aufgaben'],['appointments','Termine'],['documents','Dokumente'],['documentation','Fotos & Doku'],['materials','Material'],...(has('finance.read')?[['costs',state.features.has('project_economics')?'Wirtschaftlichkeit':'Kalkulation']]:[]),['maintenance','Wartung'],...(state.features.has('communication_history')&&has('contacts.read')?[['communication','Kommunikation']]:[]),...(state.features.has('service_cases')&&has('contacts.read')?[['service','Kundenservice']]:[]),...(state.features.has('assistant_workflow')&&has('assistant.use')?[['assistant','Assistent']]:[]),['logbook','Logbuch']];
+  const tabs=[['overview','Übersicht'],['tasks','Aufgaben'],...(state.features.has('project_milestones')&&state.capabilities.has('business_project_milestones')&&has('planning.read')?[['milestones','Meilensteine']]:[]),['appointments','Termine'],['documents','Dokumente'],['documentation','Fotos & Doku'],['materials','Material'],...(has('finance.read')?[['costs',state.features.has('project_economics')?'Wirtschaftlichkeit':'Kalkulation']]:[]),['maintenance','Wartung'],...(state.features.has('communication_history')&&has('contacts.read')?[['communication','Kommunikation']]:[]),...(state.features.has('service_cases')&&has('contacts.read')?[['service','Kundenservice']]:[]),...(state.features.has('assistant_workflow')&&has('assistant.use')?[['assistant','Assistent']]:[]),['logbook','Logbuch']];
   if(!tabs.some(([tab])=>tab===state.tab))state.tab='overview';
   const head=heading(profile.name,`${profile.customer||''}${profile.site_address?' · '+profile.site_address:''}`,[button('Alle Projekte',()=>{state.projectId='';root.querySelector('.project-select').value='';refresh();})]);
   const navigation=el('div',{class:'tabs',role:'tablist','aria-label':'Projektmappe'},tabs.map(([tab,label])=>el('button',{type:'button',class:'tab',role:'tab','aria-selected':tab===state.tab,onClick:()=>{state.tab=tab;refresh();}},label)));
@@ -1549,7 +1553,8 @@ async function projectView() {
       panel('Nächste Aufgaben',rows(dashboard.open_tasks||[],item=>row(item.title,item.details,[badge(item.status)]),'Keine offenen Aufgaben.')),
       panel('Nächste Termine',rows(dashboard.upcoming_appointments||[],item=>row(item.title,`${formatDate(item.start_at,true)} – ${formatDate(item.end_at,true)}`),'Noch keine Termine geplant.')),
       panel('Projektteam',rows(dashboard.team||[],member=>row(member.email||member.name,member.role),'Noch keine Teammitglieder zugewiesen.')));
-  } else if(state.tab==='tasks') body=await tasksPanel(id);
+  } else if(state.tab==='milestones') body=await projectMilestones.view(id);
+  else if(state.tab==='tasks') body=await tasksPanel(id);
   else if(state.tab==='appointments') body=await planningContent(id);
   else if(state.tab==='documents') body=await documentsContent(id);
   else if(state.tab==='documentation') body=await documentationPanel(id);
@@ -1572,6 +1577,8 @@ async function tasksPanel(id) {
 }
 const projectTasks=projectTasksUi({api,el,button,panel,row,rows,notice,form,field,dialog,formatDate,action,refresh,
   writable:()=>!state.readonly,stamp:()=>`${api.generation}/${state.render}/${state.projectId}/${state.section}/${state.tab}/${dialogGeneration}`});
+const projectMilestones=projectMilestonesUi({api,el,button,panel,row,rows,notice,form,field,dialog,formatDate,action,refresh,
+  stamp:()=>`${api.generation}/${state.render}/${state.projectId}/${state.section}/${state.tab}/${dialogGeneration}`});
 async function logbookPanel(id) {
   const feed=collection(await api.get(query(biz('/feed'),{project_id:id})));
   return el('div',{class:'stack'},has('documents.write')?form('Notiz im Projekt',[field('text','Nachricht / Notiz','textarea','',{required:true,maxLength:5000})],(data,key)=>mutation(key,'/feed',{...data,project_id:id}),{key:'message-'+id,submit:'Notiz hinzufügen'}):null,

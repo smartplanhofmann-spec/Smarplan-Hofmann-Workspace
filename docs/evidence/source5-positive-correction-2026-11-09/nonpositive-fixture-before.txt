@@ -1,0 +1,67 @@
+test_actual_positive_net_preserves_all_originals_and_only_new_cash (test_business_payroll_positive_corrections.PositiveCorrectionWorkflow.test_actual_positive_net_preserves_all_originals_and_only_new_cash) ... ERROR
+test_second_positive_correction_retains_the_original_cumulative_prefix (test_business_payroll_positive_corrections.PositiveCorrectionWorkflow.test_second_positive_correction_retains_the_original_cumulative_prefix) ... ERROR
+
+======================================================================
+ERROR: test_actual_positive_net_preserves_all_originals_and_only_new_cash (test_business_payroll_positive_corrections.PositiveCorrectionWorkflow.test_actual_positive_net_preserves_all_originals_and_only_new_cash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_business_payroll_positive_corrections.py", line 81, in test_actual_positive_net_preserves_all_originals_and_only_new_cash
+    run=self.correction();self.assertGreater(run['settlement_transition']['additional_net_minor'],0)
+        ^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_business_payroll_positive_corrections.py", line 62, in correction
+    self.preview=self.f.payroll.preview(self.f.owner,inputs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/business_payroll.py", line 317, in preview
+    result = self._prepare(actor,data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/business_payroll.py", line 270, in _prepare
+    return prepare(self,actor,data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/payroll_multiple_runs.py", line 54, in prepare
+    transition=prepare_transition(payroll,previous,value)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/payroll_multiple_corrections.py", line 171, in prepare_transition
+    return _transition(previous,current,prior,observation)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/payroll_multiple_corrections.py", line 142, in _transition
+    if total<=before or running<0:_error('Dieser Vertrag umfasst ausschließlich eine positive zusätzliche Nettoverpflichtung.')
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/payroll_multiple_corrections.py", line 25, in _error
+    def _error(message):raise Problem(409,message)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+core.Problem: (409, 'Dieser Vertrag umfasst ausschließlich eine positive zusätzliche Nettoverpflichtung.')
+
+======================================================================
+ERROR: test_second_positive_correction_retains_the_original_cumulative_prefix (test_business_payroll_positive_corrections.PositiveCorrectionWorkflow.test_second_positive_correction_retains_the_original_cumulative_prefix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_business_payroll_positive_corrections.py", line 93, in test_second_positive_correction_retains_the_original_cumulative_prefix
+    self.first();self.correction(400000);first=self.pay();self.correction(200000);second=self.pay('SOURCE5-SECOND-CORRECTED-BONUS')
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_business_payroll_positive_corrections.py", line 62, in correction
+    self.preview=self.f.payroll.preview(self.f.owner,inputs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/business_payroll.py", line 317, in preview
+    result = self._prepare(actor,data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/business_payroll.py", line 270, in _prepare
+    return prepare(self,actor,data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/payroll_multiple_runs.py", line 54, in prepare
+    transition=prepare_transition(payroll,previous,value)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/payroll_multiple_corrections.py", line 171, in prepare_transition
+    return _transition(previous,current,prior,observation)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/payroll_multiple_corrections.py", line 142, in _transition
+    if total<=before or running<0:_error('Dieser Vertrag umfasst ausschließlich eine positive zusätzliche Nettoverpflichtung.')
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/payroll_multiple_corrections.py", line 25, in _error
+    def _error(message):raise Problem(409,message)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+core.Problem: (409, 'Dieser Vertrag umfasst ausschließlich eine positive zusätzliche Nettoverpflichtung.')
+
+----------------------------------------------------------------------
+Ran 2 tests in 14.751s
+
+FAILED (errors=2)

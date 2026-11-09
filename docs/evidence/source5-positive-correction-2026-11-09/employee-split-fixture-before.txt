@@ -1,0 +1,41 @@
+test_actual_positive_net_preserves_all_originals_and_only_new_cash (test_business_payroll_positive_corrections.PositiveCorrectionWorkflow.test_actual_positive_net_preserves_all_originals_and_only_new_cash) ... ERROR
+test_second_positive_correction_retains_the_original_cumulative_prefix (test_business_payroll_positive_corrections.PositiveCorrectionWorkflow.test_second_positive_correction_retains_the_original_cumulative_prefix) ... ERROR
+
+======================================================================
+ERROR: test_actual_positive_net_preserves_all_originals_and_only_new_cash (test_business_payroll_positive_corrections.PositiveCorrectionWorkflow.test_actual_positive_net_preserves_all_originals_and_only_new_cash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_business_payroll_positive_corrections.py", line 23, in setUp
+    self.m.source,self.m.oldsource=self.m.c.source()
+                                   ^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_payroll_multiple_oneoff_2026.py", line 94, in source
+    old=original_source if original_source is not None else self.c.source(**changes)
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_payroll_oneoff_composition_2026.py", line 44, in source
+    terms = f.api.save(f.owner, f.body('employment_terms', td))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/business_payroll_facts.py", line 472, in save
+    raise Problem(409, error.message, request_resolution='not_accepted') from None
+core.Problem: (409, 'Belegte Beschäftigungsdaten widersprechen dem Personalstamm. Stamm zuerst begründet korrigieren.')
+
+======================================================================
+ERROR: test_second_positive_correction_retains_the_original_cumulative_prefix (test_business_payroll_positive_corrections.PositiveCorrectionWorkflow.test_second_positive_correction_retains_the_original_cumulative_prefix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_business_payroll_positive_corrections.py", line 23, in setUp
+    self.m.source,self.m.oldsource=self.m.c.source()
+                                   ^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_payroll_multiple_oneoff_2026.py", line 94, in source
+    old=original_source if original_source is not None else self.c.source(**changes)
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_payroll_oneoff_composition_2026.py", line 44, in source
+    terms = f.api.save(f.owner, f.body('employment_terms', td))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/business_payroll_facts.py", line 472, in save
+    raise Problem(409, error.message, request_resolution='not_accepted') from None
+core.Problem: (409, 'Belegte Beschäftigungsdaten widersprechen dem Personalstamm. Stamm zuerst begründet korrigieren.')
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.670s
+
+FAILED (errors=2)

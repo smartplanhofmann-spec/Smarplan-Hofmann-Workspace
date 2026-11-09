@@ -1,0 +1,61 @@
+test_actual_positive_net_preserves_all_originals_and_only_new_cash (test_business_payroll_positive_corrections.PositiveCorrectionWorkflow.test_actual_positive_net_preserves_all_originals_and_only_new_cash) ... ERROR
+test_second_positive_correction_retains_the_original_cumulative_prefix (test_business_payroll_positive_corrections.PositiveCorrectionWorkflow.test_second_positive_correction_retains_the_original_cumulative_prefix) ... ERROR
+
+======================================================================
+ERROR: test_actual_positive_net_preserves_all_originals_and_only_new_cash (test_business_payroll_positive_corrections.PositiveCorrectionWorkflow.test_actual_positive_net_preserves_all_originals_and_only_new_cash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_business_payroll_positive_corrections.py", line 69, in test_actual_positive_net_preserves_all_originals_and_only_new_cash
+    old,paid=self.first(cash=True);old_pdf=self.f.payroll.export(self.f.owner,old['id'],'pdf')[0]
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_business_payroll_positive_corrections.py", line 32, in first
+    self.forecast(600000);self.case,self.case_command=self.m.case()
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_business_payroll_positive_corrections.py", line 26, in forecast
+    command,_=f.request('annual_tax_forecast',details)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_business_payroll_annual_basis.py", line 56, in request
+    preview=self.annual.preview(self.owner,body)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/business_payroll_annual_basis.py", line 460, in preview
+    snapshot=self._snapshot(employee,data['kind'],d,ids);plan=build_annual_plan(snapshot)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/business_payroll_annual_basis.py", line 40, in checked
+    try:return function(*args,**kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/business_payroll_annual_basis.py", line 405, in _snapshot
+    if any(reference(value) not in terms['details']['agreement_refs'] for value in agreements):raise Problem(409,'Prognosevertrag fehlt im tatsächlichen Beschäftigungsnachweis.')
+                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+core.Problem: (409, 'Prognosevertrag fehlt im tatsächlichen Beschäftigungsnachweis.')
+
+======================================================================
+ERROR: test_second_positive_correction_retains_the_original_cumulative_prefix (test_business_payroll_positive_corrections.PositiveCorrectionWorkflow.test_second_positive_correction_retains_the_original_cumulative_prefix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_business_payroll_positive_corrections.py", line 82, in test_second_positive_correction_retains_the_original_cumulative_prefix
+    self.first();self.correction(400000);first=self.pay();self.correction(200000);second=self.pay('SOURCE5-SECOND-CORRECTED-BONUS')
+    ^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_business_payroll_positive_corrections.py", line 32, in first
+    self.forecast(600000);self.case,self.case_command=self.m.case()
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_business_payroll_positive_corrections.py", line 26, in forecast
+    command,_=f.request('annual_tax_forecast',details)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/test_business_payroll_annual_basis.py", line 56, in request
+    preview=self.annual.preview(self.owner,body)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/business_payroll_annual_basis.py", line 460, in preview
+    snapshot=self._snapshot(employee,data['kind'],d,ids);plan=build_annual_plan(snapshot)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/business_payroll_annual_basis.py", line 40, in checked
+    try:return function(*args,**kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-corrections-20261109/backend/business_payroll_annual_basis.py", line 405, in _snapshot
+    if any(reference(value) not in terms['details']['agreement_refs'] for value in agreements):raise Problem(409,'Prognosevertrag fehlt im tatsächlichen Beschäftigungsnachweis.')
+                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+core.Problem: (409, 'Prognosevertrag fehlt im tatsächlichen Beschäftigungsnachweis.')
+
+----------------------------------------------------------------------
+Ran 2 tests in 2.470s
+
+FAILED (errors=2)

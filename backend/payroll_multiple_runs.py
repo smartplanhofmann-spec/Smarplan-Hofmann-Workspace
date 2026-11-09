@@ -8,11 +8,15 @@ from business_payroll_facts import reference
 from payroll_multiple_oneoff_2026 import calculate_multiple_source,MULTIPLE_RULE_VERSION
 
 INPUT_FIELDS=('source_schema_version','employee_id','multiple_one_off_case_ref')
+OPTIONAL_INPUT_FIELDS=INPUT_FIELDS+('settlement_review',)
 SOURCE_FIELDS=('source_schema_version','employee_id','month','input','profile','preparation','calculation_case','multiple_one_off_case')
 
 
 def calculate_run_source(source,*,rule_version=None):
-    _shape(source,SOURCE_FIELDS,SOURCE_FIELDS);_shape(source['input'],INPUT_FIELDS,INPUT_FIELDS)
+    _shape(source,SOURCE_FIELDS,SOURCE_FIELDS);_shape(source['input'],OPTIONAL_INPUT_FIELDS,INPUT_FIELDS)
+    if 'settlement_review' in source['input']:
+        from payroll_multiple_corrections import normalize_review
+        normalize_review(source['input']['settlement_review'])
     fact=source['multiple_one_off_case'];snapshot=fact['sources']['calculation_source'];running=snapshot['running_calculation_case']
     selected=next(value for value in running['sources']['profiles'] if reference(value)==running['plan']['selected_profile_ref'])
     if (type(source['source_schema_version']) is not int or source['source_schema_version']!=5
@@ -33,7 +37,7 @@ def calculate_run_source(source,*,rule_version=None):
 def prepare(payroll,actor,data):
     from business_payroll_multiple_cases import PayrollMultipleCases
     from business_personnel_workflow import _sha
-    _shape(data,INPUT_FIELDS,INPUT_FIELDS)
+    _shape(data,OPTIONAL_INPUT_FIELDS,INPUT_FIELDS)
     if type(data['source_schema_version']) is not int or data['source_schema_version']!=5:
         raise Problem(400,'Einmalbezüge benötigen ausdrücklich Quellenfassung 5.')
     _,employee=payroll._access(actor,data['employee_id'])
@@ -43,8 +47,15 @@ def prepare(payroll,actor,data):
     source=dict(source_schema_version=5,employee_id=employee['id'],month=fact['details']['month'],input=json.loads(canonical(data)),
         profile=selected,preparation=running['sources']['period_case']['sources']['preparation'],calculation_case=running,multiple_one_off_case=fact)
     calculation=calculate_run_source(source)
-    return dict(source=source,calculation=calculation,preview_hash=_sha(dict(source=source,calculation=calculation)),
-        can_finalize=calculation['payroll_calculation_complete'])
+    value=dict(source=source,calculation=calculation)
+    if not calculation['payroll_calculation_complete'] and 'settlement_review' in data:
+        raise Problem(409,'Vollständigkeitsprüfung ist nur für eine vollständig berechenbare positive Korrektur zulässig.')
+    if calculation['payroll_calculation_complete']:
+        from payroll_multiple_corrections import prepare_transition
+        previous=next((item for item in payroll._all('run',employee['id']) if item['source']['month']==source['month']),None)
+        transition=prepare_transition(payroll,previous,value)
+        if transition is not None:value['settlement_transition']=transition
+    return dict(value,preview_hash=_sha(value),can_finalize=calculation['payroll_calculation_complete'])
 
 
 def verify_record(payroll,record):
@@ -61,10 +72,20 @@ def verify_record(payroll,record):
     except ValueError as error:raise Problem(500,'Historische Einmalquellen, Anspruchsreservierung oder Steuererfassung sind nicht reproduzierbar.') from error
     if calculate_run_source(record['source'],rule_version=record['calculation']['rule_version'])!=record['calculation']:
         raise Problem(500,'Die historische Einmalfallberechnung wurde verändert.')
+    if ('settlement_review' in record['source']['input'])!=('settlement_transition' in record):
+        raise Problem(500,'Vollständigkeitsprüfung und angenommene Korrekturbindung müssen gemeinsam vorhanden sein.')
+    if 'settlement_transition' in record:
+        from payroll_multiple_corrections import verify_transition
+        verify_transition(payroll,record)
 
 
 def require_supported_correction(payroll,previous,current):
     if previous is None:return
+    if 'settlement_transition' in current:
+        from payroll_multiple_corrections import prepare_transition
+        if prepare_transition(payroll,previous,current)!=current['settlement_transition']:
+            raise Problem(409,'Die ursprüngliche Zahlungs- oder Abführungsbindung wurde geändert.')
+        return
     version=previous['source'].get('source_schema_version')
     if version==3:
         if previous['source']['calculation_case']!=current['source']['calculation_case']:

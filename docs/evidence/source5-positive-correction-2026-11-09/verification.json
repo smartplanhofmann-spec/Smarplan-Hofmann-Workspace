@@ -1,0 +1,43 @@
+{
+  "workflow_round_one": {
+    "passed": 5,
+    "seconds": 123.495
+  },
+  "workflow_round_two": {
+    "passed": 3,
+    "seconds": 47.493,
+    "one_overlap_with_round_one": true
+  },
+  "unique_new_workflow_cases": 9,
+  "remittance_observations": {
+    "passed": 9,
+    "seconds": 6.23
+  },
+  "legacy": {
+    "passed": 12,
+    "seconds": 41.929
+  },
+  "packaging": {
+    "passed": 16,
+    "seconds": 20.128
+  },
+  "no_skipped_tests": true,
+  "schema_migration": false,
+  "remote_publication": false,
+  "postgres_client_integration": "pending parent integration",
+  "source_sha256": {
+    "backend/payroll_multiple_corrections.py": "d267bc630881dc2845b4bfa5a32cdd47a4f8d0338a992889956bd89f82dbc232",
+    "backend/payroll_correction_remittances.py": "90e7a6f5b9ff42e1eee9a0e7f440ad2303e842ab360980d3b7fb0475ffb3fa69",
+    "backend/payroll_multiple_runs.py": "f4bd9774a743ee6f0b66b31146b16bd95179f98b566b017502dce970ca47d113",
+    "backend/business_payroll.py": "a781daacd1c4fb491e83f7a13f1e151a1140777003e99e5f2d28e1342f461a36",
+    "backend/business_payroll_accounts.py": "232352ec2d16ac01ac23f0ad46a33d800b38016dbcc05c1b908597f122e65b6f"
+  },
+  "review_original": {
+    "passed": 1,
+    "seconds": 11.201
+  },
+  "unpaid_intermediate": {
+    "passed": 1,
+    "seconds": 26.073
+  }
+}

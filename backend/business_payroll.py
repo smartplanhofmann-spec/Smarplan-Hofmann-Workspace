@@ -25,7 +25,7 @@ from payroll_periods_2026 import PERIOD_RULES,PERIOD_RULES_SHA256,SCOPES as PERI
 from payroll_calculations_2026 import RULES as CALCULATION_RULES,RULES_SHA256 as CALCULATION_RULES_SHA256,SCOPES as CALCULATION_SCOPES
 from workspace_api import BinaryAttachment
 
-FEATURES = ('german_payroll_2026', 'payroll_employee_statements', 'payroll_factor_periods')
+FEATURES = ('german_payroll_2026', 'payroll_employee_statements', 'payroll_factor_periods', 'payroll_source5_positive_corrections')
 TABLES = ('business_payroll_events','business_payroll_requests')
 COLUMNS = 'id,kind,employee_id,revision,payload_json,content_hash,previous_hash,identity_key,created_by,created_at,pdf_sha256'
 ID = r'[a-f0-9]{32}'
@@ -340,6 +340,7 @@ class Payroll:
     def finalize(self,actor,data):
         input_fields=MULTIPLE_INPUT_FIELDS if data.get('source_schema_version')==5 else ONEOFF_INPUT_FIELDS if data.get('source_schema_version')==4 else CALCULATION_INPUT_FIELDS if data.get('source_schema_version')==3 else PERIOD_INPUT_FIELDS if data.get('source_schema_version')==2 else INPUT_FIELDS
         fields = input_fields+('request_id','preview_hash','accepted_scope','confirmed','id','revision','correction_reason')
+        if data.get('source_schema_version')==5:fields=fields+('settlement_review',)
         _shape(data,fields,input_fields+('request_id','preview_hash','accepted_scope','confirmed','revision'))
         if data['confirmed'] is not True or not isinstance(data['preview_hash'],str) or not re.fullmatch(r'[a-f0-9]{64}',data['preview_hash']):
             raise Problem(400,'Geprüfte Berechnungsvorschau und ausdrückliche Bestätigung erforderlich.')
@@ -356,6 +357,7 @@ class Payroll:
                 return prior
             if data.get('source_schema_version') in (2,3,4,5):self._gate(fresh)
         inputs = {key:data[key] for key in input_fields}
+        if data.get('source_schema_version')==5 and 'settlement_review' in data:inputs['settlement_review']=data['settlement_review']
         try:
             prepared = self.preview(actor,inputs)
         except Problem as error:
@@ -390,7 +392,8 @@ class Payroll:
             delta = None if previous is None else _delta(result,previous['calculation'])
             recorded=self._append(fresh,'run',employee['id'],dict(source=current['source'],calculation=result,
                 preview_hash=current['preview_hash'],accepted_scope=data['accepted_scope'],confirmed=True,
-                correction_reason=reason,delta=delta,status='calculation_recorded',transmission_status='not_transmitted'),previous,pdf)
+                correction_reason=reason,delta=delta,status='calculation_recorded',transmission_status='not_transmitted',
+                **({'settlement_transition':current['settlement_transition']} if 'settlement_transition' in current else {})),previous,pdf)
             if current['source'].get('source_schema_version') in (3,4,5):
                 from payroll_travel_recording import record_tax_treatment
                 record_tax_treatment(self.office,fresh,recorded)
@@ -764,7 +767,8 @@ def validate_integrity(office):
                             or source['input']['preparation_revision']!=preparation['revision']):
                         raise ValueError('Changed payroll input references')
                 if (not calculation_matches_source(source,calculated) or not calculated['social_contributions_available']
-                        or _sha(dict(source=source,calculation=calculated))!=value['preview_hash']
+                        or _sha(dict(source=source,calculation=calculated,
+                            **({'settlement_transition':value['settlement_transition']} if 'settlement_transition' in value else {})))!=value['preview_hash']
                         or value['accepted_scope']!=calculated['scope'] or value['confirmed'] is not True
                         or value['transmission_status']!='not_transmitted' or value['status']!='calculation_recorded'):
                     raise ValueError('Payroll calculation does not reproduce')

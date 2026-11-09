@@ -211,8 +211,9 @@ class PayrollAccounts:
             run=self.payroll._event(self.payroll._row(details['run_id'],'run',details['run_revision']))
             if run['source'].get('source_schema_version')==5:
                 fields=PAYMENT_FIELDS+('payment_source_schema_version','settlement_allocations','prior_payment_ref')
-                if type(details.get('payment_source_schema_version')) is not int or details['payment_source_schema_version']!=1:
-                    raise Problem(400,'Source5-Zahlungen benötigen die ausdrückliche Zuordnungsfassung 1.')
+                expected=2 if 'settlement_transition' in run else 1
+                if type(details.get('payment_source_schema_version')) is not int or details['payment_source_schema_version']!=expected:
+                    raise Problem(400,'Source5-Zahlungen benötigen die zum angenommenen Lauf gehörende ausdrückliche Zuordnungsfassung.')
         _shape(details,fields,fields)
         details=json.loads(canonical(details))
         if kind=='identity':
@@ -267,8 +268,12 @@ class PayrollAccounts:
                 receipt_date=record['calculation']['one_off_details']['receipt_date'] if source_version==4 else None)
             sources=dict(run=record,identity=identity)
             if source_version==5:
-                from payroll_multiple_payments import resolve_single_payment_plan
-                sources['single_payment_plan']=resolve_single_payment_plan(self,record,details)
+                if details['payment_source_schema_version']==2:
+                    from payroll_multiple_corrections import resolve_positive_payment_plan
+                    sources['single_payment_plan']=resolve_positive_payment_plan(self,record,details)
+                else:
+                    from payroll_multiple_payments import resolve_single_payment_plan
+                    sources['single_payment_plan']=resolve_single_payment_plan(self,record,details)
             if source_version in (3,4,5):
                 sources['identity_intervals']=[]
                 for period in period_plan['identity_intervals']:
@@ -319,6 +324,9 @@ class PayrollAccounts:
                 previous=self._get(data['id']) if data.get('id') else None
                 if previous and (previous['employee_id']!=employee['id'] or previous['kind']!=data['kind']):
                     raise Problem(404,'Korrektur gehört nicht zu diesem Lohnkontonachweis.')
+                if previous and data['kind']=='payment':
+                    from payroll_multiple_corrections import require_unbound_payment_revision
+                    require_unbound_payment_revision(self,previous)
                 if _integer(data['revision'])!=(previous['revision'] if previous else 0):
                     raise Problem(409,'Lohnkontonachweis wurde geändert. Neu laden.')
                 reason=text(data.get('correction_reason',''),'Korrekturgrund',2000,required=bool(previous))
@@ -327,8 +335,12 @@ class PayrollAccounts:
                     raise Problem(400,'Geschützter Personalakten-Originalnachweis erforderlich.')
                 details,sources,key=self._normalize(employee['id'],data['kind'],data['details'])
                 if data['kind']=='payment' and sources['run']['source'].get('source_schema_version')==5:
-                    from payroll_multiple_payments import require_current_prior_settlement
-                    require_current_prior_settlement(self,sources['run'],details)
+                    if details['payment_source_schema_version']==2:
+                        from payroll_multiple_corrections import require_current_positive_settlement
+                        require_current_positive_settlement(self,sources['run'],details)
+                    else:
+                        from payroll_multiple_payments import require_current_prior_settlement
+                        require_current_prior_settlement(self,sources['run'],details)
                 if data['kind']=='payment' and sources['run']['source'].get('source_schema_version') in (4,5):
                     from payroll_cash_sources import require_preserved_actual_net_parts
                     require_preserved_actual_net_parts(self.office,employee['id'],sources['run']['source']['month'],details['payments'])

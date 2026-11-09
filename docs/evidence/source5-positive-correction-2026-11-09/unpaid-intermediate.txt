@@ -1,0 +1,6 @@
+test_unpaid_intermediate_revision_is_not_an_actual_payment (test_business_payroll_positive_corrections.PositiveCorrectionWorkflow.test_unpaid_intermediate_revision_is_not_an_actual_payment) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 26.073s
+
+OK

@@ -398,7 +398,7 @@ class TimeTracking:
     def _day(self, employee, day):
         record = self.db.execute('SELECT * FROM business_time_days WHERE employee_id=? AND work_date=?', (employee['id'], day)).fetchone()
         if record and record['status'] == 'approved':
-            correction = self.db.execute('SELECT COALESCE(SUM(c.delta_seconds),0) FROM business_time_corrections c JOIN business_time_entries e ON e.id=c.entry_id WHERE e.employee_id=? AND c.work_date=?', (employee['id'], day)).fetchone()[0]
+            correction = self.db.execute('SELECT CAST(COALESCE(SUM(c.delta_seconds),0) AS BIGINT) FROM business_time_corrections c JOIN business_time_entries e ON e.id=c.entry_id WHERE e.employee_id=? AND c.work_date=?', (employee['id'], day)).fetchone()[0]
             return dict(record, date=day, approved_net_seconds=record['net_seconds'], correction_seconds=correction,
                         net_seconds=record['net_seconds'] + correction)
         rows = self.db.execute('SELECT s.* FROM business_time_segments s JOIN business_time_entries e ON e.id=s.entry_id WHERE e.employee_id=? AND s.work_date=?', (employee['id'], day)).fetchall()
@@ -431,7 +431,7 @@ class TimeTracking:
         days = [self._day(employee, (first + timedelta(days=n)).isoformat()) for n in range((last - first).days + 1)]
         keys = ('worked_seconds', 'break_seconds', 'auto_pause_seconds', 'net_seconds', 'target_seconds', 'absence_seconds', 'correction_seconds')
         result = dict(employee_id=employee['id'], days=days, **{key: sum(day[key] for day in days) for key in keys})
-        adjustments = self.db.execute('SELECT COALESCE(SUM(seconds),0) AS seconds FROM business_time_adjustments WHERE employee_id=? AND effective_date>=? AND effective_date<=?',
+        adjustments = self.db.execute('SELECT CAST(COALESCE(SUM(seconds),0) AS BIGINT) AS seconds FROM business_time_adjustments WHERE employee_id=? AND effective_date>=? AND effective_date<=?',
                                      (employee['id'], first.isoformat(), last.isoformat())).fetchone()[0]
         result.update(adjustment_seconds=adjustments, balance_seconds=result['net_seconds'] + result['absence_seconds'] + adjustments - result['target_seconds'])
         return result
@@ -515,7 +515,7 @@ class TimeTracking:
                 allocations[index % len(allocations)] += 1
             for row, net in zip(values, allocations):
                 if row['project_id'] == project_id:
-                    correction = self.db.execute('SELECT COALESCE(SUM(delta_seconds),0) FROM business_time_corrections WHERE entry_id=? AND work_date=?', (row['id'], row['work_date'])).fetchone()[0]
+                    correction = self.db.execute('SELECT CAST(COALESCE(SUM(delta_seconds),0) AS BIGINT) FROM business_time_corrections WHERE entry_id=? AND work_date=?', (row['id'], row['work_date'])).fetchone()[0]
                     result.append(dict(row, allocated_net_seconds=net + correction, correction_seconds=correction))
         return result
 

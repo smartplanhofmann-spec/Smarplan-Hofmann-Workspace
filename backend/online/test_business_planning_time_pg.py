@@ -8,7 +8,7 @@ from unittest.mock import patch
 from psycopg.conninfo import conninfo_to_dict
 
 from business_time import TimeTracking, validate_integrity
-from core import Problem
+from core import Problem, canonical
 from online.store import PostgresOffice
 import test_business_planning as planning_fixture
 import test_online as pg_fixture
@@ -78,6 +78,42 @@ class PostgresPlanningAndTimeTests(planning_fixture.BusinessFixture, unittest.Te
         self.assertEqual(sum(isinstance(item, dict) for item in outcomes), 1)
         self.assertEqual(outcomes.count(409), 1)
         self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM business_time_active').fetchone()[0], 1)
+        self.assertTrue(validate_integrity(self.office))
+
+    def test_postgres_approved_seconds_stay_integer_in_document_sources_and_summaries(self):
+        from business_documents import Documents
+        entry = planning_fixture.rid()
+        day = '2026-10-26'
+        self.time.event(self.technician, self.stamp('start', entry, day+'T08:00:00+01:00'))
+        self.time.event(self.technician, self.stamp('stop', entry, day+'T08:00:07+01:00', 1, 2))
+        query = {'employee_id': self.employee['id'], 'from': day, 'to': day}
+        before = self.time.summary(self.owner, query)
+        self.time.approve_day(self.owner, day, {'request_id': planning_fixture.rid(), 'employee_id': self.employee['id'], 'revision': before['days'][0]['revision']})
+        documents = Documents(self.office)
+        original = documents.time_sources(self.owner, self.project)['items'][0]
+        self.assertIs(type(original['net_seconds']), int)
+        self.assertEqual(original['net_seconds'], 7)
+        self.assertEqual(documents.time_sources(self.owner, self.project)['items'][0], original)
+        self.assertIn('"net_seconds":7', canonical(original))
+        summary = self.time.summary(self.owner, query)
+        for key in ('net_seconds', 'correction_seconds', 'adjustment_seconds', 'balance_seconds'):
+            self.assertIs(type(summary[key]), int, key)
+        self.assertEqual(summary['adjustment_seconds'], 0)
+        for delta, expected in ((-2, 5), (3, 8)):
+            self.time.correct_entry(self.owner, entry, {'request_id': planning_fixture.rid(), 'work_date': day, 'delta_seconds': delta, 'reason': 'Synthetic integer-seconds regression'})
+            source = documents.time_sources(self.owner, self.project)['items'][0]
+            summary = self.time.summary(self.owner, query)
+            self.assertIs(type(source['net_seconds']), int)
+            self.assertEqual(source['net_seconds'], expected)
+            self.assertEqual(summary['net_seconds'], expected)
+            self.assertIs(type(summary['correction_seconds']), int)
+            self.assertNotEqual(source['source_hash'], original['source_hash'])
+            self.assertIn('"net_seconds":'+str(expected), canonical(source))
+        for seconds in (120, -60):
+            self.time.adjust_account(self.owner, {'request_id': planning_fixture.rid(), 'employee_id': self.employee['id'], 'effective_date': day, 'seconds': seconds, 'reason': 'Synthetic integer balance regression'})
+        summary = self.time.summary(self.owner, query)
+        self.assertIs(type(summary['adjustment_seconds']), int)
+        self.assertEqual(summary['adjustment_seconds'], 60)
         self.assertTrue(validate_integrity(self.office))
 
 

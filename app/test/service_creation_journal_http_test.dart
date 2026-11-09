@@ -81,7 +81,7 @@ from online.instance import bind
 from online.storage import Storage
 from business_schema import ensure_schema, set_mode
 from test_business_resource_custody import ResourceCustodyTests
-root=Path(sys.argv[1]); tempfile.tempdir=str(root)
+root=Path(sys.argv[1]).resolve(strict=True); tempfile.tempdir=str(root)
 domain=ResourceCustodyTests('runTest');domain.setUp();first=domain.office
 ensure_schema(first,activate=True)
 owner=domain.owner['id'];project=domain.project;customer=domain.customer['id']
@@ -160,15 +160,23 @@ class ActualServiceFixture {
   final StreamSubscription<String> errors;
   final Map<String, dynamic> hello;
   final TestDevice device;
+  final Link? rootAlias;
   ActualServiceFixture(
     this.root,
     this.process,
     this.output,
     this.errors,
-    this.hello,
-  ) : device = ServiceTestDevice(Directory('${root.path}/device'));
-  static Future<ActualServiceFixture> start() async {
+    this.hello, {
+    this.rootAlias,
+  }) : device = ServiceTestDevice(Directory('${root.path}/device'));
+  static Future<ActualServiceFixture> start({
+    bool throughRootAlias = false,
+  }) async {
     final root = await Directory.systemTemp.createTemp('service-journal-http-');
+    // macOS exposes its temporary directory through /var. Exercise the same
+    // canonicalization with an actual link on every POSIX test runner.
+    final alias = throughRootAlias ? Link('${root.path}-alias') : null;
+    if (alias != null) await alias.create(root.path);
     final python =
         Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
         '../backend/.venv/bin/python';
@@ -176,7 +184,7 @@ class ActualServiceFixture {
       '-u',
       '-c',
       fixture,
-      root.path,
+      alias?.path ?? root.path,
     ], workingDirectory: Directory('../backend').absolute.path);
     final diagnostics = StringBuffer();
     final errors = process.stderr
@@ -195,6 +203,7 @@ class ActualServiceFixture {
       output,
       errors,
       businessMap(jsonDecode(output.current)),
+      rootAlias: alias,
     );
   }
 
@@ -229,6 +238,7 @@ class ActualServiceFixture {
     await process.exitCode.timeout(const Duration(seconds: 10));
     await output.cancel();
     await errors.cancel();
+    if (rootAlias != null) await rootAlias!.delete();
     await root.delete(recursive: true);
   }
 }
@@ -256,7 +266,9 @@ void main() {
   testWidgets(
     'actual accepted POST survives complete app recreation, explicit replay and 390px UI',
     (tester) async {
-      final fixture = (await tester.runAsync(ActualServiceFixture.start))!;
+      final fixture = (await tester.runAsync(
+        () => ActualServiceFixture.start(throughRootAlias: true),
+      ))!;
       ActualServiceApi? api;
       BusinessSession? session;
       try {

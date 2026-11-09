@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/workspace/smartplan-ci-offline-fixtures-20261109/backend/online/instance.py", line 162, in bind
+    directory = server._open_root(binding_operation=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-ci-offline-fixtures-20261109/backend/online/storage_backends.py", line 82, in _open_root
+    child = os.open(component, flags, dir_fd=descriptor)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotADirectoryError: [Errno 20] Not a directory: 'root-alias'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<string>", line 26, in <module>
+  File "/workspace/smartplan-ci-offline-fixtures-20261109/backend/online/instance.py", line 185, in bind
+    _fail()
+  File "/workspace/smartplan-ci-offline-fixtures-20261109/backend/online/instance.py", line 29, in _fail
+    raise InstanceConfigurationError(ERROR)
+online.instance.InstanceConfigurationError: Unternehmensinstanz stimmt nicht mit Datenbank, Host, Schlüssel oder Serverablage überein.

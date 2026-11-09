@@ -1,0 +1,11 @@
+{
+  "source_commit": "82738522d132918b0f139011302e5862f40c1e92",
+  "run_id": 42654230385,
+  "job_id": 129288306130,
+  "result": "failure",
+  "failed_tests": 3,
+  "cause": "Service journal HTTP fixture passes macOS /var symlink into strict POSIX storage binder instead of resolving its temporary root.",
+  "signed_upload": "skipped",
+  "raw_bytes": 539444,
+  "raw_sha256": "6847f84297bd392b5bf91ca65ec2896c01aff3b3ca0028716e8cbc5899ed4d66"
+}

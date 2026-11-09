@@ -51,12 +51,26 @@ Fallback auf einen unsicheren neuen V1-Cache und keine fingierte Firmenbindung.
 
 ## Tatsächliche Ergebnisse
 
+Der unsignierte iPhone-Lauf 42654230385 ist anschließend an drei Fällen der
+Service-Journal-HTTP-Datei gescheitert. Ihre temporäre Ablage wird über macOS
+`/var` erreicht; der strenge POSIX-Binder verweigert diesen nicht aufgelösten
+Pfadlink korrekt. Dieser Fehler ist vor Änderung mit genau dem unveränderten
+Python-Testserver und einem tatsächlichen kontrollierten Pfadlink auf Linux
+reproduziert. Der neue Testaufbau löst seine vorhandene Wurzel mit
+`resolve(strict=True)` auf. Der erste vollständige Service-Neustart-/HTTP-/UI-
+Fall läuft jetzt ausdrücklich durch einen echten temporären Pfadlink.
+Die drei vollständigen Servicefälle bestehen; der produktive Binder und seine
+Ablehnung von Links innerhalb der Ablage bleiben unverändert. Die anderen
+eingebetteten Binder-Aufbauten sind auf denselben Fehler gegengeprüft.
+
 | Lauf | Ergebnis |
 | --- | --- |
 | Acht betroffene Buchhaltungs-/Ereignismodule mit echtem MFA/HTTP | 52 bestanden, kein Fehler/Skip, 137,663 Sekunden |
 | Beide tatsächlichen Offline-HTTP-Fälle | Zwei bestanden, kein Fehler/Skip |
 | Windows-Tagauswahl auf Linux | Genau der eine portable Fall bestanden; kein tatsächlicher Windows-Gerätenachweis |
 | Analyse der geänderten Dart-Testdatei | Kein Befund, 9,7 Sekunden |
+| Vollständige Service-Journal-HTTP-Datei mit tatsächlichem Pfadlink | Drei bestanden, kein Fehler/Skip, 23 Sekunden im Fortschrittslog |
+| Analyse der Service-Journal-HTTP-Datei | Kein Befund, 12,7 Sekunden |
 
 [Rohprotokolle, Quellhashes und vollständige Metadaten](evidence/ci-offline-fixtures-2026-11-09/verification.json).
 Die ursprünglichen fehlgeschlagenen GitHub-Jobs und beide Zwischenfehler sind

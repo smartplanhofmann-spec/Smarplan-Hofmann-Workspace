@@ -81,5 +81,28 @@
     }
   ],
   "base_commit": "79fe2498dda3d5e355a5fcd888f69f9f21e1235a",
-  "production_source_changed": false
+  "production_source_changed": false,
+  "service-root-alias-final": {
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0,
+    "elapsed_log_seconds": 23,
+    "actual_link_used": true,
+    "exit_code": 0,
+    "raw_bytes": 501,
+    "raw_sha256": "b501beafe662a2931d0a3d7bf6b89bea4cd5c315e35918a50e070050b020fcdb"
+  },
+  "service-root-alias-analyze": {
+    "issues": 0,
+    "seconds": 12.7,
+    "exit_code": 0,
+    "raw_bytes": 97,
+    "raw_sha256": "a7cbc7f6dddeb28d9c88a9fd91274c307d771b254db389d8c7719a8aec69d21a"
+  },
+  "service_fixture_source": {
+    "path": "app/test/service_creation_journal_http_test.dart",
+    "sha256": "42adc253e46f449e2921345c99257b6055321c57e6d771d62419a207f398e1b9",
+    "production_guard_changed": false,
+    "macos_rerun_pending": true
+  }
 }

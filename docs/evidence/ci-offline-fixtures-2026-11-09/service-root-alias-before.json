@@ -1,0 +1,9 @@
+{
+  "result": "reproduced_failure",
+  "exit_code": 1,
+  "root_is_symlink": true,
+  "source_unchanged": true,
+  "raw_bytes": 1097,
+  "raw_sha256": "ada57701b023def54f20f0cead05d2b38964471b897fe15bb6a35cf2622d94b9",
+  "original_python_fixture_sha256": "a2df3ab4f411b82f0e1c47e9bca783bf2fe07afca0de43957f2a96205e47a644"
+}

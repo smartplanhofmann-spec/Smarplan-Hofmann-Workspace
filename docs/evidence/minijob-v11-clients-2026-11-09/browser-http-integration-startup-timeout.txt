@@ -1,0 +1,4 @@
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: fixture did not become ready
+    at main (/workspace/smartplan-minijob-integration-20261109/web/office/tests/e2e.cjs:86:12)
+SMARTPLAN_BROWSER_FAILURE_END

@@ -1,0 +1,54 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart
+00:00 +0: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: real compulsory exempt and explicit migrated fixtures retain their own contracts
+00:00 +1: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: five concrete originals are required and incomplete declarations cannot calculate
+00:01 +2: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: actual accepted wider evidence and multiline Unicode notes remain unchanged
+00:01 +3: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: actual accepted blocked V11 evidence remains readable with no invented net
+00:01 +4: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: assessment retains exact original text but rejects malformed shapes and Unicode
+00:01 +5: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: historical assessment and direct PAP amounts cannot be replaced or converted into the old wrapper
+00:01 +6: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: identity v2 requires explicit selection and preserves actual insurance and ELStAM source
+00:01 +7: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: only an explicitly blocked old individual case may change its contract
+00:01 +8: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: lost migrated acceptance keeps original contract and references through fresh rights checks
+00:01 +9: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: lost individual payroll acceptance retains exact original through renewed rights
+00:01 +10: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: mobile minijob display identifies actual family insurance and explicit old-case reassessment
+00:02 +11: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: mobile minijob display identifies actual family insurance and explicit old-case reassessment
+00:02 +12: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: mobile minijob display identifies actual family insurance and explicit old-case reassessment
+00:02 +13: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: mobile minijob display identifies actual family insurance and explicit old-case reassessment
+00:02 +14: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: mobile minijob display identifies actual family insurance and explicit old-case reassessment
+00:02 +15: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: mobile minijob display identifies actual family insurance and explicit old-case reassessment
+00:02 +16: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: mobile minijob display identifies actual family insurance and explicit old-case reassessment
+00:02 +17: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_individual_minijob_test.dart: mobile minijob display identifies actual family insurance and explicit old-case reassessment
+00:08 +18: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:08 +19: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_accounts_test.dart: own account view cannot write and is removed on own permission withdrawal
+00:10 +20: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_calculation_case_contract_test.dart: actual evidence policy binds ELStAM identity and separately evidenced membership
+00:11 +21: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_calculation_case_contract_test.dart: actual v5 typed case command and accepted plan preserve all original sources
+00:11 +22: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_calculation_case_contract_test.dart: actual v5 net includes taxable travel once and subtracts documented employee flat tax costs
+00:11 +23: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_calculation_case_contract_test.dart: foreign private source, replaced case, unsupported rules and altered accepted body fail
+00:12 +24: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_factor_travel_test.dart: real backend fixture preserves v10 source selection, payment proof and exact payroll amounts
+00:13 +25: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_factor_travel_test.dart: payment selection must bind the actual settlement and cannot select unapproved scope
+00:13 +26: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_factor_travel_test.dart: real factor correction preserves the old travel original and changes only the confirmed payroll source
+00:13 +27: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_factor_travel_test.dart: history rejects changed payment prefix, cash proof, factor, rule or net additions
+00:13 +28: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_factor_travel_test.dart: frozen plan total must equal all original travel payment proofs
+00:13 +29: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_factor_travel_test.dart: retired payment versions remain explicitly bound in the complete source selection
+00:13 +30: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_factor_travel_test.dart: frozen plan factor must equal the original selected profile factor
+00:14 +31: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_factor_travel_test.dart: calculation factor must equal its frozen plan factor
+00:14 +32: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_factor_travel_test.dart: accepted v10 reply loss retries the exact original only after current feature and employee checks
+00:14 +33: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_factor_travel_test.dart: accepted payroll run retains the same payment references across feature loss and exact retry
+00:14 +34: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:16 +35: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:17 +36: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:17 +37: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:19 +38: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:23 +39: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+00:24 +40: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+00:27 +41: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: late private source error remains cleared after background
+00:32 +42: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: late inspect response cannot repopulate a hidden private page
+00:34 +43: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: background clears an open editor containing private original details
+00:37 +44: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: month switch requests the new month and clears selected original and plan
+00:40 +45: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: original callback receives the exact selected historical file
+00:44 +46: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: flat tax recording remains an explicit new instruction on correction
+00:54 +47: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: late preview after background cannot restore editor or submit a command
+01:00 +48: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: pending original blocks month change and new calculation-case actions
+01:00 +49: /workspace/smartplan-minijob-integration-20261109/app/test/business_payroll_calculation_cases_review_test.dart: revoked read right prevents original opening after a visible selection
+01:02 +50: All tests passed!

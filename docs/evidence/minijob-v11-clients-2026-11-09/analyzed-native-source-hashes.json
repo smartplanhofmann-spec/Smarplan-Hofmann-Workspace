@@ -1,0 +1,37 @@
+[
+  {
+    "path": "app/lib/business_payroll.dart",
+    "sha256": "09bec05e575e7426be5941998ce590a8410b9b48c7c312d42c4decc36610f13e",
+    "same_as_analyzed_client_commit": "87f8914"
+  },
+  {
+    "path": "app/lib/business_payroll_accounts.dart",
+    "sha256": "d01a20bd6e95cbac8706f79366f9d015af4cc1c9e2616cfb12d14803a0f51558",
+    "same_as_analyzed_client_commit": "87f8914"
+  },
+  {
+    "path": "app/lib/business_payroll_calculation_case_contract.dart",
+    "sha256": "4f6553b20a7d0598cc9a64da2ae496190d067987c25670a154b8badd740b4014",
+    "same_as_analyzed_client_commit": "87f8914"
+  },
+  {
+    "path": "app/lib/business_payroll_calculation_cases.dart",
+    "sha256": "19f907f4dec29ee93fe34b5c6b305cf889f28bffd80ed1a2b92899b13b83266e",
+    "same_as_analyzed_client_commit": "87f8914"
+  },
+  {
+    "path": "app/lib/business_payroll_individual_minijob.dart",
+    "sha256": "61870c67cc04b90f2d34f2f60e9aa3cd6cb5211fe07a153fb14c50f6ad7f9ff9",
+    "same_as_analyzed_client_commit": "87f8914"
+  },
+  {
+    "path": "app/lib/business_session.dart",
+    "sha256": "9611aeb3366fe079036f043d95a60700093fe415ff368d6d54bf687c3af88b40",
+    "same_as_analyzed_client_commit": "87f8914"
+  },
+  {
+    "path": "app/test/business_payroll_individual_minijob_test.dart",
+    "sha256": "35c159752b7cdfb428605543652d7c3af6d493a4e04bff97087092f4fb9b5b2c",
+    "same_as_analyzed_client_commit": "87f8914"
+  }
+]

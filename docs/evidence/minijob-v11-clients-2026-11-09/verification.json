@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "tested_client_commit": "378f492ab9cc21cd9371939e07b9e0a71b8734b5",
+  "integration_backend_base": "0d57cefaa1ba0bbc764d8b37a62d93328da4a749",
+  "source_fixture_sha256": "9ccce3483951f8dbe8d853b9ffa75abf42c356e7a7f12a281f7b74a77b6a5e40",
+  "boundary_fixture_sha256": "42160c16d2cedcd214e4500f9282127a56de5a9e985aa1568a329f59d6c881a7",
+  "browser_regression": {
+    "passed_files": 42,
+    "log": "browser-regression-integration.txt"
+  },
+  "targeted_browser_contracts": {
+    "passed_cases": 13,
+    "log": "browser-contract-boundaries.txt"
+  },
+  "native_regression": {
+    "passed_cases": 50,
+    "log": "native-integration-final-50.txt"
+  },
+  "native_analysis": {
+    "passed_files": 7,
+    "log": "native-analyze.txt",
+    "exact_integrated_sources": "analyzed-native-source-hashes.json"
+  },
+  "browser_http": {
+    "passed": true,
+    "log": "browser-http-integration-final.txt",
+    "command_proof": "browser-command-proof-final.json",
+    "scenarios": [
+      "rv_compulsory",
+      "rv_exempt",
+      "explicit_identity_v2",
+      "six_checks_five_private_originals",
+      "lost_identity_case_run_ack_exact_retry",
+      "explicit_v5_to_v11_unused_case",
+      "immutable_history",
+      "unchanged_source_run_correction",
+      "private_original_pdf_download",
+      "390px_viewport"
+    ]
+  },
+  "initial_integration_startup_timeout_preserved": "browser-http-integration-startup-timeout.txt",
+  "production_server_changed": false,
+  "external_messages_or_payments_sent": false,
+  "native_device_acceptance": false
+}

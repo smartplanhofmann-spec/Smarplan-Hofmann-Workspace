@@ -1,0 +1,11 @@
+{
+  "passed": 2,
+  "skipped": 0,
+  "seconds": 79.957,
+  "change": "Name of new PostgreSQL trigger function now conforms to existing business_ ownership allowlist; release guard unchanged.",
+  "source_sha256": {
+    "backend/business_offline_binding.py": "7d8266a46f357a0fe5a97b5ff05b31b94fa46159428927fed88862e1cb2651aa",
+    "backend/online/test_business_offline_binding_pg.py": "8d87c75c7b51dd992c9027c0a0eea1b99aa75de28e3b5cc4c66b99a6ea64fd83"
+  },
+  "limits": "Native integration and revised hash-only recovery still pending; this is the preceding backend candidate."
+}

@@ -1,0 +1,26 @@
+{
+  "postgres-before-guard-name": {
+    "file": "postgres-before-guard-name.gz",
+    "raw_bytes": 2582,
+    "raw_sha256": "22ca2767a12cd6f81d0ef17ee9f0581a5957302c8d8223188f7f113c808ff5c5",
+    "gzip_sha256": "3eb074fe46a6e96994ae4a39e8c081ad1aaf0134add504ff75a07916acbed5f3"
+  },
+  "postgres-after-guard-name": {
+    "file": "postgres-after-guard-name.gz",
+    "raw_bytes": 527,
+    "raw_sha256": "4cfb128f265d5a1bb5a4f823e12ea97a5935616b31cb770d935c42570b6d168b",
+    "gzip_sha256": "bbc09bd339f3ac93c1da6cc9410b6f523c08cd6ab061c3f5d2b275468477a085"
+  },
+  "backend-with-milestones": {
+    "file": "backend-with-milestones.gz",
+    "raw_bytes": 9148,
+    "raw_sha256": "d9a3956cdc0039082221e876d7e314d8b1ee1081c068c7741c37bec16676f096",
+    "gzip_sha256": "5d2a8dfc73d620aa431fcd7f90fc7707e7fa23d4fc6c39a4216c066161d89b85"
+  },
+  "packages-with-milestones": {
+    "file": "packages-with-milestones.gz",
+    "raw_bytes": 3604,
+    "raw_sha256": "31c12efa16296c6307de73445a64c2e6ed181853438b1cb26ec5e17af15894a1",
+    "gzip_sha256": "ffe8f6fcec106ad309abe1a855460b830bcf87eda7451d9119481ad5d4357059"
+  }
+}

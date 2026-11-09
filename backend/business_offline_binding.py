@@ -41,11 +41,11 @@ def guard_statements(dialect):
                 f"WHEN EXISTS(SELECT 1 FROM {TABLE} WHERE token_hash=NEW.token_hash) "
                 "BEGIN SELECT RAISE(ABORT,'immutable offline origin'); END"]
     if dialect == 'postgresql':
-        return ["CREATE OR REPLACE FUNCTION offline_instance_grant_immutable() RETURNS trigger LANGUAGE plpgsql AS $$ "
+        return ["CREATE OR REPLACE FUNCTION business_offline_instance_grant_immutable() RETURNS trigger LANGUAGE plpgsql AS $$ "
                 "BEGIN RAISE EXCEPTION 'immutable offline origin'; END; $$",
                 f"DO $$ BEGIN IF NOT EXISTS(SELECT 1 FROM pg_trigger WHERE tgname='{TABLE}_update_guard' "
                 f"AND tgrelid='{TABLE}'::regclass) THEN CREATE TRIGGER {TABLE}_update_guard BEFORE UPDATE ON {TABLE} "
-                "FOR EACH ROW EXECUTE FUNCTION offline_instance_grant_immutable(); END IF; END $$"]
+                "FOR EACH ROW EXECUTE FUNCTION business_offline_instance_grant_immutable(); END IF; END $$"]
     raise ValueError('Unsupported offline binding dialect')
 
 

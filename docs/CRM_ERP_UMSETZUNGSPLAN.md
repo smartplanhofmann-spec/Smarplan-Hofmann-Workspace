@@ -102,7 +102,7 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    vollständigen Browserabläufe. Der [v6/v7-Einmalbezugsabgleich](CRM_ERP_LOHN_EINMALBEZUG_PLATTFORMHISTORIE_2026.md)
    ist als 894ecdd integriert und veröffentlicht; 694 unterschiedliche Fälle
    bestehen über Sammellauf und gezielte Socket-Wiederholung. Die eigene neue
-   Remote-CI läuft; alte Fehlprotokolle bleiben unverändert erhalten. Fälle mit Ansprüchen, Reisen, Übergangsbereich
+   Remote-CI wird nach den zwei bestätigten Testhelferfehlern korrigiert; alte Fehlprotokolle bleiben unverändert erhalten. Fälle mit Ansprüchen, Reisen, Übergangsbereich
    oder Einmalbezügen bleiben in ihren eigenen noch auszuarbeitenden Zweigen.
    Der [reguläre Faktor-Vollmonat](CRM_ERP_LOHN_FAKTOR_2026.md) ist jetzt mit
    beiden Clients, tatsächlichem PG-Restore, Zahlungen/EÜR und unabhängigen
@@ -123,15 +123,19 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    Paketprüfungen bestehen; historische Regeln und v1-Zahlungsarithmetik sind
    bytegleich. Die 694 unterschiedlichen Fälle sind über den Sammellauf und elf gezielte
    Socket-Wiederholungen erfolgreich geprüft; der erste Lauf bleibt Exit 1.
-   894ecdd ist veröffentlicht, seine eigene Remote-CI läuft. [Umfang und Grenze](CRM_ERP_LOHN_EINMALBEZUG_PLATTFORMHISTORIE_2026.md).
-2. **Bereits bezahlte Source5-Folgekorrekturen und mehrere Steuergruppen:**
-   `payroll_multiple_runs.require_supported_correction` sperrt bezahlte
-   Source5-Vorfassungen ausdrücklich; `payroll_multiple_payments` übernimmt
-   derzeit nur den bezahlten unveränderten Source3-Vorgänger. Ein neuer
-   versionierter Differenzvertrag muss alte tatsächliche Zahlungsteile binden
-   und Nachzahlung/Rückzahlung mit eigenem Beleg behandeln. Historische
-   v1-Zahlungspläne bleiben unverändert. Beide Clients und tatsächliche
-   Finanz-/Restoreverbraucher gehören zum selben Lieferabschnitt.
+   894ecdd ist veröffentlicht, seine eigene Remote-CI fand einen mobilen Anmelde-Testfehler und eine falsche native Dateispeicher-Warteannahme; gezielte Korrekturen laufen. [Umfang und Grenze](CRM_ERP_LOHN_EINMALBEZUG_PLATTFORMHISTORIE_2026.md).
+2. **Bereits bezahlte Source5-Folgekorrekturen:** Der neue begrenzte
+   [positive Einzelvertrag](CRM_ERP_SOURCE5_POSITIVE_KORREKTUR_2026.md) ist mit
+   Backend/Browser/App integriert. Alte Zahlungsteile bleiben exakt erhalten;
+   expliziter Vollständigkeitsnachweis und Abführungsgrenzen sind Pflicht.
+   Vier echte PostgreSQL-Fälle plus finaler Jahres-/Restorefall, 902 Browser-
+   module, 23 ausgewählte native und 16 Paketfälle bestehen. Der breite
+   Lohn-/Reisesammellauf und die neue Remoteprüfung sind noch abzuschließen.
+   Negative Korrekturen, andere tatsächliche Zahlungstage und mehrere
+   Steuergruppen bleiben eigene Aufgaben. Der
+   [Gruppenplan](CRM_ERP_SOURCE5_MEHRFACH_GRUPPEN_RESTPLAN_2026.md) dokumentiert
+   die tatsächlich fehlende Steuer-Gruppierungsreferenz; bestehende Sperren
+   werden nicht als fertige Umsetzung bewertet.
 3. **Weitere ausdrücklich benannte Lohnfälle:** Faktor mit Ansprüchen, Reisen,
    Übergangsbereich und Einmalbezügen; individuelle Minijobsteuer,
    Versicherungs-/Alters-/Leistungsfälle und Minijob-Jahresgrenzen. Bestehende
@@ -148,6 +152,20 @@ Parallel bleiben die vollständige Geräte-/Offlinefolge A–G, neue tatsächlic
 Serverinstallation, gewählte Originalformate/Anbieterzugänge und unabhängige
 Fach-/Sicherheitsnachweise eigene Lieferaufgaben. Der aktuelle Auftrag erteilt
 keinen echten Zahlungs-, Nachrichten-, Melde- oder signierten Uploadauftrag.
+
+### Aktuelle Projektbedienung
+
+- **Dauerhafte Projektanlage:** Die bisher nur im Arbeitsspeicher gehaltene
+  unbestätigte Anlage wird vor dem ersten POST geschützt abgelegt und nach
+  Neustart mit exakt demselben Auftrag wieder aufgenommen. Vorhandene
+  verschlüsselte Vault-/Geräteschlüssel werden verwendet; eigene Instanz- und
+  Benutzerbindung, frische Rechte und geprüfte Quittungen bleiben erforderlich.
+  Umsetzung und tatsächlicher HTTP-/Neustartnachweis laufen getrennt.
+- **Browser-Projektaufgaben:** Bearbeiten, Zuständigkeit, Statuswechsel und
+  Historie anhand des vorhandenen Backendvertrags ergänzen. Die bisher
+  angebotene Priorität `low` ist serverseitig ungültig und wird berichtigt.
+  Konflikte, verlorene Antworten und geschlossene Ansichten werden geprüft.
+- Explizite Projektmeilensteine bleiben ein separater additiver Codeabschnitt.
 
 ## Bisheriger Projektphasenblock
 

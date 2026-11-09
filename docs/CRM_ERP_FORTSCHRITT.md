@@ -3074,3 +3074,47 @@ autorisierten Testbranch veröffentlicht. Die neuen Development-/iPhone-Läufe
 iPhone-Auslieferung oder Gesamtabnahme. Nächster konkreter Codeabschnitt:
 bezahlte Source5-Folgekorrekturen mit eigenem Differenzvertrag und mehrere
 Steuergruppen. Weitere Lohn-/EÜR-Fälle sowie A–G bleiben aktiv.
+
+
+## 09.11.2026 – Positive bezahlte Source5-Korrektur gemeinsam integriert
+
+Ein neuer additiver Übergang bindet den unveränderten tatsächlichen bezahlten
+Präfix, das alte und neue vollständige Original sowie eine privat belegte
+Vollständigkeitsbestätigung. Browser und App zeigen alte Zahlungsteile
+unveränderlich und erfassen ausschließlich zusätzliche positive Nettoteile.
+Bereits abgeführte Komponenten dürfen ihre korrigierte Gesamtschuld nicht
+übersteigen. Eine unbezahlte Zwischenrevision ändert den tatsächlich noch
+fehlenden Betrag nicht. Alte v1-Pläne, Originale und alle 32 Rechenmodule
+bleiben bytegleich.
+
+Vier tatsächliche PostgreSQL-/MFA-/HTTP-/Konkurrenz-/Restorefälle bestehen in
+574,197 Sekunden. Ein zusätzlicher finaler Jahres-/Mitarbeiter-/Restorefall
+besteht in 452,420 Sekunden; er überlappt einen der vier Fälle. Er bestätigt
+Jahresverbrauch genau einmal und keine privaten Korrektur-/Abführungsbelege in
+der eigenen Mitarbeiteransicht. Der synthetische eigene Datenbankcontainer
+wurde anschließend entfernt.
+
+Zwei echte Browserfolgen mit privaten Quellen, verlorenen Antworten und
+Mobilansicht sowie 902 Browsermodul-, 23 betroffene App- und 16 Paketprüfungen
+bestehen. Appanalyse ohne Befund. Metadaten werden vor vollständiger Prüfung
+anhand ihrer bekannten Variante eingegrenzt; der Vergleich mit der bisherigen
+vollständigen Variantensuche besteht. Der breite Lohn-/Reisesammellauf läuft
+noch und wird mit seinem tatsächlichen Ergebnis nachgetragen.
+
+Die abgeschlossene CI auf dem vorher veröffentlichten 894ecdd besteht sieben
+Development-Jobs. Der Browserjob scheitert an einem bei390px absichtlich
+versteckten, aber korrekt vorhandenen Identitätstext; der iPhone-Prüflauf an
+einer festen Warteannahme für echte Dateischreibarbeit. Beide Testfehler
+werden gezielt behoben, nicht durch längere pauschale Zeitgrenzen verdeckt.
+Die fehlgeschlagenen vollständigen Streams bleiben erhalten.
+
+[Vertrag und Grenzen](CRM_ERP_SOURCE5_POSITIVE_KORREKTUR_2026.md),
+[gemeinsame Nachweise](evidence/source5-positive-correction-2026-11-09/README.md).
+Veröffentlichung und neue Remote-CI folgen nach den laufenden Prüfungen.
+
+Außerhalb der Lohnrechnung sind zwei konkrete weitere Codeaufgaben begonnen:
+verschlüsselt erhaltene unbestätigte Projektanlage über App-Neustart und
+vollständige Browser-Projektaufgaben einschließlich gültiger Prioritäten.
+Mehrfach-Steuergruppen bleiben ein separater [belegter Restplan](CRM_ERP_SOURCE5_MEHRFACH_GRUPPEN_RESTPLAN_2026.md).
+Der Gesamtauftrag und die Abnahmen A–G sind weiterhin offen; kein Prozentwert
+oder Fertigstellungstermin wird aus den Prüfzahlen abgeleitet.

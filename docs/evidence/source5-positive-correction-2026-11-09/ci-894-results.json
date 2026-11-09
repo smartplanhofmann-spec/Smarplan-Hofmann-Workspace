@@ -1,0 +1,74 @@
+[
+  {
+    "run_id": 42624525741,
+    "source_commit": "894ecdde1f2d4bff89e49151b8bc9f4b5e00ffbf",
+    "jobs": [
+      {
+        "id": 129184762130,
+        "name": "update-flow",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129184762331,
+        "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129184762355,
+        "name": "online-api",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129184762357,
+        "name": "backend",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129184762388,
+        "name": "https-setup",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129184762513,
+        "name": "business-services",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 129184762516,
+        "name": "flutter",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129184762540,
+        "name": "native-build (windows-latest, flutter build windows --release)",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  {
+    "run_id": 42624525589,
+    "source_commit": "894ecdde1f2d4bff89e49151b8bc9f4b5e00ffbf",
+    "jobs": [
+      {
+        "id": 129184761599,
+        "name": "Online-Release ohne Apple-Zugang pruefen",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 129201142230,
+        "name": "Ausdruecklich angeforderten TestFlight-Upload ausfuehren",
+        "status": "completed",
+        "conclusion": "skipped"
+      }
+    ]
+  }
+]

@@ -1,6 +1,7 @@
 # Source5: begrenzte positive Netto-Korrektur
 
-Vertragsentwurf und Implementierung, 09.11.2026. Basis af98278.
+Additiver implementierter Vertrag, 09.11.2026. Basis af98278.
+Der abschließende Integrationsnachweis steht am Ende dieser Datei.
 
 Dies ist keine allgemeine Freigabe späterer Netto-/Steuererstattungen. Unterstützt
 werden ausschließlich tatsächlich zusätzlich belegte positive Transfers am
@@ -169,3 +170,38 @@ Die beiden Vollständigkeitserklärungen beziehen sich auf alle tatsächlichen
 Vorgänge einschließlich externer Vorgänge, die im Programm vollständig belegt
 sein müssen. Ein leeres Cash-Journal allein beweist ausdrücklich nicht deren
 Nichtvorhandensein.
+
+
+## Gemeinsame Integration am 09.11.2026
+
+Backend, Browser und native App sind im gemeinsamen Integrationsbranch
+zusammengeführt. Beide Clients zeigen frühere Zahlungsteile unveränderlich,
+verlangen neue Vollständigkeitsbestätigungen und erhalten bei verlorener
+Annahmeantwort den exakt ursprünglichen Auftrag. Schließen, Konto-/Personen-
+wechsel und Rechteverlust öffnen keine privaten alten Dialoge erneut.
+
+Die echten Fixtures verwenden eine dokumentiert korrigierte Vorarbeitgeber-
+Bescheinigung bei unverändertem Bruttoereignis. Die Browser-/App-Fixture prüft
+zwei positive Korrekturen (+10,00 EUR und anschließend +29,00 EUR), unveränderte
+alte Zahlungsteile und genau einen Bonus von 500,00 EUR in der Jahresbasis.
+Eine unbezahlte Zwischenrevision ist separat geprüft; die Nachzahlung bemisst
+sich an der letzten tatsächlichen Zahlung und nicht am letzten Rechen-Delta.
+
+Vier tatsächliche PostgreSQL-Fälle prüfen ursprüngliches CRLF-Original,
+MFA/private Dateien, Zahlung/Cash/EÜR, Abführungsblockade, konkurrierenden
+Abführungs-/Korrekturabschluss und konkurrierende Laufabschlüsse. Alle bestehen.
+Der zusätzliche finale Fall prüft die Jahresbasis und eigene Mitarbeiter-
+Datengrenzen vor und nach echtem Dump/Restore; ebenfalls bestanden.
+
+Zwei echte Browserdurchläufe, 902 Browsermodulfälle, 23 ausgewählte Appfälle,
+Appanalyse ohne Befund und 16 Paketprüfungen bestehen. Der umfassende Lohn-/
+Reisesammellauf wird gesondert dokumentiert. Das beschleunigte Prüfen historischer
+Originale wählt bekannte Metadatenvarianten vor und behält die vollständige
+Gleichheitsprüfung; ein Vergleich mit der bisherigen vollständigen Variantensuche
+besteht. Alle 32 Rechenmodule und die komplette alte v1-Zahlungsdatei sind
+bytegleich zur Basis af98278.
+
+[Rohprotokolle und Prüfsummen](evidence/source5-positive-correction-2026-11-09/integration-raw-logs.json).
+Veröffentlichung, neue Remote-CI, Serverinstallation und tatsächliche Geräte-
+bedienung sind getrennte Nachweise. Dieser Vertrag schließt weder mehrere
+Steuergruppen noch negative oder anders datierte Nachzahlungen ab.

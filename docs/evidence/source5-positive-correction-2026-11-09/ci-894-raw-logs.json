@@ -1,0 +1,14 @@
+{
+  "ci-894-business-services": {
+    "bytes": 472246,
+    "sha256": "b24f79527ff69f67e53c7c9240b95aff519e156487b2c10231fbff592c7b4f99",
+    "gzip": "ci-894-business-services.gz",
+    "source_commit": "894ecdde1f2d4bff89e49151b8bc9f4b5e00ffbf"
+  },
+  "ci-894-unsigned-iphone": {
+    "bytes": 493443,
+    "sha256": "aded4fa44921b1e0e8a69c33b65365ca6cb3800c803b28f78d8e5be943d6c75c",
+    "gzip": "ci-894-unsigned-iphone.gz",
+    "source_commit": "894ecdde1f2d4bff89e49151b8bc9f4b5e00ffbf"
+  }
+}

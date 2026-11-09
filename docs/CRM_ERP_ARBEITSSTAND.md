@@ -15,7 +15,7 @@ Die ausdrücklich manuell gestarteten Prüfungen:
 [Veröffentlichungsnachweis](evidence/completion-followup-2026-11-09/publication.json).
 Der frühere vollständig grüne Stand 2598c96 und die älteren fehlgeschlagenen
 Läufe bleiben in ihren historischen Nachweisen erhalten. Die zusätzlichen Änderungen sind anschließend als 4b8ec08/894ecdd veröffentlicht.
-Die neue eigene Prüfung läuft: [Development42624525741](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42624525741),
+Die neue eigene Prüfung auf 894ecdd ist beendet: sieben Development-Jobs bestehen; der Browserjob scheitert am mobilen Sichtbarkeitskriterium der Anmeldung. Der iPhone-Prüflauf scheitert an einer festen Warteannahme beim echten Dateischreiben. Gezielte Korrekturen und Nachprüfungen laufen: [Development42624525741](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42624525741),
 [iPhone42624525589](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42624525589).
 [Veröffentlichungsnachweis](evidence/oneoff-provenance-2026-11-09/publication.json).
 Der signierte Upload ist nicht angefordert.
@@ -74,34 +74,37 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
 ## Konkrete aktuelle Arbeit
 
-Die folgenden beiden abgeschlossenen Abschnitte sind entwickelt, geprüft und
-auf dem Testbranch veröffentlicht. Der nächste Backend-/Browser-/App-Abschnitt
-ist am 09.11. begonnen, noch nicht integriert oder ausgeliefert:
+Die positive Korrektur eines bezahlten einzelnen Source5-Bonus ist gemeinsam
+integriert in `/workspace/smartplan-source5-integration-20261109`, Branch
+`codex/source5-positive-integration-20261109`. Backend, Browser und native App
+verwenden denselben neuen Übergangs-/Zahlungsvertrag. Der alte v1-Vertrag und
+alle 32 historischen 2026-Rechenmodule bleiben bytegleich zur Basis af98278.
 
-- Backend: `/workspace/smartplan-source5-corrections-20261109`, Branch
-  `codex/source5-positive-corrections-20261109`, Basis af98278.
-- Browser: `/workspace/smartplan-source5-browser-20261109`, Branch
-  `codex/source5-positive-browser-20261109`, Basis af98278.
-- Native App: `/workspace/smartplan-source5-app-20261109`, Branch
-  `codex/source5-positive-app-20261109`, Basis af98278.
+Unverändertes Brutto-/Zuflussereignis und laufende Rechnung, belegter vollständiger
+Zahlungspräfix, positive zusätzliche Nettoteile am ursprünglichen Tag und
+komponentenweise Abführungsgrenzen sind verbindlich. Ein privates Original
+belegt die ausdrücklich bestätigte Vollständigkeit aller Zahlungen/Abführungen;
+leere Cashlisten allein reichen nicht. Zwei aufeinanderfolgende Nachzahlungen
+und eine unbezahlte Zwischenrevision werden getrennt geprüft.
 
-Geplanter eng begrenzter neuer Vertrag: unverändertes Brutto-/Zuflussereignis,
-unveränderte laufende Rechnung, vollständiger tatsächlicher bezahlter Source5-
-Präfix und positive zusätzliche Nettoteile am belegten ursprünglichen Tag.
-Bereits abgeführte Steuer-/SV-Komponenten dürfen ihre korrigierte Gesamtschuld
-nicht überschreiten; sonst bleibt der Fall ausdrücklich gesperrt. Die bestehende
-Datumsrestriktion ist eine Codegrenze, kein allgemeiner steuerlicher Beweis für
-jeden späteren Korrekturfall. Fachlich eigenständige spätere Zahlungstage,
-Bruttoänderungen, Rückzahlungen und mehrere Steuergruppen werden nicht über
-diesen Vertrag freigeschaltet. Exakter Vertrag, echte Fixtures, Atomizität,
-Jahres-/Cash-/EÜR-Anschluss und beide Clients werden zusammen geprüft.
+Vier echte PostgreSQL-/MFA-/HTTP-/Konkurrenz-/Restorefälle bestehen. Der zusätzliche
+finale Jahres-/Mitarbeiter-/Restorefall besteht ebenfalls. 902 Browsermodul-,
+23 ausgewählte native und 16 Paketfälle bestehen; Appanalyse ohne Befund.
+Zwei echte Browserdurchläufe des neuen Falls mit verlorenen Antworten bestehen.
+Der neue vollständige Lohn-/Reisesammellauf ist noch nicht abgeschlossen.
+[Vertrag](CRM_ERP_SOURCE5_POSITIVE_KORREKTUR_2026.md).
 
-Die folgenden beiden Abschnitte sind entwickelt, geprüft und auf dem Testbranch
-veröffentlicht. Als nächstes konkretes Codepaket bleiben bereits bezahlte
-Source5-Folgekorrekturen mit neuem Differenzvertrag und mehrere Steuergruppen
-gemäß Umsetzungsplan. Keine alte tatsächliche Zahlung darf dafür ersetzt werden.
-Weitere ausdrücklich benannte Lohn-/EÜR-Fälle und die getrennten Geräte-/
-Server-/Fachabnahmen gehören weiterhin zum Gesamtziel.
+Der neue Abschnitt ist noch nicht veröffentlicht. Vor der Veröffentlichung
+werden die unabhängig auf 894ecdd gefundenen mobilen Anmelde- und nativen
+Dateispeicher-Testfehler behoben. Der letzte vollständig grüne gemeinsame
+Remote-Prüfstand bleibt ef1259c. Bereits gezahlte negative Korrekturen,
+spätere tatsächliche Zahlungstage und mehrere Bonus-Steuergruppen bleiben
+separate Code-/Fachaufgaben; [konkreter Gruppenplan](CRM_ERP_SOURCE5_MEHRFACH_GRUPPEN_RESTPLAN_2026.md).
+
+Als nächste Aufgaben außerhalb der Lohnrechnung laufen die über Neustart
+haltbare unbestätigte Projektanlage und vollständige Browser-Projektaufgaben.
+Beide schließen bestätigte Lücken im Kunden-/Projektweg und sind noch keine
+fertigen oder veröffentlichten Bestandteile.
 
 Der [Einmalbezugs-Abgleich](CRM_ERP_LOHN_EINMALBEZUG_PLATTFORMHISTORIE_2026.md)
 ist aus der eigenen Arbeitskopie als 894ecdd in den Hauptstand übernommen.
@@ -220,10 +223,10 @@ zusätzliche Einmalbezugsabgleich ist oben beschrieben.
 ## Weitere unabhängige Entwicklungsarbeit
 
 - Korrigierten Browser-Gesamtlauf und neue eigene Remote-CI abschließen.
-  2598c96 bleibt der letzte vollständig grüne Produktstand.
+  ef1259c mit Produktcode eef1927 bleibt der letzte vollständig grüne Prüfstand.
 - Historische plattformabhängige Lohn-/Reisemetadaten vollständig abgleichen.
   Der v8-Faktor-Vollmonat und die v2/v3-Reisekosten sind eng begrenzt geprüft;
-  rohe Dateihash-Nachweise bei Einmalbezügen bleiben eigener Folgeumfang.
+  der entsprechende v6/v7-Einmalbezugsabgleich ist inzwischen ebenfalls integriert.
 - Weitere benannte Standard-Lohnfälle additiv integrieren. Dazu gehören unter
   anderem Faktor-Ansprüche/-Einmalbezüge und Midijobs mit Faktor, individuelle Minijobsteuer, Versicherungsvarianten,
   Minijob-Jahresgrenzen und weitere Leistungen/Sachbezüge. Der

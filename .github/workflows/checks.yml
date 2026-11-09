@@ -217,6 +217,8 @@ jobs:
             SMARTPLAN_BROWSER_WORKFLOW=payroll-zero-account node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-oneoff-cases node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-multiple-cases node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-positive-correction node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=mobile-login node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-statements node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=assistant node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=company-events node tests/e2e.cjs &&

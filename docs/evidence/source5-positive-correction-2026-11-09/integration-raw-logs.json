@@ -1,0 +1,80 @@
+{
+  "browser-e2e-initial": {
+    "file": "browser-e2e-initial.gz",
+    "raw_bytes": 460,
+    "raw_sha256": "b4a282d83c5bfe47ef27ecb53f43f0d6383fd97eafd3cc6e9689f27c51a9d0aa",
+    "gzip_sha256": "988d11f401c6894ca787afbce6a6993011f6a424ab98693aabb1cbcded6e4466"
+  },
+  "browser-e2e-final": {
+    "file": "browser-e2e-final.gz",
+    "raw_bytes": 460,
+    "raw_sha256": "b4a282d83c5bfe47ef27ecb53f43f0d6383fd97eafd3cc6e9689f27c51a9d0aa",
+    "gzip_sha256": "988d11f401c6894ca787afbce6a6993011f6a424ab98693aabb1cbcded6e4466"
+  },
+  "browser-commands": {
+    "file": "browser-commands.gz",
+    "raw_bytes": 2545065,
+    "raw_sha256": "bd1faf9a0f58fd497fbf72adbe48dcfd152a988cba798789759c101952cd3653",
+    "gzip_sha256": "e201bce018278674d04de5669b8aa1f500c005347bc3ee4a58c923372d7b543f"
+  },
+  "browser-modules-900": {
+    "file": "browser-modules-900.gz",
+    "raw_bytes": 91421,
+    "raw_sha256": "e1581a1059c9d50c5187e21471e85067f2ae12869d50aaf7d8de9286621962ed",
+    "gzip_sha256": "e7d16d459eec8865fc66bb79bd2f0a1db0bb0bffdbd2ef9b5a96714992c109ee"
+  },
+  "browser-modules-902": {
+    "file": "browser-modules-902.gz",
+    "raw_bytes": 91619,
+    "raw_sha256": "03463b391e13a38b7388d17390f75bbd17e392aec78859dfeabb3d219052cdf9",
+    "gzip_sha256": "dae2a64cd6d6f42ee2ac5897adf7be65a37d3e0f00aaccf849864f36ad70c084"
+  },
+  "native-analysis": {
+    "file": "native-analysis.gz",
+    "raw_bytes": 97,
+    "raw_sha256": "7b3989dbefe5d0213b190b7490964c7fd2b429cba083c007e82becca558da5e4",
+    "gzip_sha256": "2c09a03ea96542fd970d280c3b04a3ffc59c9c613b500373de51630f200a3fc7"
+  },
+  "native-combined-22": {
+    "file": "native-combined-22.gz",
+    "raw_bytes": 4639,
+    "raw_sha256": "eb75b1e61b6d86ea900b3ce94fb1ac5dbf21c8323263d65249f6b482cf71c9a0",
+    "gzip_sha256": "36bdc947dc8815fb6bc0b9a345ea0672d9dc9582e850cd564a0a14233082464a"
+  },
+  "native-combined-23": {
+    "file": "native-combined-23.gz",
+    "raw_bytes": 4700,
+    "raw_sha256": "f317c68f9ae7c72bedfe4c0387af3d97e32de2796ebba7a13697db0bc4b1a1cc",
+    "gzip_sha256": "91d4bd1985ad550acff160dc24181bc1879336878f7df6f877785f5dd4afc7f6"
+  },
+  "packaging-combined": {
+    "file": "packaging-combined.gz",
+    "raw_bytes": 3604,
+    "raw_sha256": "29c24c57b7a194691558a0ccff579892c9f7a05bee293debceea5da7468c9d48",
+    "gzip_sha256": "37dbb1261c701a0d33b4664ed9eeaeff6fad7044b73415ef3fcd935dd28a84cb"
+  },
+  "postgres-initial-four": {
+    "file": "postgres-initial-four.gz",
+    "raw_bytes": 1064,
+    "raw_sha256": "d949d08618758e1eb1c04ddf76913768eaf4e2b727eecdd29c7af26b6a76b2ef",
+    "gzip_sha256": "c4b5949a058f5a33ac29a0bad016a2ce35302311accc10e49f28c27e4a7987ec"
+  },
+  "postgres-annual-final": {
+    "file": "postgres-annual-final.gz",
+    "raw_bytes": 340,
+    "raw_sha256": "34ee84f661037a9c8b9005bb8a40bb98f112fb4d037253c1bea7312af4d50eda",
+    "gzip_sha256": "46677bec7389f13b9c61f897e68b185f813b204fc180d56b239160b83e66c1ce"
+  },
+  "mobile-login": {
+    "file": "mobile-login.gz",
+    "raw_bytes": 231,
+    "raw_sha256": "e7f9664d4904ae1a1a97b5fd750ecd4050ff4041c681c68c95c3904a2733a212",
+    "gzip_sha256": "eb685cd65abb937684c06adcf03785e035f45e301af653206e78d3006041a63d"
+  },
+  "mobile-login-confirmed": {
+    "file": "mobile-login-confirmed.gz",
+    "raw_bytes": 231,
+    "raw_sha256": "e7f9664d4904ae1a1a97b5fd750ecd4050ff4041c681c68c95c3904a2733a212",
+    "gzip_sha256": "eb685cd65abb937684c06adcf03785e035f45e301af653206e78d3006041a63d"
+  }
+}

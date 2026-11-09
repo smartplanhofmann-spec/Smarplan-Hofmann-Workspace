@@ -3554,3 +3554,10 @@ Upload übersprungen; der [abgeschlossene Abruf](evidence/offline-legacy-time-co
 ändert den damaligen ersten Zwischenstand nicht. Veröffentlichung des neuen
 Abschnitts folgt gesondert. Der zuletzt bestätigte Server bleibt A93;
 Gesamtsoftware und reale Abnahmen A–G sind weiterhin nicht fertig erklärt.
+
+
+Der geprüfte Zeitabgleich ist als 75d88a3 auf dem autorisierten Testbranch
+veröffentlicht; Remote-Zeiger lesend bestätigt. Die eigenen Läufe
+Development42721692151 und iPhone42721692036 laufen. HTTPS besteht im ersten
+Abruf; weitere Jobs sind offen. [Originaler Abruf](evidence/offline-legacy-time-core-2026-11-09/publication-initial.json).
+Keine neue Serverinstallation oder reale Geräteabnahme wird daraus abgeleitet.

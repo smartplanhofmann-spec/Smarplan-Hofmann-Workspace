@@ -4,12 +4,17 @@ Stand: 09.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
-**Aktueller Codeabschnitt:** Der [lesende Abgleich alter nativer Zeitereigniskerne](CRM_ERP_OFFLINE_ALTZEITEN_2026-11-09.md)
-ist lokal fertig integriert. 64 App-, 81 Backend-, fünf tatsächliche
-PostgreSQL-/Restore- und 16 Paketfälle bestehen; vollständige Appanalyse ohne
-Befund. Fehlende alte Mitarbeiterbasis wird nicht aus dem aktuellen Profil
-rekonstruiert. Keine Altdaten werden übertragen, neu gesendet oder verändert.
-Veröffentlichung des neuen Abschnitts folgt; er ist noch nicht live installiert.
+**Neueste Veröffentlichung:** Der [lesende Abgleich alter nativer Zeitereigniskerne](CRM_ERP_OFFLINE_ALTZEITEN_2026-11-09.md)
+ist als `75d88a35b6579deb959083f1d5971fe926e7328c` auf dem autorisierten
+Testbranch veröffentlicht; der Remote-Zeiger ist bestätigt.
+[Development42721692151](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42721692151)
+und [iPhone42721692036](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42721692036)
+laufen; HTTPS besteht im ursprünglichen Abruf. Die übrigen Ergebnisse sind offen.
+[Eigener Veröffentlichungsnachweis](evidence/offline-legacy-time-core-2026-11-09/publication-initial.json).
+64 App-, 81 Backend-, fünf tatsächliche PostgreSQL-/Restore- und 16 Paketfälle
+bestehen; vollständige Appanalyse ohne Befund. Fehlende alte Mitarbeiterbasis
+wird nicht aus dem heutigen Profil rekonstruiert. Keine Altdaten werden
+übertragen, neu gesendet oder verändert. Keine neue Liveinstallation erfolgt.
 
 **Neuer vollständig grüner Produktstand:** `ab632c0b680b563169ec9e846ab9b406762bcc97`
 besteht inzwischen sämtliche acht eigenen Development-Jobs einschließlich
@@ -18,7 +23,7 @@ Der signierte Upload ist übersprungen. Der erste Abruf unten bleibt historisch;
 [abgeschlossener tatsächlicher Abruf](evidence/offline-legacy-time-core-2026-11-09/previous-product-ci-completed.json).
 Keine neue Serverinstallation oder echte Geräteabnahme ist damit erfolgt.
 
-**Neueste Veröffentlichung:** Die geprüfte native Einzelprüfung alter
+**Vorangegangene Veröffentlichung, ursprünglicher Abruf:** Die geprüfte native Einzelprüfung alter
 Planaufträge ist als `ab632c0b680b563169ec9e846ab9b406762bcc97` auf dem
 autorisierten Testbranch veröffentlicht; der Remote-Zeiger ist bestätigt.
 [Development42713870349](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42713870349)

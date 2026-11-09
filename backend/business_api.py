@@ -104,7 +104,7 @@ def strict_workflow_path(path):
     if not isinstance(path, str):
         return False
     return re.fullmatch(
-        r'/business/(?:offline/(?:access/v2|recovery/(?:lookup|time-event))|(?:project-economics|customer-workspace|receipt-media|personnel|payroll|accounting/euer|accounting/opening-balances|accounting/historical-assets|accounting/open-items|accounting/year-values|assistant|company-events|sales|company-handover|migrations|custom-fields|privacy/cases|service|bank|resource-custody|catalog-prices)(?:/.*)?|overview/metrics|inventory/(?:counts(?:/.*)?|count-sources)|'
+        r'/business/(?:commercial/rule-scope|offline/(?:access/v2|recovery/(?:lookup|time-event))|(?:project-economics|customer-workspace|receipt-media|personnel|payroll|accounting/euer|accounting/opening-balances|accounting/historical-assets|accounting/open-items|accounting/year-values|assistant|company-events|sales|company-handover|migrations|custom-fields|privacy/cases|service|bank|resource-custody|catalog-prices)(?:/.*)?|overview/metrics|inventory/(?:counts(?:/.*)?|count-sources)|'
         r'projects/[a-f0-9]{32}/milestones(?:/[a-f0-9]{32}(?:/history)?)?|'
         r'finance/receipts(?:/[a-f0-9]{32}(?:/original)?)?|adapters(?:/.*)?|'
         r'assets/(?:from-delivery|origin-sources|[a-f0-9]{32}/origin)|'

@@ -64,6 +64,13 @@ Restarbeiten in diesem Plan.
 
 ## Bereits belegte Entwicklungsabschnitte
 
+Die [Aussteller-Ländergrenze](CRM_ERP_AUSSTELLER_LAENDERGRENZE_2026-11-09.md)
+ist als eigenes explizites Länder-/Währungsrouting für neue Rechnungen
+implementiert und in beiden Clients sichtbar. Die rote Fremdland-Gegenprobe,
+26 Backend-, zwei tatsächliche PostgreSQL-, 1.020 Browsermodul- und 17 native
+Fälle sowie der echte Browserablauf sind dokumentiert. Weitere Regeltrennung
+bleibt Aufgabe; fremde Länder werden nicht still freigeschaltet.
+
 Der [lesende Abgleich alter Zeitereigniskerne](CRM_ERP_OFFLINE_ALTZEITEN_2026-11-09.md)
 ist jetzt mit tatsächlicher alter Mitarbeiterbasis, neuer enger Metadatenroute
 und nativer Bedienung integriert. 81 Backend-, 64 native und fünf tatsächliche

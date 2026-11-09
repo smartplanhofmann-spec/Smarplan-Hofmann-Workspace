@@ -14,6 +14,53 @@ import 'business_organization.dart';
 import 'business_permissions.dart';
 import 'design.dart';
 
+({String message, bool unsupported}) commercialCountryScopeView(
+  Map<String, dynamic> scope,
+  Map<String, dynamic> settings,
+) {
+  Never bad() => throw const FormatException(
+    'Länderumfang und Firmenangaben sind unvollständig oder geändert. Bitte neu laden.',
+  );
+  bool valid(dynamic value) =>
+      value is Map &&
+      value['schema_version'] is int &&
+      value['schema_version'] == 1 &&
+      value['domain'] == 'commercial_invoice' &&
+      value['country'] == 'DE' &&
+      value['currency'] == 'EUR' &&
+      value['currency_scale'] is int &&
+      value['currency_scale'] == 2 &&
+      value['contract'] == 'de_commercial_invoice_eur_v1' &&
+      value['package_hash'] is String &&
+      RegExp(r'^[a-f0-9]{64}$').hasMatch(value['package_hash']);
+  if (scope['schema_version'] is! int ||
+      scope['schema_version'] != 1 ||
+      scope['domain'] != 'commercial_invoice' ||
+      scope['currency'] != 'EUR' ||
+      scope['settings_revision'] is! int ||
+      scope['settings_revision'] != settings['revision'] ||
+      scope['issuer_country'] is! String ||
+      scope['issuer_country'] != settings['country'] ||
+      scope['supported_issuer'] is! bool ||
+      scope['scope_note'] is! String ||
+      (scope['scope_note'] as String).trim().isEmpty ||
+      (scope['scope_note'] as String).length > 1000 ||
+      scope['supported'] is! List ||
+      (scope['supported'] as List).length != 1)
+    bad();
+  if (!valid(scope['supported'][0]) ||
+      scope['supported_issuer'] != (scope['issuer_country'] == 'DE') ||
+      (scope['supported_issuer'] == true
+          ? !valid(scope['selected'])
+          : scope['selected'] != null))
+    bad();
+  return (
+    message:
+        '${scope['supported_issuer'] == true ? '' : 'Dieses Ausstellerland wird für neue eigene Rechnungen derzeit nicht unterstützt. '}Ausstellerland: ${scope['issuer_country'] == '' ? 'nicht angegeben' : scope['issuer_country']}. ${scope['scope_note']}',
+    unsupported: scope['supported_issuer'] != true,
+  );
+}
+
 class BusinessSettingsPage extends StatefulWidget {
   const BusinessSettingsPage({
     super.key,
@@ -30,6 +77,7 @@ class BusinessSettingsPage extends StatefulWidget {
 
 class _BusinessSettingsPageState extends State<BusinessSettingsPage> {
   Map<String, dynamic>? settings;
+  ({String message, bool unsupported})? countryScope;
   String? error;
   @override
   void initState() {
@@ -40,7 +88,10 @@ class _BusinessSettingsPageState extends State<BusinessSettingsPage> {
 
   void changed() {
     if (mounted) {
-      if (!widget.session.can('settings.manage')) settings = null;
+      if (!widget.session.can('settings.manage')) {
+        settings = null;
+        countryScope = null;
+      }
       setState(() {});
     }
   }
@@ -56,8 +107,17 @@ class _BusinessSettingsPageState extends State<BusinessSettingsPage> {
       final result = businessMap(
         await widget.session.read('/commercial/settings'),
       );
+      final scope = widget.session.hasFeature('commercial_country_scope')
+          ? commercialCountryScopeView(
+              businessMap(await widget.session.read('/commercial/rule-scope')),
+              result,
+            )
+          : null;
       if (mounted && widget.session.can('settings.manage'))
-        setState(() => settings = result);
+        setState(() {
+          settings = result;
+          countryScope = scope;
+        });
     } catch (e) {
       if (mounted) setState(() => error = '$e');
     }
@@ -194,6 +254,26 @@ class _BusinessSettingsPageState extends State<BusinessSettingsPage> {
           const SizedBox(height: 20),
         ],
         if (error != null) Notice(error!, error: true),
+        if (countryScope != null)
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Länderumfang der Rechnungsstellung',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  Notice(
+                    countryScope!.message,
+                    error: countryScope!.unsupported,
+                  ),
+                ],
+              ),
+            ),
+          ),
         if (widget.session.hasFeature('custom_fields'))
           Card(
             child: ListTile(

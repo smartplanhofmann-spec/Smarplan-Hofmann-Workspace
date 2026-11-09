@@ -4,6 +4,16 @@ Stand: 09.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
+**Aktueller Codeabschnitt:** Die [Aussteller-Ländergrenze](CRM_ERP_AUSSTELLER_LAENDERGRENZE_2026-11-09.md)
+schließt eine tatsächliche Rechnungs-Freigabelücke für nicht implementierte
+Ausstellerländer. Ein eigener unveränderlicher Fachbereichs-/Länder-/Währungs-
+katalog prüft derzeit commercial_invoice/DE/EUR. Beide Clients zeigen die
+Grenze; ältere Server und geänderte Einstellungen erzeugen keine Freigabe.
+26 Backend-, zwei tatsächliche PostgreSQL-, 1.020 Browsermodul-, 17 native
+und 18 Paket-/Inventarfälle sowie der echte Browserablauf bestehen.
+Der neue Abschnitt ist noch nicht veröffentlicht oder live installiert.
+Arbeitskopie: `/workspace/smartplan-country-issuer-scope-20261109`.
+
 **Neueste Veröffentlichung:** Der [lesende Abgleich alter nativer Zeitereigniskerne](CRM_ERP_OFFLINE_ALTZEITEN_2026-11-09.md)
 ist als `75d88a35b6579deb959083f1d5971fe926e7328c` auf dem autorisierten
 Testbranch veröffentlicht; der Remote-Zeiger ist bestätigt.
@@ -155,7 +165,7 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
 Hauptprojekt: `/workspace/Smarplan-Hofmann-Workspace` auf dem lokalen Branch
 `codex/finish-20261108`. Der weitere Integrationskandidat steht in
-`/workspace/smartplan-offline-v1-time-recovery-20261109`; ältere vollständige
+`/workspace/smartplan-country-issuer-scope-20261109`; ältere vollständige
 Arbeitskopien und Zwischenstände bleiben erhalten.
 Der lokale gemeinsame Stand enthält die abgeschlossenen Projektmeilensteine,
 die Korrekturen der drei nachgewiesenen CI-Testfehler und den neuen

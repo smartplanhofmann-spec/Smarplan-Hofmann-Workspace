@@ -3561,3 +3561,28 @@ veröffentlicht; Remote-Zeiger lesend bestätigt. Die eigenen Läufe
 Development42721692151 und iPhone42721692036 laufen. HTTPS besteht im ersten
 Abruf; weitere Jobs sind offen. [Originaler Abruf](evidence/offline-legacy-time-core-2026-11-09/publication-initial.json).
 Keine neue Serverinstallation oder reale Geräteabnahme wird daraus abgeleitet.
+
+
+## 09.11.2026 – Tatsächliche Fremdland-Freigabelücke vor Rechnungsausstellung geschlossen
+
+Die korrekte Gegenprobe bereitete bisher eine Rechnung für Aussteller in AT,
+CH und US mit dem deutschen Belegkern vor. Ein eigener unveränderlicher
+Fachbereichs-/Länder-/Währungskatalog erlaubt jetzt ausdrücklich nur
+commercial_invoice/DE/EUR. Vor Nummerierung und nach dem Rendern wird die
+aktuelle Konfiguration erneut geprüft. Kundenanschriften wählen kein
+Ausstellerregelwerk. Vorhandene Archive und ursprüngliche Abschlussquittungen
+bleiben bei einem Länderwechsel identisch. Es gibt keine neue Migration oder
+Änderung alter Rechen-/Quellhashes.
+
+Browser und native Einstellungen zeigen die Grenze anhand einer frischen,
+versionsgebundenen Serverantwort. Fehlende Rechte, alte Server, geänderte
+Revisionen oder unbekannte Pakete erzeugen keine unterstützte Anzeige und
+keine Ausgabefreigabe. 26 Backend-, zwei tatsächliche PostgreSQL-, 1.020
+Browsermodul-, 17 native und 18 Paket-/Inventarfälle bestehen; Appanalyse ohne
+Befund. Der echte MFA-/Chromiumablauf DE → AT → DE besteht mit aktiver Sandbox.
+Erste synthetische Aufbauläufe, eine falsche Freigabe-Testannahme und zwei
+Widget-Aufräumfehler bleiben neben der echten roten Gegenprobe erhalten.
+[Vertrag, Nachweise und verbleibende Grenzen](CRM_ERP_AUSSTELLER_LAENDERGRENZE_2026-11-09.md).
+
+Die Veröffentlichung folgt separat. Gesamte Länder-/Lohn-/Meldelogik sowie
+Abnahmen A–G werden dadurch nicht als fertig erklärt; keine Liveinstallation.

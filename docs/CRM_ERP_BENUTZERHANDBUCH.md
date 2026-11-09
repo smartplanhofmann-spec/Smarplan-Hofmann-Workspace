@@ -46,6 +46,16 @@ Die zusammenhängende technische Prüfung und ihre Rechenbeispiele stehen unter
 Originale werden im [Kundenarbeitsbereich](CRM_ERP_KUNDENARBEITSBEREICH.md)
 einzeln veröffentlicht. Ein Kundenupload wird erst nach interner Prüfung übernommen.
 
+## Länderumfang der Rechnungsstellung
+
+Unter **Einstellungen → Länderumfang der Rechnungsstellung** ist zusätzlich
+erkennbar, welches Ausstellerland die eigene Rechnungsstellung unterstützt.
+Die erste deutsche Version unterstützt deutsche Aussteller und EUR. Ein
+unterstütztes Land aktiviert die Ausgabe noch nicht; die ausdrückliche
+Ausstellerfreigabe und die Belegprüfung bleiben erforderlich. Nicht unterstützte
+Aussteller bleiben vor einer neuen Rechnungsnummer gesperrt. Alte Originale
+bleiben lesbar. [Details](CRM_ERP_AUSSTELLER_LAENDERGRENZE_2026-11-09.md).
+
 ## Alte Offline-Aufträge prüfen
 
 In der aktuellen Windows-/iPhone-App steht für erhaltene alte Gerätebestände

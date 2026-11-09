@@ -1,0 +1,81 @@
+{
+  "DE": {
+    "schema_version": 1,
+    "domain": "commercial_invoice",
+    "issuer_country": "DE",
+    "currency": "EUR",
+    "selected": {
+      "schema_version": 1,
+      "domain": "commercial_invoice",
+      "country": "DE",
+      "currency": "EUR",
+      "currency_scale": 2,
+      "contract": "de_commercial_invoice_eur_v1",
+      "country_label": "Deutschland",
+      "currency_label": "Euro",
+      "package_hash": "a007cd470452fb518ab694f29fd6d95b87b9e6375371bb1e5ee39e57dfd62feb"
+    },
+    "supported": [
+      {
+        "schema_version": 1,
+        "domain": "commercial_invoice",
+        "country": "DE",
+        "currency": "EUR",
+        "currency_scale": 2,
+        "contract": "de_commercial_invoice_eur_v1",
+        "country_label": "Deutschland",
+        "currency_label": "Euro",
+        "package_hash": "a007cd470452fb518ab694f29fd6d95b87b9e6375371bb1e5ee39e57dfd62feb"
+      }
+    ],
+    "supported_issuer": true,
+    "scope_note": "Eigene Rechnungsstellung: Aussteller in Deutschland, Beträge in EUR. Kundenanschriften bestimmen nicht das Regelwerk des Ausstellers. Steuerfälle, Ausstellerfreigabe und Belegprüfung werden zusätzlich geprüft.",
+    "settings_revision": 2
+  },
+  "AT": {
+    "schema_version": 1,
+    "domain": "commercial_invoice",
+    "issuer_country": "AT",
+    "currency": "EUR",
+    "selected": null,
+    "supported": [
+      {
+        "schema_version": 1,
+        "domain": "commercial_invoice",
+        "country": "DE",
+        "currency": "EUR",
+        "currency_scale": 2,
+        "contract": "de_commercial_invoice_eur_v1",
+        "country_label": "Deutschland",
+        "currency_label": "Euro",
+        "package_hash": "a007cd470452fb518ab694f29fd6d95b87b9e6375371bb1e5ee39e57dfd62feb"
+      }
+    ],
+    "supported_issuer": false,
+    "scope_note": "Eigene Rechnungsstellung: Aussteller in Deutschland, Beträge in EUR. Kundenanschriften bestimmen nicht das Regelwerk des Ausstellers. Steuerfälle, Ausstellerfreigabe und Belegprüfung werden zusätzlich geprüft.",
+    "settings_revision": 2
+  },
+  "CH": {
+    "schema_version": 1,
+    "domain": "commercial_invoice",
+    "issuer_country": "CH",
+    "currency": "EUR",
+    "selected": null,
+    "supported": [
+      {
+        "schema_version": 1,
+        "domain": "commercial_invoice",
+        "country": "DE",
+        "currency": "EUR",
+        "currency_scale": 2,
+        "contract": "de_commercial_invoice_eur_v1",
+        "country_label": "Deutschland",
+        "currency_label": "Euro",
+        "package_hash": "a007cd470452fb518ab694f29fd6d95b87b9e6375371bb1e5ee39e57dfd62feb"
+      }
+    ],
+    "supported_issuer": false,
+    "scope_note": "Eigene Rechnungsstellung: Aussteller in Deutschland, Beträge in EUR. Kundenanschriften bestimmen nicht das Regelwerk des Ausstellers. Steuerfälle, Ausstellerfreigabe und Belegprüfung werden zusätzlich geprüft.",
+    "settings_revision": 2
+  }
+}

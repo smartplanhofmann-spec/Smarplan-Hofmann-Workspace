@@ -3016,10 +3016,28 @@ function organizationPanel(organization) {
   return form('Unternehmensbedarf und Module',fields,(values,key)=>mutation(key,'/organization',organizationChange(organization,values)),
     {key:'organization-'+organization.revision,description,extra:links,readonly:state.readonly,submit:'Bedarf und Module speichern'});
 }
+export function commercialCountryScopeView(scope, settings) {
+  const bad=()=>{throw new Error('Länderumfang und Firmenangaben sind unvollständig oder geändert. Bitte neu laden.');};
+  if(!scope||scope.schema_version!==1||scope.domain!=='commercial_invoice'||scope.currency!=='EUR'||
+     !Number.isSafeInteger(scope.settings_revision)||scope.settings_revision!==settings?.revision||
+     typeof scope.issuer_country!=='string'||scope.issuer_country!==settings.country||
+     typeof scope.supported_issuer!=='boolean'||typeof scope.scope_note!=='string'||!scope.scope_note.trim()||
+     scope.scope_note.length>1000||!Array.isArray(scope.supported)||scope.supported.length!==1)bad();
+  const valid=p=>p?.schema_version===1&&p.domain==='commercial_invoice'&&p.country==='DE'&&p.currency==='EUR'&&
+    p.currency_scale===2&&p.contract==='de_commercial_invoice_eur_v1'&&/^[a-f0-9]{64}$/.test(p.package_hash);
+  if(!valid(scope.supported[0])||scope.supported_issuer!==(scope.issuer_country==='DE')||
+    (scope.supported_issuer?!valid(scope.selected):scope.selected!==null))bad();
+  return {message:`${scope.supported_issuer?'':'Dieses Ausstellerland wird für neue eigene Rechnungen derzeit nicht unterstützt. '}Ausstellerland: ${scope.issuer_country||'nicht angegeben'}. ${scope.scope_note}`,
+    unsupported:!scope.supported_issuer};
+}
+
 async function settingsView() {
   const [branding,statuses,organization]=await Promise.all([api.get(biz('/settings/branding')),api.get(biz('/project-statuses')),
     state.features.has('organization_modules')?api.get(biz('/organization')):Promise.resolve(null)]);
+  const countryScope=state.features.has('commercial_country_scope')?
+    commercialCountryScopeView(await api.get(biz('/commercial/rule-scope')),branding):null;
   const content=el('div',{class:'stack'},heading('Einstellungen','Betriebsdaten und Freigaben. Externe Integrationen bleiben ausdrücklich getrennt.'),
+    countryScope?panel('Länderumfang der Rechnungsstellung',notice(countryScope.message,countryScope.unsupported?'warn':'info')):null,
     organization?organizationPanel(organization):null,
     yearValuesWorkspace.available()?panel('Belegte frühere Jahreswerte',notice('Originalgebundene historische Journalzeilen vor Softwarebeginn; keine neue Zahlung und kein neuer Vorsteueranspruch.'),button('Jahresvorträge öffnen',()=>action(()=>yearValuesWorkspace.open()),'small')):null,
     has('privacy.manage')&&state.features.has('privacy_cases')?panel('Datenschutzfälle',el('p',{},'Betroffenenanfragen, Fristen, Quellenprüfung und geschützte Auskunft mit eigener Aufbewahrung.'),button('Datenschutzfälle öffnen',()=>action(()=>privacyCases.open()),'small')):null,

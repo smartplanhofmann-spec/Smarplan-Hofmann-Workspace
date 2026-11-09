@@ -1,0 +1,282 @@
+{
+  "date": "2026-11-09",
+  "base_commit": "d863f108d16e41ccb7f1282f37bbb767c27d3662",
+  "scope": "Explicit DE/EUR new invoice issuer gate, immutable domain/country/currency routing, descriptive scope in both settings clients; not full separation of all tax/payroll/reporting domains",
+  "results": {
+    "backend": {
+      "passed": 26,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 8.855,
+      "includes": "actual MFA, exact issuing/receipt/archive/numbering and fresh scope rights"
+    },
+    "postgresql": {
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 9.846,
+      "actual_restricted_runtime": true,
+      "actually_issued_DE_invoice": true,
+      "AT_CH_no_number_or_archive": true,
+      "change_between_render_and_commit": true,
+      "archive_and_exact_receipt_unchanged": true
+    },
+    "browser_modules": {
+      "passed": 1020,
+      "failed": 0,
+      "skipped": 0,
+      "milliseconds": 12001.951763
+    },
+    "actual_browser": {
+      "passed": 1,
+      "mocked_scope_responses": false,
+      "real_MFA": true,
+      "verified_namespace_pid_network_seccomp_sandbox": true,
+      "scope_transitions": [
+        "DE",
+        "AT",
+        "DE"
+      ]
+    },
+    "native_affected": {
+      "passed": 17,
+      "failed": 0,
+      "skipped": 0,
+      "reporter_elapsed": "00:05",
+      "actual_settings_390px": true
+    },
+    "package_and_inventory": {
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 15.135,
+      "unique_package_tests": 16,
+      "unique_inventory_tests": 2
+    },
+    "analysis": {
+      "result": "No issues found",
+      "seconds": 15.9
+    },
+    "final_actual_package_import": {
+      "passed": 1,
+      "overlaps_existing_16_package_cases": true,
+      "additional_unique_test_count": 0
+    }
+  },
+  "first_failures": {
+    "country-issuer-first-reproduction-20261109.txt.gz": "Three setup errors: fixture attempted enabled SQLite settings. Corrected using existing test-only synthetic activation; production SQLite restriction unchanged.",
+    "country-issuer-correct-fixture-before-20261109.txt.gz": "Genuine old-code regression: AT, CH, US each fail expected denial because preparation incorrectly succeeds.",
+    "country-issuer-domain-final-20261109.txt.gz": "23 tests ran; one mistaken test assumed default DE scope means enabled issuing. Corrected expectation: DE supported, issuing still false.",
+    "country-issuer-native-first-20261109.txt.gz": "Two widget fixtures left their session refresh timer pending.",
+    "country-issuer-native-fixed-fixture-20261109.txt.gz": "One test fixture disposed its session before reusing it for legacy feature check; corrected fixture lifecycle."
+  },
+  "goal": {
+    "bytes": 23863,
+    "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "source_sha256": {
+    ".github/workflows/checks.yml": "b56615f88c92e7f9151ddc42971dbfe32d325ae6449e4fe564182bbf4b226606",
+    "app/lib/business_settings.dart": "e82e8c22f5113c32c7e4afb600a46e2a9ef294fd35f2b2715d14311d2320f1cb",
+    "app/test/commercial_country_scope_test.dart": "f71211a20b9071503b0623e748f57acbb4234fb6dcbc67fd6358d14628e9b920",
+    "app/test/fixtures/commercial-country-scope.json": "be966c1ad704242b14d3915e23dbd685979043b94e566639e0c82b2471a23005",
+    "backend/business_api.py": "b1319d96d530629e1523307bba24ef7463af1f6e8c020cb42f3499ffeb47d61b",
+    "backend/business_country_rules.py": "69e72fa04108be8840bc69c2cc1135cbb4ce7f7da531e1b8b0adb3d93b2dfd25",
+    "backend/business_documents.py": "3086b5a280142322d4340dad344a4bf9a9381726e8592d234fae51e057b8eb75",
+    "backend/business_tests/test_issuer_country_scope.py": "463b7c87249b9e3694058a4b4389696b389feabf3113980914b3af5c0c8529ed",
+    "backend/online/test_commercial_country_scope.py": "4bc725761f8117b74bc9ca6acbfb1132750c6ad1e984cab89da9b57b596c026e",
+    "backend/online/test_commercial_country_scope_pg.py": "7d80279a2af2c4f66f49b8cc158396d6137ac977d6215ea681d874df400e71cc",
+    "scripts/native-release.py": "4872e467b5589769b80babe0e7d6238d421765e61d7c86723059379294f0c6dd",
+    "scripts/package-windows-support.py": "aa2451a64aa712b29cbc0e6dbb8fd5af97be445cdfe9883b1a8827f736ecbed0",
+    "web/office/office.js": "44b1657e20e5805176ff04075feb58f7d4b27413c263bb8e3514f5d76d9814ec",
+    "web/office/tests/commercial-country-scope-flow.cjs": "ccc7da9496bddc92392f725f678280e959a2fe889eb60a5fdf58ac1b44aab939",
+    "web/office/tests/commercial-country-scope.test.mjs": "65e1343502a978c3ed1ddfdc0aed0014d0a9f9157b622570d3b07a4181b275e9",
+    "web/office/tests/e2e.cjs": "c94ce2340b82eebe9dbdccc2203db0c978e1a9899939a599380712c7b61ff4fc"
+  },
+  "unchanged_historical_kernels": [
+    {
+      "path": "backend/payroll_annual_basis_2026.py",
+      "sha256": "5b17e71d13ed596a2f4a18ec49f12970e95329ac17dd69ef17709978191ad431"
+    },
+    {
+      "path": "backend/payroll_calculations_2026.py",
+      "sha256": "5133cc7b0a52471bcfd08c76960461799bd92e335ac7e5d141368dc69f14b553"
+    },
+    {
+      "path": "backend/payroll_claims_composition_2026.py",
+      "sha256": "e8a08c7402ae06803045cf5a4421cee1bca0a50183e43677788194c9242e342d"
+    },
+    {
+      "path": "backend/payroll_de_2026.py",
+      "sha256": "c1365355ab501f194f37ede7c4bb0ab2c2347a1252dfda97ae360708593a9789"
+    },
+    {
+      "path": "backend/payroll_entitlements_2026.py",
+      "sha256": "c495a10a871f68dcc13d656a303d5d671855a7b5ea522b454ad141829cb457e7"
+    },
+    {
+      "path": "backend/payroll_factor_2026.py",
+      "sha256": "c55d017120f56b0e2539c793018839820d17aef54611c3ede636e1ee20d1df25"
+    },
+    {
+      "path": "backend/payroll_factor_periods_2026.py",
+      "sha256": "f18b0254d6c96b981433d519adb4895de7e97fcb7e4e9d951105cf95773c63c0"
+    },
+    {
+      "path": "backend/payroll_holidays_2026.py",
+      "sha256": "d8ed5b71ce2f334d5670e707e421212e71abfad953121271efb81ea0eac99280"
+    },
+    {
+      "path": "backend/payroll_multiple_oneoff_2026.py",
+      "sha256": "c6ea0b98dab3528055c7e0b190b93e062dc1469466f670513bd75c8d856f33c7"
+    },
+    {
+      "path": "backend/payroll_oneoff_2026.py",
+      "sha256": "a52973b0f88f0658906db61b610762959b84f1cefe2ded866a663d718f9f1ce8"
+    },
+    {
+      "path": "backend/payroll_oneoff_composition_2026.py",
+      "sha256": "9b48ef4898b043c647b1c238a6f37d8b05bf8f78dcf9967fb691b9803454d0d7"
+    },
+    {
+      "path": "backend/payroll_pap_2026.py",
+      "sha256": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071"
+    },
+    {
+      "path": "backend/payroll_pap_factor_2026.py",
+      "sha256": "92c6dee2d41b5c8985b52d9d8e86831919c05b16bbb504f4bdfc7176be7d088c"
+    },
+    {
+      "path": "backend/payroll_pap_oneoff_2026.py",
+      "sha256": "f2fc8ced86ab844e5c7b4ea592fab2ba5870a7843f47b78bc379b9f874b2f456"
+    },
+    {
+      "path": "backend/payroll_pap_periods_2026.py",
+      "sha256": "9307e599d25512db069bc42b8662ff0aa84b5436808745916bc97018b2675444"
+    },
+    {
+      "path": "backend/payroll_periods_2026.py",
+      "sha256": "c3df3ae3ee93c756010290f382bf17050676a7bbc6a327082ea07b83e7b96890"
+    },
+    {
+      "path": "backend/payroll_segments_2026.py",
+      "sha256": "819894663d24ae4a74e15d4f22c2b421ec34fbf4fc1d8a10a868a62b6270c83d"
+    },
+    {
+      "path": "backend/payroll_sickness_2026.py",
+      "sha256": "05dc76065032993b9ec59035cf17bc99c388b1b119ac30feb4540d937cb45e33"
+    },
+    {
+      "path": "backend/payroll_sickness_phases_2026.py",
+      "sha256": "3a9f7bcc4262d2594e94c6f87bb6f5035901411e64a73f91586fc5b7b9d19c0b"
+    },
+    {
+      "path": "backend/payroll_sickness_start_2026.py",
+      "sha256": "dc69e48b0ef255893b962d6d20ba8dadc478c17a53ccb438b7f12565c1a979c7"
+    },
+    {
+      "path": "backend/payroll_transition_2026.py",
+      "sha256": "b3b649e5179990ed54058ee4daee497a8744277cfe64c98750a5b333963d1897"
+    },
+    {
+      "path": "backend/payroll_travel_2026.py",
+      "sha256": "7c4be0176679fd9d6dcfe1b1049c223e33a1a8b75804f2864df7b0ccd65935fb"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v1.py",
+      "sha256": "03cbcb42b4a5c0eedfc11536c5997a53509c1ab5304a89e2c69c8fbc775164cb"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v2.py",
+      "sha256": "83b2673315b2e828abbf72fef26841bd80e8e8bbd70da45f587a01a5037527e5"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v3.py",
+      "sha256": "6c8496f63c3f44ea56054d7eafa17aa75dbba71bc131306fcf59925d93faf45e"
+    },
+    {
+      "path": "backend/payroll_travel_expenses_2026.py",
+      "sha256": "2d96af39ded426f9868f3011ad3b47cdfc74c25c29f49ade56b6b178f67587d1"
+    },
+    {
+      "path": "backend/payroll_travel_ground_2026.py",
+      "sha256": "9fbc82efc589654ed2eb1425ce50fb4fe6a59b30bcde5ae29d27ec5f595deebc"
+    },
+    {
+      "path": "backend/payroll_travel_mixed_2026.py",
+      "sha256": "0e640106f0d70e3a0f0c54e3154f22e3576d5120dabb9117dbfcf3bde0f6dced"
+    },
+    {
+      "path": "backend/payroll_travel_rates_2026.py",
+      "sha256": "b327e00ea0624b6e41b45843077984af077917eb83400b341a3f88842192b7c0"
+    },
+    {
+      "path": "backend/payroll_travel_tax_2026.py",
+      "sha256": "8b28d2a38923fe64e7e640a1e3487834dea38ab701f07e010bb62dda81495f21"
+    },
+    {
+      "path": "backend/payroll_travel_transport_2026.py",
+      "sha256": "60cc47920cd49bd6daf6ca8a8bba94b49c46b5963d940b655ad100461d2be7d5"
+    },
+    {
+      "path": "backend/payroll_wage_interruptions_2026.py",
+      "sha256": "3039dc435c9c689fbc5a50b005581393e4093c8703a9ae9b74e52d559a236aa9"
+    }
+  ],
+  "additional_unchanged_sources": {
+    "backend/business_time.py": "65f8c4b58ddac49367dec78af555b1ea6556feee2cbd468f177940f104687d4b",
+    "backend/payroll_multiple_payments.py": "06b281118921401ac02d9b33086b989fbc30aa47e67fe26ff7983b4a44a5ef86",
+    "backend/business_offline_binding.py": "0572f96c5b35640fe278b66dd2267ea47f6b3af36bca6268dba8dcd30e120f63"
+  },
+  "no_schema_or_sql_checksum_change": true,
+  "own_disposable_pg_container_removed": true,
+  "own_container": "a9b94d2b32bb52d75cacdc3c7a96a215c760feb8c459c06ea93f29165ebe3da3",
+  "no_live_server_change": true,
+  "last_user_confirmed_server": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "reproduction": {
+    "backend_cwd": "backend",
+    "backend": "PYTHONPATH=.:business_tests:online <project-venv-python> -m unittest -v online.test_commercial_country_scope business_tests.test_issuer_country_scope business_tests.test_documents",
+    "postgres": "Own guarded disposable loopback smartplan_check DB; SMARTPLAN_TEST_DSN=<own-disposable-dsn> PYTHONPATH=.:business_tests:online <project-venv-python> -m unittest -v online.test_commercial_country_scope_pg",
+    "browser_cwd": "web/office",
+    "browser_modules": "node --test --test-isolation=none tests/*.test.mjs",
+    "actual_browser": "SMARTPLAN_BROWSER_TEST_PYTHON=<project-venv-python> SMARTPLAN_CHROMIUM_BINARY=<system-chromium> SMARTPLAN_BROWSER_NAMESPACE_SANDBOX=1 SMARTPLAN_BROWSER_WORKFLOW=commercial-country-scope node tests/e2e.cjs",
+    "native_cwd": "app",
+    "native": "PUB_CACHE=<existing-cache> flutter test --no-pub --reporter expanded test/commercial_country_scope_test.dart test/business_organization_test.dart test/business_shell_widget_test.dart",
+    "packages": "Existing backend/.venv required: <project-venv-python> -m unittest -v scripts.test_native_release scripts.test_product_inventory",
+    "analysis": "flutter analyze --no-pub"
+  },
+  "evidence_sha256": {
+    "browser/commercial-country-AT.png": "17c972a23d6199b5bb97587bd9b98c4da63a9c31e1d340aed4f7dd14ad78296d",
+    "browser/commercial-country-DE.png": "21f69b2b05007979b2f0740029305677e449874bba9d032fbd9a3f94521f320e",
+    "browser/commercial-country-synthetic-results.json": "8a90e402687622dde0348748c841895612476058748b0ea438faff89b7385069",
+    "country-issuer-analyze-final-20261109.txt.gz": "de9a4f7141e68e71f3db549dac3162ae588a80b4bce0d92eac9ee82b536ab9b7",
+    "country-issuer-analyze-final-clear-message-20261109.txt.gz": "efdf6a920a9105622538f4d72e74449922ce85656aeac742cd2f0bf49b2922a5",
+    "country-issuer-analyze-final-mobile-20261109.txt.gz": "efdf6a920a9105622538f4d72e74449922ce85656aeac742cd2f0bf49b2922a5",
+    "country-issuer-app-setup-20261109.txt.gz": "33e704fc20f0db5a9a37ee8f146d3084685cdb8c352aaa2fd21f09a54fab7cf4",
+    "country-issuer-browser-final-20261109.txt.gz": "4bb153438bdcfb60a3336f395dadd501f20a3091fb42ccfcb955f0d7e27f466e",
+    "country-issuer-browser-first-20261109.txt.gz": "4bb153438bdcfb60a3336f395dadd501f20a3091fb42ccfcb955f0d7e27f466e",
+    "country-issuer-correct-fixture-before-20261109.txt.gz": "5e79fbe3217fa046028fc3018320c588138a606906233f8ed1b32000dea8c0b7",
+    "country-issuer-domain-corrected-test-20261109.txt.gz": "94b59038375b19b4bf0e29756e0b4849ebdaab2e1d6a5347e87466d8c8e069be",
+    "country-issuer-domain-final-20261109.txt.gz": "0ab319e76274bf5ad44d331af22a83187e1d51e1ac55a174f3e10ebc737273b5",
+    "country-issuer-final-actual-package-import-20261109.txt.gz": "beb071dc3b39808f7aae7cf6c49b88e768676b61200c099c62e83607c3fbb435",
+    "country-issuer-first-fixed-20261109.txt.gz": "39c80f62c428e1728c65e15d15115ba5fa2632b65cfbd15849eaa67dea7a343d",
+    "country-issuer-first-reproduction-20261109.txt.gz": "c7c37d1d82cc9ace2e45cf83f94020a31e00df5f38b8ee62f55b09c52dde8ca1",
+    "country-issuer-http-domain-final-20261109.txt.gz": "be30c4879d94ea64260fb4cd7cdc5465de0ed2ef07abf80ef62800e622d8e98b",
+    "country-issuer-native-final-20261109.txt.gz": "212576a2d08a6947241a8ca19b3ffe34bfddeced38d47daecabfea7e3557a5eb",
+    "country-issuer-native-final-clear-message-20261109.txt.gz": "3ca845a338f717d1e33ee9123b7147af9e6945cb66948c765a5f7d0cfe3b7d02",
+    "country-issuer-native-final-mobile-20261109.txt.gz": "36862aa5b1eaf602d76b1c64540e502a064651b6fa64d749282dd16d82d32242",
+    "country-issuer-native-first-20261109.txt.gz": "a06f6caaf70f114f7f83fdc5b302ab6ed3c1e8fd52b68cc524cba2d69d202167",
+    "country-issuer-native-fixed-fixture-20261109.txt.gz": "1c1c43168130b867c3417025e6465cba34a0aeb0514b893312ac1d48c40d5120",
+    "country-issuer-native-format-20261109.txt.gz": "e98ec050289cbaa3dd064a92449fae4b12246207bc40c172350103191e4db2ef",
+    "country-issuer-native-format-last-20261109.txt.gz": "1135d8e46aa4cc46befbbc658e1a4f432f4549a2b399b846f4b82284ab25744f",
+    "country-issuer-native-test-format-20261109.txt.gz": "1135d8e46aa4cc46befbbc658e1a4f432f4549a2b399b846f4b82284ab25744f",
+    "country-issuer-native-test-format-actual-final-20261109.txt.gz": "1135d8e46aa4cc46befbbc658e1a4f432f4549a2b399b846f4b82284ab25744f",
+    "country-issuer-native-test-format-final-20261109.txt.gz": "2ab144753a1f457f673e7bfe7838afad7cab6642dce82b284feb4a6515c920f6",
+    "country-issuer-node-final-20261109.txt.gz": "bbc27a6543bbecef35f394bad8e081f335bad5ecef7ee432f591e1753d95d798",
+    "country-issuer-node-final-clear-message-20261109.txt.gz": "1c5bbe553ca7b30922c6aa208c76e9cede576a7190d071f56e70c07c38209f9f",
+    "country-issuer-own-pg-cid-20261109.txt.gz": "422baba71cb2bf117b9c14705cfadcc528dbab895d80acd0d2900c8d1d76823d",
+    "country-issuer-own-pg-cleanup-20261109.txt.gz": "422baba71cb2bf117b9c14705cfadcc528dbab895d80acd0d2900c8d1d76823d",
+    "country-issuer-packages-final-20261109.txt.gz": "f19ff03c6b0ed2d345ca1e0d85eb2b33d805b82d59973ecc83948b39092cbd7e",
+    "country-issuer-pg-first-20261109.txt.gz": "700f50103c7d813e91c42bdebbfdfa34b88ab0ca5babc73260a17747f387b80b",
+    "country-issuer-ui-final-format-20261109.txt.gz": "a456ca05f43b0a437573b1433e3ed20e7b240ce5cb792613ae8becdb6bedc474"
+  }
+}

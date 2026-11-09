@@ -386,6 +386,12 @@ class Documents:
         return dict(id='main',revision=row['revision'] if row else 0,updated_at=row['updated_at'] if row else None,
                     **(json.loads(row['payload_json']) if row else default_settings()))
 
+    def rule_scope(self,actor):
+        require(self.office,actor,'settings.manage')
+        from business_country_rules import invoice_scope
+        settings,revision=self._settings_row()
+        return dict(invoice_scope(settings.get('country')),settings_revision=revision)
+
     def _settings_row(self):
         row=self.db.execute("SELECT * FROM business_commercial_settings WHERE id='main'").fetchone()
         return (json.loads(row['payload_json']),row['revision']) if row else (default_settings(),0)
@@ -1036,6 +1042,9 @@ class Documents:
         if row['kind'] in INVOICES and self.clock().astimezone(timezone.utc).date().isoformat()<settings['cutover_date']:
             raise Problem(409,'Ausschließlicher Ausstellerwechsel ist noch nicht wirksam')
         payload=json.loads(row['payload_json'])
+        if row['kind'] in INVOICES:
+            from business_country_rules import resolve
+            resolve(domain='commercial_invoice',country=settings.get('country'),currency=payload.get('currency'))
         if row['kind']=='credit_note':
             source=self.db.execute("SELECT d.* FROM business_document_relations r JOIN business_documents d ON d.id=r.source_id WHERE r.target_id=? AND r.kind='cancels' AND r.source_sha256=d.payload_sha256",(identifier,)).fetchone()
             if not source or source['status']!='final' or source['kind'] not in INVOICES or source['kind']=='credit_note' or source['project_id']!=row['project_id'] or source['customer_id']!=row['customer_id']:
@@ -1536,10 +1545,11 @@ def _validate_pg_guards(db,statements):
             raise ValueError('Missing or modified PostgreSQL commercial/finance integrity guard: '+name)
 
 
-FEATURES=('quote_pricing','measurement_transfer')
+FEATURES=('quote_pricing','measurement_transfer','commercial_country_scope')
 
 
 def methods(path):
+    if path=='/commercial/rule-scope':return 'GET'
     if path in ('/commercial/pricing/preview','/commercial/document-calculation','/commercial/measurement-preview'):return 'POST'
     if path=='/documents/time-sources':return 'GET'
     if path in ('/documents','/articles','/services','/templates','/text-blocks','/commercial/settings','/settings/branding'):return 'GET, POST'
@@ -1559,6 +1569,9 @@ def dispatch(office,actor,path,method,data):
     if method not in methods(path).split(', '):raise Problem(405,'Methode nicht erlaubt')
     parts=path.strip('/').split('/');kind=parts[0];identifier=parts[1] if len(parts)>1 else None;action=parts[2] if len(parts)>2 else None
     if path=='/commercial/pricing/preview':result=api.pricing_preview(actor,data)
+    elif path=='/commercial/rule-scope':
+        if data:raise Problem(400,'Der Länderumfang hat keine Suchfilter.')
+        result=api.rule_scope(actor)
     elif path=='/commercial/document-calculation':result=api.document_calculation(actor,data)
     elif path=='/commercial/measurement-preview':result=api.measurement_preview(actor,data)
     elif path=='/documents/time-sources':result=api.time_sources(actor,data.get('project_id'))

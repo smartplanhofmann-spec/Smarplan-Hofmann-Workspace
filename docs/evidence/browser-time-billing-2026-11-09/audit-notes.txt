@@ -1,0 +1,14 @@
+Abgeschlossener read-only Alltagsaudit: Quellbasis d4df2f562200fd5f527309c983bb3c9593ab2563.
+Repro-WT f8e20c251405556bcc754e14c4c015f72aaf0276 enthält darüber ausschließlich zwei Testfixture-Fixes und Auditnachweise; Produktdateien identisch zu d4df2f5.
+
+Korrektur zur anfänglichen Notiz: Die frühere Aussage, office.js besitze eine Zeitquellenauswahl, war unzutreffend und wird ausdrücklich zurückgenommen. Sie wurde beim ersten Querlesen mit dem nativen Editor vermischt. Die nachfolgende vollständige Textsuche und echte Browserprobe belegen den fehlenden Browserpfad.
+
+Ein bestätigter priorisierter Befund (P2): Im Browser fehlt die Übernahme freigegebener Projektzeiten in Belegentwürfe. web/office/office.js:1792-1796 baut ausschließlich manuelle/Artikelpositionen; gesamtes web/ enthält keine time_entry_ids/hourly_rate_net/time-sources. Im echten Chromium (Sandbox geprüft) mit MFA und lokalem realem Backend wurde eine abrechenbare Stunde erfasst und freigegeben, /business/documents/time-sources enthält sie. Anschließend Browser > Dokumente > Belegentwurf erstellen > Projekt > Rechnung: kein Zeitübernahmefeld, kein Quellen-GET; eine manuell eingegebene Stunde erzeugt POST ohne time_entry_ids oder Quellenreferenz. Bestehende Quellenbindung/Doppelabrechnungsschutz wird so nicht genutzt. Anforderung: Original §5 (Angebote aus Zeiten), §6 (durchgängiger Prozess, keine Doppelerfassung), §11 Browser; Matrix R05.03/R06.04.
+
+Gegenbeweis zur Behauptung fehlenden Gesamtmoduls: backend/business_documents.py:817-850 implementiert den realen Import; :854-880 prüft doppelte Abrechnung und aktuelle Originale. backend/business_tests/test_time_billing.py prüft sekundengenau 7 Sekunden, Preisbasis3600, Netto19.44, Wiederabrechnung und spätere Änderungen. app/lib/business_documents.dart:298-304/:1170-1174/:1646-1682 enthält die native Quellenauswahl. web/office/tests/project-customer-flow.cjs beweist die manuelle Belegkette, aber keine Zeitübernahme. backend/online/test_customer_execution_journey_pg.py belegt die übrige Anfrage/Katalog/Angebot/Portal/Auftrag/Ausführung/Rechnung/Zahlung-Kette. Keine zweite gleich stark belegte Alltagslücke festgestellt.
+
+Repro: /tmp/smartplan-daily-time-browser-audit-20261109.cjs
+Resultat: /tmp/smartplan-daily-time-browser-audit-20261109.json
+Rohlog: /tmp/smartplan-daily-time-browser-audit-20261109.log
+Screenshot: /tmp/smartplan-daily-document-dialog-20261109.png
+Keine Produkt-/Repositoryänderung für diesen Audit, keine externen Kundendaten.

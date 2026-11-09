@@ -190,7 +190,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     @app.get('/office/<asset>')
     def office_browser(asset='index.html'):
         types = {'index.html': 'text/html', 'office.js': 'text/javascript', 'office.css': 'text/css',
-                 'time-tracking.js': 'text/javascript',
+                 'time-tracking.js': 'text/javascript', 'document-time-sources.js': 'text/javascript',
                  'project-economics.js': 'text/javascript', 'project-milestones.js': 'text/javascript', 'maintenance-contracts.js': 'text/javascript', 'asset-provenance.js': 'text/javascript',
                  'customer-workspace.html': 'text/html', 'customer-workspace.js': 'text/javascript',
                  'customer-workspace-staff.js': 'text/javascript',

@@ -1,0 +1,71 @@
+[
+  {
+    "delta": null,
+    "same_source": true,
+    "same_summary": true,
+    "source": {
+      "items": [
+        {
+          "entry_id": "73db03c3d1cd437aa444cfab8e39369e",
+          "revision": 2,
+          "source_hash": "a7e6627e9d35e356a08e47b0316839c089a3834b19689b8e9f5f455646620786",
+          "net_seconds": 7,
+          "segments": [
+            {
+              "work_date": "2030-01-09",
+              "net_seconds": 7
+            }
+          ],
+          "label": "Freigegebene Projektzeit",
+          "date": "2030-01-09"
+        }
+      ]
+    }
+  },
+  {
+    "delta": -2,
+    "same_source": true,
+    "same_summary": true,
+    "source": {
+      "items": [
+        {
+          "entry_id": "73db03c3d1cd437aa444cfab8e39369e",
+          "revision": 2,
+          "source_hash": "ab6cc7d2b669bf05fba63fdfbdf39fa9c61dfe8253a5faf34c0da2657fa08def",
+          "net_seconds": 5,
+          "segments": [
+            {
+              "work_date": "2030-01-09",
+              "net_seconds": 5
+            }
+          ],
+          "label": "Freigegebene Projektzeit",
+          "date": "2030-01-09"
+        }
+      ]
+    }
+  },
+  {
+    "delta": 3,
+    "same_source": true,
+    "same_summary": true,
+    "source": {
+      "items": [
+        {
+          "entry_id": "73db03c3d1cd437aa444cfab8e39369e",
+          "revision": 2,
+          "source_hash": "34a52e4d38a6bf64a22b84532ae38366c5b84752ffa128ae4471184940b5e842",
+          "net_seconds": 8,
+          "segments": [
+            {
+              "work_date": "2030-01-09",
+              "net_seconds": 8
+            }
+          ],
+          "label": "Freigegebene Projektzeit",
+          "date": "2030-01-09"
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,175 @@
+[
+  {
+    "file": "initial-browser-missing-control.cjs",
+    "sha256": "c03a20298fc4f4d8fc5b5db35764c7587298a4bc51a36d3cc936df82f333dfc0",
+    "size": 7113
+  },
+  {
+    "file": "initial-browser-missing-control.json",
+    "sha256": "766d304c29139805737f0e0c4170404fe413f01c70327acb0d1d09e8e4c0d691",
+    "size": 6655
+  },
+  {
+    "file": "initial-browser-missing-control.png",
+    "sha256": "6ec1152b5a6484c52d0ffee185829dde34c25723b1dcb39a6fc92eb56f97bea2",
+    "size": 170923
+  },
+  {
+    "file": "audit-notes.txt",
+    "sha256": "2868db659cb265cb52afbfda27d729954ce74da1869249c356045aa6a4673f41",
+    "size": 2527
+  },
+  {
+    "file": "module-tests.json",
+    "sha256": "1c8a00a55d92c7a448dad1821c2f9ca4ab9cc158a9b47c8245221941797dd805",
+    "size": 22190
+  },
+  {
+    "file": "sqlite-original-parity.json",
+    "sha256": "809e22e6e4d3b6d95689d157a1ff747de0c09cf67ac5a32dfdc4429864b232c0",
+    "size": 1692
+  },
+  {
+    "file": "module-tests.log.gz",
+    "sha256": "27206bdae82644005cccd33f7fd297877c846393e2ba3088a71e436d0b5fe8ef",
+    "original_sha256": "fe07d24d6cc1623b45aca8896ad140a4bbd208293c482e6be52e947cb82506b0",
+    "original_size": 117010
+  },
+  {
+    "file": "module-tests-sandbox-failure.log.gz",
+    "sha256": "2d62d449f5e882b102815f90c9fe2402dd95266dce5a25f9cd20b75403ab8c4d",
+    "original_sha256": "e99b2aec7427281647f65c13b5992f017be635d4caf87524b256d2d4b93d0a74",
+    "original_size": 96120
+  },
+  {
+    "file": "sqlite-tests.log.gz",
+    "sha256": "34ce7f7f2f036cd6e937d02ac476215059b1f3c65058b76fb3607f3a792bda5e",
+    "original_sha256": "d74ff6c13b2782c3f7fcc6222324291ca774d8feae6ab14a039c8c11b1f702d5",
+    "original_size": 118
+  },
+  {
+    "file": "postgres-regression.log.gz",
+    "sha256": "b5fe819b7ca7ab0da6221a488666e2d1c00dac6fc9f6d38819e69bf344cf24c9",
+    "original_sha256": "cf7a95ba2e2e86f264cc6db16d23a924a32395d82e9800ece7f95f2033f1e199",
+    "original_size": 99
+  },
+  {
+    "file": "postgres-original-before-after.log.gz",
+    "sha256": "ebf58033b3cc6892acd25e1518bfdaa23dab8a0c17efee1279d7735d6df19e5f",
+    "original_sha256": "dbea4260116484e75fa805cd4f6a1d7a56c9efcf19028dea55bc4b482f0d3d6f",
+    "original_size": 2636
+  },
+  {
+    "file": "fixture-owner-grant-failure.log.gz",
+    "sha256": "316e27887bae586a1be71c4661eaf90af59751529b786acd655817f0cab290f9",
+    "original_sha256": "821fe05adb72f8528dd594dc54add5a3fcd14202167a4410ecc6c707d66419b6",
+    "original_size": 2705
+  },
+  {
+    "file": "fixture-owner-logout-failure.log.gz",
+    "sha256": "d32ebcbc26bf5361c66aae663799fee404211d134b99dd5ec8cefcfdf0d0a772",
+    "original_sha256": "1977a52dd9a14cd2213f5356fc46d33e36227cad2dabab46a46637dd62fca38c",
+    "original_size": 2777
+  },
+  {
+    "file": "sqlite-issuance-guard.log.gz",
+    "sha256": "909754b7b118a316b5557d804f063216a78007d4e104df911ea2ed2500b3ee92",
+    "original_sha256": "00a5f11d20969cd44c8aef64835f6fbf26d26e7bb1563b5b83db4c74ce871df8",
+    "original_size": 2538
+  },
+  {
+    "file": "postgres-startup-wait-failure.log.gz",
+    "sha256": "0e2956dfd9c7d9579f6a0b131b006d8b5cab5d13764131f2fb3cdcb0ddbede27",
+    "original_sha256": "c28cdbd671cd900187c8089410cbc1842fc6468b8b13cc30baf3cf0195092ea1",
+    "original_size": 219
+  },
+  {
+    "file": "postgres-operator-binding-failure.log.gz",
+    "sha256": "9baf83d905e7dc87003632190ff683474a6b68f411d68ecd0021a3e7a9a73629",
+    "original_sha256": "66dcf2439a1148273ad09010c9bc2653949011d6779f9f362688882652aabe40",
+    "original_size": 2596
+  },
+  {
+    "file": "postgres-decimal-http-failure.log.gz",
+    "sha256": "6ac8b0c3d61f756cde4fe5b97e183a564b42464ad30a204c16db61c59ea7c06f",
+    "original_sha256": "6877f0e93d1fff2a2b70a0d2b9a3781d28fdbb4822620925661338aa240d1702",
+    "original_size": 2721
+  },
+  {
+    "file": "sqlite-import-path-failure.log.gz",
+    "sha256": "6516d0bd19b07227be593e3eac295fa707d66f5893df7dea9fbabf669ad30163",
+    "original_sha256": "7bad63ced56914e53d8049f014200bfe8a5f456a91ae4a41766c632b12187399",
+    "original_size": 884
+  },
+  {
+    "file": "postgres-import-path-failure.log.gz",
+    "sha256": "414d59bd884fbb5888c737fb76896ef60960343a7ce6cb4a658cc12abfbad466",
+    "original_sha256": "4562dda23676299904a8983c2186b2b9f398b45a846e774363c70b1783ee8045",
+    "original_size": 895
+  },
+  {
+    "file": "browser-regressions.json",
+    "sha256": "efc962bbe858daf12d9b950b7e06131fda9d8a63ae532c5a98dd7910719fe808",
+    "size": 264
+  },
+  {
+    "file": "postgres-issued-after-early-get.json",
+    "sha256": "1bc0d56c730647d9fdea4dfc6daab3e611c419476eb315aaca8b4770024c27ec",
+    "size": 1086
+  },
+  {
+    "file": "unit-final.log.gz",
+    "sha256": "54e5ae486664677126bcd1d653a79cd8af339d7bc5df2d8a7f7ca93ba48c1ee9",
+    "original_sha256": "d2840f0e1941ba3105415b3d13d6920da319b92a474da744c6733f6614c1d36f",
+    "original_size": 1703
+  },
+  {
+    "file": "browser-project-customer.log.gz",
+    "sha256": "03f6524e5466b3420319e543895c185e58f6b8df6df1411d65d04644aead46b2",
+    "original_sha256": "bd380f2f498588f9af83086c9e547dc7cfacc8be916de4b22a38b5b8ea6c8597",
+    "original_size": 469
+  },
+  {
+    "file": "browser-invoice-chain.log.gz",
+    "sha256": "f2f8547405d03ba56ad0322788e545cc0e670b599814ff708c41fcd66e0c2c83",
+    "original_sha256": "57dc372c3df55c48984b71c829a4401d3b75685c534d38cddd77c52dd7b69abe",
+    "original_size": 354
+  },
+  {
+    "file": "postgres-early-get-failure.log.gz",
+    "sha256": "d9bc93418cd43319a9651eff6ebce1768fbd9ffc82094eb13a57e5d6ab187d84",
+    "original_sha256": "e8d2aa57ee0909d28f812e10c3e02e3f5f342e3c2c9a51ea102b3d992b37e62c",
+    "original_size": 2538
+  },
+  {
+    "file": "postgres-browser-result.json",
+    "sha256": "62b27745eb5250669067f4b91005ff70065519620ece5c2080beca320c344405",
+    "size": 33074
+  },
+  {
+    "file": "postgres-final-verification.json",
+    "sha256": "e1a60247264e43b14c8606b2f35830a815e2d5b71e8ff88ee01e1f473a871e18",
+    "size": 927
+  },
+  {
+    "file": "browser-mobile.png",
+    "sha256": "ca9076f8c549d4e2b2767447d77361dda7db3d94888a5e1c484f8018cb78b053",
+    "size": 47372
+  },
+  {
+    "file": "postgres-browser.log.gz",
+    "sha256": "d88f5f515a30eb3bad6c5518d5c03b86ecb324bd4abef36135bd95a5ef154595",
+    "original_sha256": "4d29a75a4c29fb50d06b466700f43d24affe8cfc3532566ce1751da450c15451",
+    "original_size": 253
+  },
+  {
+    "file": "sqlite-parity-check.py",
+    "sha256": "51a7611881dd79741d9c492ff18beed5ba36ca81e54d541f06f09b1849c3ab97",
+    "size": 2100
+  },
+  {
+    "file": "verification.json",
+    "sha256": "12ee3ab354d07bae57e7fe4f4ad70f08e2ccc99ad57b25f65f196a9027735aeb",
+    "size": 723
+  }
+]

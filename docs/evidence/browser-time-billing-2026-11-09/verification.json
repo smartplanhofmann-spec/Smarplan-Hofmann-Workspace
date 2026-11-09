@@ -1,0 +1,19 @@
+{
+  "checked_at": "2026-11-09T16:08:28.892589+00:00",
+  "source_base": "d4df2f562200fd5f527309c983bb3c9593ab2563",
+  "backend_fix": "ad0071223eb4d1e74971cb8bf0f8da5efafcb9aa",
+  "module_tests": 952,
+  "focused_time_module_tests": 14,
+  "sqlite_time_tests": 18,
+  "postgres_regression_tests": 1,
+  "sqlite_hash_parity_cases": 3,
+  "real_browser_workflows": [
+    "document-time-billing on actual secured PostgreSQL",
+    "project-customer",
+    "invoice-chain"
+  ],
+  "original_goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "temporary_container": "smartplan-document-time-browser-pg-20261109",
+  "temporary_container_removed": true,
+  "no_publication_or_customer_server_change": true
+}

@@ -1,0 +1,1126 @@
+{
+  "originalTime": {
+    "description": "Freigegebene Projektzeit · 2026-11-08",
+    "discount_percent": "0",
+    "id": "25ecdf568000453e9468fadf2f5dceb6",
+    "index": 3,
+    "kind": "labor",
+    "net": "19.44",
+    "price_base_quantity": "3600",
+    "quantity": "7",
+    "source_hash": "fdef3a582f4b9a791279cd298f0373da2fc649365a49a2aab6f16f9f4aa724b1",
+    "source_id": "420a007c9ea54dbab46d778e57298eab",
+    "source_revision": 2,
+    "source_seconds": 7,
+    "source_type": "time",
+    "tax_category": "S",
+    "tax_exemption_reason": "",
+    "tax_rate": "19",
+    "unit": "SEC",
+    "unit_price_net": "10000"
+  },
+  "invoice": {
+    "buyer": {
+      "address_line": "Synthetic street 1",
+      "city": "Berlin",
+      "contact_name": "",
+      "country": "DE",
+      "email": "",
+      "endpoint_id": "",
+      "endpoint_scheme": "",
+      "name": "Synthetic time buyer",
+      "postal_code": "10115",
+      "vat_id": ""
+    },
+    "buyer_reference": "",
+    "currency": "EUR",
+    "customer_id": "de54289ea88340e487625e29234a07a5",
+    "due_date": "2026-11-09",
+    "finalized_at": null,
+    "id": "86b638fd03454e30977302acaf61205b",
+    "intro": "",
+    "issue_date": "2026-11-09",
+    "kind": "invoice",
+    "notes": "",
+    "number": null,
+    "payload_sha256": "03306b40fc62988d9d081442dc0fbaa8fe57732dabc3b63bf381fbb4a0d05faf",
+    "positions": [
+      {
+        "description": "Bearbeitete freie Pauschale",
+        "discount_percent": "0",
+        "id": "495458069aa1438e805a45467dae6b60",
+        "index": 1,
+        "kind": "service",
+        "net": "25.00",
+        "price_base_quantity": "1",
+        "quantity": "1",
+        "tax_category": "S",
+        "tax_exemption_reason": "",
+        "tax_rate": "19",
+        "unit": "Stk.",
+        "unit_price_net": "25"
+      },
+      {
+        "article_id": "4ae00e8096644638a17a582a6451e7ec",
+        "article_revision": 1,
+        "code": "SYN-TIME-ARTICLE",
+        "components": [],
+        "cost_price_net": "1.25",
+        "description": "Synthetic additional material",
+        "discount_percent": "0",
+        "id": "6d4ed6d5c38346b990ce35a0aae36b3a",
+        "index": 2,
+        "kind": "material",
+        "net": "3.00",
+        "price_base_quantity": "1",
+        "quantity": "1",
+        "tax_category": "S",
+        "tax_exemption_reason": "",
+        "tax_rate": "19",
+        "unit": "m",
+        "unit_price_net": "3.00"
+      },
+      {
+        "description": "Freigegebene Projektzeit · 2026-11-08",
+        "discount_percent": "0",
+        "id": "25ecdf568000453e9468fadf2f5dceb6",
+        "index": 3,
+        "kind": "labor",
+        "net": "19.44",
+        "price_base_quantity": "3600",
+        "quantity": "7",
+        "source_hash": "fdef3a582f4b9a791279cd298f0373da2fc649365a49a2aab6f16f9f4aa724b1",
+        "source_id": "420a007c9ea54dbab46d778e57298eab",
+        "source_revision": 2,
+        "source_seconds": 7,
+        "source_type": "time",
+        "tax_category": "S",
+        "tax_exemption_reason": "",
+        "tax_rate": "19",
+        "unit": "SEC",
+        "unit_price_net": "10000"
+      },
+      {
+        "description": "Freigegebene Projektzeit · 2026-11-08",
+        "discount_percent": "0",
+        "id": "868dadf8bc734eaf9dd6cdee5af9e876",
+        "index": 4,
+        "kind": "labor",
+        "net": "100.00",
+        "price_base_quantity": "3600",
+        "quantity": "3600",
+        "source_hash": "d3c4c76872f8bc58747e649bb7d6a1a7006dd3871b65a73f3e99e931ed3988a5",
+        "source_id": "5d445e44efe9400f8623dfec93dd6ac9",
+        "source_revision": 2,
+        "source_seconds": 3600,
+        "source_type": "time",
+        "tax_category": "S",
+        "tax_exemption_reason": "",
+        "tax_rate": "19",
+        "unit": "SEC",
+        "unit_price_net": "100"
+      }
+    ],
+    "previous_document_ids": [],
+    "project_id": "7c84596d292e49edb8beab9d19832fd1",
+    "revision": 2,
+    "status": "draft",
+    "title": "Sekundengenaue Browserrechnung",
+    "totals": {
+      "by_kind": {
+        "labor": {
+          "gross": "142.13",
+          "net": "119.44",
+          "tax": "22.69"
+        },
+        "machine": {
+          "gross": "0.00",
+          "net": "0.00",
+          "tax": "0.00"
+        },
+        "material": {
+          "gross": "3.57",
+          "net": "3.00",
+          "tax": "0.57"
+        },
+        "service": {
+          "gross": "29.75",
+          "net": "25.00",
+          "tax": "4.75"
+        }
+      },
+      "gross": "175.45",
+      "labor_gross": "142.13",
+      "labor_net": "119.44",
+      "labor_tax": "22.69",
+      "material_gross": "3.57",
+      "material_net": "3.00",
+      "material_tax": "0.57",
+      "net": "147.44",
+      "payable": "175.45",
+      "tax": "28.01",
+      "tax_breakdown": [
+        {
+          "category": "S",
+          "net": "147.44",
+          "rate": "19",
+          "reason": "",
+          "tax": "28.01"
+        }
+      ]
+    },
+    "updated_at": "2026-11-09T16:06:14+00:00"
+  },
+  "issued": {
+    "archive_security": "postgresql_runtime_separated",
+    "archive_version": 1,
+    "buyer": {
+      "address_line": "Synthetic street 1",
+      "city": "Berlin",
+      "contact_name": "",
+      "country": "DE",
+      "email": "",
+      "endpoint_id": "",
+      "endpoint_scheme": "",
+      "name": "Synthetic time buyer",
+      "postal_code": "10115",
+      "vat_id": ""
+    },
+    "buyer_reference": "",
+    "currency": "EUR",
+    "customer_id": "de54289ea88340e487625e29234a07a5",
+    "document_revision": 2,
+    "due_date": "2026-11-09",
+    "finalized_at": "2026-11-09T16:06:18+00:00",
+    "id": "86b638fd03454e30977302acaf61205b",
+    "intro": "",
+    "issue_date": "2026-11-09",
+    "issuer": {
+      "address_line": "Synthetic seller street 1",
+      "bic": "",
+      "city": "Berlin",
+      "company_name": "Synthetic time seller",
+      "country": "DE",
+      "cutover_ack": true,
+      "cutover_date": "2026-01-01",
+      "default_due_days": 14,
+      "einvoice_format": "none",
+      "email": "",
+      "footer": "",
+      "iban": "",
+      "issuer_mode": "own",
+      "issuing_enabled": true,
+      "logo_base64": "",
+      "payment_terms": "Zahlbar ohne Abzug.",
+      "phone": "",
+      "postal_code": "10115",
+      "tax_number": "",
+      "vat_id": "DE123456789",
+      "website": ""
+    },
+    "kind": "invoice",
+    "notes": "",
+    "number": "RE-2026-000001",
+    "payload_sha256": "cd9442dd75058d63dbe040b47e831fc10d70e4e35037304ca921f1f856150828",
+    "positions": [
+      {
+        "description": "Bearbeitete freie Pauschale",
+        "discount_percent": "0",
+        "id": "495458069aa1438e805a45467dae6b60",
+        "index": 1,
+        "kind": "service",
+        "net": "25.00",
+        "price_base_quantity": "1",
+        "quantity": "1",
+        "tax_category": "S",
+        "tax_exemption_reason": "",
+        "tax_rate": "19",
+        "unit": "Stk.",
+        "unit_price_net": "25"
+      },
+      {
+        "article_id": "4ae00e8096644638a17a582a6451e7ec",
+        "article_revision": 1,
+        "code": "SYN-TIME-ARTICLE",
+        "components": [],
+        "cost_price_net": "1.25",
+        "description": "Synthetic additional material",
+        "discount_percent": "0",
+        "id": "6d4ed6d5c38346b990ce35a0aae36b3a",
+        "index": 2,
+        "kind": "material",
+        "net": "3.00",
+        "price_base_quantity": "1",
+        "quantity": "1",
+        "tax_category": "S",
+        "tax_exemption_reason": "",
+        "tax_rate": "19",
+        "unit": "m",
+        "unit_price_net": "3.00"
+      },
+      {
+        "description": "Freigegebene Projektzeit · 2026-11-08",
+        "discount_percent": "0",
+        "id": "25ecdf568000453e9468fadf2f5dceb6",
+        "index": 3,
+        "kind": "labor",
+        "net": "19.44",
+        "price_base_quantity": "3600",
+        "quantity": "7",
+        "source_hash": "fdef3a582f4b9a791279cd298f0373da2fc649365a49a2aab6f16f9f4aa724b1",
+        "source_id": "420a007c9ea54dbab46d778e57298eab",
+        "source_revision": 2,
+        "source_seconds": 7,
+        "source_type": "time",
+        "tax_category": "S",
+        "tax_exemption_reason": "",
+        "tax_rate": "19",
+        "unit": "SEC",
+        "unit_price_net": "10000"
+      },
+      {
+        "description": "Freigegebene Projektzeit · 2026-11-08",
+        "discount_percent": "0",
+        "id": "868dadf8bc734eaf9dd6cdee5af9e876",
+        "index": 4,
+        "kind": "labor",
+        "net": "100.00",
+        "price_base_quantity": "3600",
+        "quantity": "3600",
+        "source_hash": "d3c4c76872f8bc58747e649bb7d6a1a7006dd3871b65a73f3e99e931ed3988a5",
+        "source_id": "5d445e44efe9400f8623dfec93dd6ac9",
+        "source_revision": 2,
+        "source_seconds": 3600,
+        "source_type": "time",
+        "tax_category": "S",
+        "tax_exemption_reason": "",
+        "tax_rate": "19",
+        "unit": "SEC",
+        "unit_price_net": "100"
+      }
+    ],
+    "prepared_at": "2026-11-09T16:06:18+00:00",
+    "previous_document_ids": [],
+    "project_id": "7c84596d292e49edb8beab9d19832fd1",
+    "revision": 3,
+    "settings_revision": 1,
+    "status": "final",
+    "title": "Sekundengenaue Browserrechnung",
+    "totals": {
+      "by_kind": {
+        "labor": {
+          "gross": "142.13",
+          "net": "119.44",
+          "tax": "22.69"
+        },
+        "machine": {
+          "gross": "0.00",
+          "net": "0.00",
+          "tax": "0.00"
+        },
+        "material": {
+          "gross": "3.57",
+          "net": "3.00",
+          "tax": "0.57"
+        },
+        "service": {
+          "gross": "29.75",
+          "net": "25.00",
+          "tax": "4.75"
+        }
+      },
+      "gross": "175.45",
+      "labor_gross": "142.13",
+      "labor_net": "119.44",
+      "labor_tax": "22.69",
+      "material_gross": "3.57",
+      "material_net": "3.00",
+      "material_tax": "0.57",
+      "net": "147.44",
+      "payable": "175.45",
+      "tax": "28.01",
+      "tax_breakdown": [
+        {
+          "category": "S",
+          "net": "147.44",
+          "rate": "19",
+          "reason": "",
+          "tax": "28.01"
+        }
+      ]
+    },
+    "updated_at": "2026-11-09T16:06:18+00:00"
+  },
+  "competing": {
+    "buyer": {
+      "address_line": "Synthetic street 1",
+      "city": "Berlin",
+      "contact_name": "",
+      "country": "DE",
+      "email": "",
+      "endpoint_id": "",
+      "endpoint_scheme": "",
+      "name": "Synthetic time buyer",
+      "postal_code": "10115",
+      "vat_id": ""
+    },
+    "buyer_reference": "",
+    "currency": "EUR",
+    "customer_id": "de54289ea88340e487625e29234a07a5",
+    "due_date": "2026-11-09",
+    "finalized_at": null,
+    "id": "875dac6293854b04bf7c303fb4cfe0de",
+    "intro": "",
+    "issue_date": "2026-11-09",
+    "kind": "invoice",
+    "notes": "",
+    "number": null,
+    "payload_sha256": "43694890f37a53b730a9db458f195b14e0a7b77623f6e29a507510ddcf1d7cc5",
+    "positions": [
+      {
+        "description": "Freigegebene Projektzeit · 2026-11-08",
+        "discount_percent": "0",
+        "id": "ef2a68af127340ff855b5334e45004a0",
+        "index": 1,
+        "kind": "labor",
+        "net": "19.44",
+        "price_base_quantity": "3600",
+        "quantity": "7",
+        "source_hash": "fdef3a582f4b9a791279cd298f0373da2fc649365a49a2aab6f16f9f4aa724b1",
+        "source_id": "420a007c9ea54dbab46d778e57298eab",
+        "source_revision": 2,
+        "source_seconds": 7,
+        "source_type": "time",
+        "tax_category": "S",
+        "tax_exemption_reason": "",
+        "tax_rate": "19",
+        "unit": "SEC",
+        "unit_price_net": "10000"
+      }
+    ],
+    "previous_document_ids": [],
+    "project_id": "7c84596d292e49edb8beab9d19832fd1",
+    "revision": 1,
+    "status": "draft",
+    "title": "Konkurrierender Zeitentwurf",
+    "totals": {
+      "by_kind": {
+        "labor": {
+          "gross": "23.13",
+          "net": "19.44",
+          "tax": "3.69"
+        },
+        "machine": {
+          "gross": "0.00",
+          "net": "0.00",
+          "tax": "0.00"
+        },
+        "material": {
+          "gross": "0.00",
+          "net": "0.00",
+          "tax": "0.00"
+        },
+        "service": {
+          "gross": "0.00",
+          "net": "0.00",
+          "tax": "0.00"
+        }
+      },
+      "gross": "23.13",
+      "labor_gross": "23.13",
+      "labor_net": "19.44",
+      "labor_tax": "3.69",
+      "material_gross": "0.00",
+      "material_net": "0.00",
+      "material_tax": "0.00",
+      "net": "19.44",
+      "payable": "23.13",
+      "tax": "3.69",
+      "tax_breakdown": [
+        {
+          "category": "S",
+          "net": "19.44",
+          "rate": "19",
+          "reason": "",
+          "tax": "3.69"
+        }
+      ]
+    },
+    "updated_at": "2026-11-09T16:06:17+00:00"
+  },
+  "changed": {
+    "buyer": {
+      "address_line": "Synthetic street 1",
+      "city": "Berlin",
+      "contact_name": "",
+      "country": "DE",
+      "email": "",
+      "endpoint_id": "",
+      "endpoint_scheme": "",
+      "name": "Synthetic time buyer",
+      "postal_code": "10115",
+      "vat_id": ""
+    },
+    "buyer_reference": "",
+    "currency": "EUR",
+    "customer_id": "de54289ea88340e487625e29234a07a5",
+    "due_date": "2026-11-09",
+    "finalized_at": null,
+    "id": "bc843e3cfcd24592a1487914b1df32bf",
+    "intro": "",
+    "issue_date": "2026-11-09",
+    "kind": "invoice",
+    "notes": "",
+    "number": null,
+    "payload_sha256": "4c772f66339bb0f1b88af46d4f3924a2df4df39ac10a8d1e4d1ee2bdafc3e599",
+    "positions": [
+      {
+        "description": "Freigegebene Projektzeit · 2026-11-08",
+        "discount_percent": "0",
+        "id": "5b435a1f1f624713aa495cace8cf364f",
+        "index": 1,
+        "kind": "labor",
+        "net": "37.33",
+        "price_base_quantity": "3600",
+        "quantity": "1680",
+        "source_hash": "adabf687a166d4290c419fefe8a9571c9497d93fc4edbf7d042cbbda173f7eb3",
+        "source_id": "266aa0b173d24602991ac2ab4e915a70",
+        "source_revision": 2,
+        "source_seconds": 1680,
+        "source_type": "time",
+        "tax_category": "S",
+        "tax_exemption_reason": "",
+        "tax_rate": "19",
+        "unit": "SEC",
+        "unit_price_net": "80"
+      }
+    ],
+    "previous_document_ids": [],
+    "project_id": "7c84596d292e49edb8beab9d19832fd1",
+    "revision": 1,
+    "status": "draft",
+    "title": "Zeitänderung während Annahme",
+    "totals": {
+      "by_kind": {
+        "labor": {
+          "gross": "44.42",
+          "net": "37.33",
+          "tax": "7.09"
+        },
+        "machine": {
+          "gross": "0.00",
+          "net": "0.00",
+          "tax": "0.00"
+        },
+        "material": {
+          "gross": "0.00",
+          "net": "0.00",
+          "tax": "0.00"
+        },
+        "service": {
+          "gross": "0.00",
+          "net": "0.00",
+          "tax": "0.00"
+        }
+      },
+      "gross": "44.42",
+      "labor_gross": "44.42",
+      "labor_net": "37.33",
+      "labor_tax": "7.09",
+      "material_gross": "0.00",
+      "material_net": "0.00",
+      "material_tax": "0.00",
+      "net": "37.33",
+      "payable": "44.42",
+      "tax": "7.09",
+      "tax_breakdown": [
+        {
+          "category": "S",
+          "net": "37.33",
+          "rate": "19",
+          "reason": "",
+          "tax": "7.09"
+        }
+      ]
+    },
+    "updated_at": "2026-11-09T16:06:31+00:00"
+  },
+  "writes": [
+    {
+      "body": {
+        "project_id": "7c84596d292e49edb8beab9d19832fd1",
+        "kind": "invoice",
+        "title": "Sekundengenaue Browserrechnung",
+        "issue_date": "2026-11-09",
+        "due_date": "2026-11-09",
+        "intro": "",
+        "notes": "",
+        "positions": [
+          {
+            "description": "Unveränderte freie Pauschale",
+            "quantity": "1",
+            "unit": "Stk.",
+            "unit_price_net": "25",
+            "price_base_quantity": "1",
+            "tax_rate": "19",
+            "kind": "service"
+          },
+          {
+            "description": "Synthetic additional material",
+            "quantity": "1",
+            "unit": "m",
+            "unit_price_net": "3.00",
+            "price_base_quantity": "1",
+            "tax_rate": "19",
+            "kind": "material",
+            "article_id": "4ae00e8096644638a17a582a6451e7ec",
+            "article_revision": 1
+          }
+        ],
+        "time_entry_ids": [
+          "420a007c9ea54dbab46d778e57298eab"
+        ],
+        "hourly_rate_net": "10000",
+        "time_tax_rate": "19",
+        "request_id": "d0fd072e3d2b43f29d9b43dbbd34dfc8"
+      },
+      "status": 200,
+      "value": {
+        "buyer": {
+          "address_line": "Synthetic street 1",
+          "city": "Berlin",
+          "contact_name": "",
+          "country": "DE",
+          "email": "",
+          "endpoint_id": "",
+          "endpoint_scheme": "",
+          "name": "Synthetic time buyer",
+          "postal_code": "10115",
+          "vat_id": ""
+        },
+        "buyer_reference": "",
+        "currency": "EUR",
+        "customer_id": "de54289ea88340e487625e29234a07a5",
+        "due_date": "2026-11-09",
+        "finalized_at": null,
+        "id": "86b638fd03454e30977302acaf61205b",
+        "intro": "",
+        "issue_date": "2026-11-09",
+        "kind": "invoice",
+        "notes": "",
+        "number": null,
+        "payload_sha256": "9eb76981f3dcc2dac9da0d7d1257687589ca45df0b19ed3f43c6febe8f20ec2b",
+        "positions": [
+          {
+            "description": "Unveränderte freie Pauschale",
+            "discount_percent": "0",
+            "id": "495458069aa1438e805a45467dae6b60",
+            "index": 1,
+            "kind": "service",
+            "net": "25.00",
+            "price_base_quantity": "1",
+            "quantity": "1",
+            "tax_category": "S",
+            "tax_exemption_reason": "",
+            "tax_rate": "19",
+            "unit": "Stk.",
+            "unit_price_net": "25"
+          },
+          {
+            "article_id": "4ae00e8096644638a17a582a6451e7ec",
+            "article_revision": 1,
+            "code": "SYN-TIME-ARTICLE",
+            "components": [],
+            "cost_price_net": "1.25",
+            "description": "Synthetic additional material",
+            "discount_percent": "0",
+            "id": "6d4ed6d5c38346b990ce35a0aae36b3a",
+            "index": 2,
+            "kind": "material",
+            "net": "3.00",
+            "price_base_quantity": "1",
+            "quantity": "1",
+            "tax_category": "S",
+            "tax_exemption_reason": "",
+            "tax_rate": "19",
+            "unit": "m",
+            "unit_price_net": "3.00"
+          },
+          {
+            "description": "Freigegebene Projektzeit · 2026-11-08",
+            "discount_percent": "0",
+            "id": "25ecdf568000453e9468fadf2f5dceb6",
+            "index": 3,
+            "kind": "labor",
+            "net": "19.44",
+            "price_base_quantity": "3600",
+            "quantity": "7",
+            "source_hash": "fdef3a582f4b9a791279cd298f0373da2fc649365a49a2aab6f16f9f4aa724b1",
+            "source_id": "420a007c9ea54dbab46d778e57298eab",
+            "source_revision": 2,
+            "source_seconds": 7,
+            "source_type": "time",
+            "tax_category": "S",
+            "tax_exemption_reason": "",
+            "tax_rate": "19",
+            "unit": "SEC",
+            "unit_price_net": "10000"
+          }
+        ],
+        "previous_document_ids": [],
+        "project_id": "7c84596d292e49edb8beab9d19832fd1",
+        "revision": 1,
+        "status": "draft",
+        "title": "Sekundengenaue Browserrechnung",
+        "totals": {
+          "by_kind": {
+            "labor": {
+              "gross": "23.13",
+              "net": "19.44",
+              "tax": "3.69"
+            },
+            "machine": {
+              "gross": "0.00",
+              "net": "0.00",
+              "tax": "0.00"
+            },
+            "material": {
+              "gross": "3.57",
+              "net": "3.00",
+              "tax": "0.57"
+            },
+            "service": {
+              "gross": "29.75",
+              "net": "25.00",
+              "tax": "4.75"
+            }
+          },
+          "gross": "56.45",
+          "labor_gross": "23.13",
+          "labor_net": "19.44",
+          "labor_tax": "3.69",
+          "material_gross": "3.57",
+          "material_net": "3.00",
+          "material_tax": "0.57",
+          "net": "47.44",
+          "payable": "56.45",
+          "tax": "9.01",
+          "tax_breakdown": [
+            {
+              "category": "S",
+              "net": "47.44",
+              "rate": "19",
+              "reason": "",
+              "tax": "9.01"
+            }
+          ]
+        },
+        "updated_at": "2026-11-09T16:05:53+00:00"
+      }
+    },
+    {
+      "body": {
+        "project_id": "7c84596d292e49edb8beab9d19832fd1",
+        "kind": "invoice",
+        "title": "Sekundengenaue Browserrechnung",
+        "issue_date": "2026-11-09",
+        "due_date": "2026-11-09",
+        "intro": "",
+        "notes": "",
+        "positions": [
+          {
+            "description": "Unveränderte freie Pauschale",
+            "quantity": "1",
+            "unit": "Stk.",
+            "unit_price_net": "25",
+            "price_base_quantity": "1",
+            "tax_rate": "19",
+            "kind": "service"
+          },
+          {
+            "description": "Synthetic additional material",
+            "quantity": "1",
+            "unit": "m",
+            "unit_price_net": "3.00",
+            "price_base_quantity": "1",
+            "tax_rate": "19",
+            "kind": "material",
+            "article_id": "4ae00e8096644638a17a582a6451e7ec",
+            "article_revision": 1
+          }
+        ],
+        "time_entry_ids": [
+          "420a007c9ea54dbab46d778e57298eab"
+        ],
+        "hourly_rate_net": "10000",
+        "time_tax_rate": "19",
+        "request_id": "d0fd072e3d2b43f29d9b43dbbd34dfc8"
+      },
+      "status": 200,
+      "value": {
+        "buyer": {
+          "address_line": "Synthetic street 1",
+          "city": "Berlin",
+          "contact_name": "",
+          "country": "DE",
+          "email": "",
+          "endpoint_id": "",
+          "endpoint_scheme": "",
+          "name": "Synthetic time buyer",
+          "postal_code": "10115",
+          "vat_id": ""
+        },
+        "buyer_reference": "",
+        "currency": "EUR",
+        "customer_id": "de54289ea88340e487625e29234a07a5",
+        "due_date": "2026-11-09",
+        "finalized_at": null,
+        "id": "86b638fd03454e30977302acaf61205b",
+        "intro": "",
+        "issue_date": "2026-11-09",
+        "kind": "invoice",
+        "notes": "",
+        "number": null,
+        "payload_sha256": "9eb76981f3dcc2dac9da0d7d1257687589ca45df0b19ed3f43c6febe8f20ec2b",
+        "positions": [
+          {
+            "description": "Unveränderte freie Pauschale",
+            "discount_percent": "0",
+            "id": "495458069aa1438e805a45467dae6b60",
+            "index": 1,
+            "kind": "service",
+            "net": "25.00",
+            "price_base_quantity": "1",
+            "quantity": "1",
+            "tax_category": "S",
+            "tax_exemption_reason": "",
+            "tax_rate": "19",
+            "unit": "Stk.",
+            "unit_price_net": "25"
+          },
+          {
+            "article_id": "4ae00e8096644638a17a582a6451e7ec",
+            "article_revision": 1,
+            "code": "SYN-TIME-ARTICLE",
+            "components": [],
+            "cost_price_net": "1.25",
+            "description": "Synthetic additional material",
+            "discount_percent": "0",
+            "id": "6d4ed6d5c38346b990ce35a0aae36b3a",
+            "index": 2,
+            "kind": "material",
+            "net": "3.00",
+            "price_base_quantity": "1",
+            "quantity": "1",
+            "tax_category": "S",
+            "tax_exemption_reason": "",
+            "tax_rate": "19",
+            "unit": "m",
+            "unit_price_net": "3.00"
+          },
+          {
+            "description": "Freigegebene Projektzeit · 2026-11-08",
+            "discount_percent": "0",
+            "id": "25ecdf568000453e9468fadf2f5dceb6",
+            "index": 3,
+            "kind": "labor",
+            "net": "19.44",
+            "price_base_quantity": "3600",
+            "quantity": "7",
+            "source_hash": "fdef3a582f4b9a791279cd298f0373da2fc649365a49a2aab6f16f9f4aa724b1",
+            "source_id": "420a007c9ea54dbab46d778e57298eab",
+            "source_revision": 2,
+            "source_seconds": 7,
+            "source_type": "time",
+            "tax_category": "S",
+            "tax_exemption_reason": "",
+            "tax_rate": "19",
+            "unit": "SEC",
+            "unit_price_net": "10000"
+          }
+        ],
+        "previous_document_ids": [],
+        "project_id": "7c84596d292e49edb8beab9d19832fd1",
+        "revision": 1,
+        "status": "draft",
+        "title": "Sekundengenaue Browserrechnung",
+        "totals": {
+          "by_kind": {
+            "labor": {
+              "gross": "23.13",
+              "net": "19.44",
+              "tax": "3.69"
+            },
+            "machine": {
+              "gross": "0.00",
+              "net": "0.00",
+              "tax": "0.00"
+            },
+            "material": {
+              "gross": "3.57",
+              "net": "3.00",
+              "tax": "0.57"
+            },
+            "service": {
+              "gross": "29.75",
+              "net": "25.00",
+              "tax": "4.75"
+            }
+          },
+          "gross": "56.45",
+          "labor_gross": "23.13",
+          "labor_net": "19.44",
+          "labor_tax": "3.69",
+          "material_gross": "3.57",
+          "material_net": "3.00",
+          "material_tax": "0.57",
+          "net": "47.44",
+          "payable": "56.45",
+          "tax": "9.01",
+          "tax_breakdown": [
+            {
+              "category": "S",
+              "net": "47.44",
+              "rate": "19",
+              "reason": "",
+              "tax": "9.01"
+            }
+          ]
+        },
+        "updated_at": "2026-11-09T16:05:53+00:00"
+      }
+    },
+    {
+      "body": {
+        "project_id": "7c84596d292e49edb8beab9d19832fd1",
+        "kind": "invoice",
+        "title": "Zeitänderung während Annahme",
+        "issue_date": "2026-11-09",
+        "due_date": "2026-11-09",
+        "intro": "",
+        "notes": "",
+        "positions": [],
+        "time_entry_ids": [
+          "266aa0b173d24602991ac2ab4e915a70"
+        ],
+        "hourly_rate_net": "80",
+        "time_tax_rate": "19",
+        "request_id": "acbe1e4cd8104e7b9c4a0de8de3ae01c"
+      },
+      "status": 200,
+      "value": {
+        "buyer": {
+          "address_line": "Synthetic street 1",
+          "city": "Berlin",
+          "contact_name": "",
+          "country": "DE",
+          "email": "",
+          "endpoint_id": "",
+          "endpoint_scheme": "",
+          "name": "Synthetic time buyer",
+          "postal_code": "10115",
+          "vat_id": ""
+        },
+        "buyer_reference": "",
+        "currency": "EUR",
+        "customer_id": "de54289ea88340e487625e29234a07a5",
+        "due_date": "2026-11-09",
+        "finalized_at": null,
+        "id": "bc843e3cfcd24592a1487914b1df32bf",
+        "intro": "",
+        "issue_date": "2026-11-09",
+        "kind": "invoice",
+        "notes": "",
+        "number": null,
+        "payload_sha256": "4c772f66339bb0f1b88af46d4f3924a2df4df39ac10a8d1e4d1ee2bdafc3e599",
+        "positions": [
+          {
+            "description": "Freigegebene Projektzeit · 2026-11-08",
+            "discount_percent": "0",
+            "id": "5b435a1f1f624713aa495cace8cf364f",
+            "index": 1,
+            "kind": "labor",
+            "net": "37.33",
+            "price_base_quantity": "3600",
+            "quantity": "1680",
+            "source_hash": "adabf687a166d4290c419fefe8a9571c9497d93fc4edbf7d042cbbda173f7eb3",
+            "source_id": "266aa0b173d24602991ac2ab4e915a70",
+            "source_revision": 2,
+            "source_seconds": 1680,
+            "source_type": "time",
+            "tax_category": "S",
+            "tax_exemption_reason": "",
+            "tax_rate": "19",
+            "unit": "SEC",
+            "unit_price_net": "80"
+          }
+        ],
+        "previous_document_ids": [],
+        "project_id": "7c84596d292e49edb8beab9d19832fd1",
+        "revision": 1,
+        "status": "draft",
+        "title": "Zeitänderung während Annahme",
+        "totals": {
+          "by_kind": {
+            "labor": {
+              "gross": "44.42",
+              "net": "37.33",
+              "tax": "7.09"
+            },
+            "machine": {
+              "gross": "0.00",
+              "net": "0.00",
+              "tax": "0.00"
+            },
+            "material": {
+              "gross": "0.00",
+              "net": "0.00",
+              "tax": "0.00"
+            },
+            "service": {
+              "gross": "0.00",
+              "net": "0.00",
+              "tax": "0.00"
+            }
+          },
+          "gross": "44.42",
+          "labor_gross": "44.42",
+          "labor_net": "37.33",
+          "labor_tax": "7.09",
+          "material_gross": "0.00",
+          "material_net": "0.00",
+          "material_tax": "0.00",
+          "net": "37.33",
+          "payable": "44.42",
+          "tax": "7.09",
+          "tax_breakdown": [
+            {
+              "category": "S",
+              "net": "37.33",
+              "rate": "19",
+              "reason": "",
+              "tax": "7.09"
+            }
+          ]
+        },
+        "updated_at": "2026-11-09T16:06:31+00:00"
+      }
+    },
+    {
+      "body": {
+        "project_id": "7c84596d292e49edb8beab9d19832fd1",
+        "kind": "invoice",
+        "title": "Späte Belegantwort",
+        "issue_date": "2026-11-09",
+        "due_date": "2026-11-09",
+        "intro": "",
+        "notes": "",
+        "positions": [],
+        "time_entry_ids": [
+          "266aa0b173d24602991ac2ab4e915a70"
+        ],
+        "hourly_rate_net": "80",
+        "time_tax_rate": "19",
+        "request_id": "a137fb7bf9094fcfbe8178777596f5dd"
+      },
+      "status": 200,
+      "value": {
+        "buyer": {
+          "address_line": "Synthetic street 1",
+          "city": "Berlin",
+          "contact_name": "",
+          "country": "DE",
+          "email": "",
+          "endpoint_id": "",
+          "endpoint_scheme": "",
+          "name": "Synthetic time buyer",
+          "postal_code": "10115",
+          "vat_id": ""
+        },
+        "buyer_reference": "",
+        "currency": "EUR",
+        "customer_id": "de54289ea88340e487625e29234a07a5",
+        "due_date": "2026-11-09",
+        "finalized_at": null,
+        "id": "adcbcaf7a4d74b1cb533ffc90fb2ee9a",
+        "intro": "",
+        "issue_date": "2026-11-09",
+        "kind": "invoice",
+        "notes": "",
+        "number": null,
+        "payload_sha256": "1d1cb9daaf16600787e218adc6aecae75d1b67458480fe17ea769680a8d28e22",
+        "positions": [
+          {
+            "description": "Freigegebene Projektzeit · 2026-11-08",
+            "discount_percent": "0",
+            "id": "70e47ff57a0d495b8ef08cc25770722f",
+            "index": 1,
+            "kind": "labor",
+            "net": "37.33",
+            "price_base_quantity": "3600",
+            "quantity": "1680",
+            "source_hash": "adabf687a166d4290c419fefe8a9571c9497d93fc4edbf7d042cbbda173f7eb3",
+            "source_id": "266aa0b173d24602991ac2ab4e915a70",
+            "source_revision": 2,
+            "source_seconds": 1680,
+            "source_type": "time",
+            "tax_category": "S",
+            "tax_exemption_reason": "",
+            "tax_rate": "19",
+            "unit": "SEC",
+            "unit_price_net": "80"
+          }
+        ],
+        "previous_document_ids": [],
+        "project_id": "7c84596d292e49edb8beab9d19832fd1",
+        "revision": 1,
+        "status": "draft",
+        "title": "Späte Belegantwort",
+        "totals": {
+          "by_kind": {
+            "labor": {
+              "gross": "44.42",
+              "net": "37.33",
+              "tax": "7.09"
+            },
+            "machine": {
+              "gross": "0.00",
+              "net": "0.00",
+              "tax": "0.00"
+            },
+            "material": {
+              "gross": "0.00",
+              "net": "0.00",
+              "tax": "0.00"
+            },
+            "service": {
+              "gross": "0.00",
+              "net": "0.00",
+              "tax": "0.00"
+            }
+          },
+          "gross": "44.42",
+          "labor_gross": "44.42",
+          "labor_net": "37.33",
+          "labor_tax": "7.09",
+          "material_gross": "0.00",
+          "material_net": "0.00",
+          "material_tax": "0.00",
+          "net": "37.33",
+          "payable": "44.42",
+          "tax": "7.09",
+          "tax_breakdown": [
+            {
+              "category": "S",
+              "net": "37.33",
+              "rate": "19",
+              "reason": "",
+              "tax": "7.09"
+            }
+          ]
+        },
+        "updated_at": "2026-11-09T16:06:43+00:00"
+      }
+    }
+  ]
+}

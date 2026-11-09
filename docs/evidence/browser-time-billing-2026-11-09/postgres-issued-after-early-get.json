@@ -1,0 +1,38 @@
+{
+  "documents": [
+    {
+      "id": "fe95f6a1a96846d0b4aa75acc5bc6cd5",
+      "status": "draft",
+      "number": null
+    },
+    {
+      "id": "f9b971f28bf84a9ea182b3020cbc6fec",
+      "status": "final",
+      "number": "RE-2026-000001"
+    }
+  ],
+  "time_bindings": [
+    {
+      "document_id": "f9b971f28bf84a9ea182b3020cbc6fec",
+      "entry_id": "e173921c98434bbf81a238a2cddfa720",
+      "source_hash": "1241c253eaa5a712fadbc07d598c691c57c2dfac8f4b72f40946e903b23b2cb4",
+      "source_revision": 2,
+      "seconds": 7
+    },
+    {
+      "document_id": "f9b971f28bf84a9ea182b3020cbc6fec",
+      "entry_id": "001d6254f033472cadc313fc99ba2bc9",
+      "source_hash": "b65bb9fe245638bc129dba9efe452296dc81a01e6265a1967201b90a0fdd88b8",
+      "source_revision": 2,
+      "seconds": 3600
+    }
+  ],
+  "archives": [
+    {
+      "document_id": "f9b971f28bf84a9ea182b3020cbc6fec",
+      "sha256": "ea2389940b4cf27d83d7a2f5eb6a855aee2453c084b0ef1593015d7434f43da9",
+      "actual_sha256": "ea2389940b4cf27d83d7a2f5eb6a855aee2453c084b0ef1593015d7434f43da9",
+      "pdf_bytes": 2724
+    }
+  ]
+}

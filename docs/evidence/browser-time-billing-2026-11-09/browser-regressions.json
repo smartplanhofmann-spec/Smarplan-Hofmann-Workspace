@@ -1,0 +1,12 @@
+[
+  {
+    "workflow": "project-customer",
+    "exit": 0,
+    "log": "/tmp/smartplan-time-regression-project-customer-20261109.log"
+  },
+  {
+    "workflow": "invoice-chain",
+    "exit": 0,
+    "log": "/tmp/smartplan-time-regression-invoice-chain-20261109.log"
+  }
+]

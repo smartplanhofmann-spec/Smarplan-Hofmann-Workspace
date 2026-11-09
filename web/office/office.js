@@ -46,6 +46,7 @@ import {createCommunicationHistory} from './communication-history.js';
 import {projectTasksUi,taskPendingAuthorize} from './project-tasks.js';
 import {projectMilestonesUi,milestonePendingAuthorize,milestoneCommandPath} from './project-milestones.js';
 import {maintenanceContractsUi,maintenanceContractPendingAuthorize} from './maintenance-contracts.js';
+import {documentTimePicker,documentTimeCommand,documentTimeContext,documentTimePendingAuthorize,documentTimeReceipt,documentTimesChanged} from './document-time-sources.js';
 export class ApiError extends Error {
   constructor(message, status = 0, requestResolution = null) { super(message); this.name = 'ApiError'; this.status = status; this.requestResolution=status===409&&requestResolution==='not_accepted'?'not_accepted':null; }
 }
@@ -963,6 +964,7 @@ export class OfficeApi {
     try {
       if(old&&path.startsWith('/business/catalog-prices/'))await datedPendingAuthorize(this,{key,path});
       if(old&&datedConsumerCommand(key,path,operation.body))await datedConsumerPendingAuthorize(this,{key,path});
+      if(old&&documentTimeCommand(key,path,operation.body))await documentTimePendingAuthorize(this,{key,path});
       if(old&&key.startsWith('catalog-'))await catalogPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/assistant/'))await assistantPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/company-events/'))await companyEventPendingAuthorize(this,{key,path});
@@ -1003,7 +1005,7 @@ export class OfficeApi {
       const protectedAccounting=path.startsWith('/business/accounting/year-values')||path.startsWith('/business/accounting/open-items')||path.startsWith('/business/company-events/')||path.startsWith('/business/accounting/historical-assets')||datedConsumerCommand(key,path,operation.body)||path.startsWith('/business/catalog-prices/')||key.startsWith('catalog-')||path.startsWith('/business/accounting/opening-balances')||(key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))||path.startsWith('/business/bank/')||path.startsWith('/business/resource-custody/')||path.startsWith('/business/service/cases')||path.startsWith('/business/custom-fields/')||path==='/business/migrations'||path.startsWith('/business/migrations/')||path.startsWith('/business/company-handover/')||path.startsWith('/business/sales/')||path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')||path.startsWith('/business/assistant/')||path.startsWith('/business/payroll/')||path.startsWith('/business/customer-workspace/')||path.startsWith('/business/personnel/')||path==='/business/accounting/euer/confirm'||path==='/business/finance/receipts'||/^\/business\/finance\/receipts\/[a-f0-9]{32}$/.test(path)||path==='/business/receipt-media'||/^\/business\/receipt-media\/[a-f0-9]{32}\/complete$/.test(path)||path==='/business/project-economics/confirm'||path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
       const protectedTask=/^\/projects\/[a-f0-9]{32}\/tasks(?:\/[a-f0-9]{32})?$/.test(path);
       const protectedMaintenance=/^\/business\/maintenance\/contracts(?:\/[a-f0-9]{32})?$/.test(path)&&([403,404].includes(error.status)||old&&error.status===409&&error.requestResolution!=='not_accepted');
-      const uncertainAccounting=protectedMaintenance||(protectedAccounting||milestoneCommandPath(path))&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted')||protectedTask&&[403,404].includes(error.status);
+      const uncertainAccounting=protectedMaintenance||(protectedAccounting||milestoneCommandPath(path)||documentTimeCommand(key,path,operation.body))&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted')||protectedTask&&[403,404].includes(error.status);
       if (generation===this.#generation && this.#pending.get(key)===operation && error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 423 && error.status !== 429 && !uncertainAccounting) this.#pending.delete(key);
       throw error;
     }
@@ -1762,7 +1764,12 @@ function positionEditor(initial=[]) {
   function choices(record){const selected=record.articleSelect.value;record.articleSelect.replaceChildren(el('option',{value:''},'Eigene manuelle Position'),...catalog.map(article=>el('option',{value:article.id,selected:article.id===selected},`${article.code||''} · ${article.name} (${article.unit})${article.price_policy==='dated_catalog'?' · datierter Preis':''}`)));if(selected&&!catalog.some(item=>item.id===selected))record.articleSelect.append(el('option',{value:selected,selected:true},record.original.description||'Gespeicherte Artikelposition'));}
   function add(value={}) {
     if(records.length>=200)return;
+    if(value.source_type==='time'){
+      const record={sourceTime:true,original:structuredClone(value)},node=el('fieldset',{class:'panel stack'},el('legend',{},'Gebundene Arbeitszeit'),el('p',{},value.description),el('p',{class:'muted'},`${value.source_seconds} Sekunden · ${formatMoney(value.unit_price_net)} / ${value.price_base_quantity} Sekunden · ${value.tax_rate} % USt.`),notice('Die freigegebene Zeit und ihr Originalnachweis bleiben unverändert. Zum erneuten Übernehmen die Position ausdrücklich entfernen.'));
+      record.node=node;node.append(button('Zeitposition entfernen',()=>{node.remove();records.splice(records.indexOf(record),1);},'small'));records.push(record);list.append(node);return;
+    }
     const controls={},node=el('fieldset',{class:'panel stack'}),record={controls,original:structuredClone(value),article:value.article_id?{id:value.article_id,revision:value.article_revision,unit:value.unit,name:value.description,...(value.catalog_price_snapshot?{price_policy:'dated_catalog'}:{})}:null,changed:false},articleSelect=el('select',{'aria-label':'Preisquelle der Belegposition'});record.articleSelect=articleSelect;
+    record.node=node;
     articleSelect.append(el('option',{value:''},'Eigene manuelle Position'));if(value.article_id)articleSelect.append(el('option',{value:value.article_id,selected:true},value.description));
     node.append(el('legend',{},'Belegposition'),el('label',{class:'field'},'Artikel oder eigene Position',articleSelect));
     const grid=el('div',{class:'form-grid'});
@@ -1777,12 +1784,14 @@ function positionEditor(initial=[]) {
   }
   initial.forEach(add);if(!initial.length)add();container.append(list,button('Position hinzufügen',()=>add(),'small'));
   container.values=()=>records.map(record=>{
+    if(record.sourceTime)return structuredClone(record.original);
     const controls=record.controls,result={...(record.changed?{}:record.original),description:controls.description.value,quantity:decimalText(controls.quantity.value),unit:controls.unit.value,unit_price_net:decimalText(controls.unit_price_net.value),price_base_quantity:decimalText(controls.price_base_quantity.value),tax_rate:decimalText(controls.tax_rate.value),kind:controls.kind.value};
     if(record.changed&&record.original.id)result.id=record.original.id;
     if(record.article){result.article_id=record.article.id;result.article_revision=record.article.revision;if(record.article.price_policy==='dated_catalog'&&(!record.original.id||record.changed||record.picker.dirty)){result.catalog_price_selection=record.picker.selection();delete result.catalog_price_snapshot;}}
     return result;
   });
-  if(has('finance.read'))api.get(biz('/articles')).then(response=>{if(!current())return;catalog=collection(response).filter(article=>article.active);for(const record of records){choices(record);if(!record.original.catalog_price_snapshot&&record.article){const found=catalog.find(item=>item.id===record.article.id);if(found?.price_policy==='dated_catalog'){record.article.price_policy='dated_catalog';record.picker.hidden=false;}}}}).catch(error=>{if(current())container.prepend(notice(error.message,'error'));});
+  container.removeEmpty=()=>{for(const record of [...records])if(!record.sourceTime&&!Object.keys(record.original).length&&!record.article&&Object.entries({description:'',quantity:'1',unit:'Stk.',unit_price_net:'0.00',price_base_quantity:'1',tax_rate:'19',kind:'service'}).every(([key,value])=>record.controls[key].value===value)){record.node.remove();records.splice(records.indexOf(record),1);}};
+  if(has('finance.read'))api.get(biz('/articles')).then(response=>{if(!current())return;catalog=collection(response).filter(article=>article.active);for(const record of records){if(record.sourceTime)continue;choices(record);if(!record.original.catalog_price_snapshot&&record.article){const found=catalog.find(item=>item.id===record.article.id);if(found?.price_policy==='dated_catalog'){record.article.price_policy='dated_catalog';record.picker.hidden=false;}}}}).catch(error=>{if(current())container.prepend(notice(error.message,'error'));});
   return container;
 }
 export function documentConversionTargets(item) {
@@ -1790,13 +1799,55 @@ export function documentConversionTargets(item) {
   return ({estimate:['offer','order_confirmation'],offer:['order_confirmation','invoice','advance_invoice','delivery_note'],order_confirmation:['delivery_note','invoice','advance_invoice','final_invoice'],delivery_note:['invoice'],advance_invoice:['cumulative_invoice','final_invoice'],cumulative_invoice:['cumulative_invoice','final_invoice']})[item.kind]||[];
 }
 function documentDialog(item=null,projectId='') {
+  const key='document-'+(item?.id||'new'),path='/documents'+(item?'/'+item.id:''),pending=api.pendingCommandValues(key,biz(path));
+  let ownerStamp,formPanel,timeDraft=documentTimeCommand(key,biz(path),pending);
+  const stamp=()=>`${api.generation}/${state.render}/${dialogGeneration}`;
+  const alive=()=>formPanel?.isConnected&&stamp()===ownerStamp&&document.visibilityState!=='hidden';
+  async function saved(result){
+    const generation=api.generation,render=state.render+1;
+    await refresh();
+    const current=()=>generation===api.generation&&render===state.render&&!modal;
+    if(timeDraft&&current())await documentDetail(result.id,{stillCurrent:current,timeReview:documentTimesChanged(result)});
+  }
+  if(pending){
+    formPanel=el('div',{class:'stack'},notice('Für diesen Beleg ist eine Antwort offen. Es wird ausschließlich der unveränderte Originalauftrag erneut gesendet. Neue Positionen erst nach dessen Klärung erfassen.','warn'),button('Unveränderten Belegauftrag erneut senden',()=>action(async()=>{const result=await api.retry(key,{stillCurrent:alive});if(!alive())return;closeModal();await saved(result);},formPanel),'primary'));
+    dialog('Belegantwort klären',formPanel);ownerStamp=stamp();return;
+  }
   const editor=positionEditor(item?.positions||[]);
   const fields=[projectField(item?.project_id||projectId||state.projectId),field('kind','Belegart','select',item?.kind||'offer',{options:['estimate','offer','order_confirmation','delivery_note','invoice','advance_invoice','cumulative_invoice','final_invoice'].map(kind=>[kind,LABELS[kind]]),required:true}),field('title','Titel','text',item?.title||'Angebot',{required:true}),field('issue_date','Belegdatum','date',item?.issue_date||dateInput(),{required:true}),field('due_date','Fällig am','date',item?.due_date||dateInput(),{required:true}),field('intro','Einleitung','textarea',item?.intro||''),field('notes','Hinweise','textarea',item?.notes||'')];
   const prior=Array.isArray(item?.previous_document_ids)?item.previous_document_ids:[];
-  dialog(item?'Belegentwurf bearbeiten':'Neuer Belegentwurf',form('',fields,(data,key)=>mutation(key,'/documents'+(item?'/'+item.id:''),{...data,positions:editor.values(),...(item?{revision:item.revision,previous_document_ids:[...prior]}:{})}),{key:'document-'+(item?.id||'new'),extra:el('div',{},prior.length?notice(`${prior.length} Vorbeleg(e) sind durch die Umwandlung verknüpft. Die Positionen müssen die gesamte bisherige Vertragsleistung enthalten. Der Server zieht die bereits berechnete Vertragsbasis ab.`):null,el('h3',{},'Positionen'),editor),submit:'Entwurf speichern'}),'Summen und Steuer berechnet und prüft der Server. Für eine Rechnungskette den neuesten festgeschriebenen Abschlag oder kumulativen Beleg öffnen und in die nächste Rechnung umwandeln.');
+  const times=documentTimePicker({api,el,button,notice,formatDate,stamp,project:()=>formPanel.controls.get('project_id').input.value,positions:()=>editor.values(),onSelect:()=>editor.removeEmpty()});
+  function freeze(){times.freeze();formPanel.querySelectorAll('input,select,textarea,button[type="button"]').forEach(input=>input.disabled=true);formPanel.querySelector('button[type="submit"]').textContent='Unveränderten Belegauftrag erneut senden';}
+  formPanel=form('',fields,async(data,key)=>{
+    if(!alive())return;
+    const requestAlive=()=>alive()&&formPanel.controls.get('project_id').input.value===data.project_id;
+    const controls=[...formPanel.querySelectorAll('input,select,textarea,button[type="button"]')],disabled=controls.map(input=>input.disabled);
+    controls.forEach(input=>input.disabled=true);
+    times.busy(true);
+    try{
+      const old=api.pendingCommandValues(key,biz(path));
+      let command=old,selected=[];
+      if(!old){
+        const selection=await times.prepare();if(!requestAlive())return;selected=selection.selected;
+        const positions=editor.values();
+        if(positions.some(position=>position.source_type==='time')){await documentTimeContext(api,data.project_id);if(!requestAlive())return;}
+        command={...data,positions,...selection.data,...(item?{revision:item.revision,previous_document_ids:[...prior]}:{})};
+      }
+      const expected={project:command.project_id,identifier:item?.id,revision:item?.revision,selected,existing:command.positions.filter(position=>position.source_type==='time'),rate:command.hourly_rate_net,tax:command.time_tax_rate};
+      timeDraft=documentTimeCommand(key,biz(path),command);
+      const result=await mutation(key,path,command,{stillCurrent:requestAlive,...(!old&&documentTimeCommand(key,biz(path),command)?{validate:value=>documentTimeReceipt(value,expected)}:{})});
+      return requestAlive()?result:undefined;
+    }catch(error){if(!alive())return;if(api.pendingCommandValues(key,biz(path)))freeze();throw error;}
+    finally{if(alive()&&!api.pendingCommandValues(key,biz(path))){controls.forEach((input,index)=>input.disabled=disabled[index]);times.busy(false);}}
+  },{key,extra:el('div',{},prior.length?notice(`${prior.length} Vorbeleg(e) sind durch die Umwandlung verknüpft. Die Positionen müssen die gesamte bisherige Vertragsleistung enthalten. Der Server zieht die bereits berechnete Vertragsbasis ab.`):null,times.element,el('h3',{},'Positionen'),editor),submit:'Entwurf speichern',after:saved});
+  if(item){formPanel.controls.get('project_id').input.disabled=true;formPanel.controls.get('kind').input.disabled=true;}
+  formPanel.controls.get('project_id').input.addEventListener('change',()=>{void times.load();});
+  editor.addEventListener('click',event=>{if(event.target?.textContent==='Zeitposition entfernen')void times.load();});
+  dialog(item?'Belegentwurf bearbeiten':'Neuer Belegentwurf',formPanel,'Summen und Steuer berechnet und prüft der Server. Für eine Rechnungskette den neuesten festgeschriebenen Abschlag oder kumulativen Beleg öffnen und in die nächste Rechnung umwandeln.');ownerStamp=stamp();times.start();
 }
-async function documentDetail(id) {
+async function documentDetail(id,{stillCurrent=()=>true,timeReview=false}={}) {
   const item=await api.get(biz('/documents/'+id));
+  if(!stillCurrent())return;
   const controls=[button(item.status==='final'?'Original-PDF':'PDF-Vorschau',()=>action(()=>download(biz(`/documents/${id}/${item.status==='final'?'pdf':'preview'}`),(item.number||item.title)+'.pdf')),'small')];
   if(item.status==='draft'&&canWrite('finance.write','documents'))controls.push(button('Bearbeiten',()=>documentDialog(item),'small'));
   if(item.status==='draft'&&canWrite('finance.issue','documents'))controls.push(button('Festschreiben',()=>confirmDialog('Beleg festschreiben','Die geprüfte Fassung wird unveränderlich archiviert und erhält eine Nummer. Es erfolgt kein automatischer Versand.',async()=>{await mutation('finalize-'+id,`/documents/${id}/finalize`,{revision:item.revision});refresh();}),'primary'));
@@ -1808,7 +1859,8 @@ async function documentDetail(id) {
       if(portalAccess(item,capabilities,state.organization).read)portal=panel('Kundenportal',button('Kundenportal verwalten',()=>action(()=>portalOfferDialog(item)),'primary'),el('p',{class:'muted'},'Die geprüfte Angebotsfassung gezielt freigeben, Kundenerklärungen einsehen oder Zugänge widerrufen.'));}
     else portal=notice('Dieser Server bietet derzeit keinen erreichbaren Angebotsportalzugang.');
   }
-  dialog(item.number||item.title,el('div',{class:'stack'},el('div',{class:'actions'},badge(item.status),...controls),portal,panel('Empfänger',el('h3',{},item.buyer?.name),el('p',{class:'muted'},[item.buyer?.address_line,[item.buyer?.postal_code,item.buyer?.city].filter(Boolean).join(' '),item.buyer?.country].filter(Boolean).flatMap((line,index)=>[index?el('br'):null,line]))),
+  if(!stillCurrent())return;
+  dialog(item.number||item.title,el('div',{class:'stack'},timeReview?notice('Arbeitszeiten wurden während der Übernahme geändert. Der gespeicherte Entwurf enthält den aktuellen Stand. Bitte die Zeitpositionen vor der Festschreibung prüfen.','warn'):null,el('div',{class:'actions'},badge(item.status),...controls),portal,panel('Empfänger',el('h3',{},item.buyer?.name),el('p',{class:'muted'},[item.buyer?.address_line,[item.buyer?.postal_code,item.buyer?.city].filter(Boolean).join(' '),item.buyer?.country].filter(Boolean).flatMap((line,index)=>[index?el('br'):null,line]))),
     panel('Positionen',table(['Beschreibung','Menge','Einheit','Netto'],(item.positions||[]).map(line=>[line.catalog_price_snapshot?`${line.description} · ${line.catalog_price_snapshot.source_name} · ${line.catalog_price_snapshot.price.price_net} EUR / ${line.catalog_price_snapshot.price.price_base_quantity} ${line.unit} · Preisstand ${line.catalog_price_snapshot.effective_on}`:line.description,formatQuantity(line.quantity),line.unit,formatMoney(line.net)]))),
     item.contract_totals?panel('Rechnungskette',el('p',{},'Gesamte Vertragsleistung brutto: '+formatMoney(item.contract_totals.gross)),el('p',{},'Bereits berechnete Vertragsbasis brutto: '+formatMoney(item.previous_issued_gross)),...(item.previous_documents||[]).map(previous=>el('p',{},`Vorbeleg ${previous.number}: ${formatMoney(previous.gross)}`))):null,
     panel(item.contract_totals?'Zusätzlich berechneter Rechnungsbetrag':'Belegsumme',el('p',{},'Netto: '+formatMoney(item.totals?.net)),el('p',{},'Steuer: '+formatMoney(item.totals?.tax)),el('h2',{},'Brutto: '+formatMoney(item.totals?.gross)))));

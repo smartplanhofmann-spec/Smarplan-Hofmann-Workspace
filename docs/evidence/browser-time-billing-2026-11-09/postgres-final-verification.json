@@ -1,0 +1,30 @@
+{
+  "runtime_role": "smartplan-online",
+  "runtime_security": true,
+  "issued": {
+    "id": "86b638fd03454e30977302acaf61205b",
+    "status": "final",
+    "number": "RE-2026-000001"
+  },
+  "competing_status": "draft",
+  "time_bindings": [
+    {
+      "document_id": "86b638fd03454e30977302acaf61205b",
+      "entry_id": "420a007c9ea54dbab46d778e57298eab",
+      "source_hash": "fdef3a582f4b9a791279cd298f0373da2fc649365a49a2aab6f16f9f4aa724b1",
+      "source_revision": 2,
+      "seconds": 7
+    },
+    {
+      "document_id": "86b638fd03454e30977302acaf61205b",
+      "entry_id": "5d445e44efe9400f8623dfec93dd6ac9",
+      "source_hash": "d3c4c76872f8bc58747e649bb7d6a1a7006dd3871b65a73f3e99e931ed3988a5",
+      "source_revision": 2,
+      "seconds": 3600
+    }
+  ],
+  "pdf_sha256": "429b55566b8833d2be78b4e4a2c404956e8e6454386a0c3dea97d2249906705f",
+  "pdf_size": 2724,
+  "time_integrity": true,
+  "document_integrity": true
+}

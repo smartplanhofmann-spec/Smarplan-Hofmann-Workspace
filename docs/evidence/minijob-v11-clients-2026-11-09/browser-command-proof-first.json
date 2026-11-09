@@ -1,0 +1,481 @@
+{
+  "synthetic": true,
+  "entries": [
+    {
+      "path": "/api/v1/business/payroll/account-records",
+      "status": 200,
+      "original_command": {
+        "employee_id": "6023cc92604d4f2f88659cc006c3c3f8",
+        "kind": "identity",
+        "details": {
+          "profile_id": "7e52e5bcd62740d9a233832e4a9038d4",
+          "profile_revision": 1,
+          "given_name": "Synthetic",
+          "family_name": "Employee",
+          "date_of_birth": "1990-02-01",
+          "address_line": "Testweg 1",
+          "postal_code": "12345",
+          "city": "Teststadt",
+          "country_code": "DE",
+          "tax_id": "12345678903",
+          "employer_name": "Synthetic Employer",
+          "employer_address": "Teststraße 2, 12345 Teststadt",
+          "employer_tax_number": "123/456/78901",
+          "employment_from": "2026-10-01",
+          "employment_to": "2026-10-31",
+          "tax_source": "elstam_imported",
+          "tax_source_date": "2026-01-01",
+          "valid_from": "2026-01-01",
+          "valid_to": "2026-12-31",
+          "tax_allowance_yearly_minor": 0,
+          "tax_addition_yearly_minor": 0,
+          "religion_code": "none",
+          "identity_source_schema_version": 2,
+          "standard_case_confirmed": true
+        },
+        "source_file_id": "29fe46a45c674eceaf65a3b0b4a0057d",
+        "confirmed": true,
+        "revision": 0,
+        "request_id": "5b38536ce9b74e3099ba13347e42b17f"
+      },
+      "response_canonical_sha256": "05d69d2d3638fd1ffe87a88ff2639b53195e59060aa56b21f8d844525b022422"
+    },
+    {
+      "path": "/api/v1/business/payroll/account-records",
+      "status": 200,
+      "original_command": {
+        "employee_id": "6023cc92604d4f2f88659cc006c3c3f8",
+        "kind": "identity",
+        "details": {
+          "profile_id": "7e52e5bcd62740d9a233832e4a9038d4",
+          "profile_revision": 1,
+          "given_name": "Synthetic",
+          "family_name": "Employee",
+          "date_of_birth": "1990-02-01",
+          "address_line": "Testweg 1",
+          "postal_code": "12345",
+          "city": "Teststadt",
+          "country_code": "DE",
+          "tax_id": "12345678903",
+          "employer_name": "Synthetic Employer",
+          "employer_address": "Teststraße 2, 12345 Teststadt",
+          "employer_tax_number": "123/456/78901",
+          "employment_from": "2026-10-01",
+          "employment_to": "2026-10-31",
+          "tax_source": "elstam_imported",
+          "tax_source_date": "2026-01-01",
+          "valid_from": "2026-01-01",
+          "valid_to": "2026-12-31",
+          "tax_allowance_yearly_minor": 0,
+          "tax_addition_yearly_minor": 0,
+          "religion_code": "none",
+          "identity_source_schema_version": 2,
+          "standard_case_confirmed": true
+        },
+        "source_file_id": "29fe46a45c674eceaf65a3b0b4a0057d",
+        "confirmed": true,
+        "revision": 0,
+        "request_id": "5b38536ce9b74e3099ba13347e42b17f"
+      },
+      "response_canonical_sha256": "05d69d2d3638fd1ffe87a88ff2639b53195e59060aa56b21f8d844525b022422"
+    },
+    {
+      "path": "/api/v1/business/payroll/calculation-cases",
+      "status": 200,
+      "original_command": {
+        "employee_id": "6023cc92604d4f2f88659cc006c3c3f8",
+        "employee_revision": 2,
+        "kind": "calculation_case",
+        "rule_version": "de_2026_individual_minijob_month_v11",
+        "source_contract_version": 3,
+        "details": {
+          "month": "2026-10",
+          "period_case_ref": {
+            "id": "47da63a3664140de94cc3f385585d915",
+            "revision": 1,
+            "content_hash": "fae7afc9af1354e94bccc558bdd8e2eb19de1700719a9549e4dfee7ec8e69eb0"
+          },
+          "employment_terms_refs": [
+            {
+              "id": "a83a0be0d6b8413cb4e6411359ce9932",
+              "revision": 1,
+              "content_hash": "f0815d87566e6dfd658a30ee5b3171541c9a138b724165607f1bf03d98e1069d"
+            }
+          ],
+          "profile_refs": [
+            {
+              "id": "7e52e5bcd62740d9a233832e4a9038d4",
+              "revision": 1,
+              "content_hash": "79ec081e5661edce25d53bdf2e2411e135593ea16ca563b7d807f7f4c6eb281c"
+            }
+          ],
+          "identity_refs": [
+            {
+              "id": "b154d6348a8f4fe19c0d2afd4e2b6fac",
+              "revision": 1,
+              "content_hash": "e9dc4c81efdf419f02426a7e2742e216eb2c503c41da912447fa5448dadefaf7"
+            }
+          ],
+          "segment_events": [],
+          "thirty_day_rule": null,
+          "entitlement_case_refs": [],
+          "travel_settlement_refs": [],
+          "flat_tax_decision": null,
+          "verification_note": "Synthetic individual payroll only",
+          "individual_minijob_assessment": {
+            "schema_version": 1,
+            "employee_id": "6023cc92604d4f2f88659cc006c3c3f8",
+            "valid_from": "2026-10-01",
+            "valid_to": "2026-10-31",
+            "declaration_date": "2026-11-03",
+            "actual_health_insurance": "statutory_family",
+            "pension_status": "compulsory",
+            "verification_note": "Synthetic all six explicit checks and originals",
+            "sole_employment_confirmed": true,
+            "income_review_complete": true,
+            "no_other_relevant_income_confirmed": true,
+            "domestic_commercial_employment_confirmed": true,
+            "no_foreign_insurance_confirmed": true,
+            "no_other_special_cases_confirmed": true,
+            "health_evidence_ref": {
+              "id": "bbb30bb8279d4de1a88353202c3c2212",
+              "revision": 1,
+              "content_hash": "89e4bbc66f7807b2fde1b2b89b0f7c6fdc283761d147bcdf697e51f733ba8ad5"
+            },
+            "pension_evidence_ref": {
+              "id": "9ed7a2dc945745dfbf7f1b2218462cd6",
+              "revision": 1,
+              "content_hash": "6c1fd42a0d51d6d9571bfe6d3891445fab265bbbb358db5e83955141b8758029"
+            },
+            "employment_evidence_ref": {
+              "id": "7c1f539929894cd5953917282d914132",
+              "revision": 1,
+              "content_hash": "603b5d9b05bc96915dc77b153eb8f6ecd6305f5456f750f9ede849983f84b861"
+            },
+            "income_evidence_ref": {
+              "id": "0041e3da1096476c91697aefc7d26c37",
+              "revision": 1,
+              "content_hash": "59212a8b9926f1335c0ecd16c59dda7d2d6cf20c007da51270f0099a79cbde16"
+            },
+            "elstam_evidence_ref": {
+              "id": "29fe46a45c674eceaf65a3b0b4a0057d",
+              "revision": 1,
+              "content_hash": "7cee48190d57eafee21d37cb96401464e46e720431305e39c56cb088b7a0d3e0"
+            }
+          }
+        },
+        "source_file_ids": [
+          "0041e3da1096476c91697aefc7d26c37",
+          "29fe46a45c674eceaf65a3b0b4a0057d",
+          "7c1f539929894cd5953917282d914132",
+          "9ed7a2dc945745dfbf7f1b2218462cd6",
+          "bbb30bb8279d4de1a88353202c3c2212"
+        ],
+        "revision": 0,
+        "status": "active",
+        "confirmed": true,
+        "preview_hash": "1da26f7d7e128d030ce597b7087390244ac5c55ac2838a775ef423bd49113f3b",
+        "request_id": "055e7792de3d4c4b88d4de454e993e7f"
+      },
+      "response_canonical_sha256": "44d54f394acb8bff2c464e14747b0c8fbd91c5bd6c47689d942d21fb79851b18"
+    },
+    {
+      "path": "/api/v1/business/payroll/calculation-cases",
+      "status": 200,
+      "original_command": {
+        "employee_id": "6023cc92604d4f2f88659cc006c3c3f8",
+        "employee_revision": 2,
+        "kind": "calculation_case",
+        "rule_version": "de_2026_individual_minijob_month_v11",
+        "source_contract_version": 3,
+        "details": {
+          "month": "2026-10",
+          "period_case_ref": {
+            "id": "47da63a3664140de94cc3f385585d915",
+            "revision": 1,
+            "content_hash": "fae7afc9af1354e94bccc558bdd8e2eb19de1700719a9549e4dfee7ec8e69eb0"
+          },
+          "employment_terms_refs": [
+            {
+              "id": "a83a0be0d6b8413cb4e6411359ce9932",
+              "revision": 1,
+              "content_hash": "f0815d87566e6dfd658a30ee5b3171541c9a138b724165607f1bf03d98e1069d"
+            }
+          ],
+          "profile_refs": [
+            {
+              "id": "7e52e5bcd62740d9a233832e4a9038d4",
+              "revision": 1,
+              "content_hash": "79ec081e5661edce25d53bdf2e2411e135593ea16ca563b7d807f7f4c6eb281c"
+            }
+          ],
+          "identity_refs": [
+            {
+              "id": "b154d6348a8f4fe19c0d2afd4e2b6fac",
+              "revision": 1,
+              "content_hash": "e9dc4c81efdf419f02426a7e2742e216eb2c503c41da912447fa5448dadefaf7"
+            }
+          ],
+          "segment_events": [],
+          "thirty_day_rule": null,
+          "entitlement_case_refs": [],
+          "travel_settlement_refs": [],
+          "flat_tax_decision": null,
+          "verification_note": "Synthetic individual payroll only",
+          "individual_minijob_assessment": {
+            "schema_version": 1,
+            "employee_id": "6023cc92604d4f2f88659cc006c3c3f8",
+            "valid_from": "2026-10-01",
+            "valid_to": "2026-10-31",
+            "declaration_date": "2026-11-03",
+            "actual_health_insurance": "statutory_family",
+            "pension_status": "compulsory",
+            "verification_note": "Synthetic all six explicit checks and originals",
+            "sole_employment_confirmed": true,
+            "income_review_complete": true,
+            "no_other_relevant_income_confirmed": true,
+            "domestic_commercial_employment_confirmed": true,
+            "no_foreign_insurance_confirmed": true,
+            "no_other_special_cases_confirmed": true,
+            "health_evidence_ref": {
+              "id": "bbb30bb8279d4de1a88353202c3c2212",
+              "revision": 1,
+              "content_hash": "89e4bbc66f7807b2fde1b2b89b0f7c6fdc283761d147bcdf697e51f733ba8ad5"
+            },
+            "pension_evidence_ref": {
+              "id": "9ed7a2dc945745dfbf7f1b2218462cd6",
+              "revision": 1,
+              "content_hash": "6c1fd42a0d51d6d9571bfe6d3891445fab265bbbb358db5e83955141b8758029"
+            },
+            "employment_evidence_ref": {
+              "id": "7c1f539929894cd5953917282d914132",
+              "revision": 1,
+              "content_hash": "603b5d9b05bc96915dc77b153eb8f6ecd6305f5456f750f9ede849983f84b861"
+            },
+            "income_evidence_ref": {
+              "id": "0041e3da1096476c91697aefc7d26c37",
+              "revision": 1,
+              "content_hash": "59212a8b9926f1335c0ecd16c59dda7d2d6cf20c007da51270f0099a79cbde16"
+            },
+            "elstam_evidence_ref": {
+              "id": "29fe46a45c674eceaf65a3b0b4a0057d",
+              "revision": 1,
+              "content_hash": "7cee48190d57eafee21d37cb96401464e46e720431305e39c56cb088b7a0d3e0"
+            }
+          }
+        },
+        "source_file_ids": [
+          "0041e3da1096476c91697aefc7d26c37",
+          "29fe46a45c674eceaf65a3b0b4a0057d",
+          "7c1f539929894cd5953917282d914132",
+          "9ed7a2dc945745dfbf7f1b2218462cd6",
+          "bbb30bb8279d4de1a88353202c3c2212"
+        ],
+        "revision": 0,
+        "status": "active",
+        "confirmed": true,
+        "preview_hash": "1da26f7d7e128d030ce597b7087390244ac5c55ac2838a775ef423bd49113f3b",
+        "request_id": "055e7792de3d4c4b88d4de454e993e7f"
+      },
+      "response_canonical_sha256": "44d54f394acb8bff2c464e14747b0c8fbd91c5bd6c47689d942d21fb79851b18"
+    },
+    {
+      "path": "/api/v1/business/payroll/runs",
+      "status": 200,
+      "original_command": {
+        "source_schema_version": 3,
+        "employee_id": "6023cc92604d4f2f88659cc006c3c3f8",
+        "calculation_case_ref": {
+          "id": "5b1a8d7a2d1a4f298f98f04e95a32651",
+          "revision": 1,
+          "content_hash": "c82239770e7f4ba70bf77cc0f800b3b84b7710d10f4ecf003fe99a6f2774f080"
+        },
+        "preview_hash": "9e0ccea78f0a660a3a646825e171120c139a99089e697797d4dc605ea7bfc644",
+        "accepted_scope": "commercial_minijob_individual_month",
+        "confirmed": true,
+        "revision": 0,
+        "request_id": "56aab66f18d742ff909747b7a39ab6b8"
+      },
+      "response_canonical_sha256": "d518956d8668151ddd81a392cc13ce714a2a6cbba235ca5714212ae77de4620a"
+    },
+    {
+      "path": "/api/v1/business/payroll/runs",
+      "status": 200,
+      "original_command": {
+        "source_schema_version": 3,
+        "employee_id": "6023cc92604d4f2f88659cc006c3c3f8",
+        "calculation_case_ref": {
+          "id": "5b1a8d7a2d1a4f298f98f04e95a32651",
+          "revision": 1,
+          "content_hash": "c82239770e7f4ba70bf77cc0f800b3b84b7710d10f4ecf003fe99a6f2774f080"
+        },
+        "preview_hash": "9e0ccea78f0a660a3a646825e171120c139a99089e697797d4dc605ea7bfc644",
+        "accepted_scope": "commercial_minijob_individual_month",
+        "confirmed": true,
+        "revision": 0,
+        "request_id": "56aab66f18d742ff909747b7a39ab6b8"
+      },
+      "response_canonical_sha256": "d518956d8668151ddd81a392cc13ce714a2a6cbba235ca5714212ae77de4620a"
+    },
+    {
+      "path": "/api/v1/business/payroll/account-records",
+      "status": 200,
+      "original_command": {
+        "employee_id": "9bd8909e57984cfa89d41e45d5fa169e",
+        "kind": "identity",
+        "details": {
+          "profile_id": "b671e98c466e42c2bf1255ce542193c7",
+          "profile_revision": 1,
+          "given_name": "Synthetic",
+          "family_name": "Employee",
+          "date_of_birth": "1990-02-01",
+          "address_line": "Testweg 1",
+          "postal_code": "12345",
+          "city": "Teststadt",
+          "country_code": "DE",
+          "tax_id": "12345678903",
+          "employer_name": "Synthetic Employer",
+          "employer_address": "Teststraße 2, 12345 Teststadt",
+          "employer_tax_number": "123/456/78901",
+          "employment_from": "2026-10-01",
+          "employment_to": "2026-10-31",
+          "tax_source": "elstam_imported",
+          "tax_source_date": "2026-01-01",
+          "valid_from": "2026-01-01",
+          "valid_to": "2026-12-31",
+          "tax_allowance_yearly_minor": 0,
+          "tax_addition_yearly_minor": 0,
+          "religion_code": "none",
+          "identity_source_schema_version": 2,
+          "standard_case_confirmed": true
+        },
+        "source_file_id": "83b41d048f674651bc8855d138d1a0c4",
+        "confirmed": true,
+        "revision": 0,
+        "request_id": "8085e6fe72224755a0efa38d91d33292"
+      },
+      "response_canonical_sha256": "7893c6cdd907fd0202e80c1d10ea84cd0cc3d1654522dea32e7d15e290a2f19c"
+    },
+    {
+      "path": "/api/v1/business/payroll/calculation-cases",
+      "status": 200,
+      "original_command": {
+        "employee_id": "9bd8909e57984cfa89d41e45d5fa169e",
+        "employee_revision": 2,
+        "kind": "calculation_case",
+        "rule_version": "de_2026_individual_minijob_month_v11",
+        "source_contract_version": 3,
+        "details": {
+          "month": "2026-10",
+          "period_case_ref": {
+            "id": "aae2e23d400a4ff49ac9eb987caef7e7",
+            "revision": 1,
+            "content_hash": "48d7e8882962f1697bec6f69287c938a14c671aa93e2a46228e0056eec997c25"
+          },
+          "employment_terms_refs": [
+            {
+              "id": "b1460dccb21f4387ab51095a89b60f3c",
+              "revision": 1,
+              "content_hash": "5d404f1f6da82ecdde144cd27b425fbb301457612c96c2a6cea427dd12359d53"
+            }
+          ],
+          "profile_refs": [
+            {
+              "id": "b671e98c466e42c2bf1255ce542193c7",
+              "revision": 1,
+              "content_hash": "4e369dd87e32e07600de2538acdba9555027a383df65e0b75b39964de1f686ea"
+            }
+          ],
+          "identity_refs": [
+            {
+              "id": "933a1676bcd349df9799cec69c87bbf0",
+              "revision": 1,
+              "content_hash": "c9b2c7a54a7e3b2a20b0883250e4c6c5f4ba04676c4dc572ddb0b98222b003cd"
+            }
+          ],
+          "segment_events": [],
+          "thirty_day_rule": null,
+          "entitlement_case_refs": [],
+          "travel_settlement_refs": [],
+          "flat_tax_decision": null,
+          "verification_note": "Synthetic individual payroll only",
+          "individual_minijob_assessment": {
+            "schema_version": 1,
+            "employee_id": "9bd8909e57984cfa89d41e45d5fa169e",
+            "valid_from": "2026-10-01",
+            "valid_to": "2026-10-31",
+            "declaration_date": "2026-11-03",
+            "actual_health_insurance": "statutory_family",
+            "pension_status": "exempt",
+            "verification_note": "Synthetic all six explicit checks and originals",
+            "sole_employment_confirmed": true,
+            "income_review_complete": true,
+            "no_other_relevant_income_confirmed": true,
+            "domestic_commercial_employment_confirmed": true,
+            "no_foreign_insurance_confirmed": true,
+            "no_other_special_cases_confirmed": true,
+            "health_evidence_ref": {
+              "id": "0e01af59c58a4e1f82cdd3b1d2feee23",
+              "revision": 1,
+              "content_hash": "cb6a7364ba944aa3ca33bb8b149aad6b4a34bed159c028f96baba49cb4779828"
+            },
+            "pension_evidence_ref": {
+              "id": "56fa7a58c6da4077bf2893ebff0a7656",
+              "revision": 1,
+              "content_hash": "c8ed8976e4973144df59d532c57315bfa51006cb731642a2408c8c2f60431812"
+            },
+            "employment_evidence_ref": {
+              "id": "b8a927c8e5be48b38e3e7de204c9044e",
+              "revision": 1,
+              "content_hash": "00d9e67292e6f23a6e82aec6c85521af5ee7dde2534bf545f20371e1da59fb28"
+            },
+            "income_evidence_ref": {
+              "id": "4aff8a668d84412ea254c149fff3aba7",
+              "revision": 1,
+              "content_hash": "97fe83159fabe4ce8f15d8235f460040c251b6f06bbe400b5369fc5c057d0926"
+            },
+            "elstam_evidence_ref": {
+              "id": "83b41d048f674651bc8855d138d1a0c4",
+              "revision": 1,
+              "content_hash": "7c8b7186c13def27b28c16acc237aa693f0ad66c69323e4d8d020610ca33b0d2"
+            }
+          }
+        },
+        "source_file_ids": [
+          "0e01af59c58a4e1f82cdd3b1d2feee23",
+          "4aff8a668d84412ea254c149fff3aba7",
+          "56fa7a58c6da4077bf2893ebff0a7656",
+          "83b41d048f674651bc8855d138d1a0c4",
+          "b8a927c8e5be48b38e3e7de204c9044e"
+        ],
+        "revision": 1,
+        "status": "active",
+        "confirmed": true,
+        "id": "1d5b099927ae41e1be68778f518fca02",
+        "correction_reason": "Synthetic deliberate unused old case reassessment",
+        "preview_hash": "60a8d3820c7b8928b61f4ac398f3dbe41d17e9029169640b10b7e3cc6988b067",
+        "request_id": "36e65e83b36949a39ef220010ceb73c9"
+      },
+      "response_canonical_sha256": "6c989c0c47573d18b567723cae287b6be94c14e10bee28114896598ef69852eb"
+    },
+    {
+      "path": "/api/v1/business/payroll/runs",
+      "status": 200,
+      "original_command": {
+        "source_schema_version": 3,
+        "employee_id": "9bd8909e57984cfa89d41e45d5fa169e",
+        "calculation_case_ref": {
+          "id": "1d5b099927ae41e1be68778f518fca02",
+          "revision": 2,
+          "content_hash": "fd60c27e803eeeaae87fe3c9489c56a7a69299deb611bd04f34ecdbff23a9910"
+        },
+        "preview_hash": "d2a6ec4c68969820ccbd28679a9fd0f8a019b4c73a3d97073fb73e709c6daf8b",
+        "accepted_scope": "commercial_minijob_individual_month",
+        "confirmed": true,
+        "revision": 0,
+        "request_id": "669a86dedb4640e28983ade55171f958"
+      },
+      "response_canonical_sha256": "684ed35666137ceda601e528ac309f557095c33ad1053f6dda8add86fbd0bb07"
+    }
+  ]
+}

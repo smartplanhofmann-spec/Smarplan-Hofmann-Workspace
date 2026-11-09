@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+individual minijob: actual MFA/HTTP, explicit identityV2 and six checks/five originals, RV compulsory/exempt, exact lost-ACK identity/case/run retries, intentional v5 migration with original history, PDF/private original and mobile passed
+1 targeted individual minijob browser workflow passed

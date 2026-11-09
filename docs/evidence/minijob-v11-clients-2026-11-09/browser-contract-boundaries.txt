@@ -1,0 +1,21 @@
+✔ actual compulsory private originals, complete command and payroll retain direct PAP and net (113.503717ms)
+✔ actual exempt private originals, complete command and payroll retain direct PAP and net (77.457158ms)
+✔ actual migrated private originals, complete command and payroll retain direct PAP and net (96.058136ms)
+✔ each of six confirmations and five own evidence references is necessary (95.620552ms)
+✔ old individually blocked case requires explicit source-contract correction (15.473838ms)
+✔ historical receipts reject substituted ELStAM, actual insurance, pension, periods, and net (27.927788ms)
+✔ accepted case keeps exact original after lost reply and feature or rights loss (277.758372ms)
+✔ accepted identity keeps exact original after lost reply and feature or rights loss (9.742017ms)
+✔ accepted run keeps exact original after lost reply and feature or rights loss (15.201058ms)
+✔ actual covered wider evidence interval, Unicode original and blocked calculation remain readable (30.462434ms)
+✔ actual blocked wider evidence interval, Unicode original and blocked calculation remain readable (19.576317ms)
+✔ closing a minijob retry during the fresh original-source check sends no second POST (7.550896ms)
+✔ a mismatching accepted minijob receipt preserves the exact unresolved original command (4.202626ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 898.402726

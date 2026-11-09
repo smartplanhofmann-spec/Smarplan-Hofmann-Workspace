@@ -1,0 +1,39 @@
+{
+  "base": "b70bea8bec76e3d6c6a15259ab565a66001f25db",
+  "source_ci": {
+    "commit": "3859a1c",
+    "job_id": 129219853858,
+    "failure": "Windows PathAccessException while deleting the synthetic offline fixture directory"
+  },
+  "change": "Wait for OfflinePlans.leave() before disposing and deleting the fixture; no product change.",
+  "deterministic_case": "Held encrypted write remains unfinished until released; leave waits, stored draft survives and directory can then be removed.",
+  "final_passed": 2,
+  "skipped": 0,
+  "platform": "Linux cloud; actual new Windows CI still required",
+  "source_sha256": {
+    "app/test/offline_backend_integration_test.dart": "d48d8e6d41c889120555706663e1be1ca23a1b01af743c11548fe2bf4f320ead",
+    "app/test/offline_shutdown_test.dart": "61b30e94320fded700c98d77fddf705b1bd7be9fa3ad8f9c6b0218ebf88731fb"
+  },
+  "logs": {
+    "initial-package-config": {
+      "file": "initial-package-config.gz",
+      "raw_sha256": "0783c3f818d386ea0b708527c282a0d3aca293ee05bbab18e3be6a92521c8687",
+      "raw_bytes": 205
+    },
+    "pub-offline": {
+      "file": "pub-offline.gz",
+      "raw_sha256": "d4cb7a3c68b4133b4f6e58c67ff5bfd13725d8021e930388cdc98da8a575919d",
+      "raw_bytes": 68
+    },
+    "first-pass": {
+      "file": "first-pass.gz",
+      "raw_sha256": "fc4bf2509100807d6606f40dabfb0c612d584ac4f758b687b56561332440db0f",
+      "raw_bytes": 600
+    },
+    "final-pass": {
+      "file": "final-pass.gz",
+      "raw_sha256": "eeb5a1da87bb69569f6a57ad185b033ee56eacdeead46cac1d359b28b4ff136b",
+      "raw_bytes": 483
+    }
+  }
+}

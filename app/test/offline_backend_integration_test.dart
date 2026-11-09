@@ -114,6 +114,9 @@ void main() {
           throwsA(isA<ApiException>().having((e) => e.status, 'status', 403)),
         );
       } finally {
+        // Disposing cancels timers but does not await an already queued vault
+        // write. Drain it before removing files; Windows keeps open files locked.
+        await repository?.leave();
         repository?.dispose();
         full?.dispose();
         connection?.dispose();

@@ -1,6 +1,6 @@
 # Verbindlicher Arbeitsstand für die Fortsetzung
 
-Stand: 08.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
+Stand: 09.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
@@ -8,7 +8,10 @@ Letzter veröffentlichter Produktcommit:
 `f747311a5c3561fbafc3e9a74095d480b089c9b6` (Faktor-Vollmonat mit Clients).
 Die neuen GitHub-Läufe [Development checks](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42529919023)
 und [iPhone-Prüfworkflow](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42529918991)
-sind gestartet; ihre Ergebnisse bleiben offen. Der vorherige Lauf auf 3773a60
+sind inzwischen erfolgreich abgeschlossen: alle acht Development-Jobs und der
+unsignierte iPhone-Build 171 bestehen; signierter Upload bleibt übersprungen.
+[Aktuelle CI-/Artefaktnachweise](evidence/completion-2026-11-09/ci-baseline.json).
+Der vorherige Lauf auf 3773a60
 bestand sechs Jobs; seine noch laufenden Business-/Online-Jobs wurden durch den
 neuen Branchstand automatisch abgebrochen. Er gilt nicht als vollständig grün.
 [Veröffentlichungsnachweis](evidence/payroll-factor-2026-11-08/publication.json).
@@ -80,11 +83,23 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
    Gesamt-/Socketnachlauf und zusätzlichen EÜR-Fall, sechs reale PG-/Restorefälle,
    306 App-, 866 Node- und 16 Paketfälle sowie echte Faktor-/Midijob-Browserwege
    belegen den abgegrenzten Umfang. [Quellen, Grenzen und Nachweis](CRM_ERP_LOHN_FAKTOR_2026.md).
+6. **Gemeinsame Kunden-/Projektkommunikation:** neuer reiner Leseverlauf aus
+   sechs bestehenden Fachquellen in Browser und nativer App. Suche, Quelle,
+   Datum, Snapshotseiten und Original/Korrektur erhalten native Quellrechte.
+   Tatsächliche MFA-/Browser-/PostgreSQL-/Restoreprüfungen bestanden; alle
+   22 nativen Projektregister sind in Desktop-/Mobilbreite nachgeprüft.
+   [Umfang und Grenzen](CRM_ERP_KOMMUNIKATIONSVERLAUF.md).
+7. **Windows-Artefakt:** Onlinepaket auf f747311 tatsächlich heruntergeladen;
+   veröffentlichter Archivdigest und alle 248 Dateihashes stimmen. Es ist
+   damit noch nicht auf einem echten Windowsgerät bedient oder installiert.
 
 ## Weitere unabhängige Entwicklungsarbeit
 
 - Die neue vollständige CI auf dem aktuellen Quellstand nachprüfen und
-  tatsächliche neue Fehler beheben; nicht nur bereits grüne Jobs zählen.
+  tatsächliche neue Fehler beheben; auf f747311 inzwischen vollständig grün.
+- Gemeinsamen Kunden-/Projekt-Kommunikationsverlauf auf dem Testbranch liefern
+  und seine neue CI prüfen. Konkrete externe Kanalintegration und tatsächliche
+  Geräte-/Betriebsabnahme bleiben gesonderte Aufgaben.
 - Weitere benannte Standard-Lohnfälle additiv integrieren. Dazu gehören unter
   anderem Faktor-Teilmonate/-Einmalbezüge, individuelle Minijobsteuer, Versicherungsvarianten,
   Minijob-Jahresgrenzen und weitere Leistungen/Sachbezüge. Der

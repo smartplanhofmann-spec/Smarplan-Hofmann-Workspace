@@ -42,6 +42,7 @@ import {migrationPendingAuthorize,migrationsUi} from './migrations.js';
 import {companyHandoverPendingAuthorize} from './company-handover.js';
 import {inventoryCountsUi,inventoryCountPendingAuthorize} from './inventory-counts.js';
 import {createSales,salesPendingAuthorize} from './sales.js';
+import {createCommunicationHistory} from './communication-history.js';
 export class ApiError extends Error {
   constructor(message, status = 0, requestResolution = null) { super(message); this.name = 'ApiError'; this.status = status; this.requestResolution=status===409&&requestResolution==='not_accepted'?'not_accepted':null; }
 }
@@ -1258,7 +1259,7 @@ function dialog(title, content, description = '') {
   });
   document.body.append(modal); box.focus(); return box;
 }
-function closeModal({keepYearValues=false,keepWageInterruptions=false,keepAnnualBasis=false,keepOneOffCases=false,keepMultipleCases=false,keepCompanyEvents=false,keepOpenItems=false}={}) { dialogGeneration++; if(!keepYearValues)yearValuesWorkspace.clear(); if(modal) { if(modal.querySelector('[data-year-package]'))yearPackageWorkspace.clear();if(!keepOpenItems&&modal.querySelector('[data-open-items]'))openItemWorkspace.clear();if(!keepCompanyEvents&&modal.querySelector('[data-company-events]'))companyEvents.clear(); if(modal.querySelector('[data-historical-assets]'))historicalWorkspace.clear();if(modal.querySelector('[data-accounting-openings]'))openingWorkspace.clear();if(modal.querySelector('[data-payroll]'))payrollWorkspace.clear({keepWageInterruptions,keepAnnualBasis,keepOneOffCases,keepMultipleCases});const previous=modal.previous;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;previous?.focus(); } }
+function closeModal({keepYearValues=false,keepWageInterruptions=false,keepAnnualBasis=false,keepOneOffCases=false,keepMultipleCases=false,keepCompanyEvents=false,keepOpenItems=false}={}) { dialogGeneration++; if(!keepYearValues)yearValuesWorkspace.clear(); if(modal) { if(modal.querySelector('.communication-history'))communicationHistory.clear(modal); if(modal.querySelector('[data-year-package]'))yearPackageWorkspace.clear();if(!keepOpenItems&&modal.querySelector('[data-open-items]'))openItemWorkspace.clear();if(!keepCompanyEvents&&modal.querySelector('[data-company-events]'))companyEvents.clear(); if(modal.querySelector('[data-historical-assets]'))historicalWorkspace.clear();if(modal.querySelector('[data-accounting-openings]'))openingWorkspace.clear();if(modal.querySelector('[data-payroll]'))payrollWorkspace.clear({keepWageInterruptions,keepAnnualBasis,keepOneOffCases,keepMultipleCases});const previous=modal.previous;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;previous?.focus(); } }
 async function download(path,filename) { const blob=await api.binary(path),url=objectUrl(blob),link=el('a',{href:url,download:filename,rel:'noopener'}); document.body.append(link); link.click(); link.remove(); }
 function jsonDownload(value,filename) { const link=el('a',{href:objectUrl(new Blob([JSON.stringify(value,null,2)],{type:'application/json'})),download:filename}); document.body.append(link); link.click(); link.remove(); }
 function mutation(key,path,data,options) {
@@ -1328,7 +1329,7 @@ async function startSession() {
   if(!state.projects.some(project=>project.id===state.projectId))state.projectId='';
   state.section='overview'; buildShell(); await refresh();
 }
-function endSession() { state.financeTab='payments';state.accounting={tab:'events',payments:0,receipts:0,events:0,accounts:0};api.clear();photoUploads.clear();projectEconomics.clear();assistantWorkspace.clear();companyEvents.clear();accountingEuer.clear();state.render++;state.projects=[];state.projectId='';state.metadata=null;state.employeeId=null;state.newTimeEntryId=null;state.permissions.clear();state.globalPermissions.clear();state.capabilities.clear();state.features.clear();state.organization=null;state.openedHiddenSection=null;state.readonly=true;state.planning={mode:'week',anchor:dateInput(),years:3};loginScreen(); }
+function endSession() { state.financeTab='payments';state.accounting={tab:'events',payments:0,receipts:0,events:0,accounts:0};api.clear();communicationHistory.clear();photoUploads.clear();projectEconomics.clear();assistantWorkspace.clear();companyEvents.clear();accountingEuer.clear();state.render++;state.projects=[];state.projectId='';state.metadata=null;state.employeeId=null;state.newTimeEntryId=null;state.permissions.clear();state.globalPermissions.clear();state.capabilities.clear();state.features.clear();state.organization=null;state.openedHiddenSection=null;state.readonly=true;state.planning={mode:'week',anchor:dateInput(),years:3};loginScreen(); }
 function buildShell() {
   root.replaceChildren(); shell=el('div',{class:'shell','data-context-section':state.section,'data-project-context':state.projectId});
   const nav=el('nav',{class:'navigation','aria-label':'Hauptnavigation'},NAV.filter(([id])=>sectionAllowed(id)).map(([id,label,glyph])=>el('button',{type:'button',class:'nav-button','data-section':id,'aria-current':id===state.section?'page':undefined,onClick:()=>navigate(id)},el('span',{class:'nav-glyph','aria-hidden':'true'},glyph),label)));
@@ -1437,7 +1438,7 @@ async function refresh() {
   if(!state.user)return;
   state.projectId=projectContext(state.section,state.projectId).projectId;
   catalogWorkspace.clear();datedWorkspace.clear();
-  const version=++state.render,generation=api.generation;revokeUrls();main.replaceChildren(el('div',{class:'loading',role:'status'},'Daten werden geladen …'));
+  const version=++state.render,generation=api.generation;communicationHistory.clear();if(modal?.querySelector('.communication-history'))closeModal();revokeUrls();main.replaceChildren(el('div',{class:'loading',role:'status'},'Daten werden geladen …'));
   try {
     const [caps,projects,metadata]=await Promise.all([api.get(biz('/capabilities')),api.get('/projects'),api.get(biz('/overview'))]);
     if(version!==state.render||generation!==api.generation)return;
@@ -1531,7 +1532,7 @@ async function newProjectDialog(customerId='') {
 }
 async function projectView() {
   const id=state.projectId,profile=await api.get(biz(`/projects/${id}/profile`));
-  const tabs=[['overview','Übersicht'],['tasks','Aufgaben'],['appointments','Termine'],['documents','Dokumente'],['documentation','Fotos & Doku'],['materials','Material'],...(has('finance.read')?[['costs',state.features.has('project_economics')?'Wirtschaftlichkeit':'Kalkulation']]:[]),['maintenance','Wartung'],...(state.features.has('service_cases')&&has('contacts.read')?[['service','Kundenservice']]:[]),...(state.features.has('assistant_workflow')&&has('assistant.use')?[['assistant','Assistent']]:[]),['logbook','Logbuch']];
+  const tabs=[['overview','Übersicht'],['tasks','Aufgaben'],['appointments','Termine'],['documents','Dokumente'],['documentation','Fotos & Doku'],['materials','Material'],...(has('finance.read')?[['costs',state.features.has('project_economics')?'Wirtschaftlichkeit':'Kalkulation']]:[]),['maintenance','Wartung'],...(state.features.has('communication_history')&&has('contacts.read')?[['communication','Kommunikation']]:[]),...(state.features.has('service_cases')&&has('contacts.read')?[['service','Kundenservice']]:[]),...(state.features.has('assistant_workflow')&&has('assistant.use')?[['assistant','Assistent']]:[]),['logbook','Logbuch']];
   if(!tabs.some(([tab])=>tab===state.tab))state.tab='overview';
   const head=heading(profile.name,`${profile.customer||''}${profile.site_address?' · '+profile.site_address:''}`,[button('Alle Projekte',()=>{state.projectId='';root.querySelector('.project-select').value='';refresh();})]);
   const navigation=el('div',{class:'tabs',role:'tablist','aria-label':'Projektmappe'},tabs.map(([tab,label])=>el('button',{type:'button',class:'tab',role:'tab','aria-selected':tab===state.tab,onClick:()=>{state.tab=tab;refresh();}},label)));
@@ -1552,6 +1553,7 @@ async function projectView() {
   else if(state.tab==='maintenance') body=await maintenancePanel(id);
   else if(state.tab==='assistant') body=await assistantWorkspace.view(id);
   else if(state.tab==='service') body=await customerService.view({project_id:id,customer_id:profile.customer_id});
+  else if(state.tab==='communication') body=await communicationHistory.view({project_id:id,...(profile.customer_id?{customer_id:profile.customer_id}:{})});
   else body=await logbookPanel(id);
   return el('div',{class:'stack'},head,navigation,body);
 }
@@ -1603,8 +1605,9 @@ async function contactsView() {
   const response=await api.get(biz('/contacts')),contacts=collection(response);
   return el('div',{class:'stack contacts-workspace'},heading('Kontakte','Kunden, Lieferanten und Partner mit nachvollziehbaren Projektbezügen.',[...(response.can_create&&has('contacts.write')?[button('Kontakt anlegen',()=>contactDialog(),'primary')]:[]),...(state.features.has('sales_pipeline')&&has('contacts.read')?[button('Vertriebspipeline',()=>action(()=>sales.open()))]:[])]),
     has('privacy.manage')&&state.features.has('privacy_cases')?panel('Datenschutzfälle',button('Datenschutzfälle öffnen',()=>action(()=>privacyCases.open()),'small')):null,
-    panel('Kontaktkartei',rows(contacts,item=>row(item.name,[item.email,item.phone,contactAddressSummary(item)].filter(Boolean).join(' · '),[has('projects.manage')&&item.active&&(item.kinds||[]).includes('customer')?button('Projekt anlegen',()=>action(()=>newProjectDialog(item.id)),'small'):null,state.features.has('custom_fields')?button('Zusatzfelder',()=>action(()=>customFields.open('contact',item.id)),'small'):null,...(item.kinds||[]).map(kind=>badge(({customer:'Kunde',supplier:'Lieferant',partner:'Partner'})[kind])),has('contacts.write')?button('Bearbeiten',()=>action(async()=>contactDialog(await api.get(biz('/contacts/'+item.id)))),'small'):null,state.features.has('sales_pipeline')&&has('contacts.read')?button('Verkaufschancen',()=>action(()=>sales.open(item.id)),'small'):null,state.features.has('service_cases')&&has('contacts.read')?button('Servicefälle',()=>action(()=>customerService.open({customer_id:item.id})),'small'):null]))));
+    panel('Kontaktkartei',rows(contacts,item=>row(item.name,[item.email,item.phone,contactAddressSummary(item)].filter(Boolean).join(' · '),[has('projects.manage')&&item.active&&(item.kinds||[]).includes('customer')?button('Projekt anlegen',()=>action(()=>newProjectDialog(item.id)),'small'):null,state.features.has('custom_fields')?button('Zusatzfelder',()=>action(()=>customFields.open('contact',item.id)),'small'):null,...(item.kinds||[]).map(kind=>badge(({customer:'Kunde',supplier:'Lieferant',partner:'Partner'})[kind])),has('contacts.write')?button('Bearbeiten',()=>action(async()=>contactDialog(await api.get(biz('/contacts/'+item.id)))),'small'):null,state.features.has('communication_history')&&has('contacts.read')?button('Kommunikationsverlauf',()=>action(()=>communicationHistory.open(item.id)),'small'):null,state.features.has('sales_pipeline')&&has('contacts.read')?button('Verkaufschancen',()=>action(()=>sales.open(item.id)),'small'):null,state.features.has('service_cases')&&has('contacts.read')?button('Servicefälle',()=>action(()=>customerService.open({customer_id:item.id})),'small'):null]))));
 }
+const communicationHistory=createCommunicationHistory({api,biz,el,button,notice,formatDate,action,dialog,openProject,stamp:()=>`${api.generation}/${state.render}`,allowed:()=>state.features.has('communication_history')&&has('contacts.read')});
 const sales=createSales({api,biz,el,button,pricePicker,panel,row,rows,notice,empty,form,field,dialog,table,formatDate,action,mutation,refresh,openProject,documentDetail,actorId:()=>state.user?.id,permission:has,allowed:()=>state.features.has('sales_pipeline')&&has('contacts.read'),writable:()=>!state.readonly&&has('contacts.write')});
 const customFields=customFieldsUi({api,biz,el,button,field,form,dialog,panel,rows,row,notice,table,mutation,action,enabled:()=>!!state.user&&state.features.has('custom_fields'),admin:()=>has('settings.manage'),writable:()=>!state.readonly,stamp:()=>JSON.stringify([state.user?.id,state.generation,[...state.globalPermissions],[...state.permissions],state.projectId])});
 function contactAddressEditor(initial=[]) {

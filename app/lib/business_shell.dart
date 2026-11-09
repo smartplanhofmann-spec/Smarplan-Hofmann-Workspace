@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'business_documents.dart';
 import 'business_assistant.dart';
 import 'business_service.dart';
+import 'business_communication_history.dart';
 import 'business_company_overview.dart';
 import 'business_accounting_euer.dart';
 import 'business_finance.dart';
@@ -600,12 +601,18 @@ class BusinessProjectFeature extends StatelessWidget {
     required this.session,
     required this.feature,
     this.repository,
+    this.visible = true,
   });
   final BusinessSession session;
   final String feature;
   final OfflinePlans? repository;
+  final bool visible;
   @override
   Widget build(BuildContext context) => switch (feature) {
+    'Kommunikation' => BusinessCommunicationHistoryPage(
+      session: session,
+      active: visible,
+    ),
     'Zusatzfelder' => BusinessCustomFieldsPage(
       session: session,
       entityType: 'project',

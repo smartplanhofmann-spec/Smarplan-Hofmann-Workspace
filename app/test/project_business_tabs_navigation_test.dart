@@ -17,6 +17,7 @@ import 'package:smartplan_office/project_workspace_page.dart';
 import 'project_workspace_widget_test.dart' show WorkspaceApi;
 
 const businessTabs = [
+  'Kommunikation',
   'Zusatzfelder',
   'Kundenservice',
   'Assistent',
@@ -66,6 +67,7 @@ class ProjectTabsApi extends WorkspaceApi {
     'service_cases',
     'assistant_workflow',
     'customer_workspace_portal',
+    'communication_history',
   };
   final businessCalls = <({String path, Map<String, dynamic>? body})>[];
   final unexpected = <String>[];
@@ -166,9 +168,30 @@ class ProjectTabsApi extends WorkspaceApi {
           'business_service',
           'business_assistant',
           'business_customer_workspace',
+          'business_sales',
         ],
         'permissions': permissions.toList(),
         'features': features.toList(),
+      };
+    if (route == '/api/business/sales/communication-history')
+      return {
+        'schema_version': 1,
+        'scope': {
+          'customer_id': null,
+          'project_id': projectId,
+          'kind': null,
+          'q': '',
+          'from': null,
+          'to': null,
+        },
+        'snapshot_sha256': 'a' * 64,
+        'customer': null,
+        'project': {'id': projectId, 'name': project['name']},
+        'items': [],
+        'next_cursor': null,
+        'has_more': false,
+        'page_size': 50,
+        'limitations': ['Synthetic source history'],
       };
     if (route ==
         '/api/business/custom-fields/entities/project/${ProjectTabsApi.projectId}')
@@ -513,7 +536,7 @@ void main() {
 
   for (final size in [const Size(1200, 900), const Size(390, 844)]) {
     testWidgets(
-      'All twenty-one current project registers render and return through the real project route at ${size.width}',
+      'All ${allTabs.length} current project registers render and return through the real project route at ${size.width}',
       (tester) async {
         final api = ProjectTabsApi();
         const content = {
@@ -524,6 +547,8 @@ void main() {
           'Pläne': 'Neuer Grundriss',
           'Dokumente': 'Synthetische Projektunterlage',
           'Berichte': 'Neues Dokument',
+          'Kommunikation':
+              'Keine freigegebenen Einträge für diese Auswahl vorhanden.',
           'Zusatzfelder': 'Synthetische Zusatzdaten',
           'Kundenservice': '0 offene Fälle',
           'Assistent': 'Ausgewählte Fachquellen',

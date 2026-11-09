@@ -1,0 +1,8 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_communication_history_test.dart
+00:00 +0: actual customer/project source snapshots bind all six categories
+00:00 +1: stable paging preserves original and corrected activities once
+00:00 +2: foreign scope, extra fields, false delivery and invalid timestamps fail closed
+00:00 +3: mobile history renders source meaning and clears immediately on fresh role withdrawal
+00:01 +4: background and inactive project slot discard pending private response
+00:01 +5: permissions changed between source and final guard never render old source
+00:01 +6: All tests passed!

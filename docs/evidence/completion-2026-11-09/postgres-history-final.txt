@@ -1,0 +1,7 @@
+test_actual_backup_restore_preserves_canonical_snapshot_without_new_message_store (online.test_communication_history_pg.CommunicationHistoryPostgres.test_actual_backup_restore_preserves_canonical_snapshot_without_new_message_store) ... ok
+test_actual_mfa_source_projection_restart_fresh_grants_and_device_denial (online.test_communication_history_pg.CommunicationHistoryPostgres.test_actual_mfa_source_projection_restart_fresh_grants_and_device_denial) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 15.557s
+
+OK

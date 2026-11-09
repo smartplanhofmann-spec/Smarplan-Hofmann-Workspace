@@ -45,6 +45,7 @@ const _businessSectionSlots = [
   'Dokumentation',
   'Fotos',
   'Wartung',
+  'Kommunikation',
 ];
 
 const _sectionIcons = [
@@ -129,6 +130,10 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
   late final ProjectIntegrationsController integrations;
   late final BusinessSession business;
   List<String> get businessSections => [
+    if (business.hasFeature('communication_history') &&
+        business.hasModule('sales') &&
+        business.can('contacts.read'))
+      'Kommunikation',
     if (business.hasFeature('custom_fields') && business.can('documents.read'))
       'Zusatzfelder',
     if (business.hasFeature('service_cases') &&
@@ -182,6 +187,7 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
           'Kundenportal' => Icons.public_outlined,
           'Assistent' => Icons.auto_awesome_outlined,
           'Kundenservice' => Icons.support_agent_outlined,
+          'Kommunikation' => Icons.forum_outlined,
           'Arbeitszeit' => Icons.timer_outlined,
           'Einsatzplanung' => Icons.calendar_view_week_outlined,
           'Material' => Icons.inventory_2_outlined,
@@ -1965,6 +1971,9 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
                                       session: business,
                                       feature: feature,
                                       repository: widget.repository,
+                                      visible:
+                                          section < visibleSections.length &&
+                                          visibleSections[section] == feature,
                                     )
                                   : const SizedBox(),
                           ]

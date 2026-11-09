@@ -10,6 +10,7 @@ import 'business_privacy_cases.dart';
 import 'business_custom_fields.dart';
 import 'business_widgets.dart';
 import 'business_sales.dart';
+import 'business_communication_history.dart';
 import 'design.dart';
 import 'mail_attachment_preview.dart';
 import 'mail_attachment_widgets.dart' show exportMailAttachment;
@@ -488,6 +489,21 @@ class _BusinessContactPageState extends State<BusinessContactPage> {
                       ),
                       icon: const Icon(Icons.trending_up),
                       label: const Text('Verkaufschancen'),
+                    ),
+                  if (widget.session.hasFeature('communication_history') &&
+                      widget.session.can('contacts.read'))
+                    OutlinedButton.icon(
+                      onPressed: () => Navigator.push<void>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => BusinessCommunicationHistoryPage(
+                            session: widget.session,
+                            customerId: widget.id,
+                          ),
+                        ),
+                      ),
+                      icon: const Icon(Icons.forum_outlined),
+                      label: const Text('Kommunikationsverlauf'),
                     ),
                   for (final kind in ['persons', 'addresses']) ...[
                     const SizedBox(height: 24),

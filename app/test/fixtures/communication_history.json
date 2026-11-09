@@ -1,0 +1,714 @@
+{
+  "scope": {
+    "customer_id": "ae97daf794ce4a8ab5b1f0ccf487785d"
+  },
+  "project_scope": {
+    "customer_id": "ae97daf794ce4a8ab5b1f0ccf487785d",
+    "project_id": "faace1e5655d4f7dbdfaf219313f9fa9"
+  },
+  "full": {
+    "schema_version": 1,
+    "scope": {
+      "customer_id": "ae97daf794ce4a8ab5b1f0ccf487785d",
+      "project_id": null,
+      "kind": null,
+      "q": "",
+      "from": null,
+      "to": null
+    },
+    "snapshot_sha256": "7b285a74a6f671fdb44a4928c9ca8b497f440add80e94985f4ec406c89036f91",
+    "customer": {
+      "id": "ae97daf794ce4a8ab5b1f0ccf487785d",
+      "name": "Synthetic sales customer"
+    },
+    "project": null,
+    "items": [
+      {
+        "key": "project_note:internal_project_note:5437eefedbe340d28fe99e901d1ec13e:1",
+        "kind": "project_note",
+        "source_id": "5437eefedbe340d28fe99e901d1ec13e",
+        "source_revision": 1,
+        "source_sha256": "2d4e20f0ad54c3741d99544b65d43e1daf2fe62ce3ebeb8ff8a17937aafa53c8",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Projektnotiz",
+        "text": "Synthetic project note",
+        "occurred_at": "2026-11-09T05:42:31+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-09T05:42:31+00:00",
+        "status": "recorded_note",
+        "provenance": "internal_project_note",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "inquiry:recorded_inquiry:c634731f86ea4d0d94e16be8b3ca3514:2",
+        "kind": "inquiry",
+        "source_id": "c634731f86ea4d0d94e16be8b3ca3514",
+        "source_revision": 2,
+        "source_sha256": "5f16cbf2988d279c7e7ac225fc41e4277af86105ddbfd1094096e7dcd3d438d5",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Synthetic CRM inquiry",
+        "text": "Please prepare an offer.",
+        "occurred_at": "2026-11-09T05:42:31+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-09T05:42:31+00:00",
+        "status": "converted",
+        "provenance": "recorded_inquiry",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "service:canonical_record:d7536a389ab547f184dae9ca9ec1a745:1",
+        "kind": "service",
+        "source_id": "d7536a389ab547f184dae9ca9ec1a745",
+        "source_revision": 1,
+        "source_sha256": "52a8779c887c4d14e4f03fa67808797b5f3e82dc98cf7cf1ffd6ac982a37f2e0",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Synthetic service history",
+        "text": "Synthetic service context",
+        "occurred_at": "2026-11-03T12:00:00+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "open",
+        "provenance": "canonical_record",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "sales:canonical_record:62204f47c99e4c90b0aeeb6aeefbc906:1",
+        "kind": "sales",
+        "source_id": "62204f47c99e4c90b0aeeb6aeefbc906",
+        "source_revision": 1,
+        "source_sha256": "49a14581b1eb3219c8a93f2813ff3e7a927bf021961dc23d578915d972dd8052",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Synthetic installation prospect",
+        "text": "Explicit synthetic forecast",
+        "occurred_at": "2026-11-03T12:00:00+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "qualified",
+        "provenance": "canonical_record",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "document:current_document_revision:eebcfc88208e40de996d1970447d6651:2",
+        "kind": "document",
+        "source_id": "eebcfc88208e40de996d1970447d6651",
+        "source_revision": 2,
+        "source_sha256": "adf6e37a73e5386b74b6c890ee376fb29032066e1dd26c2f4bb527485112ebac",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Angebot AN-2026-000001",
+        "text": "Synthetic source offer",
+        "occurred_at": "2026-11-03T12:00:00+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "final",
+        "provenance": "current_document_revision",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "delivery:mail_receipt:2f24168a59ab4a148f676430080f709b:2",
+        "kind": "delivery",
+        "source_id": "2f24168a59ab4a148f676430080f709b",
+        "source_revision": 2,
+        "source_sha256": "2d3aa5f9a9fc9c5a989ec31c1e1af2034c9adfcd8570c7a3d47074ffe67b9ba5",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Vom Versandserver angenommen · Angebot AN-2026-000001",
+        "text": "Angebot AN-2026-000001",
+        "occurred_at": "2026-11-03T12:00:00+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "accepted",
+        "provenance": "mail_receipt",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": true,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "delivery:mail_receipt:2f24168a59ab4a148f676430080f709b:1",
+        "kind": "delivery",
+        "source_id": "2f24168a59ab4a148f676430080f709b",
+        "source_revision": 1,
+        "source_sha256": "4676f99645d3c9a6205bf78e839182b93ff291413cf4a208975a93f81656abc3",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Versand läuft · Angebot AN-2026-000001",
+        "text": "Angebot AN-2026-000001",
+        "occurred_at": "2026-11-03T12:00:00+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "sending",
+        "provenance": "mail_receipt",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "delivery:mail_outbox:2f24168a59ab4a148f676430080f709b:0",
+        "kind": "delivery",
+        "source_id": "2f24168a59ab4a148f676430080f709b",
+        "source_revision": 0,
+        "source_sha256": "5166c06c3e5d541648234a129b45be90d3d750011ab2368580be89788079623c",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Versand vorbereitet · Angebot AN-2026-000001",
+        "text": "Angebot AN-2026-000001",
+        "occurred_at": "2026-11-03T12:00:00+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "pending",
+        "provenance": "mail_outbox",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "sales:manual_activity:f4e9549a45514e26b4ccb42175b8183c:1",
+        "kind": "sales",
+        "source_id": "f4e9549a45514e26b4ccb42175b8183c",
+        "source_revision": 1,
+        "source_sha256": "01b50c7d5ffa873dca25c69e12188fb361d5d2b6d17432c1d94ceecbc73dbf53",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Telefonat · Synthetic installation prospect",
+        "text": "Synthetic corrected call",
+        "occurred_at": "2026-11-02",
+        "precision": "day",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "recorded_activity",
+        "provenance": "manual_activity",
+        "supersedes_key": "sales:manual_activity:4bc1882ed5994c66a5ddd4356cf091bc:1",
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "sales:manual_activity:4bc1882ed5994c66a5ddd4356cf091bc:1",
+        "kind": "sales",
+        "source_id": "4bc1882ed5994c66a5ddd4356cf091bc",
+        "source_revision": 1,
+        "source_sha256": "865e0a26493b953c8d6ad654634a34a13603ba9d326f09d045d86b912f51984b",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Telefonat · Synthetic installation prospect",
+        "text": "Synthetic call original",
+        "occurred_at": "2026-11-02",
+        "precision": "day",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "recorded_activity",
+        "provenance": "manual_activity",
+        "supersedes_key": null,
+        "superseded": true,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "service:manual_activity:478ae8cab3a44ec398ac76c519ff0e1c:1",
+        "kind": "service",
+        "source_id": "478ae8cab3a44ec398ac76c519ff0e1c",
+        "source_revision": 1,
+        "source_sha256": "e77147aa1dd9944f0cc9a2ed94eb03a46056caa2ab717574ded0b5f91127bbdb",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "E-Mail protokolliert · Synthetic service history",
+        "text": "Synthetic manually documented email",
+        "occurred_at": "2026-11-01",
+        "precision": "day",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "recorded_activity",
+        "provenance": "manual_activity",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      }
+    ],
+    "next_cursor": null,
+    "has_more": false,
+    "page_size": 50,
+    "limitations": [
+      "Nur ausdrücklich verknüpfte und aktuell freigegebene Ursprünge sind enthalten; gleiche Namen oder E-Mail-Adressen erzeugen keine Zuordnung.",
+      "Protokollierte Telefonate, E-Mails und Besprechungen sind manuelle Nachweise. Versandannahme bestätigt weder Zustellung noch Lesen.",
+      "Taggenaue Aktivitäten besitzen keine belegte Uhrzeit. Geschützte Personal- und Finanznotizen aus dem Projektlogbuch sind hier nicht enthalten."
+    ]
+  },
+  "first": {
+    "schema_version": 1,
+    "scope": {
+      "customer_id": "ae97daf794ce4a8ab5b1f0ccf487785d",
+      "project_id": null,
+      "kind": null,
+      "q": "",
+      "from": null,
+      "to": null
+    },
+    "snapshot_sha256": "7b285a74a6f671fdb44a4928c9ca8b497f440add80e94985f4ec406c89036f91",
+    "customer": {
+      "id": "ae97daf794ce4a8ab5b1f0ccf487785d",
+      "name": "Synthetic sales customer"
+    },
+    "project": null,
+    "items": [
+      {
+        "key": "project_note:internal_project_note:5437eefedbe340d28fe99e901d1ec13e:1",
+        "kind": "project_note",
+        "source_id": "5437eefedbe340d28fe99e901d1ec13e",
+        "source_revision": 1,
+        "source_sha256": "2d4e20f0ad54c3741d99544b65d43e1daf2fe62ce3ebeb8ff8a17937aafa53c8",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Projektnotiz",
+        "text": "Synthetic project note",
+        "occurred_at": "2026-11-09T05:42:31+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-09T05:42:31+00:00",
+        "status": "recorded_note",
+        "provenance": "internal_project_note",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "inquiry:recorded_inquiry:c634731f86ea4d0d94e16be8b3ca3514:2",
+        "kind": "inquiry",
+        "source_id": "c634731f86ea4d0d94e16be8b3ca3514",
+        "source_revision": 2,
+        "source_sha256": "5f16cbf2988d279c7e7ac225fc41e4277af86105ddbfd1094096e7dcd3d438d5",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Synthetic CRM inquiry",
+        "text": "Please prepare an offer.",
+        "occurred_at": "2026-11-09T05:42:31+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-09T05:42:31+00:00",
+        "status": "converted",
+        "provenance": "recorded_inquiry",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      }
+    ],
+    "next_cursor": "eyJhZnRlciI6WyIyMDI2LTExLTA5VDA1OjQyOjMxKzAwOjAwIiwiaW5xdWlyeTpyZWNvcmRlZF9pbnF1aXJ5OmM2MzQ3MzFmODZlYTRkMGQ5NGUxNmJlOGIzY2EzNTE0OjIiXSwic2NvcGUiOiJjMzVkOWRjM2M5NTNlNGU4NTYxOTI5MmE0MTFhM2JlMTkyODA0ZjRmYzZjM2VkYTM0NGQwMmY0MGUxYmM3Y2ZhIiwic25hcHNob3QiOiI3YjI4NWE3NGE2ZjY3MWZkYjQ0YTQ5MjhjOWNhOGI0OTdmNDQwYWRkODBlOTQ5ODVmNGVjNDA2Yzg5MDM2ZjkxIn0",
+    "has_more": true,
+    "page_size": 2,
+    "limitations": [
+      "Nur ausdrücklich verknüpfte und aktuell freigegebene Ursprünge sind enthalten; gleiche Namen oder E-Mail-Adressen erzeugen keine Zuordnung.",
+      "Protokollierte Telefonate, E-Mails und Besprechungen sind manuelle Nachweise. Versandannahme bestätigt weder Zustellung noch Lesen.",
+      "Taggenaue Aktivitäten besitzen keine belegte Uhrzeit. Geschützte Personal- und Finanznotizen aus dem Projektlogbuch sind hier nicht enthalten."
+    ]
+  },
+  "second": {
+    "schema_version": 1,
+    "scope": {
+      "customer_id": "ae97daf794ce4a8ab5b1f0ccf487785d",
+      "project_id": null,
+      "kind": null,
+      "q": "",
+      "from": null,
+      "to": null
+    },
+    "snapshot_sha256": "7b285a74a6f671fdb44a4928c9ca8b497f440add80e94985f4ec406c89036f91",
+    "customer": {
+      "id": "ae97daf794ce4a8ab5b1f0ccf487785d",
+      "name": "Synthetic sales customer"
+    },
+    "project": null,
+    "items": [
+      {
+        "key": "service:canonical_record:d7536a389ab547f184dae9ca9ec1a745:1",
+        "kind": "service",
+        "source_id": "d7536a389ab547f184dae9ca9ec1a745",
+        "source_revision": 1,
+        "source_sha256": "52a8779c887c4d14e4f03fa67808797b5f3e82dc98cf7cf1ffd6ac982a37f2e0",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Synthetic service history",
+        "text": "Synthetic service context",
+        "occurred_at": "2026-11-03T12:00:00+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "open",
+        "provenance": "canonical_record",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "sales:canonical_record:62204f47c99e4c90b0aeeb6aeefbc906:1",
+        "kind": "sales",
+        "source_id": "62204f47c99e4c90b0aeeb6aeefbc906",
+        "source_revision": 1,
+        "source_sha256": "49a14581b1eb3219c8a93f2813ff3e7a927bf021961dc23d578915d972dd8052",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Synthetic installation prospect",
+        "text": "Explicit synthetic forecast",
+        "occurred_at": "2026-11-03T12:00:00+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "qualified",
+        "provenance": "canonical_record",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      }
+    ],
+    "next_cursor": "eyJhZnRlciI6WyIyMDI2LTExLTAzVDEyOjAwOjAwKzAwOjAwIiwic2FsZXM6Y2Fub25pY2FsX3JlY29yZDo2MjIwNGY0N2M5OWU0YzkwYjBhZWViNmFlZWZiYzkwNjoxIl0sInNjb3BlIjoiYzM1ZDlkYzNjOTUzZTRlODU2MTkyOTJhNDExYTNiZTE5MjgwNGY0ZmM2YzNlZGEzNDRkMDJmNDBlMWJjN2NmYSIsInNuYXBzaG90IjoiN2IyODVhNzRhNmY2NzFmZGI0NGE0OTI4YzljYThiNDk3ZjQ0MGFkZDgwZTk0OTg1ZjRlYzQwNmM4OTAzNmY5MSJ9",
+    "has_more": true,
+    "page_size": 2,
+    "limitations": [
+      "Nur ausdrücklich verknüpfte und aktuell freigegebene Ursprünge sind enthalten; gleiche Namen oder E-Mail-Adressen erzeugen keine Zuordnung.",
+      "Protokollierte Telefonate, E-Mails und Besprechungen sind manuelle Nachweise. Versandannahme bestätigt weder Zustellung noch Lesen.",
+      "Taggenaue Aktivitäten besitzen keine belegte Uhrzeit. Geschützte Personal- und Finanznotizen aus dem Projektlogbuch sind hier nicht enthalten."
+    ]
+  },
+  "project": {
+    "schema_version": 1,
+    "scope": {
+      "customer_id": "ae97daf794ce4a8ab5b1f0ccf487785d",
+      "project_id": "faace1e5655d4f7dbdfaf219313f9fa9",
+      "kind": null,
+      "q": "",
+      "from": null,
+      "to": null
+    },
+    "snapshot_sha256": "c912294e821ed6446ee5c8157508cf5a39f5f3595bc449b0df5c47c22112dfc9",
+    "customer": {
+      "id": "ae97daf794ce4a8ab5b1f0ccf487785d",
+      "name": "Synthetic sales customer"
+    },
+    "project": {
+      "id": "faace1e5655d4f7dbdfaf219313f9fa9",
+      "name": "Synthetic adopted project"
+    },
+    "items": [
+      {
+        "key": "project_note:internal_project_note:5437eefedbe340d28fe99e901d1ec13e:1",
+        "kind": "project_note",
+        "source_id": "5437eefedbe340d28fe99e901d1ec13e",
+        "source_revision": 1,
+        "source_sha256": "2d4e20f0ad54c3741d99544b65d43e1daf2fe62ce3ebeb8ff8a17937aafa53c8",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Projektnotiz",
+        "text": "Synthetic project note",
+        "occurred_at": "2026-11-09T05:42:31+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-09T05:42:31+00:00",
+        "status": "recorded_note",
+        "provenance": "internal_project_note",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "inquiry:recorded_inquiry:c634731f86ea4d0d94e16be8b3ca3514:2",
+        "kind": "inquiry",
+        "source_id": "c634731f86ea4d0d94e16be8b3ca3514",
+        "source_revision": 2,
+        "source_sha256": "5f16cbf2988d279c7e7ac225fc41e4277af86105ddbfd1094096e7dcd3d438d5",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Synthetic CRM inquiry",
+        "text": "Please prepare an offer.",
+        "occurred_at": "2026-11-09T05:42:31+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-09T05:42:31+00:00",
+        "status": "converted",
+        "provenance": "recorded_inquiry",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "service:canonical_record:d7536a389ab547f184dae9ca9ec1a745:1",
+        "kind": "service",
+        "source_id": "d7536a389ab547f184dae9ca9ec1a745",
+        "source_revision": 1,
+        "source_sha256": "52a8779c887c4d14e4f03fa67808797b5f3e82dc98cf7cf1ffd6ac982a37f2e0",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Synthetic service history",
+        "text": "Synthetic service context",
+        "occurred_at": "2026-11-03T12:00:00+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "open",
+        "provenance": "canonical_record",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "sales:canonical_record:62204f47c99e4c90b0aeeb6aeefbc906:1",
+        "kind": "sales",
+        "source_id": "62204f47c99e4c90b0aeeb6aeefbc906",
+        "source_revision": 1,
+        "source_sha256": "49a14581b1eb3219c8a93f2813ff3e7a927bf021961dc23d578915d972dd8052",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Synthetic installation prospect",
+        "text": "Explicit synthetic forecast",
+        "occurred_at": "2026-11-03T12:00:00+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "qualified",
+        "provenance": "canonical_record",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "document:current_document_revision:eebcfc88208e40de996d1970447d6651:2",
+        "kind": "document",
+        "source_id": "eebcfc88208e40de996d1970447d6651",
+        "source_revision": 2,
+        "source_sha256": "adf6e37a73e5386b74b6c890ee376fb29032066e1dd26c2f4bb527485112ebac",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Angebot AN-2026-000001",
+        "text": "Synthetic source offer",
+        "occurred_at": "2026-11-03T12:00:00+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "final",
+        "provenance": "current_document_revision",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "delivery:mail_receipt:2f24168a59ab4a148f676430080f709b:2",
+        "kind": "delivery",
+        "source_id": "2f24168a59ab4a148f676430080f709b",
+        "source_revision": 2,
+        "source_sha256": "2d3aa5f9a9fc9c5a989ec31c1e1af2034c9adfcd8570c7a3d47074ffe67b9ba5",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Vom Versandserver angenommen · Angebot AN-2026-000001",
+        "text": "Angebot AN-2026-000001",
+        "occurred_at": "2026-11-03T12:00:00+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "accepted",
+        "provenance": "mail_receipt",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": true,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "delivery:mail_receipt:2f24168a59ab4a148f676430080f709b:1",
+        "kind": "delivery",
+        "source_id": "2f24168a59ab4a148f676430080f709b",
+        "source_revision": 1,
+        "source_sha256": "4676f99645d3c9a6205bf78e839182b93ff291413cf4a208975a93f81656abc3",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Versand läuft · Angebot AN-2026-000001",
+        "text": "Angebot AN-2026-000001",
+        "occurred_at": "2026-11-03T12:00:00+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "sending",
+        "provenance": "mail_receipt",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "delivery:mail_outbox:2f24168a59ab4a148f676430080f709b:0",
+        "kind": "delivery",
+        "source_id": "2f24168a59ab4a148f676430080f709b",
+        "source_revision": 0,
+        "source_sha256": "5166c06c3e5d541648234a129b45be90d3d750011ab2368580be89788079623c",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Versand vorbereitet · Angebot AN-2026-000001",
+        "text": "Angebot AN-2026-000001",
+        "occurred_at": "2026-11-03T12:00:00+00:00",
+        "precision": "second",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "pending",
+        "provenance": "mail_outbox",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "sales:manual_activity:f4e9549a45514e26b4ccb42175b8183c:1",
+        "kind": "sales",
+        "source_id": "f4e9549a45514e26b4ccb42175b8183c",
+        "source_revision": 1,
+        "source_sha256": "01b50c7d5ffa873dca25c69e12188fb361d5d2b6d17432c1d94ceecbc73dbf53",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Telefonat · Synthetic installation prospect",
+        "text": "Synthetic corrected call",
+        "occurred_at": "2026-11-02",
+        "precision": "day",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "recorded_activity",
+        "provenance": "manual_activity",
+        "supersedes_key": "sales:manual_activity:4bc1882ed5994c66a5ddd4356cf091bc:1",
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "sales:manual_activity:4bc1882ed5994c66a5ddd4356cf091bc:1",
+        "kind": "sales",
+        "source_id": "4bc1882ed5994c66a5ddd4356cf091bc",
+        "source_revision": 1,
+        "source_sha256": "865e0a26493b953c8d6ad654634a34a13603ba9d326f09d045d86b912f51984b",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Telefonat · Synthetic installation prospect",
+        "text": "Synthetic call original",
+        "occurred_at": "2026-11-02",
+        "precision": "day",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "recorded_activity",
+        "provenance": "manual_activity",
+        "supersedes_key": null,
+        "superseded": true,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      },
+      {
+        "key": "service:manual_activity:478ae8cab3a44ec398ac76c519ff0e1c:1",
+        "kind": "service",
+        "source_id": "478ae8cab3a44ec398ac76c519ff0e1c",
+        "source_revision": 1,
+        "source_sha256": "e77147aa1dd9944f0cc9a2ed94eb03a46056caa2ab717574ded0b5f91127bbdb",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "E-Mail protokolliert · Synthetic service history",
+        "text": "Synthetic manually documented email",
+        "occurred_at": "2026-11-01",
+        "precision": "day",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "recorded_activity",
+        "provenance": "manual_activity",
+        "supersedes_key": null,
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      }
+    ],
+    "next_cursor": null,
+    "has_more": false,
+    "page_size": 50,
+    "limitations": [
+      "Nur ausdrücklich verknüpfte und aktuell freigegebene Ursprünge sind enthalten; gleiche Namen oder E-Mail-Adressen erzeugen keine Zuordnung.",
+      "Protokollierte Telefonate, E-Mails und Besprechungen sind manuelle Nachweise. Versandannahme bestätigt weder Zustellung noch Lesen.",
+      "Taggenaue Aktivitäten besitzen keine belegte Uhrzeit. Geschützte Personal- und Finanznotizen aus dem Projektlogbuch sind hier nicht enthalten."
+    ]
+  },
+  "filtered": {
+    "schema_version": 1,
+    "scope": {
+      "customer_id": "ae97daf794ce4a8ab5b1f0ccf487785d",
+      "project_id": null,
+      "kind": "sales",
+      "q": "corrected",
+      "from": null,
+      "to": null
+    },
+    "snapshot_sha256": "94a10c07c2fad71c38f9b9875966c3114f4295b78664e662e915279fdf873e4c",
+    "customer": {
+      "id": "ae97daf794ce4a8ab5b1f0ccf487785d",
+      "name": "Synthetic sales customer"
+    },
+    "project": null,
+    "items": [
+      {
+        "key": "sales:manual_activity:f4e9549a45514e26b4ccb42175b8183c:1",
+        "kind": "sales",
+        "source_id": "f4e9549a45514e26b4ccb42175b8183c",
+        "source_revision": 1,
+        "source_sha256": "01b50c7d5ffa873dca25c69e12188fb361d5d2b6d17432c1d94ceecbc73dbf53",
+        "project_ids": [
+          "faace1e5655d4f7dbdfaf219313f9fa9"
+        ],
+        "title": "Telefonat · Synthetic installation prospect",
+        "text": "Synthetic corrected call",
+        "occurred_at": "2026-11-02",
+        "precision": "day",
+        "recorded_at": "2026-11-03T12:00:00+00:00",
+        "status": "recorded_activity",
+        "provenance": "manual_activity",
+        "supersedes_key": "sales:manual_activity:4bc1882ed5994c66a5ddd4356cf091bc:1",
+        "superseded": false,
+        "accepted_by_server": false,
+        "recipient_delivery_confirmed": false
+      }
+    ],
+    "next_cursor": null,
+    "has_more": false,
+    "page_size": 50,
+    "limitations": [
+      "Nur ausdrücklich verknüpfte und aktuell freigegebene Ursprünge sind enthalten; gleiche Namen oder E-Mail-Adressen erzeugen keine Zuordnung.",
+      "Protokollierte Telefonate, E-Mails und Besprechungen sind manuelle Nachweise. Versandannahme bestätigt weder Zustellung noch Lesen.",
+      "Taggenaue Aktivitäten besitzen keine belegte Uhrzeit. Geschützte Personal- und Finanznotizen aus dem Projektlogbuch sind hier nicht enthalten."
+    ]
+  }
+}

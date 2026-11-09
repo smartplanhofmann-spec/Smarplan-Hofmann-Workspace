@@ -1,0 +1,30 @@
+[
+  {
+    "status": 200,
+    "query": "customer_id=aadcace61f0d44b8895a1972052d7ec9&limit=50"
+  },
+  {
+    "status": 200,
+    "query": "customer_id=aadcace61f0d44b8895a1972052d7ec9&limit=50&cursor=eyJhZnRlciI6WyIyMDI2LTExLTA5VDA1OjU5OjQ5KzAwOjAwIiwicHJvamVjdF9ub3RlOmludGVybmFsX3Byb2plY3Rfbm90ZToxMjNjZjM2NWZkYzQ0YWY2YjZmMDZhZTZmYmM4MWU5MjoxIl0sInNjb3BlIjoiN2I2YzA1M2Y3OGY4Y2E0M2NiYjc0MzJkYTUwZmI2ZWE1MzdmZDhmOTUxMmE1Mjk5MTA1NTkxYjU1MmI0ZWRiYiIsInNuYXBzaG90IjoiNDNjNjZmMzM4ZGY3NmE1ZjNkMWUzNjllODllOGNiOGQxZmQ0N2U3Yzc2ZjM3ZGZiNDhmMjgxYzgzZmQ1N2IyMCJ9"
+  },
+  {
+    "status": 200,
+    "query": "customer_id=aadcace61f0d44b8895a1972052d7ec9&limit=50"
+  },
+  {
+    "status": 409,
+    "query": "customer_id=aadcace61f0d44b8895a1972052d7ec9&limit=50&cursor=eyJhZnRlciI6WyIyMDI2LTExLTA5VDA1OjU5OjQ5KzAwOjAwIiwicHJvamVjdF9ub3RlOmludGVybmFsX3Byb2plY3Rfbm90ZToxMjNjZjM2NWZkYzQ0YWY2YjZmMDZhZTZmYmM4MWU5MjoxIl0sInNjb3BlIjoiN2I2YzA1M2Y3OGY4Y2E0M2NiYjc0MzJkYTUwZmI2ZWE1MzdmZDhmOTUxMmE1Mjk5MTA1NTkxYjU1MmI0ZWRiYiIsInNuYXBzaG90IjoiNDNjNjZmMzM4ZGY3NmE1ZjNkMWUzNjllODllOGNiOGQxZmQ0N2U3Yzc2ZjM3ZGZiNDhmMjgxYzgzZmQ1N2IyMCJ9"
+  },
+  {
+    "status": 200,
+    "query": "customer_id=aadcace61f0d44b8895a1972052d7ec9&q=Korrigierte+R%C3%BCckrufnotiz&kind=sales&limit=50"
+  },
+  {
+    "status": 200,
+    "query": "project_id=a30c3255f4614f109bab40a1e189395a&customer_id=aadcace61f0d44b8895a1972052d7ec9&limit=50"
+  },
+  {
+    "status": 200,
+    "query": "project_id=a30c3255f4614f109bab40a1e189395a&customer_id=aadcace61f0d44b8895a1972052d7ec9&limit=50"
+  }
+]

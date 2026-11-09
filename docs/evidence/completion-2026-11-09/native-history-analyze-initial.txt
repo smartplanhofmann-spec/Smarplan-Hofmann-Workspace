@@ -1,0 +1,7 @@
+Analyzing app...                                                
+
+  error • The method 'Notice' isn't defined for the type '_CommunicationState'. Try correcting the name to the name of an existing method, or defining a method named 'Notice' • lib/business_communication_history.dart:510:34 • undefined_method
+  error • The name 'Notice' isn't a class. Try correcting the name to match an existing class • lib/business_communication_history.dart:527:25 • creation_with_non_type
+  error • The name 'Notice' isn't a class. Try correcting the name to match an existing class • lib/business_communication_history.dart:550:35 • creation_with_non_type
+
+3 issues found. (ran in 12.7s)

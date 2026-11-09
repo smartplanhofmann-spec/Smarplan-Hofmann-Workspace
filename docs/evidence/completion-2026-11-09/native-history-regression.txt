@@ -1,0 +1,101 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_communication_history_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_communication_history_test.dart: actual customer/project source snapshots bind all six categories
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_communication_history_test.dart: stable paging preserves original and corrected activities once
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_communication_history_test.dart: foreign scope, extra fields, false delivery and invalid timestamps fail closed
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_communication_history_test.dart: mobile history renders source meaning and clears immediately on fresh role withdrawal
+00:01 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_sales_test.dart: project adoption opens only the fresh canonical collection member
+00:02 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_sales_test.dart: project adoption opens only the fresh canonical collection member
+00:02 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_sales_test.dart: project adoption opens only the fresh canonical collection member
+00:02 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_sales_test.dart: forecast cents and closure evidence are explicit
+00:02 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_sales_test.dart: lost create ACK is retained during revoked rights and exact original survives metadata reload
+00:02 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_sales_test.dart: pipeline distinguishes forecast and editing preserves canonical customer
+00:03 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_sales_test.dart: current read-only rights leave history readable and hide mutation actions
+00:03 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_sales_test.dart: late list response cannot redisplay source data after rights revocation
+00:08 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: (setUpAll)
+00:08 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: The real project page can open Arbeitszeit without losing its scaffold or return path
+00:10 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: The real project page can open Arbeitszeit without losing its scaffold or return path
+00:10 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_shell_widget_test.dart: Real business dashboard renders at 390.0
+00:10 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0
+00:10 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following _TypeError was thrown running a test:
+Null check operator used on a null value
+
+When the exception was thrown, this was the stack:
+#0      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart:560:47)
+<asynchronous suspension>
+#1      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#2      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  All twenty-one current project registers render and return through the real project route at
+  1200.0
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:23 +16 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0 [E]
+  Test failed. See exception logs above.
+  The test description was: All twenty-one current project registers render and return through the real project route at 1200.0
+  
+00:23 +16 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 390.0
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following _TypeError was thrown running a test:
+Null check operator used on a null value
+
+When the exception was thrown, this was the stack:
+#0      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart:560:47)
+<asynchronous suspension>
+#1      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#2      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  All twenty-one current project registers render and return through the real project route at 390.0
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:35 +16 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 390.0 [E]
+  Test failed. See exception logs above.
+  The test description was: All twenty-one current project registers render and return through the real project route at 390.0
+  
+00:35 +16 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: Changing project permissions keeps an allowed active register and its state when earlier registers disappear
+00:35 +17 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: Old register callbacks follow the same permitted identity and reject removed destinations at 1200.0
+00:36 +18 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: Old register callbacks follow the same permitted identity and reject removed destinations at 390.0
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TypeWidgetFinder:<Found 0 widgets with type "BusinessFinancePage": []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart:641:11)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart line 641
+The test description was:
+  Old register callbacks follow the same permitted identity and reject removed destinations at 390.0
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:36 +18 -3: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: Old register callbacks follow the same permitted identity and reject removed destinations at 390.0 [E]
+  Test failed. See exception logs above.
+  The test description was: Old register callbacks follow the same permitted identity and reject removed destinations at 390.0
+  
+00:36 +18 -3: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: Pending and failed register reads preserve overview and project back navigation
+00:36 +19 -3: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: Project Arbeitszeit performs start pause resume stop on the same scoped entry and still returns
+00:37 +20 -3: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: Removing and restoring newer modules preserves the selected time page
+00:37 +21 -3: /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: (tearDownAll)
+00:37 +21 -3: Some tests failed.
+
+Failing tests:
+  /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0
+  /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 390.0
+  /workspace/Smarplan-Hofmann-Workspace/app/test/project_business_tabs_navigation_test.dart: Old register callbacks follow the same permitted identity and reject removed destinations at 390.0

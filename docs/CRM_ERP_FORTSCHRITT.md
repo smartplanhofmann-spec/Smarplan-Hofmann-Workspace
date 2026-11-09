@@ -2761,3 +2761,66 @@ bestand sechs Jobs; die übrigen zwei wurden durch den neuen Branchstand
 automatisch abgebrochen und bleiben damit ohne Abschlussnachweis.
 Der nur für die lokalen PG-Prüfungen erzeugte Container ist nach den sechs
 erfolgreichen Fällen gestoppt und entfernt. Seine Nachweise bleiben erhalten.
+
+
+## 09.11.2026 – gemeinsame Remote-Gesamtprüfung vollständig grün
+
+Der Nutzer beauftragt die Fortsetzung bis zur Fertigstellung. Der autorisierte
+Remote-Testbranch stimmt mit dem lokalen 637d571 überein; der getestete
+Produktstand ist f747311. Alle acht Development-Jobs sind jetzt erfolgreich
+abgeschlossen: Backend, Online-API, Business-/Browserdienste, Flutter,
+Windows, iOS-Simulator, Update und HTTPS. Der unsignierte iPhone-Build 171
+ist ebenfalls erfolgreich. Signierung und Upload bleiben ausdrücklich
+übersprungen; keine zusätzliche Serverinstallation wird behauptet.
+
+Die Artefakte für Windows lokal/online, Start/Sicherung, Browser-/App-Vorschau
+und unsigniertes iPhone sind mit Kennung, Quellcommit, Größe und veröffentlichtem
+Digest erfasst. [CI-Nachweis](evidence/completion-2026-11-09/ci-baseline.json).
+Die nächsten unabhängigen CRM-Arbeiten verbinden den bisher getrennten
+Kommunikationsverlauf am Kunden/Projekt. Die ursprünglichen Quellen und ihre
+Berechtigungen bleiben maßgeblich; gleiche Namen oder E-Mail-Adressen gelten
+nicht als neue kanonische Verknüpfung.
+
+## 09.11.2026 – gemeinsamer Kommunikationsverlauf umgesetzt und lokal geprüft
+
+Die bisher getrennten CRM-Quellen sind als reine Lesesicht am kanonischen Kunden
+und Projekt verbunden. Browserzugang: Kontakte → Kommunikationsverlauf und
+Projekt → Kommunikation. Native App: Kontaktansicht beziehungsweise neues
+Projektregister Kommunikation. Anfragen, Chancen-/Servicefassungen, manuelle
+Aktivitäten, aktuelle Belegstände, native Versandquittungen und operative
+Projektnotizen behalten ihre Quellrechte und Nachweise. Keine neue Tabelle,
+Schemaänderung oder externe Nachricht. Original und spätere Korrektur bleiben
+getrennt. Versandannahme behauptet keine Zustellung oder Lesebestätigung.
+
+51 unterschiedliche Backendfälle bestehen, davon 14 neue Verlaufsfälle.
+Ein früherer 60er-Lauf enthielt elf importbedingt doppelt entdeckte Vertriebs-
+fälle; diese Doppelentdeckung ist entfernt und wird nicht zusätzlich gezählt.
+Zwei tatsächliche PostgreSQL-/MFA-Fälle bestehen ohne Skip, einschließlich
+eingeschränkter Runtime, Neustart, Rechteentzug, Offlineverweigerung und echtem
+Dump/Restore mit demselben Quellstand. Der eigens dafür angelegte Container
+ist nach Abschluss entfernt. Kein Produktivserver wurde geändert.
+
+24 native Fälle bestehen, einschließlich aller 22 Projektregister in Desktop-
+und Mobilbreite. Die sechs neuen Verlaufsfälle bestehen nach der letzten
+Darstellungsänderung erneut; vollständige Analyse ohne Befund. 872 Browser-
+Modulfälle bestehen, die sechs Verlaufsverträge nach der Darstellungsänderung
+erneut. Der tatsächliche Chromium-/MFA-/HTTP-Ablauf prüft Kunden-/Projektzugang,
+Suche/Filter, 50er-Seiten, Ablehnung veralteter Fortsetzungen, HTML als Klartext,
+private Notizen, mobile Darstellung und verspätete Antworten nach Seitenwechsel.
+16 Paketprüfungen bestehen; beide Windowslisten und die CI-Quellkopie enthalten
+das neue Backendmodul. Neue Browser- und PostgreSQLfälle sind im CI eingetragen.
+
+Die Erstprüfungen fanden einen mobilen Dropdownüberlauf sowie mehrere Fehler
+in den neuen Testeinrichtungen (Lifecycle, /me-Form, erwartete 404 und neue
+Registerreihenfolge). Alles ist korrigiert; die fehlgeschlagenen Rohprotokolle
+bleiben neben den bestandenen Nachläufen erhalten. Alle historischen Lohn-/
+Buchhaltungsquellen und die ursprüngliche Gesamtzieldatei bleiben bytegleich.
+[Umfang und Grenzen](CRM_ERP_KOMMUNIKATIONSVERLAUF.md),
+[genaue Prüfstände und Hashes](evidence/completion-2026-11-09/verification.json).
+
+Zusätzlich ist das bereits grün gebaute Windows-Onlinepaket f747311 tatsächlich
+heruntergeladen. Veröffentlichter Archivdigest und alle 248 Dateihashes stimmen;
+das ist keine tatsächliche Windowsbedienung. Freie externe Kommunikationskanäle,
+signierte iPhone-Verteilung, neue Serverinstallation und Abnahmen A–G bleiben
+separat. Die übrigen benannten Lohn-/EÜR-Lücken bleiben aktive Codearbeit im
+vollständigen Gesamtziel; kein Fertigstellungsprozent wird daraus abgeleitet.

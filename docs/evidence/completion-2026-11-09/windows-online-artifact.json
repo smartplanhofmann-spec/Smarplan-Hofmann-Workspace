@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-09",
+  "artifact_id": 13636753941,
+  "source_commit": "f747311a5c3561fbafc3e9a74095d480b089c9b6",
+  "archive_bytes": 21832896,
+  "archive_sha256": "19bafceb4ff731209ff02a7b881c23a9a7442013bd0d24b40700b9f3cf7fc34f",
+  "published_archive_digest_matches": true,
+  "files": 248,
+  "all_file_hashes_verified": true,
+  "duplicate_archive_names": false,
+  "version": "0.13.0",
+  "build_number": "130",
+  "api_url": "https://office.smartplan-hofmann.de",
+  "required_backend_schema": 7,
+  "platform": "windows-x64",
+  "flavor": "online",
+  "binary_executed_locally": false,
+  "real_windows_device_acceptance": false
+}

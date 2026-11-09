@@ -1,0 +1,31 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+TypeError: Cannot read properties of undefined (reading 'id')
+    at Object.communicationHistoryFlow (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/communication-history-flow.cjs:23:256)
+    at async main (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:106:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: []
+Fixture log tail:
+P/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "POST /api/v1/login/verify HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "GET /api/v1/me HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "GET /api/v1/business/overview/metrics HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "GET /api/v1/business/feed HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "GET /api/v1/business/contacts HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "GET /api/v1/me HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "[35m[1mPOST /api/v1/business/contacts HTTP/1.1[0m" 201 -
+127.0.0.1 - - [09/Nov/2026 06:54:09] "[35m[1mPOST /api/v1/inquiries HTTP/1.1[0m" 201 -
+
+SMARTPLAN_BROWSER_FAILURE_END

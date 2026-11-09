@@ -15,7 +15,7 @@ from business_foundation import BusinessFoundation, _fresh, require_permission
 from business_operations import identifier, iso_date, text, transaction
 from inquiries import Inquiries
 
-FEATURES = ('sales_pipeline',)
+FEATURES = ('sales_pipeline', 'communication_history')
 STAGES = ('new','qualified','proposal','negotiation','won','lost')
 FIELDS = ('title','person_id','stage','expected_net_minor','probability_percent','responsible_id',
           'follow_up_on','expected_close_on','description','closure_reason')
@@ -385,6 +385,7 @@ def validate_integrity(office):
 
 
 def methods(path):
+    if path=='/sales/communication-history':return 'GET'
     if path=='/sales/options':return 'GET'
     if path=='/sales/opportunities':return 'GET, POST'
     if re.fullmatch(r'/sales/opportunities/'+ID,path):return 'GET'
@@ -402,7 +403,10 @@ def dispatch(office,actor,path,method,data):
     api=Sales(office);query=data.get('_query',{});body={key:value for key,value in data.items() if key!='_query'}
     if method=='GET':
         if body:raise Problem(400,'Keine Abrufinhalte erlaubt.')
-        if path=='/sales/opportunities':
+        if path=='/sales/communication-history':
+            from communication_history import CommunicationHistory
+            result=CommunicationHistory(office).listing(actor,query)
+        elif path=='/sales/opportunities':
             shape(query,(),('q','stage','customer_id'));result=api.listing(actor,query.get('q',''),query.get('stage'),query.get('customer_id'))
         elif path=='/sales/options':
             shape(query,(),('customer_id',));result=api.options(actor,query.get('customer_id'))

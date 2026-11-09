@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-09",
+  "baseline_commit": "637d571865a739da44d5b3e99e9c28d83db3c995",
+  "feature": "canonical customer/project communication history",
+  "status": "local verification passed; publication/remote CI recorded separately",
+  "checks": [
+    {
+      "name": "domain_http_regression",
+      "log": "backend-history-verified.txt",
+      "tests": 51,
+      "new_history_tests": 14,
+      "result": "passed",
+      "command": "PYTHONPATH=backend .venv/bin/python -m unittest -v test_communication_history test_business_sales test_business_service business_tests.test_documents",
+      "log_sha256": "01961827a3c0fda9c93c4479d91237418901dd18b413140f3968bd084fc78c21"
+    },
+    {
+      "name": "actual_postgres_mfa_restart_restore",
+      "log": "postgres-history-final.txt",
+      "tests": 2,
+      "skips": 0,
+      "result": "passed",
+      "environment": "isolated postgres:16-bookworm, loopback ephemeral port 32769; original runtime ACL and DSN guards; task container removed after success",
+      "log_sha256": "573cd43ea98b96505a5198cfa5f089cad8c27561e9878115444ef91d10bc5f72"
+    },
+    {
+      "name": "native_history_sales_project_navigation",
+      "log": "native-history-verified.txt",
+      "tests": 24,
+      "result": "passed",
+      "project_registers": 22,
+      "widths": [
+        1200,
+        390
+      ],
+      "log_sha256": "b48bddc4fa8a0160f2e32f11c9f9319e58114b44bf5d5e9c8ca3cc167c5e100b"
+    },
+    {
+      "name": "native_history_after_final_presentation_change",
+      "log": "native-history-final.txt",
+      "tests": 6,
+      "result": "passed",
+      "overlap_with_native_regression": 6,
+      "log_sha256": "32b55f87f8450057978b66c6fb04b2788a16a13e92e3861c1ffe15a95b834ec9"
+    },
+    {
+      "name": "full_native_analysis_final",
+      "log": "native-history-analyze-verified.txt",
+      "result": "passed",
+      "issues": 0,
+      "log_sha256": "1af03229bc9aeb56865675bc97994870e30f9f2d5a275cc731094f4644433465"
+    },
+    {
+      "name": "browser_modules",
+      "log": "browser-modules.txt",
+      "tests": 872,
+      "skips": 0,
+      "result": "passed",
+      "log_sha256": "f8250235c72e05842d414f0d3bf4faaf5293e4ec48d65f492e3593bcb109d9d8"
+    },
+    {
+      "name": "browser_contract_after_final_presentation_change",
+      "log": "browser-history-contract-final.txt",
+      "tests": 6,
+      "result": "passed",
+      "overlap_with_browser_modules": 6,
+      "log_sha256": "fc6e164ebab5b629d49b996db19bc2a3de45ef981a36355f87f090a3c1951365"
+    },
+    {
+      "name": "actual_chromium_mfa_http_history",
+      "log": "browser-history-final.txt",
+      "result": "passed",
+      "sandbox": "namespace, PID, network and seccomp verified; no security disable flags",
+      "external_provider_requests": false,
+      "viewport_mobile": [
+        390,
+        844
+      ],
+      "log_sha256": "2e503be404816e329c50035fe1c29a70a5ce1804b1b1baa5e768cb32fb257a2d"
+    },
+    {
+      "name": "native_package_guards",
+      "log": "packaging.txt",
+      "tests": 16,
+      "result": "passed",
+      "log_sha256": "7adeb00d2fc8c8087b15f4a735a69988690f11206bfe62ecce34141ea105acb7"
+    },
+    {
+      "name": "python_syntax",
+      "result": "passed",
+      "modules": 8
+    }
+  ],
+  "preserved_failed_runs": {
+    "native-history-initial.txt": {
+      "reason": "Test compile failure: awaiting a void lifecycle API; corrected.",
+      "sha256": "df8c6d5eaac8696b95dbb1047d465c899264926ea01293c8cf628d42b035ce48"
+    },
+    "native-history-analyze-initial.txt": {
+      "reason": "Initial missing Notice import in product UI; corrected.",
+      "sha256": "87d3cba8942c1519e70a4ec898af6cf23bb9b77c29ce41e92c8bd07d61a93ddb"
+    },
+    "native-history-analyze.txt": {
+      "reason": "Void-await diagnostics in test; corrected.",
+      "sha256": "a2a4ea6d597246c06d0311661cceeabe273e6f0fb78921ffd5835dcfb82b6775"
+    },
+    "native-history-second.txt": {
+      "reason": "Mobile dropdown overflow in product fixed with expanded layout; test background/teardown timing corrected.",
+      "sha256": "84964b15215ebc44b15a2fa61cf78c535c80228ca3e8d19a910afe38dea53af7"
+    },
+    "native-history-third.txt": {
+      "reason": "Invalid simulated Flutter lifecycle transitions in test; corrected to the real state sequence.",
+      "sha256": "cc10fb302804774a91c27890ec15e36e6793cdd2c208afb77a25dbf76efaac59"
+    },
+    "native-history-regression.txt": {
+      "reason": "New tab missing from test content map and test callback order; corrected, product stack identities preserved.",
+      "sha256": "139cdba9104f523a23a4582f5cbe20f207bacf87c44774ba6491432eee480c3b"
+    },
+    "browser-history-initial.txt": {
+      "reason": "Fixture assumed /me response.user instead of actual response; corrected.",
+      "sha256": "1947ab8475d91c3f221bfdb77a02322472d8c0766760aa3346d6e848a1329287"
+    },
+    "postgres-history-initial.txt": {
+      "reason": "Unassigned project correctly hidden by 404, test expected 403; test corrected without changing authorization.",
+      "sha256": "372970dea4711706c01643d6420aa3e1b4e2345ef09a4b40e9aa9a27e0ddc889"
+    },
+    "backend-history-final.txt": {
+      "reason": "Legacy nullable-project fixture incorrectly used current creation API without customer; corrected to explicit historical fixture; imported TestCase discovery duplicates removed.",
+      "sha256": "34b488ebaeff3523d043c9ce6ef23774a2e18c79649b98cb116d7152aaf2c01a"
+    }
+  },
+  "source_sha256": {
+    ".github/workflows/checks.yml": "3cc28633470f7bddd1c226b27733106de47a2b26548b659a6dce3d87c33895b7",
+    "app/lib/business_communication_history.dart": "fb3646c12aec921f5f3b3b8a5f9ae7cfbeb8e4363ba4979795cec9a463c8d6a9",
+    "app/lib/business_contacts.dart": "1cf41f4d5b14304006a09969d9b564da96fdcfd9e78fadde89a91b7c7a5bfaa4",
+    "app/lib/business_shell.dart": "e9345df1f7cf4dc1e20c30804265df57bd35b1cc04e006e42d1e39b64a97b2cb",
+    "app/lib/project_workspace_page.dart": "17743efb3c004038d2a6541141825b3b61562f353bbc05dd83f6ad64e412aaf2",
+    "app/test/business_communication_history_test.dart": "b2b68374f19ac349f51c6af0d5051f239659ad2a05eb4943d5056d44799ec186",
+    "app/test/fixtures/communication_history.json": "93782851021cb256cfa8678bb549a275fd9d3de18d4a4d22d0ce910844cc4475",
+    "app/test/fixtures/generate_communication_history.py": "3a355ac369f4743771a2a6c0b68259e745a7519db03d7336f061c54e068bb158",
+    "app/test/project_business_tabs_navigation_test.dart": "c52e32d251776cffca6b4c88869083738794811da65ab6ae9daf8f1da254fc35",
+    "backend/business_sales.py": "05419cd09e0c2035d562de4f6200a0c6c9273c18f23b004fc20a32e85c2b05fb",
+    "backend/communication_history.py": "285cdb7b7c380a8a385b36de0f9d4a20a278453e93b301a9c0cb239d4538eac1",
+    "backend/online/test_communication_history_pg.py": "d53e7efee23858cd73967822bdd2f37774d9b3aa7e216387878d3396c01fd7d0",
+    "backend/online/web.py": "8d3156f4692bf58252619c725b471ee2e39a44a7000320589b7ed9739d12628b",
+    "backend/test_communication_history.py": "2a168bd7a1c3fc261a47e153ef5ac3efac566bc0d88e03d65d4b1856837d013a",
+    "scripts/native-release.py": "840939d16d857602696ce27cb89be180474f63e3ee153f0f97b7a8218e6dc384",
+    "scripts/package-windows-support.py": "35de5ff95099f9459d0fd155ddaff8f1c4763970e9d9eadacefb68b4b31979d7",
+    "web/office/communication-history.js": "a4e75cb040bfc4591558e8771db36c2f001d078d901a43e21b2a94226066c9f6",
+    "web/office/office.css": "19efce276add1f1a2b71280ba68abb97d0eea5369675b1bfe4fec8811449dab0",
+    "web/office/office.js": "54e5f46acb11206b274ff65a01163cb20e8ddaf5907bfaac30af6746be92f78e",
+    "web/office/tests/communication-history-flow.cjs": "fe4f2d5c31e7a4dbc979abd5ed160abae03a6acb8c19727a465fed4a0d89abab",
+    "web/office/tests/communication-history.test.mjs": "d8e435d5604046d48050edf4bac9dc8c90a70a324f46a3e7345ed0df837c7af2",
+    "web/office/tests/e2e.cjs": "0be33b9e36e0e90bc8acc0cd57afdb5f085523eb6b907c9a4cff02ccc09940c0"
+  },
+  "original_goal": {
+    "bytes": 23863,
+    "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "historical_payroll_and_accounting_sources": {
+    "files_compared": 238,
+    "byte_identical_to_baseline": true
+  },
+  "release_boundaries": {
+    "new_server_installation": false,
+    "real_windows_device_acceptance": false,
+    "signed_iphone_upload": false,
+    "actual_provider_mail_sent": false,
+    "entire_crm_erp_complete": false
+  }
+}

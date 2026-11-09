@@ -1,0 +1,6 @@
+Analyzing app...                                                
+
+  error • This expression has a type of 'void' so its value can't be used. Try checking to see if you're using the correct API; there might be a function or call that returns void you didn't expect. Also check type parameters and variables which might also be void • test/business_communication_history_test.dart:179:28 • use_of_void_result
+  error • This expression has a type of 'void' so its value can't be used. Try checking to see if you're using the correct API; there might be a function or call that returns void you didn't expect. Also check type parameters and variables which might also be void • test/business_communication_history_test.dart:184:28 • use_of_void_result
+
+2 issues found. (ran in 16.7s)

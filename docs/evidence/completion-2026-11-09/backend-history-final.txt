@@ -1,0 +1,47 @@
+test_bad_filters_and_cursors_are_rejected_with_no_writes (test_communication_history.CommunicationHistoryTests.test_bad_filters_and_cursors_are_rejected_with_no_writes) ... ok
+test_current_visible_budget_reports_explicitly_without_silent_truncation (test_communication_history.CommunicationHistoryTests.test_current_visible_budget_reports_explicitly_without_silent_truncation) ... ok
+test_equal_email_does_not_link_unassigned_or_foreign_customer_inquiry (test_communication_history.CommunicationHistoryTests.test_equal_email_does_not_link_unassigned_or_foreign_customer_inquiry) ... ok
+test_explicit_cross_source_links_preserve_origin_and_corrections (test_communication_history.CommunicationHistoryTests.test_explicit_cross_source_links_preserve_origin_and_corrections) ... ok
+test_filters_are_exact_and_do_not_infer_time_for_day_activity (test_communication_history.CommunicationHistoryTests.test_filters_are_exact_and_do_not_infer_time_for_day_activity) ... ok
+test_financial_personnel_and_restricted_project_notes_are_not_copied (test_communication_history.CommunicationHistoryTests.test_financial_personnel_and_restricted_project_notes_are_not_copied) ... ok
+test_fresh_project_assignment_and_contact_denial_apply_to_every_source (test_communication_history.CommunicationHistoryTests.test_fresh_project_assignment_and_contact_denial_apply_to_every_source) ... ok
+test_other_customer_project_or_deactivated_identity_never_leaks_history (test_communication_history.CommunicationHistoryTests.test_other_customer_project_or_deactivated_identity_never_leaks_history) ... ok
+test_project_without_canonical_customer_retains_its_operational_notes (test_communication_history.CommunicationHistoryTests.test_project_without_canonical_customer_retains_its_operational_notes) ... ERROR
+test_read_only_projection_never_adds_history_or_replays_a_write (test_communication_history.CommunicationHistoryTests.test_read_only_projection_never_adds_history_or_replays_a_write) ... ok
+test_real_document_outbox_records_transport_acceptance_without_invented_delivery (test_communication_history.CommunicationHistoryTests.test_real_document_outbox_records_transport_acceptance_without_invented_delivery) ... ok
+test_real_flask_adapter_enforces_strict_methods_bodies_and_device_boundary (test_communication_history.CommunicationHistoryTests.test_real_flask_adapter_enforces_strict_methods_bodies_and_device_boundary) ... ok
+test_separate_company_with_equal_contact_details_cannot_read_foreign_ids (test_communication_history.CommunicationHistoryTests.test_separate_company_with_equal_contact_details_cannot_read_foreign_ids) ... ok
+test_snapshot_paging_has_no_duplicates_and_rejects_changed_sources_or_filter (test_communication_history.CommunicationHistoryTests.test_snapshot_paging_has_no_duplicates_and_rejects_changed_sources_or_filter) ... ok
+test_activities_are_append_only_and_correction_retains_original (test_business_sales.SalesTests.test_activities_are_append_only_and_correction_retains_original) ... ok
+test_already_converted_inquiry_reuses_project_without_second_allocation (test_business_sales.SalesTests.test_already_converted_inquiry_reuses_project_without_second_allocation) ... ok
+test_contact_erasure_keeps_historical_sales_snapshots_and_explains_blocker_without_project (test_business_sales.SalesTests.test_contact_erasure_keeps_historical_sales_snapshots_and_explains_blocker_without_project) ... ok
+test_duplicate_inquiry_customer_and_person_boundaries_and_explicit_closure (test_business_sales.SalesTests.test_duplicate_inquiry_customer_and_person_boundaries_and_explicit_closure) ... ok
+test_failed_adoption_rolls_back_project_inquiry_link_and_receipt_together (test_business_sales.SalesTests.test_failed_adoption_rolls_back_project_inquiry_link_and_receipt_together) ... ok
+test_forecast_pipeline_filters_closed_cases_and_history_has_original_values (test_business_sales.SalesTests.test_forecast_pipeline_filters_closed_cases_and_history_has_original_values) ... ok
+test_fresh_rights_protect_views_history_forecasts_and_known_receipts (test_business_sales.SalesTests.test_fresh_rights_protect_views_history_forecasts_and_known_receipts) ... ok
+test_history_cannot_be_replaced_and_integrity_rejects_tampering (test_business_sales.SalesTests.test_history_cannot_be_replaced_and_integrity_rejects_tampering) ... ok
+test_inquiry_project_and_catalogue_offer_are_single_canonical_objects_after_reply_loss (test_business_sales.SalesTests.test_inquiry_project_and_catalogue_offer_are_single_canonical_objects_after_reply_loss) ... ok
+test_nonce_collision_and_failed_original_receipt_markers_are_distinct (test_business_sales.SalesTests.test_nonce_collision_and_failed_original_receipt_markers_are_distinct) ... ok
+test_stale_contact_catalogue_and_revision_fail_before_adoption (test_business_sales.SalesTests.test_stale_contact_catalogue_and_revision_fail_before_adoption) ... ok
+
+======================================================================
+ERROR: test_project_without_canonical_customer_retains_its_operational_notes (test_communication_history.CommunicationHistoryTests.test_project_without_canonical_customer_retains_its_operational_notes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_communication_history.py", line 188, in test_project_without_canonical_customer_retains_its_operational_notes
+    pid=self.office.add_project(self.owner,'Legacy unbound history')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/core.py", line 506, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+----------------------------------------------------------------------
+Ran 25 tests in 8.993s
+
+FAILED (errors=1)

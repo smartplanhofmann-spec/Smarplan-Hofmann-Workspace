@@ -64,7 +64,7 @@ async function selectProject(page,id){
 }
 async function main(){
   const workflow=process.env.SMARTPLAN_BROWSER_WORKFLOW;
-  assert.ok(workflow===undefined||['payroll-factor', 'project-context', 'time-tracking', 'accounting-open-items', 'company-events', 'catalog-prices', 'historical-assets', 'payroll-multiple-cases', 'catalog-imports', 'accounting-openings', 'payroll-oneoff-cases', 'payroll-zero-account', 'payroll-annual-basis', 'payroll-wage-interruptions', 'payroll-calculation-cases', 'travel-v3', 'payroll-travel-tax-policies', 'payroll-entitlements', 'travel-allowances', 'payroll-statements', 'payroll-periods', 'purchase-changes', 'payroll-transition', 'bank-reconciliation', 'resource-custody', 'accessibility', 'privacy-cases', 'service', 'custom-fields', 'migrations', 'payroll-cash', 'company-handover', 'speech', 'sales', 'company-overview', 'inventory-counts', 'invoice-chain', 'payroll', 'assistant', 'personnel-workflow', 'asset-provenance', 'project-economics', 'accounting-allocation', 'accounting-components', 'accounting-refunds', 'accounting-capacity', 'accounting-refunds-v2', 'accounting-profile', 'inventory-article-refs', 'project-customer', 'purchasing-catalog'].includes(workflow),'Unsupported targeted browser workflow');
+  assert.ok(workflow===undefined||['communication-history', 'payroll-factor', 'project-context', 'time-tracking', 'accounting-open-items', 'company-events', 'catalog-prices', 'historical-assets', 'payroll-multiple-cases', 'catalog-imports', 'accounting-openings', 'payroll-oneoff-cases', 'payroll-zero-account', 'payroll-annual-basis', 'payroll-wage-interruptions', 'payroll-calculation-cases', 'travel-v3', 'payroll-travel-tax-policies', 'payroll-entitlements', 'travel-allowances', 'payroll-statements', 'payroll-periods', 'purchase-changes', 'payroll-transition', 'bank-reconciliation', 'resource-custody', 'accessibility', 'privacy-cases', 'service', 'custom-fields', 'migrations', 'payroll-cash', 'company-handover', 'speech', 'sales', 'company-overview', 'inventory-counts', 'invoice-chain', 'payroll', 'assistant', 'personnel-workflow', 'asset-provenance', 'project-economics', 'accounting-allocation', 'accounting-components', 'accounting-refunds', 'accounting-capacity', 'accounting-refunds-v2', 'accounting-profile', 'inventory-article-refs', 'project-customer', 'purchasing-catalog'].includes(workflow),'Unsupported targeted browser workflow');
   const {chromium}=require('playwright');
   const directory=await fs.mkdtemp(path.join(os.tmpdir(),'smartplan-browser-e2e-')),readyFile=path.join(directory,'ready.json');
   const screenshots=process.env.SMARTPLAN_BROWSER_SCREENSHOT_DIR||directory;
@@ -102,6 +102,10 @@ async function main(){
     await page.goto(fixture.base_url+'/office/');
     if(workflow==='accessibility')await require('./accessibility-flow.cjs').audit(page,'login');
     const recovery=await login(page,'owner@browser.example.test');
+    if(workflow==='communication-history'){
+      await require('./communication-history-flow.cjs').communicationHistoryFlow({page,context,navigate,ready,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();return;
+    }
     if(workflow==='project-context'){
       await require('./project-context-flow.cjs').projectContextFlow({page,context,navigate,ready,login,fixture,screenshots});
       assert.deepEqual(pageErrors,[]);await context.close();console.log('1 project-context browser workflow passed (real MFA/HTTP, global navigation, late response, scoped denial, explicit clock project and mobile layout)');return;

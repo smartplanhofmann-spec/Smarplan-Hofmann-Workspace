@@ -1,0 +1,141 @@
+{
+  "date": "2026-11-09",
+  "source_commit": "f747311a5c3561fbafc3e9a74095d480b089c9b6",
+  "development_run_id": 42529919023,
+  "iphone_run_id": 42529918991,
+  "development_complete": true,
+  "development_jobs": [
+    {
+      "id": 128881685525,
+      "name": "online-api",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 128881685687,
+      "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 128881685779,
+      "name": "flutter",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 128881685819,
+      "name": "https-setup",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 128881685831,
+      "name": "native-build (windows-latest, flutter build windows --release)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 128881685889,
+      "name": "business-services",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 128881685895,
+      "name": "update-flow",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 128881685897,
+      "name": "backend",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "iphone_jobs": [
+    {
+      "id": 128881616908,
+      "name": "Online-Release ohne Apple-Zugang pruefen",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 128890095739,
+      "name": "Ausdruecklich angeforderten TestFlight-Upload ausfuehren",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13638615541,
+      "name": "Smartplan-Browser-Previews",
+      "size_in_bytes": 33421929,
+      "digest": "sha256:34dc1e182e2464285110a4d46f369962ce971140bf848231945806046e9ce3ff",
+      "expired": false,
+      "created_at": "2026-11-08T23:01:38Z",
+      "expires_at": "2026-11-22T23:01:35Z",
+      "source_commit": "f747311a5c3561fbafc3e9a74095d480b089c9b6",
+      "run_id": 42529919023
+    },
+    {
+      "id": 13637661947,
+      "name": "Smartplan-Office-Windows",
+      "size_in_bytes": 36125683,
+      "digest": "sha256:feb7656d380e3559253fcc699f0d079ad8b4aa892f2252cc39cb734e952acecf",
+      "expired": false,
+      "created_at": "2026-11-08T22:40:57Z",
+      "expires_at": "2026-11-22T22:40:54Z",
+      "source_commit": "f747311a5c3561fbafc3e9a74095d480b089c9b6",
+      "run_id": 42529919023
+    },
+    {
+      "id": 13637216522,
+      "name": "Smartplan-UI-Previews",
+      "size_in_bytes": 1001524,
+      "digest": "sha256:1e66db3b7971b6b8bb6ba81c209240320c6cfea4ed1c1cfc53228c98aa0811cb",
+      "expired": false,
+      "created_at": "2026-11-08T22:31:56Z",
+      "expires_at": "2026-11-22T22:31:54Z",
+      "source_commit": "f747311a5c3561fbafc3e9a74095d480b089c9b6",
+      "run_id": 42529919023
+    },
+    {
+      "id": 13636761877,
+      "name": "Smartplan-Windows-Start-und-Sicherung",
+      "size_in_bytes": 15459601,
+      "digest": "sha256:008948fd3265e94d212024f35a35fdc3d2c2d51e1748cd694e1ffbaf82fcdcf5",
+      "expired": false,
+      "created_at": "2026-11-08T22:23:48Z",
+      "expires_at": "2026-11-22T22:23:46Z",
+      "source_commit": "f747311a5c3561fbafc3e9a74095d480b089c9b6",
+      "run_id": 42529919023
+    },
+    {
+      "id": 13636753941,
+      "name": "Smartplan-Office-Windows-Online-Pilot",
+      "size_in_bytes": 21832896,
+      "digest": "sha256:19bafceb4ff731209ff02a7b881c23a9a7442013bd0d24b40700b9f3cf7fc34f",
+      "expired": false,
+      "created_at": "2026-11-08T22:42:19Z",
+      "expires_at": "2026-11-22T22:42:16Z",
+      "source_commit": "f747311a5c3561fbafc3e9a74095d480b089c9b6",
+      "run_id": 42529919023
+    },
+    {
+      "id": 13637817981,
+      "name": "Smartplan-Office-iOS-UNSIGNED-171",
+      "size_in_bytes": 14668565,
+      "digest": "sha256:e68e0f058182b98d8a609bcff8e34aa57901f7751c3638b281158a08fd533a68",
+      "expired": false,
+      "created_at": "2026-11-08T22:56:02Z",
+      "expires_at": "2026-11-22T22:55:45Z",
+      "source_commit": "f747311a5c3561fbafc3e9a74095d480b089c9b6",
+      "run_id": 42529918991
+    }
+  ],
+  "live_server_deployment_confirmed": false,
+  "iphone_signed_distribution": false
+}

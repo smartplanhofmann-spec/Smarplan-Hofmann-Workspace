@@ -13,7 +13,7 @@ aktive Codearbeit im Gesamtumfang. Der [zentrale Arbeitsstand](CRM_ERP_ARBEITSST
 verbindet diese Fortsetzung mit dem bisherigen Projektphasenplan. Historische
 Lohn-/Buchhaltungsnachweise bleiben erhalten.
 
-Stand: 08.11.2026. Maßgeblich bleiben das unveränderte
+Stand: 09.11.2026. Maßgeblich bleiben das unveränderte
 [Gesamtziel](../CRM_ERP_Gesamtziel.txt) und die
 [Anforderungsmatrix](CRM_ERP_ANFORDERUNGEN.md). Projekt:
 `/workspace/Smarplan-Hofmann-Workspace`, lokaler Branch `codex/finish-20261108`,
@@ -43,6 +43,7 @@ Restarbeiten in diesem Plan.
 | Projektkosten und Übersicht | Geprüfte Originalkosten, Zeit/Material, Budget/Nachträge, getrennte Erlöse/Zahlungen, nachvollziehbare Kennzahlen | `CRM_ERP_PROJEKTWIRTSCHAFTLICHKEIT_CLIENTS.md`, `CRM_ERP_UNTERNEHMENSUEBERSICHT.md` |
 | Einkauf/Geräte/Inventur | Teil-/Restlieferung, Original-Lieferschein, Entnahme/Geräteherkunft, Wartung, Zählung und Bestandskorrektur | `CRM_ERP_EINKAUF.md`, `CRM_ERP_GERAETEHERKUNFT.md`, `CRM_ERP_INVENTUR.md` |
 | Kundenbereich und Vertrieb | Isolierte freigegebene Informationen/Originale/Uploads; Chancen, Aktivitäten, Wiedervorlagen und Projekt-/Angebotsübernahme | `CRM_ERP_KUNDENARBEITSBEREICH.md`, `CRM_ERP_VERTRIEB.md` |
+| Gemeinsamer Kommunikationsverlauf | Aus sechs vorhandenen Fachquellen am kanonischen Kunden/Projekt, mit Quellrechten, Original/Korrektur, Suche, Filtern und gebundenen Verlaufsseiten in Browser/App | [Kommunikationsverlauf](CRM_ERP_KOMMUNIKATIONSVERLAUF.md), tatsächliche PG-/MFA-/Restore- und Browserprüfung |
 | EÜR | Quellen-/Geldjournal, exakte Komponenten, Erstattungen, steuerliche Einordnung, AfA, Gegenbuchung, Perioden und Jahresprüfpaket; Abschlags-/Schlussketten | `CRM_ERP_EUER_WORKFLOW_PRUEFUNG.md`, `CRM_ERP_EUER_KETTEN_ANALYSE.md` |
 | Unterjährige Jahresvorträge und V2-Archiv | Belegte alte Journal-/Steuerwerte, neue Restzahlungen und beide Clients im Integrationsstand integriert; V1-Originale erhalten, gemeinsamer Restore 15/16 | [Root-Gesamtprüfung](CRM_ERP_JAHRESVORTRAG_GESAMTPRUEFUNG_2026-11-04.md), [121 unterschiedliche Finanz-PG-Fälle](CRM_ERP_JAHRESVORTRAG_FINANZ_PG_2026-11-04.md) |
 | Personal/Lohn | Private Originalakten, Auslagen/Fremdfreigabe/Erstattung, Monatsvorbereitung, begrenzte 2026-Lohnfälle, Lohnkonten/Zahlungsteile/Vorträge/Jahresausgabe | `CRM_ERP_PERSONAL_WORKFLOW.md`, `CRM_ERP_LOHN_RECHENWERK_2026.md`, `CRM_ERP_LOHN_CLIENTS.md` |
@@ -71,10 +72,16 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
 1. Wiederhergestellten Gesamtstand und Originalziel sichern; umgesetzt.
 2. Offene CI-/Browserregressionen der ausdrücklichen Projekt-/Quellenauswahl
    schließen; Assistent, Zusatzfelder und Kundenbereich gezielt nachgeprüft.
+   Der veröffentlichte Produktstand f747311 besteht inzwischen alle acht
+   Development-Jobs und den unsignierten iPhone-Build 171.
 3. Parser-Kompatibilität vor Wartung und Datenbankumstellung prüfen; im neuen
    Operatorcode umgesetzt und mit 87 Fällen nachgeprüft. Liveinstallation separat.
 4. Aktuellen Auslieferungs-/Gerätestand abgleichen. Serverantwort und Verfügbarkeit
    des Apple-Developer-Kontos sind angefragt; keine Schlüssel im Chat.
+   Das Windows-Online-Archiv auf f747311 ist tatsächlich heruntergeladen,
+   sein veröffentlichter Digest und alle 248 Dateihashes sind geprüft.
+   Der gemeinsame Kommunikationsverlauf ist neu lokal vollständig geprüft;
+   Veröffentlichung und zugehöriger CI-Stand werden separat festgehalten.
 5. Weitere konkret benannte Lohn-/EÜR- und Länder-/Regelfälle additiv entwickeln.
    Der [reguläre Faktor-Vollmonat](CRM_ERP_LOHN_FAKTOR_2026.md) ist jetzt mit
    beiden Clients, tatsächlichem PG-Restore, Zahlungen/EÜR und unabhängigen

@@ -1,0 +1,17 @@
+test_actual_backup_restore_preserves_canonical_snapshot_without_new_message_store (online.test_communication_history_pg.CommunicationHistoryPostgres.test_actual_backup_restore_preserves_canonical_snapshot_without_new_message_store) ... ok
+test_actual_mfa_source_projection_restart_fresh_grants_and_device_denial (online.test_communication_history_pg.CommunicationHistoryPostgres.test_actual_mfa_source_projection_restart_fresh_grants_and_device_denial) ... FAIL
+
+======================================================================
+FAIL: test_actual_mfa_source_projection_restart_fresh_grants_and_device_denial (online.test_communication_history_pg.CommunicationHistoryPostgres.test_actual_mfa_source_projection_restart_fresh_grants_and_device_denial)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_communication_history_pg.py", line 51, in test_actual_mfa_source_projection_restart_fresh_grants_and_device_denial
+    self.call('GET',self.path,token=token,status=403)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_customer_execution_journey_pg.py", line 89, in call
+    self.assertEqual(response.status_code, status, (method, path, response.status_code))
+AssertionError: 404 != 403 : ('GET', '/business/sales/communication-history?customer_id=bb1b3538ff9844b6903e00c0c10fc5c0&project_id=f96a98dbfbcc4d57a8f061e5248cb627', 404)
+
+----------------------------------------------------------------------
+Ran 2 tests in 18.867s
+
+FAILED (failures=1)

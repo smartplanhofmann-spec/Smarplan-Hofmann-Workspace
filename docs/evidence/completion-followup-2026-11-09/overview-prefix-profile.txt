@@ -1,0 +1,31 @@
+{"path": "scoped", "elapsed_seconds": 3.2189115280052647, "source_hash": "4a9ccda64f38e2b27d9bb228491c0edeee22eabac8f50c611e0a7bce07562df7", "projects": 5}
+         1271328 function calls (1269378 primitive calls) in 3.217 seconds
+
+   Ordered by: cumulative time
+   List reduced from 742 to 20 due to restriction <20>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    3.218    3.218 /workspace/Smarplan-Hofmann-Workspace/backend/business_overview.py:13(overview_metrics)
+        2    0.002    0.001    3.033    1.517 /workspace/Smarplan-Hofmann-Workspace/backend/business_accounting_euer.py:798(_catalog)
+       68    0.005    0.000    2.988    0.044 /workspace/Smarplan-Hofmann-Workspace/backend/business_accounting_euer.py:240(_cash_source)
+ 1296/274    0.009    0.000    2.869    0.010 /workspace/Smarplan-Hofmann-Workspace/backend/business_accounting_components.py:105(checked)
+      278    0.012    0.000    2.052    0.007 /workspace/Smarplan-Hofmann-Workspace/backend/business_accounting_components.py:194(_source)
+ 1475/612    0.009    0.000    1.898    0.003 /workspace/Smarplan-Hofmann-Workspace/backend/business_accounting_allocations.py:112(checked)
+      266    0.019    0.000    1.818    0.007 /workspace/Smarplan-Hofmann-Workspace/backend/business_accounting_allocations.py:336(_load)
+        1    0.000    0.000    1.608    1.608 /workspace/Smarplan-Hofmann-Workspace/backend/business_accounting_euer.py:1041(sources)
+        1    0.000    0.000    1.446    1.446 /workspace/Smarplan-Hofmann-Workspace/backend/business_accounting_euer.py:1054(report)
+        1    0.000    0.000    1.444    1.444 /workspace/Smarplan-Hofmann-Workspace/backend/business_accounting_euer.py:897(_report)
+       62    0.000    0.000    1.137    0.018 /workspace/Smarplan-Hofmann-Workspace/backend/business_accounting_allocations.py:327(_writes_allowed)
+       62    0.001    0.000    1.070    0.017 /workspace/Smarplan-Hofmann-Workspace/backend/business_accounting_allocations.py:323(_gate)
+       62    0.005    0.000    1.069    0.017 /workspace/Smarplan-Hofmann-Workspace/backend/business_accounting.py:199(_write_gate)
+      131    0.028    0.000    1.066    0.008 /workspace/Smarplan-Hofmann-Workspace/backend/business_schema.py:175(state)
+     1706    0.135    0.000    0.969    0.001 /workspace/Smarplan-Hofmann-Workspace/backend/business_schema.py:134(_tables)
+     7336    0.107    0.000    0.874    0.000 /workspace/Smarplan-Hofmann-Workspace/backend/business_schema.py:152(_definition)
+     6281    0.850    0.000    0.850    0.000 {method 'fetchall' of 'sqlite3.Cursor' objects}
+     1274    0.014    0.000    0.735    0.001 /workspace/Smarplan-Hofmann-Workspace/backend/business_accounting_allocations.py:125(installed)
+      114    0.004    0.000    0.731    0.006 /workspace/Smarplan-Hofmann-Workspace/backend/business_accounting_components.py:438(_history)
+       68    0.001    0.000    0.689    0.010 /workspace/Smarplan-Hofmann-Workspace/backend/accounting_joint_ledger.py:44(read_joint_ledger)
+
+
+
+{"path": "unscoped_reference", "elapsed_seconds": 18.405796425999142, "canonical_outputs_identical": true, "source_hash": "4a9ccda64f38e2b27d9bb228491c0edeee22eabac8f50c611e0a7bce07562df7"}

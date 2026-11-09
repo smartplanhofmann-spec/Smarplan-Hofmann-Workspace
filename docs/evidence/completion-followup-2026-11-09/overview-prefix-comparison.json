@@ -1,0 +1,17 @@
+{
+  "checked_at": "2026-11-09T13:11:48.023915+00:00",
+  "synthetic_fixture": "copy of actual failed full browser prefix",
+  "source_hash": "4a9ccda64f38e2b27d9bb228491c0edeee22eabac8f50c611e0a7bce07562df7",
+  "prior_unscoped_reference_seconds": 18.405796425999142,
+  "scoped_profiled_seconds": 3.2189115280052647,
+  "scoped_unprofiled_seconds": 1.8631155199982459,
+  "canonical_outputs_identical": true,
+  "table_counts": {
+    "business_accounting_cash_events": 34,
+    "business_accounting_component_entries": 18,
+    "business_accounting_refund_entries": 6,
+    "business_accounting_capacity_entries": 5,
+    "business_accounting_refunds_v2_entries": 2
+  },
+  "production_performance_guarantee": false
+}

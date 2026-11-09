@@ -4,27 +4,25 @@ Stand: 09.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
-Letzter vollständig grün geprüfter Produktcommit:
-`2598c9671f5158e9a85a7a1e4602408385b23e30` (gemeinsamer Kommunikationsverlauf).
-Alle acht Development-Jobs und der unsignierte iPhone-Build173 bestehen jetzt;
-signierter Upload bleibt übersprungen. [Aktueller Nachweis](evidence/payroll-factor-periods-2026-11-09/ci-baseline.json).
-Die früheren Quellstände, PDFium-Downloadfehler der CRM-Erstveröffentlichung
-b57f474 und abgebrochene Vorgängerläufe bleiben in den historischen Nachweisen
-unter `evidence/completion-2026-11-09/` erhalten. Der Produktstand 2598c96 ist
-inzwischen vollständig grün: [Development](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42572643368),
-[iPhone unsigniert](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42572643353).
-Aktueller veröffentlichter Produktstand mit Faktor-Teilmonaten und sicherem
-alten v8-Plattformabgleich: `3025747c156604646f5cca93288402369b30fa51`.
-[Development42601772720](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42601772720)
-und [iPhone42601772533](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42601772533)
-sind abgeschlossen. Nach tatsächlicher Wiederholung besteht auch der zunächst
-fehlgeschlagene Simulatorjob; seine erste Ursache bleibt mangels abrufbarem Log
-unbestätigt. Sieben Development-Jobs und der unsignierte iPhone-Build bestehen.
-Der vollständige Browserjob scheitert am späteren Lesen einer Antwort nach
-Seitenwechsel im Unternehmensprofiltest. Die Korrektur liegt im aktuellen
-Arbeitsstand und der gezielte echte Browserablauf besteht. 3025747 bleibt damit
-vollständig betrachtet nicht grün. [Befund und Wiederholung](evidence/completion-followup-2026-11-09/ci-macos-retry.json).
+Letzter vollständig grün geprüfter Produktcode:
+`eef1927b3e357344ad5713bed2633cfe65f813ce`, gemeinsamer Prüfstand
+`ef1259c2e46e75a8c6befddf91de5a92861dee63`. Alle acht Development-Jobs
+und der unsignierte iPhone-Build bestehen; der signierte Upload ist übersprungen.
+Die ausdrücklich manuell gestarteten Prüfungen:
+[Development42613341609](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42613341609),
+[iPhone42613388458](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42613388458).
+[Aktueller CI-Nachweis](evidence/completion-followup-2026-11-09/ci-after.json),
+[Veröffentlichungsnachweis](evidence/completion-followup-2026-11-09/publication.json).
+Der frühere vollständig grüne Stand 2598c96 und die älteren fehlgeschlagenen
+Läufe bleiben in ihren historischen Nachweisen erhalten. Die unten genannte
+zusätzliche lokale Übersichtskorrektur ist in diesen CI-Läufen noch nicht enthalten.
 
+Der Vorgänger 3025747 besteht nach erfolgreicher Simulatorwiederholung sieben
+Development-Jobs und den unsignierten iPhone-Build. Sein vollständiger Browserjob
+scheitert am späteren Lesen einer Antwort nach Seitenwechsel im Profiltest.
+Die Korrektur ist im neuen veröffentlichten Stand enthalten und gezielt echt
+nachgeprüft. Die erste Simulatorursache bleibt mangels abrufbarem ursprünglichem
+Log unbestätigt. [Befund und Wiederholung](evidence/completion-followup-2026-11-09/ci-macos-retry.json).
 Eine neue Serverinstallation oder Geräteabnahme ist nicht erfolgt.
 
 ## Ziel und fachlicher Umfang
@@ -73,7 +71,46 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
 ## Konkrete aktuelle Arbeit
 
-Aktiv: [alte Reiseoriginale zwischen Windows/Linux erhalten](CRM_ERP_REISEN_PLATTFORMHISTORIE_2026.md).
+Der nächste Einmalbezugs-Abgleich entsteht in der eigenen Arbeitskopie
+`/workspace/smartplan-oneoff-provenance-20261109`, Branch
+`codex/oneoff-provenance-20261109`, Basis ef1259c. Dieser Abschnitt ist noch
+nicht in den Hauptarbeitsstand übernommen oder veröffentlicht. Neuer reiner
+Prüfer für acht v6/v7-Metadatenvarianten; Case-/Run-Adapter und der private
+Source5-Zahlungsresolver erhalten Original- und abhängige Bindungshashes.
+Die unveränderte v1-Zahlungsarithmetik bleibt bestehen. Die tatsächliche
+Windows-Paketberechnung bestätigt beide alten Originale und den alten v1-
+Zahlungsplan. Vier tatsächliche PG-/MFA-/Konkurrenz-/Restorefälle bestehen
+in 186,817 Sekunden ohne Skip. Jahresfolgekette besteht; eine zunächst falsch
+vorbereitete überlappende Beschäftigung im Blockierungsfall ist korrigiert.
+Beide Clientverträge, native Analyse und gemeinsame Lohn-/Reiseregression
+laufen. Die 32 historischen 2026-Rechenmodule bleiben unverändert.
+
+Aktiver Browser-Nachlauf: Die erste vollständige lokale Wiederholung kommt
+über den früheren Profilfehler hinaus und prüft Einkauf/Kalender, läuft dann
+aber in die Anmeldeannahme auf die nachgeladene Übersichtsüberschrift.
+Der Anmeldehelfer prüft jetzt den tatsächlichen Abmeldeknopf und die exakt
+vom Server gelesene Identität. Der gezielte echte Profil-/Kalender-/Recovery-
+Fall besteht. Die zweite vollständige Folge macht den wirklichen weiteren
+Engpass sichtbar: `/business/overview/metrics` hält nach vielen dokumentierten
+Geldflüssen länger als 15 Sekunden die Transaktion; auch die nach Navigation
+frisch angefragten Metadaten warten. Screenshot und offene Pfade sind erhalten.
+
+Die lokale Produktkorrektur teilt die vollständig validierte C2/R2-Rekonstruktion
+nur innerhalb eines serialisierten EÜR-Aufrufs. Keine Historie, Rechenregel,
+Frist oder Berechtigung wird vereinfacht; der Cache wird auch bei Fehlern
+entfernt und nie zwischen Aufrufen behalten. Drei neue Regressionen und alle
+26 bestehenden EÜR-/Übersichts-/HTTP-Fälle bestehen in 42,233 Sekunden ohne
+Skip. Die Vergleichsrechnung ohne Wiederverwendung liefert exakt dieselben
+Berichte, Quellen, Beträge und Hashes. Änderungen an Originalen, neue Geldflüsse
+und Rechteentzug bleiben frisch geprüft. Alle 17 vollständigen Browserabläufe bestehen jetzt, einschließlich erneuter
+MFA-Anmeldung, Kalender und mobiler Folge. Auch die vier bestehenden tatsächlichen
+EÜR-PG-/Restorefälle bestehen ohne Skip in 93,676 Sekunden. Die Vergleichskopie
+des vorher fehlgeschlagenen Teststands liefert identische Inhalte in 1,863
+statt 18,406 Sekunden; dies ist keine zugesicherte Produktionslaufzeit.
+[Änderung und Nachweise](CRM_ERP_UEBERSICHT_LESEKETTE_2026.md).
+Diese neuen Änderungen sind noch lokal, keine neue Serverinstallation.
+
+Neu integriert und veröffentlicht: [alte Reiseoriginale zwischen Windows/Linux erhalten](CRM_ERP_REISEN_PLATTFORMHISTORIE_2026.md).
 Die v2/v3-Transportnachweise und v3-Boden-/Programmquellen werden mit exakt
 hergeleiteten LF-/CRLF-Metadaten nachgerechnet, während alle Originale und
 Finanzdaten erhalten bleiben. Sieben neue Fachkettenfälle, drei tatsächliche
@@ -81,7 +118,8 @@ PG-/MFA-/Konkurrenz-/Restorefälle, EÜR/Bankabgleich, beide Browserabläufe und
 881 Browsermodule, 24 native Reiseprüfungen und alle 687 unterschiedlichen
 Python-Lohn-/Reisefälle bestehen ohne Skip. App-Analyse ohne Befund. Die alte
 tatsächliche Windows-Paketberechnung stimmt unabhängig mit dem Original
-überein. Veröffentlichung und neue Remote-CI werden gesondert erfasst.
+überein. Die eigene Remote-CI läuft. Die zuvor abgebrochene vollständige
+lokale Browserfolge wird zusätzlich nachgeprüft.
 
 
 Der [belegte Faktor-Teilmonat](CRM_ERP_LOHN_FAKTOR_TEILMONATE_2026.md) ist als

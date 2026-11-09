@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-09",
+  "product_code_commit": "eef1927b3e357344ad5713bed2633cfe65f813ce",
+  "published_head": "ef1259c2e46e75a8c6befddf91de5a92861dee63",
+  "remote_branch": "codex/testupdate-0.7-projects-20261104",
+  "push_success": true,
+  "workflow_dispatch_explicit": true,
+  "reason_for_explicit_dispatch": "Final documentation commit preserves raw evidence whitespace and carries [skip ci].",
+  "runs": [
+    {
+      "id": 42613388458,
+      "name": "iPhone TestFlight",
+      "event": "workflow_dispatch",
+      "status": "in_progress",
+      "conclusion": null,
+      "head_sha": "ef1259c2e46e75a8c6befddf91de5a92861dee63",
+      "html_url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42613388458"
+    },
+    {
+      "id": 42613341609,
+      "name": "Development checks",
+      "event": "workflow_dispatch",
+      "status": "in_progress",
+      "conclusion": null,
+      "head_sha": "ef1259c2e46e75a8c6befddf91de5a92861dee63",
+      "html_url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42613341609"
+    }
+  ],
+  "signed_iphone_upload_requested": false,
+  "all_ci_jobs_confirmed": false,
+  "last_fully_green_product_commit": "2598c9671f5158e9a85a7a1e4602408385b23e30",
+  "production_deployment": false,
+  "actual_device_acceptance": false
+}

@@ -6,6 +6,7 @@ and frozen adviser packages. It never transmits money or tax declarations.
 """
 from datetime import date
 from decimal import Decimal, ROUND_HALF_UP
+from contextlib import contextmanager
 import csv
 import io
 import json
@@ -166,6 +167,25 @@ def _state_hash(entries):
 
 
 class EuerAccounting(Domain):
+    @contextmanager
+    def _source_read(self):
+        """Share one validated joint journal only inside this serialized call.
+
+        Every cash event used to reconstruct all C2/R2 histories again. A
+        company report therefore repeated the whole reconstruction for every
+        source and journal entry. Never retain this cache between calls: new
+        bookings, changed originals and revoked source rights must stay visible.
+        """
+        previous = getattr(self, '_joint_source_cache', None)
+        self._joint_source_cache = {}
+        try:
+            yield
+        finally:
+            if previous is None:
+                del self._joint_source_cache
+            else:
+                self._joint_source_cache = previous
+
     def _access(self, actor, write=False):
         fresh = Accounting(self.office)._access(actor, 'accounting.admin' if write else None)
         if write:
@@ -225,7 +245,7 @@ class EuerAccounting(Domain):
         event = Accounting(self.office)._event(actor, event_id)
         api = DocumentComponents(self.office)
         c1 = api._history(api._source(actor, event_id))[0]
-        joint = read_joint_ledger(self.office, {})
+        joint = read_joint_ledger(self.office, getattr(self, '_joint_source_cache', None))
         groups = [('c1', c1), ('c2', joint['capacity']['by_event'].get(event_id, [])),
                   ('r1', joint['refunds']['by_event'].get(event_id, [])), ('r2', joint['refunds_v2']['by_event'].get(event_id, []))]
         units = []
@@ -1000,7 +1020,7 @@ class EuerAccounting(Domain):
         return dict(preview,preview_hash=_sha(canonical(preview)))
 
     def state(self,actor):
-        with transaction(self.office):
+        with transaction(self.office), self._source_read():
             fresh=self._access(actor); ledger=self._ledger(); self._authorized_ledger(fresh,ledger)
             try:
                 self._access(fresh,True); self._gate(); writes=True
@@ -1019,7 +1039,7 @@ class EuerAccounting(Domain):
                         opening_balances_path=opening_entrypoint(self.office,fresh),historical_assets_path=historical_asset_entrypoint(self.office,fresh))
 
     def sources(self,actor):
-        with transaction(self.office):
+        with transaction(self.office), self._source_read():
             fresh=self._access(actor); ledger=self._ledger(); self._authorized_ledger(fresh,ledger)
             from business_accounting_openings import entrypoint as opening_entrypoint
             from business_accounting_asset_openings import entrypoint as historical_asset_entrypoint
@@ -1027,18 +1047,18 @@ class EuerAccounting(Domain):
 
     def journal(self,actor,limit=50,offset=0):
         _page(limit,offset)
-        with transaction(self.office):
+        with transaction(self.office), self._source_read():
             fresh=self._access(actor); ledger=self._ledger(); self._authorized_ledger(fresh,ledger)
             return _paged(list(reversed(ledger['entries'])),limit,offset)
 
     def report(self,actor,year):
-        with transaction(self.office):
+        with transaction(self.office), self._source_read():
             fresh=self._access(actor); ledger=self._ledger(); self._authorized_ledger(fresh,ledger)
             return self._report(fresh,_year(year),ledger)
 
     def exported(self,actor,entry_id):
         identifier(entry_id)
-        with transaction(self.office):
+        with transaction(self.office), self._source_read():
             fresh=self._access(actor); ledger=self._ledger(); self._authorized_ledger(fresh,ledger)
             entry=ledger['by_id'].get(entry_id)
             if not entry or entry['operation']!='export': raise Problem(404,'Prüfpaket nicht verfügbar')
@@ -1063,7 +1083,7 @@ class EuerAccounting(Domain):
 
     def preview(self,actor,data):
         self._inputs(data)
-        with transaction(self.office):
+        with transaction(self.office), self._source_read():
             from business_accounting_asset_openings import HistoricalAssets,installed as historical_assets_installed
             if historical_assets_installed(self.office):HistoricalAssets(self.office)._lock()
             fresh=self._access(actor,True); self._gate(); ledger=self._ledger(); self._authorized_ledger(fresh,ledger,True)
@@ -1071,7 +1091,7 @@ class EuerAccounting(Domain):
 
     def confirm(self,actor,data):
         self._inputs(data,True)
-        with transaction(self.office):
+        with transaction(self.office), self._source_read():
             from business_accounting_asset_openings import HistoricalAssets,installed as historical_assets_installed
             if historical_assets_installed(self.office):HistoricalAssets(self.office)._lock()
             fresh=self._access(actor,True); self._gate(); ledger=self._ledger(); self._authorized_ledger(fresh,ledger,True)

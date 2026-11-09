@@ -1,0 +1,24 @@
+test_exact_report_and_catalog_reconstruct_joint_history_once_per_call (test_business_euer_read_scope.EuerReadScope.test_exact_report_and_catalog_reconstruct_joint_history_once_per_call) ... ok
+test_revoked_source_rights_and_failed_reads_leave_no_cache (test_business_euer_read_scope.EuerReadScope.test_revoked_source_rights_and_failed_reads_leave_no_cache) ... ok
+test_same_service_observes_new_cash_and_changed_original_between_reads (test_business_euer_read_scope.EuerReadScope.test_same_service_observes_new_cash_and_changed_original_between_reads) ... ERROR
+test_calendar_uses_canonical_schedule_and_excludes_cancelled_and_foreign (test_business_overview.CompanyOverviewTests.test_calendar_uses_canonical_schedule_and_excludes_cancelled_and_foreign) ... ok
+test_costs_are_source_bound_and_missing_classification_is_not_zero_profit (test_business_overview.CompanyOverviewTests.test_costs_are_source_bound_and_missing_classification_is_not_zero_profit) ... ok
+test_fresh_rights_even_for_old_actor_and_final_composition_guard (test_business_overview.CompanyOverviewTests.test_fresh_rights_even_for_old_actor_and_final_composition_guard) ... ok
+test_no_private_project_task_or_financial_data_leaks (test_business_overview.CompanyOverviewTests.test_no_private_project_task_or_financial_data_leaks) ... ok
+test_selected_project_never_displays_global_accounting_or_other_project (test_business_overview.CompanyOverviewTests.test_selected_project_never_displays_global_accounting_or_other_project) ... ok
+test_total_task_count_is_not_truncated_to_preview_and_dates_use_berlin (test_business_overview.CompanyOverviewTests.test_total_task_count_is_not_truncated_to_preview_and_dates_use_berlin) ... ok
+test_transport_contract_rejects_unknown_query_and_method (test_business_overview.CompanyOverviewTests.test_transport_contract_rejects_unknown_query_and_method) ... ok
+
+======================================================================
+ERROR: test_same_service_observes_new_cash_and_changed_original_between_reads (test_business_euer_read_scope.EuerReadScope.test_same_service_observes_new_cash_and_changed_original_between_reads)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_euer_read_scope.py", line 60, in test_same_service_observes_new_cash_and_changed_original_between_reads
+    (first['source']['snapshot']['id'],))
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+KeyError: 'id'
+
+----------------------------------------------------------------------
+Ran 10 tests in 9.880s
+
+FAILED (errors=1)

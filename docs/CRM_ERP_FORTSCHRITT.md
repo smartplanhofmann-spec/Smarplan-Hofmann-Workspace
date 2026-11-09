@@ -3020,3 +3020,31 @@ läuft separat nach; ihre Annahmen werden nicht aus dem gezielten Erfolg abgelei
 Weitere Einmalbezug-Metadaten, bezahlte Source5-Folgekorrekturen, benannte
 Lohn-/EÜR-Fälle, Integrationen und Abnahmen A–G bleiben Arbeit. Veröffentlichung
 und neue Remote-CI werden gesondert nachgetragen.
+
+
+Der geprüfte Produktcode ist als
+`eef1927b3e357344ad5713bed2633cfe65f813ce` auf dem autorisierten Testbranch
+veröffentlicht. Der unmittelbar folgende Dokumentationsstand ef1259c erhält
+zusätzlich den unveränderten Schlussleerraum des historischen CI-Streams;
+`git diff --check` über den gesamten neuen Stand besteht. Da dieser Schlusscommit
+`[skip ci]` enthält, sind die Prüfungen ausdrücklich per `workflow_dispatch`
+gestartet: Development42613341609 und iPhone42613388458. Beide laufen auf
+`ef1259c2e46e75a8c6befddf91de5a92861dee63`; signierter Upload ist ausdrücklich
+false. Die neue Prüfung ist noch kein vollständig grüner Stand. Der vollständige
+lokale Browserablauf mit dem vorherigen Profilfehler läuft zusätzlich nach.
+[Veröffentlichungsnachweis](evidence/completion-followup-2026-11-09/publication.json).
+
+
+## 09.11.2026 – Übersicht nach kumulierten Geldflüssen und erneuter Anmeldung
+
+Der veröffentlichte Stand ef1259c besteht alle acht Development-Jobs und den
+unsignierten iPhone-Build; signierter Upload übersprungen. Die zusätzliche lokale
+Gesamtprüfung fand nach den vollständigen C1/R1/C2/R2-Ketten einen echten Engpass
+der EÜR-Quellenrekonstruktion. Der ausschließlich je serialisiertem Aufruf
+verwendete Cache erhält sämtliche Original- und Rechteprüfungen. 29 Fach-/HTTP-,
+vier tatsächliche PG-/MFA-/Restorefälle und alle 17 echten vollständigen Browser-
+abläufe bestehen. Auf genau dem zuvor fehlgeschlagenen synthetischen Stand
+bleibt die Übersicht kanonisch identisch und benötigt lokal 1,863 statt18,406
+Sekunden. Alte Fehlprotokolle bleiben erhalten. [Umfang, Grenze und Nachweise](CRM_ERP_UEBERSICHT_LESEKETTE_2026.md).
+Die getrennte Einmalbezugs-Erweiterung und gemeinsame Regression laufen weiter.
+Keine neue Serverinstallation oder Geräteabnahme.

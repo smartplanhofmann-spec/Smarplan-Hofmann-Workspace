@@ -1,0 +1,36 @@
+{
+  "base_commit": "ef1259c2e46e75a8c6befddf91de5a92861dee63",
+  "source_files": {
+    "backend/business_accounting_euer.py": "d8316a8da7d3f32e0c2288c22df5a22e3f7998e7c0c6d7bdd5cbee632ab5e1e0",
+    "backend/test_business_euer_read_scope.py": "eaa10b1a1670af2dfa1bf1132a5d660b80ec3e8a5be570c972ee106172dbf0c6",
+    "web/office/tests/e2e.cjs": "20419e5101c18a6ab1316d482bf416b1afb46c60c6ce0155af04053cdd37ba5f",
+    "web/office/tests/planning-relogin-flow.cjs": "d66496bd9c330bd8a21f450ca91f039792eb961aca20f0f3e34d7375271d4a6e"
+  },
+  "local_checks": {
+    "euer_overview_http": {
+      "passed": 29,
+      "skipped": 0,
+      "seconds": 42.233
+    },
+    "euer_actual_postgres": {
+      "passed": 4,
+      "skipped": 0,
+      "seconds": 93.676
+    },
+    "full_actual_browser": {
+      "passed": 17,
+      "exit_code": 0,
+      "namespace_pid_network_seccomp_verified": true
+    },
+    "targeted_planning_relogin": "passed"
+  },
+  "published_baseline": {
+    "source_commit": "ef1259c2e46e75a8c6befddf91de5a92861dee63",
+    "development_jobs_passed": 8,
+    "unsigned_ios": "success",
+    "signed_upload": "skipped"
+  },
+  "new_changes_remote_ci": "not yet published",
+  "live_server_verified": false,
+  "device_acceptance_verified": false
+}

@@ -1,0 +1,6 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+profile: explicit unknown facts, no preview write, admin without prepare/write, accepted lost ACK, marked stale conflict and second genuine version passed
+browser: explicit versioned preparation profile, unknown VAT, immutable history and old reply, fresh admin/Finance gates, genuine late preview, unchanged cash/Finance/OP and390px passed
+browser: appointment form and drag-and-drop updated the same canonical calendar
+browser: real month/year boundary, multi-year project bars, explicit unplanned rows and acknowledged dates persisted after new MFA login
+1 planning reload/MFA recovery workflow passed after actual profile changes

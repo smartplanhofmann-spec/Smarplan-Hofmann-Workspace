@@ -1,0 +1,74 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+browser: actual MFA login and all available areas loaded without API errors
+browser: manual module visibility retained, hidden personnel opened by administrator, inactive history stayed readable and reactivation restored writes
+browser: isolated customer portal, exact PDF, lost link/session/decision replies, accept/decline, explicit draft adoption and revoke during module pause passed
+browser: E1a global rights, legacy fallback, existing receipt/refund imports, exact original, partial/rest payout, lost ACK + module pause + frozen account replay and scoped 390px journal passed
+browser: E1b explicit customer/preview/assign, changed OP conflict, lost ACK with later OP, unchanged E1a snapshot, inactive account, original owner and fresh target project rights, exact PDF and 390px passed
+components: four actual cash imports completed
+components: negotiated legacy feature fallback completed
+components: genuine preview captured and held before browser delivery
+components: preview released after editor closure and navigation
+components: late preview was delivered without reopening a dialog
+components: concurrent group state, cumulative cents and lost committed acknowledgement passed
+components: explicit multi-group cents and lost-before-acceptance exact retry passed
+browser: documentary whole portions, explicit multi-groups, shared remaining cents, stale/lost-before/lost-after replies, late preview clearing, supplier aggregate, fresh rights and390px passed
+refunds: actual imports and five genuine origin components created; same-group lots retain 6.33 / 6.34 tax cents
+refunds: genuine late preview parsed by the client after editor closure; exact event/hash and no dialog reopening verified
+refunds: genuine second origin page plus newly denied retained origin closed the R1 editor before redisplay or any financial POST
+refunds: real pagination retained explicit choices; late preview and lost-before-acceptance full origin A+B rights preserved the exact pending command
+browser: refund whole portions, distinct original lot cents, exact partial returns, full-origin permissions, lost-before/after replies, unchanged histories, no capacity release and390px passed
+capacity: six actual imports, three original lots and exact 33.33/6.34 return created; unresolved gate and legacy fallback passed
+capacity: genuine late preview read by the client after editor closure; no dialog reopened
+browser: exact returned middle-lot cents reused, same segment remainder, mixed invoice writers, shared pending, late preview, lost-before/after ACK, whole-origin rights, unchanged C1 history and390px passed
+refunds v2: actual Finance setup, original middle-lot cents, lost R1 acknowledgement and first genuine C2 reuse created
+refunds v2: two real mixed R2→C2 cycles preserved 22.21/4.23 then33.33/6.34; old R1 replay, mixed invoice writers and unchanged Finance/OP passed
+browser: versioned mixed whole refunds, two real reuse cycles, exact cumulative cents, original histories, fresh transitive rights, immutable pending replies, real pagination, late preview and390px passed
+profile: explicit unknown facts, no preview write, admin without prepare/write, accepted lost ACK, marked stale conflict and second genuine version passed
+browser: explicit versioned preparation profile, unknown VAT, immutable history and old reply, fresh admin/Finance gates, genuine late preview, unchanged cash/Finance/OP and390px passed
+browser: editable proposal, approval, explicit external order and partial/rest receipts persisted; lost acknowledgement retried one stock booking and mobile form passed
+browser: appointment form and drag-and-drop updated the same canonical calendar
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+locator.waitFor: Timeout 15000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('heading', { name: 'Guten Tag.', exact: true }) to be visible[22m
+
+    at login (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:46:66)
+    at async main (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:407:25)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: [
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: the server responded with a status of 423 (Locked)',
+  'Failed to load resource: the server responded with a status of 409 (Conflict)',
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: the server responded with a status of 409 (Conflict)',
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: the server responded with a status of 409 (Conflict)',
+  'Failed to load resource: net::ERR_FAILED'
+]
+Fixture log tail:
+.0.1 - - [09/Nov/2026 13:15:41] "GET /office/travel-cash.js HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:41] "GET /office/customer-workspace.js HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:41] "GET /office/communication-history.js HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:41] "GET /office/accounting-year-package-contract.js HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:41] "GET /office/speech.js HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:41] "GET /office/company-events-contract.js HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:41] "GET /office/payroll-accounts.js HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:41] "GET /office/payroll-statements.js HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:41] "POST /api/v1/login HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:42] "POST /api/v1/login/verify HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:42] "GET /api/v1/me HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:42] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:42] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:42] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:42] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:42] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:42] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 13:15:42] "GET /api/v1/business/overview HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

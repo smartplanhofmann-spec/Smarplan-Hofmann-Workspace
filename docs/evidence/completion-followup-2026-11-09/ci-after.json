@@ -1,0 +1,80 @@
+{
+  "checked_at": "2026-11-09T12:58:03.777Z",
+  "development": {
+    "checked_at": "2026-11-09T12:53:41.198Z",
+    "run_id": 42613341609,
+    "source_commit": "ef1259c2e46e75a8c6befddf91de5a92861dee63",
+    "jobs": [
+      {
+        "id": 129147043024,
+        "name": "online-api",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129147043367,
+        "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129147043425,
+        "name": "backend",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129147043446,
+        "name": "business-services",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129147043465,
+        "name": "flutter",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129147043475,
+        "name": "https-setup",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129147043630,
+        "name": "update-flow",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129147043762,
+        "name": "native-build (windows-latest, flutter build windows --release)",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "ios": {
+    "checked_at": "2026-11-09T12:53:41.198Z",
+    "run_id": 42613388458,
+    "source_commit": "ef1259c2e46e75a8c6befddf91de5a92861dee63",
+    "jobs": [
+      {
+        "id": 129147208980,
+        "name": "Online-Release ohne Apple-Zugang pruefen",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129162480167,
+        "name": "Ausdruecklich angeforderten TestFlight-Upload ausfuehren",
+        "status": "completed",
+        "conclusion": "skipped"
+      }
+    ]
+  },
+  "live_server_verified": false,
+  "device_acceptance_verified": false,
+  "signed_upload": false
+}

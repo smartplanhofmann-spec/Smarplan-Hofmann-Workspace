@@ -96,7 +96,8 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    im aktuellen Nachfolger korrigiert. Der [v2/v3-Reiseabgleich](CRM_ERP_REISEN_PLATTFORMHISTORIE_2026.md)
    besteht sieben Fachketten-, drei echte PG-/Restorefälle sowie alle 687
    Python-Lohn-/Reise-, 24 native Reise- und 881 Browsermodulfälle. Neue
-   Veröffentlichung und Gesamtprüfung abschließen. Rohe Dateihash-Nachweise
+   Als eef1927/ef1259c veröffentlicht; eigene neue Remote-CI läuft. Vollständige
+   Browserfolge und Gesamtprüfung abschließen. Rohe Dateihash-Nachweise
    bei Einmalbezügen vollständig prüfen. Fälle mit Ansprüchen, Reisen, Übergangsbereich
    oder Einmalbezügen bleiben in ihren eigenen noch auszuarbeitenden Zweigen.
    Der [reguläre Faktor-Vollmonat](CRM_ERP_LOHN_FAKTOR_2026.md) ist jetzt mit
@@ -107,6 +108,41 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
 6. Durchgängige Abnahmen A–G und vollständige Lieferung gemäß Anforderungsmatrix
    verbinden. Fehlender Code bleibt Codearbeit; externe Freigaben bleiben
    zusätzliche Nachweise. [Zentraler Arbeitsstand](CRM_ERP_ARBEITSSTAND.md).
+
+### Nächste konkrete Codepakete nach der laufenden Gesamtprüfung
+
+1. **Historische Einmalbezüge v6/v7 zwischen Windows/Linux:**
+   `payroll_pap_oneoff_2026.py` und `payroll_oneoff_2026.py` enthalten weitere
+   rohe Dateihashes. Deren abhängige Pläne und Quellen in
+   `payroll_oneoff_composition_2026.py`, `payroll_multiple_oneoff_2026.py` und
+   den Source4/5-Adaptern benötigen einen eigenen exakten Abgleich. Die jetzige
+   Faktor-/Reisekorrektur erklärt diese Originale nicht automatisch als portabel.
+   Abschluss: echte alte Gesamtfälle, unveränderte Quittungen/PDFs,
+   Jahresquellen, Zahlungs-/Bank-/EÜR-Kette und tatsächlicher PG-Restore.
+2. **Bereits bezahlte Source5-Folgekorrekturen und mehrere Steuergruppen:**
+   `payroll_multiple_runs.require_supported_correction` sperrt bezahlte
+   Source5-Vorfassungen ausdrücklich; `payroll_multiple_payments` übernimmt
+   derzeit nur den bezahlten unveränderten Source3-Vorgänger. Ein neuer
+   versionierter Differenzvertrag muss alte tatsächliche Zahlungsteile binden
+   und Nachzahlung/Rückzahlung mit eigenem Beleg behandeln. Historische
+   v1-Zahlungspläne bleiben unverändert. Beide Clients und tatsächliche
+   Finanz-/Restoreverbraucher gehören zum selben Lieferabschnitt.
+3. **Weitere ausdrücklich benannte Lohnfälle:** Faktor mit Ansprüchen, Reisen,
+   Übergangsbereich und Einmalbezügen; individuelle Minijobsteuer,
+   Versicherungs-/Alters-/Leistungsfälle und Minijob-Jahresgrenzen. Bestehende
+   Sperren sind kein fertiges Gesamtmodul. Neue Regeln brauchen belegte
+   Eingaben und unabhängige Vergleichsfälle; historische Rechenkerne bleiben
+   unter ihrer ursprünglichen Version erhalten.
+4. **Weitere Reise- und Buchhaltungsfälle:** Fremdwährungs-/Kilometerfälle
+   gemäß R09.02 und die übrigen offenen EÜR-/Abschluss-/Regeltrennungsfälle
+   gemäß R08/R03.05 vervollständigen. Umfang jeweils zuerst an tatsächlichen
+   Codegrenzen und den festgelegten deutschen Einzelunternehmen-/EÜR-Fällen
+   prüfen. Keine unspezifischen Spezialfälle als bereits vereinbart erfinden.
+
+Parallel bleiben die vollständige Geräte-/Offlinefolge A–G, neue tatsächliche
+Serverinstallation, gewählte Originalformate/Anbieterzugänge und unabhängige
+Fach-/Sicherheitsnachweise eigene Lieferaufgaben. Der aktuelle Auftrag erteilt
+keinen echten Zahlungs-, Nachrichten-, Melde- oder signierten Uploadauftrag.
 
 ## Bisheriger Projektphasenblock
 

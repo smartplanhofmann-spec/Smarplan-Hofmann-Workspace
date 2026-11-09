@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/tmp/smartplan-positive-forecast-probe.py", line 28, in <module>
+    source,oldsource=c.source()
+                     ^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_multiple_oneoff_2026.py", line 94, in source
+    old=original_source if original_source is not None else self.c.source(**changes)
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_oneoff_composition_2026.py", line 44, in source
+    terms = f.api.save(f.owner, f.body('employment_terms', td))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_facts.py", line 472, in save
+    raise Problem(409, error.message, request_resolution='not_accepted') from None
+core.Problem: (409, 'Belegte Beschäftigungsdaten widersprechen dem Personalstamm. Stamm zuerst begründet korrigieren.')

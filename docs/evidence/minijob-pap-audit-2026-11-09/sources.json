@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "accessed_utc": "2026-11-09",
+  "scope": "read-only primary-source audit; synthetic independent XML execution",
+  "bmf": {
+    "title": "Vorsorgepauschale im Lohnsteuerabzugsverfahren ab 2026",
+    "issued": "2025-08-14",
+    "effective": "2026-01-01",
+    "reference": "IV C 5 - S 2367/00012/004/033",
+    "document_id": "COO.7005.100.2.12744842",
+    "official_url": "https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Steuerarten/Lohnsteuer/2025-08-14-vorsorgepau-lohnsteuerabzugsverfahren.html",
+    "read_url": "https://www.berlin.de/politik-und-verwaltung/rundschreiben/download.php/4329937",
+    "read_via": "web research PDF text; screenshot calls yielded only ImageDisplayed placeholders in MCP text",
+    "pages": 9,
+    "visually_verified_pages": [],
+    "relevant_locations": {
+      "application": "page1",
+      "insurance_period_end": "Rz4 page3",
+      "rv_employment_specific": "Rz10-11 page4",
+      "technical_pkv_override": "Rz16 page6",
+      "pv": "Rz17-19 pages6-7",
+      "private_contributions": "Rz20-21 page7",
+      "alv": "Rz22 page7",
+      "no_minimum_allowance": "Rz25 page8",
+      "special_table": "Rz28 page9"
+    },
+    "exact_excerpt": "unter dem Eingangsparameter „PKV“ der Wert „1“ einzugeben.",
+    "pdf_downloaded": false,
+    "pdf_sha256": null,
+    "rendered_images_downloaded": false,
+    "official_html_open": "503 Service Unavailable in web research tool",
+    "executor_download": "sandbox proxy connection failed; approved outer request failed CONNECT HTTP403; no body/PDF received",
+    "requested_screenshot_pages": [
+      1,
+      6,
+      9
+    ]
+  },
+  "minijob_sources": [
+    {
+      "url": "https://www.minijob-zentrale.de/DE/die-minijobs/versicherungen",
+      "title": "Versicherungen im Minijob",
+      "location": "Versicherungen im gewerblichen Minijob / Kranken-, Pflege-, Arbeitslosenversicherung",
+      "publication_date": null,
+      "visible_year": 2026
+    },
+    {
+      "url": "https://www.minijob-zentrale.de/DE/die-minijobs/rentenversicherungspflicht",
+      "title": "Rentenversicherungspflicht im Minijob",
+      "location": "Rentenversicherungspflicht / Beiträge / Mindestbeitrag",
+      "publication_date": null,
+      "visible_year": 2026
+    },
+    {
+      "url": "https://www.minijob-zentrale.de/DE/fuer-gewerbetreibende/abgaben-und-steuern",
+      "title": "Der gewerbliche Minijob: Beiträge, Umlagen und Steuern",
+      "location": "Steuern beim Minijob mit Verdienstgrenze im Gewerbe",
+      "publication_date": null,
+      "visible_year": 2026
+    }
+  ],
+  "bmf_input_help": {
+    "url": "https://www.bmf-steuerrechner.de/fb/fb2026/dialoge/vorsorgeAufwendungen.xhtml",
+    "title": "Angaben zu Vorsorgeaufwendungen 2026",
+    "publication_date": null
+  },
+  "xml": {
+    "official_index": "https://bmf-steuerrechner.de/interface/pseudocodes.xhtml",
+    "official_url": "https://www.bmf-steuerrechner.de/javax.faces.resource/daten/xmls/Lohnsteuer2026.xml.xhtml",
+    "direct_official_download": false,
+    "web_click_error": "400 Unsupported content-type: application/xml",
+    "reviewed_mirror": "https://raw.githubusercontent.com/manuelbusch/paprun/cdf564daec7f617d54181eb8b14232e48a59dd7a/tests/data/Lohnsteuer2026.xml",
+    "sha256": "63d8981646d139eba2f4dd990c13b43c4fb3883b402a5a40cddf253aa7aa96b4",
+    "internal_version": "1.0",
+    "internal_date": "2025-10-23 12:40",
+    "input_locations": {
+      "ALV": 22,
+      "KRV": 63,
+      "KVZ": 69,
+      "PKPV": 96,
+      "PKPVAGZ": 101,
+      "PKV": 106,
+      "PVA": 115,
+      "PVS": 120,
+      "PVZ": 124
+    },
+    "method_locations": {
+      "UPEVP": 942,
+      "MVSPKVPV": 980
+    }
+  },
+  "limits": [
+    "No customer-specific insurance facts established",
+    "No production payroll changes",
+    "No official BMF API calls",
+    "No net payroll or remittance calculated",
+    "The hash of this metadata is not a PDF hash"
+  ]
+}

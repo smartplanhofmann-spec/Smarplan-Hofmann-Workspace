@@ -98,10 +98,10 @@ Restorefälle bestehen. Die Berechtigungsgrenzen werden nicht gelockert.
 
 Eine weitere echte HTTP-Reproduktion bestätigt doppelte manuelle Servicefälle
 nach angenommener Anfrage, verlorener Antwort und vollständigem App-Neustart.
-Der verschlüsselte, firmen- und kontogebundene Anlageauftrag wird getrennt
-implementiert und integriert. 24 gezielte sowie 45 bestehende Service-/Editor-
-Fälle bestehen, einschließlich tatsächlicher App-Neuerstellung und 390px-UI.
-Die vollständige gemeinsame Appprüfung folgt noch.
+Der verschlüsselte, firmen- und kontogebundene Anlageauftrag ist integriert.
+24 gezielte sowie 45 bestehende Service-/Editor-Fälle bestehen, einschließlich
+tatsächlicher App-Neuerstellung und 390px-UI. Die gemeinsame vollständige
+Appprüfung wird unten getrennt ausgewiesen.
 
 Beim Lohn ist der eng begrenzte reguläre Faktor-Vollmonat mit ausschließlich
 steuerfreien, tatsächlich bereits erstatteten Reisebelegen als neuer
@@ -116,23 +116,42 @@ die zuvor fehlende technische PKV-Zuordnung anhand des BMF-Schreibens für 2026
 und reproduziert zwei passende Steuerwerte unabhängig mit der gepinnten XML.
 36 unabhängige XML-Vektoren, private Originale, Lohnkonto, Jahresprojektion
 und vier tatsächliche PostgreSQL-/Restore-/Konkurrenzfälle sind für diesen
-Backendkandidaten geprüft. Die tatsächliche Krankenversicherung wird dabei
-nicht als privat umgeschrieben. Browser und App werden noch ergänzt;
-bestehende Versionen und ihre Originale bleiben erhalten.
+Backendvertrag geprüft. Die tatsächliche Krankenversicherung wird dabei
+nicht als privat umgeschrieben. Browser und App sind integriert: ausdrückliche
+Nachweise, Identität V2, beide Rentenversicherungsfälle, unveränderte Wiederholung,
+belegte Umstellung ungenutzter alter Fälle und ursprüngliche Dokumente.
+Die unabhängige Prüfung fand zusätzlich einen zu schwachen Altbelegabgleich;
+dieser ist vor Integration behoben. Sechs echte PostgreSQL-/MFA-/HTTP-/Restore-
+Fälle, drei weitere Grenzfälle und ein tatsächlicher CRLF-/LF-Originalabgleich
+bestehen. Bestehende Versionen und ihre Originale bleiben erhalten.
+[V11-Clients](CRM_ERP_MINIJOB_V11_CLIENTS_2026.md),
+[unabhängige Prüfung](CRM_ERP_MINIJOB_V11_UNABHAENGIGE_PRUEFUNG_2026.md).
 
-Eine konkrete verbleibende Alltagslücke betrifft den Browser: Der Belegdialog
-hat bislang keine Auswahl der bereits im Backend verfügbaren freigegebenen
-Zeiten. Diese Ergänzung verwendet den vorhandenen Zeit-/Preisvertrag und wird
-einschließlich überholter Auswahl, unverändertem Originalretry und
-Doppelabrechnungsschutz umgesetzt. Die frühere allgemeine Statusangabe zur
-Browser-Zeitübernahme wird in der Anforderungsmatrix korrigiert.
+Die konkret nachgewiesene Browserlücke ist geschlossen: Der Belegdialog kann
+freigegebene abrechenbare Projektzeiten übernehmen, bestehende freie und
+Katalogpositionen erhalten und auf den ursprünglichen Auftrag erneut zugreifen.
+Der PostgreSQL-Ablauf bis zur ausgestellten Rechnung und PDF besteht, ebenso
+Rechteentzug, überholte Auswahl, verlorene Antwort und Doppelabrechnungsschutz.
+Drei PostgreSQL-Summen werden nun als ganze Sekunden zurückgegeben; dadurch
+bleibt die bestehende kanonische JSON-/Hashdarstellung plattformgleich.
+Ein zweiter echter PG-/MFA-/Chromiumlauf auf dem gemeinsamen Stand 487977a
+bestätigt Rechnung, zwei Zeitbindungen, PDF-Hash und beide Integritätsprüfer.
+[Browserzeitabrechnung](CRM_ERP_ZEITABRECHNUNG_BROWSER_2026.md),
+[gemeinsamer Integrationsnachweis](CRM_ERP_ZEITABRECHNUNG_INTEGRATION_2026-11-09.md).
 
-Der vollständige App-Lauf auf dem Hauptprojektstand ist noch aktiv. Bislang
-betreffen seine Fehler zwei inkonsistente ältere Service-Testaufbauten; die
-Korrektur ist separat mit tatsächlichem HTTP und Temp-Pfadalias geprüft und
-im Integrationskandidaten enthalten. Ein vollständig grüner Gesamtlauf wird
-noch nicht behauptet. Alle 32 historischen Rechenmodule, die ursprüngliche
-V1-Zahlungsarithmetik und die Gesamtzieldatei sind erneut bytegleich geprüft.
+Der vollständige App-Lauf auf d4df2f5 ist beendet: 1.746 bestanden, vier
+fehlgeschlagen, kein Skip, 38:31 Minuten. Drei Fehler stammen aus zwei
+inkonsistenten gebundenen Testaufbauten; die Korrektur besteht separat mit
+tatsächlichem HTTP und Temp-Pfadalias und ist im Kandidaten enthalten. Der
+vierte Fehler ist das fünfminütige Zeitlimit des Offene-Posten-Widgettests;
+sein übermäßiger künstlicher Zeitfortschritt und die Exportwartebedingung
+werden im Testhelfer korrigiert. Ein grüner vollständiger Lauf wird damit
+noch nicht behauptet. Auf dem gemeinsamen Stand 487977a bestehen 972
+Browsermodulfälle und 48 gezielte native Fälle. Rohprotokolle einschließlich
+der Fehlversuche liegen unter
+[final-assembly-2026-11-09](evidence/final-assembly-2026-11-09/checks-so-far.json).
+Alle 32 historischen Rechenmodule, die ursprüngliche V1-Zahlungsarithmetik
+und die Gesamtzieldatei sind erneut bytegleich geprüft.
 
 Der veröffentlichte Produktstand bleibt vor dieser Integration 3859a1c. Seine
 eigene Remoteprüfung hat sechs erfolgreiche Development-Jobs und zwei lokal

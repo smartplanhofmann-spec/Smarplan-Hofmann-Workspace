@@ -1,0 +1,69 @@
+{
+  "entire-app-before-fixture-and-wait-fixes": {
+    "source_commit": "d4df2f5",
+    "passed": 1746,
+    "failed": 4,
+    "skipped": 0,
+    "elapsed_log_seconds": 2311,
+    "exit_code": 1,
+    "interpretation": "Three invalid bound test fixtures corrected by f8e20c2; five-minute opening-item widget timeout under investigation. Never represented as an overall passing run.",
+    "raw_bytes": 380965,
+    "raw_sha256": "500186b576ec08edda3f29cf92d028d5e06fb074132e230a2169e00872281e23"
+  },
+  "entire-app-initial-setup": {
+    "exit_code": 1,
+    "interpretation": "New worktree missing local Flutter package configuration; no tests executed.",
+    "raw_bytes": 205,
+    "raw_sha256": "0783c3f818d386ea0b708527c282a0d3aca293ee05bbab18e3be6a92521c8687"
+  },
+  "offline-pub-get": {
+    "exit_code": 0,
+    "interpretation": "Existing pinned dependencies resolved offline; no lockfile change.",
+    "raw_bytes": 68,
+    "raw_sha256": "d4cb7a3c68b4133b4f6e58c67ff5bfd13725d8021e930388cdc98da8a575919d"
+  },
+  "combined-browser": {
+    "source_commit": "487977a",
+    "passed": 972,
+    "failed": 0,
+    "skipped": 0,
+    "milliseconds": 25518.773516,
+    "exit_code": 0,
+    "raw_bytes": 99185,
+    "raw_sha256": "a175597e4bc7c62f09e461ebad4f4d1c0fc5ec075c9abe6819604d41ac54673f"
+  },
+  "combined-native": {
+    "source_commit": "487977a",
+    "passed": 48,
+    "failed": 0,
+    "skipped": 0,
+    "elapsed_log_seconds": 36,
+    "exit_code": 0,
+    "raw_bytes": 9608,
+    "raw_sha256": "4e013760ec144c027659a569edb9a13e35c333c85e0640d55badcd12dc243cb6"
+  },
+  "combined-backend": {
+    "source_commit": "487977a",
+    "tests": 46,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 302.71,
+    "exit_code": 0,
+    "modules": [
+      "test_payroll_factor_taxfree_travel",
+      "test_payroll_individual_minijob",
+      "test_business_payroll_positive_corrections",
+      "test_native_release"
+    ],
+    "raw_bytes": 9630,
+    "raw_sha256": "42fd767e578734c0f0c99c30656581689f2c689c83f8ba3905bb993501e9b39e"
+  },
+  "combined-analyze": {
+    "source_commit": "c489e1a",
+    "exit_code": 0,
+    "seconds": 29.2,
+    "issues": 0,
+    "raw_bytes": 97,
+    "raw_sha256": "41758fdf0e29ade168f4966859b62e36799c0ffd8684033ff09fd609ff1a64b8"
+  }
+}

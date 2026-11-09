@@ -3231,3 +3231,39 @@ Die neuen Codeprüfungen werden erst nach neuer Veröffentlichung bewertet.
 [Gemeinsamer Meilensteinnachweis](CRM_ERP_PROJEKTMEILENSTEINE_GESAMTPRUEFUNG_2026-11-09.md).
 Die bestätigte Offline-Instanzlücke bleibt eine aktive getrennte Korrektur.
 Es wird keine vollständige CRM-/ERP-, Geräte- oder Produktivabnahme behauptet.
+
+## 09.11.2026 – Erweiterungen zusammengeführt und echte Zeitabrechnung geschlossen
+
+Die zuvor aktive Offline-Isolationslücke ist inzwischen mit expliziter V2-
+Firmen-/Kontobindung geschlossen und einschließlich realer getrennter
+Datenbanken geprüft. Neustartfeste manuelle Serviceanlage und der Browsereditor
+für Wartungsverträge sind gemeinsam integriert. Historische Offlinebestände
+bleiben gesichert, ohne automatische Zuordnung zu einer neuen Firma.
+
+Der Faktor-/Reisefall V10 und individuelle Minijob V11 sind mit beiden Clients,
+ursprünglichen privaten Nachweisen, unabhängigen Referenzen sowie tatsächlichen
+PostgreSQL-/MFA-/Restoreprüfungen integriert. Ein zusätzlich gefundener zu
+schwacher Altbelegabgleich für V11 ist vor Integration behoben und unabhängig
+nachgeprüft. Alle 32 historischen Rechenmodule und alte Zahlungsarithmetik
+bleiben unverändert.
+
+Der Browser konnte zuvor keine freigegebenen Stunden in Belege übernehmen.
+Diese konkrete Lücke ist geschlossen: bestehende Positionen, exakte Zeitbindung,
+verlorene Antworten, Quellenänderungen und Schutz vor doppelter Abrechnung
+sind bis zur tatsächlichen Rechnung und PDF auf PostgreSQL geprüft. Ein
+zweiter Durchlauf auf dem unveränderten gemeinsamen Kandidaten bestätigt die
+Integration. Drei PostgreSQL-SUM-Ausgaben sind auf ganze Sekunden typisiert,
+damit ihre bisherige kanonische JSON-/Hashform erhalten bleibt.
+
+Gemeinsam bestehen 972 Browsermodul-, 48 gezielte native sowie 46 Backend-/
+Paketfälle. Der vollständige frühere App-Lauf ist mit 1.746 Erfolgen und vier
+Fehlern beendet. Drei inkonsistente Testaufbauten sind korrigiert und separat
+grün; der Wartehelfer des vierten Falls wird vor dem neuen Gesamtnachweis
+behandelt. Die fehlgeschlagenen Rohlogs bleiben erhalten. Es gibt noch keine
+neue vollständige Remote-/Geräte- oder Produktivfreigabe.
+
+[Gemeinsamer Nachweis und Restarbeit](CRM_ERP_GESAMTINTEGRATION_2026-11-09.md).
+Der nächste konkrete Funktionsabschnitt ist die fehlende Materialrückgabe
+mit Bindung an die ursprüngliche Entnahme in Browser und App. Parallel wird
+die belegte Kilometererstattung für eine rein dienstliche Inlandsfahrt im
+privaten Pkw vorbereitet.

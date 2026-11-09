@@ -21,6 +21,18 @@ Veröffentlichungsziel `codex/testupdate-0.7-projects-20261104`.
 
 ## Verbindlicher fachlicher Rahmen
 
+Aktueller Lieferabschnitt vom 09.11.: Projektmeilensteine, Offlinebindung V2,
+Serviceanlagejournal, Wartungsverträge, Faktor-/Reisefall V10, Minijob V11 und
+Browserzeitabrechnung sind im [gemeinsamen Kandidaten](CRM_ERP_GESAMTINTEGRATION_2026-11-09.md)
+integriert. 972 Browsermodul-, 48 gezielte native und 46 Backend-/Paketfälle
+bestehen; der echte PostgreSQL-Rechnungsablauf ist ebenfalls geprüft.
+Vier Fehler des vollständigen App-Vorlaufs werden vor dem neuen Gesamtbeleg
+behoben. Danach Testbranch veröffentlichen und dessen eigene CI bewerten.
+Parallel werden die fehlende Materialrückgabe in beiden Clients und danach
+die belegte Kilometererstattung für rein dienstliche Inlandsfahrten im privaten
+Pkw ergänzt. Historische Planabschnitte
+weiter unten sind keine Rücknahme dieser abgeschlossenen Erweiterungen.
+
 Einzelunternehmen mit EÜR, Regelbesteuerung, Ist-Versteuerung, 19 %
 Standard-Umsatzsteuer, SKR04 und Nettopreise. Personalumfang: reguläre
 Beschäftigte und Minijobs. Gültigkeitsbeginn, echte Personen-/Steuerdaten und

@@ -137,41 +137,25 @@ def _identifier(value, name):
 
 
 def legacy_lookup(office, actor, data):
-    expected = {'schema_version', 'nonce', 'kind', 'project_id', 'plan_id', 'command_json'}
+    # A legacy payload has no proven company origin. Only hashes and identifiers
+    # may cross this boundary; original content stays on the client.
+    expected = {'schema_version', 'nonce', 'kind', 'project_id', 'plan_id', 'request_id', 'request_hash'}
     if (not isinstance(data, dict) or set(data) != expected or type(data['schema_version']) is not int
-            or data['schema_version'] != 1 or data['kind'] != 'plan_write'):
-        raise Problem(400, 'Eindeutigen unveränderten Planauftrag zum lesenden Abgleich senden.')
+            or data['schema_version'] != 2 or data['kind'] != 'plan_write'):
+        raise Problem(400, 'Nur Kennungen und Originalhash zum lesenden Planabgleich senden.')
     nonce = _identifier(data['nonce'], 'Abgleichkennung')
     project = _identifier(data['project_id'], 'Projektkennung')
     plan = data['plan_id']
     if plan is not None:
         _identifier(plan, 'Plankennung')
-    command_json = data['command_json']
-    if not isinstance(command_json, str):
-        raise Problem(400, 'Die ursprüngliche Plananfrage als unveränderten JSON-Text senden.')
-    try:
-        raw_command = command_json.encode('utf-8')
-    except UnicodeError:
-        raise Problem(400, 'Gültigen UTF-8-JSON-Text senden.') from None
-    from business_api import decode_offline_report
-    command = decode_offline_report(raw_command, max_bytes=1_000_000)
-    fields = {'request_id', 'title', 'walls'} | ({'revision'} if plan is not None else set())
-    if not isinstance(command, dict) or set(command) != fields:
-        raise Problem(400, 'Der ursprüngliche Planauftrag ist nicht vollständig.')
-    request_id = _identifier(command['request_id'], 'Ursprüngliche Auftragskennung')
-    title = text_field(command['title'], 'Plantitel', 200)
-    try:
-        title.encode('utf-8')
-        encoded = canonical(data).encode('utf-8')
-    except (TypeError, ValueError, UnicodeError):
-        raise Problem(400, 'Gültiges UTF-8-JSON erwartet.') from None
-    if len(encoded) > 1_000_000:
+    request_id = _identifier(data['request_id'], 'Ursprüngliche Auftragskennung')
+    fingerprint = data['request_hash']
+    if not isinstance(fingerprint, str) or re.fullmatch(r'[a-f0-9]{64}', fingerprint) is None:
+        raise Problem(400, 'Eindeutigen ursprünglichen SHA-256-Hash senden.')
+    encoded = canonical(data).encode('utf-8')
+    if len(encoded) > 4096:
         raise Problem(413, 'Planabgleich ist zu groß.')
     from plans import validate_drawing
-    walls = validate_drawing(command['walls'])
-    if plan is not None and (type(command['revision']) is not int or command['revision'] < 1):
-        raise Problem(400, 'Ursprüngliche Planversion fehlt.')
-    fingerprint = digest(canonical(dict(project_id=project, plan_id=plan, data=command)))
     with office.lock, office.db:
         fresh = require_permission(office, actor, 'documents.read', project)
         scope = binding(office, fresh, required=True)
@@ -184,11 +168,12 @@ def legacy_lookup(office, actor, data):
         try:
             original = json.loads(prior['result'])
             identifier = _identifier(original['id'], 'Ursprüngliche Plankennung')
-            expected_revision = 1 if plan is None else command['revision'] + 1
             if (set(original) != {'id', 'project_id', 'title', 'revision', 'status', 'units', 'walls', 'updated_at', 'updated_by'}
                     or original['project_id'] != project or plan is not None and identifier != plan
-                    or type(original['revision']) is not int or original['revision'] != expected_revision
-                    or original['title'] != title or canonical(original['walls']) != canonical(walls)
+                    or type(original['revision']) is not int
+                    or (original['revision'] != 1 if plan is None else original['revision'] < 2)
+                    or original['title'] != text_field(original['title'], 'Plantitel', 200)
+                    or canonical(original['walls']) != canonical(validate_drawing(original['walls']))
                     or original['status'] != 'draft' or original['units'] != 'unitless'
                     or original['updated_by'] != fresh['id']
                     or datetime.fromisoformat(original['updated_at']).tzinfo is None):
@@ -202,7 +187,7 @@ def legacy_lookup(office, actor, data):
                 raise ValueError('Deleted plan')
         except (TypeError, ValueError, KeyError, Problem):
             raise Problem(409, 'Die ursprüngliche Planfassung ist nicht eindeutig und unverändert verfügbar.') from None
-        return dict(schema_version=1, nonce=nonce, lookup_hash=digest(encoded.decode('utf-8')), binding=scope,
+        return dict(schema_version=2, nonce=nonce, lookup_hash=digest(encoded.decode('utf-8')), binding=scope,
                     kind='plan_write', project_id=project, plan_id=plan, request_id=request_id,
                     request_hash=fingerprint, original=original)
 

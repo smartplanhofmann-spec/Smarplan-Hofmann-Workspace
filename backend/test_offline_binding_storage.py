@@ -100,22 +100,21 @@ class OfflineBindingStorageTests(unittest.TestCase):
         with self.assertRaises(Problem):
             plan_access.user(restored, issued['token'])
 
-    def test_recovery_rejects_changed_float_bits_even_when_numeric_equality_holds(self):
+    def test_recovery_rejects_changed_archive_float_bits_even_when_numeric_equality_holds(self):
         from business_offline_binding import legacy_lookup
         self.bind()
         project = self.office.add_project(self.actor, 'Float original', 'Synthetic customer')
         body = dict(request_id=uuid.uuid4().hex, title='Original',
                     walls=[dict(id='wall_1', points=[[-0.0, 1.0], [0.000001, 2.0]])])
         original = self.office.save_plan(self.actor, project, body)
-        lookup = dict(schema_version=1, nonce=uuid.uuid4().hex, kind='plan_write', project_id=project,
-                      plan_id=None, command_json=canonical(body))
+        lookup = dict(schema_version=2, nonce=uuid.uuid4().hex, kind='plan_write', project_id=project,
+                      plan_id=None, request_id=body['request_id'],
+                      request_hash=digest(canonical(dict(project_id=project, plan_id=None, data=body))))
         self.assertEqual(legacy_lookup(self.office, self.actor, lookup)['original'], original)
         changed = json.loads(canonical(original))
         changed['walls'][0]['points'][0][0] = 0.0
         self.assertEqual(changed, original)  # Python numeric equality alone hides the changed sign.
         with self.office.db:
-            self.office.db.execute('UPDATE plan_requests SET result=? WHERE request_id=?',
-                                   (canonical(changed), body['request_id']))
             self.office.db.execute('UPDATE plan_versions SET payload=? WHERE id=? AND revision=1',
                                    (canonical(changed), original['id']))
         with self.assertRaises(Problem) as error:
@@ -147,8 +146,9 @@ class OfflineBindingStorageTests(unittest.TestCase):
             updated = self.office.save_plan(self.actor, project, updated_body, original['id'])
             for plan_id, command, expected in ((None, body, original), (original['id'], updated_body, updated)):
                 for text in (canonical(command), json.dumps(command, indent=2).replace('1e-06', '0.000001')):
-                    lookup = dict(schema_version=1, nonce=uuid.uuid4().hex, kind='plan_write', project_id=project,
-                                  plan_id=plan_id, command_json=text)
+                    lookup = dict(schema_version=2, nonce=uuid.uuid4().hex, kind='plan_write', project_id=project,
+                                  plan_id=plan_id, request_id=command['request_id'],
+                                  request_hash=digest(canonical(dict(project_id=project, plan_id=plan_id, data=json.loads(text)))))
                     result = legacy_lookup(self.office, self.actor, lookup)
                     self.assertEqual(canonical(result['original']), canonical(expected))
                     self.assertEqual(result['request_hash'], digest(canonical(dict(project_id=project, plan_id=plan_id, data=command))))

@@ -70,28 +70,50 @@ Firmenkontext ausgeschlossen. Das ist keine vollständige Altdatenmigration.
 
 ## Begrenzter lesender Abgleich bereits angenommener V1-Planaufträge
 
+Sicherheitskorrektur vor Veröffentlichung: Der erste Entwurf dieses Abgleichs
+übertrug `command_json`. Dadurch hätten Inhalte eines alten Auftrags aus Firma A
+bereits Firma B erreicht, bevor deren Herkunft feststand. Ein anschließender
+HTTP404 hätte das nicht verhindert. Dieser unveröffentlichte Vertrag ist
+verworfen; auch ein ausdrücklich mitgesendeter alter Auftrag wird abgewiesen.
+
 `POST /business/offline/recovery/lookup` ist ausschließlich ein lesender Aufruf
 mit frischer normaler Anmeldung. Er akzeptiert keine Geräteanmeldung, keine
-Queryparameter, keine doppelten JSON-Schlüssel und höchstens 1.000.000 Bytes.
+Queryparameter, keine doppelten JSON-Schlüssel und höchstens 4.096 Bytes.
+Der exakte Request enthält ausschließlich folgende Metadaten:
 
 ```text
-{schema_version:1, nonce:<32hex>, kind:"plan_write", project_id:<32hex>,
- plan_id:null|<32hex>, command_json:<JSON-Text des exakten ursprünglichen Planauftrags>}
+{schema_version:2, nonce:<32hex>, kind:"plan_write", project_id:<32hex>,
+ plan_id:null|<32hex>, request_id:<32hex>, request_hash:<64hex>}
 ```
 
-Der innere JSON-Text wird begrenzt und streng geparst; doppelte Schlüssel und
-NaN/Infinity sind unzulässig. Der äußere Abgleich enthält dadurch nur Zeichenketten,
-Kennungen und eine ganze Versionszahl. Unterschiede der Floatdarstellung zwischen
-Python und Dart verändern seinen Korrelationshash nicht. Der historische
-`request_hash` bleibt unverändert nach dem damaligen Python-Vertrag; der Client
-prüft ihn nicht durch eine abweichende Float-Neuformatierung.
+Alle Kennungen und der SHA-256-Wert sind kleingeschrieben hexadezimal. Weitere
+Felder, insbesondere Titel, Wände, `command` oder `command_json`, sind unzulässig.
+Es gibt keinen Inhalts-Fallback bei fehlendem Treffer. Der Hash ist exakt der
+ursprüngliche Python-Hash von `{project_id,plan_id,data:<alter Auftrag>}`;
+Herkunft oder Hash dürfen nicht aus einem neuen Token hergeleitet werden.
 
-Ein positiver Vergleich liefert `schema_version:1`, dieselbe `nonce`, den
-SHA-256-`lookup_hash` der vollständigen kanonischen äußeren Anfrage, aktuelle `binding`,
-`kind`, `project_id`, ursprüngliche `plan_id`, `request_id`, `request_hash`
-und `original` als unveränderte angenommene Antwort. Verglichen werden die
-eigene gespeicherte Planquittung und die genau zugehörige archivierte Planfassung.
+Ein positiver Vergleich liefert exakt `schema_version:2`, dieselbe `nonce`, den
+SHA-256-`lookup_hash` der vollständigen kanonischen Metadatenanfrage, aktuelle
+`binding`, `kind`, `project_id`, ursprüngliche `plan_id`, `request_id`, denselben
+`request_hash` und `original` als angenommene Antwort. Der Server prüft die eigene
+Planquittung mit diesem Hash sowie die genau zugehörige archivierte Planfassung.
 Aktuelle umbenannte Projekte oder neuere Fassungen ersetzen kein Original.
+
+Der Server kann aus einem Hash allein die damaligen Eingabewerte nicht
+rekonstruieren. Deshalb muss die App anschließend `original` streng und lokal
+gegen den unveränderten zurückbehaltenen Auftrag prüfen: einschließlich
+Plantitel nach der vorhandenen Normalisierung, Wänden mit Zahlentyp und
+Nullvorzeichen, Projekt, Ersteller und ursprünglicher Ergebnisrevision. Auch
+Nonce, Antwortschema, Kontobindung und Korrelationshash müssen passen. Erst dann
+ist dieser einzelne Auftrag als bereits angenommen bestätigt. Eine bloße
+Hashgleichheit oder ein erfolgreicher HTTP-Status reicht nicht.
+
+Die erste native Hashableitung bleibt auf ihre belegte Teilmenge beschränkt:
+ganze Koordinaten sowie ganzzahlige Doubles im ausdrücklich geprüften Bereich,
+einschließlich `-0.0`. Nicht zuverlässig Python-kompatibel darstellbare Zahlen
+bleiben lokal ungeklärt; es erfolgt dann nicht einmal ein Probeaufruf. Der
+Backendtest mit Exponenten oder Bruchwerten verwendet den tatsächlichen alten
+Python-Hash und ist kein Nachweis einer nativen Float-Kanonisierung.
 
 Nicht gefunden, beschädigt oder gelöscht bedeutet keine bestätigte
 Nichtannahme. Solche Antworten enthalten niemals `request_resolution:not_accepted`
@@ -107,7 +129,8 @@ Modulprüfsummen, V1-Sitzungen und Planoriginale. Ein tatsächliches SQLite-Back
 mit Wiederherstellung erhält die Planfassung und widerruft Gerätezugänge durch
 die bestehende Sitzungsbereinigung samt neuer abhängiger Grantzeilen.
 
-Die abschließenden Nachläufe am 09.11.2026:
+Die ursprünglichen Nachläufe auf `fced122` am 09.11.2026 (vor der
+Hash-only-Korrektur) bleiben als historische Nachweise erhalten:
 
 | Prüfung | Ergebnis | Umfang |
 | --- | --- | --- |
@@ -117,11 +140,12 @@ Die abschließenden Nachläufe am 09.11.2026:
 | Schema, Fähigkeiten und Router | 25/25 | Bestehende Registry-, Modul- und Pfadverträge |
 | Native Paketquellen | 16/16 | Einschließlich tatsächlich erstelltem Supportarchiv und importiertem verpacktem Backend; kein Windows-Build |
 
-Die numerischen Originalfälle verwenden den unveränderten vorhandenen
+Die korrigierten Backendfälle verwenden den unveränderten vorhandenen
 Planschreiber: ganze Koordinaten, `1.0`, `-0.0`, kleine Exponenten und spätere
-Fassungen. Dieselbe Zahl in anderer JSON-Notation bleibt abgleichbar. Ein
-geänderter Zahlentyp oder ein geändertes Nullvorzeichen kann keine manipulierte
-historische Fassung als Original bestätigen.
+Fassungen. Sie senden nur dessen ursprünglichen Hash und vergleichen Quittung
+mit archivierter Fassung. Ein geändertes Nullvorzeichen zwischen diesen beiden
+Serverbelegen wird erkannt. Der zusätzliche Vergleich mit dem lokalen Auftrag
+bleibt Aufgabe des Clients und wird dadurch nicht ersetzt.
 
 Unabhängige Prüfung fand eine zunächst fehlende Laufzeitkontrolle gegenüber
 einer inkonsistent verlängerten Sitzungszeile; der Fehler ist behoben und durch
@@ -130,14 +154,36 @@ zunächst fehlende Python-Importpfade, der bewusst gesperrte V1-Zugang im zuvor
 gebundenen TLS-Test, eine korrigierte Fehlercodeannahme und die unzutreffende
 HTTP-200-Annahme beim lokalen Replay (der bestehende Vertrag erhält HTTP 201).
 
-Rohprotokolle, Hashes und geprüfte Quellhashes stehen unter
+Historische Rohprotokolle, Hashes und geprüfte Quellhashes stehen unter
 [`evidence/offline-instance-binding-2026-11-09`](evidence/offline-instance-binding-2026-11-09/verification.json).
 Die gemeinsame, tatsächlich erzeugte Vertragsfixture ist
 [`offline_binding_v2.json`](../app/test/fixtures/offline_binding_v2.json), SHA-256
-`2a31cd4c282ac30f36ca4b7e691d6ec9714be7ce8ebbad8b32a239d8e3cfd5d1`.
+`92ad11ff24c9eb5a7ee84bd17f94854a620a1a7fc2f1562f2a6e7af69c39db64`.
+`retained_command` liegt nur lokal; `lookup_command` enthält keine Inhalte.
+`unproven_retained_commands` enthält ausdrücklich nicht übertragbare Floatfälle.
 Ihr Generator ist [`generate-offline-binding-fixture.py`](../scripts/generate-offline-binding-fixture.py).
 
 Native Integration, PostgreSQL mit Betriebsrollen, Browserintegration und echte
 Windows-/iPhone-Geräteprüfungen werden getrennt fortgeschrieben. Diese
 Backendnachweise verwenden ausschließlich synthetische Firmen und Daten und
 behaupten weder Geräteabnahme noch vollständige Migration alter Offlinearbeit.
+
+## Nachweis der Sicherheitskorrektur
+
+Die Hash-only-Korrektur wurde mit 21 Speicher-/Flask-MFA-/lokalen TCP-Fällen
+geprüft. Dazu gehören die vollständige Ablehnung des alten Inhaltsvertrags auf
+beiden Firmen, Fremdkonto-/Fremdfirmenfälle, 4.096-Byte-Grenze, strikte Metadaten,
+Archivvergleich, Ablauf/Widerruf und der ursprüngliche SQLite-Restorefall.
+Zwei voneinander unabhängige Codeprüfungen meldeten für den korrigierten
+Serververtrag keine weiteren konkreten Befunde. Die vorherige positive Prüfung
+des Inhaltsvertrags war kein Nachweis der Vertraulichkeit des Clienttransports.
+
+Zusätzlich wird der PostgreSQL-Triggerfunktionsname an die bestehende
+Ownership-Konvention angepasst (`business_offline_instance_grant_immutable`),
+ohne die zulässigen Namen der Betriebsrolle zu erweitern. Der konkrete vorherige
+Setupfehler und der PostgreSQL-Nachlauf werden durch die Integration separat
+dokumentiert.
+
+Neue Rohprotokolle und Quellhashes werden unter
+[`offline-recovery-hash-only-2026-11-09`](evidence/offline-recovery-hash-only-2026-11-09/verification.json)
+gesichert. Die bisherigen Nachweise werden nicht überschrieben.

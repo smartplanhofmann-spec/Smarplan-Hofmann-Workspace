@@ -120,8 +120,9 @@ class OfflineInstanceBindingHttpTests(unittest.TestCase):
         return command, result
 
     def lookup(self, command, plan_id=None, **changes):
-        body = dict(schema_version=1, nonce=uuid.uuid4().hex, kind='plan_write',
-                    project_id=self.project, plan_id=plan_id, command_json=canonical(command))
+        body = dict(schema_version=2, nonce=uuid.uuid4().hex, kind='plan_write',
+                    project_id=self.project, plan_id=plan_id, request_id=command['request_id'],
+                    request_hash=digest(canonical(dict(project_id=self.project, plan_id=plan_id, data=command))))
         body.update(changes)
         return body
 
@@ -235,7 +236,7 @@ class OfflineInstanceBindingHttpTests(unittest.TestCase):
         before = {table:[tuple(row) for row in self.a['office'].db.execute('SELECT * FROM '+table)] for table in tables}
         lookup = self.lookup(command)
         result = self.call(self.a, '/business/offline/recovery/lookup', lookup).json
-        self.assertEqual(result, dict(schema_version=1, nonce=lookup['nonce'], lookup_hash=digest(canonical(lookup)),
+        self.assertEqual(result, dict(schema_version=2, nonce=lookup['nonce'], lookup_hash=digest(canonical(lookup)),
             binding=self.binding(self.a), kind='plan_write', project_id=self.project, plan_id=None,
             request_id=command['request_id'], request_hash=digest(canonical(dict(project_id=self.project,plan_id=None,data=command))),
             original=original))
@@ -248,7 +249,7 @@ class OfflineInstanceBindingHttpTests(unittest.TestCase):
         command, _ = self.plan(self.a)
         lookup = self.lookup(command)
         for raw, status in ((json.dumps(lookup)[:-1] + ',"nonce":"' + ('f' * 32) + '"}', 400),
-                            (json.dumps(lookup | {'padding':'x' * 1_000_001}), 413)):
+                            (json.dumps(lookup | {'padding':'x' * 4097}), 413)):
             response = self.a['client'].post('/api/v1/business/offline/recovery/lookup',
                 data=raw, content_type='application/json', base_url='https://' + self.a['host'],
                 headers={'Authorization':'Bearer ' + self.a['token']})
@@ -257,18 +258,16 @@ class OfflineInstanceBindingHttpTests(unittest.TestCase):
         result = self.call(self.a, '/business/offline/recovery/lookup', second).json
         self.assertEqual(result['nonce'], second['nonce'])
         self.assertEqual(result['lookup_hash'], digest(canonical(second)))
-        # The original command is JSON text inside the outer JSON request.
-        # Duplicate/nonfinite inner values must not bypass strict decoding.
-        for inner in (canonical(command)[:-1] + ',"title":"Duplicate"}',
-                      '[1,2]', '"not an object"',
-                      json.dumps(command | {'walls':[{'id':'w','points':[[float('nan'),0],[1,1]]}]})):
-            self.call(self.a, '/business/offline/recovery/lookup', lookup | {'command_json':inner}, status=400)
-        different_spelling = lookup | {'nonce':uuid.uuid4().hex,
-            'command_json':json.dumps(command, ensure_ascii=False)}
-        value = self.call(self.a, '/business/offline/recovery/lookup', different_spelling).json
-        self.assertEqual(value['request_hash'], result['request_hash'])
-        self.assertEqual(value['lookup_hash'], digest(canonical(different_spelling)))
-        self.assertNotEqual(value['lookup_hash'], result['lookup_hash'])
+        # No title, walls or retained request body may be sent even on failure.
+        self.assertEqual(set(lookup), {'schema_version', 'nonce', 'kind', 'project_id', 'plan_id', 'request_id', 'request_hash'})
+        for extra in ({'command_json':canonical(command)}, {'command':command}, {'title':command['title']},
+                      {'walls':command['walls']}, {'schema_version':1}, {'request_hash':True},
+                      {'request_hash':'X'*64}, {'request_id':None}, {'request_id':1}, {'plan_id':False}):
+            self.call(self.a, '/business/offline/recovery/lookup', lookup | extra, status=400)
+        legacy = dict(schema_version=1, nonce=lookup['nonce'], kind='plan_write', project_id=self.project,
+                      plan_id=None, command_json=canonical(command))
+        self.call(self.a, '/business/offline/recovery/lookup', legacy, status=400)
+        self.call(self.b, '/business/offline/recovery/lookup', legacy, status=400)
 
     def test_lookup_uses_own_receipt_and_fresh_project_access(self):
         office = self.a['office']
@@ -288,7 +287,7 @@ class OfflineInstanceBindingHttpTests(unittest.TestCase):
         command, original = self.plan(self.a)
         lookup = self.lookup(command)
         for body in (lookup | {'kind':'arbitrary_table'}, lookup | {'nonce':'invalid'}, lookup | {'unexpected':True},
-                     self.lookup(command | {'unexpected':True})):
+                     lookup | {'request_hash':False}):
             self.call(self.a, '/business/offline/recovery/lookup', body, status=400)
         conflict = self.call(self.a, '/business/offline/recovery/lookup', self.lookup(command | {'title':'Changed'}), status=409)
         self.assertNotIn('request_resolution', conflict.json)
@@ -363,8 +362,9 @@ class OfflineInstanceBindingLocalHttpTests(unittest.TestCase):
         self.assertEqual(self.call(path), [])
         original = self.call(path, body, token=grant['token'], headers=headers, status=201)
         self.assertEqual(self.call(path, body, token=grant['token'], headers=headers, status=201), original)
-        lookup = dict(schema_version=1, nonce=uuid.uuid4().hex, kind='plan_write', project_id=self.project,
-                      plan_id=None, command_json=canonical(body))
+        lookup = dict(schema_version=2, nonce=uuid.uuid4().hex, kind='plan_write', project_id=self.project,
+                      plan_id=None, request_id=body['request_id'],
+                      request_hash=digest(canonical(dict(project_id=self.project, plan_id=None, data=body))))
         recovered = self.call('/business/offline/recovery/lookup', lookup)
         self.assertEqual(recovered['original'], original)
         self.assertEqual(recovered['lookup_hash'], digest(canonical(lookup)))

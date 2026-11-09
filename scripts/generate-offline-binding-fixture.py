@@ -30,7 +30,7 @@ EPOCH = int(datetime.fromisoformat(STAMP).timestamp())
 
 def generate(backend):
     sys.path.insert(0, str(backend))
-    from core import Office
+    from core import Office, canonical, digest
     import business_api
     import business_offline_binding
     from online.instance import bind
@@ -78,13 +78,13 @@ def generate(backend):
 
             command = dict(request_id='44444444444444444444444444444444',
                            title='  Synthetischer Altplan Süd 🚧  ',
-                           walls=[dict(id='synthetic_wall', points=[[1.0, -0.0], [1e-6, 2.0]])])
+                           walls=[dict(id='synthetic_wall', points=[[1.0, -0.0], [10000, -10000]])])
             with patch('core.uuid.uuid4', return_value=uuid.UUID(hex=PLAN)), \
                  patch('core.now_iso', return_value=STAMP):
                 office.save_plan(actor, project, command)
-            lookup_command = dict(schema_version=1, nonce='55555555555555555555555555555555',
-                kind='plan_write', project_id=project, plan_id=None,
-                command_json=json.dumps(command, ensure_ascii=False, sort_keys=True, separators=(',', ':')))
+            lookup_command = dict(schema_version=2, nonce='55555555555555555555555555555555',
+                kind='plan_write', project_id=project, plan_id=None, request_id=command['request_id'],
+                request_hash=digest(canonical(dict(project_id=project, plan_id=None, data=command))))
             lookup_result = business_offline_binding.legacy_lookup(office, actor, lookup_command)
             context = business_offline_binding.context(office, actor)
             other_office, other_actor = company('foreign', FOREIGN_INSTANCE)
@@ -97,7 +97,8 @@ def generate(backend):
                 account_id=actor['id'], instance_id=INSTANCE, project_id=project,
                 context=context, unbound_context=unbound_context,
                 workspace_grant=workspace_grant, business_grant=business_grant,
-                lookup_command=lookup_command, lookup_result=lookup_result,
+                retained_command=command, lookup_command=lookup_command, lookup_result=lookup_result,
+                unproven_retained_commands=[dict(command, walls=[dict(id='synthetic_wall', points=[[1e-6, 2.0], [1.5, -0.0]])])],
                 foreign_binding=foreign_binding)
         finally:
             for office in offices:

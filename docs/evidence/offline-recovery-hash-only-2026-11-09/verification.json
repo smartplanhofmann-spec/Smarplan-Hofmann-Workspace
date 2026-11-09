@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-09",
+  "base_commit": "fced12211bd6998e8fce1739d325416e2af5100e",
+  "scope": "Security correction: recovery transport carries schema 2 identifiers and original request hash only, never unbound legacy content; old content-bearing schema 1 is rejected.",
+  "supersedes": "Original recovery contract in fced122; historical proofs are preserved and do not constitute a client transport privacy proof.",
+  "tests": {
+    "storage_flask_mfa_and_local_tcp": {
+      "passed": 21,
+      "total": 21,
+      "seconds": 15.698
+    },
+    "schema_features_router": {
+      "passed": 25,
+      "total": 25,
+      "seconds": 1.668
+    },
+    "package_sources": {
+      "passed": 16,
+      "total": 16,
+      "seconds": 18.343
+    }
+  },
+  "logs": [
+    {
+      "file": "offline-hashonly-first-20261109.txt.gz",
+      "uncompressed_bytes": 4623,
+      "uncompressed_sha256": "f00444a78645dcf036fd308546a048153aa11ff36ca2d6818e96b0d5966600fd",
+      "gzip_sha256": "942ffd03b89d2e9bf8c1b03b89a81461ecbd1051d3d932af1f9c0aae1d57a201",
+      "result": "21 passing storage/Flask-MFA/local-TCP cases"
+    },
+    {
+      "file": "offline-hashonly-registry-final-20261109.txt.gz",
+      "uncompressed_bytes": 4860,
+      "uncompressed_sha256": "5ca90725fcb20b603cc5935c9324a9886e3dce04206f2342c481a4646d22d436",
+      "gzip_sha256": "46f572c0711b2b58781ef5085dd27b0b2635e4fe92630c6d7785c915d657384e",
+      "result": "25 passing schema/features/router cases"
+    },
+    {
+      "file": "offline-hashonly-packaging-final-20261109.txt.gz",
+      "uncompressed_bytes": 3428,
+      "uncompressed_sha256": "cedd18ec6d67fa77b16f6538daa32a3264e4de17c0eab87bceae0142d492d10d",
+      "gzip_sha256": "bb75c576a574216b48354a2eadf398673eaf2f50e19f178ffe3c08df90e5aa14",
+      "result": "16 passing package source/import cases"
+    },
+    {
+      "file": "offline-hashonly-fixture-first-20261109.txt.gz",
+      "uncompressed_bytes": 202,
+      "uncompressed_sha256": "115c46fc188d0673f9d54b32c4648e4ff7740dcd2a96c9227383f846618dd495",
+      "gzip_sha256": "b10be7208f863d792eaeff23027b51bf368ddf2b575d82b4625dbefe79720cee",
+      "result": "Deterministic fixture generated using real writers and hash-only API"
+    },
+    {
+      "file": "offline-hashonly-fixture-second-20261109.txt.gz",
+      "uncompressed_bytes": 156,
+      "uncompressed_sha256": "1149cc7f74ff34bf37e6b4231609c6bbdc3a9c77b003eebb657e26c8f32414c7",
+      "gzip_sha256": "feec3698f4825827c5552a64c300464f2e088cc65d23b46b24f374fa7d7742cc",
+      "result": "Second fixture generation byte-identical"
+    }
+  ],
+  "source_files": {
+    "app/test/fixtures/offline_binding_v2.json": {
+      "bytes": 4467,
+      "sha256": "92ad11ff24c9eb5a7ee84bd17f94854a620a1a7fc2f1562f2a6e7af69c39db64"
+    },
+    "backend/business_offline_binding.py": {
+      "bytes": 10724,
+      "sha256": "a0eb861a1e024b4d1f6c0e980b6f3c81fe288be18c4351d4015a59e540a9c787"
+    },
+    "backend/online/test_offline_instance_binding.py": {
+      "bytes": 23291,
+      "sha256": "41efb1c0226dc026d466cb4822a6c1c19f0addc5666228261bba629d5b9d6477"
+    },
+    "backend/online/web.py": {
+      "bytes": 31317,
+      "sha256": "f37aa08a6d8e1b4120eee728ad6053b09d9249d20074b8230b7d703de26035ae"
+    },
+    "backend/server.py": {
+      "bytes": 17695,
+      "sha256": "4c5cf9e5834764e12c5cf7781310eebffe24994aa0de9e081f6f67a622e08b58"
+    },
+    "backend/test_offline_binding_storage.py": {
+      "bytes": 10837,
+      "sha256": "d3f26bbfa908abc58dcdbf1a444e10a60e31514d8a0fbf4abb6ff8b11b4ed9d7"
+    },
+    "scripts/generate-offline-binding-fixture.py": {
+      "bytes": 6332,
+      "sha256": "1a40ec0548b1c63229ac3fb0faf71f571f4a5d2a4d86433149df8b13953549cd"
+    }
+  },
+  "reviews": [
+    "Two independent read-only backend reviewers: no concrete finding in corrected envelope, bounds, own receipt or archive checks."
+  ],
+  "boundaries": [
+    "Client must derive only a proven Python-compatible legacy hash without transferring contents.",
+    "Client must compare returned original locally against frozen request, including numeric type/sign and revision. Hash/HTTP success alone is insufficient.",
+    "No complete V1 migration; negative lookup never permits resending.",
+    "PostgreSQL ownership fix follows existing business_ function naming; actual PostgreSQL execution is owned by integration.",
+    "No live update, native integration, or physical device acceptance claimed."
+  ]
+}

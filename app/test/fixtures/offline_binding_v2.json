@@ -44,12 +44,13 @@
   },
   "instance_id": "11111111111111111111111111111111",
   "lookup_command": {
-    "command_json": "{\"request_id\":\"44444444444444444444444444444444\",\"title\":\"  Synthetischer Altplan Süd 🚧  \",\"walls\":[{\"id\":\"synthetic_wall\",\"points\":[[1.0,-0.0],[1e-06,2.0]]}]}",
     "kind": "plan_write",
     "nonce": "55555555555555555555555555555555",
     "plan_id": null,
     "project_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-    "schema_version": 1
+    "request_hash": "c038a5fff54d71cc766b9347b1d2a1a2ab797c0d52e1b68dafc924122d0f7c32",
+    "request_id": "44444444444444444444444444444444",
+    "schema_version": 2
   },
   "lookup_result": {
     "binding": {
@@ -58,7 +59,7 @@
       "schema_version": 1
     },
     "kind": "plan_write",
-    "lookup_hash": "19cf68c029ae22577c1280223df685f8b900024bce92500c49fcc9b04f6ddaa9",
+    "lookup_hash": "66c962f672d4bb418d2b8794edfe465c0fdfe84624aedefa428f66deffe61f2d",
     "nonce": "55555555555555555555555555555555",
     "original": {
       "id": "dddddddddddddddddddddddddddddddd",
@@ -78,8 +79,8 @@
               -0.0
             ],
             [
-              1e-06,
-              2.0
+              10000,
+              -10000
             ]
           ]
         }
@@ -87,11 +88,30 @@
     },
     "plan_id": null,
     "project_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-    "request_hash": "5b9d0d1ed2920c5105bdbe260db1e8f440ed4f85d8fd479fbf10392bbaae7368",
+    "request_hash": "c038a5fff54d71cc766b9347b1d2a1a2ab797c0d52e1b68dafc924122d0f7c32",
     "request_id": "44444444444444444444444444444444",
-    "schema_version": 1
+    "schema_version": 2
   },
   "project_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "retained_command": {
+    "request_id": "44444444444444444444444444444444",
+    "title": "  Synthetischer Altplan Süd 🚧  ",
+    "walls": [
+      {
+        "id": "synthetic_wall",
+        "points": [
+          [
+            1.0,
+            -0.0
+          ],
+          [
+            10000,
+            -10000
+          ]
+        ]
+      }
+    ]
+  },
   "schema_version": 1,
   "server_url": "https://offline-fixture.example.test",
   "unbound_context": {
@@ -99,6 +119,27 @@
     "mode": "unbound_legacy",
     "schema_version": 2
   },
+  "unproven_retained_commands": [
+    {
+      "request_id": "44444444444444444444444444444444",
+      "title": "  Synthetischer Altplan Süd 🚧  ",
+      "walls": [
+        {
+          "id": "synthetic_wall",
+          "points": [
+            [
+              1e-06,
+              2.0
+            ],
+            [
+              1.5,
+              -0.0
+            ]
+          ]
+        }
+      ]
+    }
+  ],
   "workspace_grant": {
     "binding": {
       "account_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

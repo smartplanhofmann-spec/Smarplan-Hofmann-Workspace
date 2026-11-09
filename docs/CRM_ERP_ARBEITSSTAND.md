@@ -163,11 +163,14 @@ ohne erzwungenes Überschreiben auf dem autorisierten Testbranch veröffentlicht
 Seine neuen Prüfungen laufen:
 [Development42654230472](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42654230472),
 [iPhone42654230385](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42654230385).
-Vier Development-Jobs bestehen: Update, HTTPS, Flutter und Mac-Simulator.
+Fünf Development-Jobs bestehen: Backend, Update, HTTPS, Flutter und Mac-Simulator.
 Online-API scheitert an einem veralteten V1-Zugangsaufbau in einer gebundenen
 Testfirma. Windows scheitert am Import einer POSIX-Serverprovisionierung im
-eingebetteten Testserver. Beide Testursachen werden separat korrigiert; 52
-betroffene Buchhaltungs-/Berechtigungsfälle bestehen bereits. Backend und
+eingebetteten Testserver. Beide Testursachen sind separat korrigiert; 52
+betroffene Buchhaltungs-/Berechtigungsfälle, beide tatsächlichen nativen HTTP-
+Fälle und die portable Testauswahl bestehen. Die Windows-Auswahl ist lokal
+auf Linux geprüft; eine tatsächliche neue Windows-CI wird damit nicht ersetzt.
+[Testkorrektur und ursprüngliche Fehlprotokolle](CRM_ERP_CI_OFFLINE_FIXTURES_2026-11-09.md).
 Business-/Browserjob sowie der unsignierte iPhone-Build sind noch aktiv.
 Die vollständige lokale Appprüfung auf genau diesem Stand ist inzwischen grün.
 Der signierte Upload ist nicht angefordert.

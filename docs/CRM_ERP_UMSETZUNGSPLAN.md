@@ -27,8 +27,10 @@ Browserzeitabrechnung sind im [gemeinsamen Kandidaten](CRM_ERP_GESAMTINTEGRATION
 integriert. 972 Browsermodul-, 48 gezielte native und 46 Backend-/Paketfälle
 bestehen; der echte PostgreSQL-Rechnungsablauf ist ebenfalls geprüft.
 Vier Fehler des vollständigen App-Vorlaufs sind gezielt behoben und geprüft.
-Den vollständigen App-Lauf wiederholen, den Testbranch veröffentlichen und
-dessen eigene CI bewerten.
+Die neue vollständige Appprüfung besteht mit 1.770 Fällen. Der Testbranch
+ist als 8273852 veröffentlicht. Seine beiden nachgewiesenen Testaufbaufehler
+sind [lokal korrigiert und gezielt grün](CRM_ERP_CI_OFFLINE_FIXTURES_2026-11-09.md);
+die eigene neue Remoteprüfung dieser Korrektur steht noch aus.
 Parallel werden die fehlende Materialrückgabe in beiden Clients und danach
 die belegte Kilometererstattung für rein dienstliche Inlandsfahrten im privaten
 Pkw ergänzt. Historische Planabschnitte

@@ -39,11 +39,11 @@ def require_unused_upgrade(api, previous, current):
         return isinstance(value, list) and any(refers(item) for item in value)
 
     from business_schema import _tables
-    from business_payroll import Payroll
-    from business_payroll_accounts import PayrollAccounts
-    from business_payroll_annual_basis import PayrollAnnualBasis
-    from business_payroll_oneoff_cases import PayrollOneoffCases
-    from business_payroll_multiple_cases import PayrollMultipleCases
+    from business_payroll import Payroll, validate_integrity as validate_payroll
+    from business_payroll_accounts import PayrollAccounts, validate_integrity as validate_accounts
+    from business_payroll_annual_basis import PayrollAnnualBasis, validate_integrity as validate_annual
+    from business_payroll_oneoff_cases import PayrollOneoffCases, validate_integrity as validate_oneoff
+    from business_payroll_multiple_cases import PayrollMultipleCases, validate_integrity as validate_multiple
     present = set(_tables(api.office))
     tables = {
         'business_payroll_events': Payroll(api.office),
@@ -53,6 +53,13 @@ def require_unused_upgrade(api, previous, current):
         'business_payroll_multiple_case_events': PayrollMultipleCases(api.office),
     }
     try:
+        # A matching envelope hash alone does not establish a usable original:
+        # absent/invalid source data could hide a dependency. Reuse the full
+        # historical validators (including receipts, sources and arithmetic)
+        # before treating an absent reference as evidence of non-use. These
+        # validators never invoke this creation-only migration guard.
+        for validate in (validate_payroll, validate_accounts, validate_annual, validate_oneoff, validate_multiple):
+            validate(api.office)
         for table, resolver in tables.items():
             if table not in present:
                 continue

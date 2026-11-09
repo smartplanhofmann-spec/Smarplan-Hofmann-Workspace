@@ -1,0 +1,6 @@
+test_concurrent_explicit_legacy_upgrades_accept_one_preserve_both_originals (online.test_business_payroll_individual_minijob_pg.IndividualMinijobPostgres.test_concurrent_explicit_legacy_upgrades_accept_one_preserve_both_originals) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 29.939s
+
+OK

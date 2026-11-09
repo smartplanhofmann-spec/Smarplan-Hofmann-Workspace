@@ -102,6 +102,47 @@
     "postgres-malformed-input-final.txt": {
       "bytes": 294,
       "sha256": "6c5c9a699adbb4ceb51e20d5f2453844942ce234d21a0a5f3f4ccf7b63877e60"
+    },
+    "review-corrupt-original-before-fix.txt": {
+      "bytes": 1045,
+      "sha256": "c9905f99858125277ab23448ff43ff7cb7693a211d0f31e5d74de04a9c135595"
+    },
+    "origin-guard-domain-final.txt": {
+      "bytes": 2362,
+      "sha256": "613cd07647b42e81e542db97441283cf9a74e0461a77fd40d2773e0dd48e84fa"
+    },
+    "independent-counterexamples-fixed.txt": {
+      "bytes": 536,
+      "sha256": "6448120bd8685b7ff0924e2490bce025f0a1eb1144813c59997f3aa8fc76fce6"
+    },
+    "origin-guard-postgres-concurrent.txt": {
+      "bytes": 336,
+      "sha256": "0e34efa03ad04196cc5b3beb768e0835ac4c0e51c8987f7ce0db4884f63bc206"
     }
+  },
+  "origin_validity_follow_up": {
+    "base_commit": "802e953035f0e6570801800c636b3052705f9651",
+    "confirmed_old_failure": "A hash-consistent but semantically invalid payroll original was accepted as no dependency.",
+    "fix": "Run existing complete Payroll/Accounts/Annual/Oneoff/Multiple archive validators before the non-use scan, in the existing write transaction; reject ambiguity without mutation.",
+    "tests": [
+      {
+        "file": "origin-guard-domain-final.txt",
+        "tests": 12,
+        "result": "passed"
+      },
+      {
+        "file": "independent-counterexamples-fixed.txt",
+        "tests": 2,
+        "result": "passed"
+      },
+      {
+        "file": "origin-guard-postgres-concurrent.txt",
+        "tests": 1,
+        "result": "passed"
+      }
+    ],
+    "independent_test_source_sha256": "36c4ff344bea8dffd6b017f9f745ceac1aa3aa6768b9cf005cbb5385726c9d9d",
+    "disposable_postgres_port": 32784,
+    "no_record_repair_or_skip": true
   }
 }

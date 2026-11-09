@@ -6,8 +6,8 @@ import json
 from pathlib import Path
 import unittest
 
-from core import Problem
-from business_payroll import Payroll, validate_integrity as validate_payroll
+from core import Problem, canonical
+from business_payroll import Payroll, _sha, validate_integrity as validate_payroll
 from business_payroll_accounts import PayrollAccounts, validate_integrity as validate_accounts
 from business_payroll_calculation_cases import PayrollCalculationCases, validate_integrity as validate_cases
 from business_payroll_facts import PayrollFacts, reference
@@ -103,6 +103,29 @@ class IndividualMinijobFixture:
 
 
 class IndividualMinijobTests(unittest.TestCase):
+    def test_hash_consistent_but_invalid_original_blocks_upgrade_without_mutation(self):
+        fixture=IndividualMinijobFixture(self);f=fixture.f
+        legacy,old_command=fixture.legacy_case();command=fixture.upgrade_command(legacy)
+        # Deliberate damage only in this disposable fixture: the original has
+        # a correct envelope hash but cannot possibly be a valid payroll run.
+        envelope=dict(id=rid(),kind='run',employee_id=f.employee['id'],revision=1,previous_hash=None,
+            identity_key=None,created_by=f.owner['id'],created_at=f.hr.now(),pdf_sha256=None,payload={})
+        f.office.db.execute('INSERT INTO business_payroll_events '
+            '(id,kind,employee_id,revision,previous_hash,identity_key,created_by,created_at,pdf_sha256,payload_json,content_hash) '
+            'VALUES(?,?,?,?,?,?,?,?,?,?,?)',tuple(envelope[key] for key in ('id','kind','employee_id','revision',
+                'previous_hash','identity_key','created_by','created_at','pdf_sha256'))+(canonical({}),_sha(envelope)))
+        damaged=dict(f.office.db.execute('SELECT * FROM business_payroll_events WHERE id=?',(envelope['id'],)).fetchone())
+        self.assertEqual(Payroll(f.office)._event(damaged)['id'],envelope['id'])
+        with self.assertRaises(ValueError):validate_payroll(f.office)
+        counts={table:f.office.db.execute('SELECT COUNT(*) FROM '+table).fetchone()[0] for table in
+            ('business_payroll_calculation_case_events','business_payroll_calculation_case_requests')}
+        with self.assertRaises(Problem) as error:fixture.api.save(f.owner,command)
+        self.assertEqual(error.exception.status,409)
+        self.assertEqual(fixture.api.save(f.owner,old_command),legacy)
+        self.assertEqual(fixture.api.get(f.owner,legacy['id'],True)['items'],[legacy])
+        self.assertEqual(dict(f.office.db.execute('SELECT * FROM business_payroll_events WHERE id=?',(envelope['id'],)).fetchone()),damaged)
+        for table,count in counts.items():self.assertEqual(f.office.db.execute('SELECT COUNT(*) FROM '+table).fetchone()[0],count)
+
     def test_already_finalized_historical_v5_keeps_its_original_contract(self):
         legacy=legacy_fixture.CalculationCaseTests('runTest');legacy.setUp();self.addCleanup(legacy.doCleanups)
         body,_=legacy.request();case=legacy.api.save(legacy.f.owner,body)

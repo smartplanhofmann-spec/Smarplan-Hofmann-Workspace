@@ -15,7 +15,7 @@ from core import Problem, canonical, customer_key, customer_values, now_iso
 from inquiries import _transaction
 
 
-FEATURES = ('billing_contact', 'company_overview', 'project_creation_receipts')
+FEATURES = ('billing_contact', 'company_overview', 'project_creation_receipts', 'project_creation_journal')
 BILLING_ROLES = frozenset(('billing', 'invoice', 'accounts payable', 'rechnung', 'rechnungen', 'buchhaltung', 'rechnungswesen'))
 PERMISSIONS = frozenset(('contacts.read', 'contacts.write', 'projects.manage',
     'documents.read', 'documents.write', 'documents.classify', 'finance.read',
@@ -33,6 +33,35 @@ _DEFAULTS = {
 CLASSES = frozenset(('operational', 'financial', 'personnel', 'restricted'))
 CONTACT_KINDS = frozenset(('customer', 'supplier', 'partner'))
 _ID = re.compile(r'[a-f0-9]{32}')
+
+
+def _project_creation_instance(office):
+    # Keep the local packaged backend independent of the online package. A
+    # valid persisted binding is enough here; online startup separately verifies
+    # its host, storage root and key against the operator's configuration.
+    from business_schema import _tables
+    if 'business_instance_identity' not in _tables(office):
+        return None
+    from business_instance import validate_integrity
+    validate_integrity(office)
+    rows = office.db.execute('SELECT instance_id FROM business_instance_identity').fetchall()
+    return rows[0]['instance_id'] if rows else None
+
+
+def runtime_features(office):
+    """Persistent create journals require an operator-bound company identity."""
+    if _project_creation_instance(office) is None:
+        return tuple(feature for feature in FEATURES if feature != 'project_creation_journal')
+    return FEATURES
+
+
+def project_creation_scope(office, actor):
+    """Public immutable identifiers only; no storage paths or key metadata."""
+    actor = _fresh(office, actor)
+    instance = _project_creation_instance(office)
+    if instance is None:
+        return None
+    return dict(schema_version=1, instance_id=instance, account_id=actor['id'])
 
 
 def schema_statements(binary_type='BYTEA'):
@@ -197,6 +226,37 @@ class BusinessFoundation:
 
     def authorize(self, actor, name, project_id=None):
         return require_permission(self.office, actor, name, project_id)
+
+    def project_creation_receipt(self, actor, request_id):
+        """Read an own opaque receipt; the client must match its exact input hash.
+
+        Legacy receipt rows do not duplicate operation inputs. Returning their
+        stored hash lets the caller verify its original core.project.create:v1
+        command without inventing a receipt from the current (editable) project.
+        """
+        with self.office.lock:
+            actor = _fresh(self.office, actor)
+            self.office.require(actor, ('owner',))
+            scope = project_creation_scope(self.office, actor)
+            if scope is None:
+                raise Problem(409, 'Projektquittung benötigt eine gebundene Unternehmensinstanz')
+            request_id = _id(request_id)
+            row = self.db.execute(
+                'SELECT request_hash,result_json FROM business_foundation_requests WHERE user_id=? AND request_id=?',
+                (actor['id'], request_id)).fetchone()
+            if row is None:
+                raise Problem(404, 'Projektquittung nicht verfügbar')
+            try:
+                result = json.loads(row['result_json'])
+                if (not isinstance(result, dict) or set(result) != {'id'}
+                        or not isinstance(result['id'], str) or _ID.fullmatch(result['id']) is None
+                        or not isinstance(row['request_hash'], str)
+                        or re.fullmatch(r'[a-f0-9]{64}', row['request_hash']) is None):
+                    raise ValueError('Invalid receipt')
+            except (TypeError, ValueError):
+                raise Problem(409, 'Gespeicherte Projektquittung ist nicht prüfbar') from None
+            self.office.project(actor, result['id'])
+            return dict(scope, request_id=request_id, request_hash=row['request_hash'], project_id=result['id'])
 
     def _request(self, actor, operation, data):
         if not isinstance(data, dict):
@@ -1023,6 +1083,11 @@ def dispatch(office, actor, path, method, data):
         raise Problem(405, 'HTTP-Methode nicht erlaubt')
     service = BusinessFoundation(office)
     query = data.get('_query', {}) if method == 'GET' else {}
+    match = re.fullmatch(r'/project-creations/([a-f0-9]{32})', path)
+    if match:
+        if query or set(data) - {'_query'}:
+            raise Problem(400, 'Projektquittung erwartet keine zusätzlichen Angaben')
+        return service.project_creation_receipt(actor, match[1]), 200, 'application/json'
     if path == '/overview/metrics':
         from business_overview import overview_metrics
         return overview_metrics(office, actor, query), 200, 'application/json'
@@ -1086,6 +1151,7 @@ def methods(path):
         (r'/project-statuses/[a-f0-9]{32}', 'POST'),
         (r'/projects/[a-f0-9]{32}/profile', 'GET, POST'),
         (r'/projects/[a-f0-9]{32}/billing-contact', 'GET'),
+        (r'/project-creations/[a-f0-9]{32}', 'GET'),
         (r'/feed', 'GET, POST'),
         (r'/documents/(?:link|mail)/[a-f0-9]{32}/classification', 'GET, POST'),
         (r'/settings/permissions', 'GET, POST'),

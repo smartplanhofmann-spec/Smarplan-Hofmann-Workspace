@@ -493,13 +493,11 @@ void main() {
         api.token = token;
         api.changed();
         api.heldPost = null;
-        await enterProject(tester);
-        await send(tester);
-        expect(api.posts, hasLength(2));
-        expect(
-          api.posts.last['request_id'],
-          isNot(api.posts.first['request_id']),
-        );
+        await openCreate(tester);
+        // Restoring a token string does not restore the revoked authenticated
+        // business context. A real new login is required before another create.
+        expect(find.byType(ProjectDialog), findsNothing);
+        expect(api.posts, hasLength(1));
         final reads = api.projectReads;
         first.complete({'id': CreateApi.project});
         await tester.pumpAndSettle();

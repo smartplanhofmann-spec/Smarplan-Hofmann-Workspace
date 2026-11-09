@@ -134,6 +134,7 @@ class OfflineVault {
 }
 
 class OfflineDevice {
+  static final Map<String, Future<void>> _keyInitializers = {};
   final FlutterSecureStorage storage;
   final Future<Directory> Function() root;
   final Future<bool> Function() unlock;
@@ -175,6 +176,26 @@ class OfflineDevice {
 
   Future<String?> session(String server, String user) async =>
       storage.read(key: 'smartplan.session.${await namespace(server)}.$user');
+
+  /// Read-only discovery for optional journals on servers without the feature.
+  /// No secure-storage key is created merely to find an absent local journal.
+  Future<OfflineVault?> openExisting(String server, String user) async {
+    if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(user)) {
+      throw StateError('Ungültiger Offline-Benutzer.');
+    }
+    final scope = '${await namespace(server)}.$user';
+    final directory = Directory(
+      '${(await root()).path}/smartplan-offline/$scope',
+    );
+    if (!await directory.exists() ||
+        !await directory.list().any(
+          (file) => file.uri.pathSegments.last.startsWith('state-'),
+        )) {
+      return null;
+    }
+    return open(server, user);
+  }
+
   Future<OfflineVault> open(
     String server,
     String user, {
@@ -192,23 +213,58 @@ class OfflineDevice {
       await const MethodChannel('smartplan/offline-storage')
           .invokeMethod<void>('protectDirectory', directory.path);
     }
-    var encoded = await storage.read(key: keyName);
-    if (encoded == null) {
-      if (!create ||
-          (await directory.exists() &&
-              await directory.list().any((f) => f.path.endsWith('.enc'))))
-        throw StateError('Offline-Schlüssel fehlt. Online anmelden.');
-      encoded = base64Encode(
-        await AesGcm.with256bits().newSecretKey().then(
-          (key) => key.extractBytes(),
-        ),
-      );
-      await storage.write(key: keyName, value: encoded);
-      if (await storage.read(key: keyName) != encoded)
-        throw StateError(
-          'Offline-Schlüssel konnte nicht sicher gespeichert werden.',
+    final encoded = await storage.read(key: keyName);
+    if (encoded != null)
+      return OfflineVault(directory, SecretKey(base64Decode(encoded)));
+    if (!create) throw StateError('Offline-Schlüssel fehlt. Online anmelden.');
+
+    // Two first opens must not both publish different keys for the same
+    // directory. Serialize this isolate as well as other application processes.
+    final name = directory.absolute.path;
+    final next = (_keyInitializers[name] ?? Future<void>.value()).then(
+      (_) => _initializeKey(directory, keyName),
+    );
+    _keyInitializers[name] = next.then<void>(
+      (_) {},
+      onError: (Object e, StackTrace s) {},
+    );
+    return next;
+  }
+
+  Future<OfflineVault> _initializeKey(
+    Directory directory,
+    String keyName,
+  ) async {
+    await directory.create(recursive: true);
+    final lock = await File('${directory.path}/writer.lock')
+        .open(mode: FileMode.append);
+    var locked = false;
+    try {
+      await lock.lock(FileLock.blockingExclusive);
+      locked = true;
+      // A competing opener may have initialized the key while we waited.
+      var encoded = await storage.read(key: keyName);
+      if (encoded == null) {
+        if (await directory.list().any((f) => f.path.endsWith('.enc')))
+          throw StateError('Offline-Schlüssel fehlt. Online anmelden.');
+        encoded = base64Encode(
+          await AesGcm.with256bits().newSecretKey().then(
+            (key) => key.extractBytes(),
+          ),
         );
+        await storage.write(key: keyName, value: encoded);
+        if (await storage.read(key: keyName) != encoded)
+          throw StateError(
+            'Offline-Schlüssel konnte nicht sicher gespeichert werden.',
+          );
+      }
+      return OfflineVault(directory, SecretKey(base64Decode(encoded)));
+    } finally {
+      try {
+        if (locked) await lock.unlock();
+      } finally {
+        await lock.close();
+      }
     }
-    return OfflineVault(directory, SecretKey(base64Decode(encoded)));
   }
 }

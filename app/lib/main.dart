@@ -13,6 +13,7 @@ import 'customer_pages.dart';
 import 'mfa_dialog.dart';
 import 'offline_plans.dart';
 import 'offline_vault.dart' show offlineId;
+import 'project_creation_journal.dart';
 import 'plan_pages.dart';
 import 'inquiry_pages.dart';
 import 'app_version.dart';
@@ -32,19 +33,21 @@ void main() {
 
 class OfficeApp extends StatelessWidget {
   final OfficeApi? api;
-  const OfficeApp({super.key, this.api});
+  final ProjectCreationJournal? projectCreationJournal;
+  const OfficeApp({super.key, this.api, this.projectCreationJournal});
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: 'Smartplan Office',
     debugShowCheckedModeBanner: false,
     theme: officeTheme(),
-    home: OfficeHome(api: api),
+    home: OfficeHome(api: api, projectCreationJournal: projectCreationJournal),
   );
 }
 
 class OfficeHome extends StatefulWidget {
   final OfficeApi? api;
-  const OfficeHome({super.key, this.api});
+  final ProjectCreationJournal? projectCreationJournal;
+  const OfficeHome({super.key, this.api, this.projectCreationJournal});
   @override
   State<OfficeHome> createState() => _OfficeHomeState();
 }
@@ -80,6 +83,7 @@ bool _projectDefinitelyRejected(Object error, {bool retry = false}) =>
 
 class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
   late final OfficeApi api;
+  ProjectCreationJournal? _projectJournal;
   OfflinePlans? offline;
   BusinessSession? business;
   bool offlineMode = false;
@@ -133,6 +137,9 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     api = widget.api ?? OfficeApi();
+    _projectJournal =
+        widget.projectCreationJournal ??
+        (widget.api == null ? ProjectCreationJournal() : null);
     api.addListener(sessionChanged);
     if (widget.api == null) {
       offline = OfflinePlans(api: api)..addListener(offlineChanged);
@@ -396,9 +403,64 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
     setState(() => error = null);
     _administrationChanges.value++;
     try {
-      final pending = _pendingProjectCreation;
+      // Refresh the authenticated capabilities before opening a durable
+      // command. A previous token or another company's cached scope grants
+      // neither replay nor access to the saved customer snapshot.
+      await business?.load();
+      if (!_projectContextCurrent(captured)) return;
+      if (business?.error != null) {
+        throw const ApiException(
+          0,
+          'Die Projektfreigabe konnte nicht aktuell geprüft werden.',
+        );
+      }
+      final currentUser = await api.call('/api/me');
+      if (!_projectContextCurrent(captured)) return;
+      if (currentUser is! Map ||
+          currentUser['id'] != captured.account ||
+          currentUser['role'] != 'owner' ||
+          business?.readonly == true) {
+        throw const ApiException(
+          403,
+          'Die aktuelle Berechtigung zur Projektanlage fehlt.',
+        );
+      }
       bool receiptsSupported() =>
           business?.hasFeature('project_creation_receipts') == true;
+      final durable = business?.hasFeature('project_creation_journal') == true;
+      final scope = durable
+          ? ProjectCreationScope.fromServer(
+              business?.projectCreationScope,
+              server: captured.server,
+              version: captured.version,
+              accountId: captured.account,
+            )
+          : null;
+      if (durable && _projectJournal == null) {
+        throw const ApiException(
+          0,
+          'Der geschützte Projektauftrag ist nicht verfügbar. Es wurde nichts gesendet.',
+        );
+      }
+      final journal = await _projectJournal?.open(
+        server: captured.server,
+        version: captured.version,
+        accountId: captured.account as String,
+        scope: scope,
+      );
+      if (!_projectContextCurrent(captured)) return;
+      final restored = journal?.pending;
+      if (restored != null) {
+        _pendingProjectCreation = _PendingProjectCreation(
+          captured,
+          Map<String, dynamic>.from(restored['body'] as Map),
+          (restored['customers'] as List)
+              .map((value) => Map<String, dynamic>.from(value as Map))
+              .toList(),
+          true,
+        );
+      }
+      final pending = _pendingProjectCreation;
       final canReplay =
           receiptsSupported() && (pending?.receiptsSupported ?? true);
       List<Map<String, dynamic>> choices;
@@ -421,6 +483,7 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
           customerId: customerId,
           originalCommand: pending?.body,
           supportsReplay: canReplay,
+          durable: durable,
           replayAvailable: () =>
               receiptsSupported() &&
               (_pendingProjectCreation?.receiptsSupported ?? true),
@@ -456,15 +519,36 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
                 'Dieser offene Vorgang kann auf diesem Server nicht sicher wiederholt werden. Bitte zuerst die Projektliste prüfen.',
               );
             }
+            if (durable) {
+              final freshScope = ProjectCreationScope.fromServer(
+                business?.projectCreationScope,
+                server: captured.server,
+                version: captured.version,
+                accountId: captured.account,
+              );
+              if (!business!.hasFeature('project_creation_journal') ||
+                  freshScope.instanceId != scope!.instanceId) {
+                throw const ApiException(
+                  0,
+                  'Die Unternehmensbindung hat sich geändert. Es wurde nichts erneut gesendet.',
+                );
+              }
+            }
             final original = Map<String, dynamic>.unmodifiable(body);
+            // A durable write must finish before the first network mutation.
+            // Its explicit not_accepted error leaves the form editable.
+            if (durable) await journal!.prepare(original, choices);
+            if (!_projectContextCurrent(captured)) return false;
             _pendingProjectCreation = _PendingProjectCreation(
               captured,
               original,
               choices,
               receiptsSupported(),
             );
+            var responseReturned = false;
             try {
               final result = await api.call('/api/projects', Map.of(original));
+              responseReturned = true;
               if (!_projectContextCurrent(captured)) {
                 _dropChangedProjectContext();
                 return false;
@@ -476,6 +560,16 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
                   'Die Projektanlage wurde noch nicht bestätigt.',
                 );
               }
+              if (durable) {
+                final receipt = await api.call(
+                  '/api/business/project-creations/${original['request_id']}',
+                );
+                if (!_projectContextCurrent(captured)) return false;
+                await journal!.verifyReceipt(original, result, receipt);
+                if (!_projectContextCurrent(captured)) return false;
+                await journal.clear(original);
+                if (!_projectContextCurrent(captured)) return false;
+              }
               _pendingProjectCreation = null;
               return true;
             } catch (error) {
@@ -483,8 +577,14 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
                 _dropChangedProjectContext();
                 return false;
               }
-              if (_projectDefinitelyRejected(error, retry: previous != null))
+              if (!responseReturned &&
+                  _projectDefinitelyRejected(error, retry: previous != null)) {
+                if (durable) await journal!.clear(original);
                 _pendingProjectCreation = null;
+              }
+              // A failed receipt read or local acknowledgement cannot prove
+              // that the preceding successful POST was rejected.
+              if (responseReturned) throw ApiException(0, '$error');
               rethrow;
             }
           },
@@ -750,6 +850,7 @@ class ProjectDialog extends StatefulWidget {
   final Map<String, dynamic>? originalCommand;
   final Future<bool> Function(Map<String, dynamic>) onSubmit;
   final bool supportsReplay;
+  final bool durable;
   final bool Function()? replayAvailable;
   final VoidCallback onResolveUnknown;
   const ProjectDialog({
@@ -759,6 +860,7 @@ class ProjectDialog extends StatefulWidget {
     this.originalCommand,
     required this.onSubmit,
     required this.supportsReplay,
+    this.durable = false,
     this.replayAvailable,
     required this.onResolveUnknown,
   });
@@ -858,6 +960,11 @@ class _ProjectDialogState extends State<ProjectDialog> {
                   const Notice(
                     'Schließen Sie diesen Vorgang erst ab, nachdem Sie in der Projektliste geprüft haben, ob das Projekt bereits angelegt wurde. Eine neue Anlage könnte sonst ein Duplikat erzeugen.',
                   ),
+                if (widget.durable)
+                  const Notice(
+                    'Der Projektauftrag wird vor der Übertragung verschlüsselt auf diesem Gerät gesichert und bleibt bis zur bestätigten Anlage erhalten.',
+                    error: false,
+                  ),
                 if (error != null) Notice(error!),
                 if (saving) const LinearProgressIndicator(),
                 TextFormField(
@@ -920,7 +1027,7 @@ class _ProjectDialogState extends State<ProjectDialog> {
                 : 'Projektliste prüfen',
           ),
         ),
-        if (originalCommand != null && !supportsReplay)
+        if (originalCommand != null && !supportsReplay && !widget.durable)
           TextButton(
             onPressed: saving
                 ? null

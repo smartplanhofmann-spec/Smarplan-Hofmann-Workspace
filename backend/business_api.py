@@ -199,6 +199,11 @@ def capabilities(office, actor, project_id=None):
         if 'business_organization' in supported_modules:
             from business_organization import navigation
             organization = {'organization': navigation(office, actor)}
+        if 'project_creation_journal' in features:
+            from business_foundation import project_creation_scope
+            scope = project_creation_scope(office, actor)
+            if scope is not None:
+                organization['project_creation_scope'] = scope
         return {**state, **organization,
                 'capabilities': sorted(supported_modules), 'features': sorted(features),
                 'active_capabilities': state.get('capabilities', []),
@@ -218,6 +223,7 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
         result = capabilities(office, actor, data.get('_query', {}).get('project_id'))
         if offline:
             result.pop('organization', None)
+            result.pop('project_creation_scope', None)
             result['features'] = []
             result['permissions'] = [p for p in result['permissions'] if p in ('time.own', 'documents.read', 'documents.write')]
             result['global_permissions'] = result['permissions']

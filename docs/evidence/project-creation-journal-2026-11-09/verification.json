@@ -1,0 +1,71 @@
+{
+  "base_commit": "51786b1",
+  "original_goal": {
+    "bytes": 23863,
+    "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "files": {
+    "app/lib/main.dart": "dfeb70986ac435971dbd33356a5866a467a041c0e28a0bbc50ce5075347dae6c",
+    "app/lib/business_session.dart": "c3a831936fc3ebd29e2ab38649a4f0525ac84b751d610cd98283786712e149cc",
+    "app/lib/offline_vault.dart": "aebfd4bcaaa6e28c12884f6fb00b8f523099bcb7c6f0fc39d98ec6c52ec8c622",
+    "app/lib/project_creation_journal.dart": "cfcee68baa67d9ef20c0d1c678e78216435da6375fb54d3ec18c02090713de9a",
+    "app/test/project_create_replay_test.dart": "7847b0629c0045b8f68ae9232031e84266472989939b8a8a88529e0a382879f1",
+    "app/test/project_creation_journal_test.dart": "b8f1adcd7c3e6e44de473b3f4b93e80267149ca5ede21c8d805f0199787124ea",
+    "app/test/project_creation_journal_widget_test.dart": "47882af8116f4f865ad0877f20760831b8efea64570a211a4ea4e681c26e6556",
+    "app/test/project_creation_journal_http_test.dart": "fc9e9d46952f82d528570a66f93b58c58ddd8bf74f16ea91e2869831d24eb15c",
+    "backend/business_api.py": "ceff759b6d64360889ec87d96531dd97de53f42b17804177c5634e5476145770",
+    "backend/business_foundation.py": "b437fce8f7c496ff11c58401f1e8793f3b9620af403f90d32ccb01661f42613f",
+    "backend/online/test_project_creation_journal.py": "0e0eb009d3ef818f24acffd701524b3e0b2bb770c817762a4d382d0623d99560"
+  },
+  "tests": {
+    "native_combined": {
+      "passed": 94,
+      "failed": 0,
+      "skipped": 0,
+      "duration_seconds": 64,
+      "log": "native-94-final.gz",
+      "test_files": [
+        "project_creation_journal_test.dart",
+        "project_creation_journal_widget_test.dart",
+        "project_creation_journal_http_test.dart",
+        "project_create_replay_test.dart",
+        "offline_plans_test.dart",
+        "offline_workspace_test.dart",
+        "business_offline_time_test.dart",
+        "business_offline_media_test.dart",
+        "business_offline_reports_test.dart"
+      ]
+    },
+    "backend_final": {
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "duration_seconds": 10.538,
+      "log": "backend-11-final.gz"
+    },
+    "backend_related": {
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0,
+      "duration_seconds": 9.498,
+      "log": "backend-23-verified.gz"
+    },
+    "packaging": {
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "log": "packaging-16-final.gz"
+    },
+    "flutter_analyze": {
+      "issues": 0,
+      "duration_seconds": 27.1,
+      "log": "analysis-final.gz"
+    }
+  },
+  "limits": [
+    "Native full state recreation with persisted encrypted file and actual HTTP/MFA is a restart simulation, not an OS device kill.",
+    "Secure storage adapter is mocked in development tests; actual iPhone/Windows key store remains a device acceptance task.",
+    "No deployment or live company mutation.",
+    "Legacy server lacks restart guarantee unless new project_creation_journal feature and valid bound scope exist."
+  ]
+}

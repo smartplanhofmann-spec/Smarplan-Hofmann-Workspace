@@ -245,6 +245,7 @@ class BusinessSession extends ChangeNotifier {
       readonly = false;
   int _epoch = 0;
   Object? generation;
+  Map<String, dynamic>? projectCreationScope;
   String? error;
   Set<String> permissions = {}, capabilities = {}, features = {};
   Map<String, Map<String, bool>> organizationModules = {};
@@ -2929,6 +2930,7 @@ class BusinessSession extends ChangeNotifier {
     permissions = {};
     capabilities = {};
     features = {};
+    projectCreationScope = null;
     organizationModules = {};
     _pending.clear();
     _pendingEditorValues.clear();
@@ -3024,6 +3026,9 @@ class BusinessSession extends ChangeNotifier {
       generation = nextGeneration;
       capabilities = (meta['capabilities'] as List).whereType<String>().toSet();
       features = nextFeatures;
+      projectCreationScope = meta['project_creation_scope'] is Map
+          ? Map<String, dynamic>.from(meta['project_creation_scope'] as Map)
+          : null;
       organizationModules = nextOrganization;
       permissions = (meta['permissions'] as List).whereType<String>().toSet();
       readonly = meta['readonly'] == true;
@@ -3045,6 +3050,7 @@ class BusinessSession extends ChangeNotifier {
         permissions = {};
         capabilities = {};
         features = {};
+        projectCreationScope = null;
         organizationModules = {};
       } else {
         error = e.message;

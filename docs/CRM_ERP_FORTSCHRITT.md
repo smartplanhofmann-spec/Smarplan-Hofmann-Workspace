@@ -2850,3 +2850,12 @@ bestehen als Modultests und tatsächlicher MFA-/HTTP-/Chromium-Ablauf.
 Alle 874 Browsermodule bestehen. Native Filterfelder sind während eines
 Abrufs gesperrt. Diese abschließende Korrektur wird separat veröffentlicht
 und startet die gemeinsame CI neu; die alten 504-Ergebnisse bleiben erhalten.
+
+Der abschließende Produktstand ist als
+`2598c9671f5158e9a85a7a1e4602408385b23e30` veröffentlicht; der Remote-Testbranch
+ist exakt auf diesen Commit nachgeprüft. Development-Lauf 42572643368 und
+iPhone-Lauf 42572643353 sind gestartet. Beim dokumentierten Abruf besteht
+HTTPS, die übrigen Jobs laufen noch. Es wird weder ein vollständig grüner
+neuer CI-Stand noch ein neues Windows-/iPhone-Artefakt oder eine tatsächliche
+Serverinstallation behauptet.
+[Aktueller Veröffentlichungsnachweis](evidence/completion-2026-11-09/publication.json).

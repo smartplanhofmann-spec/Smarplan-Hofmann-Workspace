@@ -13,8 +13,13 @@ unsignierte iPhone-Build 171 bestehen; signierter Upload bleibt übersprungen.
 [Aktuelle CI-/Artefaktnachweise](evidence/completion-2026-11-09/ci-baseline.json).
 Die neue CRM-Erstveröffentlichung b57f474 und ihre PDFium-Downloadfehler
 sind [gesondert erfasst](evidence/completion-2026-11-09/first-publication.json).
-Die abschließenden Kunden-/Filter- und Ladekorrekturen erhalten einen eigenen
-neuen CI-Lauf; lokale Gesamtnachweise stehen unter
+Die abschließenden Kunden-/Filter- und Ladekorrekturen sind als
+`2598c9671f5158e9a85a7a1e4602408385b23e30` veröffentlicht und der Remote-Bezug
+ist bestätigt. Die neue [Development-CI](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42572643368)
+und der [unsignierte iPhone-Lauf](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42572643353)
+laufen noch; HTTPS ist bereits erfolgreich, die übrigen Jobs sind nicht als
+bestanden bestätigt. [Veröffentlichung](evidence/completion-2026-11-09/publication.json).
+Lokale Gesamtnachweise stehen unter
 [verification.json](evidence/completion-2026-11-09/verification.json).
 Der vorherige Lauf auf 3773a60
 bestand sechs Jobs; seine noch laufenden Business-/Online-Jobs wurden durch den
@@ -105,12 +110,12 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
 - Die neue vollständige CI auf dem aktuellen Quellstand nachprüfen und
   tatsächliche neue Fehler beheben; auf f747311 inzwischen vollständig grün.
-- Gemeinsamen Kunden-/Projekt-Kommunikationsverlauf auf dem Testbranch liefern
-  und seine neue CI prüfen. Erstveröffentlichung b57f474 ist erfolgt; Linux-
+- Vollständige CI des veröffentlichten Kunden-/Projektverlaufs 2598c96
+  nachprüfen. Erstveröffentlichung b57f474 ist erfolgt; Linux-
   App- und Windowsjob stoppten beim externen PDFium-Download mit HTTP504,
   nicht an einem fehlgeschlagenen Fachtest. HTTPS, Update und Simulator
-  bestehen bereits. Die letzten Kunden-/Filterkorrekturen erhalten einen
-  eigenen neu gestarteten Gesamtlauf. Konkrete externe Kanalintegration und tatsächliche
+  bestehen dort bereits. Die letzten Kunden-/Filterkorrekturen haben einen
+  eigenen Gesamtlauf gestartet. Konkrete externe Kanalintegration und tatsächliche
   Geräte-/Betriebsabnahme bleiben gesonderte Aufgaben.
 - Weitere benannte Standard-Lohnfälle additiv integrieren. Dazu gehören unter
   anderem Faktor-Teilmonate/-Einmalbezüge, individuelle Minijobsteuer, Versicherungsvarianten,

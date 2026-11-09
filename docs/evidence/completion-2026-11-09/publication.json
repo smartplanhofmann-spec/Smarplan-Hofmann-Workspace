@@ -1,0 +1,93 @@
+{
+  "date": "2026-11-09",
+  "product_commit": "2598c9671f5158e9a85a7a1e4602408385b23e30",
+  "feature_commit": "b57f474a7252e3419d0cfdd28a9f712d9dc8291c",
+  "branch": "codex/testupdate-0.7-projects-20261104",
+  "remote_product_ref_verified": true,
+  "development": {
+    "run_id": 42572643368,
+    "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42572643368",
+    "status": "in_progress",
+    "jobs": [
+      {
+        "id": 129013360530,
+        "name": "business-services",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129013360727,
+        "name": "flutter",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129013360740,
+        "name": "backend",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129013360756,
+        "name": "native-build (windows-latest, flutter build windows --release)",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129013360764,
+        "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129013360831,
+        "name": "online-api",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129013360864,
+        "name": "update-flow",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 129013360901,
+        "name": "https-setup",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "iphone": {
+    "run_id": 42572643353,
+    "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42572643353",
+    "status": "in_progress",
+    "jobs": [
+      {
+        "id": 129013394415,
+        "name": "Online-Release ohne Apple-Zugang pruefen",
+        "status": "in_progress",
+        "conclusion": null
+      }
+    ],
+    "signed_upload_requested": false
+  },
+  "full_local_native_before_final_controls": {
+    "source_commit": "b57f474a7252e3419d0cfdd28a9f712d9dc8291c",
+    "passed": 1632,
+    "excluded_tag": "native_pdf"
+  },
+  "final_targeted_native_pdf_locked_http_passed": 19,
+  "final_node_modules_passed": 874,
+  "domain_http_regression_passed": 51,
+  "actual_postgres_mfa_restart_restore_passed": 2,
+  "package_guard_tests_passed": 16,
+  "first_run_download_errors": "first-publication.json",
+  "last_fully_green_product": "f747311a5c3561fbafc3e9a74095d480b089c9b6",
+  "last_user_confirmed_server": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "new_server_installation": false,
+  "actual_windows_device_acceptance": false,
+  "actual_iphone_device_acceptance": false,
+  "entire_crm_erp_complete": false
+}

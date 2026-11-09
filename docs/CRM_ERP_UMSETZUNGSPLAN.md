@@ -80,8 +80,10 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    des Apple-Developer-Kontos sind angefragt; keine Schlüssel im Chat.
    Das Windows-Online-Archiv auf f747311 ist tatsächlich heruntergeladen,
    sein veröffentlichter Digest und alle 248 Dateihashes sind geprüft.
-   Der gemeinsame Kommunikationsverlauf ist neu lokal vollständig geprüft;
-   Veröffentlichung und zugehöriger CI-Stand werden separat festgehalten.
+   Der gemeinsame Kommunikationsverlauf ist mit abschließenden Kunden-/
+   Filterkorrekturen als 2598c96 veröffentlicht. 1.632 Appfälle, 19 gezielte
+   PDF-/HTTP-/Ladefälle, 874 Browsermodule und echte MFA-/PG-/Restorewege
+   sind getrennt belegt; [neue CI noch laufend](evidence/completion-2026-11-09/publication.json).
 5. Weitere konkret benannte Lohn-/EÜR- und Länder-/Regelfälle additiv entwickeln.
    Der [reguläre Faktor-Vollmonat](CRM_ERP_LOHN_FAKTOR_2026.md) ist jetzt mit
    beiden Clients, tatsächlichem PG-Restore, Zahlungen/EÜR und unabhängigen

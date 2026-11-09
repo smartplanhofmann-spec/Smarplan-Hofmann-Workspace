@@ -28,6 +28,8 @@ import 'mail_attachment_preview.dart';
 import 'mail_attachment_widgets.dart' show exportMailAttachment;
 
 const payrollScopes = {
+  individualMinijobScope:
+      'Individuell besteuerter gewerblicher Minijob · belegter Vollmonat',
   payrollFactorTaxfreeTravelScope:
       'Faktor-Vollmonat mit bereits erstatteter steuerfreier Reise',
   'regular_standard_multiple_oneoff': 'Regulärer Gesamtlohn mit vollständigem Einzelanspruch · getrennte Zahlungstage',
@@ -2591,6 +2593,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
             [
                   payrollCalculationCaseRule,
                   payrollFactorTaxfreeTravelRule,
+                  individualMinijobRule,
                   payrollOneOffRule,
                   payrollMultipleRule,
                 ].contains(calc['rule_version'])
@@ -2601,6 +2604,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
       if ([
         payrollCalculationCaseRule,
         payrollFactorTaxfreeTravelRule,
+        individualMinijobRule,
         payrollOneOffRule,
         payrollMultipleRule,
       ].contains(calc['rule_version'])) ...[
@@ -2613,6 +2617,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         PayrollCalculationCasePlanView(
           plan: {
             ...businessMap(calc['period_details']),
+            'rule_version': calc['rule_version'],
             'month': calc['month'],
             'gross_minor':
                 [
@@ -2622,6 +2627,11 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
                 ? calc['running_calculation']['gross_minor']
                 : calc['gross_minor'],
             'blockers': calc['blockers'],
+            if (calc['rule_version'] == individualMinijobRule) ...{
+              'actual_health_insurance':
+                  calc['tax_parameters']?['actual_health_insurance'],
+              'can_calculate': calc['payroll_calculation_complete'],
+            },
           },
         ),
       ] else if (calc['period_details'] != null)
@@ -2683,6 +2693,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         [
               payrollCalculationCaseRule,
               payrollFactorTaxfreeTravelRule,
+              individualMinijobRule,
               payrollOneOffRule,
               payrollMultipleRule,
             ].contains(calc['rule_version'])
@@ -2704,7 +2715,9 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         ),
       if (source['source_schema_version'] == 3)
         Text(
-          'Bestätigter Gesamtfall · Fassung ${source['calculation_case']?['revision']} · ursprüngliche Anspruchs- und Reisequellen',
+          source['calculation_case']?['rule_version'] == individualMinijobRule
+              ? 'Individueller Minijob · Fassung ${source['calculation_case']?['revision']} · ursprüngliche persönliche Prüfbelege'
+              : 'Bestätigter Gesamtfall · Fassung ${source['calculation_case']?['revision']} · ursprüngliche Anspruchs- und Reisequellen',
         ),
       if (source['source_schema_version'] == 2)
         Text(

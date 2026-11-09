@@ -509,6 +509,27 @@ Map<String, dynamic> payrollAccountRecord(
       0,
       'Der Lohnkontonachweis ist nicht eindeutig an Mitarbeiter und Vorgang gebunden.',
     );
+  if (value['kind'] == 'identity' &&
+      value['details'].containsKey('identity_source_schema_version')) {
+    final details = businessMap(value['details']),
+        profile = businessMap(value['sources']?['profile']);
+    final values = businessMap(profile['profile']);
+    if (details['identity_source_schema_version'] is! int ||
+        details['identity_source_schema_version'] != 2 ||
+        values['employment_kind'] != 'minijob' ||
+        values['minijob_tax'] != 'individual' ||
+        values['health_insurance'] != 'statutory_other' ||
+        details['tax_source'] != 'elstam_imported' ||
+        details['profile_id'] != profile['id'] ||
+        details['profile_revision'] != profile['revision'] ||
+        details['tax_allowance_yearly_minor'] != 0 ||
+        details['tax_addition_yearly_minor'] != 0 ||
+        details['religion_code'] != 'none')
+      throw const ApiException(
+        0,
+        'Der individuelle Minijob-Identitätsnachweis besitzt keine eindeutige Originalbindung.',
+      );
+  }
   if (value['kind'] == 'payment') {
     final details = businessMap(value['details']),
         sources = businessMap(value['sources']);
@@ -767,6 +788,29 @@ Map<String, dynamic> payrollAccountDetails(
       throw const FormatException(
         'Land und tatsächliche Herkunft der Steuermerkmale ausdrücklich wählen.',
       );
+    if (values['identity_scope'] == 'individual_minijob') {
+      final profile = sources['profiles']!.singleWhere(
+        (r) =>
+            r['id'] == details['profile_id'] &&
+            r['revision'] == details['profile_revision'],
+      )['profile'];
+      if (profile['employment_kind'] != 'minijob' ||
+          profile['minijob_tax'] != 'individual' ||
+          profile['health_insurance'] != 'statutory_other' ||
+          details['tax_source'] != 'elstam_imported' ||
+          details['tax_allowance_yearly_minor'] != 0 ||
+          details['tax_addition_yearly_minor'] != 0 ||
+          details['religion_code'] != 'none')
+        throw const FormatException(
+          'Der individuelle Minijob benötigt das tatsächliche Minijobprofil und einen ELStAM-Nachweis ohne zusätzliche Merkmale.',
+        );
+      details['identity_source_schema_version'] = 2;
+    } else if (values['identity_scope'] != null &&
+        values['identity_scope'] != 'legacy') {
+      throw const FormatException(
+        'Den Umfang des Identitätsnachweises ausdrücklich wählen.',
+      );
+    }
   } else {
     choose('identity', 'identities');
     if (kind == 'payment')
@@ -1137,6 +1181,13 @@ class _BusinessPayrollAccountsPageState
     try {
       await fresh(kind: kind);
       await fresh(kind: kind);
+      if (kind == 'identity' &&
+          previous?['details']?['identity_source_schema_version'] == 2 &&
+          !session.hasFeature('payroll_individual_minijob'))
+        throw const ApiException(
+          403,
+          'Die Freigabe für die ursprüngliche individuelle Minijobidentität fehlt.',
+        );
       final opening = session.generation;
       final pages = await Future.wait(
         [
@@ -1390,6 +1441,25 @@ class _BusinessPayrollAccountsPageState
       }
 
       if (kind == 'identity') {
+        if (session.hasFeature('payroll_individual_minijob')) {
+          fields.add(
+            const BusinessField(
+              'identity_scope',
+              'Umfang des Identitätsnachweises',
+              type: BusinessInput.choice,
+              required: true,
+              choices: {
+                'legacy': 'Bisheriger Standardnachweis',
+                'individual_minijob':
+                    'ELStAM für individuell besteuerten Minijob',
+              },
+            ),
+          );
+          initial['identity_scope'] =
+              details['identity_source_schema_version'] == 2
+              ? 'individual_minijob'
+              : 'legacy';
+        }
         sourceField(
           'profile',
           'profiles',
@@ -1711,6 +1781,12 @@ class _BusinessPayrollAccountsPageState
           saveLabel: 'Geprüften Lohnkontonachweis speichern',
           onSave: (values) async {
             await fresh(kind: kind);
+            if (values['identity_scope'] == 'individual_minijob' &&
+                !session.hasFeature('payroll_individual_minijob'))
+              throw const ApiException(
+                403,
+                'Die Freigabe für den individuellen Minijob fehlt.',
+              );
             if (session.pending(key)) {
               await session.repeatPayrollAccountCommand(employeeId);
               return;

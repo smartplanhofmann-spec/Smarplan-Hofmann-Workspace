@@ -1,0 +1,65 @@
+00:00 +0: loading /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart
+00:00 +0: real compulsory exempt and explicit migrated fixtures retain their own contracts
+00:01 +1: five concrete originals are required and incomplete declarations cannot calculate
+00:02 +2: actual accepted wider evidence and multiline Unicode notes remain unchanged
+00:03 +3: actual accepted blocked V11 evidence remains readable with no invented net
+00:03 +4: assessment retains exact original text but rejects malformed shapes and Unicode
+00:03 +4 -1: assessment retains exact original text but rejects malformed shapes and Unicode [E]
+  Expected: throws <Instance of 'ApiException'>
+    Actual: <Closure: () => Map<String, dynamic>>
+     Which: returned {
+                       'actual_health_insurance': 'statutory_family',
+                       'declaration_date': '2026-11-03',
+                       'domestic_commercial_employment_confirmed': true,
+                       'elstam_evidence_ref': {
+                         'content_hash': '83a88f711807eb8e5ae977d7323e6853f5a161fc04f5f9944f451b7dace86ce6',
+                         'id': 'c7cf7d35e33b49eb8fe6f1dfb20020d8',
+                         'revision': 1
+                       },
+                       'employee_id': '2781919b552d4afa9a9eb971e0c00605',
+                       'employment_evidence_ref': {
+                         'content_hash': '073cf9d4128912750b782401d1305d516004c646d36b6289619107e2595326b6',
+                         'id': '9f7ac685a4df49598ea47d07e2b681d8',
+                         'revision': 1
+                       },
+                       'health_evidence_ref': {
+                         'content_hash': 'd2e60142ea7731a2a5875b43e6677c5bcd3b003fb6b146ca55f0d46e72dabf65',
+                         'id': '9ab95e9b445347af9ef8201aeea2048f',
+                         'revision': 1
+                       },
+                       'income_evidence_ref': {
+                         'content_hash': '0915c9baa29c590ee26f7d3d0dd8cf8ded27244d635b6dfdece81daf73aa28f1',
+                         'id': '8da8c180379144898f82574000bd1194',
+                         'revision': 1
+                       },
+                       'income_review_complete': true,
+                       'no_foreign_insurance_confirmed': true,
+                       'no_other_relevant_income_confirmed': true,
+                       'no_other_special_cases_confirmed': true,
+                       'pension_evidence_ref': {
+                         'content_hash': 'a00dfe9dc716ff47be632f50803d7f513c3aa118da2249e15c89a471e2e509bd',
+                         'id': '96b733c031d84c588cddd5db1e5e741b',
+                         'revision': 1
+                       },
+                       'pension_status': 'compulsory',
+                       'schema_version': 1,
+                       'sole_employment_confirmed': true,
+                       'valid_from': '2026-12-31',
+                       'valid_to': '2026-12-31',
+                       'verification_note': 'Synthetic complete original\n'
+                         '\t😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀'
+                     }
+  
+  package:matcher                                           expect
+  package:flutter_test/src/widget_tester.dart 473:18        expect
+  test/business_payroll_individual_minijob_test.dart 270:7  main.<fn>
+  
+00:03 +4 -1: historical assessment and direct PAP amounts cannot be replaced or converted into the old wrapper
+00:03 +5 -1: identity v2 requires explicit selection and preserves actual insurance and ELStAM source
+00:03 +6 -1: only an explicitly blocked old individual case may change its contract
+00:03 +7 -1: lost migrated acceptance keeps original contract and references through fresh rights checks
+00:03 +8 -1: mobile minijob display identifies actual family insurance and explicit old-case reassessment
+00:12 +9 -1: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart: assessment retains exact original text but rejects malformed shapes and Unicode

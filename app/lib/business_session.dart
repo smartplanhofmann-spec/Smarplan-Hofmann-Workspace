@@ -2258,7 +2258,11 @@ class BusinessSession extends ChangeNotifier {
                 (operation?.body['rule_version'] ==
                         'de_2026_factor_taxfree_travel_month_v10' &&
                     operation?.body['source_contract_version'] == 2 &&
-                    hasFeature('payroll_factor_taxfree_travel'))) ||
+                    hasFeature('payroll_factor_taxfree_travel')) ||
+                (operation?.body['rule_version'] ==
+                        'de_2026_individual_minijob_month_v11' &&
+                    operation?.body['source_contract_version'] == 3 &&
+                    hasFeature('payroll_individual_minijob'))) ||
             operation?.body['employee_id'] != employeeId) {
           throw const ApiException(
             403,
@@ -2585,6 +2589,13 @@ class BusinessSession extends ChangeNotifier {
         }
       },
       requireRights: () {
+        if (_pending[key]?.body['accepted_scope'] ==
+                'commercial_minijob_individual_month' &&
+            !hasFeature('payroll_individual_minijob'))
+          throw const ApiException(
+            403,
+            'Die aktuelle Freigabe für den individuellen Minijob fehlt.',
+          );
         if (_pending[key]?.body['accepted_scope'] ==
                 'regular_standard_factor_taxfree_travel_month' &&
             !hasFeature('payroll_factor_taxfree_travel'))

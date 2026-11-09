@@ -39,6 +39,57 @@ class PayrollCalculationCasePlanView extends StatelessWidget {
       ListTile(dense: true, title: Text(title), subtitle: Text(value));
   @override
   Widget build(BuildContext context) {
+    if (plan['rule_version'] == individualMinijobRule) {
+      final assessment = businessMap(plan['individual_minijob_assessment']);
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          line(
+            'Individuell besteuerter Minijob',
+            '${plan['month']} · ${_money(plan['gross_minor'])}',
+          ),
+          line(
+            'Tatsächliche Krankenversicherung',
+            const {
+                  'statutory_family':
+                      'Beitragsfreie gesetzliche Familienversicherung',
+                  'statutory_mandatory': 'Gesetzlich pflichtversichert',
+                  'statutory_voluntary': 'Gesetzlich freiwillig versichert',
+                  'private': 'Privat versichert',
+                  'unknown': 'Noch nicht belegt',
+                }[plan['actual_health_insurance']] ??
+                'Noch nicht belegt',
+          ),
+          if (assessment['pension_status'] != null)
+            line(
+              'Belegter Rentenversicherungsstatus',
+              const {
+                    'exempt': 'Wirksam befreit',
+                    'compulsory': 'Rentenversicherungspflichtig',
+                    'unknown': 'Noch nicht belegt',
+                  }[assessment['pension_status']] ??
+                  'Noch nicht belegt',
+            ),
+          if (assessment['declaration_date'] != null)
+            line(
+              'Persönliche Prüfung vom',
+              businessDate(assessment['declaration_date']),
+            ),
+          for (final row in businessItems(plan['employment_intervals']))
+            line(
+              'Belegter Beschäftigungszeitraum',
+              '${businessDate(row['start'])} – ${businessDate(row['end'])}',
+            ),
+          for (final blocker in businessItems(plan['blockers']))
+            Notice('${blocker['message']}', error: true),
+          Notice(
+            plan['can_calculate'] == false
+                ? 'Die Originalprüfung bleibt erhalten. Dieser Fall ist gesperrt und weist keinen berechneten Nettobetrag aus.'
+                : 'Die Originale belegen diese Person und diesen Monat. Die Berechnung erzeugt keine tatsächliche Auszahlung.',
+          ),
+        ],
+      );
+    }
     String interval(Map<String, dynamic> p) =>
         '${businessDate(p['start'])} – ${businessDate(p['end'])}';
     String earningDates(Map<String, dynamic> p) {
@@ -441,6 +492,9 @@ class _BusinessPayrollCalculationCasesPageState
   }) async {
     final opening = epoch;
     await fresh(write: true, forMonth: body['details']['month']);
+    if (body['rule_version'] == individualMinijobRule &&
+        !session.hasFeature(individualMinijobFeature))
+      _fail('Die Freigabe für den individuellen Minijob fehlt.', 403);
     if (body['rule_version'] == payrollFactorTaxfreeTravelRule &&
         !session.hasFeature('payroll_factor_taxfree_travel'))
       _fail('Die aktuelle Freigabe für den Faktor-Reisefall fehlt.', 403);
@@ -569,6 +623,10 @@ class _BusinessPayrollCalculationCasesPageState
     if (mounted && readable) await load();
   });
   Future<void> edit([Map<String, dynamic>? previous]) async {
+    if (previous?['rule_version'] == individualMinijobRule) {
+      await editIndividualMinijob(previous);
+      return;
+    }
     if (previous?['rule_version'] == payrollFactorTaxfreeTravelRule) {
       await editFactorTravel(previous);
       return;
@@ -1154,6 +1212,246 @@ class _BusinessPayrollCalculationCasesPageState
     }
   }
 
+  Future<void> editIndividualMinijob([Map<String, dynamic>? previous]) async {
+    if (busy ||
+        pending != null ||
+        !session.hasFeature(individualMinijobFeature))
+      return;
+    final opening = epoch;
+    try {
+      final page = await fresh(write: true);
+      if (!mounted ||
+          !readable ||
+          opening != epoch ||
+          !session.hasFeature(individualMinijobFeature))
+        return;
+      final details = businessMap(previous?['details']);
+      final assessment = businessMap(details['individual_minijob_assessment']);
+      final dates = payrollFactDates(month);
+      final converted =
+          previous != null && previous['rule_version'] != individualMinijobRule;
+      final values = await choose(
+        converted
+            ? 'Gesperrten Altfall ausdrücklich neu prüfen'
+            : previous == null
+            ? 'Individuellen Minijob belegt prüfen'
+            : 'Individuellen Minijob berichtigen',
+        [
+          BusinessField(
+            'period_case_id',
+            'Bestätigter Basisfall des vollen Monats',
+            type: BusinessInput.choice,
+            required: true,
+            initial: details['period_case_ref']?['id'],
+            choices: choices(
+              businessItems(page['facts'])
+                  .where(
+                    (v) =>
+                        v['kind'] == 'period_case' &&
+                        v['status'] == 'active' &&
+                        v['details']['month'] == month,
+                  )
+                  .toList(),
+              (v) => '${v['details']['month']} · Fassung ${v['revision']}',
+            ),
+          ),
+          BusinessField(
+            'employment_terms_id',
+            'Eine belegte Beschäftigungsepisode',
+            type: BusinessInput.choice,
+            required: true,
+            initial:
+                (details['employment_terms_refs'] as List?)?.firstOrNull?['id'],
+            choices: choices(
+              businessItems(page['facts'])
+                  .where(
+                    (v) =>
+                        v['kind'] == 'employment_terms' &&
+                        v['status'] == 'active',
+                  )
+                  .toList(),
+              (v) =>
+                  '${businessDate(v['effective_from'])} – ${businessDate(v['effective_to'])} · Fassung ${v['revision']}',
+            ),
+          ),
+          BusinessField(
+            'profile_id',
+            'Tatsächliches individuelles Minijobprofil',
+            type: BusinessInput.choice,
+            required: true,
+            initial: (details['profile_refs'] as List?)?.firstOrNull?['id'],
+            choices: choices(
+              businessItems(page['profiles'])
+                  .where(
+                    (v) =>
+                        v['profile']?['employment_kind'] == 'minijob' &&
+                        v['profile']?['minijob_tax'] == 'individual' &&
+                        v['profile']?['health_insurance'] == 'statutory_other',
+                  )
+                  .toList(),
+              (v) =>
+                  '${businessDate(v['profile']['effective_from'])} · Fassung ${v['revision']}',
+            ),
+          ),
+          BusinessField(
+            'identity_id',
+            'ELStAM-Identitätsnachweis für individuellen Minijob',
+            type: BusinessInput.choice,
+            required: true,
+            initial: (details['identity_refs'] as List?)?.firstOrNull?['id'],
+            choices: choices(
+              businessItems(page['identities'])
+                  .where(
+                    (v) => v['details']?['identity_source_schema_version'] == 2,
+                  )
+                  .toList(),
+              (v) =>
+                  '${businessDate(v['details']['valid_from'])} · Fassung ${v['revision']}',
+            ),
+          ),
+          BusinessField(
+            'valid_from',
+            'Prüfung gilt ab',
+            type: BusinessInput.date,
+            required: true,
+            initial: assessment['valid_from'] ?? dates.first,
+          ),
+          BusinessField(
+            'valid_to',
+            'Prüfung gilt bis',
+            type: BusinessInput.date,
+            required: true,
+            initial: assessment['valid_to'] ?? dates.last,
+          ),
+          BusinessField(
+            'declaration_date',
+            'Tatsächliches Datum der persönlichen Prüfung',
+            type: BusinessInput.date,
+            required: true,
+            initial: assessment['declaration_date'],
+          ),
+          BusinessField(
+            'actual_health_insurance',
+            'Tatsächliche Krankenversicherung',
+            type: BusinessInput.choice,
+            required: true,
+            initial: assessment['actual_health_insurance'],
+            choices: const {
+              'statutory_family':
+                  'Beitragsfreie gesetzliche Familienversicherung',
+              'statutory_mandatory':
+                  'Gesetzlich pflichtversichert · gesperrter Umfang',
+              'statutory_voluntary':
+                  'Gesetzlich freiwillig versichert · gesperrter Umfang',
+              'private': 'Privat versichert · gesperrter Umfang',
+              'unknown': 'Noch nicht belegt · gesperrter Umfang',
+            },
+          ),
+          BusinessField(
+            'pension_status',
+            'Belegter Rentenversicherungsstatus',
+            type: BusinessInput.choice,
+            required: true,
+            initial: assessment['pension_status'],
+            choices: const {
+              'compulsory': 'Rentenversicherungspflichtig',
+              'exempt': 'Wirksam von der RV-Pflicht befreit',
+              'unknown': 'Noch nicht belegt · gesperrter Umfang',
+            },
+          ),
+          for (final entry in individualMinijobConfirmations.entries)
+            BusinessField(
+              entry.key,
+              entry.value,
+              type: BusinessInput.toggle,
+              initial: assessment[entry.key] == true,
+            ),
+          for (final entry in individualMinijobEvidence.entries)
+            files(
+              page,
+              '${entry.key}_id',
+              entry.value,
+              multiple: false,
+              initial: assessment[entry.key]?['id'],
+            ),
+          files(
+            page,
+            'source_file_ids',
+            'Weitere geschützte Originale',
+            required: false,
+            initial: previous?['source_file_ids'],
+          ),
+          BusinessField(
+            'assessment_note',
+            'Persönliche Prüfung und Belegzuordnung',
+            required: true,
+            initial: assessment['verification_note'],
+          ),
+          BusinessField(
+            'verification_note',
+            'Prüfung des gesamten Minijobfalls',
+            required: true,
+            initial: details['verification_note'],
+          ),
+          if (previous != null)
+            const BusinessField(
+              'correction_reason',
+              'Ausdrücklicher Korrekturgrund',
+              required: true,
+            ),
+          BusinessField(
+            'confirmed',
+            converted
+                ? 'Ich beauftrage die ausdrückliche Neubeurteilung des gesperrten Altfalls; alle Originale bleiben erhalten.'
+                : 'Ich bestätige ausschließlich diesen belegten individuellen Minijobfall.',
+            type: BusinessInput.toggle,
+          ),
+        ],
+        saveLabel: 'Individuellen Minijob unverbindlich prüfen',
+      );
+      if (values == null || opening != epoch) return;
+      if (values['confirmed'] != true)
+        _fail('Die persönliche Prüfung ausdrücklich bestätigen.');
+      await fresh(write: true);
+      if (!mounted ||
+          !readable ||
+          opening != epoch ||
+          !session.hasFeature(individualMinijobFeature))
+        return;
+      final selectedFiles = <String>{
+        ...List<String>.from(values['source_file_ids'] as List? ?? []),
+        for (final key in individualMinijobEvidence.keys)
+          values['${key}_id'] as String,
+      };
+      final body = payrollCalculationCaseInput(employeeId, page, {
+        ...values,
+        'source_file_ids': selectedFiles.toList(),
+        'month': month,
+        'rule_version': individualMinijobRule,
+      }, previous: previous);
+      final result = payrollCalculationCasePreview(
+        await session.api.call(
+          session.path('/payroll/calculation-cases/preview'),
+          payrollCalculationCasePreviewInput(body),
+        ),
+        body,
+      );
+      if (!mounted || !readable || opening != epoch) return;
+      setState(() {
+        sources = page;
+        generation = session.generation;
+        preview = result;
+        previewBody = {...body, 'preview_hash': result['preview_hash']};
+        correction = previous == null ? null : _copy(previous);
+        selected = null;
+        history = [];
+      });
+      showBeginning();
+    } catch (e) {
+      if (mounted && readable && opening == epoch) failed(e);
+    }
+  }
+
   Future<void> confirm() async {
     if (preview == null || previewBody == null || !writable || pending != null)
       return;
@@ -1275,6 +1573,17 @@ class _BusinessPayrollCalculationCasesPageState
             plan: businessMap(value['plan']),
             sources: businessMap(value['sources']),
           ),
+          if (!historical &&
+              individualMinijobCanConvert(value) &&
+              writable &&
+              pending == null &&
+              session.hasFeature(individualMinijobFeature))
+            OutlinedButton(
+              onPressed: busy ? null : () => editIndividualMinijob(value),
+              child: const Text(
+                'Gesperrten Minijob ausdrücklich neu beurteilen',
+              ),
+            ),
           for (final file in businessItems(value['sources']['source_files']))
             TextButton(
               onPressed: busy
@@ -1414,6 +1723,14 @@ class _BusinessPayrollCalculationCasesPageState
                   onTap: busy ? null : () => act(() => inspect(old, old: true)),
                 ),
               if (sources != null) ...[
+                if (writable &&
+                    pending == null &&
+                    session.hasFeature(individualMinijobFeature))
+                  FilledButton.icon(
+                    onPressed: busy ? null : () => editIndividualMinijob(),
+                    icon: const Icon(Icons.fact_check_outlined),
+                    label: const Text('Individuellen Minijob belegt prüfen'),
+                  ),
                 if (writable && pending == null)
                   FilledButton.icon(
                     onPressed: busy ? null : () => edit(),

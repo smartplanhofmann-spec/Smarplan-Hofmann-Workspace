@@ -1,0 +1,13 @@
+00:00 +0: loading /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart
+00:00 +0: real compulsory exempt and explicit migrated fixtures retain their own contracts
+00:00 +1: five concrete originals are required and incomplete declarations cannot calculate
+00:01 +2: actual accepted wider evidence and multiline Unicode notes remain unchanged
+00:01 +3: actual accepted blocked V11 evidence remains readable with no invented net
+00:01 +4: assessment retains exact original text but rejects malformed shapes and Unicode
+00:01 +5: historical assessment and direct PAP amounts cannot be replaced or converted into the old wrapper
+00:01 +6: identity v2 requires explicit selection and preserves actual insurance and ELStAM source
+00:02 +7: only an explicitly blocked old individual case may change its contract
+00:02 +8: lost migrated acceptance keeps original contract and references through fresh rights checks
+00:02 +9: lost individual payroll acceptance retains exact original through renewed rights
+00:02 +10: mobile minijob display identifies actual family insurance and explicit old-case reassessment
+00:12 +11: All tests passed!

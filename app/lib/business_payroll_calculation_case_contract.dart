@@ -4,6 +4,8 @@ import 'api.dart';
 import 'business_payroll_facts.dart';
 import 'business_payroll_entitlement_contract.dart';
 import 'business_session.dart' show businessMap, businessItems;
+import 'business_payroll_individual_minijob.dart';
+export 'business_payroll_individual_minijob.dart';
 
 const payrollCalculationCaseRule = 'de_2026_segments_entitlements_v5';
 const payrollFactorTaxfreeTravelRule =
@@ -13,7 +15,8 @@ const payrollFactorTaxfreeTravelScope =
 bool payrollCalculationCaseRuleKnown(dynamic rule, dynamic contract) =>
     contract is int &&
     (rule == payrollCalculationCaseRule && contract == 1 ||
-        rule == payrollFactorTaxfreeTravelRule && contract == 2);
+        rule == payrollFactorTaxfreeTravelRule && contract == 2 ||
+        rule == individualMinijobRule && contract == 3);
 bool payrollFactorTravelBaseEligible(dynamic raw) {
   final value = businessMap(raw), plan = businessMap(value['plan']);
   final tax = plan['tax_periods'], social = plan['social_periods'];
@@ -127,6 +130,8 @@ Map<String, dynamic> payrollCalculationCasePlan(
   String employeeId,
   String month,
 ) {
+  if (raw is Map && raw['rule_version'] == individualMinijobRule)
+    return individualMinijobPlan(raw, employeeId, month);
   final v = businessMap(raw);
   payrollFactMonth(month);
   if (v['schema_version'] != 1 ||
@@ -172,6 +177,8 @@ Map<String, dynamic> payrollCalculationCaseRecord(
   dynamic raw,
   String employeeId,
 ) {
+  if (raw is Map && raw['rule_version'] == individualMinijobRule)
+    return individualMinijobRecord(raw, employeeId);
   final v = businessMap(raw),
       d = businessMap(v['details']),
       s = businessMap(v['sources']);
@@ -485,6 +492,13 @@ Map<String, dynamic> payrollCalculationCaseInput(
       values['rule_version'] ??
       previous?['rule_version'] ??
       payrollCalculationCaseRule;
+  if (rule == individualMinijobRule)
+    return individualMinijobInput(
+      employeeId,
+      sources,
+      values,
+      previous: previous,
+    );
   if (![
         payrollCalculationCaseRule,
         payrollFactorTaxfreeTravelRule,
@@ -826,6 +840,8 @@ Map<String, dynamic> payrollCalculationCasePreview(
   dynamic raw,
   Map<String, dynamic> body,
 ) {
+  if (body['rule_version'] == individualMinijobRule)
+    return individualMinijobPreview(raw, body);
   final v = businessMap(raw),
       s = businessMap(v['source_snapshot']),
       d = businessMap(body['details']);
@@ -889,7 +905,12 @@ Map<String, dynamic> Function(dynamic) payrollCalculationCaseValidator(
         v['rule_version'] != b['rule_version'] ||
         v['source_contract_version'] != b['source_contract_version'] ||
         !payrollFactsSame(v['details'], b['details']) ||
-        !payrollFactsSame(v['source_file_ids'], b['source_file_ids']) ||
+        !payrollFactsSame(
+          v['source_file_ids'],
+          b['rule_version'] == individualMinijobRule
+              ? (List<String>.from(b['source_file_ids'])..sort())
+              : b['source_file_ids'],
+        ) ||
         v['preview_hash'] != b['preview_hash'] ||
         v['correction_reason'] != (b['correction_reason'] ?? ''))
       _fail(
@@ -927,6 +948,8 @@ Map<String, dynamic> payrollCalculationCaseRunInput(
 }
 
 Map<String, dynamic> payrollCompositeCalculation(dynamic raw) {
+  if (raw is Map && raw['rule_version'] == individualMinijobRule)
+    return individualMinijobCalculation(raw);
   final v = businessMap(raw), d = businessMap(v['period_details']);
   if (!payrollCalculationCaseRuleKnown(
         v['rule_version'],
@@ -1188,6 +1211,10 @@ Map<String, dynamic> payrollCompositeSource(
   dynamic raw,
   Map<String, dynamic> input,
 ) {
+  if (raw is Map &&
+      raw['calculation'] is Map &&
+      raw['calculation']['rule_version'] == individualMinijobRule)
+    return individualMinijobSource(raw, input);
   final v = businessMap(raw),
       s = businessMap(v['source']),
       c = payrollCompositeCalculation(v['calculation']),

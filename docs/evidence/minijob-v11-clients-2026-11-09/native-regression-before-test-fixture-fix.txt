@@ -1,0 +1,105 @@
+00:00 +0: loading /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart
+00:00 +0: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart: real compulsory exempt and explicit migrated fixtures retain their own contracts
+00:01 +1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart: five concrete originals are required and incomplete declarations cannot calculate
+00:01 +2: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart: actual accepted wider evidence and multiline Unicode notes remain unchanged
+00:01 +3: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart: actual accepted blocked V11 evidence remains readable with no invented net
+00:01 +4: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart: assessment retains exact original text but rejects malformed shapes and Unicode
+00:01 +4 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_accounts_test.dart: employee top-ups remain signed exact cents; missing amounts are never inferred
+00:01 +5 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_accounts_test.dart: identity detail builder binds profile revision and preserves unknown employment end
+00:02 +5 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart: assessment retains exact original text but rejects malformed shapes and Unicode [E]
+  Expected: throws <Instance of 'ApiException'>
+    Actual: <Closure: () => Map<String, dynamic>>
+     Which: returned {
+                       'actual_health_insurance': 'statutory_family',
+                       'declaration_date': '2026-11-03',
+                       'domestic_commercial_employment_confirmed': true,
+                       'elstam_evidence_ref': {
+                         'content_hash': '83a88f711807eb8e5ae977d7323e6853f5a161fc04f5f9944f451b7dace86ce6',
+                         'id': 'c7cf7d35e33b49eb8fe6f1dfb20020d8',
+                         'revision': 1
+                       },
+                       'employee_id': '2781919b552d4afa9a9eb971e0c00605',
+                       'employment_evidence_ref': {
+                         'content_hash': '073cf9d4128912750b782401d1305d516004c646d36b6289619107e2595326b6',
+                         'id': '9f7ac685a4df49598ea47d07e2b681d8',
+                         'revision': 1
+                       },
+                       'health_evidence_ref': {
+                         'content_hash': 'd2e60142ea7731a2a5875b43e6677c5bcd3b003fb6b146ca55f0d46e72dabf65',
+                         'id': '9ab95e9b445347af9ef8201aeea2048f',
+                         'revision': 1
+                       },
+                       'income_evidence_ref': {
+                         'content_hash': '0915c9baa29c590ee26f7d3d0dd8cf8ded27244d635b6dfdece81daf73aa28f1',
+                         'id': '8da8c180379144898f82574000bd1194',
+                         'revision': 1
+                       },
+                       'income_review_complete': true,
+                       'no_foreign_insurance_confirmed': true,
+                       'no_other_relevant_income_confirmed': true,
+                       'no_other_special_cases_confirmed': true,
+                       'pension_evidence_ref': {
+                         'content_hash': 'a00dfe9dc716ff47be632f50803d7f513c3aa118da2249e15c89a471e2e509bd',
+                         'id': '96b733c031d84c588cddd5db1e5e741b',
+                         'revision': 1
+                       },
+                       'pension_status': 'compulsory',
+                       'schema_version': 1,
+                       'sole_employment_confirmed': true,
+                       'valid_from': '2026-01-01',
+                       'valid_to': '2026-01-01',
+                       'verification_note': 'Synthetic complete original\n'
+                         '\t😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀'
+                     }
+  
+  package:matcher                                           expect
+  package:flutter_test/src/widget_tester.dart 473:18        expect
+  test/business_payroll_individual_minijob_test.dart 283:7  main.<fn>
+  
+00:02 +6 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart: historical assessment and direct PAP amounts cannot be replaced or converted into the old wrapper
+00:02 +7 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart: historical assessment and direct PAP amounts cannot be replaced or converted into the old wrapper
+00:02 +8 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_accounts_test.dart: account receipts bind evidence, source revisions and immutable correction ancestry
+00:02 +9 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_accounts_test.dart: account receipts bind evidence, source revisions and immutable correction ancestry
+00:02 +10 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart: only an explicitly blocked old individual case may change its contract
+00:02 +11 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_accounts_test.dart: complete supported wage account and carryover remain separate from complete calendar and digital audit approval
+00:03 +12 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_accounts_test.dart: complete supported wage account and carryover remain separate from complete calendar and digital audit approval
+00:03 +13 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_accounts_test.dart: complete supported wage account and carryover remain separate from complete calendar and digital audit approval
+00:03 +14 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart: mobile minijob display identifies actual family insurance and explicit old-case reassessment
+00:03 +15 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart: mobile minijob display identifies actual family insurance and explicit old-case reassessment
+00:03 +16 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart: mobile minijob display identifies actual family insurance and explicit old-case reassessment
+00:21 +17 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart: mobile minijob display identifies actual family insurance and explicit old-case reassessment
+00:21 +18 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_accounts_test.dart: own account view cannot write and is removed on own permission withdrawal
+00:26 +19 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_calculation_case_contract_test.dart: actual evidence policy binds ELStAM identity and separately evidenced membership
+00:27 +20 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_calculation_case_contract_test.dart: actual v5 typed case command and accepted plan preserve all original sources
+00:27 +21 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_calculation_case_contract_test.dart: actual v5 net includes taxable travel once and subtracts documented employee flat tax costs
+00:27 +22 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_calculation_case_contract_test.dart: foreign private source, replaced case, unsupported rules and altered accepted body fail
+00:28 +23 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_factor_travel_test.dart: real backend fixture preserves v10 source selection, payment proof and exact payroll amounts
+00:29 +24 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_factor_travel_test.dart: payment selection must bind the actual settlement and cannot select unapproved scope
+00:29 +25 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_factor_travel_test.dart: real factor correction preserves the old travel original and changes only the confirmed payroll source
+00:29 +26 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_factor_travel_test.dart: history rejects changed payment prefix, cash proof, factor, rule or net additions
+00:29 +27 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_factor_travel_test.dart: frozen plan total must equal all original travel payment proofs
+00:29 +28 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_factor_travel_test.dart: retired payment versions remain explicitly bound in the complete source selection
+00:29 +29 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_factor_travel_test.dart: frozen plan factor must equal the original selected profile factor
+00:29 +30 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_factor_travel_test.dart: calculation factor must equal its frozen plan factor
+00:30 +31 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_factor_travel_test.dart: accepted v10 reply loss retries the exact original only after current feature and employee checks
+00:30 +32 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_factor_travel_test.dart: accepted payroll run retains the same payment references across feature loss and exact retry
+00:30 +33 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:39 +34 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:39 +35 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:41 +36 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:45 +37 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_factor_travel_test.dart: explicit factor-travel form sends exact chosen original references for preview only
+00:48 +38 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+00:48 +39 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+00:54 +40 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: late private source error remains cleared after background
+01:00 +41 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: late inspect response cannot repopulate a hidden private page
+01:00 +42 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: background clears an open editor containing private original details
+01:07 +43 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: month switch requests the new month and clears selected original and plan
+01:10 +44 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: original callback receives the exact selected historical file
+01:12 +45 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: flat tax recording remains an explicit new instruction on correction
+01:18 +46 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: late preview after background cannot restore editor or submit a command
+01:25 +47 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: pending original blocks month change and new calculation-case actions
+01:26 +48 -1: /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_calculation_cases_review_test.dart: revoked read right prevents original opening after a visible selection
+01:27 +49 -1: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-individual-minijob-clients-20261109/app/test/business_payroll_individual_minijob_test.dart: assessment retains exact original text but rejects malformed shapes and Unicode

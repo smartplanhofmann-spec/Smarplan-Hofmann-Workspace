@@ -16,4 +16,6 @@ Erster Browser-Nachweis gegen die echte lokale Flask-/SQLite-Anwendung: Anmeldun
 
 Die erste Browser-Regression umfasst 42 Testdateien einschließlich der bisherigen v5-/v10- und Lohnkonto-Wege. Dreizehn gezielte neue Browserfälle sind grün. Zusätzlich zu der unveränderten Backendfixture werden zwei echte angenommene Grenzfälle durch `scripts/generate-individual-minijob-client-fixture.py` erzeugt: weiter reichender Gültigkeitszeitraum mit mehrzeiligem Unicode-Prüftext und ein wegen unvollständiger Einkommensprüfung gesperrter Fall. Es werden keine Quellhashes von Hand hergestellt.
 
+Die elf neuen nativen Fälle und die Analyse der sieben geänderten Dartdateien sind grün. Ein vorheriger Lauf hat alle 39 bestehenden Vergleichsfälle bestanden; sein einziger Fehler war ein inzwischen korrigiertes Negativtestdatum (ein gleiches Von-/Bis-Datum ist zulässig). Die früheren Fehlbelege bleiben erhalten.
+
 Nachweise: [evidence/minijob-v11-clients-2026-11-09](evidence/minijob-v11-clients-2026-11-09). Der abschließende gemeinsame Browser-/App-Lauf und die zusätzliche unveränderte Lohnlaufkorrektur werden vor Übergabe hier ergänzt.

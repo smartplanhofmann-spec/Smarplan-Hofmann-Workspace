@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "base_commit": "a7c1e0b34e92f623ed46c36d608958ee732f15c0",
+  "performed_on": "2026-11-09",
+  "synthetic_only": true,
+  "production_code_changed": false,
+  "live_actions": false,
+  "xml_source": "pinned_public_mirror_not_direct_official_download",
+  "xml_sha256": "63d8981646d139eba2f4dd990c13b43c4fb3883b402a5a40cddf253aa7aa96b4",
+  "sources": {
+    "backend/payroll_de_2026.py": "c1365355ab501f194f37ede7c4bb0ab2c2347a1252dfda97ae360708593a9789",
+    "backend/payroll_pap_2026.py": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071",
+    "backend/payroll_pap_factor_2026.py": "92c6dee2d41b5c8985b52d9d8e86831919c05b16bbb504f4bdfc7176be7d088c",
+    "backend/payroll_pap_periods_2026.py": "9307e599d25512db069bc42b8662ff0aa84b5436808745916bc97018b2675444",
+    "backend/payroll_periods_2026.py": "c3df3ae3ee93c756010290f382bf17050676a7bbc6a327082ea07b83e7b96890",
+    "backend/payroll_calculations_2026.py": "5133cc7b0a52471bcfd08c76960461799bd92e335ac7e5d141368dc69f14b553",
+    "backend/business_payroll_accounts.py": "232352ec2d16ac01ac23f0ad46a33d800b38016dbcc05c1b908597f122e65b6f",
+    "backend/testdata/payroll_factor_2026.json": "4333fef3da5b71c212f3a3d3cee65a5c64f39950700550702bf729790c0d26b1",
+    "backend/testdata/payroll_factor_periods_2026.json": "247e923d906e2c21e0a67a7662cd0b355802d290fdf0e54975f53d438d907567"
+  },
+  "observations": [
+    {
+      "case": "synthetic_full_month_minijob",
+      "gross_minor": 2500,
+      "tax_method": "flat_2_employer",
+      "scope": "commercial_minijob_flat_tax",
+      "complete": true,
+      "net_minor": -380,
+      "blockers": []
+    },
+    {
+      "case": "synthetic_full_month_minijob",
+      "gross_minor": 2500,
+      "tax_method": "individual",
+      "scope": "unsupported",
+      "complete": false,
+      "net_minor": null,
+      "blockers": [
+        "minijob_individual_tax"
+      ]
+    },
+    {
+      "case": "synthetic_full_month_minijob",
+      "gross_minor": 15000,
+      "tax_method": "flat_2_employer",
+      "scope": "commercial_minijob_flat_tax",
+      "complete": true,
+      "net_minor": 13995,
+      "blockers": []
+    },
+    {
+      "case": "synthetic_full_month_minijob",
+      "gross_minor": 15000,
+      "tax_method": "individual",
+      "scope": "unsupported",
+      "complete": false,
+      "net_minor": null,
+      "blockers": [
+        "minijob_individual_tax"
+      ]
+    },
+    {
+      "case": "synthetic_full_month_minijob",
+      "gross_minor": 60300,
+      "tax_method": "flat_2_employer",
+      "scope": "commercial_minijob_flat_tax",
+      "complete": true,
+      "net_minor": 58129,
+      "blockers": []
+    },
+    {
+      "case": "synthetic_full_month_minijob",
+      "gross_minor": 60300,
+      "tax_method": "individual",
+      "scope": "unsupported",
+      "complete": false,
+      "net_minor": null,
+      "blockers": [
+        "minijob_individual_tax"
+      ]
+    },
+    {
+      "case": "synthetic_partial_month_minijob_individual",
+      "complete": false,
+      "net_minor": null,
+      "blockers": [
+        "minijob_individual_tax"
+      ]
+    },
+    {
+      "case": "synthetic_factor_with_only_tax_free_external_travel_source3",
+      "complete": false,
+      "net_minor": null,
+      "blockers": [
+        "special_case:tax_factor"
+      ]
+    },
+    {
+      "case": "same_synthetic_factor_without_travel_source2",
+      "complete": true,
+      "gross_minor": 500000,
+      "individual_wage_tax_minor": 58908,
+      "employee_social_total_minor": 108750,
+      "net_minor": 332342,
+      "blockers": []
+    }
+  ]
+}

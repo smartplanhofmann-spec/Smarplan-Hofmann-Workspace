@@ -17,7 +17,7 @@ from business_payroll_facts import PayrollFacts,ref,references,reference,file_id
 from payroll_calculations_2026 import CALCULATION_RULE_VERSION,SOURCE_CONTRACT_VERSION,build_calculation_plan,EVENT_FIELDS
 from payroll_travel_tax_2026 import calculate_flat_travel_tax,SIMPLIFIED_RATES,_filing_period
 
-FEATURES=('payroll_calculation_cases',)
+FEATURES=('payroll_calculation_cases','payroll_factor_taxfree_travel')
 TABLES=('business_payroll_calculation_case_events','business_payroll_calculation_case_requests')
 KINDS=('calculation_case','travel_tax_policy')
 POLICY_RULE_VERSION='de_2026_travel_tax_policy_v1'
@@ -69,6 +69,7 @@ def normalize_details(kind,value):
     if kind!='calculation_case':raise Problem(400,'Unbekannte Gesamtfallart.')
     fields=('month','period_case_ref','employment_terms_refs','profile_refs','identity_refs','segment_events','thirty_day_rule',
         'entitlement_case_refs','travel_settlement_refs','flat_tax_decision','verification_note')
+    fields=fields+(('travel_payment_refs',) if 'travel_payment_refs' in value else ())
     _shape(value,fields,fields);dates=month_days(value['month'])
     if value['thirty_day_rule'] not in (None,'actual_days_capped_per_claim'):
         raise Problem(400,'Unbekannte ausdrücklich belegte 30-Tage-Vertragsregel.')
@@ -100,7 +101,8 @@ def normalize_details(kind,value):
         if decision['tax_certificate_issued_on'] is not None:
             from payroll_de_2026 import day
             day(decision['tax_certificate_issued_on'])
-    return dict(month=value['month'],period_case_ref=ref(value['period_case_ref']),employment_terms_refs=references(value['employment_terms_refs']),
+    extra=dict(travel_payment_refs=references(value['travel_payment_refs'])) if 'travel_payment_refs' in value else {}
+    return dict(extra,month=value['month'],period_case_ref=ref(value['period_case_ref']),employment_terms_refs=references(value['employment_terms_refs']),
         profile_refs=references(value['profile_refs']),identity_refs=references(value['identity_refs']),segment_events=events,
         thirty_day_rule=value['thirty_day_rule'],entitlement_case_refs=references(value['entitlement_case_refs'],minimum=0),
         travel_settlement_refs=references(value['travel_settlement_refs'],minimum=0),flat_tax_decision=decision,
@@ -177,7 +179,14 @@ class PayrollCalculationCases(PayrollFacts):
             result=self.facts.sources(fresh,dict(employee_id=employee['id']))
             # Factor periods have their own v9 running-pay rule. They must not
             # be offered to the historical v5 claims/travel composition rule.
+            factor_facts=[item for item in result['facts'] if item['kind']=='period_case' and item['plan']['rule_version']=='de_2026_standard_factor_period_v9']
             result['facts']=[item for item in result['facts'] if item['kind']!='period_case' or item['plan']['rule_version']=='de_2026_periods_pap_v4']
+            from payroll_factor_taxfree_sources import payment_choices
+            try: payments=payment_choices(self.office,fresh,employee['id'])
+            except Problem as error:
+                if error.status!=403:raise
+                payments=[]
+            result.update(factor_period_facts=factor_facts,travel_payment_proofs=payments)
             result.update(month=query['month'],calculation_cases=self._all(employee['id']),travel_tax_policies=self._all(None),
                 entitlements=PayrollEntitlements(self.office)._all(employee['id']),travel_settlements=TravelAllowances(self.office)._all('settlement',employee['id']))
             return result
@@ -214,12 +223,15 @@ class PayrollCalculationCases(PayrollFacts):
         from payroll_travel_recording import require_uniform_recorded_policy
         require_uniform_recorded_policy(self.office,details)
 
-    def _snapshot(self,employee,kind,details,ids,*,fresh=True,planned_on=None):
+    def _snapshot(self,employee,kind,details,ids,*,fresh=True,planned_on=None,rule_version=None,source_contract_version=1,actor=None):
         if kind=='travel_tax_policy':
             if fresh:self._policy_uniform(details)
             return dict(schema_version=1,policy=details,source_files=self._files(None,ids,fresh=fresh))
+        from payroll_factor_taxfree_travel_2026 import RULE_VERSION as FACTOR_TRAVEL_RULE
+        factor_travel=rule_version==FACTOR_TRAVEL_RULE
         employee_id=employee['id'];base=self.facts._fact_ref(employee_id,details['period_case_ref'],'period_case',fresh=fresh)
-        if base['plan']['rule_version']!='de_2026_periods_pap_v4':
+        expected_base='de_2026_standard_factor_period_v9' if factor_travel else 'de_2026_periods_pap_v4'
+        if base['plan']['rule_version']!=expected_base:
             raise Problem(400,'Dieser Faktor-Monatsfall wird direkt als belegter Periodenlohn abgerechnet. Ansprüche, Reisen und Einmalbezüge benötigen ihren eigenen Faktor-Regelzweig.')
         if base['details']['month']!=details['month']:raise Problem(400,'P2-Basisfall gehört zu einem anderen Monat.')
         if fresh:
@@ -266,12 +278,23 @@ class PayrollCalculationCases(PayrollFacts):
         from travel_payroll_sources import travel_payroll_source
         from business_travel_allowances import TravelAllowances
         travel=[]
+        used_payments=set()
         for value in details['travel_settlement_refs']:
             if fresh and reference(TravelAllowances(self.office)._get('settlement',value['id']))!=value:
                 raise Problem(409,'Für neue Berechnung die aktuelle tatsächliche Reiseabrechnung binden.')
-            adapter=travel_payroll_source(self.office,None,value,details['month'])
+            if factor_travel:
+                from payroll_factor_taxfree_sources import paid_taxfree_source
+                selected=[]
+                for payment_ref in details['travel_payment_refs']:
+                    payment=TravelAllowances(self.office)._get('payment',payment_ref['id'],payment_ref['revision'])
+                    if payment['details']['settlement_ref']['id']==value['id']:
+                        selected.append(payment_ref);used_payments.add(payment_ref['id'])
+                adapter=paid_taxfree_source(self.office,actor,employee_id,value,selected,details['month'],fresh=fresh)
+            else:adapter=travel_payroll_source(self.office,None,value,details['month'])
             if adapter['employee_id']!=employee_id:raise Problem(404,'Reisequelle gehört nicht zu diesem Mitarbeiter.')
             travel.append(adapter)
+        if factor_travel and used_payments!={value['id'] for value in details['travel_payment_refs']}:
+            raise Problem(400,'Jede Zahlungsreferenz muss zu einer der ausgewählten Originalreisen gehören.')
         flat_sources=[value for value in travel if value['flat_taxable_payroll_minor']];flat=None
         decision=details['flat_tax_decision']
         if decision is not None:
@@ -312,7 +335,7 @@ class PayrollCalculationCases(PayrollFacts):
             args=dict(federal_state=p['federal_state'],church_method=p['church_method'],church_tax=member,employer_bears_tax=p['employer_bears_tax'],evidence=evidence)
             flat=dict(parameters=args,calculation=calculate_flat_travel_tax(evidence['eligible_limit_minor'],**args),
                 recording_context=dict(planned_recording_on=planned_on,actual_recorded=False),policy=policy,membership_identity=membership_record,source_files=files)
-        return dict(schema_version=1,source_contract_version=SOURCE_CONTRACT_VERSION,rule_version=CALCULATION_RULE_VERSION,
+        return dict(schema_version=1,source_contract_version=source_contract_version,rule_version=rule_version or CALCULATION_RULE_VERSION,
             employee_id=employee_id,month=details['month'],period_case=base,employment_terms=terms,profiles=profiles,identities=identities,
             segment_events=details['segment_events'],thirty_day_rule=details['thirty_day_rule'],entitlements=entitlements,
             travel_sources=travel,flat_travel_tax=flat,source_files=self._files(employee_id,ids,fresh=fresh))
@@ -324,7 +347,7 @@ class PayrollCalculationCases(PayrollFacts):
         with transaction(self.office):
             fresh,employee=self._access(actor,data['employee_id'])
             if (employee['revision'] if employee else None)!=data['employee_revision']:raise Problem(409,'Mitarbeiterrevision stimmt nicht mit dem tatsächlichen aktuellen Stamm überein.')
-            snapshot=self._snapshot(employee,kind,details,ids,planned_on=self.hr.now()[:10])
+            snapshot=self._snapshot(employee,kind,details,ids,planned_on=self.hr.now()[:10],rule_version=data['rule_version'],source_contract_version=data['source_contract_version'],actor=fresh)
             plan=self._plan(kind,snapshot)
             return dict(employee_id=data['employee_id'],kind=kind,source_snapshot=snapshot,source_hash=_sha(snapshot),plan=plan,
                 preview_hash=_sha(dict(source_snapshot=snapshot,plan=plan)),can_confirm=True,
@@ -332,15 +355,22 @@ class PayrollCalculationCases(PayrollFacts):
 
     @staticmethod
     def _versions(data):
-        expected=CALCULATION_RULE_VERSION if data['kind']=='calculation_case' else POLICY_RULE_VERSION
-        if data['rule_version']!=expected or type(data['source_contract_version']) is not int or data['source_contract_version']!=SOURCE_CONTRACT_VERSION:
+        from payroll_factor_taxfree_travel_2026 import RULE_VERSION as FACTOR_TRAVEL_RULE
+        is_new=data['kind']=='calculation_case' and data['rule_version']==FACTOR_TRAVEL_RULE
+        expected=FACTOR_TRAVEL_RULE if is_new else CALCULATION_RULE_VERSION if data['kind']=='calculation_case' else POLICY_RULE_VERSION
+        contract=2 if is_new else SOURCE_CONTRACT_VERSION
+        if data['kind']=='calculation_case' and ('travel_payment_refs' in data['details'])!=is_new:raise Problem(400,'Reisezahlungsnachweise gehören ausschließlich zum neuen Faktorvertrag.')
+        if data['rule_version']!=expected or type(data['source_contract_version']) is not int or data['source_contract_version']!=contract:
             raise Problem(400,'Regel und Quellenvertrag ausdrücklich in ihrer bekannten Version angeben.')
         if (data['kind']=='travel_tax_policy')!=(data['employee_id'] is None) or data['employee_id'] is None and data['employee_revision'] is not None:
             raise Problem(400,'Betriebliche Steuerentscheidung ohne Mitarbeiter; Gesamtfall mit tatsächlicher Person angeben.')
 
     @staticmethod
     def _plan(kind,snapshot):
-        return None if kind=='travel_tax_policy' else build_calculation_plan(snapshot,rule_version=snapshot['rule_version'],source_contract_version=snapshot['source_contract_version'])
+        if kind=='travel_tax_policy':return None
+        from payroll_factor_taxfree_travel_2026 import RULE_VERSION as FACTOR_TRAVEL_RULE,build_plan
+        builder=build_plan if snapshot['rule_version']==FACTOR_TRAVEL_RULE else build_calculation_plan
+        return builder(snapshot,rule_version=snapshot['rule_version'],source_contract_version=snapshot['source_contract_version'])
 
     def save(self,actor,data):
         required=('request_id','employee_id','employee_revision','kind','rule_version','source_contract_version','revision','status',
@@ -366,6 +396,8 @@ class PayrollCalculationCases(PayrollFacts):
                 if (employee['revision'] if employee else None)!=data['employee_revision']:raise Problem(409,'Mitarbeiter wurde geändert; neue Vorschau erforderlich.')
                 previous=self._get(data['id']) if data.get('id') else None
                 if previous and (previous['employee_id']!=data['employee_id'] or previous['kind']!=data['kind']):raise Problem(404,'Korrektur gehört nicht zu diesem Gesamtfall.')
+                if previous and (previous['rule_version']!=data['rule_version'] or previous['source_contract_version']!=data['source_contract_version']):
+                    raise Problem(400,'Eine Korrektur bleibt beim ursprünglichen Regel- und Quellenvertrag.')
                 if data['revision']!=(previous['revision'] if previous else 0):raise Problem(409,'Gesamtfall wurde inzwischen geändert.')
                 identity_key=_key(data['kind'],data['employee_id'],details)
                 existing=self.db.execute('SELECT id FROM business_payroll_calculation_case_events WHERE identity_key=?',(identity_key,)).fetchone()
@@ -376,7 +408,7 @@ class PayrollCalculationCases(PayrollFacts):
                         raise Problem(400,'Archivieren benötigt die unveränderte aktive Fassung.')
                     validate_case_sources(self.office,previous);snapshot,plan=previous['sources'],previous['plan']
                 else:
-                    snapshot=self._snapshot(employee,data['kind'],details,ids,planned_on=self.hr.now()[:10]);plan=self._plan(data['kind'],snapshot)
+                    snapshot=self._snapshot(employee,data['kind'],details,ids,planned_on=self.hr.now()[:10],rule_version=data['rule_version'],source_contract_version=data['source_contract_version'],actor=fresh);plan=self._plan(data['kind'],snapshot)
                     if _sha(dict(source_snapshot=snapshot,plan=plan))!=data['preview_hash']:raise Problem(409,'Tatsächliche Quellen oder Erfassungstag seit Vorschau geändert.')
                 start,end=_effective(data['kind'],details)
                 payload=dict(rule_version=data['rule_version'],source_contract_version=data['source_contract_version'],details=details,source_file_ids=ids,
@@ -405,7 +437,7 @@ class PayrollCalculationCases(PayrollFacts):
             if reference(record)!=value or record['status']!='active' or fresh and reference(self._get(value['id']))!=value:
                 raise Problem(409,'Aktive unveränderte Gesamtfallfassung erforderlich.')
             validate_case_sources(self.office,record)
-            if fresh and self._snapshot(employee,'calculation_case',record['details'],record['source_file_ids'],planned_on=self.hr.now()[:10])!=record['sources']:
+            if fresh and self._snapshot(employee,'calculation_case',record['details'],record['source_file_ids'],planned_on=self.hr.now()[:10],rule_version=record['rule_version'],source_contract_version=record['source_contract_version'],actor=actor)!=record['sources']:
                 raise Problem(409,'Gesamtfallquellen oder geplanter Steuererfassungstag haben sich geändert. Neue bestätigte Vorschau erforderlich.')
             return record
 
@@ -451,7 +483,7 @@ def validate_case_sources(office,value):
             employee=source['period_case']['sources']['preparation']['snapshot']['employee']
             if value['status']=='active' and employee['revision']!=command['employee_revision']:raise ValueError('Changed originally accepted employee revision')
             if source['flat_travel_tax'] is not None:planned=source['flat_travel_tax']['recording_context']['planned_recording_on']
-        expected=api._snapshot(employee,value['kind'],details,value['source_file_ids'],fresh=False,planned_on=planned)
+        expected=api._snapshot(employee,value['kind'],details,value['source_file_ids'],fresh=False,planned_on=planned,rule_version=value['rule_version'],source_contract_version=value['source_contract_version'])
         plan=api._plan(value['kind'],expected)
         if expected!=source or _sha(source)!=value['source_hash'] or plan!=value['plan'] or _sha(dict(source_snapshot=source,plan=plan))!=value['preview_hash']:
             raise ValueError('Calculation sources or historical arithmetic changed')

@@ -1,0 +1,91 @@
+{
+  "date": "2026-11-09",
+  "base_commit": "b3d980152d8e2a448414e3d896d7c75b73448ab1",
+  "rule_version": "de_2026_standard_factor_period_v9",
+  "rules_sha256": "f213696a86c1f44c52cadabf4b9a588ebf436c5d78675660acc4fbfe640ada9b",
+  "scope": "regular_standard_factor_period",
+  "independent_xml_vectors": 200,
+  "root_payroll_tests": {
+    "unique": 644,
+    "passed": 644,
+    "skipped": 0,
+    "seconds": 585.966,
+    "removed_duplicate_discovery_entries": 0
+  },
+  "new_domain_test_methods": 13,
+  "postgres": {
+    "new_factor": 3,
+    "existing_periods": 3,
+    "skipped": 0,
+    "actual_dump_restore": true,
+    "owned_container_removed": true
+  },
+  "node": {
+    "all": 879,
+    "passed": 879,
+    "skipped": 0,
+    "new": 5
+  },
+  "flutter": {
+    "payroll": 313,
+    "passed": 313,
+    "new": 7,
+    "analysis": "No issues found",
+    "widget_widths": [
+      390,
+      1200
+    ]
+  },
+  "packaging": {
+    "passed": 16
+  },
+  "browser": {
+    "workflows": [
+      "payroll-factor-periods",
+      "payroll-periods"
+    ],
+    "mfa": true,
+    "actual_http": true,
+    "namespace_sandbox_verified": true
+  },
+  "original_goal_unchanged": true,
+  "historical_kernels_unchanged": true,
+  "windows_source_proof": "windows-source-check.json",
+  "actual_windows_execution": false,
+  "remote_ci_for_this_change": "not_yet_started",
+  "production_deployment": false,
+  "official_software_approval": false,
+  "initial_failed_logs_retained": true,
+  "log_sha256": {
+    "browser-final.txt": "fd5c8d99ca5f817b925e770d56c85185a070c6d7cdeb3756debd29633c3145f3",
+    "browser-initial.txt": "fd5c8d99ca5f817b925e770d56c85185a070c6d7cdeb3756debd29633c3145f3",
+    "browser-legacy-periods.txt": "1749c0efa3c3da9a5f362e43ca9ca0e9100368e5e864944cd24fa685978256e6",
+    "domain-initial.txt": "2de42c9df829a0b280f1a93396f3f3dd07acfb5ddb3e843186b7178a305bb4a7",
+    "domain-second.txt": "cac6bffd974c12499908136a23ac30f4b971b9808a7d9aff2b721c32019c9c5c",
+    "domain-third.txt": "64a6bab911c46f86d6e8c045d22eafee8cadefa63f97bacbe2bb925b42de6650",
+    "fixture-generation-final.txt": "4f08302fb34648b5b2c6851a8a703bb8884d053fd0095e8aa430c51bf15ac466",
+    "fixture-generation.txt": "4f08302fb34648b5b2c6851a8a703bb8884d053fd0095e8aa430c51bf15ac466",
+    "flutter-analyze-final.txt": "bd8b6961dc738157a2ac62c0b7c98801fad14940d8e53e97d8f587cd520dbf7b",
+    "flutter-analyze-initial.txt": "bc44867405b006f6efe4d07c7ed1200584eae8b5b0912fc4f1568a3d985d7675",
+    "flutter-fourth.txt": "8a0366bb5ff8c1c90ca93a8d2f750e27dfa0816ff9dea6a9a2a67c525ff05921",
+    "flutter-initial.txt": "96d4328dd4c82b037cdd868920c4b45609a4e9ead9f0a83d8eb7ff92e97fac94",
+    "flutter-payroll-all.txt": "2f35472f548239e368713b9ce9d65bfbcc4f517826e6c469c0ef38e89b70e675",
+    "flutter-second.txt": "f9623b71c37e04535d19d3da6d29dac18332ed4083d06f88e39cb6f43ef6a1ae",
+    "flutter-third.txt": "bee8455cef5ddfbdb9c5c59078edc2c8a335c7759d1bfd929cbb024b1e40455f",
+    "node-all.txt": "a3701b6ea380af41813d2b4a1773680c9376ed173feda6b7dcbb9a85744490a9",
+    "node-fourth.txt": "e57e49c043c4a56f30cd41c64703c28d47e119eac9278900b3670fce51b7457b",
+    "node-initial.txt": "1fdcb482eee3ce07ba9eaacc73926226652ac8fa208a0f86bd59803d479dfe25",
+    "node-second.txt": "8a7730d963d9406490186567f028dafcf95353b46a40f24a34e5345849d1e441",
+    "node-third.txt": "338783987099744f626f28c6a44ebb79498f220f76a61ac4eee87ae7fcf078af",
+    "packaging.txt": "71acb632de138edf6949e14965b1388e36808fc6f3b9e227790f6982eae217e3",
+    "payroll-regression.txt": "ad47eda15471728591cc9e0f8c3e5215b473e92c57337edd4af21b5826335185",
+    "postgres-final.txt": "1c1f7a5642b744609bc74d68c82a0b628f3aa4e75c40058860a8fef1d99b7959",
+    "postgres-initial.txt": "f10dc86675b8404626a3b89e029097be838c71d1bc7d51d99d9787ba41adb6ea",
+    "postgres-legacy-periods.txt": "7bba96e721a2fd88eb0d8c611f5e41832ac7d26c205996770f24aa2c237bb3ce",
+    "windows-source-check.txt": "f5ddd905c7e7e3ae8eee5a29a9ddcf73d4a08cd93832561ca89f5bdbfa5ac162",
+    "workflow-initial.txt": "1205d4af80f7d88ee072905bdf91e63bb5fd0264b5c71b846ab03ed77a211d49",
+    "workflow-second.txt": "adb55eea57b353ab5c1e2c1ddf80c214427ad92ae9d2eea59fae76ca55acc274",
+    "workflow-third.txt": "2963e2c0609a8268f533f651069988968b676702de78037ebb53aada0801c09d",
+    "xml-oracle.txt": "26bc3ff872542b2efed1fb15ddd5f48beda7e30244611eba01c7991c18b699e2"
+  }
+}

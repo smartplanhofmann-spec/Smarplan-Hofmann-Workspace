@@ -83,8 +83,15 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    Der gemeinsame Kommunikationsverlauf ist mit abschließenden Kunden-/
    Filterkorrekturen als 2598c96 veröffentlicht. 1.632 Appfälle, 19 gezielte
    PDF-/HTTP-/Ladefälle, 874 Browsermodule und echte MFA-/PG-/Restorewege
-   sind getrennt belegt; [neue CI noch laufend](evidence/completion-2026-11-09/publication.json).
+   sind getrennt belegt; alle acht CI-Jobs und iPhone-Build173 bestehen
+   [inzwischen](evidence/payroll-factor-periods-2026-11-09/ci-baseline.json).
 5. Weitere konkret benannte Lohn-/EÜR- und Länder-/Regelfälle additiv entwickeln.
+   Der [belegte reguläre Faktor-Teilmonat](CRM_ERP_LOHN_FAKTOR_TEILMONATE_2026.md)
+   ist als neue v9-Regel mit beiden Clients und tatsächlicher PG-/Restore-/
+   Bank-/EÜR-Kette integriert, ohne Änderung der bisherigen Rechenkerne.
+   Nächster konkreter Fehler: alte Windows-/Linux-Quellmetadaten historischer
+   Abrechnungen sicher reproduzieren, ohne Originale umzuschreiben. Fälle mit Ansprüchen, Reisen, Übergangsbereich
+   oder Einmalbezügen bleiben in ihren eigenen noch auszuarbeitenden Zweigen.
    Der [reguläre Faktor-Vollmonat](CRM_ERP_LOHN_FAKTOR_2026.md) ist jetzt mit
    beiden Clients, tatsächlichem PG-Restore, Zahlungen/EÜR und unabhängigen
    XML-Werten integriert. Individuelle Minijobsteuer und weitere Versicherungs-/

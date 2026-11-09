@@ -5,26 +5,16 @@ Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
 Letzter vollständig grün geprüfter Produktcommit:
-`f747311a5c3561fbafc3e9a74095d480b089c9b6` (Faktor-Vollmonat mit Clients).
-Die neuen GitHub-Läufe [Development checks](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42529919023)
-und [iPhone-Prüfworkflow](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42529918991)
-sind inzwischen erfolgreich abgeschlossen: alle acht Development-Jobs und der
-unsignierte iPhone-Build 171 bestehen; signierter Upload bleibt übersprungen.
-[Aktuelle CI-/Artefaktnachweise](evidence/completion-2026-11-09/ci-baseline.json).
-Die neue CRM-Erstveröffentlichung b57f474 und ihre PDFium-Downloadfehler
-sind [gesondert erfasst](evidence/completion-2026-11-09/first-publication.json).
-Die abschließenden Kunden-/Filter- und Ladekorrekturen sind als
-`2598c9671f5158e9a85a7a1e4602408385b23e30` veröffentlicht und der Remote-Bezug
-ist bestätigt. Die neue [Development-CI](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42572643368)
-und der [unsignierte iPhone-Lauf](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42572643353)
-laufen noch; HTTPS ist bereits erfolgreich, die übrigen Jobs sind nicht als
-bestanden bestätigt. [Veröffentlichung](evidence/completion-2026-11-09/publication.json).
-Lokale Gesamtnachweise stehen unter
-[verification.json](evidence/completion-2026-11-09/verification.json).
-Der vorherige Lauf auf 3773a60
-bestand sechs Jobs; seine noch laufenden Business-/Online-Jobs wurden durch den
-neuen Branchstand automatisch abgebrochen. Er gilt nicht als vollständig grün.
-[Veröffentlichungsnachweis](evidence/payroll-factor-2026-11-08/publication.json).
+`2598c9671f5158e9a85a7a1e4602408385b23e30` (gemeinsamer Kommunikationsverlauf).
+Alle acht Development-Jobs und der unsignierte iPhone-Build173 bestehen jetzt;
+signierter Upload bleibt übersprungen. [Aktueller Nachweis](evidence/payroll-factor-periods-2026-11-09/ci-baseline.json).
+Die früheren Quellstände, PDFium-Downloadfehler der CRM-Erstveröffentlichung
+b57f474 und abgebrochene Vorgängerläufe bleiben in den historischen Nachweisen
+unter `evidence/completion-2026-11-09/` erhalten. Der Produktstand 2598c96 ist
+inzwischen vollständig grün: [Development](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42572643368),
+[iPhone unsigniert](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42572643353).
+Die folgende neue v9-Erweiterung ist damit noch nicht als remote geprüft
+oder auf dem Server installiert ausgewiesen.
 
 ## Ziel und fachlicher Umfang
 
@@ -70,6 +60,22 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
 ## Konkrete aktuelle Arbeit
 
+Der [belegte Faktor-Teilmonat](CRM_ERP_LOHN_FAKTOR_TEILMONATE_2026.md) ist als
+additive v9-Regel mit Quelle2 in Backend, Browser und nativer App integriert.
+200 unabhängige PAP-XML-Vektoren stimmen überein. Original/Korrektur,
+Mitarbeiterbeleg, Zahlung/EÜR, drei neue tatsächliche PG-/MFA-/Restore-/Bankfälle
+und die drei bisherigen Perioden-PG-Fälle bestehen. 313 native Lohnfälle,
+879 Browsermodule, beide tatsächlichen Perioden-Browserwege und 16 Paketfälle
+bestehen; App-Analyse ohne Befund. Alle 644 unterschiedlichen Python-Lohnfälle
+bestehen ohne Skip. Die Veröffentlichung wird gesondert abgeschlossen.
+
+Die historischen Kernmodule bleiben bytegleich. Neue v9-Quellmetadaten verwenden
+LF-normalisierte Dateihashes. Der Vergleich mit 146 verifizierten Quellen aus
+einem tatsächlichen Windows-Paket bestätigt dasselbe vollständige v9-Ergebnis.
+Er zeigt zugleich eine reale Restlücke: alte v8-Quellmetadaten unterscheiden
+sich bei Windows-/Linux-Zeilenenden. Historische Originale brauchen einen
+sicheren Folgeabgleich ohne Umschreibung ihrer Hashes oder Finanzdaten.
+
 1. **Wiederherstellung/Originalziel:** abgeschlossen und per Hash geprüft.
 2. **Browserregressionen:** Assistent, Zusatzfelder und Kundenbereich verwenden
    nach allgemeinen Seiten wieder eine ausdrückliche Projektwahl. Der Assistent
@@ -108,17 +114,12 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
 ## Weitere unabhängige Entwicklungsarbeit
 
-- Die neue vollständige CI auf dem aktuellen Quellstand nachprüfen und
-  tatsächliche neue Fehler beheben; auf f747311 inzwischen vollständig grün.
-- Vollständige CI des veröffentlichten Kunden-/Projektverlaufs 2598c96
-  nachprüfen. Erstveröffentlichung b57f474 ist erfolgt; Linux-
-  App- und Windowsjob stoppten beim externen PDFium-Download mit HTTP504,
-  nicht an einem fehlgeschlagenen Fachtest. HTTPS, Update und Simulator
-  bestehen dort bereits. Die letzten Kunden-/Filterkorrekturen haben einen
-  eigenen Gesamtlauf gestartet. Konkrete externe Kanalintegration und tatsächliche
-  Geräte-/Betriebsabnahme bleiben gesonderte Aufgaben.
+- Die neue Erweiterung vollständig veröffentlichen und ihre eigene Remote-CI
+  nachprüfen. 2598c96 bleibt bis dahin der letzte vollständig grüne Produktstand.
+- Historische plattformabhängige Lohnmetadaten reproduzierbar abgleichen,
+  damit ein Wechsel zwischen Windows und Linux alte Originale nicht sperrt.
 - Weitere benannte Standard-Lohnfälle additiv integrieren. Dazu gehören unter
-  anderem Faktor-Teilmonate/-Einmalbezüge, individuelle Minijobsteuer, Versicherungsvarianten,
+  anderem Faktor-Ansprüche/-Einmalbezüge und Midijobs mit Faktor, individuelle Minijobsteuer, Versicherungsvarianten,
   Minijob-Jahresgrenzen und weitere Leistungen/Sachbezüge. Der
   [Lohn-Lückenplan](CRM_ERP_LOHN_LUECKENPLAN_2026.md) bewahrt auch historische
   Ausgangspunkte; pro Fall den heutigen Code prüfen. Bestehende begrenzte

@@ -40,6 +40,7 @@ const _scopes = {
   'commercial_minijob_period_flat_tax',
   'regular_standard_monthly',
   'regular_standard_factor_monthly',
+  'regular_standard_factor_period',
   'regular_standard_period',
   'regular_transition_monthly',
   'regular_transition_period',

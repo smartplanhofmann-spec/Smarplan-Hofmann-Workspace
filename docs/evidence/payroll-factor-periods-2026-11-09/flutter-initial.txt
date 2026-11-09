@@ -1,0 +1,67 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart
+test/business_payroll_factor_periods_test.dart:57:21: Error: The operator '[]' isn't defined for the type 'Future<Map<String, dynamic>>'.
+ - 'Future' is from 'dart:async'.
+ - 'Map' is from 'dart:core'.
+Try correcting the operator to an existing operator, or defining a '[]' operator.
+    expect(statement['period_summary']['tax_periods'][0]['tax_days'], 17);
+                    ^
+test/business_payroll_factor_periods_test.dart:58:21: Error: The operator '[]' isn't defined for the type 'Future<Map<String, dynamic>>'.
+ - 'Future' is from 'dart:async'.
+ - 'Map' is from 'dart:core'.
+Try correcting the operator to an existing operator, or defining a '[]' operator.
+    expect(statement['calculation']['scope'], 'regular_standard_factor_period');
+                    ^
+00:00 +0 -1: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart [E]
+  Failed to load "/workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart":
+  Compilation failed for testPath=/workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: test/business_payroll_factor_periods_test.dart:57:21: Error: The operator '[]' isn't defined for the type 'Future<Map<String, dynamic>>'.
+   - 'Future' is from 'dart:async'.
+   - 'Map' is from 'dart:core'.
+  Try correcting the operator to an existing operator, or defining a '[]' operator.
+      expect(statement['period_summary']['tax_periods'][0]['tax_days'], 17);
+                      ^
+  test/business_payroll_factor_periods_test.dart:58:21: Error: The operator '[]' isn't defined for the type 'Future<Map<String, dynamic>>'.
+   - 'Future' is from 'dart:async'.
+   - 'Map' is from 'dart:core'.
+  Try correcting the operator to an existing operator, or defining a '[]' operator.
+      expect(statement['calculation']['scope'], 'regular_standard_factor_period');
+                      ^
+  .
+  Error: The Dart compiler exited unexpectedly.
+  package:flutter_tools/src/base/common.dart 34:3  throwToolExit
+  package:flutter_tools/src/compile.dart 1024:11   DefaultResidentCompiler._compile.<fn>
+  dart:async/zone_root.dart 48:47                  _rootRunUnary
+  dart:async/zone.dart 816:35                      _CustomZone.runUnary
+  dart:async/future_impl.dart 948:45               Future._propagateToListeners.handleValueCallback
+  dart:async/future_impl.dart 977:13               Future._propagateToListeners
+  dart:async/future_impl.dart 862:9                Future._propagateToListeners
+  dart:async/future_impl.dart 720:5                Future._completeWithValue
+  dart:async/future_impl.dart 804:7                Future._asyncCompleteWithValue.<fn>
+  dart:async/zone_root.dart 35:13                  _rootRun
+  dart:async/zone.dart 810:35                      _CustomZone.run
+  dart:async/zone.dart 702:7                       _CustomZone.runGuarded
+  dart:async/zone.dart 743:23                      _CustomZone.bindCallbackGuarded.<fn>
+  dart:async/schedule_microtask.dart 40:35         _microtaskLoop
+  dart:async/schedule_microtask.dart 49:5          _startMicrotaskLoop
+  dart:isolate-patch/isolate_patch.dart 127:13     _runPendingImmediateCallback
+  dart:isolate-patch/isolate_patch.dart 193:5      _RawReceivePort._handleMessage
+  
+00:00 +0 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_test.dart: factor is supplied as exact text and never rounded or inferred
+00:00 +1 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_test.dart: factor editor offers an explicit scope and preserves source profile
+00:00 +2 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_test.dart: factor calculation and source preview retain independently checked net
+00:00 +3 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_test.dart: factor correction receipt retains actual tax deltas and historical version
+00:00 +4 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_test.dart: employee factor statements contain own amounts without private tax profile
+00:00 +5 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: strict calendar and duration distinguish unknown from explicitly zero
+00:00 +6 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: employment binds original personnel date and exact agreement with no default method
+00:00 +7 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: every chronological work schedule day requires explicit time and region
+00:00 +8 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: actual backend preview binds source and separate tax social days without client gross input
+00:01 +9 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: approved absence binds person and claim dates without private free text
+00:01 +10 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: unsupported entitlement remains documentable but incomplete
+00:01 +11 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: fact receipts bind correction and void to exact historical original
+00:01 +12 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: all three period rules and one effective yearly correction use actual backend fixtures
+00:01 +13 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: accepted native fact replay keeps exact command through later sources and module pause
+00:01 +14 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: private mobile fact page opens details and clears them on fresh role withdrawal
+00:04 +15 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:05 +16 -1: Some tests failed.
+
+Failing tests:
+  /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart

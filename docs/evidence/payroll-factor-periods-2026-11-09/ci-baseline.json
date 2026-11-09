@@ -1,0 +1,117 @@
+{
+  "date": "2026-11-09",
+  "product_commit": "2598c9671f5158e9a85a7a1e4602408385b23e30",
+  "development_run": 42572643368,
+  "development_jobs": [
+    {
+      "id": 129013360530,
+      "name": "business-services",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129013360727,
+      "name": "flutter",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129013360740,
+      "name": "backend",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129013360756,
+      "name": "native-build (windows-latest, flutter build windows --release)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129013360764,
+      "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129013360831,
+      "name": "online-api",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129013360864,
+      "name": "update-flow",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129013360901,
+      "name": "https-setup",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "iphone_run": 42572643353,
+  "iphone_jobs": [
+    {
+      "id": 129013394415,
+      "name": "Online-Release ohne Apple-Zugang pruefen",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 129024703049,
+      "name": "Ausdruecklich angeforderten TestFlight-Upload ausfuehren",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13655925892,
+      "name": "Smartplan-Browser-Previews",
+      "size_in_bytes": 33644913,
+      "digest": "sha256:17815bb6577c92495c78d137c91616093fbc4d5e7b7cd301de1de286579f596b",
+      "expired": false
+    },
+    {
+      "id": 13654313566,
+      "name": "Smartplan-Office-Windows-Online-Pilot",
+      "size_in_bytes": 21843999,
+      "digest": "sha256:b82b25e1b5b126a08ae3ecbb3a31519e237beb986c357111bfee0598fd799b91",
+      "expired": false
+    },
+    {
+      "id": 13654235708,
+      "name": "Smartplan-Windows-Start-und-Sicherung",
+      "size_in_bytes": 15464989,
+      "digest": "sha256:56851207721052687559375cb24447dadddaf989e1d7f79229285dc17e4495e9",
+      "expired": false
+    },
+    {
+      "id": 13654127510,
+      "name": "Smartplan-UI-Previews",
+      "size_in_bytes": 1000542,
+      "digest": "sha256:cb9bb5944e71e9256a70399698106be6f43aae98fc53218867246018ad5d78e2",
+      "expired": false
+    },
+    {
+      "id": 13653854067,
+      "name": "Smartplan-Office-Windows",
+      "size_in_bytes": 36144725,
+      "digest": "sha256:081971fc52868dd82085d8850937784f2a64f687803ad4905d4dfdcb3514779d",
+      "expired": false
+    },
+    {
+      "id": 13655461587,
+      "name": "Smartplan-Office-iOS-UNSIGNED-173",
+      "size_in_bytes": 14686882,
+      "digest": "sha256:b140ea8a8a5c8d87d108968075bf717920250d4a67a6604c987d4c2639bcabdf",
+      "expired": false
+    }
+  ],
+  "unsigned_iphone_build": 173,
+  "new_server_installation": false,
+  "actual_windows_or_iphone_device_acceptance": false
+}

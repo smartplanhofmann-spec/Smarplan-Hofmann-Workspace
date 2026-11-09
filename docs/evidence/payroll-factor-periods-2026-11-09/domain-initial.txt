@@ -1,0 +1,49 @@
+test_full_month_matches_existing_factor_v8_without_changing_that_rule (test_payroll_factor_periods_2026.FactorPeriods2026.test_full_month_matches_existing_factor_v8_without_changing_that_rule) ... ok
+test_independent_xml_components_and_actual_period_totals (test_payroll_factor_periods_2026.FactorPeriods2026.test_independent_xml_components_and_actual_period_totals) ... ok
+test_missing_identity_zero_gross_and_profile_change_stay_blocked (test_payroll_factor_periods_2026.FactorPeriods2026.test_missing_identity_zero_gross_and_profile_change_stay_blocked) ... ok
+test_no_missing_factor_or_wrong_rule_can_be_guessed (test_payroll_factor_periods_2026.FactorPeriods2026.test_no_missing_factor_or_wrong_rule_can_be_guessed) ... ok
+test_only_the_explicit_factor_blocker_is_resolved (test_payroll_factor_periods_2026.FactorPeriods2026.test_only_the_explicit_factor_blocker_is_resolved) ... ERROR
+test_source_dates_quotient_original_factor_and_hashes_are_preserved (test_payroll_factor_periods_2026.FactorPeriods2026.test_source_dates_quotient_original_factor_and_hashes_are_preserved) ... ok
+test_midijob_partial_rule_and_source_drift (test_business_payroll_periods.PayrollPeriodWorkflowTests.test_midijob_partial_rule_and_source_drift) ... ok
+test_module_pause_returns_accepted_original_but_blocks_new_calculation (test_business_payroll_periods.PayrollPeriodWorkflowTests.test_module_pause_returns_accepted_original_but_blocks_new_calculation) ... ok
+test_partial_minijob_originals_ledger_and_private_sources (test_business_payroll_periods.PayrollPeriodWorkflowTests.test_partial_minijob_originals_ledger_and_private_sources) ... ok
+test_regular_partial_identity_covers_actual_days_and_old_run_survives_correction (test_business_payroll_periods.PayrollPeriodWorkflowTests.test_regular_partial_identity_covers_actual_days_and_old_run_survives_correction) ... ok
+test_actual_partial_net_and_remittance_reach_existing_euer_once (test_business_payroll_periods.PeriodCashFlowTests.test_actual_partial_net_and_remittance_reach_existing_euer_once) ... ok
+test_accepted_replay_after_employee_change_and_module_pause_is_original (test_business_payroll_facts.PayrollFactTests.test_accepted_replay_after_employee_change_and_module_pause_is_original) ... ok
+test_actual_period_plan_freezes_canonical_sources_and_no_cash (test_business_payroll_facts.PayrollFactTests.test_actual_period_plan_freezes_canonical_sources_and_no_cash) ... ok
+test_bound_preview_cannot_confirm_changed_sources_or_plan (test_business_payroll_facts.PayrollFactTests.test_bound_preview_cannot_confirm_changed_sources_or_plan) ... ok
+test_db_guards_and_exact_exportable_table_inventory (test_business_payroll_facts.PayrollFactTests.test_db_guards_and_exact_exportable_table_inventory) ... ok
+test_duplicate_identity_and_changed_nonce_payload_never_add_facts (test_business_payroll_facts.PayrollFactTests.test_duplicate_identity_and_changed_nonce_payload_never_add_facts) ... ok
+test_explicit_work_schedule_every_day_and_no_free_counts (test_business_payroll_facts.PayrollFactTests.test_explicit_work_schedule_every_day_and_no_free_counts) ... ok
+test_fact_correction_preserves_old_replay_and_stales_old_period (test_business_payroll_facts.PayrollFactTests.test_fact_correction_preserves_old_replay_and_stales_old_period) ... ok
+test_fresh_private_read_and_write_rights_before_replay (test_business_payroll_facts.PayrollFactTests.test_fresh_private_read_and_write_rights_before_replay) ... ok
+test_historical_rehashed_period_plan_is_rejected (test_business_payroll_facts.PayrollFactTests.test_historical_rehashed_period_plan_is_rejected) ... ok
+test_profile_correction_stales_new_calculation_not_old_fact_replay (test_business_payroll_facts.PayrollFactTests.test_profile_correction_stales_new_calculation_not_old_fact_replay) ... ok
+test_sources_no_private_self_fallback_and_capabilities_are_separate (test_business_payroll_facts.PayrollFactTests.test_sources_no_private_self_fallback_and_capabilities_are_separate) ... ok
+test_technical_receipt_cannot_point_to_different_revision_or_fingerprint (test_business_payroll_facts.PayrollFactTests.test_technical_receipt_cannot_point_to_different_revision_or_fingerprint) ... ok
+test_unknown_entitlement_is_visible_blocked_but_recordable (test_business_payroll_facts.PayrollFactTests.test_unknown_entitlement_is_visible_blocked_but_recordable) ... ok
+test_unknown_fields_wrong_identity_false_confirmation_are_atomic (test_business_payroll_facts.PayrollFactTests.test_unknown_fields_wrong_identity_false_confirmation_are_atomic) ... ok
+test_void_keeps_historical_replaced_original_and_exact_old_ack (test_business_payroll_facts.PayrollFactTests.test_void_keeps_historical_replaced_original_and_exact_old_ack) ... ok
+
+======================================================================
+ERROR: test_only_the_explicit_factor_blocker_is_resolved (test_payroll_factor_periods_2026.FactorPeriods2026.test_only_the_explicit_factor_blocker_is_resolved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_factor_periods_2026.py", line 55, in test_only_the_explicit_factor_blocker_is_resolved
+    result=calculate_factor_period_source(snapshot)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/payroll_factor_periods_2026.py", line 88, in calculate_factor_period_source
+    plan=build_factor_period_plan(snapshot)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/payroll_factor_periods_2026.py", line 69, in build_factor_period_plan
+    plan = build_period_plan(snapshot)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/payroll_periods_2026.py", line 145, in build_period_plan
+    if p!=profile['profile']:raise Problem(400,'Das Periodenprofil ist nicht normalisiert.')
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+core.Problem: (400, 'Das Periodenprofil ist nicht normalisiert.')
+
+----------------------------------------------------------------------
+Ran 26 tests in 13.700s
+
+FAILED (errors=1)

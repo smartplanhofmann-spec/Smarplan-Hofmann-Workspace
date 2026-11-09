@@ -1,5 +1,6 @@
 /* Private, source-bound employment facts and payroll period plans. */
 const ID = /^[a-f0-9]{32}$/, HASH = /^[a-f0-9]{64}$/;
+export const PAYROLL_FACTOR_PERIOD_RULE = 'de_2026_standard_factor_period_v9';
 const copy = value => JSON.parse(JSON.stringify(value));
 function ordered(value) {
   return Array.isArray(value) ? value.map(ordered) : value && typeof value === 'object'
@@ -238,6 +239,7 @@ export function payrollFactsUi(h) {
   }
   function planView(plan) {
     const sections = [];
+    if(plan.factor_parameters)sections.push(panel('Belegter ELStAM-Faktor',el('p',{},'Steuerklasse IV · '+String(plan.factor_parameters.tax_factor).replace('.',','))));
     for (const [name, heading] of [['employment_intervals', 'Beschäftigung'], ['earnings', 'Entgeltanspruch'], ['tax_periods', 'Steuerzeitraum'], ['social_periods', 'Sozialversicherung']]) {
       const items = plan[name];
       if (Array.isArray(items) && items.length) sections.push(panel(heading, ...items.map(item => detailValue(item))));
@@ -387,7 +389,7 @@ export function payrollFactsUi(h) {
 
 export function payrollPeriodCalculation(value) {
   const detail = value?.period_details, complete = value?.scope !== 'unsupported';
-  if (value?.rule_version !== 'de_2026_periods_pap_v4' || !detail || !HASH.test(detail.plan_hash || '') || !HASH.test(detail.source_snapshot_hash || '') ||
+  if (!['de_2026_periods_pap_v4',PAYROLL_FACTOR_PERIOD_RULE].includes(value?.rule_version) || !detail || !HASH.test(detail.plan_hash || '') || !HASH.test(detail.source_snapshot_hash || '') ||
       ['employment_intervals','earnings','tax_periods','social_periods'].some(key => !Array.isArray(detail[key]) || complete && !detail[key].length)) throw fail('Die Teilmonatsberechnung besitzt keine vollständige Quellen- und Periodenbindung.');
   payrollFactMonth(value.month);
   for (const group of ['employment_intervals','tax_periods','social_periods']) for (const period of detail[group]) {
@@ -411,12 +413,23 @@ export function payrollPeriodCalculation(value) {
     const t = detail.transition;
     if (!t || !['within_transition_area','below_or_at_lower_limit','above_upper_limit'].includes(t.regime) || !Number.isSafeInteger(t.regular_monthly_gross_minor) || t.regular_monthly_gross_minor < 60301 || t.regular_monthly_gross_minor > 200000 || !same(t.branch_bases, detail.branch_bases) || !same(t.ratio, detail.social_periods[0].transition_ratio)) throw fail('Die Teilmonatsprognose ist nicht an die belegte Entgeltquote gebunden.');
   }
+  if(value.rule_version===PAYROLL_FACTOR_PERIOD_RULE){
+    const p=detail.factor_parameters,factor=value.tax_parameters?.tax_factor,tax=detail.tax_calculation;
+    if(complete&&value.scope!=='regular_standard_factor_period'||value.tax_parameters?.tax_class!==4||typeof factor!=='string'||!/^0\.[0-9]{3}$/.test(factor)||!p||p.tax_factor!==factor||!same(p.profile_ref,payrollFactRef(p.profile_ref)))throw fail('Faktor, Profil und Periodenregel sind nicht eindeutig belegt.');
+    if(complete){
+      const period=detail.tax_periods[0],times=period.lzz===4?period.tax_days:1;
+      if(detail.tax_periods.length!==1||!tax||tax.factor!==factor||tax.version!=='bmf_2026_standard_factor_period_wrapper_v2'||value.pap_version!==tax.version||tax.provenance_sha256!==value.pap_provenance_sha256||!same(tax.inputs,period.inputs)||['LSTLZZ','SOLZLZZ','BK'].some(key=>!Number.isSafeInteger(tax.component?.[key])||tax.component[key]<0||tax.totals?.[key]!==tax.component[key]*times))throw fail('Die Faktor-Tagessteuer passt nicht zum belegten Zeitraum.');
+      if(!['0','8','9'].includes(value.tax_parameters?.church_tax_percent)||value.tax_parameters.church_assessment_minor!==tax.totals.BK||value.church_tax_minor!==Math.floor(tax.totals.BK*Number(value.tax_parameters.church_tax_percent)/100))throw fail('Die Kirchenlohnsteuer passt nicht zur belegten Faktor-Bemessungsgrundlage.');
+    }
+  }
   return detail;
 }
 export function payrollPeriodSource(value, input) {
   const source = value?.source, calculation = value?.calculation, fact = source?.period_case;
   payrollFactRecord(fact, input.employee_id, 'period_case');
   payrollPeriodCalculation(calculation);
+  if(calculation.rule_version!==fact.plan.rule_version||calculation.rule_version===PAYROLL_FACTOR_PERIOD_RULE&&
+      (source.profile?.profile?.tax_factor!==calculation.tax_parameters?.tax_factor||source.profile?.profile?.tax_class!==4||!same(fact.plan.factor_parameters,calculation.period_details.factor_parameters)||!same(calculation.period_details.factor_parameters.profile_ref,payrollFactRef(source.profile))))throw fail('Faktorberechnung und unverändertes Quellenprofil widersprechen sich.');
   if (source.source_schema_version !== 2 || !same(source.input, input) || !same(payrollFactRef(fact), input.period_case_ref) || source.employee_id !== input.employee_id || fact.status !== 'active' ||
       source.month !== fact.details.month || calculation.month !== source.month || !same(source.preparation, fact.sources.preparation) ||
       !fact.sources.profiles.some(profile => same(profile, source.profile) && same(payrollFactRef(profile), fact.plan.selected_profile_ref)) ||

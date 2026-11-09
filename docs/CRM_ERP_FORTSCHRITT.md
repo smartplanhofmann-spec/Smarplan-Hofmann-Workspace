@@ -2859,3 +2859,51 @@ HTTPS, die übrigen Jobs laufen noch. Es wird weder ein vollständig grüner
 neuer CI-Stand noch ein neues Windows-/iPhone-Artefakt oder eine tatsächliche
 Serverinstallation behauptet.
 [Aktueller Veröffentlichungsnachweis](evidence/completion-2026-11-09/publication.json).
+
+
+## 09.11.2026 – belegte Faktor-Teilmonate mit beiden Clients
+
+Der Gesamtauftrag ist erneut vollständig gegen Originalziel und aktuellen
+Testbranch abgeglichen. Der bisherige Produktstand 2598c96 besteht inzwischen
+alle acht Development-Jobs und den unsignierten iPhone-Build173. Die früheren
+PDFium-504-Protokolle bleiben historische Fehlversuche. Der Serverstand A93
+und tatsächliche Geräteabnahmen werden daraus nicht fortgeschrieben.
+
+Neue additive v9-Regel für einen belegten regulären Faktor-Teilmonat mit Quelle2:
+Originalprofil, Entgeltquote, tatsächliche Beschäftigungs-/Steuer-/SV-Tage,
+Teil-BBG und Tages-PAP bleiben nachvollziehbar. Backend, Browser und native
+App verbinden Vorschau, Original, Faktorkorrektur, Jahresansicht und reduzierten
+eigenen Mitarbeiterbeleg. Tatsächlich bestätigte Zahlungen, gesonderte
+Abführungen, Bankabgleich und EÜR sind mitgeprüft. Alte v4-Fakten bleiben unter
+ihrer ursprünglichen Sperre; die neue v9-Regel gelangt nicht versehentlich in
+die unveränderte v5-Anspruchs-/Reisezusammenrechnung. Keine Schemamigration.
+
+200 unabhängig aus der gepinnten PAP-XML in Java berechnete Vektoren stimmen.
+Alle 644 unterschiedlichen Python-Lohnfälle bestehen ohne Skip, darunter die
+13 neuen Kern-/Fachkettenmethoden. Drei neue tatsächliche PostgreSQL-/MFA-/
+HTTP-Fälle und die drei bisherigen Periodenfälle bestehen; echte Wiederherstellung,
+Konkurrenz zweier Verbindungen und Finanzprüffreigabe sind enthalten. Der
+ausschließlich dafür angelegte Container ist nach Abschluss entfernt.
+879 Browsermodule, 313 native Lohnfälle, App-Analyse und 16 Paketfälle bestehen.
+Beide tatsächlichen Perioden-Browserwege prüfen MFA/HTTP, zweimal verlorene
+Antwort, Originaldownload und 390-Pixel-Darstellung. Die zuerst fehlerhaften
+Testeinrichtungen bleiben mit ihren Rohprotokollen erhalten; bei den App-
+Widgetfällen waren die asynchrone Belegfunktion und eine noch nicht fertig
+aufgebaute Karte in der Testauswahl zu berichtigen.
+
+Ein tatsächlich heruntergeladenes Windows-Supportpaket auf 2598c96 ist gegen
+beide Archivdigests und 146 Repositoryquellen geprüft. Seine CRLF-Quellen liefern
+mit dem neuen ebenfalls auf CRLF umgestellten v9-Modul dasselbe vollständige
+Ergebnis und denselben Regelhash wie LF. Der Test läuft unter Linux und ersetzt
+kein Windowsgerät. Zugleich ist eine echte zusätzliche Lücke gefunden: alte
+v8-Metadaten hängen von rohen Windows-/Linux-Dateihashes ab. Diese Originale
+müssen sicher reproduzierbar werden; weder Hashumschreibung noch Auslassen der
+Quellprüfung ist eine Lösung. Die historischen Rechenkerne und die Original-
+Gesamtzieldatei sind bytegleich erhalten. Der erneute direkte §39f-Abruf liefert
+HTTP403; Quellenbasis bleibt die vorher dokumentierte gepinnte XML samt Normen.
+
+[Umfang, Fachgrenzen und Beispiele](CRM_ERP_LOHN_FAKTOR_TEILMONATE_2026.md),
+[genaue Läufe und Hashes](evidence/payroll-factor-periods-2026-11-09/verification.json).
+Die Veröffentlichung dieses neuen Produktstands und dessen eigene Remote-CI
+werden gesondert nachgetragen. Ansprüche/Reisen/Midijobs/Einmalbezüge mit Faktor,
+weitere benannte Lohn-/EÜR-Fälle, Integrationen und Abnahmen A–G bleiben Arbeit.

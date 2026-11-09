@@ -7,6 +7,8 @@ import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
 
+const payrollFactorPeriodRule = 'de_2026_standard_factor_period_v9';
+
 const payrollFactKinds = {
   'employment_terms': 'Beschäftigung und Entgelt',
   'work_schedule': 'Datierter Arbeitsplan',
@@ -631,6 +633,11 @@ class PayrollPeriodPlanView extends StatelessWidget {
   Widget build(BuildContext context) => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
+      if (plan['factor_parameters'] != null)
+        line(
+          'Belegter ELStAM-Faktor · Steuerklasse IV',
+          '${plan['factor_parameters']['tax_factor']}'.replaceAll('.', ','),
+        ),
       for (final item in businessItems(plan['employment_intervals']))
         ExpansionTile(
           title: const Text('Beschäftigung'),
@@ -1793,7 +1800,10 @@ Map<String, dynamic> payrollPeriodCalculation(dynamic raw) {
   final value = businessMap(raw),
       detail = businessMap(value['period_details']),
       complete = value['scope'] != 'unsupported';
-  if (value['rule_version'] != 'de_2026_periods_pap_v4' ||
+  if (![
+        'de_2026_periods_pap_v4',
+        payrollFactorPeriodRule,
+      ].contains(value['rule_version']) ||
       !_hash.hasMatch('${detail['plan_hash']}') ||
       !_hash.hasMatch('${detail['source_snapshot_hash']}') ||
       ['employment_intervals', 'earnings', 'tax_periods', 'social_periods'].any(
@@ -1897,6 +1907,47 @@ Map<String, dynamic> payrollPeriodCalculation(dynamic raw) {
         'Die Teilmonatsprognose ist nicht an die belegte Entgeltquote gebunden.',
       );
   }
+  if (value['rule_version'] == payrollFactorPeriodRule) {
+    final p = businessMap(detail['factor_parameters']),
+        factor = value['tax_parameters']?['tax_factor'];
+    if (complete && value['scope'] != 'regular_standard_factor_period' ||
+        value['tax_parameters']?['tax_class'] != 4 ||
+        factor is! String ||
+        !RegExp(r'^0\.[0-9]{3}$').hasMatch(factor) ||
+        p['tax_factor'] != factor ||
+        !payrollFactsSame(
+          p['profile_ref'],
+          payrollFactRef(businessMap(p['profile_ref'])),
+        ))
+      _fail('Faktor, Profil und Periodenregel sind nicht eindeutig belegt.');
+    if (complete) {
+      final tax = businessMap(detail['tax_calculation']),
+          period = businessItems(detail['tax_periods']).first;
+      final times = period['lzz'] == 4 ? period['tax_days'] : 1;
+      if ((detail['tax_periods'] as List).length != 1 ||
+          tax['factor'] != factor ||
+          tax['version'] != 'bmf_2026_standard_factor_period_wrapper_v2' ||
+          value['pap_version'] != tax['version'] ||
+          tax['provenance_sha256'] != value['pap_provenance_sha256'] ||
+          !payrollFactsSame(tax['inputs'], period['inputs']) ||
+          ['LSTLZZ', 'SOLZLZZ', 'BK'].any(
+            (key) =>
+                tax['component']?[key] is! int ||
+                tax['component'][key] < 0 ||
+                tax['totals']?[key] != tax['component'][key] * times,
+          ))
+        _fail('Die Faktor-Tagessteuer passt nicht zum belegten Zeitraum.');
+      final parameters = businessMap(value['tax_parameters']),
+          rate = parameters['church_tax_percent'];
+      if (!['0', '8', '9'].contains(rate) ||
+          parameters['church_assessment_minor'] != tax['totals']['BK'] ||
+          value['church_tax_minor'] !=
+              tax['totals']['BK'] * int.parse(rate) ~/ 100)
+        _fail(
+          'Die Kirchenlohnsteuer passt nicht zur belegten Faktor-Bemessungsgrundlage.',
+        );
+    }
+  }
   return detail;
 }
 
@@ -1913,6 +1964,27 @@ Map<String, dynamic> payrollPeriodSource(
         kind: 'period_case',
       );
   payrollPeriodCalculation(calculation);
+  if (calculation['rule_version'] != fact['plan']['rule_version'] ||
+      calculation['rule_version'] == payrollFactorPeriodRule &&
+          (businessMap(
+                    businessMap(source['profile'])['profile'],
+                  )['tax_factor'] !=
+                  calculation['tax_parameters']?['tax_factor'] ||
+              businessMap(
+                    businessMap(source['profile'])['profile'],
+                  )['tax_class'] !=
+                  4 ||
+              !payrollFactsSame(
+                fact['plan']['factor_parameters'],
+                calculation['period_details']['factor_parameters'],
+              ) ||
+              !payrollFactsSame(
+                calculation['period_details']['factor_parameters']['profile_ref'],
+                payrollFactRef(businessMap(source['profile'])),
+              )))
+    _fail(
+      'Faktorberechnung und unverändertes Quellenprofil widersprechen sich.',
+    );
   if (source['source_schema_version'] != 2 ||
       !payrollFactsSame(source['input'], input) ||
       !payrollFactsSame(payrollFactRef(fact), input['period_case_ref']) ||

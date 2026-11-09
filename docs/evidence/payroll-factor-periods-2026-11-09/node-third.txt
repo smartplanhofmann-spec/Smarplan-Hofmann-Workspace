@@ -1,0 +1,13 @@
+✔ actual factor-period sources retain actual dates, quotient, factor and completed scope (7.38589ms)
+✔ actual accepted correction binds tax deltas and preserves the original source (14.493482ms)
+✔ employee statement permits own period amounts without private profiles or identity originals (12.169101ms)
+✔ different factor, profile or period rules cannot be substituted into a preview (1.882195ms)
+✔ tax components, days, assessment and legacy rule substitution fail closed (1.943469ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 117.010405

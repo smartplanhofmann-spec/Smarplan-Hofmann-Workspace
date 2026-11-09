@@ -175,9 +175,16 @@ def employee_view(employee):
     return {key: employee[key] for key in EMPLOYEE_FIELDS}
 
 
-def build_plan(snapshot):
-    from payroll_periods_2026 import build_period_plan
-    return build_period_plan(snapshot)
+def build_plan(snapshot, *, rule_version=None):
+    from payroll_periods_2026 import build_period_plan, PERIOD_RULE_VERSION
+    from payroll_factor_periods_2026 import (build_factor_period_plan,
+        selected_profile, FACTOR_PERIOD_RULE_VERSION)
+    if rule_version not in (None,PERIOD_RULE_VERSION,FACTOR_PERIOD_RULE_VERSION):
+        raise Problem(400,'Unbekannter gespeicherter Periodenregelstand.')
+    plan=build_period_plan(snapshot)
+    if rule_version==FACTOR_PERIOD_RULE_VERSION or rule_version is None and 'tax_factor' in selected_profile(snapshot,plan)['profile']:
+        return build_factor_period_plan(snapshot)
+    return plan
 
 
 class PayrollFacts:
@@ -520,7 +527,7 @@ def validate_fact_sources(office, value):
         expected = api._snapshot(employee, value['kind'], details, value['source_file_ids'], fresh=False)
         if expected != sources or _sha(sources) != value['source_hash']:
             raise ValueError('Changed payroll fact sources')
-        plan = build_plan(sources) if value['kind'] == 'period_case' else None
+        plan = build_plan(sources,rule_version=value['plan']['rule_version']) if value['kind'] == 'period_case' else None
         preview_hash = _sha(dict(source_snapshot=sources, plan=plan)) if plan is not None else None
         if value['plan'] != plan or value['preview_hash'] != preview_hash:
             raise ValueError('Changed payroll period plan')

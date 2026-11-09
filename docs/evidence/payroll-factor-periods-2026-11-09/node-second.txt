@@ -1,0 +1,26 @@
+✔ actual factor-period sources retain actual dates, quotient, factor and completed scope (7.078617ms)
+✔ actual accepted correction binds tax deltas and preserves the original source (10.120357ms)
+✖ employee statement permits own period amounts without private profiles or identity originals (9.108538ms)
+✔ different factor, profile or period rules cannot be substituted into a preview (2.851214ms)
+✔ tax components, days, assessment and legacy rule substitution fail closed (2.056951ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 96.277263
+
+✖ failing tests:
+
+test at web/office/tests/payroll-factor-periods.test.mjs:28:1
+✖ employee statement permits own period amounts without private profiles or identity originals (9.108538ms)
+  TypeError: Cannot read properties of undefined (reading 'tax_periods')
+      at TestContext.<anonymous> (file:///workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-factor-periods.test.mjs:30:41)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

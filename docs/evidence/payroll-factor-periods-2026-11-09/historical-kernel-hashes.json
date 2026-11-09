@@ -1,0 +1,9 @@
+{
+  "backend/payroll_de_2026.py": "c1365355ab501f194f37ede7c4bb0ab2c2347a1252dfda97ae360708593a9789",
+  "backend/payroll_pap_2026.py": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071",
+  "backend/payroll_pap_factor_2026.py": "92c6dee2d41b5c8985b52d9d8e86831919c05b16bbb504f4bdfc7176be7d088c",
+  "backend/payroll_factor_2026.py": "c55d017120f56b0e2539c793018839820d17aef54611c3ede636e1ee20d1df25",
+  "backend/payroll_pap_periods_2026.py": "9307e599d25512db069bc42b8662ff0aa84b5436808745916bc97018b2675444",
+  "backend/payroll_periods_2026.py": "c3df3ae3ee93c756010290f382bf17050676a7bbc6a327082ea07b83e7b96890",
+  "backend/payroll_calculations_2026.py": "5133cc7b0a52471bcfd08c76960461799bd92e335ac7e5d141368dc69f14b553"
+}

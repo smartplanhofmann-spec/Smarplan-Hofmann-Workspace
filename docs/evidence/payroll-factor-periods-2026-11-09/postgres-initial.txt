@@ -1,0 +1,8 @@
+test_actual_factor_mfa_fresh_denial_original_pdf_and_restart (online.test_business_payroll_factor_periods_pg.FactorPeriodPostgres.test_actual_factor_mfa_fresh_denial_original_pdf_and_restart) ... ok
+test_factor_net_remittance_euer_bank_and_frozen_dump_restore (online.test_business_payroll_factor_periods_pg.FactorPeriodPostgres.test_factor_net_remittance_euer_bank_and_frozen_dump_restore) ... ok
+test_two_pg_connections_accept_only_one_factor_period_revision (online.test_business_payroll_factor_periods_pg.FactorPeriodPostgres.test_two_pg_connections_accept_only_one_factor_period_revision) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 49.897s
+
+OK

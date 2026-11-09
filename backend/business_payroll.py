@@ -19,11 +19,13 @@ from payroll_de_2026 import (calculate, normalize_profile, month_range, RULE_VER
     FULL_RULES,FULL_RULES_SHA256,PAP_PROVENANCE)
 from payroll_transition_2026 import TRANSITION_RULES,TRANSITION_RULES_SHA256
 from payroll_factor_2026 import FACTOR_RULES,FACTOR_RULES_SHA256,FACTOR_PAP_PROVENANCE
+from payroll_factor_periods_2026 import (FACTOR_PERIOD_RULE_VERSION,FACTOR_PERIOD_SCOPE,
+    FACTOR_PERIOD_RULES,FACTOR_PERIOD_RULES_SHA256)
 from payroll_periods_2026 import PERIOD_RULES,PERIOD_RULES_SHA256,SCOPES as PERIOD_SCOPES
 from payroll_calculations_2026 import RULES as CALCULATION_RULES,RULES_SHA256 as CALCULATION_RULES_SHA256,SCOPES as CALCULATION_SCOPES
 from workspace_api import BinaryAttachment
 
-FEATURES = ('german_payroll_2026', 'payroll_employee_statements')
+FEATURES = ('german_payroll_2026', 'payroll_employee_statements', 'payroll_factor_periods')
 TABLES = ('business_payroll_events','business_payroll_requests')
 COLUMNS = 'id,kind,employee_id,revision,payload_json,content_hash,previous_hash,identity_key,created_by,created_at,pdf_sha256'
 ID = r'[a-f0-9]{32}'
@@ -341,7 +343,7 @@ class Payroll:
         _shape(data,fields,input_fields+('request_id','preview_hash','accepted_scope','confirmed','revision'))
         if data['confirmed'] is not True or not isinstance(data['preview_hash'],str) or not re.fullmatch(r'[a-f0-9]{64}',data['preview_hash']):
             raise Problem(400,'Geprüfte Berechnungsvorschau und ausdrückliche Bestätigung erforderlich.')
-        if data['accepted_scope'] not in ('commercial_minijob_flat_tax','social_contributions_only','regular_standard_monthly', 'regular_standard_factor_monthly','regular_transition_monthly')+PERIOD_SCOPES+CALCULATION_SCOPES+('regular_standard_oneoff','regular_standard_multiple_oneoff'):
+        if data['accepted_scope'] not in ('commercial_minijob_flat_tax','social_contributions_only','regular_standard_monthly', 'regular_standard_factor_monthly',FACTOR_PERIOD_SCOPE,'regular_transition_monthly')+PERIOD_SCOPES+CALCULATION_SCOPES+('regular_standard_oneoff','regular_standard_multiple_oneoff'):
             raise Problem(400,'Den tatsächlich verfügbaren Berechnungsumfang ausdrücklich bestätigen.')
         if 'id' in data:
             identifier(data['id'])
@@ -524,11 +526,13 @@ def _calculate_source(source,*,rule_version=None):
             raise Problem(400,'Unveränderlicher Gesamtfall, Regel und tatsächliche Abrechnungsquelle widersprechen sich.')
         return calculate_calculation_source(snapshot,rule_version=fact['rule_version'],source_contract_version=fact['source_contract_version'])
     if source.get('source_schema_version')==2:
-        from payroll_periods_2026 import build_period_plan,calculate_period_source
+        from payroll_periods_2026 import calculate_period_source
+        from business_payroll_facts import build_plan
+        from payroll_factor_periods_2026 import calculate_factor_period_source
         _shape(source,('source_schema_version','employee_id','month','input','profile','preparation','period_case'),
             ('source_schema_version','employee_id','month','input','profile','preparation','period_case'))
         _shape(source['input'],PERIOD_INPUT_FIELDS,PERIOD_INPUT_FIELDS)
-        fact=source['period_case'];snapshot=fact['sources'];plan=build_period_plan(snapshot)
+        fact=source['period_case'];snapshot=fact['sources'];plan=build_plan(snapshot,rule_version=fact['plan']['rule_version'])
         selected=next(value for value in snapshot['profiles']
             if {key:value[key] for key in ('id','revision','content_hash')}==plan['selected_profile_ref'])
         if (source['input']['source_schema_version']!=2 or source['input']['employee_id']!=source['employee_id']
@@ -537,6 +541,8 @@ def _calculate_source(source,*,rule_version=None):
                 or fact['details']['month']!=source['month'] or snapshot['month']!=source['month']
                 or source['profile']!=selected or source['preparation']!=snapshot['preparation'] or fact['plan']!=plan):
             raise Problem(400,'Die unveränderlichen Periodenquellen und ihre Berechnung stimmen nicht überein.')
+        if plan['rule_version']==FACTOR_PERIOD_RULE_VERSION:
+            return calculate_factor_period_source(snapshot,rule_version=rule_version)
         return calculate_period_source(snapshot,rule_version=rule_version)
     profile = source['profile']['profile']
     preparation = source['preparation']
@@ -583,6 +589,7 @@ def _render(prepared):
         'commercial_minijob_period_flat_tax':'Minijob-Berechnungsbeleg mit Zeitnachweis',
         'regular_standard_monthly':'Lohnberechnungsbeleg',
         'regular_standard_factor_monthly':'Lohnberechnungsbeleg mit Faktor',
+        'regular_standard_factor_period':'Lohnberechnungsbeleg mit Faktor und Zeitnachweis',
         'regular_transition_monthly':'Midijob-Lohnberechnungsbeleg',
         'regular_standard_period':'Lohnberechnungsbeleg mit Zeitnachweis',
         'regular_standard_oneoff':'Lohnberechnungsbeleg mit sonstigem Bezug',
@@ -682,7 +689,7 @@ def _render(prepared):
 
 def _delta(current,previous):
     keys=('gross_minor','employee_social_total_minor','employer_social_total_minor','employer_flat_tax_minor','net_minor')
-    regular=('regular_standard_monthly', 'regular_standard_factor_monthly','regular_transition_monthly','regular_standard_period','regular_transition_period','regular_standard_segments','regular_transition_segments','regular_standard_oneoff','regular_standard_multiple_oneoff')
+    regular=('regular_standard_monthly', 'regular_standard_factor_monthly','regular_standard_factor_period','regular_transition_monthly','regular_standard_period','regular_transition_period','regular_standard_segments','regular_transition_segments','regular_standard_oneoff','regular_standard_multiple_oneoff')
     if current['scope'] in regular or previous['scope'] in regular:
         keys+=('individual_wage_tax_minor','solidarity_minor','church_tax_minor','employee_tax_minor','payout_minor')
     result={key:current[key]-previous[key] if current[key] is not None and previous[key] is not None else None for key in keys}
@@ -818,6 +825,7 @@ def dispatch(office,actor,path,method,data):
             result=dict(rules=RULES,rules_sha256=RULES_SHA256,regular_standard_rules=FULL_RULES,
                 regular_standard_rules_sha256=FULL_RULES_SHA256,pap_provenance=PAP_PROVENANCE,
                 regular_factor_rules=FACTOR_RULES,regular_factor_rules_sha256=FACTOR_RULES_SHA256,
+                factor_period_rules=FACTOR_PERIOD_RULES,factor_period_rules_sha256=FACTOR_PERIOD_RULES_SHA256,
                 factor_pap_provenance=FACTOR_PAP_PROVENANCE,
                 regular_transition_rules=TRANSITION_RULES,regular_transition_rules_sha256=TRANSITION_RULES_SHA256,
                 period_rules=PERIOD_RULES,period_rules_sha256=PERIOD_RULES_SHA256,

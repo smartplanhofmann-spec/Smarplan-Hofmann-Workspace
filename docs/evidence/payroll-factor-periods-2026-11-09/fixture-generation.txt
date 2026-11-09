@@ -1,0 +1,1 @@
+{"fixture": "app/test/fixtures/payroll_factor_periods_2026_workflow.json", "net_minor": 183039, "corrected_net_minor": 176885, "tax_days": 17}

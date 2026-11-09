@@ -1,0 +1,77 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: native factor-period plan opens its exact source and clears on revocation at 390.0
+00:01 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: native factor-period plan opens its exact source and clears on revocation at 390.0
+00:01 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: native factor-period plan opens its exact source and clears on revocation at 390.0
+00:01 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: native factor-period plan opens its exact source and clears on revocation at 390.0
+00:01 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: native factor-period plan opens its exact source and clears on revocation at 390.0
+00:01 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: native factor-period plan opens its exact source and clears on revocation at 390.0
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.single (dart:core/iterable.dart:694:25)
+#1      WidgetController.element (package:flutter_test/src/controller.dart:888:30)
+#2      WidgetController.ensureVisible (package:flutter_test/src/controller.dart:2389:32)
+#3      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart:70:22)
+<asynchronous suspension>
+#4      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#5      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  native factor-period plan opens its exact source and clears on revocation at 390.0
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:02 +5 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: native factor-period plan opens its exact source and clears on revocation at 390.0 [E]
+  Test failed. See exception logs above.
+  The test description was: native factor-period plan opens its exact source and clears on revocation at 390.0
+  
+00:02 +5 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: native factor-period plan opens its exact source and clears on revocation at 1200.0
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.single (dart:core/iterable.dart:694:25)
+#1      WidgetController.element (package:flutter_test/src/controller.dart:888:30)
+#2      WidgetController.ensureVisible (package:flutter_test/src/controller.dart:2389:32)
+#3      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart:70:22)
+<asynchronous suspension>
+#4      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#5      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  native factor-period plan opens its exact source and clears on revocation at 1200.0
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:03 +5 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: native factor-period plan opens its exact source and clears on revocation at 1200.0 [E]
+  Test failed. See exception logs above.
+  The test description was: native factor-period plan opens its exact source and clears on revocation at 1200.0
+  
+00:03 +5 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: actual factor period keeps actual days, source factor and complete amounts
+00:03 +6 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: actual correction retains source original and independently bound tax delta
+00:03 +7 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: strict calendar and duration distinguish unknown from explicitly zero
+00:03 +8 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: own employee statement has actual period amounts without private source originals
+00:03 +9 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: employment binds original personnel date and exact agreement with no default method
+00:03 +10 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: employment binds original personnel date and exact agreement with no default method
+00:03 +11 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: employment binds original personnel date and exact agreement with no default method
+00:03 +12 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: every chronological work schedule day requires explicit time and region
+00:03 +13 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: actual backend preview binds source and separate tax social days without client gross input
+00:03 +14 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: approved absence binds person and claim dates without private free text
+00:03 +15 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: unsupported entitlement remains documentable but incomplete
+00:03 +16 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: fact receipts bind correction and void to exact historical original
+00:03 +17 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: all three period rules and one effective yearly correction use actual backend fixtures
+00:03 +18 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: accepted native fact replay keeps exact command through later sources and module pause
+00:03 +19 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: private mobile fact page opens details and clears them on fresh role withdrawal
+00:06 +20 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:07 +21 -2: Some tests failed.
+
+Failing tests:
+  /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: native factor-period plan opens its exact source and clears on revocation at 1200.0
+  /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_periods_test.dart: native factor-period plan opens its exact source and clears on revocation at 390.0

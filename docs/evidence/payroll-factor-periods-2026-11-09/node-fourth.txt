@@ -1,0 +1,31 @@
+✔ actual factor-period sources retain actual dates, quotient, factor and completed scope (6.131869ms)
+✔ actual accepted correction binds tax deltas and preserves the original source (9.672962ms)
+✔ employee statement permits own period amounts without private profiles or identity originals (8.99769ms)
+✔ different factor, profile or period rules cannot be substituted into a preview (1.797026ms)
+✔ tax components, days, assessment and legacy rule substitution fail closed (2.051159ms)
+✔ factor input preserves three exact decimal places and never rounds a guessed value (0.28963ms)
+✔ factor profile is explicit, documented and restored in the editor (2.584625ms)
+✔ factor forms reject conflicting class, allowance, minijob, period and missing evidence (2.007616ms)
+✔ factor calculation and preview bind the actual factor and retain checked net (1.147472ms)
+✔ original and corrected factor receipts preserve exact tax delta and reject mixed versions (2.416712ms)
+✔ factor employee statements admit only safe amounts and retain verified exports (7.950825ms)
+✔ fact dates and explicit whole-day plan distinguish unknown, zero and valid calendar boundaries (0.973508ms)
+✔ new employment facts bind actual personnel dates, original and exact agreement, with no assumed method (1.652365ms)
+✔ work schedule requires every chronological day with explicit zero and region; does not invent workdays (1.648278ms)
+✔ actual backend period preview binds full source versions and has no editable gross or day counts (1.85827ms)
+✔ unsupported entitlement may be documented without claiming a complete calculation or zero net (1.263459ms)
+✔ historical receipt validation binds predecessor, exact input, plan and original source; void keeps prior plan (5.568828ms)
+✔ source and rights validation excludes employee-self fallback and cross-person metadata (0.558804ms)
+✔ approved absence choices bind the same person and actual claim dates without private free text (2.178648ms)
+✔ pending authorization freshly checks role and person, accepts later sources and module pause without changing old command (1.653938ms)
+✔ all three actual v4 calculations bind frozen periods and historical run receipts (12.250724ms)
+✔ v4 correction and annual ledger count one effective monthly revision (5.141931ms)
+✔ void receipt cannot replace old plan or source despite unchanged ordinary command fields (2.879827ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 157.421448

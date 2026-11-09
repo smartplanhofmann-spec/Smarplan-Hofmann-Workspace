@@ -1,0 +1,34 @@
+test_full_month_matches_existing_factor_v8_without_changing_that_rule (test_payroll_factor_periods_2026.FactorPeriods2026.test_full_month_matches_existing_factor_v8_without_changing_that_rule) ... ok
+test_independent_xml_components_and_actual_period_totals (test_payroll_factor_periods_2026.FactorPeriods2026.test_independent_xml_components_and_actual_period_totals) ... ok
+test_missing_identity_zero_gross_and_profile_change_stay_blocked (test_payroll_factor_periods_2026.FactorPeriods2026.test_missing_identity_zero_gross_and_profile_change_stay_blocked) ... ok
+test_no_missing_factor_or_wrong_rule_can_be_guessed (test_payroll_factor_periods_2026.FactorPeriods2026.test_no_missing_factor_or_wrong_rule_can_be_guessed) ... ok
+test_only_the_explicit_factor_blocker_is_resolved (test_payroll_factor_periods_2026.FactorPeriods2026.test_only_the_explicit_factor_blocker_is_resolved) ... ok
+test_source_dates_quotient_original_factor_and_hashes_are_preserved (test_payroll_factor_periods_2026.FactorPeriods2026.test_source_dates_quotient_original_factor_and_hashes_are_preserved) ... ok
+test_canonical_source_run_statement_ledger_and_exact_original (test_business_payroll_factor_periods.FactorPeriodWorkflow.test_canonical_source_run_statement_ledger_and_exact_original) ... ok
+test_historical_v4_blocked_factor_case_keeps_its_original_plan (test_business_payroll_factor_periods.FactorPeriodWorkflow.test_historical_v4_blocked_factor_case_keeps_its_original_plan) ... ERROR
+test_revoked_rights_and_paused_module_cannot_replay_as_new_action (test_business_payroll_factor_periods.FactorPeriodWorkflow.test_revoked_rights_and_paused_module_cannot_replay_as_new_action) ... FAIL
+
+======================================================================
+ERROR: test_historical_v4_blocked_factor_case_keeps_its_original_plan (test_business_payroll_factor_periods.FactorPeriodWorkflow.test_historical_v4_blocked_factor_case_keeps_its_original_plan)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_factor_periods.py", line 50, in test_historical_v4_blocked_factor_case_keeps_its_original_plan
+    self.assertEqual(f.api.get(f.owner,fact['id'])['record'],fact)
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+KeyError: 'record'
+
+======================================================================
+FAIL: test_revoked_rights_and_paused_module_cannot_replay_as_new_action (test_business_payroll_factor_periods.FactorPeriodWorkflow.test_revoked_rights_and_paused_module_cannot_replay_as_new_action)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_factor_periods.py", line 59, in test_revoked_rights_and_paused_module_cannot_replay_as_new_action
+    f.problem(403,lambda:PayrollStatements(f.office).get(f.technician,run['id']))
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_planning.py", line 46, in problem
+    with self.assertRaises(Problem) as raised:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+----------------------------------------------------------------------
+Ran 9 tests in 2.139s
+
+FAILED (failures=1, errors=1)

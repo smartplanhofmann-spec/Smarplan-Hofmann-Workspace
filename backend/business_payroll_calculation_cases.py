@@ -175,6 +175,9 @@ class PayrollCalculationCases(PayrollFacts):
             from business_payroll_entitlements import PayrollEntitlements
             from business_travel_allowances import TravelAllowances
             result=self.facts.sources(fresh,dict(employee_id=employee['id']))
+            # Factor periods have their own v9 running-pay rule. They must not
+            # be offered to the historical v5 claims/travel composition rule.
+            result['facts']=[item for item in result['facts'] if item['kind']!='period_case' or item['plan']['rule_version']=='de_2026_periods_pap_v4']
             result.update(month=query['month'],calculation_cases=self._all(employee['id']),travel_tax_policies=self._all(None),
                 entitlements=PayrollEntitlements(self.office)._all(employee['id']),travel_settlements=TravelAllowances(self.office)._all('settlement',employee['id']))
             return result
@@ -216,6 +219,8 @@ class PayrollCalculationCases(PayrollFacts):
             if fresh:self._policy_uniform(details)
             return dict(schema_version=1,policy=details,source_files=self._files(None,ids,fresh=fresh))
         employee_id=employee['id'];base=self.facts._fact_ref(employee_id,details['period_case_ref'],'period_case',fresh=fresh)
+        if base['plan']['rule_version']!='de_2026_periods_pap_v4':
+            raise Problem(400,'Dieser Faktor-Monatsfall wird direkt als belegter Periodenlohn abgerechnet. Ansprüche, Reisen und Einmalbezüge benötigen ihren eigenen Faktor-Regelzweig.')
         if base['details']['month']!=details['month']:raise Problem(400,'P2-Basisfall gehört zu einem anderen Monat.')
         if fresh:
             expected=self.facts._snapshot(employee,'period_case',base['details'],base['source_file_ids'])

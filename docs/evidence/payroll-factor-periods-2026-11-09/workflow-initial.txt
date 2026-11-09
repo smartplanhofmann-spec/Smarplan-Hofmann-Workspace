@@ -1,0 +1,19 @@
+test_actual_net_and_remittances_reach_euer_once_without_private_sources (test_business_payroll_factor_periods.FactorPeriodCashFlow.test_actual_net_and_remittances_reach_euer_once_without_private_sources) ... ok
+test_canonical_source_run_statement_ledger_and_exact_original (test_business_payroll_factor_periods.FactorPeriodWorkflow.test_canonical_source_run_statement_ledger_and_exact_original) ... ok
+test_factor_correction_preserves_paid_original_pdf_and_old_ack (test_business_payroll_factor_periods.FactorPeriodWorkflow.test_factor_correction_preserves_paid_original_pdf_and_old_ack) ... ok
+test_factor_period_is_not_offered_to_unsupported_claim_composition (test_business_payroll_factor_periods.FactorPeriodWorkflow.test_factor_period_is_not_offered_to_unsupported_claim_composition) ... ERROR
+test_historical_v4_blocked_factor_case_keeps_its_original_plan (test_business_payroll_factor_periods.FactorPeriodWorkflow.test_historical_v4_blocked_factor_case_keeps_its_original_plan) ... ok
+test_revoked_rights_and_paused_module_cannot_replay_as_new_action (test_business_payroll_factor_periods.FactorPeriodWorkflow.test_revoked_rights_and_paused_module_cannot_replay_as_new_action) ... ok
+
+======================================================================
+ERROR: test_factor_period_is_not_offered_to_unsupported_claim_composition (test_business_payroll_factor_periods.FactorPeriodWorkflow.test_factor_period_is_not_offered_to_unsupported_claim_composition)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_factor_periods.py", line 98, in test_factor_period_is_not_offered_to_unsupported_claim_composition
+    from business_payroll_calculation_cases import CalculationCases
+ImportError: cannot import name 'CalculationCases' from 'business_payroll_calculation_cases' (/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_calculation_cases.py). Did you mean: 'PayrollCalculationCases'?
+
+----------------------------------------------------------------------
+Ran 6 tests in 6.709s
+
+FAILED (errors=1)

@@ -36,6 +36,8 @@ const payrollScopes = {
   'regular_transition_segments': 'Belegter Übergangsbereich · Gesamtfall',
   'commercial_minijob_segments_flat_tax':
       'Gewerblicher Minijob · belegter Gesamtfall',
+  'regular_standard_factor_period':
+      'Steuerklasse IV mit Faktor · belegter Monat oder Teilmonat',
   'regular_standard_period': 'Reguläre belegte Teilmonatsberechnung · PAP 2026',
   'regular_transition_period':
       'Belegter Übergangsbereich · Teilmonat und PAP 2026',
@@ -225,6 +227,10 @@ int _sum(dynamic v) {
 
 Map<String, dynamic> payrollCalculation(dynamic value) {
   final v = businessMap(value), scope = v['scope'];
+  final periodRule = [
+    'de_2026_periods_pap_v4',
+    payrollFactorPeriodRule,
+  ].contains(v['rule_version']);
   if (v['rule_version'] == payrollMultipleRule)
     return payrollMultipleCalculation(v);
   if (v['rule_version'] == payrollOneOffRule)
@@ -233,15 +239,10 @@ Map<String, dynamic> payrollCalculation(dynamic value) {
     return payrollCompositeCalculation(v);
   if (!payrollScopes.containsKey(scope) ||
       v['currency'] != 'EUR' ||
-      (!(v['rule_version'] == 'de_2026_periods_pap_v4' &&
-              scope == 'unsupported' &&
-              v['gross_minor'] == null) &&
+      (!(periodRule && scope == 'unsupported' && v['gross_minor'] == null) &&
           (v['gross_minor'] is! int ||
               v['gross_minor'] <
-                  (v['rule_version'] == 'de_2026_periods_pap_v4' &&
-                          scope == 'unsupported'
-                      ? 0
-                      : 1))) ||
+                  (periodRule && scope == 'unsupported' ? 0 : 1))) ||
       v['blockers'] is! List ||
       !RegExp(r'^[a-f0-9]{64}$').hasMatch('${v['rules_sha256']}') ||
       v['statutory_report_status'] != 'not_transmitted' ||
@@ -252,8 +253,7 @@ Map<String, dynamic> payrollCalculation(dynamic value) {
       0,
       'Der verfügbare Lohnberechnungsumfang konnte nicht sicher gelesen werden.',
     );
-  if (v['rule_version'] == 'de_2026_periods_pap_v4')
-    payrollPeriodCalculation(v);
+  if (periodRule) payrollPeriodCalculation(v);
   if (scope == 'unsupported') {
     if (v['transition'] != null)
       throw const ApiException(
@@ -312,6 +312,7 @@ Map<String, dynamic> payrollCalculation(dynamic value) {
       if ([
             'regular_standard_monthly',
             'regular_standard_factor_monthly',
+            'regular_standard_factor_period',
             'regular_transition_monthly',
             'regular_standard_period',
             'regular_transition_period',
@@ -348,8 +349,14 @@ Map<String, dynamic> payrollCalculation(dynamic value) {
     }
   }
   if (scope == 'regular_transition_monthly') payrollTransition(v);
-  if (scope == 'regular_standard_factor_monthly' &&
-      (v['rule_version'] != 'de_2026_standard_factor_monthly_v8' ||
+  if ([
+        'regular_standard_factor_monthly',
+        'regular_standard_factor_period',
+      ].contains(scope) &&
+      (v['rule_version'] !=
+              (scope == 'regular_standard_factor_period'
+                  ? payrollFactorPeriodRule
+                  : 'de_2026_standard_factor_monthly_v8') ||
           !RegExp(r'^0\.[0-9]{3}$')
               .hasMatch('${v['tax_parameters']?['tax_factor'] ?? ''}'))) {
     throw const ApiException(
@@ -536,6 +543,7 @@ void Function(dynamic) payrollReceiptValidator(
                   (scope) => [
                     'regular_standard_monthly',
                     'regular_standard_factor_monthly',
+                    'regular_standard_factor_period',
                     'regular_transition_monthly',
                     'regular_standard_period',
                     'regular_transition_period',
@@ -775,7 +783,7 @@ List<BusinessField> payrollProfileFields(
         'standard':
             'Regulär: Standard-Lohnsteuer mit geprüften ELStAM-Beträgen',
         'factor':
-            'Regulär: Steuerklasse IV mit eingetragenem Faktor · Vollmonat',
+            'Regulär: Steuerklasse IV mit eingetragenem Faktor',
         'social_only': 'Regulär: Nur Sozialversicherung, Netto bleibt offen',
         'minijob': 'Minijob: Pauschsteuerverfahren',
       },

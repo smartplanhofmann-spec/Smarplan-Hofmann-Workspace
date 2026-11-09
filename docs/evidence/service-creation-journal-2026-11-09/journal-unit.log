@@ -1,0 +1,21 @@
+00:00 +0: loading /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_test.dart
+00:00 +0: manual command validation preserves Unicode and exact fields
+00:00 +1: encrypted exact original survives restart and only exact clear
+00:00 +2: unresolved company binding is checked before private payload
+00:01 +3: empty old company journal can be prepared for a new company
+00:01 +4: server version and account isolate keys and encrypted originals
+00:01 +5: stale sessions cannot overwrite or clear a newer original
+00:01 +6: concurrent operations in one session cannot replace a pending ID
+00:01 +7: CAS catches another writer after the journal read
+00:01 +8: corrupt latest commit never rolls back to an older original
+00:01 +9: quarantined or incompatible state is preserved and blocks writing
+00:01 +10: strict state and scope failures preserve every key and file
+00:02 +11: invalid requested binding creates no key or journal
+00:02 +12: unknown encrypted schema never becomes an empty new journal
+00:02 +13: missing key never replaces the encryption key for retained ciphertext
+00:02 +14: write failures keep the prior original and allow exact retry
+00:02 +15: quarantined ciphertext with a missing key never gets a new key
+00:02 +16: closed context is refused before opening storage
+00:02 +17: late read guard exposes no session and late clear sends no write
+00:02 +18: late completed write remains bound to its captured company
+00:02 +19: All tests passed!

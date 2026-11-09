@@ -7,6 +7,10 @@ import 'package:flutter/scheduler.dart';
 import 'api.dart';
 import 'business_company_event_contract.dart';
 import 'offline_vault.dart' show offlineId;
+import 'project_creation_journal.dart' show ProjectCreationScope;
+import 'service_creation_journal.dart';
+
+part 'service_creation_session.dart';
 
 /// A failed response belongs to one exact command, even if its UI key is reused.
 class BusinessCommandException extends ApiException {
@@ -181,8 +185,9 @@ String? organizationCommandSection(String path) {
   return null;
 }
 
-/// One authenticated view. No business records or financial credentials enter
-/// this controller's disk cache. Offline time uses the existing encrypted vault.
+/// One authenticated view. Only an unresolved manual service creation has its
+/// own encrypted, company-bound journal; financial credentials stay in memory.
+/// Offline time uses the separate existing encrypted vault.
 class BusinessSession extends ChangeNotifier {
   BusinessSession({
     required this.api,
@@ -190,13 +195,18 @@ class BusinessSession extends ChangeNotifier {
     this.projectId,
     this.projects = const [],
     this.onDenied,
-  }) : _token = api.token {
+    ServiceCreationJournal? serviceCreationJournal,
+  }) : _token = api.token,
+       _serviceCreationJournal =
+           serviceCreationJournal ?? ServiceCreationJournal() {
     api.addListener(_accessChanged);
   }
   final OfficeApi api;
   final bool offlineMode;
   final String? projectId;
   final VoidCallback? onDenied;
+  final ServiceCreationJournal _serviceCreationJournal;
+  String? _serviceCreationMemoryScope;
   Timer? _metaTimer;
   List<Map<String, dynamic>> projects;
   final _projectSessions = <String, BusinessSession>{};
@@ -213,6 +223,7 @@ class BusinessSession extends ChangeNotifier {
       api: api,
       offlineMode: offlineMode,
       projects: projects,
+      serviceCreationJournal: _serviceCreationJournal,
     );
     global.projects = projects;
     return global;
@@ -238,6 +249,7 @@ class BusinessSession extends ChangeNotifier {
         offlineMode: offlineMode,
         projectId: id,
         projects: projects,
+        serviceCreationJournal: _serviceCreationJournal,
       ),
     );
     child._globalOwner = this;
@@ -305,7 +317,8 @@ class BusinessSession extends ChangeNotifier {
       !hasFeature('organization_modules') ||
       !organizationSections.contains(section) ||
       organizationModules[section]?['enabled'] == true;
-  bool pending(String key) => _pending.containsKey(key);
+  bool pending(String key) =>
+      _serviceCreationVisible(key) && _pending.containsKey(key);
 
   /// Only the closed company-event endpoints preserve their original request.
   List<({String key, String path})> get pendingCompanyEventCommands => !allowed
@@ -1033,7 +1046,11 @@ class BusinessSession extends ChangeNotifier {
     required String path,
   }) {
     final operation = _pending[key];
-    if (!allowed || operation == null || operation.path != path) return null;
+    if (!allowed ||
+        !_serviceCreationVisible(key) ||
+        operation == null ||
+        operation.path != path)
+      return null;
     return Map<String, dynamic>.from(jsonDecode(operation.values));
   }
 
@@ -1703,6 +1720,14 @@ class BusinessSession extends ChangeNotifier {
     bool Function()? stillCurrent,
   }) async {
     final operation = _pending[key];
+    if (operation != null &&
+        _manualServiceCreation(key, operation.path, operation.body)) {
+      return _createManualServiceCase(
+        Map<String, dynamic>.from(jsonDecode(operation.values)),
+        validateResult: operation.validateResult,
+        stillCurrent: stillCurrent,
+      );
+    }
     final route = operation?.path ?? '';
     final target = RegExp(
       r'^/service/cases/([a-f0-9]{32})/(events|project|dispatch|evidence|transition)$',
@@ -3041,6 +3066,7 @@ class BusinessSession extends ChangeNotifier {
           : null;
       organizationModules = nextOrganization;
       permissions = (meta['permissions'] as List).whereType<String>().toSet();
+      _retireChangedServiceCreation();
       readonly = meta['readonly'] == true;
       supported =
           (meta['compatibility_mode'] == 'business' || readonly) &&
@@ -3111,7 +3137,14 @@ class BusinessSession extends ChangeNotifier {
     String path,
     Map<String, dynamic> values, {
     void Function(dynamic)? validateResult,
-  }) => _command(key, path, values, validateResult: validateResult);
+    bool Function()? stillCurrent,
+  }) => _command(
+    key,
+    path,
+    values,
+    validateResult: validateResult,
+    stillCurrent: stillCurrent,
+  );
 
   final _milestoneWrites =
       <String, ({String values, String? requestId, Future<dynamic> future})>{};
@@ -3230,7 +3263,15 @@ class BusinessSession extends ChangeNotifier {
     Map<String, dynamic> values, {
     bool documentaryRetry = false,
     void Function(dynamic)? validateResult,
+    bool Function()? stillCurrent,
   }) async {
+    if (_manualServiceCreation(key, path, values)) {
+      return _createManualServiceCase(
+        values,
+        validateResult: validateResult,
+        stillCurrent: stillCurrent,
+      );
+    }
     final epoch = _epoch;
     _guard(epoch);
     final portalRevocation =

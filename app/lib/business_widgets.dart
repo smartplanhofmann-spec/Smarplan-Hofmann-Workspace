@@ -416,7 +416,7 @@ class _BusinessEditorState extends State<BusinessEditor> {
         decoration: InputDecoration(labelText: field.label),
         isExpanded: true,
         items: [
-          if (!field.required)
+          if (!field.required && !options.containsKey(''))
             const DropdownMenuItem(value: '', child: Text('Nicht angegeben')),
           for (final entry in options.entries)
             DropdownMenuItem(

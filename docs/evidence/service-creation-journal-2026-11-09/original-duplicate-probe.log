@@ -1,0 +1,6 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /tmp/service_restart_duplicate_probe_test.dart
+00:00 +0: actual service HTTP keeps one accepted original across closed-view retry and explicit replay
+CONFIRMED: accepted response lost, session recreated, same manual case creates 2 persistent records with different request IDs.
+00:02 +1: All tests passed!

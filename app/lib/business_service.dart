@@ -135,7 +135,10 @@ Map<String, dynamic> serviceReceipt(
     if (body['id'] != null && item['id'] != body['id'] ||
         item['customer_id'] != body['customer_id'] ||
         item['project_id'] != body['project_id'] ||
-        item['title'] != body['title'] ||
+        item['title'] !=
+            (body['title'] is String
+                ? serviceCreationServerText(body['title'] as String)
+                : body['title']) ||
         item['responsible_id'] != body['responsible_id'])
       throw const ApiException(
         0,
@@ -552,6 +555,7 @@ class _BusinessServicePageState extends State<BusinessServicePage>
               path,
               body,
               validateResult: (value) => serviceReceipt(path, body, value),
+              stillCurrent: stillCurrent,
             );
           },
         ),
@@ -564,6 +568,12 @@ class _BusinessServicePageState extends State<BusinessServicePage>
 
   Future<void> choose() async {
     final captured = epoch;
+    if (widget.origin == null && session.hasFeature('project_creation_journal')) {
+      await session.restoreServiceCreation(
+        stillCurrent: () => current(captured),
+      );
+      ensureCurrent(captured);
+    }
     final original = session.pendingCommandValues(
       'service-case-new',
       path: '/service/cases',
@@ -1431,6 +1441,7 @@ class _BusinessServicePageState extends State<BusinessServicePage>
                 ),
                 DropdownButtonFormField<String>(
                   initialValue: status,
+                  isExpanded: true,
                   decoration: const InputDecoration(labelText: 'Fallstatus'),
                   items: [
                     const DropdownMenuItem(
@@ -1450,6 +1461,7 @@ class _BusinessServicePageState extends State<BusinessServicePage>
                 ),
                 DropdownButtonFormField<String>(
                   initialValue: priority,
+                  isExpanded: true,
                   decoration: const InputDecoration(labelText: 'Priorität'),
                   items: [
                     const DropdownMenuItem(
@@ -1469,6 +1481,7 @@ class _BusinessServicePageState extends State<BusinessServicePage>
                 ),
                 DropdownButtonFormField<String>(
                   initialValue: responsible,
+                  isExpanded: true,
                   decoration: const InputDecoration(labelText: 'Zuständigkeit'),
                   items: [
                     const DropdownMenuItem(
@@ -1478,7 +1491,10 @@ class _BusinessServicePageState extends State<BusinessServicePage>
                     for (final value in filterResponsibles)
                       DropdownMenuItem(
                         value: '${value['id']}',
-                        child: Text('${value['email']}'),
+                        child: Text(
+                          '${value['email']}',
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                   ],
                   onChanged: (value) {

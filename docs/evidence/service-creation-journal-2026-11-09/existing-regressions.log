@@ -1,0 +1,47 @@
+00:00 +0: loading /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart
+00:00 +0: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart: origin and customer remain explicit and status uses current allowed transitions
+00:00 +1: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart: activity acknowledgement binds immutable event and same case revision
+00:00 +2: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart: lost transition retries exact nonce with fresh central session rights
+00:00 +3: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart: lost transition retries exact nonce with fresh project session rights
+00:00 +4: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart: accepted native dispatch replays its original receipt after planning is disabled
+00:00 +5: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:05 +6: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:06 +7: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:07 +8: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:07 +9: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:08 +10: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:10 +11: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:11 +12: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:12 +13: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:12 +14: /workspace/smartplan-service-create-journal-20261109/app/test/business_editor_context_test.dart: editor ignores late format after pendingSession replacement
+00:13 +15: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_test.dart: project source right loss clears case and stops transitions (variant: TargetPlatform.windows)
+00:14 +16: /workspace/smartplan-service-create-journal-20261109/app/test/business_editor_context_test.dart: editor ignores late success after pendingKey replacement
+00:14 +17: /workspace/smartplan-service-create-journal-20261109/app/test/business_editor_context_test.dart: editor ignores late rejected after pendingKey replacement
+00:14 +18: /workspace/smartplan-service-create-journal-20261109/app/test/business_editor_context_test.dart: editor ignores late unconfirmed after pendingKey replacement
+00:15 +19: /workspace/smartplan-service-create-journal-20261109/app/test/business_editor_context_test.dart: editor ignores late format after pendingKey replacement
+00:16 +20: /workspace/smartplan-service-create-journal-20261109/app/test/business_editor_context_test.dart: same-context save still closes with a confirmed result
+00:17 +21: /workspace/smartplan-service-create-journal-20261109/app/test/business_editor_context_test.dart: same-context uncertain save preserves and repeats exact input
+00:18 +22: /workspace/smartplan-service-create-journal-20261109/app/test/business_editor_context_test.dart: late failure cannot restore values in a revoked original owner
+00:18 +23: /workspace/smartplan-service-create-journal-20261109/app/test/business_editor_context_test.dart: late old command failure cannot overwrite a newer command at the same key
+00:18 +24: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: actual service original is removed on allowed session replacement
+00:19 +25: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: actual service original is removed on allowed session replacement
+00:21 +26: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: actual service original is cleared while backgrounded
+00:22 +27: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: service owned draft closes for session and preserves unrelated routes
+00:24 +28: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: service owned draft closes for dispose and preserves unrelated routes
+00:24 +29: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: service owned draft closes for background and preserves unrelated routes
+00:26 +30: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: service owned draft closes for foreign_dialog and preserves unrelated routes
+00:26 +31: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: service held original reply cannot populate a superseded or revoked view
+00:27 +32: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: service held original error cannot populate a superseded or revoked view
+00:27 +33: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: service held original silent_revocation cannot populate a superseded or revoked view
+00:27 +34: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: service pending preflight cannot post after originating view closes
+00:27 +35: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: actual custody original is removed on allowed session replacement
+00:27 +36: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: actual custody original is cleared while backgrounded
+00:27 +37: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: custody owned draft closes for session and preserves unrelated routes
+00:29 +38: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: custody owned draft closes for dispose and preserves unrelated routes
+00:29 +39: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: custody owned draft closes for background and preserves unrelated routes
+00:30 +40: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: custody owned draft closes for foreign_dialog and preserves unrelated routes
+00:31 +41: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: custody held original reply cannot populate a superseded or revoked view
+00:31 +42: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: custody held original error cannot populate a superseded or revoked view
+00:31 +43: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: custody held original silent_revocation cannot populate a superseded or revoked view
+00:31 +44: /workspace/smartplan-service-create-journal-20261109/app/test/business_service_equipment_lifecycle_review_test.dart: custody pending preflight cannot post after originating view closes
+00:31 +45: All tests passed!

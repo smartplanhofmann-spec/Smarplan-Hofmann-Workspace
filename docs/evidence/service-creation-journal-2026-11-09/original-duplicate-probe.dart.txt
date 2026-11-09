@@ -1,0 +1,185 @@
+@Tags(['posix_backend'])
+library;
+
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:flutter_test/flutter_test.dart';
+import 'package:smartplan_office/api.dart';
+import 'package:smartplan_office/business_resource_custody.dart';
+import 'package:smartplan_office/business_service.dart';
+import 'package:smartplan_office/business_session.dart';
+
+import 'file:///workspace/Smarplan-Hofmann-Workspace/app/test/backend_integration_test.dart' show BackendHttp;
+import 'file:///workspace/Smarplan-Hofmann-Workspace/app/test/import_backend_integration_test.dart' show fixture;
+
+class GuardedServiceHttp extends OfficeApi {
+  GuardedServiceHttp(String base) : super(baseUrl: base, apiVersion: 'v1');
+  final posts = <Map<String, dynamic>>[];
+  final accepted = <dynamic>[];
+  String? holdRead;
+  final held = Completer<void>(), release = Completer<void>();
+  @override
+  Future<dynamic> call(String path, [Map<String, dynamic>? body]) async {
+    if (body != null) {
+      posts.add({'path': path, 'body': jsonDecode(jsonEncode(body))});
+    }
+    final result = await super.call(path, body);
+    if (body != null) {
+      accepted.add(jsonDecode(jsonEncode(result)));
+      if (accepted.length == 1) {
+        throw const ApiException(0, 'Synthetic accepted HTTP response lost');
+      }
+    } else if (holdRead != null && Uri.parse(path).path == holdRead) {
+      holdRead = null;
+      held.complete();
+      await release.future;
+    }
+    return result;
+  }
+}
+
+void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  for (final kind in ['service']) {
+    test(
+      'actual $kind HTTP keeps one accepted original across closed-view retry and explicit replay',
+      () async {
+        final backend = Directory('../backend').absolute;
+        final python =
+            Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
+            '${backend.path}/.venv/${Platform.isWindows ? 'Scripts/python.exe' : 'bin/python'}';
+        final temporary = await Directory.systemTemp.createTemp(
+          'smartplan-service-guard-http-',
+        );
+        Process? process;
+        StreamIterator<String>? output;
+        StreamSubscription<String>? errors;
+        BusinessSession? session;
+        GuardedServiceHttp? api;
+        final diagnostics = StringBuffer();
+        try {
+          final seed = fixture
+              .replaceFirst('app = create_app(', r'''
+import tempfile
+tempfile.tempdir = sys.argv[1]
+from test_business_resource_custody import ResourceCustodyTests, req
+from business_schema import ensure_schema
+from business_service import Service
+office.db.close()
+domain = ResourceCustodyTests('runTest')
+domain.setUp()
+office = domain.office
+ensure_schema(office, activate=True)
+token = office.login('custody-owner@example.test', 'Synthetic-resource-owner-password')
+user = office.user(token)
+project = domain.project
+domain.profile(serial_number='SYN-HTTP-ORIGINAL', location='Original synthetic shelf')
+service = Service(office)
+incident = service.save(user, req(revision=0, customer_id=domain.customer['id'], person_id=None,
+    project_id=project, asset_id=None, contract_id=None, visit_id=None, inquiry_id=None,
+    defect_id=None, title='Synthetic HTTP private complaint', kind='complaint', priority='high',
+    responsible_id=domain.manager['id'], follow_up_on=None, description='Synthetic original history'))
+app = create_app(''')
+              .replaceFirst(
+                'projects=office.projects(user), project_id=project)',
+                "projects=office.projects(user), project_id=project, service_id=incident['id'], resource_id=domain.resource['id'])",
+              );
+          process = await Process.start(python, [
+            '-u',
+            '-c',
+            seed,
+            temporary.path,
+          ], workingDirectory: backend.path);
+          errors = process.stderr
+              .transform(utf8.decoder)
+              .listen(diagnostics.write);
+          output = StreamIterator(
+            process.stdout
+                .transform(utf8.decoder)
+                .transform(const LineSplitter()),
+          );
+          expect(
+            await output.moveNext().timeout(const Duration(seconds: 30)),
+            true,
+            reason: diagnostics.toString(),
+          );
+          final hello = businessMap(jsonDecode(output.current));
+          await HttpOverrides.runWithHttpOverrides(() async {
+            api = GuardedServiceHttp('http://127.0.0.1:${hello['port']}')
+              ..token = hello['token'];
+            session = BusinessSession(
+              api: api!,
+              projects: businessItems(hello['projects']),
+            );
+            await session!.load();
+            expect(session!.allowed, true, reason: session!.error);
+            final id = hello[kind == 'service' ? 'service_id' : 'resource_id'];
+            final readPath = kind == 'service'
+                ? '/service/cases/$id'
+                : '/resource-custody/$id';
+            final item = businessMap(await session!.read(readPath));
+            final historyBefore = businessMap(
+              await session!.read('$readPath/history'),
+            );
+            const key = 'service-case-new';
+            const path = '/service/cases';
+            final body = <String,dynamic>{
+              'revision':0, 'customer_id':item['customer_id'], 'person_id':null,
+              'project_id':hello['project_id'], 'asset_id':null, 'contract_id':null,
+              'visit_id':null, 'inquiry_id':null, 'defect_id':null,
+              'title':'SYN identical new manual complaint', 'kind':'complaint',
+              'priority':'high', 'responsible_id':item['responsible_id'],
+              'follow_up_on':null, 'description':'SYN only one desired case',
+            };
+            await expectLater(
+              session!.command(
+                key,
+                path,
+                body,
+                validateResult: (value) => kind == 'service'
+                    ? serviceReceipt(path, body, value)
+                    : custodyReceipt(path, body, value),
+              ),
+              throwsA(
+                isA<ApiException>().having(
+                  (e) => e.status,
+                  'lost accepted response',
+                  0,
+                ),
+              ),
+            );
+            expect(api!.accepted, hasLength(1));
+            expect(session!.pending(key), true);
+            final originalId = api!.accepted.single['id'];
+            final originalRequestId = api!.posts.single['body']['request_id'];
+            session!.dispose();
+            session = BusinessSession(api:api!, projects:businessItems(hello['projects']));
+            await session!.load();
+            expect(session!.pending(key), false, reason:'New session has no saved original');
+            final second = businessMap(await session!.command(key,path,body,
+              validateResult:(value)=>serviceReceipt(path,body,value)));
+            expect(api!.posts.length,2);
+            expect(api!.posts.last['body']['request_id'],isNot(originalRequestId));
+            expect(second['id'],isNot(originalId));
+            final cases = businessMap(await session!.read('/service/cases'));
+            final duplicates = businessItems(cases['items']).where((c)=>c['title']==body['title']).toList();
+            expect(duplicates.length,2);
+            print('CONFIRMED: accepted response lost, session recreated, same manual case creates 2 persistent records with different request IDs.');
+
+          }, BackendHttp());
+        } finally {
+          session?.dispose();
+          api?.dispose();
+          process?.kill();
+          await process?.exitCode.timeout(const Duration(seconds: 10));
+          await output?.cancel();
+          await errors?.cancel();
+          await temporary.delete(recursive: true);
+        }
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
+  }
+}

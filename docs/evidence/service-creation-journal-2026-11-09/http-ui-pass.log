@@ -1,0 +1,7 @@
+00:00 +0: loading /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart
+00:00 +0: /workspace/smartplan-service-create-journal-20261109/app/test/business_editor_empty_choice_test.dart: optional choice has one empty item when supplied=false
+00:05 +1: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual accepted POST survives complete app recreation, explicit replay and 390px UI
+00:07 +2: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual accepted POST survives complete app recreation, explicit replay and 390px UI
+00:27 +3: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual company switch, readonly, denied project, late logout and false receipt retain exact original
+00:33 +4: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual HTTP freezes caller input before awaiting and storage failures never release a duplicate
+00:36 +5: All tests passed!

@@ -1,0 +1,27 @@
+00:00 +0: loading /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_test.dart
+00:00 +0: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_test.dart: manual command validation preserves Unicode and exact fields
+00:00 +1: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_test.dart: encrypted exact original survives restart and only exact clear
+00:00 +2: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_test.dart: unresolved company binding is checked before private payload
+00:00 +3: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_test.dart: empty old company journal can be prepared for a new company
+00:00 +4: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_test.dart: server version and account isolate keys and encrypted originals
+00:01 +5: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_test.dart: stale sessions cannot overwrite or clear a newer original
+00:01 +6: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_test.dart: concurrent operations in one session cannot replace a pending ID
+00:01 +7: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_test.dart: CAS catches another writer after the journal read
+00:02 +8: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_test.dart: corrupt latest commit never rolls back to an older original
+00:02 +9: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_test.dart: quarantined or incompatible state is preserved and blocks writing
+00:02 +10: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_test.dart: strict state and scope failures preserve every key and file
+00:02 +11: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual accepted POST survives complete app recreation, explicit replay and 390px UI
+00:02 +12: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual accepted POST survives complete app recreation, explicit replay and 390px UI
+00:02 +13: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual accepted POST survives complete app recreation, explicit replay and 390px UI
+00:02 +14: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual accepted POST survives complete app recreation, explicit replay and 390px UI
+00:02 +15: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual accepted POST survives complete app recreation, explicit replay and 390px UI
+00:02 +16: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual accepted POST survives complete app recreation, explicit replay and 390px UI
+00:02 +17: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual accepted POST survives complete app recreation, explicit replay and 390px UI
+00:02 +18: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual accepted POST survives complete app recreation, explicit replay and 390px UI
+00:03 +19: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual accepted POST survives complete app recreation, explicit replay and 390px UI
+00:16 +20: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual accepted POST survives complete app recreation, explicit replay and 390px UI
+00:17 +21: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual accepted POST survives complete app recreation, explicit replay and 390px UI
+00:28 +22: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual company switch, readonly, denied project, late logout and false receipt retain exact original
+00:33 +23: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: actual HTTP freezes caller input before awaiting and storage failures never release a duplicate
+00:38 +24: /workspace/smartplan-service-create-journal-20261109/app/test/service_creation_journal_http_test.dart: (tearDownAll)
+00:38 +24: All tests passed!

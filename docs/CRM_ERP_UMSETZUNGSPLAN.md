@@ -285,10 +285,10 @@ Codes zu externen Hindernissen umgedeutet.
 
 ## Noch offener Zielumfang
 
-Die Anforderungsstatus bleiben unverändert: 40 von 62 Zeilen implementiert oder
-getestet, fünf teilweise, elf offen und sechs extern blockiert. 64,5 % (etwa
-65 %) ist lediglich die ungewichtete Zeilenzählung, keine Fertigstellungs- oder
-Zeitquote. Gesamtbuchhaltung und alle Abnahmen A–G bleiben offen.
+Die Anforderungsmatrix enthält 40 implementierte/getestete Zeilen, fünf
+teilweise erfüllte, elf offene und sechs extern blockierte Anforderungen.
+Diese unterschiedlich großen Zeilen werden nicht in eine Gesamtprozentzahl
+umgerechnet. Gesamtbuchhaltung und alle Abnahmen A–G bleiben offen.
 
 Nach dem Abschluss der Projektphase bleiben die konkreten Steuer-/Lohnfälle,
 vollständige menschliche und gerätebezogene Bedienprüfung und die

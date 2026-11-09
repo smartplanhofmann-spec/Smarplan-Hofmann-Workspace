@@ -19,7 +19,7 @@ Allgemeine Bereiche entfernen den vorherigen Projektkontext auch für
 Vorbelegungen und Rechte. Lokale Browserprüfung und Auslieferungsstand sind
 getrennt dokumentiert; die neue Serverinstallation ist noch nicht bestätigt.
 
-Stand: 08.11.2026. Quelle ist das unveränderte
+Stand: 09.11.2026. Quelle ist das unveränderte
 [Gesamtziel](../CRM_ERP_Gesamtziel.txt). Die integrierte Basis `4c2f008` und
 nachfolgende Änderungen sind im [Fortschritt](CRM_ERP_FORTSCHRITT.md)
 mit ihren eigenen Prüfnachweisen dokumentiert. Diese Matrix bewertet den
@@ -56,10 +56,12 @@ Bausteinen wäre kein verlässlicher Anteil am Gesamtaufwand oder an der
 Produktivreife. Alle sieben durchgängigen Abnahmen A–G bleiben offen.
 Aktuelle integrierte Ergänzungen: [Anfangssalden und Katalogoriginale](CRM_ERP_ANFANGSSALDEN_KATALOG_GESAMTPRUEFUNG_2026-11-04.md), [native Kataloghistorie](CRM_ERP_KATALOG_NATIVE_2026-11-04.md). Der [gemeinsam geprüfte Integrationsstand für Jahresvortrag und V2-Archive](CRM_ERP_JAHRESVORTRAG_GESAMTPRUEFUNG_2026-11-04.md) ergänzt den technisch integrierten Stand mit endgültiger Quellbindung und archivierten Prüfläufen. Ältere Modulnachweise bleiben im [Stand vom 03.11.2026](CRM_ERP_INTEGRATIONSSTAND_2026-11-03.md) nachlesbar.
 
-Die Statuswerte dieser Fortschreibung bleiben unverändert: 40 von 62 Zeilen
-implementiert/getestet (64,5 %, etwa 65 %, ungewichtet), fünf teilweise,
-elf offen und sechs extern blockiert. Dies ist keine Fertigstellungs-,
-Arbeitszeit- oder Produktivfreigabequote. [Native Assistenten-/Sprachkorrekturen
+Die aktuelle Zeilenzählung umfasst 40 implementierte/getestete, fünf teilweise
+erfüllte, elf offene und sechs extern blockierte Anforderungen. Die unterschiedlich
+großen Zeilen ergeben keine belastbare Gesamtprozentzahl. Die neuen gemeinsamen
+Nachweise für Offlinebindung, Lohnfälle und Browserzeitabrechnung stehen im
+[Integrationsbericht vom 09.11.](CRM_ERP_GESAMTINTEGRATION_2026-11-09.md).
+[Native Assistenten-/Sprachkorrekturen
 und technische Isolationsnachweise](CRM_ERP_UNTERNEHMENSISOLATION_GESAMTPRUEFUNG_2026-11-04.md)
 sind inzwischen integriert. Die [native Service-/Betriebsmittelkorrektur](CRM_ERP_SERVICE_BETRIEBSMITTEL_GESAMTPRUEFUNG_2026-11-04.md)
 ist ebenfalls mit eigenen Nachweisen integriert. Private Lohnvergleichs-/

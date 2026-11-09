@@ -74,6 +74,28 @@ Der iPhone-Prüfbuild besteht; der signierte Upload bleibt übersprungen.
 
 ## Konkrete aktuelle Arbeit
 
+Die folgenden beiden abgeschlossenen Abschnitte sind entwickelt, geprüft und
+auf dem Testbranch veröffentlicht. Der nächste Backend-/Browser-/App-Abschnitt
+ist am 09.11. begonnen, noch nicht integriert oder ausgeliefert:
+
+- Backend: `/workspace/smartplan-source5-corrections-20261109`, Branch
+  `codex/source5-positive-corrections-20261109`, Basis af98278.
+- Browser: `/workspace/smartplan-source5-browser-20261109`, Branch
+  `codex/source5-positive-browser-20261109`, Basis af98278.
+- Native App: `/workspace/smartplan-source5-app-20261109`, Branch
+  `codex/source5-positive-app-20261109`, Basis af98278.
+
+Geplanter eng begrenzter neuer Vertrag: unverändertes Brutto-/Zuflussereignis,
+unveränderte laufende Rechnung, vollständiger tatsächlicher bezahlter Source5-
+Präfix und positive zusätzliche Nettoteile am belegten ursprünglichen Tag.
+Bereits abgeführte Steuer-/SV-Komponenten dürfen ihre korrigierte Gesamtschuld
+nicht überschreiten; sonst bleibt der Fall ausdrücklich gesperrt. Die bestehende
+Datumsrestriktion ist eine Codegrenze, kein allgemeiner steuerlicher Beweis für
+jeden späteren Korrekturfall. Fachlich eigenständige spätere Zahlungstage,
+Bruttoänderungen, Rückzahlungen und mehrere Steuergruppen werden nicht über
+diesen Vertrag freigeschaltet. Exakter Vertrag, echte Fixtures, Atomizität,
+Jahres-/Cash-/EÜR-Anschluss und beide Clients werden zusammen geprüft.
+
 Die folgenden beiden Abschnitte sind entwickelt, geprüft und auf dem Testbranch
 veröffentlicht. Als nächstes konkretes Codepaket bleiben bereits bezahlte
 Source5-Folgekorrekturen mit neuem Differenzvertrag und mehrere Steuergruppen

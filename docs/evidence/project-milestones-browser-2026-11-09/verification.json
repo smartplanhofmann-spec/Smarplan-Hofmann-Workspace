@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-09",
+  "base_commit": "6a454caae4b31e6b4a4ede056bedeb1408a1cbe4",
+  "backend_commit": "854218f36c19c8874f58fb1ed669390e9ac056b6",
+  "browser_commits": [
+    "d7afc14",
+    "92cb5ca",
+    "6afe932"
+  ],
+  "integrated_test_commit": "e27360c",
+  "fixture_sha256": "abee67cc3b6865c5ea6811fbb554b61b9caa7dfb023cbab99ca26155658b7c52",
+  "module_tests": {
+    "passed": 927,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "duration_ms": 16416.198189
+  },
+  "browser": {
+    "workflow": "project-milestones",
+    "exit_code": 0,
+    "viewport": [
+      390,
+      844
+    ],
+    "sandbox": "namespace, PID, network, seccomp verified",
+    "revisions": 6,
+    "real_mfa": true,
+    "mocked_application_responses": false
+  },
+  "earlier_failure": {
+    "exit_code": 1,
+    "cause": "Test expected native select option to be visible; correct assertion waits for the attached option. No timeout increase."
+  },
+  "files": {
+    "browser-first-failed.txt": "932a18a4573d86c42e553c89f8eb0536b42d7065fa9dca352bb6c4b0212dd69f",
+    "browser-final.txt": "710643afb2dc28dad84818d99303d1ae59ea8cb226b72c75d2eba6c52814ab72",
+    "modules-final.txt": "43410529c029caa2eb98f8883fde8223cdd746b21946799608f639c605eb0bf5",
+    "project-milestones-mobile.png": "902bc79b6e1b7f85834450e79e25a8e4885341e944e001f0aaa0c87ee7dea2c2",
+    "project-milestones-evidence.json": "c69ebfeb4a6454bf0d95a339d35fec404b486f679cdefc49197a4847a0553a75"
+  }
+}

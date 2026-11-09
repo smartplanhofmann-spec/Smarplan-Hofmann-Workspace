@@ -1,0 +1,2 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+project milestones: real MFA, exact create/update retries, scoped denial, current and historical team, concurrent revision, preserved six-version history, late reply and390px passed

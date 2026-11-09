@@ -1,0 +1,32 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+locator.waitFor: Timeout 15000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('dialog', { name: 'Meilenstein bearbeiten', exact: true }).getByLabel('Verantwortlich', { exact: true }).locator('option').filter({ hasText: 'Nicht mehr im aktuellen Projektteam' }) to be visible[22m
+[2m    29 × locator resolved to hidden <option value="dc3da4fcdcf0440ea9281dc6c8b4229a">Nicht mehr im aktuellen Projektteam (unverändert)</option>[22m
+
+    at Object.projectMilestonesFlow (/workspace/smartplan-milestones-browser-e2e-20261109/web/office/tests/project-milestones-flow.cjs:43:213)
+    at async main (/workspace/smartplan-milestones-browser-e2e-20261109/web/office/tests/e2e.cjs:115:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: [ 'Failed to load resource: net::ERR_FAILED' ]
+Visible headings: [ 'Synthetic Workshop', 'Meilensteine', 'Meilenstein bearbeiten' ]
+Active section: projects
+Pending API requests: []
+Fixture log tail:
+27.0.0.1 - - [09/Nov/2026 15:37:20] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 15:37:20] "GET /api/v1/business/projects/01aef1d2f5634d52ac5a692996ffbd41/profile HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 15:37:20] "GET /api/v1/business/projects/01aef1d2f5634d52ac5a692996ffbd41/profile HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 15:37:20] "GET /api/v1/business/capabilities?project_id=01aef1d2f5634d52ac5a692996ffbd41 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 15:37:20] "GET /api/v1/projects/01aef1d2f5634d52ac5a692996ffbd41/workspace HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 15:37:20] "GET /api/v1/me HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 15:37:20] "GET /api/v1/business/projects/01aef1d2f5634d52ac5a692996ffbd41/milestones HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 15:37:20] "GET /api/v1/business/projects/01aef1d2f5634d52ac5a692996ffbd41/milestones/ffb29ab80c534f6684154c4839eb7e1a HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 15:37:20] "POST /api/v1/assignments HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 15:37:20] "GET /api/v1/business/capabilities?project_id=01aef1d2f5634d52ac5a692996ffbd41 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 15:37:20] "GET /api/v1/business/projects/01aef1d2f5634d52ac5a692996ffbd41/milestones/ffb29ab80c534f6684154c4839eb7e1a HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 15:37:20] "GET /api/v1/projects/01aef1d2f5634d52ac5a692996ffbd41/workspace HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 15:37:20] "GET /api/v1/me HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

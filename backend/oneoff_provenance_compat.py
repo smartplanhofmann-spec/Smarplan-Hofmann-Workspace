@@ -112,7 +112,19 @@ def calculation_matches(snapshot,calculated,original):
     version=calculated.get('rule_version')
     candidate=_single_variant if version==single.ONEOFF_RULE_VERSION else _multiple_variant if version==multiple.MULTIPLE_RULE_VERSION else None
     if candidate is None:return False
-    return any(candidate(calculated,snapshot,variant)==original for variant in _trusted_variants())
+    variants=_trusted_variants()
+    # Every successful reconstruction must reproduce this exact embedded v6
+    # rules hash. Exclude impossible encodings before rebuilding their annual
+    # sources; keep the full comparison for every remaining candidate.
+    if version==single.ONEOFF_RULE_VERSION:
+        expected=original.get('rules_sha256')
+        variants=tuple(value for value in variants if value[2]==expected)
+    elif calculated.get('payroll_calculation_complete') is True:
+        details=original.get('multiple_one_off_details')
+        embedded=details.get('single_original_calculation') if isinstance(details,dict) else None
+        if not isinstance(embedded,dict):return False
+        variants=tuple(value for value in variants if value[2]==embedded.get('rules_sha256'))
+    return any(candidate(calculated,snapshot,variant)==original for variant in variants)
 
 
 def bind_single_payment_plan(snapshot,plan,original_calculation):

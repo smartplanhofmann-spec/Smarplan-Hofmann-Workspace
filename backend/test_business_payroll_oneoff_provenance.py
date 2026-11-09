@@ -13,6 +13,7 @@ from core import canonical
 from oneoff_provenance_compat import calculation_matches
 import payroll_oneoff_composition_2026 as single
 import payroll_multiple_oneoff_2026 as multiple
+import oneoff_provenance_compat as compatibility
 import test_business_payroll_oneoff_runs as source4
 import test_business_payroll_multiple as source5
 import test_business_payroll_oneoff_annual as annual_workflow
@@ -102,6 +103,31 @@ class OneoffOriginalTransport(unittest.TestCase):
                     input=json.dumps(dict(source=snapshot,version=version,original=original)),
                     text=True,capture_output=True,check=True,timeout=60,cwd=self.root,
                     env={'PATH':os.environ.get('PATH',''),'LANG':'C.UTF-8'})
+
+    def test_metadata_prefilter_preserves_exact_bruteforce_acceptance(self):
+        f4=self.fixture4();f5=self.fixture5()
+        for snapshot,calculate,version,rebuild in (
+                (f4.c.source(),single.calculate_oneoff_source,single.ONEOFF_RULE_VERSION,compatibility._single_variant),
+                (f5.source,multiple.calculate_multiple_source,multiple.MULTIPLE_RULE_VERSION,compatibility._multiple_variant)):
+            current=calculate(snapshot,rule_version=version,source_contract_version=1)
+            old=self.windows_calculate(snapshot,rule_version=version,source_contract_version=1)
+            cases=[current,old]
+            bad=json.loads(canonical(old));bad['net_minor']+=1;cases.append(bad)
+            bad=json.loads(canonical(old))
+            if version==single.ONEOFF_RULE_VERSION:
+                bad['rules_sha256']='0'*64
+            else:
+                bad['multiple_one_off_details']['single_original_calculation']['rules_sha256']='0'*64
+            cases.append(bad)
+            bad=json.loads(canonical(old))
+            part=bad if version==single.ONEOFF_RULE_VERSION else bad['multiple_one_off_details']['single_original_calculation']
+            part['one_off_details']['tax']['pap_hash']=current['one_off_details']['tax']['pap_hash'] if version==single.ONEOFF_RULE_VERSION else current['multiple_one_off_details']['single_original_calculation']['one_off_details']['tax']['pap_hash']
+            cases.append(bad)
+            for index,original in enumerate(cases):
+                expected=current==original or any(rebuild(current,snapshot,variant)==original
+                    for variant in compatibility._trusted_variants())
+                with self.subTest(rule=version,case=index):
+                    self.assertEqual(calculation_matches(snapshot,current,original),expected)
 
     def test_actual_source4_case_run_receipts_pdf_and_integrity_survive_native_read(self):
         f=self.fixture4()

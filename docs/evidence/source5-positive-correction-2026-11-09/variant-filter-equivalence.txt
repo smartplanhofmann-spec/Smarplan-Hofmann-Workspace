@@ -1,0 +1,6 @@
+test_metadata_prefilter_preserves_exact_bruteforce_acceptance (test_business_payroll_oneoff_provenance.OneoffOriginalTransport.test_metadata_prefilter_preserves_exact_bruteforce_acceptance) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 5.262s
+
+OK

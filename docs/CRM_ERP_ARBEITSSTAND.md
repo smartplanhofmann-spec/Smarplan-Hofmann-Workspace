@@ -224,6 +224,28 @@ zusätzliche Einmalbezugsabgleich ist oben beschrieben.
    veröffentlichter Archivdigest und alle 248 Dateihashes stimmen. Es ist
    damit noch nicht auf einem echten Windowsgerät bedient oder installiert.
 
+## Laufender nächster Abschnitt: Projektmeilensteine
+
+Die getrennten Arbeitskopien auf Basis 6a454ca sind:
+
+- Backend: `/workspace/smartplan-project-milestones-backend-20261109`,
+  `codex/project-milestones-backend-20261109`.
+- Browser: `/workspace/smartplan-milestones-browser-20261109`,
+  `codex/project-milestones-browser-20261109`.
+- Native App: `/workspace/smartplan-milestones-native-20261109`,
+  `codex/project-milestones-native-20261109`.
+- Gemeinsame Vorbereitung: `/workspace/smartplan-milestones-integration-20261109`,
+  `codex/milestones-integration-20261109`, Basis veröffentlichter Lieferstand.
+
+Vereinbart ist ein eigener versionierter Baustein mit Titel, Beschreibung,
+optionalem Termin und Verantwortlichem sowie manuellem Status
+`planned`, `achieved` oder `cancelled`. Eigene unveränderte Historie und
+Auftragsquittungen, frische Projekt-/Planungsrechte und unveränderte bestehende
+Aufgaben/Termine gehören zum Umfang. Ein erreichter Meilenstein ist keine
+rechtliche Abnahme und erzeugt keine automatische Rechnung oder Zahlung.
+Backend/Browser/App und aktuelle Fixtures werden zusammengeführt und erst
+nach den tatsächlichen Prüfungen als neuer Lieferstand ausgewiesen.
+
 ## Weitere unabhängige Entwicklungsarbeit
 
 - Korrigierten Browser-Gesamtlauf und neue eigene Remote-CI abschließen.

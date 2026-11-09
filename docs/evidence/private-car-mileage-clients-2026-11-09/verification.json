@@ -24,5 +24,18 @@
   ],
   "private_pending_persistence": "in memory in the authorized private view; no new restart persistence",
   "live_install_or_provider_actions": false,
-  "pending_backend_followup": "per-original evidence SHA claim overlap fix coordinated by root; final integrated recheck follows"
+  "client_author_commit": "44eaab0071742c3b79c243332bf4c9f831b31916",
+  "backend_claim_author_commit": "03fbded15ccf8fa62bb9806c6418c194639ef0c5",
+  "tested_final_candidate": "f0a1ecf21d72e2c84703457b1dba7072772f7ea3",
+  "backend_claim_fixture_unchanged": true,
+  "final_claim_backend_real_mfa_browser_passed": true,
+  "independent_browser_review_confirmed_findings": 0,
+  "additional_browser_module_run": {
+    "first_run_passed_files": 119,
+    "first_run_total_files": 120,
+    "remaining_file": "planning.test.mjs",
+    "cause": "sandbox EPERM spawning timezone child process",
+    "unchanged_retry_with_child_process_permission_passed_cases": 7,
+    "production_or_test_changes_for_failure": false
+  }
 }

@@ -1,0 +1,4 @@
+Read-only review by /root/review_overview_scope on 2026-11-09.
+Reviewed private-car-mileage.js and TravelCommand root/feature adapter: explicit mileage root and read/write contract; deeply frozen original body, hash, actor and request correlation; status-only original receipt before resolution; V4 trip/prior-version/meters/original evidence binding; no payroll or v3 reinterpretation; current sources and private dialog revocation.
+Confirmed additional findings: 0. No file changes or new tests by reviewer.
+Backend claim follow-up: 03fbded15ccf8fa62bb9806c6418c194639ef0c5. Shared actual fixture SHA256: 30c0d2388a83458259d7cd8c1d98caf69cf08cf8e5396ba36ec9b02ba6aac71b.

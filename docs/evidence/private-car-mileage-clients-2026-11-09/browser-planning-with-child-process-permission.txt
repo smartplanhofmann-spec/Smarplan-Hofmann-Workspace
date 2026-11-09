@@ -1,0 +1,15 @@
+✔ calendar selection covers December, the following January, leap February and whole years (5.49676ms)
+✔ weeks and navigation remain calendar days across year and daylight-saving boundaries (0.999736ms)
+✔ multiple years stay within the server calendar limit and reject impossible dates (1.75131ms)
+✔ project bars include both bounds, retain one-day projects, and clip only the visible part (0.861197ms)
+✔ missing or invalid project bounds and projects outside the window never produce bars (0.681001ms)
+✔ timeline headers expose actual days and all months across the year boundary (59.763766ms)
+✔ calendar math and project clipping are identical in Berlin, Los Angeles and Auckland (656.898608ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 747.499997

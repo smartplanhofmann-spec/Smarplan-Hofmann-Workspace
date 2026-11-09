@@ -63,5 +63,25 @@
     "file": "analyze_final.txt.gz",
     "uncompressed_sha256": "5eb5a5d0ae415279392ed810c5a69f113d20e2228cff29800a1c9bf84d335605",
     "uncompressed_bytes": 97
+  },
+  "annual_fixture_generation": {
+    "file": "annual_fixture_generation.txt.gz",
+    "uncompressed_sha256": "80ff3de342906b6af772147f6bf8abb88aabb89be14d90e64bdd8204065a33ac",
+    "uncompressed_bytes": 72
+  },
+  "annual_all_23": {
+    "file": "annual_all_23.txt.gz",
+    "uncompressed_sha256": "b616d90a96eeb220512af67ffe018e8bf93470c4311ed3543296a021f7c297b0",
+    "uncompressed_bytes": 4495
+  },
+  "annual_targeted": {
+    "file": "annual_targeted.txt.gz",
+    "uncompressed_sha256": "c1a2e0b4319fe2719cb8f6a7d66db501c4a02311f90356051029b2270915a3ae",
+    "uncompressed_bytes": 228
+  },
+  "annual_analysis": {
+    "file": "annual_analysis.txt.gz",
+    "uncompressed_sha256": "c1aaf67485f7171c920c94cfb77e5af06232a8417d3bcadce618d838dc790e61",
+    "uncompressed_bytes": 97
   }
 }

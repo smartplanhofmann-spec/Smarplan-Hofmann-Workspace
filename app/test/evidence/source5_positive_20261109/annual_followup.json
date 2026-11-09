@@ -1,0 +1,42 @@
+{
+  "previous_candidate_commit": "d58bf484d2c35d1f86910990cdcf51180671020a",
+  "source_sha256": {
+    "app/test/fixtures/generate_source5_positive.py": "c30eadbfa6eccf5c221d3e385b22b5bc0dbab6fb4488c997c52ab11edfd60b35",
+    "app/test/fixtures/source5_positive_corrections.json": "61c1654deaddb10ccfa1601ea94f9dd40df283b3eaaa99e2d08e7ef2647d5ff9",
+    "app/test/business_source5_positive_contract_test.dart": "73596f168d6d122a4c8bf5cb39b23963e1ed2b232675e33266cd5f64fc422b06"
+  },
+  "actual_annual": {
+    "as_of_date": "2026-11-01",
+    "current_calculation_case_ref": null,
+    "run_ref": {
+      "content_hash": "b1c246a019ad149a47409754b0c7fffe3744c79e16b63fbd8c0dfa0da20adbdf",
+      "id": "01d74a4673874940bbcc17b17a61efd1",
+      "revision": 3
+    },
+    "payment_ref": {
+      "content_hash": "4361c7cea8c54be6759749aae0e676d30dc9fab9883b351af6e1809dc3c4cfd8",
+      "id": "127341d76910485b9357f336d9d2b072",
+      "revision": 1
+    },
+    "bonus_minor": 50000,
+    "prior_one_off_count": 1,
+    "social_bases_minor": {
+      "care": 50000,
+      "health": 50000,
+      "pension": 50000,
+      "unemployment": 50000
+    }
+  },
+  "tests": {
+    "passed": 23,
+    "failed": 0,
+    "skipped": 0,
+    "reported_seconds": 50,
+    "targeted_stronger_annual_test": "passed",
+    "analysis": "No issues found (35.0s)"
+  },
+  "backend_files_changed": false,
+  "synthetic_fixture": true,
+  "actual_device_test": false,
+  "live_server_test": false
+}

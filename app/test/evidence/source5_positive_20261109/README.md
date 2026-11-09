@@ -31,3 +31,17 @@ konkrete Lücke.
 V1-Originale und ihre Vertragsform bleiben erhalten. Die Erweiterung versendet
 keine Überweisung und gibt weder Netto-Rückforderungen noch geänderte
 Bruttoereignisse, andere Zuflusstage oder überzahlte Abführungen frei.
+
+## Ergänzter Jahresverbraucher
+
+Nach beiden tatsächlich angenommenen v2-Korrekturen erzeugt der Generator
+zusätzlich eine neue Jahresbasis mit Stichtag 01.11.2026. Sie übernimmt genau
+die letzte Laufrevision und deren letzte v2-Zahlung; Abdeckungszeitraum und
+Lücken bleiben erhalten. Der native Jahres- und Quellenparser akzeptiert
+diesen echten Stand. Der Bonus wird steuerlich einmal mit 50.000 Cent und
+auch in den vier Sozialversicherungsgrundlagen genau einmal berücksichtigt.
+
+Mit der ergänzten Fixture bestehen alle 23 Tests; die anschließend verschärfte
+Jahresprüfung besteht gezielt erneut. Die App-Analyse ist ohne Befund. Die
+aktualisierten Quellen- und Fixturehashes stehen in `annual_followup.json`;
+die ursprünglichen 22er-Nachweise des Vorgängerstands bleiben unverändert.

@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:smartplan_office/api.dart';
 import 'package:smartplan_office/business_payroll.dart';
 import 'package:smartplan_office/business_payroll_accounts.dart';
+import 'package:smartplan_office/business_payroll_annual_basis_contract.dart';
 import 'package:smartplan_office/business_payroll_source5_transition.dart';
 
 final fixture = jsonDecode(
@@ -30,6 +31,42 @@ void rehash(Map<String, dynamic> run) {
 }
 
 void main() {
+  test('actual annual basis after two paid corrections counts the single bonus once', () {
+    final annual = fixture['annual_after_corrections'],
+        record = copy(annual['record']),
+        employee = record['employee_id'] as String;
+    expect(payrollAnnualRecord(record, employee, kind: 'annual_basis'), record);
+    payrollAnnualSources(copy(annual['sources']), employee);
+    expect(record['details']['as_of_date'], '2026-11-01');
+    expect(record['details']['current_calculation_case_ref'], isNull);
+    expect(record['details']['payroll_run_refs'], [annual['run_ref']]);
+    expect(record['details']['payroll_payment_refs'], [annual['payment_ref']]);
+    expect(record['plan']['earlier_other_taxable_minor'], 50000);
+    expect(record['plan']['projection']['prior_one_offs'], hasLength(1));
+    expect(record['plan']['projection']['prior_one_offs'][0]['bases_minor'], {
+      'health': 50000,
+      'care': 50000,
+      'pension': 50000,
+      'unemployment': 50000,
+    });
+    final original =
+        fixture['second_correction']['case']['sources']['calculation_source']['current_annual_basis']['details'];
+    expect(record['details']['coverage_to'], original['coverage_to']);
+    expect(record['details']['gaps'], original['gaps']);
+    final runs = record['sources']['payroll_runs'] as List,
+        payments = record['sources']['payroll_payments'] as List;
+    expect(runs, hasLength(1));
+    expect(payments, hasLength(1));
+    expect(runs.single['projection_format'], 'source5_annual_reference_v1');
+    for (final key in ['id', 'revision', 'content_hash']) {
+      expect(runs.single[key], annual['run_ref'][key]);
+      expect(payments.single[key], annual['payment_ref'][key]);
+    }
+    expect(
+      fixture['second_correction']['payment']['details']['payment_source_schema_version'],
+      2,
+    );
+  });
   test('actual v1 and both positive corrected previews and receipts preserve all original bindings', () {
     for (final key in ['initial', 'correction', 'second_correction']) {
       final f = fixture[key],

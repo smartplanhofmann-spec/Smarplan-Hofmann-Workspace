@@ -27,6 +27,8 @@ test('real original history rejects a missing, crossed or rewritten source even 
   for(const change of [{schema_version:2},{project_id:fixture.other_project_id},{milestone_id:fixture.empty_created.id},{items:fixture.history.items.slice(1)}])await assert.rejects(milestoneHistory({...copy(fixture.history),...change},project,fixture.reopened));
   await assert.rejects(milestoneList({...copy(fixture.listing),items:[fixture.reopened,fixture.reopened]},project));
   await assert.rejects(milestoneRecord({...fixture.created,title:'Substitution'},project));
+  await assert.rejects(milestoneRecord({...fixture.created,title:'invalid \ud800'},project));
+  await assert.rejects(milestoneRecord({...fixture.created,details:'invalid \udfff'},project));
 });
 test('update acknowledgement binds the real original creation and authenticated actor',async()=>{
   const original=fixture.created,body=fixture.update_command,actorId=fixture.user_id;

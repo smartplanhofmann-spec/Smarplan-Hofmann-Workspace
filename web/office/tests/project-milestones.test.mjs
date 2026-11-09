@@ -11,7 +11,7 @@ const values=()=>({title:'  Unverändertes Ziel  ',details:'Beschreibung\n',due_
 test('milestone fields retain original whitespace and allow the same Unicode codepoint limits as the backend',()=>{
   assert.deepEqual(milestoneValues(values(),team()),values());
   assert.equal(milestoneValues({...values(),title:'🎯'.repeat(200),details:'🎯'.repeat(10000)},team()).title.length,400);
-  for(const change of [{title:'🎯'.repeat(201)},{details:'🎯'.repeat(10001)},{title:'\u0085 '},{status:'todo'},{due_date:'2026-02-29'},{due_date:'2201-01-01'},{assignee_id:other}])assert.throws(()=>milestoneValues({...values(),...change},team()));
+  for(const change of [{title:'🎯'.repeat(201)},{details:'🎯'.repeat(10001)},{title:'\u0085 '},{title:'invalid \ud800'},{details:'invalid \udfff'},{status:'todo'},{due_date:'2026-02-29'},{due_date:'2201-01-01'},{assignee_id:other}])assert.throws(()=>milestoneValues({...values(),...change},team()));
   assert.equal(milestoneValues(values(),[],values()).assignee_id,member,'unchanged historical member is retained');
   assert.equal(milestoneValues({...values(),due_date:'',assignee_id:''},[]).assignee_id,null);
 });

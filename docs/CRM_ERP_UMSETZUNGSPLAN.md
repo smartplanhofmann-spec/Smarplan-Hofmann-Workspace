@@ -64,6 +64,12 @@ Restarbeiten in diesem Plan.
 
 ## Bereits belegte Entwicklungsabschnitte
 
+Ergänzt ist die [bedienbare lesende Einzelprüfung alter nativer Planaufträge](CRM_ERP_OFFLINE_ALTBELEGE_NATIVE_2026-11-09.md).
+Sie erhält den ursprünglichen Gerätebestand vollständig und verbindet den
+bestehenden Hash-Endpunkt mit Navigation, Geräteentsperrung und aktueller
+Firmen-/Quittungsprüfung. Weitere alte Warteschlangen und vollständige
+Übernahme werden dadurch nicht als erledigt ausgewiesen.
+
 | Abschnitt | Abgegrenztes Ergebnis | Aktueller Nachweis |
 | --- | --- | --- |
 | Bestand/Unternehmensgrundlage | Vorhandenen Quellstand konsolidiert, Bedarf/Module, Sichtbarkeit/Aktivierung/Rechte, feste Instanzbindung | Bestandsaufnahme, Modul-/Instanzdokumentation |

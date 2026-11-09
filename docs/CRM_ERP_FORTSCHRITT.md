@@ -3494,3 +3494,26 @@ besteht im ersten dokumentierten Abruf, die übrigen Ergebnisse sind offen.
 Der letzte bestätigte laufende Server bleibt A93. Die vollständige Software
 und die Abnahmen A–G sind damit weiterhin nicht als fertig erklärt.
 [Quellbindung und eigener CI-Start](evidence/browser-original-restart-2026-11-09/publication-initial.json).
+
+## 09.11.2026 – Lesender nativer Abgleich alter Planaufträge bedienbar
+
+Die Windows-/iPhone-Navigation bietet einen ausdrücklichen Geräteabgleich.
+Der erhaltene V1-Bestand wird nur nach aktueller Firmenanmeldung und
+Geräteentsperrung gelesen. Ausschließlich Originalhash und Kennungen verlassen
+das Gerät; eine vollständig geprüfte Serverquittung bestätigt genau einen
+Auftrag. Erst danach wird der autorisierte Serveroriginaltitel gezeigt.
+Andere Firmen, fehlende Treffer und nicht exakt hashbare Originale geben
+keinen alten Schreibauftrag frei. Dateien, Schlüssel, Token und Auswahl
+bleiben unverändert; Zugangswechsel und echte App-Pause leeren den RAM.
+
+Die Gegenprüfung des tatsächlichen historischen Quellstands fand ein zu Unrecht
+verlangtes Serverfeld. Derselbe V1-Formatfall ist rot reproduziert und auf dem
+korrigierten Leser nachgeprüft. Frühere Testaufbaufehler und unterbrochene
+Widget-Läufe bleiben getrennt erhalten. Die vollständige V1-Übernahme und die
+Abgleiche anderer Warteschlangen bleiben eigenständige Restarbeit.
+[Vertrag, Nachweise und Grenzen](CRM_ERP_OFFLINE_ALTBELEGE_NATIVE_2026-11-09.md).
+
+43 betroffene native Fälle bestehen am endgültigen Quellstand ohne Auslassung.
+Sie umfassen den tatsächlichen MFA-/HTTP-Firmenwechsel, den historischen
+V1-Dateiaufbau, sichere Entsperrung, Zugangswechsel und mobile Navigation.
+[Eigener Quell- und Rohlaufnachweis](evidence/offline-legacy-recovery-native-2026-11-09/manifest.json).

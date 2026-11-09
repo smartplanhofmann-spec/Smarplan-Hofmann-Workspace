@@ -1,0 +1,85 @@
+Historical source 7b54dddfeb85bdef718bf4c76d369b0f673a5ede app/lib/offline_plans.dart
+
+    Map<String, dynamic> user,
+    List<dynamic> projects, {
+    bool businessTime = false,
+    bool fieldMedia = false,
+    bool offlineReports = false,
+  }) async {
+    _epoch++;
+    await _tail;
+    _state = null;
+    _vault = null;
+    final vault = await device.open(server, user['id'], create: true);
+    final grant = Map<String, dynamic>.from(
+      await api.call(
+        (businessTime || fieldMedia || offlineReports)
+            ? '/api/business/offline/access'
+            : '/api/offline/access',
+        {},
+      ),
+    );
+    transport.token = grant['token'];
+    await device.saveSession(server, user['id'], transport.token);
+    final now = clock().toUtc().toIso8601String();
+    final state =
+        await vault.read() ?? <String, dynamic>{'records': {}, 'outbox': []};
+    state.addAll({
+      'time_events_supported':
+          businessTime &&
+          (grant['capabilities'] as List? ?? []).contains('time_events'),
+      'field_media_supported':
+          fieldMedia &&
+          (grant['capabilities'] as List? ?? []).contains('field_media'),
+      'offline_reports_supported':
+          offlineReports &&
+          (grant['capabilities'] as List? ?? []).contains('offline_reports'),
+      'report_project_ids': grant['report_project_ids'] is List
+          ? List<String>.from(grant['report_project_ids'])
+          : <String>[],
+      'report_writes_enabled': grant['report_writes_enabled'] != false,
+      'cache_schema': 1,
+      'user': user,
+      'projects': projects,
+      'last_online': now,
+      'server_expires_at': grant['expires_at'],
+      'last_seen': now,
+      'locked': false,
+      'imports_supported': (grant['capabilities'] as List? ?? []).contains(
+        'plan_imports',
+      ),
+      'deletions_supported': (grant['capabilities'] as List? ?? []).contains(
+        'plan_deletion',
+      ),
+      'workspace_supported':
+          (grant['capabilities'] as List? ?? []).contains(
+            'offline_workspace',
+          ) &&
+
+              ].contains(_state!['records'][op['local_id']]['sync_status']),
+        );
+        if (eligible.isEmpty) break;
+        final localId = eligible.first['local_id'] as String;
+        final operation = await _change<Map<String, dynamic>?>((state) {
+          final matches = (state['outbox'] as List).where(
+            (op) => op['local_id'] == localId,
+          );
+          if (matches.isEmpty ||
+              _deleted('plan', localId: localId, state: state))
+            return null;
+          final op = matches.first;
+          _entryAccess(epoch, op['project_id'], write: true);
+          final record = state['records'][localId];
+          if (op['body'] == null) {
+            op['path'] =
+                '/api/projects/${op['project_id']}/plans${record['server_id'] == null ? '' : '/${record['server_id']}'}';
+            op['body'] = {
+              ...op['snapshot'],
+              'request_id': op['request_id'],
+              if (record['server_id'] != null) 'revision': record['revision'],
+            };
+          }
+          return offlineCopy(Map<String, dynamic>.from(op));
+        });
+        if (epoch != _epoch || transport.token != token) break;
+        if (operation == null || _deleted('plan', localId: localId)) continue;

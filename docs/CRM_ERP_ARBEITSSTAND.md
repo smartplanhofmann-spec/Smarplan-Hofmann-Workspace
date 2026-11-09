@@ -4,6 +4,15 @@ Stand: 09.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
+**Weiterer lokal geprüfter Abschnitt:** Der [native lesende Abgleich alter
+Planaufträge](CRM_ERP_OFFLINE_ALTBELEGE_NATIVE_2026-11-09.md) ist integriert.
+43 gemeinsame Offline-/Navigations-/Originalfälle bestehen, darunter der
+tatsächliche MFA-/HTTP-Abgleich gegen zwei Firmen mit gleichen Kennungen und
+der reale verschlüsselte V1-Dateiaufbau. Alle alten Dateien, Schlüssel, Token
+und die Auswahl bleiben erhalten. Ein Treffer bestätigt nur einen alten
+angenommenen Auftrag; vollständige Migration und andere Altwarteschlangen
+bleiben eigenständige Restarbeit. Veröffentlichung und eigene CI folgen getrennt.
+
 **Neueste Veröffentlichung:** Der gemeinsam geprüfte Browser-/Reisestand
 `03b7b6df8215fa700b1ca94b4ef0bc588e079b4b` ist auf dem autorisierten
 Testbranch veröffentlicht; der Remote-Zeiger ist bestätigt.

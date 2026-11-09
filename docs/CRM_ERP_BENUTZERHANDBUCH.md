@@ -46,9 +46,21 @@ Die zusammenhängende technische Prüfung und ihre Rechenbeispiele stehen unter
 Originale werden im [Kundenarbeitsbereich](CRM_ERP_KUNDENARBEITSBEREICH.md)
 einzeln veröffentlicht. Ein Kundenupload wird erst nach interner Prüfung übernommen.
 
+## Alte Offline-Aufträge prüfen
+
+In der aktuellen Windows-/iPhone-App steht für erhaltene alte Gerätebestände
+**Alte Offline-Aufträge prüfen** in der Navigation. Nach Onlineanmeldung
+**Gerätebestand prüfen** wählen und das Gerät entsperren. Bei einem prüfbaren
+Planauftrag **Ursprüngliche Annahme prüfen** verwenden. Erst nach einer
+passenden Originalquittung erscheint der Titel des Serveroriginals. Ein
+fehlender Treffer ist keine Erlaubnis, den alten Auftrag neu anzulegen oder
+zu senden. Alte Dateien und übrige Eingaben bleiben unverändert erhalten;
+dies ist ein einzelner lesender Abgleich und keine vollständige Altdatenübernahme.
+
 ## Zeiterfassung finden und Zeiten abrechnen
 
 Im Browser liegt die Zeiterfassung unter **Personal → Personal & Zeiten**.
+
 **Zeit starten** beginnt einen Vorgang für das gewählte Projekt; laufende Zeit
 kann geöffnet, pausiert und beendet werden. Fehlt diese Aktion, muss dem
 angemeldeten Benutzer ein aktives Mitarbeiterprofil zugeordnet sein. Modul-

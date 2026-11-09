@@ -24,6 +24,8 @@ import 'business_time.dart';
 import 'business_widgets.dart';
 import 'design.dart';
 import 'offline_plans.dart';
+import 'legacy_offline_recovery.dart';
+import 'legacy_offline_recovery_page.dart';
 
 typedef _Destination = ({
   String id,
@@ -254,6 +256,29 @@ class _BusinessHomeState extends State<BusinessHome>
                     onTap: () {
                       if (drawer) Navigator.pop(context);
                       widget.onIntegrations!();
+                    },
+                  ),
+                if (widget.repository != null && widget.session.allowed)
+                  ListTile(
+                    leading: const Icon(Icons.fact_check_outlined),
+                    title: const Text('Alte Offline-Aufträge prüfen'),
+                    onTap: () {
+                      if (drawer) Navigator.pop(context);
+                      final session = widget.session,
+                          generation = widget.session.generation;
+                      final recovery = LegacyOfflineRecovery(
+                        api: session.api,
+                        device: widget.repository!.device,
+                        accessChanges: session,
+                        allowed: () =>
+                            session.allowed && session.generation == generation,
+                      );
+                      Navigator.of(context).push<void>(
+                        MaterialPageRoute(
+                          builder: (_) =>
+                              LegacyOfflineRecoveryPage(recovery: recovery),
+                        ),
+                      );
                     },
                   ),
                 ListTile(

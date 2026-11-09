@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-09",
+  "base_commit": "5c478e03339a37794b3bb8f8b9f2f9fca1f81094",
+  "scope": "explicit read-only native inspection of retained V1 plan originals; no upload or full cache migration",
+  "results": {
+    "native_affected": {
+      "passed": 43,
+      "failed": 0,
+      "skipped": 0,
+      "includes": "real encrypted vault/secure-store interface; mobile navigation+biometric inactive+pause; exact local-source receipt validation; real two-company MFA HTTP with same user/project identifiers",
+      "reporter_elapsed": "00:10"
+    },
+    "full_analysis": {
+      "result": "No issues found",
+      "seconds": 15.5
+    }
+  },
+  "historical_v1_source": {
+    "commit": "7b54dddfeb85bdef718bf4c76d369b0f673a5ede",
+    "path": "app/lib/offline_plans.dart",
+    "sha256": "d6323af37b9a01a2ecc00b8ad210165ec5075aa431164535c8082b44ff85a63b",
+    "format": "cache_schema exactly 1; historical snapshots have no server field; scope in original host/API/account directory is no company proof"
+  },
+  "first_failures": {
+    "first-compilation.txt.gz": "mistaken constructor name corrected to existing strict OfflineDiscovery.parse",
+    "first-combined-incomplete.txt.gz": "test fixture wrong project was accidentally the same identifier; widget IO setup started in fake zone",
+    "second-combined-incomplete.txt.gz": "biometric Completers created in fake-clock zone; interrupted own runner after preserving output",
+    "initial-constructed-format-42.txt.gz": "intermediate positive tests contained an invented server field; not proof of historical compatibility",
+    "historical-format-before.txt.gz": "both actual historical no-server-field cases fail before reader correction; preserved genuine new reader regression",
+    "first-small-screen-title-check.txt.gz": "the test attempted an offscreen button; final acceptance scrolls to the real visible control"
+  },
+  "source_sha256": {
+    "app/lib/legacy_offline_recovery.dart": "fef9fb592cbc0032309a158c02ba1a186196bd3c6afb214e0cc46ab1326f8077",
+    "app/lib/legacy_offline_recovery_page.dart": "5fd413d02ec2687114b3050b5199d79044fe054cf394c7cb251d919242d2e18e",
+    "app/lib/business_shell.dart": "cfaaa5e451a0eba68e3889499ee302d3822c01569c078d4d453fb25680e6f931",
+    "app/test/legacy_offline_recovery_test.dart": "ecc227bf9d4fe2f412861f1c9a14b5993c77453415fb59b6abf947695cf57c2a",
+    "app/test/legacy_offline_recovery_http_test.dart": "09539076e9af0117f5ba1fd80b0b2e0b6ebda96943a81759bb0abdf5f510da00"
+  },
+  "historical_kernels_unchanged": 32,
+  "backend_changed": false,
+  "old_files_keys_tokens_selection_changed": false,
+  "live_server_changed": false,
+  "last_confirmed_server": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "evidence_sha256": {
+    "analysis-final.txt.gz": "ce7609f28786140cc3d02dfa055a64ae27a925f5853f8f94463329b59d12c4ec",
+    "first-analysis.txt.gz": "adf22970759beed99163d9ad1699d50d422368142338a2dabce7e9bc4f5df784",
+    "first-combined-incomplete.txt.gz": "1f7b99ae97a4b1aef7fa624b3715d9ff51926302a730da547c8104ad9df07dc4",
+    "first-compilation.txt.gz": "1f78bf8dc2865f0b0c37430cb07465763aa05d21472871c229d57dd9fe3a2b1c",
+    "first-small-screen-title-check.txt.gz": "c3525adb300aff61d62d6d4e602b650bbd624c648c15ec8bcfd511fd7dc15079",
+    "historical-format-before.txt.gz": "e5d629a501819fa58fc9b9874caf4936655928a0db0e4e094927e49caae4a99c",
+    "historical-source-excerpt.txt": "3ddfa4ca78aa636ddc27a25ba383270b25e79b2cdd00af15858e70d9e3f8c577",
+    "initial-constructed-format-42.txt.gz": "0999b7c6d8f18af8e9d7150d58f082cbac0fe57b1b2f77cfa5694beae7fad8e1",
+    "native-final.txt.gz": "b256167bb8d6b8df3abdc01455367a426205e37c790ed19055a2d9a9ed075bad",
+    "second-combined-incomplete.txt.gz": "8d41ffcefda0a8f2ed86cdabae8c7665badefb13c2d03558c1c3ea7425e7e2d4"
+  }
+}

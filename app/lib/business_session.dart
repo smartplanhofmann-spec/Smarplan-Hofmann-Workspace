@@ -2251,10 +2251,14 @@ class BusinessSession extends ChangeNotifier {
             !can('personnel.read') ||
             !canWrite('personnel.approve') ||
             operation?.body['kind'] != 'calculation_case' ||
-            operation?.body['rule_version'] !=
-                'de_2026_segments_entitlements_v5' ||
             operation?.body['source_contract_version'] is! int ||
-            operation?.body['source_contract_version'] != 1 ||
+            !((operation?.body['rule_version'] ==
+                        'de_2026_segments_entitlements_v5' &&
+                    operation?.body['source_contract_version'] == 1) ||
+                (operation?.body['rule_version'] ==
+                        'de_2026_factor_taxfree_travel_month_v10' &&
+                    operation?.body['source_contract_version'] == 2 &&
+                    hasFeature('payroll_factor_taxfree_travel'))) ||
             operation?.body['employee_id'] != employeeId) {
           throw const ApiException(
             403,
@@ -2581,6 +2585,13 @@ class BusinessSession extends ChangeNotifier {
         }
       },
       requireRights: () {
+        if (_pending[key]?.body['accepted_scope'] ==
+                'regular_standard_factor_taxfree_travel_month' &&
+            !hasFeature('payroll_factor_taxfree_travel'))
+          throw const ApiException(
+            403,
+            'Die aktuelle Freigabe für den ursprünglichen Faktor-Reisefall fehlt.',
+          );
         if (_pending[key]?.body.containsKey('settlement_review') == true &&
             (!hasFeature('payroll_source5_positive_corrections') ||
                 !hasModule('payroll_multiple_cases')))

@@ -28,6 +28,8 @@ import 'mail_attachment_preview.dart';
 import 'mail_attachment_widgets.dart' show exportMailAttachment;
 
 const payrollScopes = {
+  payrollFactorTaxfreeTravelScope:
+      'Faktor-Vollmonat mit bereits erstatteter steuerfreier Reise',
   'regular_standard_multiple_oneoff': 'Regulärer Gesamtlohn mit vollständigem Einzelanspruch · getrennte Zahlungstage',
   'multiple_oneoff_review_required':
       'Monatsgruppe mit ungeklärter Steuer- oder Beitragszuordnung',
@@ -236,7 +238,10 @@ Map<String, dynamic> payrollCalculation(dynamic value) {
     return payrollMultipleCalculation(v);
   if (v['rule_version'] == payrollOneOffRule)
     return payrollOneOffCalculation(v);
-  if (v['rule_version'] == payrollCalculationCaseRule)
+  if (payrollCalculationCaseRuleKnown(
+    v['rule_version'],
+    v['source_contract_version'],
+  ))
     return payrollCompositeCalculation(v);
   if (!payrollScopes.containsKey(scope) ||
       v['currency'] != 'EUR' ||
@@ -2585,6 +2590,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
           Notice(
             [
                   payrollCalculationCaseRule,
+                  payrollFactorTaxfreeTravelRule,
                   payrollOneOffRule,
                   payrollMultipleRule,
                 ].contains(calc['rule_version'])
@@ -2594,6 +2600,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
       ],
       if ([
         payrollCalculationCaseRule,
+        payrollFactorTaxfreeTravelRule,
         payrollOneOffRule,
         payrollMultipleRule,
       ].contains(calc['rule_version'])) ...[
@@ -2675,6 +2682,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
       Notice(
         [
               payrollCalculationCaseRule,
+              payrollFactorTaxfreeTravelRule,
               payrollOneOffRule,
               payrollMultipleRule,
             ].contains(calc['rule_version'])

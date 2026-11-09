@@ -6,6 +6,33 @@ import 'business_payroll_entitlement_contract.dart';
 import 'business_session.dart' show businessMap, businessItems;
 
 const payrollCalculationCaseRule = 'de_2026_segments_entitlements_v5';
+const payrollFactorTaxfreeTravelRule =
+    'de_2026_factor_taxfree_travel_month_v10';
+const payrollFactorTaxfreeTravelScope =
+    'regular_standard_factor_taxfree_travel_month';
+bool payrollCalculationCaseRuleKnown(dynamic rule, dynamic contract) =>
+    contract is int &&
+    (rule == payrollCalculationCaseRule && contract == 1 ||
+        rule == payrollFactorTaxfreeTravelRule && contract == 2);
+bool payrollFactorTravelBaseEligible(dynamic raw) {
+  final value = businessMap(raw), plan = businessMap(value['plan']);
+  final tax = plan['tax_periods'], social = plan['social_periods'];
+  return value['kind'] == 'period_case' &&
+      value['status'] == 'active' &&
+      plan['rule_version'] == payrollFactorPeriodRule &&
+      plan['can_calculate'] == true &&
+      tax is List &&
+      tax.length == 1 &&
+      tax.single is Map &&
+      tax.single['lzz'] == 2 &&
+      tax.single['tax_days'] == 30 &&
+      social is List &&
+      social.length == 1 &&
+      social.single is Map &&
+      social.single['full_month'] == true &&
+      social.single['days'] == 30;
+}
+
 const payrollCalculationEventKinds = {
   'tax_features_change': 'Steuermerkmale geändert',
   'wage_forecast_change': 'Regelmäßige Entgeltprognose geändert',
@@ -41,6 +68,60 @@ int _integer(dynamic v, [int min = 0, int max = 1000000000000]) {
   return v;
 }
 
+void _factorTravelMetadata(
+  Map<String, dynamic> value, {
+  bool required = false,
+}) {
+  if (value['travel_payment_refs'] is! List ||
+      value['travel_payment_refs'].isEmpty && required)
+    _fail('Die ursprünglichen Reisezahlungsbelege fehlen.');
+  final ids = <String>{};
+  for (final ref in businessItems(value['travel_payment_refs'])) {
+    payrollFactRef(ref);
+    if (!ids.add(ref['id']))
+      _fail('Ein Reisezahlungsbeleg wurde doppelt gebunden.');
+  }
+  _integer(value['travel_paid_minor']);
+  final factor = businessMap(value['factor_parameters']);
+  if (factor.isEmpty && !required) return;
+  if (factor['tax_factor'] is! String ||
+      !RegExp(r'^0\.[0-9]{3}$').hasMatch(factor['tax_factor']))
+    _fail('Der tatsächlich eingetragene Faktor fehlt.');
+  payrollFactRef(factor['profile_ref']);
+}
+
+void _factorTravelBounds(
+  Map<String, dynamic> value,
+  String month,
+  bool complete,
+) {
+  if ([
+    'entitlement_sources',
+    'unpaid_dates',
+    'social_continuation',
+  ].any((key) => value[key] is! List || value[key].isNotEmpty))
+    _fail(
+      'Der Faktor-Reisefall enthält keine zusätzlichen Ansprüche oder Unterbrechungen.',
+    );
+  if (!complete) return;
+  final dates = payrollFactDates(month);
+  for (final key in ['employment_intervals', 'tax_periods', 'social_periods']) {
+    final rows = businessItems(value[key]);
+    if (rows.length != 1 ||
+        rows.single['start'] != dates.first ||
+        rows.single['end'] != dates.last)
+      _fail('Der Faktor-Reisefall benötigt genau einen vollständigen Monat.');
+  }
+  final tax = businessItems(value['tax_periods']).single;
+  final social = businessItems(value['social_periods']).single;
+  if (tax['lzz'] != 2 ||
+      tax['tax_days'] != 30 ||
+      social['days'] != 30 ||
+      social['full_month'] != true ||
+      businessItems(value['earnings']).any((v) => v['kind'] != 'ordinary_work'))
+    _fail('Der Faktor-Reisefall ist kein ausschließlich regulärer Vollmonat.');
+}
+
 Map<String, dynamic> payrollCalculationCasePlan(
   dynamic raw,
   String employeeId,
@@ -49,8 +130,10 @@ Map<String, dynamic> payrollCalculationCasePlan(
   final v = businessMap(raw);
   payrollFactMonth(month);
   if (v['schema_version'] != 1 ||
-      v['rule_version'] != payrollCalculationCaseRule ||
-      v['source_contract_version'] != 1 ||
+      !payrollCalculationCaseRuleKnown(
+        v['rule_version'],
+        v['source_contract_version'],
+      ) ||
       v['employee_id'] != employeeId ||
       v['month'] != month ||
       [
@@ -78,6 +161,10 @@ Map<String, dynamic> payrollCalculationCasePlan(
       'Der Gesamtplan ist nicht an einen bekannten vollständigen Quellen- und Regelstand gebunden.',
     );
   if (v['gross_minor'] != null) _integer(v['gross_minor']);
+  if (v['rule_version'] == payrollFactorTaxfreeTravelRule) {
+    _factorTravelMetadata(v, required: v['can_calculate'] == true);
+    _factorTravelBounds(v, month, v['can_calculate'] == true);
+  }
   return v;
 }
 
@@ -91,8 +178,10 @@ Map<String, dynamic> payrollCalculationCaseRecord(
   payrollFactRef(v);
   if (v['employee_id'] != employeeId ||
       v['kind'] != 'calculation_case' ||
-      v['rule_version'] != payrollCalculationCaseRule ||
-      v['source_contract_version'] != 1 ||
+      !payrollCalculationCaseRuleKnown(
+        v['rule_version'],
+        v['source_contract_version'],
+      ) ||
       !['active', 'void'].contains(v['status']) ||
       !_hash.hasMatch('${v['source_hash']}') ||
       !_hash.hasMatch('${v['preview_hash']}') ||
@@ -108,13 +197,26 @@ Map<String, dynamic> payrollCalculationCaseRecord(
   payrollFactMonth(d['month']);
   final p = payrollCalculationCasePlan(v['plan'], employeeId, d['month']);
   if (s['schema_version'] != 1 ||
-      s['source_contract_version'] != 1 ||
-      s['rule_version'] != payrollCalculationCaseRule ||
+      !payrollCalculationCaseRuleKnown(
+        s['rule_version'],
+        s['source_contract_version'],
+      ) ||
+      s['source_contract_version'] != v['source_contract_version'] ||
+      s['rule_version'] != v['rule_version'] ||
       s['employee_id'] != employeeId ||
       s['month'] != d['month'] ||
+      p['rule_version'] != v['rule_version'] ||
+      p['source_contract_version'] != v['source_contract_version'] ||
       p['source_snapshot_hash'] != v['source_hash'])
     _fail('Gesamtfall und eingefrorener Quellenstand widersprechen sich.');
-  _bindings(s, d, v['source_file_ids'], employeeId);
+  _bindings(s, d, v['source_file_ids'], employeeId, p);
+  if (v['rule_version'] == payrollFactorTaxfreeTravelRule &&
+      p['factor_parameters'] != null &&
+      !payrollFactsSame(
+        p['factor_parameters']['profile_ref'],
+        (d['profile_refs'] as List).single,
+      ))
+    _fail('Der Faktor gehört nicht zum ausdrücklich gewählten Profil.');
   return v;
 }
 
@@ -123,6 +225,7 @@ void _bindings(
   Map<String, dynamic> d,
   dynamic files,
   String employeeId,
+  Map<String, dynamic> plan,
 ) {
   payrollFactRecord(s['period_case'], employeeId, kind: 'period_case');
   if (!payrollFactsSame(
@@ -154,6 +257,93 @@ void _bindings(
         d['travel_settlement_refs'],
       ))
     _fail('Die Reiseabrechnungsquellen passen nicht zur Person und zum Monat.');
+  if (s['rule_version'] == payrollFactorTaxfreeTravelRule) {
+    if (s['period_case']['plan']['rule_version'] != payrollFactorPeriodRule ||
+        [
+          'employment_terms_refs',
+          'profile_refs',
+          'identity_refs',
+        ].any((key) => d[key] is! List || d[key].length != 1) ||
+        [
+          'segment_events',
+          'entitlement_case_refs',
+        ].any((key) => d[key] is! List || d[key].isNotEmpty) ||
+        d['thirty_day_rule'] != null ||
+        d['flat_tax_decision'] != null ||
+        d['travel_payment_refs'] is! List ||
+        d['travel_payment_refs'].isEmpty ||
+        travel.isEmpty)
+      _fail(
+        'Der Faktor-Reisefall enthält nicht ausschließlich die begrenzten Monatsquellen.',
+      );
+    final actual = <Map<String, dynamic>>[];
+    var paidTotal = 0;
+    for (final source in travel) {
+      final proof = businessMap(source['payment_proof']);
+      if (source['kind'] != 'travel_allowances' ||
+          source['schema_version'] != 1 ||
+          source['letter_m'] != false ||
+          [
+            'flat_taxable_payroll_minor',
+            'individual_taxable_payroll_minor',
+            'benefit_in_kind_non_cash_minor',
+          ].any((key) => source[key] != 0) ||
+          proof['schema_version'] != 1 ||
+          proof['payments'] is! List)
+        _fail(
+          'Die Reisequelle ist nicht als steuerfreie externe Erstattung belegt.',
+        );
+      final cutoff = _integer(proof['cutoff_sequence']);
+      _integer(proof['paid_minor']);
+      final sequences = <int>{};
+      var paid = 0, maximum = 0;
+      String? lastId;
+      for (final payment in businessItems(proof['payments'])) {
+        final ref = payrollFactRef(payment);
+        final sequence = _integer(payment['sequence'], 1);
+        final amount = _integer(payment['amount_minor']);
+        payrollFactDate(payment['paid_on']);
+        if (!['active', 'void'].contains(payment['status']) ||
+            !['reimbursement', 'repayment'].contains(payment['kind']) ||
+            !_hash.hasMatch('${payment['cash_source_hash']}') ||
+            !sequences.add(sequence) ||
+            sequence > cutoff ||
+            lastId != null && '${payment['id']}'.compareTo(lastId) <= 0)
+          _fail('Der eingefrorene Reisezahlungsbeleg ist unvollständig.');
+        lastId = payment['id'];
+        if (sequence > maximum) maximum = sequence;
+        if (payment['status'] == 'active')
+          paid += payment['kind'] == 'repayment' ? -amount : amount;
+        actual.add(ref);
+      }
+      if (maximum != cutoff ||
+          paid != proof['paid_minor'] ||
+          paid != source['tax_free_external_minor'])
+        _fail(
+          'Der Zahlungsstand bestätigt die ausgewählte steuerfreie Reise nicht vollständig.',
+        );
+      paidTotal += paid;
+    }
+    final expected = businessItems(d['travel_payment_refs']);
+    for (final ref in expected) payrollFactRef(ref);
+    List<Map<String, dynamic>> ordered(List<Map<String, dynamic>> refs) =>
+        [...refs]..sort((a, b) => '${a['id']}'.compareTo('${b['id']}'));
+    if (actual.map((v) => v['id']).toSet().length != actual.length ||
+        !payrollFactsSame(ordered(actual), ordered(expected)) ||
+        !payrollFactsSame(
+          plan['travel_payment_refs'],
+          d['travel_payment_refs'],
+        ) ||
+        paidTotal != plan['travel_paid_minor'] ||
+        paidTotal != plan['travel']?['tax_free_external_minor'])
+      _fail(
+        'Die ursprünglichen Reisezahlungsbelege wurden ersetzt oder ausgelassen.',
+      );
+    if (plan['can_calculate'] == true &&
+        plan['factor_parameters']?['tax_factor'] !=
+            s['profiles'][0]['profile']?['tax_factor'])
+      _fail('Der Planfaktor wurde gegenüber dem ausgewählten Profil geändert.');
+  }
   final originals = businessItems(s['source_files']);
   if (originals.any((v) => v['employee_id'] != employeeId) ||
       !payrollFactsSame(originals.map((v) => v['id']).toList()..sort(), files))
@@ -235,6 +425,44 @@ Map<String, dynamic> payrollCalculationCaseSources(
     if (item['employee_id'] != null || item['kind'] != 'travel_tax_policy')
       _fail('Eine betriebliche Steuerentscheidung ist nicht eindeutig.');
   }
+  if (v.containsKey('factor_period_facts')) {
+    final ids = <String>{};
+    for (final item in businessItems(v['factor_period_facts'])) {
+      payrollFactRecord(item, employeeId, kind: 'period_case');
+      if (item['plan']['rule_version'] != payrollFactorPeriodRule ||
+          !ids.add(item['id']))
+        _fail(
+          'Der Faktor-Basisfall gehört nicht zum freigegebenen Quellenstand.',
+        );
+    }
+  }
+  if (v.containsKey('travel_payment_proofs')) {
+    final ids = <String>{};
+    for (final item in businessItems(v['travel_payment_proofs'])) {
+      payrollFactRef(item);
+      payrollFactRef(item['settlement_ref']);
+      payrollFactDate(item['paid_on']);
+      _integer(item['amount_minor']);
+      const keys = {
+        'id',
+        'revision',
+        'content_hash',
+        'settlement_ref',
+        'status',
+        'kind',
+        'paid_on',
+        'amount_minor',
+      };
+      if (!ids.add(item['id']) ||
+          item.keys.toSet().difference(keys).isNotEmpty ||
+          keys.difference(item.keys.toSet()).isNotEmpty ||
+          !['active', 'void'].contains(item['status']) ||
+          !['reimbursement', 'repayment'].contains(item['kind']))
+        _fail(
+          'Die begrenzten Reisezahlungsquellen sind nicht eindeutig oder vollständig.',
+        );
+    }
+  }
   return v;
 }
 
@@ -251,11 +479,22 @@ Map<String, dynamic> payrollCalculationCaseInput(
     if (previous['details']['month'] != month)
       _fail('Der ursprüngliche Gesamtfallmonat bleibt erhalten.', 400);
   }
+  final rule =
+      values['rule_version'] ??
+      previous?['rule_version'] ??
+      payrollCalculationCaseRule;
+  if (![
+        payrollCalculationCaseRule,
+        payrollFactorTaxfreeTravelRule,
+      ].contains(rule) ||
+      previous != null && previous['rule_version'] != rule)
+    _fail('Die bestätigte Regelwahl bleibt bei der Korrektur erhalten.', 400);
   List<Map<String, dynamic>> refs(
     dynamic raw,
     dynamic ids, {
     String? kind,
     bool optional = false,
+    bool includeVoid = false,
   }) {
     if (ids is! List ||
         !optional && ids.isEmpty ||
@@ -266,7 +505,7 @@ Map<String, dynamic> payrollCalculationCaseInput(
           .where(
             (v) =>
                 v['id'] == id &&
-                v['status'] != 'void' &&
+                (includeVoid || v['status'] != 'void') &&
                 (kind == null || v['kind'] == kind),
           )
           .firstOrNull;
@@ -293,6 +532,110 @@ Map<String, dynamic> payrollCalculationCaseInput(
     if (value == null || !files.contains(id))
       _fail('Jedes konkrete Original zusätzlich am Gesamtfall binden.', 400);
     return {'id': id, 'revision': 1, 'content_hash': value['content_hash']};
+  }
+
+  if (rule == payrollFactorTaxfreeTravelRule) {
+    if (sources['factor_period_facts'] is! List ||
+        sources['travel_payment_proofs'] is! List)
+      _fail('Die freigegebenen Faktor- und Reisezahlungsquellen fehlen.', 400);
+    final periods = refs(sources['factor_period_facts'], [
+      values['period_case_id'],
+    ], kind: 'period_case');
+    if (!payrollFactorTravelBaseEligible(
+      businessItems(sources['factor_period_facts'])
+          .singleWhere((v) => v['id'] == periods.single['id']),
+    ))
+      _fail(
+        'Der ausgewählte Faktor-Basisfall ist kein vollständig berechenbarer voller Monat.',
+        400,
+      );
+    final terms = refs(
+      sources['facts'],
+      values['employment_terms_ids'],
+      kind: 'employment_terms',
+    );
+    final profiles = refs(sources['profiles'], values['profile_ids']);
+    final identities = refs(sources['identities'], values['identity_ids']);
+    if (periods.length != 1 ||
+        terms.length != 1 ||
+        profiles.length != 1 ||
+        identities.length != 1 ||
+        businessItems(values['segment_events'] ?? []).isNotEmpty ||
+        (values['entitlement_case_ids'] as List? ?? []).isNotEmpty ||
+        values['thirty_day_rule'] != null && values['thirty_day_rule'] != '' ||
+        values['policy_id'] != null && values['policy_id'] != '')
+      _fail(
+        'Der Faktor-Reisefall benötigt genau eine unveränderte volle Monatsquelle ohne weitere Ansprüche.',
+        400,
+      );
+    final settlements = refs(
+      sources['travel_settlements'],
+      values['travel_settlement_ids'],
+    );
+    final payments = refs(
+      sources['travel_payment_proofs'],
+      values['travel_payment_ids'],
+      includeVoid: true,
+    );
+    for (final payment in payments) {
+      final proof = businessItems(sources['travel_payment_proofs'])
+          .singleWhere((v) => v['id'] == payment['id']);
+      if (!settlements.any((v) => payrollFactsSame(v, proof['settlement_ref'])))
+        _fail(
+          'Jeder Zahlungsnachweis muss genau eine ausgewählte Reiseabrechnung belegen.',
+          400,
+        );
+    }
+    final requiredPayments =
+        businessItems(sources['travel_payment_proofs'])
+            .where(
+              (proof) => settlements.any(
+                (ref) => payrollFactsSame(ref, proof['settlement_ref']),
+              ),
+            )
+            .map(payrollFactRef)
+            .toList()
+          ..sort((a, b) => '${a['id']}'.compareTo('${b['id']}'));
+    if (!payrollFactsSame(payments, requiredPayments))
+      _fail(
+        'Sämtliche ursprünglichen Zahlungsfassungen der gewählten Reisen auswählen.',
+        400,
+      );
+    return {
+      'employee_id': employeeId,
+      'employee_revision': sources['employee']['revision'],
+      'kind': 'calculation_case',
+      'rule_version': payrollFactorTaxfreeTravelRule,
+      'source_contract_version': 2,
+      'details': {
+        'month': month,
+        'period_case_ref': periods.single,
+        'employment_terms_refs': terms,
+        'profile_refs': profiles,
+        'identity_refs': identities,
+        'segment_events': <Map<String, dynamic>>[],
+        'thirty_day_rule': null,
+        'entitlement_case_refs': <Map<String, dynamic>>[],
+        'travel_settlement_refs': settlements,
+        'travel_payment_refs': payments,
+        'flat_tax_decision': null,
+        'verification_note': _note(
+          values['verification_note'],
+          'Gesamtfallprüfung',
+        ),
+      },
+      'source_file_ids': List<String>.from(files)..sort(),
+      'revision': previous?['revision'] ?? 0,
+      'status': 'active',
+      'confirmed': true,
+      if (previous != null) ...{
+        'id': previous['id'],
+        'correction_reason': _note(
+          values['correction_reason'],
+          'Korrekturgrund',
+        ),
+      },
+    };
   }
 
   final events = <Map<String, dynamic>>[];
@@ -493,8 +836,14 @@ Map<String, dynamic> payrollCalculationCasePreview(
       v['kind'] != 'calculation_case' ||
       s['employee_id'] != body['employee_id'] ||
       s['month'] != d['month'] ||
+      !payrollCalculationCaseRuleKnown(
+        s['rule_version'],
+        s['source_contract_version'],
+      ) ||
       s['rule_version'] != body['rule_version'] ||
-      s['source_contract_version'] != 1 ||
+      s['source_contract_version'] != body['source_contract_version'] ||
+      p['rule_version'] != body['rule_version'] ||
+      p['source_contract_version'] != body['source_contract_version'] ||
       p['source_snapshot_hash'] != v['source_hash'] ||
       !_hash.hasMatch('${v['source_hash']}') ||
       !_hash.hasMatch('${v['preview_hash']}') ||
@@ -510,7 +859,14 @@ Map<String, dynamic> payrollCalculationCasePreview(
     _fail(
       'Die Gesamtfallvorschau gehört nicht zum ausdrücklich geprüften Quellenauftrag.',
     );
-  _bindings(s, d, body['source_file_ids'], body['employee_id']);
+  _bindings(s, d, body['source_file_ids'], body['employee_id'], p);
+  if (body['rule_version'] == payrollFactorTaxfreeTravelRule &&
+      p['factor_parameters'] != null &&
+      !payrollFactsSame(
+        p['factor_parameters']['profile_ref'],
+        (d['profile_refs'] as List).single,
+      ))
+    _fail('Der Faktor gehört nicht zum ausdrücklich gewählten Profil.');
   return v;
 }
 
@@ -570,8 +926,10 @@ Map<String, dynamic> payrollCalculationCaseRunInput(
 
 Map<String, dynamic> payrollCompositeCalculation(dynamic raw) {
   final v = businessMap(raw), d = businessMap(v['period_details']);
-  if (v['rule_version'] != payrollCalculationCaseRule ||
-      v['source_contract_version'] != 1 ||
+  if (!payrollCalculationCaseRuleKnown(
+        v['rule_version'],
+        v['source_contract_version'],
+      ) ||
       v['currency'] != 'EUR' ||
       !_hash.hasMatch('${v['rules_sha256']}') ||
       v['official_system_approval'] != false ||
@@ -596,6 +954,26 @@ Map<String, dynamic> payrollCompositeCalculation(dynamic raw) {
     );
   payrollFactMonth(v['month']);
   final travel = businessMap(d['travel']);
+  if (v['rule_version'] == payrollCalculationCaseRule &&
+      v['scope'] == payrollFactorTaxfreeTravelScope)
+    _fail('Der neue Faktor-Reisefall benötigt seinen eigenen Regelstand.');
+  if (v['rule_version'] == payrollFactorTaxfreeTravelRule) {
+    _factorTravelMetadata(d, required: v['scope'] != 'unsupported');
+    _factorTravelBounds(d, v['month'], v['scope'] != 'unsupported');
+    if (v['scope'] != 'unsupported' &&
+        (v['scope'] != payrollFactorTaxfreeTravelScope ||
+            d['factor_parameters']?['tax_factor'] !=
+                v['tax_parameters']?['tax_factor'] ||
+            d['travel_paid_minor'] != travel['tax_free_external_minor'] ||
+            travel['letter_m'] != false ||
+            [
+              'flat_taxable_payroll_minor',
+              'individual_taxable_payroll_minor',
+              'benefit_in_kind_non_cash_minor',
+            ].any((key) => travel[key] != 0) ||
+            d['flat_travel_tax'] != null))
+      _fail('Die steuerfreie Reise darf das Faktor-Lohnnetto nicht verändern.');
+  }
   for (final key in [
     'tax_free_external_minor',
     'flat_taxable_payroll_minor',
@@ -661,6 +1039,7 @@ Map<String, dynamic> payrollCompositeCalculation(dynamic raw) {
         'regular_standard_segments',
         'regular_transition_segments',
         'commercial_minijob_segments_flat_tax',
+        payrollFactorTaxfreeTravelScope,
       ].contains(v['scope']) ||
       v['social_contributions_available'] != true ||
       v['payroll_calculation_complete'] != true ||
@@ -766,6 +1145,15 @@ Map<String, dynamic> payrollCompositeCalculation(dynamic raw) {
         'Der Minijob-Gesamtfall enthält widersprüchliche Individualsteuern.',
       );
   } else {
+    if (v['rule_version'] == payrollFactorTaxfreeTravelRule &&
+        taxes.any(
+          (tax) =>
+              tax['calculation']?['factor'] !=
+                  d['factor_parameters']?['tax_factor'] ||
+              tax['calculation']?['version'] !=
+                  'bmf_2026_standard_factor_period_wrapper_v2',
+        ))
+      _fail('Die einzelne Steuerrechnung gehört nicht zum bestätigten Faktor.');
     if (!payrollFactsSame(
           taxes.map((a) => a['period']).toList(),
           d['tax_periods'],
@@ -813,6 +1201,8 @@ Map<String, dynamic> payrollCompositeSource(
       fact['status'] != 'active' ||
       s['month'] != fact['details']['month'] ||
       c['month'] != s['month'] ||
+      c['rule_version'] != fact['rule_version'] ||
+      c['source_contract_version'] != fact['source_contract_version'] ||
       !payrollFactsSame(s['preparation'], base['sources']['preparation']) ||
       !businessItems(fact['sources']['profiles']).any(
         (p) =>
@@ -841,6 +1231,11 @@ Map<String, dynamic> payrollCompositeSource(
     'travel',
     'flat_travel_tax',
     'travel_source_hashes',
+    if (fact['rule_version'] == payrollFactorTaxfreeTravelRule) ...[
+      'factor_parameters',
+      'travel_payment_refs',
+      'travel_paid_minor',
+    ],
   ])
     if (!payrollFactsSame(c['period_details'][key], fact['plan'][key]))
       _fail(

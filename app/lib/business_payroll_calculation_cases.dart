@@ -28,8 +28,13 @@ bool payrollCalculationCasesReadable(BusinessSession session) =>
     session.can('personnel.read');
 
 class PayrollCalculationCasePlanView extends StatelessWidget {
-  const PayrollCalculationCasePlanView({super.key, required this.plan});
+  const PayrollCalculationCasePlanView({
+    super.key,
+    required this.plan,
+    this.sources,
+  });
   final Map<String, dynamic> plan;
+  final Map<String, dynamic>? sources;
   Widget line(String title, String value) =>
       ListTile(dense: true, title: Text(title), subtitle: Text(value));
   @override
@@ -50,6 +55,11 @@ class PayrollCalculationCasePlanView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         line('Abrechnungsmonat', '${plan['month']}'),
+        if (plan['factor_parameters'] != null)
+          line(
+            'Eingetragener Faktor',
+            '${plan['factor_parameters']['tax_factor']}'.replaceAll('.', ','),
+          ),
         line(
           'Brutto einschließlich Lohn-Reisebeträgen',
           _money(plan['gross_minor']),
@@ -89,6 +99,26 @@ class PayrollCalculationCasePlanView extends StatelessWidget {
           'Steuerfreie Reiseerstattung über Reisekostenzahlung',
           _money(travel['tax_free_external_minor']),
         ),
+        if (plan['travel_paid_minor'] != null) ...[
+          line(
+            'Bereits außerhalb des Lohns erstattet',
+            _money(plan['travel_paid_minor']),
+          ),
+          const Notice(
+            'Die nachgewiesene steuerfreie Reiseerstattung wird nicht nochmals zum Lohnnetto addiert.',
+          ),
+          if (sources != null)
+            for (final source in businessItems(sources!['travel_sources']))
+              for (final payment in businessItems(
+                source['payment_proof']['payments'],
+              ))
+                line(
+                  payment['kind'] == 'repayment'
+                      ? 'Belegte Reiserückzahlung'
+                      : 'Belegte Reiseerstattung',
+                  '${businessDate(payment['paid_on'])} · ${_money(payment['amount_minor'])}${payment['status'] == 'void' ? ' · Historisch aufgehoben' : ''}',
+                ),
+        ],
         line(
           'Pauschal versteuerte Erstattung im Lohn',
           _money(travel['flat_taxable_payroll_minor']),
@@ -411,6 +441,9 @@ class _BusinessPayrollCalculationCasesPageState
   }) async {
     final opening = epoch;
     await fresh(write: true, forMonth: body['details']['month']);
+    if (body['rule_version'] == payrollFactorTaxfreeTravelRule &&
+        !session.hasFeature('payroll_factor_taxfree_travel'))
+      _fail('Die aktuelle Freigabe für den Faktor-Reisefall fehlt.', 403);
     if (pending != null)
       _fail(
         'Zuerst den ursprünglichen offenen Abrechnungsauftrag klären.',
@@ -536,6 +569,10 @@ class _BusinessPayrollCalculationCasesPageState
     if (mounted && readable) await load();
   });
   Future<void> edit([Map<String, dynamic>? previous]) async {
+    if (previous?['rule_version'] == payrollFactorTaxfreeTravelRule) {
+      await editFactorTravel(previous);
+      return;
+    }
     if (busy || pending != null) return;
     final opening = epoch;
     try {
@@ -939,6 +976,184 @@ class _BusinessPayrollCalculationCasesPageState
     }
   }
 
+  Future<void> editFactorTravel([Map<String, dynamic>? previous]) async {
+    if (busy ||
+        pending != null ||
+        !session.hasFeature('payroll_factor_taxfree_travel'))
+      return;
+    final opening = epoch;
+    try {
+      final page = await fresh(write: true);
+      if (!mounted ||
+          !readable ||
+          opening != epoch ||
+          !session.hasFeature('payroll_factor_taxfree_travel'))
+        return;
+      final d = businessMap(previous?['details']);
+      final values = await choose(
+        previous == null
+            ? 'Faktor-Vollmonat mit bezahlter steuerfreier Reise'
+            : 'Faktor-Reisefall berichtigen',
+        [
+          BusinessField(
+            'period_case_id',
+            'Bestätigter voller Faktor-Monat',
+            type: BusinessInput.choice,
+            required: true,
+            initial: d['period_case_ref']?['id'],
+            choices: choices(
+              businessItems(page['factor_period_facts'])
+                  .where(
+                    (v) =>
+                        payrollFactorTravelBaseEligible(v) &&
+                        v['details']['month'] == month,
+                  )
+                  .toList(),
+              (v) => '${v['details']['month']} · Fassung ${v['revision']}',
+            ),
+          ),
+          BusinessField(
+            'employment_terms_ids',
+            'Eine bestätigte Beschäftigungsepisode',
+            type: BusinessInput.multiple,
+            required: true,
+            initial: ids(d['employment_terms_refs']),
+            choices: choices(
+              businessItems(page['facts'])
+                  .where(
+                    (v) =>
+                        v['kind'] == 'employment_terms' &&
+                        v['status'] == 'active',
+                  )
+                  .toList(),
+              (v) =>
+                  '${businessDate(v['effective_from'])} – ${businessDate(v['effective_to'])} · Fassung ${v['revision']}',
+              empty: false,
+            ),
+          ),
+          BusinessField(
+            'profile_ids',
+            'Ein bestätigtes Faktor-/SV-Profil',
+            type: BusinessInput.multiple,
+            required: true,
+            initial: ids(d['profile_refs']),
+            choices: choices(
+              page['profiles'],
+              (v) =>
+                  '${businessDate(v['profile']?['effective_from'])} · Fassung ${v['revision']}',
+              empty: false,
+            ),
+          ),
+          BusinessField(
+            'identity_ids',
+            'Ein zugehöriger Identitäts-/Steuernachweis',
+            type: BusinessInput.multiple,
+            required: true,
+            initial: ids(d['identity_refs']),
+            choices: choices(
+              page['identities'],
+              (v) =>
+                  '${businessDate(v['details']?['valid_from'])} – ${businessDate(v['details']?['valid_to'])} · Fassung ${v['revision']}',
+              empty: false,
+            ),
+          ),
+          BusinessField(
+            'travel_settlement_ids',
+            'Bereits erstattete steuerfreie Reiseabrechnungen',
+            type: BusinessInput.multiple,
+            required: true,
+            initial: ids(d['travel_settlement_refs']),
+            choices: choices(
+              businessItems(page['travel_settlements'])
+                  .where((v) => v['status'] == 'approved')
+                  .toList(),
+              (v) =>
+                  'Reise · Fassung ${v['revision']} · ${businessDate(v['created_at'])}',
+              empty: false,
+            ),
+          ),
+          BusinessField(
+            'travel_payment_ids',
+            'Tatsächliche Auszahlungs- und Rückzahlungsnachweise',
+            type: BusinessInput.multiple,
+            required: true,
+            initial: ids(d['travel_payment_refs']),
+            choices: choices(
+              page['travel_payment_proofs'],
+              (v) =>
+                  '${businessDate(v['paid_on'])} · ${v['kind'] == 'repayment' ? 'Rückzahlung' : 'Erstattung'} · ${_money(v['amount_minor'])} · Fassung ${v['revision']}',
+              empty: false,
+            ),
+          ),
+          files(
+            page,
+            'source_file_ids',
+            'Geschützte Originale für diesen Gesamtfall',
+            initial: previous?['source_file_ids'],
+          ),
+          BusinessField(
+            'verification_note',
+            'Belegte Prüfung der gesamten Zuordnung',
+            required: true,
+            initial: d['verification_note'],
+          ),
+          if (previous != null)
+            const BusinessField(
+              'correction_reason',
+              'Belegter Berichtigungsgrund',
+              required: true,
+            ),
+          const BusinessField(
+            'confirmed',
+            'Ich bestätige den vollen Faktor-Monat und die bereits vollständig außerhalb des Lohns erstatteten steuerfreien Reisen.',
+            type: BusinessInput.toggle,
+          ),
+        ],
+        saveLabel: 'Faktor-Reisefall unverbindlich prüfen',
+      );
+      if (values == null || opening != epoch) return;
+      if (values['confirmed'] != true)
+        _fail(
+          'Den begrenzten Faktor-Monat und die tatsächliche Erstattung ausdrücklich bestätigen.',
+        );
+      await fresh(write: true);
+      if (!mounted ||
+          !readable ||
+          opening != epoch ||
+          !session.hasFeature('payroll_factor_taxfree_travel'))
+        return;
+      final body = payrollCalculationCaseInput(employeeId, page, {
+        ...values,
+        'month': month,
+        'rule_version': payrollFactorTaxfreeTravelRule,
+        'segment_events': <Map<String, dynamic>>[],
+        'entitlement_case_ids': <String>[],
+        'thirty_day_rule': null,
+        'policy_id': null,
+      }, previous: previous);
+      final result = payrollCalculationCasePreview(
+        await session.api.call(
+          session.path('/payroll/calculation-cases/preview'),
+          payrollCalculationCasePreviewInput(body),
+        ),
+        body,
+      );
+      if (!mounted || !readable || opening != epoch) return;
+      setState(() {
+        sources = page;
+        generation = session.generation;
+        previewBody = {...body, 'preview_hash': result['preview_hash']};
+        preview = result;
+        correction = previous == null ? null : _copy(previous);
+        selected = null;
+        history = [];
+      });
+      showBeginning();
+    } catch (e) {
+      if (mounted && readable && opening == epoch) failed(e);
+    }
+  }
+
   Future<void> confirm() async {
     if (preview == null || previewBody == null || !writable || pending != null)
       return;
@@ -1056,7 +1271,10 @@ class _BusinessPayrollCalculationCasesPageState
           Text('${value['details']['verification_note']}'),
           if ('${value['correction_reason'] ?? ''}'.isNotEmpty)
             Text('Berichtigungsgrund: ${value['correction_reason']}'),
-          PayrollCalculationCasePlanView(plan: businessMap(value['plan'])),
+          PayrollCalculationCasePlanView(
+            plan: businessMap(value['plan']),
+            sources: businessMap(value['sources']),
+          ),
           for (final file in businessItems(value['sources']['source_files']))
             TextButton(
               onPressed: busy
@@ -1176,6 +1394,7 @@ class _BusinessPayrollCalculationCasesPageState
                 ),
                 PayrollCalculationCasePlanView(
                   plan: businessMap(preview!['plan']),
+                  sources: businessMap(preview!['source_snapshot']),
                 ),
                 if (preview!['can_confirm'] == true &&
                     writable &&
@@ -1201,6 +1420,16 @@ class _BusinessPayrollCalculationCasesPageState
                     icon: const Icon(Icons.add),
                     label: const Text(
                       'Belegten Abrechnungsfall zusammenstellen',
+                    ),
+                  ),
+                if (writable &&
+                    pending == null &&
+                    session.hasFeature('payroll_factor_taxfree_travel'))
+                  FilledButton.icon(
+                    onPressed: busy ? null : () => editFactorTravel(),
+                    icon: const Icon(Icons.travel_explore),
+                    label: const Text(
+                      'Faktor-Vollmonat mit bezahlter steuerfreier Reise',
                     ),
                   ),
                 for (final fact in businessItems(

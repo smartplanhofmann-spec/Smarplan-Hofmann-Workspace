@@ -4404,3 +4404,53 @@ Jahresvertrag ohne Jahres-/Lohn-/Cashmutation. Dafür wird jetzt ein ausdrückli
 implementiert. Alte Jahres-V1-, Steuer- und SV-Regeln bleiben erhalten.
 Anschließend folgen Belege, Zahlungen, Jahres-/EÜR-Kette und beide Clients mit
 tatsächlicher PostgreSQL-/Restoreprüfung. R09.03/D und Gesamtziel bleiben offen.
+
+
+## 10.11.2026 – signierter V14-iPhone-Nachlauf200 erfolgreich
+
+Unveränderter Quellstand91fa18b, manueller Lauf42816832390, wiederholter
+Signierjob129852986325 erfolgreich. Zwei tatsächliche Apple-Exporte sowie
+finale Team-/Signatur-/Keychain-Prüfungen und Bereinigung erfolgreich.
+Smartplan-Office-iOS-200: Artefakt13769975157,29898645Bytes; TestFlight
+übersprungen. EnthältV14 und korrigierte Mitarbeiterbelege, noch kein Qonto.
+Vollständige Erfolg-/Job-/Artefaktrohdaten und erster Netzwerkfehler erhalten.
+Keine neue Geräte-/Server-/Fachabnahme daraus ableiten.
+
+
+## 10.11.2026 – Qonto-Vorläufer vollständig grün, Eigenkonto-Key zur Veröffentlichung
+
+Eigene Development42821768166 anca14af3 besteht alle20 Gruppen, einschließlich
+Windows, kompletter App, Backend, tatsächlicher Online-/Browser-, HTTPS-/
+Update-/Restoreprüfungen. Kein Fremdstand als Nachweis übernommen. Der lokal
+geprüfte Eigenkonto-Key67b99d3 wird danach ausschließlich auf dem autorisierten
+Testbranch veröffentlicht; keine laufende notwendige Prüfung dafür verdrängt.
+Eigenkonto-Code43 gemeinsame Fälle und zwei tatsächliche PG-/MFA-/Restorefälle
+plus echter Browser sind separat nachgewiesen; Clientruntime seitca14 bytegleich.
+Der neue eigene Remote-Nachlauf ist nach tatsächlichem Push getrennt zu prüfen.
+
+
+## 10.11.2026 – Qonto-Eigenkonto: eigene vollständige CI geschlossen, Institutionen präzisiert
+
+Der veröffentlichte Quellstand51c731a besteht alle20 eigenen Development-Jobs
+(Run42827280612), darunter tatsächlich1962 vollständige Appfälle und2133
+Backendfälle mit drei ausdrücklich ausgewiesenen Auslassungen. Der eigene
+unsignierte iPhone-Release202 ist erfolgreich: Artefakt13772996557,
+SHA256361889198a639e42d423ec7ab0bf53e4f5ca363be3cf9263a4965cbdc590d9f6.
+Dies enthält Qonto, aber noch nicht die separate laufende V15-Arbeit.
+Alle23 Rohdateien des Eigenkonto-Manifests sind nach Länge und SHA geprüft.
+
+Die manuelle signierte Vorbereitung desselben51c-Quellstands42827443587
+beendet den ersten Apple-Job129885997499 nach15 Minuten ohne Runnerzuweisung
+(runner_id0, leere Schritte). GitHub liefert für dessen Log404 BlobNotFound.
+Kein ausgeführter Signier- oder Codefehler wird daraus erfunden. Genau dieser
+abgebrochene Job wird einmal gezielt wiederholt; Annahme bestätigt. Das
+vorhandene tatsächlich signierte V14-Paket200 bleibt erhalten. TestFlight-Upload
+bleibtfalse; kein neuer Live-/Gerätenachweis.
+
+Direkte Nutzerpräzisierung: Kreissparkasse Rottweil und Amex Business-Karte.
+Die öffentliche institutseigene EBICS-Seite bestätigt Kontoinformationen für
+ERP-Systeme und vorherige Freischaltung. Die passende Amex-Partnerauskunft
+belegt keine eigene freie Smartplan-API-Berechtigung. Kein Konto oder Tarif
+angelegt und niemand kontaktiert. Loxone-Hostfreigabe ausdrücklich auf später
+verschoben; kein weiterer Direktabruf. Die Frage nach Fach-/Sicherheitsprüfern
+ist verständlich erklärt; noch keine Personen benannt und kein Entwicklungsstopp.

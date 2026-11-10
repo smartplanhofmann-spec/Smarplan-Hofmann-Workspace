@@ -278,3 +278,38 @@ Fällen geprüft; keine Registrierung oder neue Client-/Zahlungsfreigabe.
 Die tatsächlich festgestellte alte Jahres-V1-Grenze wird durch einen ausdrücklichen
 versionierten Quellenweg ergänzt. [Umfang und nächste Schritte](CRM_ERP_FAKTOR_EINMALBEZUG_V15_PLAN_2026-11-10.md).
 Qonto-/Apple-/Netzwerknachweise bleiben davon getrennt erhalten.
+
+
+
+## Tatsächlicher iPhone-Nachlauf erfolgreich
+
+[Signiertes Paket200](CRM_ERP_IPHONE_SIGNIERTES_PAKET_200_2026-11-10.md) an91fa18b:
+Wiederholungsjob129852986325 erfolgreich, beide Apple-Exporte, strenge finale
+Signatur-/Team-/Keychain-Prüfung und Bereinigung bestehen. Artefakt13769975157
+mit29898645Bytes vorhanden; TestFlight-Uploadskipped. V14 enthalten, Qonto noch
+nicht enthalten. Der tatsächliche erste Netzwerkfehler bleibt erhalten.
+Keine neue Geräteinstallation oder Serveraktualisierung daraus ableiten.
+
+
+Aktueller Nachlauf: ca14af3/Development42821768166 ist mit allen20 Gruppen
+erfolgreich abgeschlossen. Eigenkonto-Key67b99d3 samt Nachweisen wird jetzt
+für den autorisierten Testbranch veröffentlicht. Die neue eigene Remoteprüfung
+bleibt vom abgeschlossenen Vorläufer getrennt. Keine Liveinstallation.
+
+
+## Eigene Qonto-CI und ergänzte Nutzerentscheidungen10.11.
+
+Quellstand51c731a: alle20 eigenen Development-Gruppen erfolgreich, tatsächliche
+Appsuite1962 Fälle, Backend2133 mit3 Auslassungen; eigener unsignierter
+iPhone-Build202 erfolgreich. Neue signierte Vorbereitung scheitert zunächst
+an fehlender Runnerzuweisung (kein Schritt ausgeführt); genau ein gezielter
+Wiederholungsversuch läuft. Signiertes V14-Paket200 bleibt eigener Nachweis;
+kein TestFlight-Upload oder neues Serverupdate.23 Rohdateien im
+Eigenkonto-Manifest sind geprüft.
+
+Nutzer hat Kreissparkasse Rottweil und Amex Business-Karte präzisiert und
+Loxones Hostfreigabe auf später verschoben. Die Bedeutung der unabhängigen
+Fach-/Sicherheitsabnahme ist erklärt; keine Prüfer benannt oder beauftragt.
+Direkte Providerfreigaben bleiben externe Schritte. Die laufende V15-Arbeitskopie
+hat inzwischen eine vollständige tatsächliche PostgreSQL-/Geld-/Jahres-/
+Restorekette bestanden; ihre Client- und gemeinsame Schlussprüfung läuft noch.

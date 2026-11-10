@@ -1,0 +1,101 @@
+{
+  "suite": "browser",
+  "selected": [
+    "accounting-openings",
+    "private-car-mileage",
+    "project-milestones",
+    "time-tracking",
+    "payroll-individual-minijob",
+    "payroll-wage-interruptions",
+    "payroll-payment-dates",
+    "company-events",
+    "maintenance-contracts",
+    "bank-reconciliation",
+    "invoice-chain",
+    "accounting-profile",
+    "customer-workspace"
+  ],
+  "plan_sha256": "b934e68478f7e7d041cca7ce3eedc2ed8a1a066786ea3828772a3db5845f0a7a",
+  "complete": true,
+  "failed": 0,
+  "results": [
+    {
+      "id": "accounting-openings",
+      "exit_code": 0,
+      "seconds": 51.35,
+      "log": "accounting-openings.txt"
+    },
+    {
+      "id": "private-car-mileage",
+      "exit_code": 0,
+      "seconds": 102.787,
+      "log": "private-car-mileage.txt"
+    },
+    {
+      "id": "project-milestones",
+      "exit_code": 0,
+      "seconds": 25.483,
+      "log": "project-milestones.txt"
+    },
+    {
+      "id": "time-tracking",
+      "exit_code": 0,
+      "seconds": 19.79,
+      "log": "time-tracking.txt"
+    },
+    {
+      "id": "payroll-individual-minijob",
+      "exit_code": 0,
+      "seconds": 58.363,
+      "log": "payroll-individual-minijob.txt"
+    },
+    {
+      "id": "payroll-wage-interruptions",
+      "exit_code": 0,
+      "seconds": 35.045,
+      "log": "payroll-wage-interruptions.txt"
+    },
+    {
+      "id": "payroll-payment-dates",
+      "exit_code": 0,
+      "seconds": 48.133,
+      "log": "payroll-payment-dates.txt"
+    },
+    {
+      "id": "company-events",
+      "exit_code": 0,
+      "seconds": 45.511,
+      "log": "company-events.txt"
+    },
+    {
+      "id": "maintenance-contracts",
+      "exit_code": 0,
+      "seconds": 21.343,
+      "log": "maintenance-contracts.txt"
+    },
+    {
+      "id": "bank-reconciliation",
+      "exit_code": 0,
+      "seconds": 45.646,
+      "log": "bank-reconciliation.txt"
+    },
+    {
+      "id": "invoice-chain",
+      "exit_code": 0,
+      "seconds": 16.939,
+      "log": "invoice-chain.txt"
+    },
+    {
+      "id": "accounting-profile",
+      "exit_code": 0,
+      "seconds": 91.477,
+      "log": "accounting-profile.txt"
+    },
+    {
+      "id": "customer-workspace",
+      "exit_code": 0,
+      "seconds": 45.638,
+      "log": "customer-workspace.txt"
+    }
+  ]
+}

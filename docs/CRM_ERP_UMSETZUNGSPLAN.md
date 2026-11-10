@@ -570,3 +570,26 @@ bestehen; YAML und Erhaltung der übrigen Jobs sind geprüft. Erste YAML-/lokale
 venv-Aufbaufehler bleiben als solche erhalten. Die sechs vollständigen lokalen
 Browsergruppen sind noch aktiv. Nicht veröffentlicht; keine Live-/Geräteabnahme.
 Weitere verbleibende Fach-/Offline-Codearbeit folgt unmittelbar danach.
+
+
+## 10.11.2026 – gemeinsame Dialogbedienung und vollständige Prüfgruppen
+
+Produktcode13fa17d74b21c2a18a7c140794fec3ca8a0eed5b verbindet den fertigen
+Altprotokollabgleich, vollständige disjunkte CI-Auswahlen und die Korrektur der
+Dialog-/Tabellenbedienung.19 Fachdialoge und alle zwölf Hauptansichten bestehen
+in vier Modi mit124 gerenderten Zuständen,76 Tastatur-/Hintergrund-/Fokusrückgaben,
+tatsächlichem horizontalem Tastaturscrollen, null automatischen Verletzungen,
+null Dokument-/Dialogüberlauf und null Fachschreibzugriffen. Vier frühe Befunde
+plus ein zusätzlicher eigener Kalenderbefund bleiben als rote Vorläufe erhalten.
+1041 Browsermodulfälle, acht Auswahl-/Fehler-/Prozessverträge,25 tatsächliche
+MFA-/HTTP-, drei PG-/Restore- und zwei frische HTTPS-/MFA-/PDF-/Worker-/TLS-Fälle
+bestehen. Alle33 historischen Lohnkerne und das Gesamtziel bleiben bytegleich.
+[49 rohe Prüfnachweise und genauer Teilumfang](evidence/complete-browser-accessibility-2026-11-10/manifest.json).
+
+Die gesamte aktuelle79er-Browsergruppe läuft noch in sechs eigenen dauerhaften
+Prozessen; sie wird nicht vorzeitig als bestanden ausgegeben. Der Vorgänger799c144
+ist inzwischen tatsächlich vollständig grün: alle acht Development-Jobs von
+42762857917 und der unsignierte iPhone-Build42762857879 bestehen. Signierter
+TestFlight-Upload übersprungen. Eigene neue Remote-CI, Serverinstallation,
+Geräte-/Fach-/Sicherheitsprüfung und ganze A–G-Abnahme bleiben eigene Nachweise.
+Der Gesamtauftrag läuft nach diesem technischen Abschnitt weiter.

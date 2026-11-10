@@ -1,0 +1,94 @@
+{
+  "suite": "browser",
+  "selected": [
+    "personnel-workflow",
+    "communication-history",
+    "material-return",
+    "payroll-factor",
+    "payroll-entitlements",
+    "payroll-oneoff-cases",
+    "mobile-login",
+    "migrations",
+    "payroll-cash",
+    "catalog-imports",
+    "accounting-allocation",
+    "planning-relogin",
+    "accounting-year-package-v2"
+  ],
+  "plan_sha256": "b934e68478f7e7d041cca7ce3eedc2ed8a1a066786ea3828772a3db5845f0a7a",
+  "complete": false,
+  "results": [
+    {
+      "id": "personnel-workflow",
+      "exit_code": 0,
+      "seconds": 107.52,
+      "log": "personnel-workflow.txt"
+    },
+    {
+      "id": "communication-history",
+      "exit_code": 0,
+      "seconds": 21.165,
+      "log": "communication-history.txt"
+    },
+    {
+      "id": "material-return",
+      "exit_code": -9,
+      "seconds": 601.895,
+      "log": "material-return.txt"
+    },
+    {
+      "id": "payroll-factor",
+      "exit_code": 0,
+      "seconds": 27.145,
+      "log": "payroll-factor.txt"
+    },
+    {
+      "id": "payroll-entitlements",
+      "exit_code": 0,
+      "seconds": 24.786,
+      "log": "payroll-entitlements.txt"
+    },
+    {
+      "id": "payroll-oneoff-cases",
+      "exit_code": 0,
+      "seconds": 53.73,
+      "log": "payroll-oneoff-cases.txt"
+    },
+    {
+      "id": "mobile-login",
+      "exit_code": 0,
+      "seconds": 14.498,
+      "log": "mobile-login.txt"
+    },
+    {
+      "id": "migrations",
+      "exit_code": 0,
+      "seconds": 17.73,
+      "log": "migrations.txt"
+    },
+    {
+      "id": "payroll-cash",
+      "exit_code": 0,
+      "seconds": 60.74,
+      "log": "payroll-cash.txt"
+    },
+    {
+      "id": "catalog-imports",
+      "exit_code": 0,
+      "seconds": 30.635,
+      "log": "catalog-imports.txt"
+    },
+    {
+      "id": "accounting-allocation",
+      "exit_code": 0,
+      "seconds": 89.383,
+      "log": "accounting-allocation.txt"
+    },
+    {
+      "id": "planning-relogin",
+      "exit_code": 0,
+      "seconds": 96.869,
+      "log": "planning-relogin.txt"
+    }
+  ]
+}

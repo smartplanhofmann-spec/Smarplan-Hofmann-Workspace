@@ -4,6 +4,21 @@ Stand: 10.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
+**Aktueller gemeinsamer Produktcode13fa17d (10.11.):** Altprotokollabgleich,
+vollständige CI-Prüfgruppen und korrigierte zentrale Dialog-/Tabellenbedienung
+sind integriert.124 echte gerenderte Zustände mit76 Tastatur-/Hintergrundfällen,
+1041 Browsermodul-, acht CI-Vertrags-,25 MFA-/HTTP-, drei PG-/Restore- und zwei
+frische Runtime-/TLS-Fälle bestehen. [Nachweise und Grenzen](evidence/complete-browser-accessibility-2026-11-10/manifest.json).
+Die gesamte79er-Browserprüfung am aktuellen Stand ist noch aktiv. Native und
+Backendquellen sind gegenüber d22dea7 unverändert; dessen vollständige1915
+Appfälle bleiben Referenz, kein neu behaupteter Lauf. Keine neue Live-/Geräteabnahme.
+
+**Vorgänger tatsächlich vollständig grün:**799c144df8b4d42c62373699fff313cabf1cebfd,
+alle acht Development42762857917-Jobs und der unsignierte iPhone42762857879-Build
+bestehen; signierter Upload übersprungen. [Tatsächlicher abgeschlossener Abruf](evidence/complete-browser-accessibility-2026-11-10/predecessor-ci-complete.json).
+Eine neue Veröffentlichung/CI wird separat nachgewiesen. Der Gesamtauftrag
+bleibt aktiv. Die folgenden älteren Momentaufnahmen sind historischer Verlauf.
+
 **Aktive technische Gesamtprüfung:** Die bisherigen154 Online- und nun78
 Browserabläufe werden vollständig auf je sechs unabhängige Gruppen verteilt.
 Neun vorhandene Browserziele fehlten bislang in der zentralen CI und sind

@@ -1,0 +1,101 @@
+{
+  "suite": "browser",
+  "selected": [
+    "asset-provenance",
+    "sales",
+    "inventory-article-refs",
+    "payroll-transition",
+    "payroll-factor-periods",
+    "payroll-zero-account",
+    "payroll-adjustment",
+    "company-handover",
+    "privacy-cases",
+    "purchase-changes",
+    "company-overview",
+    "accounting-refunds-v2",
+    "accounting-year-package"
+  ],
+  "plan_sha256": "b934e68478f7e7d041cca7ce3eedc2ed8a1a066786ea3828772a3db5845f0a7a",
+  "complete": true,
+  "failed": 0,
+  "results": [
+    {
+      "id": "asset-provenance",
+      "exit_code": 0,
+      "seconds": 31.919,
+      "log": "asset-provenance.txt"
+    },
+    {
+      "id": "sales",
+      "exit_code": 0,
+      "seconds": 19.635,
+      "log": "sales.txt"
+    },
+    {
+      "id": "inventory-article-refs",
+      "exit_code": 0,
+      "seconds": 17.35,
+      "log": "inventory-article-refs.txt"
+    },
+    {
+      "id": "payroll-transition",
+      "exit_code": 0,
+      "seconds": 19.472,
+      "log": "payroll-transition.txt"
+    },
+    {
+      "id": "payroll-factor-periods",
+      "exit_code": 0,
+      "seconds": 30.681,
+      "log": "payroll-factor-periods.txt"
+    },
+    {
+      "id": "payroll-zero-account",
+      "exit_code": 0,
+      "seconds": 29.131,
+      "log": "payroll-zero-account.txt"
+    },
+    {
+      "id": "payroll-adjustment",
+      "exit_code": 0,
+      "seconds": 88.937,
+      "log": "payroll-adjustment.txt"
+    },
+    {
+      "id": "company-handover",
+      "exit_code": 0,
+      "seconds": 33.929,
+      "log": "company-handover.txt"
+    },
+    {
+      "id": "privacy-cases",
+      "exit_code": 0,
+      "seconds": 32.193,
+      "log": "privacy-cases.txt"
+    },
+    {
+      "id": "purchase-changes",
+      "exit_code": 0,
+      "seconds": 20.184,
+      "log": "purchase-changes.txt"
+    },
+    {
+      "id": "company-overview",
+      "exit_code": 0,
+      "seconds": 13.522,
+      "log": "company-overview.txt"
+    },
+    {
+      "id": "accounting-refunds-v2",
+      "exit_code": 0,
+      "seconds": 295.029,
+      "log": "accounting-refunds-v2.txt"
+    },
+    {
+      "id": "accounting-year-package",
+      "exit_code": 0,
+      "seconds": 31.093,
+      "log": "accounting-year-package.txt"
+    }
+  ]
+}

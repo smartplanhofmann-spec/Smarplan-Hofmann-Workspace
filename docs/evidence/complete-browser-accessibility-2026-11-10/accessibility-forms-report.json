@@ -1,0 +1,4701 @@
+{
+  "reports": [
+    {
+      "name": "desktop:main:Übersicht",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 20,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:main:Anfragen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 17,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:main:Projekte",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 19,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:main:Kontakte",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 17,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:main:Einsatzplanung",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 24,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:main:Dokumente",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 19,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:main:Finanzen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": [
+            [
+              ".tabs"
+            ]
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 19,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:main:Material",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 27,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:main:Personal",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 19,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:main:Assistent",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:main:Kundenservice",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:main:Einstellungen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Anfragen:Anfrage erfassen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Projekte:Neues Projekt",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-head > div > .muted"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Kontakte:Kontakt anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "#field-e05e913ec19a44b5ab681eb426dbc1ad"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Einsatzplanung:Termin planen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-head > div > .muted"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Dokumente:Belegentwurf erstellen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Material:Artikel / Leistung anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Material:Lagerort anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 24,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Material:Bewegung buchen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-head > div > .muted"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Personal:Mitarbeiterprofil anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "#field-5c2d3d2d6c1c4afba50d92c184612f59-help"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Personal:Personalakte, Reisen und Lohnvorbereitung",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Einstellungen:Status hinzufügen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 24,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Einstellungen:Freigaben ansehen / ändern",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 24,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Einstellungen:Zusatzfelder verwalten",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Einstellungen:Lieferantenkataloge und Adapter",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Einstellungen:Datierte Katalogpreise",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Einstellungen:Dateiimport öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".migration-workspace > .notice[role=\"status\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Einstellungen:Unternehmensübergabe öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 24,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Einstellungen:Datenschutzfälle öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "div[data-privacy-cases=\"true\"] > .notice[role=\"status\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "desktop:Einstellungen:Jahresvorträge öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".notice[role=\"status\"]:nth-child(1)"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:main:Übersicht",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 20,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:main:Anfragen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 17,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:main:Projekte",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 20,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:main:Kontakte",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 17,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:main:Einsatzplanung",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:main:Dokumente",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 19,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:main:Finanzen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": [
+            [
+              ".tabs"
+            ]
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 19,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:main:Material",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ],
+            [
+              "td:nth-child(5)"
+            ],
+            [
+              "td:nth-child(6)"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 28,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:main:Personal",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 19,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:main:Assistent",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:main:Kundenservice",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:main:Einstellungen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Anfragen:Anfrage erfassen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Projekte:Neues Projekt",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-head > div > .muted"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Kontakte:Kontakt anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "#field-a31334f70eda4174806cc91fdc9d4743"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Einsatzplanung:Termin planen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Dokumente:Belegentwurf erstellen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Material:Artikel / Leistung anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Material:Lagerort anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 24,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Material:Bewegung buchen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Personal:Mitarbeiterprofil anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Personal:Personalakte, Reisen und Lohnvorbereitung",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Einstellungen:Status hinzufügen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 24,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Einstellungen:Freigaben ansehen / ändern",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 24,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Einstellungen:Zusatzfelder verwalten",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-head > div > .muted"
+            ],
+            [
+              "div[data-custom-fields=\"true\"] > .notice[role=\"status\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Einstellungen:Lieferantenkataloge und Adapter",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-head > div > h2"
+            ],
+            [
+              "div[data-catalog-import=\"true\"] > .notice[role=\"status\"]"
+            ],
+            [
+              "div[data-catalog-import=\"true\"] > .stack > .panel > .notice[role=\"status\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Einstellungen:Datierte Katalogpreise",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "div[data-dated-catalog=\"true\"] > .notice[role=\"status\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Einstellungen:Dateiimport öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".migration-workspace > .notice[role=\"status\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Einstellungen:Unternehmensübergabe öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 24,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Einstellungen:Datenschutzfälle öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "mobile:Einstellungen:Jahresvorträge öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".notice[role=\"status\"]:nth-child(1)"
+            ],
+            [
+              ".year-values-workspace > .notice[role=\"status\"]:nth-child(2)"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:main:Übersicht",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"settings\"]"
+            ],
+            [
+              ".sidebar-foot"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:main:Anfragen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"settings\"]"
+            ],
+            [
+              ".sidebar-foot"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 18,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:main:Projekte",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"settings\"]"
+            ],
+            [
+              ".sidebar-foot"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 20,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:main:Kontakte",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"settings\"]"
+            ],
+            [
+              ".sidebar-foot"
+            ],
+            [
+              ".identity > span"
+            ],
+            [
+              ".list-row:nth-child(1) > .body > h3"
+            ],
+            [
+              ".list-row:nth-child(1) > .body > p"
+            ],
+            [
+              ".list-row:nth-child(2) > .body > h3"
+            ],
+            [
+              ".list-row:nth-child(2) > .body > p"
+            ],
+            [
+              ".list-row:nth-child(3) > .body > h3"
+            ],
+            [
+              ".list-row:nth-child(3) > .body > p"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 18,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:main:Einsatzplanung",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"settings\"]"
+            ],
+            [
+              ".sidebar-foot"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:main:Dokumente",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"settings\"]"
+            ],
+            [
+              ".sidebar-foot"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 20,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:main:Finanzen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": [
+            [
+              ".tabs"
+            ]
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"settings\"]"
+            ],
+            [
+              ".sidebar-foot"
+            ],
+            [
+              "label > span"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 20,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:main:Material",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"settings\"]"
+            ],
+            [
+              ".sidebar-foot"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 28,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:main:Personal",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"settings\"]"
+            ],
+            [
+              ".sidebar-foot"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 20,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:main:Assistent",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"settings\"]"
+            ],
+            [
+              ".sidebar-foot"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 23,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:main:Kundenservice",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"settings\"]"
+            ],
+            [
+              ".sidebar-foot"
+            ],
+            [
+              ".caption"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:main:Einstellungen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"settings\"]"
+            ],
+            [
+              ".sidebar-foot"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Anfragen:Anfrage erfassen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-head > div > .muted"
+            ],
+            [
+              ".modal-close"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Projekte:Neues Projekt",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-head > div > .muted"
+            ],
+            [
+              ".modal-close"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Kontakte:Kontakt anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-close"
+            ],
+            [
+              "#field-dfd4dfa4d45f4324bab99e1f2bae3492"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 27,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Einsatzplanung:Termin planen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-close"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 27,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Dokumente:Belegentwurf erstellen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-close"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 27,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Material:Artikel / Leistung anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-close"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Material:Lagerort anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-close"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Material:Bewegung buchen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-close"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 27,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Personal:Mitarbeiterprofil anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-close"
+            ],
+            [
+              "label:nth-child(4)"
+            ],
+            [
+              "#field-5698f1ae70be4bbca8bdd2139c71d538-help"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Personal:Personalakte, Reisen und Lohnvorbereitung",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-close"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Einstellungen:Status hinzufügen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-close"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Einstellungen:Freigaben ansehen / ändern",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-close"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Einstellungen:Zusatzfelder verwalten",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-head > div > .muted"
+            ],
+            [
+              ".modal-close"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Einstellungen:Lieferantenkataloge und Adapter",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-close"
+            ],
+            [
+              "div[data-catalog-import=\"true\"] > .notice[role=\"status\"]"
+            ],
+            [
+              "div[data-catalog-import=\"true\"] > .stack > .panel > .notice[role=\"status\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Einstellungen:Datierte Katalogpreise",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-close"
+            ],
+            [
+              ".notice[role=\"status\"]:nth-child(1)"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Einstellungen:Dateiimport öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-close"
+            ],
+            [
+              ".migration-workspace > .notice[role=\"status\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Einstellungen:Unternehmensübergabe öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-close"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Einstellungen:Datenschutzfälle öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-close"
+            ],
+            [
+              "div[data-privacy-cases=\"true\"] > .notice[role=\"status\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "large-text:Einstellungen:Jahresvorträge öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-head > div > h2"
+            ],
+            [
+              ".modal-close"
+            ],
+            [
+              ".notice[role=\"status\"]:nth-child(1)"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:main:Übersicht",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".brand-mark"
+            ],
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              ".panel:nth-child(9) > .primary.button"
+            ],
+            [
+              ".panel:nth-child(2) > .primary.button"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 21,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:main:Anfragen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".brand-mark"
+            ],
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              ".primary"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 18,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:main:Projekte",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".brand-mark"
+            ],
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              ".primary"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 20,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:main:Kontakte",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".brand-mark"
+            ],
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              ".primary"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 18,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:main:Einsatzplanung",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".brand-mark"
+            ],
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              ".primary"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 24,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:main:Dokumente",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".brand-mark"
+            ],
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              ".primary"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 20,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:main:Finanzen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": [
+            [
+              ".tabs"
+            ]
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".brand-mark"
+            ],
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              ".primary.button[type=\"button\"]"
+            ],
+            [
+              "button[type=\"submit\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 20,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:main:Material",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".brand-mark"
+            ],
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "section:nth-child(1) > .primary.button[type=\"button\"]"
+            ],
+            [
+              ".primary.button[type=\"button\"]:nth-child(1)"
+            ],
+            [
+              ".primary.button[type=\"button\"]:nth-child(4)"
+            ],
+            [
+              "button[type=\"submit\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 28,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:main:Personal",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".brand-mark"
+            ],
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              ".primary.button:nth-child(1)"
+            ],
+            [
+              ".primary.button:nth-child(3)"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 20,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:main:Assistent",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".brand-mark"
+            ],
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              ".primary"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 23,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:main:Kundenservice",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".brand-mark"
+            ],
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[type=\"submit\"]"
+            ],
+            [
+              ".primary.button[type=\"button\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:main:Einstellungen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".brand-mark"
+            ],
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "form[data-form=\"organization-1\"] > .form-actions > .primary.button[type=\"submit\"]"
+            ],
+            [
+              "form[data-form=\"branding\"] > .form-actions > .primary.button[type=\"submit\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Anfragen:Anfrage erfassen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[type=\"submit\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Projekte:Neues Projekt",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-head > div > .muted"
+            ],
+            [
+              "button[type=\"submit\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Kontakte:Kontakt anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "#field-20040d2ebbc047678b1a3cc1df9ac3c2"
+            ],
+            [
+              "button[type=\"submit\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Einsatzplanung:Termin planen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-head > div > .muted"
+            ],
+            [
+              "button[type=\"submit\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Dokumente:Belegentwurf erstellen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 27,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Material:Artikel / Leistung anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "form[data-form=\"article-new\"] > .form-actions > .primary.button[type=\"submit\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Material:Lagerort anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "form[data-form=\"location-new\"] > .form-actions > .primary.button[type=\"submit\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Material:Bewegung buchen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".modal-head > div > .muted"
+            ],
+            [
+              "form[data-form=\"stock-move\"] > .form-actions > .primary.button[type=\"submit\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Personal:Mitarbeiterprofil anlegen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "#field-1723c91598ad4be386a4c45972abd05c-help"
+            ],
+            [
+              "button[type=\"submit\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 26,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Personal:Personalakte, Reisen und Lohnvorbereitung",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".stack > .primary.button:nth-child(2)"
+            ],
+            [
+              ".stack > .primary.button:nth-child(3)"
+            ],
+            [
+              ".primary.button:nth-child(4)"
+            ],
+            [
+              ".panel:nth-child(5) > .actions > .primary.button"
+            ],
+            [
+              ".panel:nth-child(6) > .primary.button"
+            ],
+            [
+              ".panel:nth-child(7) > .primary.button"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Einstellungen:Status hinzufügen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "form[data-form=\"status-new\"] > .form-actions > .primary.button[type=\"submit\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Einstellungen:Freigaben ansehen / ändern",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "form[data-form=\"grant-new\"] > .form-actions > .primary.button[type=\"submit\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Einstellungen:Zusatzfelder verwalten",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".primary.button[type=\"button\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Einstellungen:Lieferantenkataloge und Adapter",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Einstellungen:Datierte Katalogpreise",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Einstellungen:Dateiimport öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".migration-workspace > .notice[role=\"status\"]"
+            ],
+            [
+              ".primary.button[type=\"button\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Einstellungen:Unternehmensübergabe öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 25,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Einstellungen:Datenschutzfälle öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "div[data-privacy-cases=\"true\"] > .notice[role=\"status\"]"
+            ],
+            [
+              ".primary.button[type=\"button\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    },
+    {
+      "name": "forced-colors:Einstellungen:Jahresvorträge öffnen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".notice[role=\"status\"]:nth-child(1)"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22,
+      "document_overflow": false,
+      "dialog_overflow": false
+    }
+  ],
+  "keyboard": [
+    {
+      "name": "desktop:Anfragen:Anfrage erfassen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Projekte:Neues Projekt",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Kontakte:Kontakt anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Einsatzplanung:Termin planen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Dokumente:Belegentwurf erstellen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Material:Artikel / Leistung anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Material:Lagerort anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Material:Bewegung buchen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Personal:Mitarbeiterprofil anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Personal:Personalakte, Reisen und Lohnvorbereitung",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Einstellungen:Status hinzufügen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Einstellungen:Freigaben ansehen / ändern",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Einstellungen:Zusatzfelder verwalten",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Einstellungen:Lieferantenkataloge und Adapter",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Einstellungen:Datierte Katalogpreise",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Einstellungen:Dateiimport öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Einstellungen:Unternehmensübergabe öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Einstellungen:Datenschutzfälle öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "desktop:Einstellungen:Jahresvorträge öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Anfragen:Anfrage erfassen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Projekte:Neues Projekt",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Kontakte:Kontakt anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Einsatzplanung:Termin planen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Dokumente:Belegentwurf erstellen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Material:Artikel / Leistung anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Material:Lagerort anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Material:Bewegung buchen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Personal:Mitarbeiterprofil anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Personal:Personalakte, Reisen und Lohnvorbereitung",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Einstellungen:Status hinzufügen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Einstellungen:Freigaben ansehen / ändern",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Einstellungen:Zusatzfelder verwalten",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Einstellungen:Lieferantenkataloge und Adapter",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Einstellungen:Datierte Katalogpreise",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Einstellungen:Dateiimport öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Einstellungen:Unternehmensübergabe öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Einstellungen:Datenschutzfälle öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "mobile:Einstellungen:Jahresvorträge öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Anfragen:Anfrage erfassen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Projekte:Neues Projekt",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Kontakte:Kontakt anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Einsatzplanung:Termin planen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Dokumente:Belegentwurf erstellen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Material:Artikel / Leistung anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Material:Lagerort anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Material:Bewegung buchen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Personal:Mitarbeiterprofil anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Personal:Personalakte, Reisen und Lohnvorbereitung",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Einstellungen:Status hinzufügen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Einstellungen:Freigaben ansehen / ändern",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Einstellungen:Zusatzfelder verwalten",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Einstellungen:Lieferantenkataloge und Adapter",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Einstellungen:Datierte Katalogpreise",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Einstellungen:Dateiimport öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Einstellungen:Unternehmensübergabe öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Einstellungen:Datenschutzfälle öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "large-text:Einstellungen:Jahresvorträge öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Anfragen:Anfrage erfassen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Projekte:Neues Projekt",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Kontakte:Kontakt anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Einsatzplanung:Termin planen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Dokumente:Belegentwurf erstellen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Material:Artikel / Leistung anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Material:Lagerort anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Material:Bewegung buchen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Personal:Mitarbeiterprofil anlegen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Personal:Personalakte, Reisen und Lohnvorbereitung",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Einstellungen:Status hinzufügen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Einstellungen:Freigaben ansehen / ändern",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Einstellungen:Zusatzfelder verwalten",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Einstellungen:Lieferantenkataloge und Adapter",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Einstellungen:Datierte Katalogpreise",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Einstellungen:Dateiimport öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Einstellungen:Unternehmensübergabe öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Einstellungen:Datenschutzfälle öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    },
+    {
+      "name": "forced-colors:Einstellungen:Jahresvorträge öffnen",
+      "background_blocked": true,
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "escape_closed": true,
+      "focus_restored": true
+    }
+  ],
+  "scrolling": [
+    {
+      "name": "mobile:main:Einsatzplanung",
+      "region": 0,
+      "keyboard_moved": true
+    },
+    {
+      "name": "mobile:main:Material",
+      "region": 0,
+      "keyboard_moved": true
+    }
+  ],
+  "writes": [],
+  "limits": "Actual synthetic read-only forms; automatic rules and keyboard checks only. Human screenreader, full browser zoom and real Windows/iPhone assistive technology approval remain separate."
+}

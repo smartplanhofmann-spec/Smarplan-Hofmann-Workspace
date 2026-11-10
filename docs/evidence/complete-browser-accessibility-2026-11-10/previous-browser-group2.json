@@ -1,0 +1,101 @@
+{
+  "suite": "browser",
+  "selected": [
+    "project-economics",
+    "private-car-mileage-restart",
+    "project-customer",
+    "payroll",
+    "payroll-periods",
+    "payroll-annual-basis",
+    "payroll-repayment",
+    "speech",
+    "document-time-billing",
+    "resource-custody",
+    "inventory-counts",
+    "accounting-refunds",
+    "accounting-euer"
+  ],
+  "plan_sha256": "b934e68478f7e7d041cca7ce3eedc2ed8a1a066786ea3828772a3db5845f0a7a",
+  "complete": true,
+  "failed": 0,
+  "results": [
+    {
+      "id": "project-economics",
+      "exit_code": 0,
+      "seconds": 35.476,
+      "log": "project-economics.txt"
+    },
+    {
+      "id": "private-car-mileage-restart",
+      "exit_code": 0,
+      "seconds": 121.603,
+      "log": "private-car-mileage-restart.txt"
+    },
+    {
+      "id": "project-customer",
+      "exit_code": 0,
+      "seconds": 20.125,
+      "log": "project-customer.txt"
+    },
+    {
+      "id": "payroll",
+      "exit_code": 0,
+      "seconds": 58.032,
+      "log": "payroll.txt"
+    },
+    {
+      "id": "payroll-periods",
+      "exit_code": 0,
+      "seconds": 36.47,
+      "log": "payroll-periods.txt"
+    },
+    {
+      "id": "payroll-annual-basis",
+      "exit_code": 0,
+      "seconds": 39.235,
+      "log": "payroll-annual-basis.txt"
+    },
+    {
+      "id": "payroll-repayment",
+      "exit_code": 0,
+      "seconds": 47.793,
+      "log": "payroll-repayment.txt"
+    },
+    {
+      "id": "speech",
+      "exit_code": 0,
+      "seconds": 21.031,
+      "log": "speech.txt"
+    },
+    {
+      "id": "document-time-billing",
+      "exit_code": 0,
+      "seconds": 48.275,
+      "log": "document-time-billing.txt"
+    },
+    {
+      "id": "resource-custody",
+      "exit_code": 0,
+      "seconds": 22.868,
+      "log": "resource-custody.txt"
+    },
+    {
+      "id": "inventory-counts",
+      "exit_code": 0,
+      "seconds": 21.057,
+      "log": "inventory-counts.txt"
+    },
+    {
+      "id": "accounting-refunds",
+      "exit_code": 0,
+      "seconds": 208.352,
+      "log": "accounting-refunds.txt"
+    },
+    {
+      "id": "accounting-euer",
+      "exit_code": 0,
+      "seconds": 42.009,
+      "log": "accounting-euer.txt"
+    }
+  ]
+}

@@ -1,0 +1,541 @@
+{
+  "created_at": "2026-11-10T06:54:07.250114+00:00",
+  "product_commit": "13fa17d74b21c2a18a7c140794fec3ca8a0eed5b",
+  "base": "d22dea7756b29bb5c1bef2dd5f18c15a7fa2fb0d",
+  "scope": "Complete disjoint CI selections, nine previously omitted workflows plus read-only124-state rendered accessibility, inert modal background and keyboard scrolling",
+  "tests": {
+    "group_contracts": {
+      "cases": 8,
+      "passed": true
+    },
+    "actual_mfa_http_via_runner": {
+      "cases": 25,
+      "passed": true
+    },
+    "actual_pg_restore_via_runner": {
+      "cases": 3,
+      "seconds": 39.748
+    },
+    "actual_fresh_https_mfa_pdf_worker": {
+      "cases": 1,
+      "seconds": 17.277
+    },
+    "actual_release_tls": {
+      "cases": 1,
+      "seconds": 2.263
+    },
+    "browser_modules_current": {
+      "cases": 1041,
+      "failed": 0,
+      "skipped": 0,
+      "duration_ms": 15763.564033
+    },
+    "accessibility_current": {
+      "rendered_states": 124,
+      "dialog_cases": 76,
+      "automatic_violations": 0,
+      "document_or_dialog_overflow": 0,
+      "keyboard_scroll_regions": 2,
+      "business_writes": 0,
+      "passed": true
+    },
+    "native_and_backend_unchanged": {
+      "reference": "../legacy-service-recovery-2026-11-10/manifest.json",
+      "native_entire": 1915,
+      "fresh_rerun_claimed": false
+    },
+    "prior_package_and_inventory": {
+      "cases": 21,
+      "passed": true
+    },
+    "whole_current_browser": {
+      "cases_selected": 79,
+      "groups": 6,
+      "status": "ACTIVELY_RUNNING_NOT_YET_COMPLETE",
+      "raw_process_state": "/tmp/complete-accessibility-group-processes-20261110.json"
+    }
+  },
+  "last_all_green": {
+    "commit": "799c144df8b4d42c62373699fff313cabf1cebfd",
+    "development_run": 42762857917,
+    "jobs_succeeded": 8,
+    "unsigned_iphone_run": 42762857879,
+    "unsigned_iphone_success": true,
+    "signed_upload": "skipped",
+    "evidence": "predecessor-ci-complete.json"
+  },
+  "earlier_attempts": [
+    "First group CLI unimplemented; no false success.",
+    "First workflow YAML indentation invalid, corrected and parsed with unchanged-job comparison.",
+    "First package group missed ignored local backend venv;19 cases with1 failure retained; actual backend linked and19 pass,2 inventory pass.",
+    "First material response.finished waited indefinitely; exact owned process interrupted, original group retained nonzero; genuine parsed OfficeApi.get observation passes actual original/price/rights/retry checks.",
+    "Old group0 and4 tool sessions lacked complete reports; not considered full success; replacement current-source durable processes running.",
+    "Runtime launched after a different bound PG company correctly failed InstanceConfigurationError; identical runtime succeeds against a separate fresh company-free PG instance; guards unchanged.",
+    "First form test used incorrect navigation label; corrected to actual Einsatzplanung.",
+    "First expanded form attempt retained4 actual scrollable-region-focusable violations; later124-state attempt retained1 additional calendar violation; final124-state actual run passes after actual shared/own table and modal fixes."
+  ],
+  "source_hashes": {
+    ".github/workflows/checks.yml": "450c316e38dec19799694935392842004ddc20a902d24e0ead5994601b3cadc9",
+    "scripts/ci-check-groups.py": "4a2ed63b07b21d57cebec4cd409c757145a870a123130e8ae3a7231e8f81dca9",
+    "scripts/ci-check-plan.json": "38bb8e9675dcbf2c9c43f07278dcd8c74fccbaf835e71da416d8c327edcb94ca",
+    "scripts/test_ci_check_groups.py": "1e534397eead06bf9c6a0b04c51d490b930f34f3e9e26bd90b3c1404a5b823db",
+    "scripts/testdata/ci-check-baseline-20261110.yml": "dcf1c224f8093fd0d5d2534e91c4c903b2dd553cd99c07bc937033d0e997e732",
+    "web/office/office.js": "d5a6d14130e353e9e7cd94e7f2ffa0ffe19be1418ec7f5fe8f79db47bce3c5be",
+    "web/office/tests/accessibility-flow.cjs": "c443c3f51c83502daf5b0bbbbde7a25502c040d6beb577d2375449757d8b367d",
+    "web/office/tests/accessibility-forms-flow.cjs": "821ffe8c5c5dad94f096180028ab8ae33befc19cf7905e48ec6e7603618abe9a",
+    "web/office/tests/accounting-year-package-v2-flow.cjs": "1954b7854c1910c75592bdec897fce6792e42769fd482274093c72516c71de42",
+    "web/office/tests/e2e.cjs": "e33af869ebd5c680dc886572849493760086c824f6373229a9b6e0e55da06b87",
+    "web/office/tests/material-return-flow.cjs": "1405f47f34ae9e257108c423f2f3b9d44abf700946211c1e9583f503276adeb6"
+  },
+  "unchanged_kernels": [
+    {
+      "path": "backend/payroll_annual_basis_2026.py",
+      "sha256": "5b17e71d13ed596a2f4a18ec49f12970e95329ac17dd69ef17709978191ad431"
+    },
+    {
+      "path": "backend/payroll_calculations_2026.py",
+      "sha256": "5133cc7b0a52471bcfd08c76960461799bd92e335ac7e5d141368dc69f14b553"
+    },
+    {
+      "path": "backend/payroll_claims_composition_2026.py",
+      "sha256": "e8a08c7402ae06803045cf5a4421cee1bca0a50183e43677788194c9242e342d"
+    },
+    {
+      "path": "backend/payroll_de_2026.py",
+      "sha256": "c1365355ab501f194f37ede7c4bb0ab2c2347a1252dfda97ae360708593a9789"
+    },
+    {
+      "path": "backend/payroll_entitlements_2026.py",
+      "sha256": "c495a10a871f68dcc13d656a303d5d671855a7b5ea522b454ad141829cb457e7"
+    },
+    {
+      "path": "backend/payroll_factor_2026.py",
+      "sha256": "c55d017120f56b0e2539c793018839820d17aef54611c3ede636e1ee20d1df25"
+    },
+    {
+      "path": "backend/payroll_factor_periods_2026.py",
+      "sha256": "f18b0254d6c96b981433d519adb4895de7e97fcb7e4e9d951105cf95773c63c0"
+    },
+    {
+      "path": "backend/payroll_holidays_2026.py",
+      "sha256": "d8ed5b71ce2f334d5670e707e421212e71abfad953121271efb81ea0eac99280"
+    },
+    {
+      "path": "backend/payroll_multiple_oneoff_2026.py",
+      "sha256": "c6ea0b98dab3528055c7e0b190b93e062dc1469466f670513bd75c8d856f33c7"
+    },
+    {
+      "path": "backend/payroll_oneoff_2026.py",
+      "sha256": "a52973b0f88f0658906db61b610762959b84f1cefe2ded866a663d718f9f1ce8"
+    },
+    {
+      "path": "backend/payroll_oneoff_composition_2026.py",
+      "sha256": "9b48ef4898b043c647b1c238a6f37d8b05bf8f78dcf9967fb691b9803454d0d7"
+    },
+    {
+      "path": "backend/payroll_pap_2026.py",
+      "sha256": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071"
+    },
+    {
+      "path": "backend/payroll_pap_factor_2026.py",
+      "sha256": "92c6dee2d41b5c8985b52d9d8e86831919c05b16bbb504f4bdfc7176be7d088c"
+    },
+    {
+      "path": "backend/payroll_pap_oneoff_2026.py",
+      "sha256": "f2fc8ced86ab844e5c7b4ea592fab2ba5870a7843f47b78bc379b9f874b2f456"
+    },
+    {
+      "path": "backend/payroll_pap_periods_2026.py",
+      "sha256": "9307e599d25512db069bc42b8662ff0aa84b5436808745916bc97018b2675444"
+    },
+    {
+      "path": "backend/payroll_periods_2026.py",
+      "sha256": "c3df3ae3ee93c756010290f382bf17050676a7bbc6a327082ea07b83e7b96890"
+    },
+    {
+      "path": "backend/payroll_segments_2026.py",
+      "sha256": "819894663d24ae4a74e15d4f22c2b421ec34fbf4fc1d8a10a868a62b6270c83d"
+    },
+    {
+      "path": "backend/payroll_sickness_2026.py",
+      "sha256": "05dc76065032993b9ec59035cf17bc99c388b1b119ac30feb4540d937cb45e33"
+    },
+    {
+      "path": "backend/payroll_sickness_phases_2026.py",
+      "sha256": "3a9f7bcc4262d2594e94c6f87bb6f5035901411e64a73f91586fc5b7b9d19c0b"
+    },
+    {
+      "path": "backend/payroll_sickness_start_2026.py",
+      "sha256": "dc69e48b0ef255893b962d6d20ba8dadc478c17a53ccb438b7f12565c1a979c7"
+    },
+    {
+      "path": "backend/payroll_transition_2026.py",
+      "sha256": "b3b649e5179990ed54058ee4daee497a8744277cfe64c98750a5b333963d1897"
+    },
+    {
+      "path": "backend/payroll_travel_2026.py",
+      "sha256": "7c4be0176679fd9d6dcfe1b1049c223e33a1a8b75804f2864df7b0ccd65935fb"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v1.py",
+      "sha256": "03cbcb42b4a5c0eedfc11536c5997a53509c1ab5304a89e2c69c8fbc775164cb"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v2.py",
+      "sha256": "83b2673315b2e828abbf72fef26841bd80e8e8bbd70da45f587a01a5037527e5"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v3.py",
+      "sha256": "6c8496f63c3f44ea56054d7eafa17aa75dbba71bc131306fcf59925d93faf45e"
+    },
+    {
+      "path": "backend/payroll_travel_expenses_2026.py",
+      "sha256": "2d96af39ded426f9868f3011ad3b47cdfc74c25c29f49ade56b6b178f67587d1"
+    },
+    {
+      "path": "backend/payroll_travel_ground_2026.py",
+      "sha256": "9fbc82efc589654ed2eb1425ce50fb4fe6a59b30bcde5ae29d27ec5f595deebc"
+    },
+    {
+      "path": "backend/payroll_travel_mixed_2026.py",
+      "sha256": "0e640106f0d70e3a0f0c54e3154f22e3576d5120dabb9117dbfcf3bde0f6dced"
+    },
+    {
+      "path": "backend/payroll_travel_rates_2026.py",
+      "sha256": "b327e00ea0624b6e41b45843077984af077917eb83400b341a3f88842192b7c0"
+    },
+    {
+      "path": "backend/payroll_travel_tax_2026.py",
+      "sha256": "8b28d2a38923fe64e7e640a1e3487834dea38ab701f07e010bb62dda81495f21"
+    },
+    {
+      "path": "backend/payroll_travel_transport_2026.py",
+      "sha256": "60cc47920cd49bd6daf6ca8a8bba94b49c46b5963d940b655ad100461d2be7d5"
+    },
+    {
+      "path": "backend/payroll_wage_interruptions_2026.py",
+      "sha256": "3039dc435c9c689fbc5a50b005581393e4093c8703a9ae9b74e52d559a236aa9"
+    },
+    {
+      "path": "backend/payroll_factor_claims_2026.py",
+      "sha256": "30a62329a33f2ac4b67c571d5940093189fcbe2929c96507b83216170e57606d"
+    }
+  ],
+  "goal": {
+    "bytes": 23863,
+    "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "raw_logs": [
+    {
+      "file": "complete-accessibility-before-20261110.txt.gz",
+      "bytes": 978,
+      "sha256": "d720a0700922e0d9c293f662635bfec7816b84c1b19633094101b939de7903a3",
+      "gzip_sha256": "4cb08de8e11646cc0b19d1bafec7f6d4ad8fe61b276df0c5be88f59a6fe153ac"
+    },
+    {
+      "file": "complete-accessibility-ci-groups-final-20261110.txt.gz",
+      "bytes": 1973,
+      "sha256": "5ae026038c492908513f170afc01e8028e05fd5cafa9995b7c19703b79270bec",
+      "gzip_sha256": "401e97c8ef80b614c18c8fd68d9e60a4c9600bb14310f56325c572fbc6daea80"
+    },
+    {
+      "file": "complete-accessibility-ci-selection-20261110.txt.gz",
+      "bytes": 1592,
+      "sha256": "e0849cd96b33224c01cf27c657e3c2024883deb7af83ef3317aff16c12ad8121",
+      "gzip_sha256": "e2c443d5eee8dbeb253dd2798627c125edd93b3778430139dbb99d9160e57d83"
+    },
+    {
+      "file": "complete-accessibility-forms-first-20261110.txt.gz",
+      "bytes": 2806,
+      "sha256": "649b598be32460688e78b72994f06e8c73be9fafb063731355d1f54c0f744a1c",
+      "gzip_sha256": "b736470373e9873651ef28f0c6494613c021c2457b85ecc941a3edccaa995903"
+    },
+    {
+      "file": "complete-accessibility-forms-inert-20261110.txt.gz",
+      "bytes": 8758,
+      "sha256": "16d6b2777ff6606c24bb0a33f00f1564dea9bc04c592017db5281085eb3a9efe",
+      "gzip_sha256": "74d00dd953778e9c2cfc5a1ab9f8c8c1eeb1ba8c40e0ff274da77071604b5c34"
+    },
+    {
+      "file": "complete-accessibility-forms-navigation-20261110.txt.gz",
+      "bytes": 4360,
+      "sha256": "b5fde0c0c3fca5d134192844dc9616227806f73a2e213947c165e89872cb93ca",
+      "gzip_sha256": "bf608e151e4d51a23ba5eca7a8a04a694d7f9af7cb69aab994b7fe41358baa44"
+    },
+    {
+      "file": "complete-accessibility-forms-scroll-20261110.txt.gz",
+      "bytes": 5782,
+      "sha256": "961eced1c71e7d765d92e2f030e8e5f59ad497358f640e794b2b516a447dc5bf",
+      "gzip_sha256": "06d33e712b9e6ebaba733b9af33a10915ee9e52fa2f6a5295a983c99c85de9f7"
+    },
+    {
+      "file": "complete-accessibility-node-entire-20261110.txt.gz",
+      "bytes": 106969,
+      "sha256": "50e81531be38bb5dbf5a05287b211f8f5a7277e4dfb77a66ca5f4e4837f4e420",
+      "gzip_sha256": "e788d4eff928fd61c9d2a1def7f2647183493f385b66f5f677e745fad83d3ca7"
+    },
+    {
+      "file": "complete-ci-groups-actual-online-selected-20261110.json.gz",
+      "bytes": 541,
+      "sha256": "6319fbd3a6cf943e1cccd36cc9d13f1f008f36cfc9741d2b3f8a251c677ed601",
+      "gzip_sha256": "70b3694839a2a057af9d203c535bc2b81bc2d4a51d4b28ebe83c3da8738cc350"
+    },
+    {
+      "file": "complete-ci-groups-actual-online-selected-20261110.txt.gz",
+      "bytes": 5991,
+      "sha256": "90932e6b8dbc4329bef3793c18d37608ebf0f4c77272aa75be5a8874df23cd6e",
+      "gzip_sha256": "0599c14b2a3ad7410e64b317ac4e71e128d1e741a940ad49cf3677055c35fa2a"
+    },
+    {
+      "file": "complete-ci-groups-actual-pg-runtime-20261110.json.gz",
+      "bytes": 661,
+      "sha256": "dd349727c9a43b2cec844e8ce235abd2a60ed5023955d77b90ac5b71b57fd032",
+      "gzip_sha256": "ee6d2f4fb18951bcb5118c4bf85ba2dcf980997a39a95728e54aba594dd82b8c"
+    },
+    {
+      "file": "complete-ci-groups-actual-pg-runtime-20261110.txt.gz",
+      "bytes": 16750,
+      "sha256": "66cb4b93845e2c482c62d0d5360a7f872bc7707593cdd0ac8e32895d9eb92e62",
+      "gzip_sha256": "59fb16b2a1da2cda2fdc5137c13082519a1f242fc663ac40bb38520861d4e5e3"
+    },
+    {
+      "file": "complete-ci-groups-before-20261110.txt.gz",
+      "bytes": 139,
+      "sha256": "2c035aff93519e1cb01bdca391d11d064c831479097f82ff30ca2ee96e79bb5d",
+      "gzip_sha256": "b1fef0a3a8784d2de5e669f27115bc4d10cbb2c77357f8b992ff8d12baa47bd7"
+    },
+    {
+      "file": "complete-ci-groups-browser0-durable-20261110.txt.gz",
+      "bytes": 30,
+      "sha256": "5db7b6e415a53ebdbba4b1719330b6c7bd9633974c073bf9b9bc13a5dc8d9fd6",
+      "gzip_sha256": "4b04359e849d42b6275c69e89c0bdd63ab32920bba16804e605407a9ffde9dea"
+    },
+    {
+      "file": "complete-ci-groups-browser0-first-20261110.txt.gz",
+      "bytes": 30,
+      "sha256": "5db7b6e415a53ebdbba4b1719330b6c7bd9633974c073bf9b9bc13a5dc8d9fd6",
+      "gzip_sha256": "4b04359e849d42b6275c69e89c0bdd63ab32920bba16804e605407a9ffde9dea"
+    },
+    {
+      "file": "complete-ci-groups-browser0-plan-20261110.json.gz",
+      "bytes": 2978,
+      "sha256": "0a1a307faed8cfc4630c77799f8bd9b0ba97a8eaca089fd4ba22a71ca120c8ce",
+      "gzip_sha256": "33f4171df77c38b3c58dc668cd99e76f09f7494ea57db78ac41212abc0051b79"
+    },
+    {
+      "file": "complete-ci-groups-browser1-first-20261110.txt.gz",
+      "bytes": 6728,
+      "sha256": "9ad4b682d3bcd6c8a9664b301109be1d0c9dc04d183280fc3174b75021dd13c7",
+      "gzip_sha256": "04ce438bf9191979e05bb9bec58ec0631ab6de701fd2cb9ea793438370c40346"
+    },
+    {
+      "file": "complete-ci-groups-browser2-first-20261110.txt.gz",
+      "bytes": 7313,
+      "sha256": "0c52c4504cc97d3c3cb7f8d9a9a5c0488e7e6fa35701e8aae9995786c94b2407",
+      "gzip_sha256": "e2e887644bcb1be69ecd51c53efd924bacabdc54c63fd0ecb52724f4bff4401d"
+    },
+    {
+      "file": "complete-ci-groups-browser3-first-20261110.txt.gz",
+      "bytes": 6651,
+      "sha256": "390e563ac4b0b930b45bdef037fc5fbaea9f2189acd9ba0cbe0a951cf9ab69d2",
+      "gzip_sha256": "8e2c6b4781be0fa41f41a3a716ebe613cb0ea895bd531c74821b5daeac059d84"
+    },
+    {
+      "file": "complete-ci-groups-browser4-corrected-20261110.txt.gz",
+      "bytes": 6464,
+      "sha256": "9e0f7c4c81b46d97d0f7521966bd4c79ccad1d417ec5c7101e259855ffdceea6",
+      "gzip_sha256": "730d6a9ce0e31bba62bbea419b9fd358be5db85a6558f7d49784b082aaf0361c"
+    },
+    {
+      "file": "complete-ci-groups-browser4-first-20261110.txt.gz",
+      "bytes": 11608,
+      "sha256": "472ddf87f7371ae9ffe3b635c29a9d5b3692f7e6cd1c7c1e5a6a428a57c4d1b0",
+      "gzip_sha256": "fc655b2986ddf13d8440844bf40f2358f6c09d9b06a258764e1ca7ea08180ab8"
+    },
+    {
+      "file": "complete-ci-groups-browser5-first-20261110.txt.gz",
+      "bytes": 7832,
+      "sha256": "16dc6a220fe5b2a2106f88c0071475188b25a61d1b20ee81d08761914a3a6178",
+      "gzip_sha256": "44b794de78991fe0d3fb062b7ee35c0a61a9ed74f18a752c88cd4bdabac13b0f"
+    },
+    {
+      "file": "complete-ci-groups-fresh-runtime-20261110.json.gz",
+      "bytes": 528,
+      "sha256": "fc0bc7da69c0474c4dedd913fc135530dff3f21a6d0bb0649642194da105ddcc",
+      "gzip_sha256": "2ac3a73cfc0c978828fc430ca1f6ed6db68d8d8211e03cd6f92531ae0767cc01"
+    },
+    {
+      "file": "complete-ci-groups-fresh-runtime-20261110.txt.gz",
+      "bytes": 681,
+      "sha256": "ee5a115d3423882001387836176b64d797b0f4daf29cd63fdf4e8f881f7f9e74",
+      "gzip_sha256": "9bfc3f077f6c6fd08e302a4d221c2b945cdee4e2f10a468221ab9e6aa4e9120e"
+    },
+    {
+      "file": "complete-ci-groups-inventory-20261110.txt.gz",
+      "bytes": 484,
+      "sha256": "d808dd3b868092ac2558bdcf7534ad5057349eb6f328485efb7d56f02d39b394",
+      "gzip_sha256": "8798f9dfa6bc8fdff427ec6871b3cfc87d91365c7bf2fa265d9bbb49ead93bdb"
+    },
+    {
+      "file": "complete-ci-groups-material-observer-interruption-20261110.txt.gz",
+      "bytes": 303,
+      "sha256": "43e668ce17e3b90ed3e8b7718765d04d0e7d40e88596fb31656c5bbbffa9f619",
+      "gzip_sha256": "06ce5c741a7112f20ff88d0499ce3266d38bbb7253f54c0560feb4e11f4327bb"
+    },
+    {
+      "file": "complete-ci-groups-material-return-corrected-20261110.txt.gz",
+      "bytes": 501,
+      "sha256": "a584b134be4c03eeba89e9cd82a1ada4270d33928107d7c0471c91f2217919dc",
+      "gzip_sha256": "9cea0ae0179779211c233a60136f48a1e45a56d6561f123d8352b04cab1dac9f"
+    },
+    {
+      "file": "complete-ci-groups-node-entire-20261110.txt.gz",
+      "bytes": 106968,
+      "sha256": "a79d9fa7684dc0f830356ff86ee287dec232654de6a7fcba6adf1b9faee95b70",
+      "gzip_sha256": "6dfb4440cdc894ecf5a7779ac662fb09ee8e60e9949781196af2e8c65e753c2e"
+    },
+    {
+      "file": "complete-ci-groups-online0-plan-20261110.json.gz",
+      "bytes": 9548,
+      "sha256": "a49e61c5f33f69277bf550199def16b7c9ef781655de17f11b53401667dfd1b9",
+      "gzip_sha256": "40080474710a0b2c2f660a44abf7006ab3ef556473ba8b47eadef900ddc48aba"
+    },
+    {
+      "file": "complete-ci-groups-package-20261110.txt.gz",
+      "bytes": 4902,
+      "sha256": "b52de468c8fc6fbf8452be542ba11f46e69a84b9aabaeae3b92123c0dc2691cf",
+      "gzip_sha256": "e590a946a5c6eb64db583cf8e216f92942c661100fa5aec665e1dbfea7eba93e"
+    },
+    {
+      "file": "complete-ci-groups-package-final-20261110.txt.gz",
+      "bytes": 4178,
+      "sha256": "f1311f88b0035de5ccd30d86a38e894cd7d24290ad2e2939bc995554ac80b858",
+      "gzip_sha256": "a84c192937c475721e57c35b287b58ba65977ab99ae1cdc4f6ebdd48c0b5a2ff"
+    },
+    {
+      "file": "complete-ci-groups-pg-cleanup-20261110.txt.gz",
+      "bytes": 354,
+      "sha256": "7d4e045a349fdb39cb9e973640951b02f755b61e06303d36f77b942df8d397bf",
+      "gzip_sha256": "c5d2a47e631acd4b0afde814922380689c5d4c5cd47fa321912f4694c50d0f2b"
+    },
+    {
+      "file": "complete-ci-groups-pg-startup-20261110.txt.gz",
+      "bytes": 5593,
+      "sha256": "2e42b60f24926a968f2c141bf9ef71f474055383537231a4355f71fabfb6f359",
+      "gzip_sha256": "a3456eb29cb4d5aae1041a3f4150fda7b6958a9bfb6eb0bb1e38eed2c5bebf31"
+    },
+    {
+      "file": "complete-ci-groups-runtime-pg-cleanup-20261110.txt.gz",
+      "bytes": 241,
+      "sha256": "3b749220b2dd2d176f6548501a4fb987af176f2223315887ee5e446c3ae1c7aa",
+      "gzip_sha256": "2a1262a460b73efb11ea936843b0208157ff2e93cc86063b44c7856026fe4bcb"
+    },
+    {
+      "file": "complete-ci-groups-source-bom-20261110.json.gz",
+      "bytes": 90216,
+      "sha256": "5fd0b2446b995360f15e71d85cbe1b6225c208c852f34282282712aaa0bf5903",
+      "gzip_sha256": "514fc3311b85a0ae265708a0af88d657ffec2e9ae449f4b2590a45a3b6619218"
+    },
+    {
+      "file": "complete-ci-groups-superseded-processes-20261110.txt.gz",
+      "bytes": 330,
+      "sha256": "d23c7815dbebd24a515a9fe5819a0d7ebf07e9a886f09c3e23a0587525f3fb95",
+      "gzip_sha256": "8e32d5b52dbc3616e5086c6f85f67fb768f46728f6b56e25471617c1fd42979e"
+    },
+    {
+      "file": "complete-ci-groups-tests-after-observer-20261110.txt.gz",
+      "bytes": 1592,
+      "sha256": "b3eb598b6b4ee998b32f527256f568f5f3a1f0014e06dcb187082316a8aff9c6",
+      "gzip_sha256": "71db880208b9261013340536f285ec3d8b6eed2f4121c4b113d00d3f2e7c6504"
+    },
+    {
+      "file": "complete-ci-groups-tests-bounded-20261110.txt.gz",
+      "bytes": 1973,
+      "sha256": "a6cd517def185b5e4753279a0026ad2258b1f1eb7c17261c8e9a25cd3cb6a130",
+      "gzip_sha256": "85262023b37fdaddc98e83eee65b345907c4bd46945efc6616e412006abe707b"
+    },
+    {
+      "file": "complete-ci-groups-tests-current-20261110.txt.gz",
+      "bytes": 1973,
+      "sha256": "6f4936514296ba9abcc416f412d0212290affc027a14d9ea0c8651a743c7e7c4",
+      "gzip_sha256": "7b25a9d28eb0b023fa61872da79ed6315d070b7a46b8e834d72a44cc5dea1d62"
+    },
+    {
+      "file": "complete-ci-groups-tests-execution-20261110.txt.gz",
+      "bytes": 1467,
+      "sha256": "f6c64e6d5955cd94db259c80da0a7abfa5da150016a56c2062f0cdaf2427d962",
+      "gzip_sha256": "ecd9e4b02bd65d5124aa752dccd3e4b69fa609025febabbb1f46e94cb678d4fe"
+    },
+    {
+      "file": "complete-ci-groups-tests-final-20261110.txt.gz",
+      "bytes": 1592,
+      "sha256": "f06c58c8e31290d9c8024db62b73e1995d11db6d59cefc63e3d3d46645984a6d",
+      "gzip_sha256": "99fc94999fbbad6f36a20768bdf300b1811849e0ada7d50f9f9672993366dc96"
+    },
+    {
+      "file": "complete-ci-groups-tests-first-20261110.txt.gz",
+      "bytes": 1413,
+      "sha256": "04527c922415ba20697f0fffee19b57d0fee6407057c753df4999634c234f0b2",
+      "gzip_sha256": "88d46c200ab2cc18296f47290c3cd20d1ac169f245e031ecb2d518f3eb45c9b2"
+    },
+    {
+      "file": "complete-ci-groups-tests-plan-20261110.txt.gz",
+      "bytes": 1413,
+      "sha256": "80397796e15583015f17784b39cdcae607ada1f1321847edfa091821c4a056e1",
+      "gzip_sha256": "934d6344a2ddac2f60a5873e86be1caf6fc0c5bf859fb2afed10d46d6bafa6b6"
+    },
+    {
+      "file": "complete-ci-groups-workflow-contracts-20261110.txt.gz",
+      "bytes": 206,
+      "sha256": "fedb451ebaf56b65648bcf97e6c701b819bc308a9a343109e98516abedd8cb18",
+      "gzip_sha256": "605918dcda7a172a87f8a27c6ad9ebd5eb7f3b0ba7260586071b158e7ebdc297"
+    },
+    {
+      "file": "complete-ci-groups-workflow-contracts-final-20261110.txt.gz",
+      "bytes": 224,
+      "sha256": "228a883cc276c0cf8678a9a37c2c8c888bf4c6515070ad0dae6ca2ed2090031a",
+      "gzip_sha256": "a2a8fb30d32fb1afc4e5799f6d1954c1618b69fa3ed14a1331a4558689ec2087"
+    },
+    {
+      "file": "complete-ci-groups-yaml-final-20261110.txt.gz",
+      "bytes": 377,
+      "sha256": "626fc052040fc42e4d807206107aae8a5031ded31b50e139cceba21fafae3a0d",
+      "gzip_sha256": "c237c97684c8bf0d5e13183edd09499aec72c273cc912590de4eba3597559244"
+    },
+    {
+      "file": "complete-ci-groups-yaml-first-20261110.txt.gz",
+      "bytes": 3333,
+      "sha256": "4dc311cf5cf63cdaea24fa8892f4355e0f202345bf84a51b0753dcd420af93bf",
+      "gzip_sha256": "8e7c5fa2ede41f44748e4dffdc6b22c55aafd0423c0f36279dd45092cab28755"
+    },
+    {
+      "file": "complete-ci-groups-year-v2-bounded-20261110.txt.gz",
+      "bytes": 1552,
+      "sha256": "b6ec9719fc0e1330cbdcaa116fff986a973954126fc3ba81dd46b86b17b0854f",
+      "gzip_sha256": "492d75c0496dc3ed691ad162a8a644dfc0f6100868d5fd8e233a38d41b6ffbc6"
+    },
+    {
+      "file": "complete-ci-groups-year-v2-interruption-20261110.txt.gz",
+      "bytes": 211,
+      "sha256": "4bd425d6c49b5a3317ae3e5c5d2a3d0791737e33a021d4f969fd7684ceffce9f",
+      "gzip_sha256": "558962e28589d6a88b85a318b3bd4c8ee82e01da51c6834cad99a83c7aac6abb"
+    }
+  ],
+  "own_postgres": {
+    "previous_browser_pg": "8325282dde57eb3ec27f41fd6e967f5570faeea66c31de08745a259c5e572909",
+    "previous_browser_removed": true,
+    "previous_runtime_pg": "e4e9b9784c89a1bc38270c42b09011fdaed8187c313ba7b0231816cad738821e",
+    "previous_runtime_removed": true,
+    "current_id": "a79287a79ab3c7c167612ed1da1ae0ddf013b47821ddcccbb80690e012c08fe7",
+    "current_label": "smartplan.task=complete-browser-accessibility-20261110",
+    "current_loopback_port": 32800,
+    "current_removed": false,
+    "foreign_containers_untouched": true
+  },
+  "limits": [
+    "Whole79 browser and own current remoteCI still pending.",
+    "Automatic and CSS root-font tests do not replace human screenreader/full browser zoom/actual Windows/iPhone acceptance.",
+    "No live deployment, signing, payments, filings or real messages.",
+    "A-G whole acceptance and remaining functional goals continue."
+  ]
+}

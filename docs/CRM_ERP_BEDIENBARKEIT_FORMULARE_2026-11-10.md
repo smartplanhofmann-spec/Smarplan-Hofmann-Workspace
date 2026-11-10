@@ -8,7 +8,7 @@ Damit werden124 tatsächlich gerenderte Zustände mit axe4.14.0 geprüft.
 
 Die erste neue Navigation verwendete den falschen Testnamen Planung statt des
 tatsächlichen Menüpunkts Einsatzplanung und schlug fehl. Danach fand die erste
-vollständige Formularprüfung vier wirkliche schwere Befunde: horizontal
+erweiterte Formularprüfung vier wirkliche schwere Befunde: horizontal
 scrollbare Tabellen im Dialoghintergrund waren nicht per Tastatur erreichbar.
 Die bisherige gemeinsame Dialogfunktion ließ zudem den restlichen Appbaum für
 programmatische Fokussierung und Bedienhilfen aktiv.
@@ -39,3 +39,17 @@ Quellintegration laufen noch. Kein neuer Push oder Server-/Gerätestand.
 als Browserzoom- oder menschlicher Screenreadernachweis ausgegeben. Reale
 Windows-/iPhone-Bedienhilfen, volle Dialog-/Datenkombinationen und unabhängige
 menschliche Abnahme bleiben gesonderte Nachweise. Der Gesamtauftrag läuft weiter.
+
+
+## Gemeinsamer Quellen- und Nachweisstand
+
+Produktcode13fa17d74b21c2a18a7c140794fec3ca8a0eed5b enthält auch die getrennte
+Runtime-Fixture und die begrenzten tatsächlichen Browserbeobachtungen.
+[49 rohe Prüfdateien, Originalberichte und Manifest](evidence/complete-browser-accessibility-2026-11-10/manifest.json)
+enthalten erste Fehler,124 bestandene gerenderte Zustände und1041 bestandene
+Browsermodulfälle. Alle33 Lohnkerne und das Gesamtziel bleiben bytegleich.
+Native und Backendquellen sind gegenüber dem geprüften d22dea7 vollständig
+unverändert; dessen1915er-Appnachweis wird als vorhandene Referenz geführt,
+nicht als neu ausgeführter Lauf. Die79 tatsächlichen Browserabläufe am aktuellen
+Quellstand laufen in sechs dauerhaft protokollierten eigenen Gruppen und werden
+erst nach ihrem wirklichen Abschluss als Gesamtgruppe bewertet.

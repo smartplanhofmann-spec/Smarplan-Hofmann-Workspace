@@ -1,0 +1,101 @@
+{
+  "suite": "browser",
+  "selected": [
+    "travel-allowances",
+    "project-context",
+    "material-return-restart",
+    "payroll-factor-travel",
+    "payroll-travel-tax-policies",
+    "payroll-multiple-cases",
+    "payroll-statements",
+    "custom-fields",
+    "historical-assets",
+    "catalog-prices",
+    "accounting-capacity",
+    "purchasing-catalog",
+    "accounting-year-values-profile-void"
+  ],
+  "plan_sha256": "b934e68478f7e7d041cca7ce3eedc2ed8a1a066786ea3828772a3db5845f0a7a",
+  "complete": true,
+  "failed": 0,
+  "results": [
+    {
+      "id": "travel-allowances",
+      "exit_code": 0,
+      "seconds": 226.079,
+      "log": "travel-allowances.txt"
+    },
+    {
+      "id": "project-context",
+      "exit_code": 0,
+      "seconds": 31.869,
+      "log": "project-context.txt"
+    },
+    {
+      "id": "material-return-restart",
+      "exit_code": 0,
+      "seconds": 34.199,
+      "log": "material-return-restart.txt"
+    },
+    {
+      "id": "payroll-factor-travel",
+      "exit_code": 0,
+      "seconds": 90.305,
+      "log": "payroll-factor-travel.txt"
+    },
+    {
+      "id": "payroll-travel-tax-policies",
+      "exit_code": 0,
+      "seconds": 18.878,
+      "log": "payroll-travel-tax-policies.txt"
+    },
+    {
+      "id": "payroll-multiple-cases",
+      "exit_code": 0,
+      "seconds": 80.317,
+      "log": "payroll-multiple-cases.txt"
+    },
+    {
+      "id": "payroll-statements",
+      "exit_code": 0,
+      "seconds": 34.446,
+      "log": "payroll-statements.txt"
+    },
+    {
+      "id": "custom-fields",
+      "exit_code": 0,
+      "seconds": 24.257,
+      "log": "custom-fields.txt"
+    },
+    {
+      "id": "historical-assets",
+      "exit_code": 0,
+      "seconds": 30.656,
+      "log": "historical-assets.txt"
+    },
+    {
+      "id": "catalog-prices",
+      "exit_code": 0,
+      "seconds": 24.4,
+      "log": "catalog-prices.txt"
+    },
+    {
+      "id": "accounting-capacity",
+      "exit_code": 0,
+      "seconds": 143.49,
+      "log": "accounting-capacity.txt"
+    },
+    {
+      "id": "purchasing-catalog",
+      "exit_code": 0,
+      "seconds": 15.096,
+      "log": "purchasing-catalog.txt"
+    },
+    {
+      "id": "accounting-year-values-profile-void",
+      "exit_code": 0,
+      "seconds": 66.9,
+      "log": "accounting-year-values-profile-void.txt"
+    }
+  ]
+}

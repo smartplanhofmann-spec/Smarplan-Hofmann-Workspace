@@ -101,7 +101,7 @@ Quellenpakete, produktive Isolations- und Gesamtabnahmen bleiben offen.
 | R03.05 | 3: Deutsche Erstversion, Erweiterbarkeit von Ländern/Währungen/Regelwerken | offen | EUR und deutsche Beleg-/Zeitfunktionen vorhanden; keine vollständige Trennung von Länder-, Steuer-, Lohn- und Meldewerken. AT/CH-Fachumsetzung bleibt außerhalb der ersten Version. Das neue [fachbereichsgebundene Länder-/Währungsrouting für Rechnungsaussteller](CRM_ERP_AUSSTELLER_LAENDERGRENZE_2026-11-09.md) schließt eine tatsächliche Fremdland-Freigabelücke und zeigt den Umfang in beiden Clients. Andere Steuer-, Lohn- und Meldewerke sind damit nicht vollständig getrennt. |
 | R04.01 | 4: Ruhige konsistente Desktop-/Mobiloberfläche | implementiert | [Browser](../web/office/office.js), [Flutter-Shell](../app/lib/business_shell.dart), [Design](../app/lib/design.dart); tatsächliche Bedienbarkeit und vollständige Modulabdeckung über G prüfen. |
 | R04.02 | 4: Zentrale Unternehmensübersicht mit belegbaren Kennzahlen und Drilldown | getestet | [Unternehmensübersicht](CRM_ERP_UNTERNEHMENSUEBERSICHT.md): Aufgaben/Termine, Rechnungsumsatz, Kosten, Zahlungen, offene Salden und EÜR aus frischen Fachquellen. Browser-/Flutter-Drilldown, private Bereiche, mobile Darstellung, fehlende Anfangsbestände und unvollständige Zahlen geprüft. Erfasste Daten sind kein Nachweis vollständiger betrieblicher Erfassung.  Zusatzprüfung des [gemeinsamen EÜR-Leseabschnitts](CRM_ERP_UEBERSICHT_LESEKETTE_2026.md): identische Originalwerte, frische Quellen und Rechte, reale PG-/Restorewege; alle 17 vollständigen lokalen Browserabläufe bestehen. |
-| R04.03 | 4: Tastatur, Touch, Fokus, Kontraste, Lade-/Leer-/Fehler-/Offlinezustände | offen | [Browserprüfung](CRM_ERP_BEDIENBARKEIT.md) über 18 gerenderte Ansichten mit axe 4.14.0, Dialogtastatur und mobilen Überlaufprüfungen bestanden; Kontrast-/Fokusfehler behoben. Sämtliche Fachdialoge, menschliche Screenreader-/Zoomabnahme und tatsächliche Windows-/iPhone-Prüfung fehlen noch. |
+| R04.03 | 4: Tastatur, Touch, Fokus, Kontraste, Lade-/Leer-/Fehler-/Offlinezustände | offen | [Browserprüfung](CRM_ERP_BEDIENBARKEIT.md) über 18 gerenderte Ansichten mit axe 4.14.0, Dialogtastatur und mobilen Überlaufprüfungen bestanden; Kontrast-/Fokusfehler behoben. Die zusätzliche [124-Zustände-Prüfung](CRM_ERP_BEDIENBARKEIT_FORMULARE_2026-11-10.md) über alle zwölf Hauptansichten und19 Fachdialoge in vier Modi besteht einschließlich echter Tastatur-/Hintergrund-/Scrollprüfung. Vollständige Fach-/Datenkombinationen, menschliche Screenreader-/Browserzoomabnahme und reale Windows-/iPhone-Prüfung bleiben offen. |
 | R05.01 | 5: Kunden, Ansprechpartner, Lieferanten, Anfragen, Notizen und Wiedervorlagen | implementiert | [Foundation](../backend/business_foundation.py), [Inquiries](../backend/inquiries.py), [CRM-Tests](../backend/test_business_foundation.py). Vertriebschancen und explizite Aktivitäten sind separat ergänzt (R05.02); reale kanalübergreifende Kommunikation bleibt abhängig von konkreten Anschlüssen. |
 | R05.02 | 5: Vertriebschancen und durchgängiger Kommunikationsverlauf | getestet | [Vertriebschancen](CRM_ERP_VERTRIEB.md): Kunde/Anfrage, Phase, Prognose, Wiedervorlage, Aktivitäten/Korrekturen und kanonische Übernahme. Neuer [gemeinsamer Kunden-/Projektverlauf](CRM_ERP_KOMMUNIKATIONSVERLAUF.md) aus sechs bestehenden Fachquellen mit Quellrechten, Originalen, Snapshotseiten, Suche/Filtern, Browser und nativer App; tatsächliche PostgreSQL-/MFA-/Restoreprüfung. Vollständige externe Kanalintegration und reale Geräte-/Betriebsabnahme bleiben offen. |
 | R05.03 | 5: Angebote aus Artikeln/Leistungen/Zeiten mit Preisen, Versionen, Rabatten, Steuern und Vorlagen | getestet | [Documents](../backend/business_documents.py), [Pricing](../backend/business_pricing.py), [Kalkulationstests](../backend/business_tests/test_pricing_measurements.py), [Zeitabrechnung](../backend/business_tests/test_time_billing.py). Die zuvor fehlende [Browserauswahl freigegebener Projektzeiten](CRM_ERP_ZEITABRECHNUNG_BROWSER_2026.md) ist jetzt ergänzt. Stundenpreis, Zeit-/Steuerbindung, freie und Katalogpositionen, unveränderte Wiederholung, Quellenänderung und Doppelabrechnungsschutz sind im tatsächlichen PG-/MFA-/Chromiumablauf bis zur ausgestellten Rechnung und PDF geprüft; der [zweite gemeinsame Integrationslauf](CRM_ERP_ZEITABRECHNUNG_INTEGRATION_2026-11-09.md) bestätigt beide Zeitbindungen und Integritätsprüfer. Die frühere pauschale Browserstatusangabe wurde korrigiert und durch tatsächliche Nachweise ersetzt. |
@@ -328,3 +328,26 @@ bestehen; YAML und Erhaltung der übrigen Jobs sind geprüft. Erste YAML-/lokale
 venv-Aufbaufehler bleiben als solche erhalten. Die sechs vollständigen lokalen
 Browsergruppen sind noch aktiv. Nicht veröffentlicht; keine Live-/Geräteabnahme.
 Weitere verbleibende Fach-/Offline-Codearbeit folgt unmittelbar danach.
+
+
+## 10.11.2026 – gemeinsame Dialogbedienung und vollständige Prüfgruppen
+
+Produktcode13fa17d74b21c2a18a7c140794fec3ca8a0eed5b verbindet den fertigen
+Altprotokollabgleich, vollständige disjunkte CI-Auswahlen und die Korrektur der
+Dialog-/Tabellenbedienung.19 Fachdialoge und alle zwölf Hauptansichten bestehen
+in vier Modi mit124 gerenderten Zuständen,76 Tastatur-/Hintergrund-/Fokusrückgaben,
+tatsächlichem horizontalem Tastaturscrollen, null automatischen Verletzungen,
+null Dokument-/Dialogüberlauf und null Fachschreibzugriffen. Vier frühe Befunde
+plus ein zusätzlicher eigener Kalenderbefund bleiben als rote Vorläufe erhalten.
+1041 Browsermodulfälle, acht Auswahl-/Fehler-/Prozessverträge,25 tatsächliche
+MFA-/HTTP-, drei PG-/Restore- und zwei frische HTTPS-/MFA-/PDF-/Worker-/TLS-Fälle
+bestehen. Alle33 historischen Lohnkerne und das Gesamtziel bleiben bytegleich.
+[49 rohe Prüfnachweise und genauer Teilumfang](evidence/complete-browser-accessibility-2026-11-10/manifest.json).
+
+Die gesamte aktuelle79er-Browsergruppe läuft noch in sechs eigenen dauerhaften
+Prozessen; sie wird nicht vorzeitig als bestanden ausgegeben. Der Vorgänger799c144
+ist inzwischen tatsächlich vollständig grün: alle acht Development-Jobs von
+42762857917 und der unsignierte iPhone-Build42762857879 bestehen. Signierter
+TestFlight-Upload übersprungen. Eigene neue Remote-CI, Serverinstallation,
+Geräte-/Fach-/Sicherheitsprüfung und ganze A–G-Abnahme bleiben eigene Nachweise.
+Der Gesamtauftrag läuft nach diesem technischen Abschnitt weiter.

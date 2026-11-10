@@ -1,0 +1,21 @@
+{
+  "suite": "browser",
+  "selected": [
+    "default",
+    "travel-v3",
+    "project-tasks",
+    "commercial-country-scope",
+    "payroll-factor-claims",
+    "payroll-calculation-cases",
+    "payroll-positive-correction",
+    "assistant",
+    "service",
+    "accounting-open-items",
+    "accessibility",
+    "accounting-components",
+    "purchasing-receipts"
+  ],
+  "plan_sha256": "b934e68478f7e7d041cca7ce3eedc2ed8a1a066786ea3828772a3db5845f0a7a",
+  "complete": false,
+  "results": []
+}

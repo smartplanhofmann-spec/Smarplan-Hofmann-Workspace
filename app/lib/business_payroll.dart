@@ -20,6 +20,7 @@ import 'business_payroll_calculation_case_contract.dart';
 import 'business_payroll_calculation_cases.dart';
 import 'business_payroll_statements.dart';
 import 'business_payroll_wage_interruptions.dart';
+import 'business_payroll_rv_lifecycle.dart';
 import 'business_payroll_annual_basis.dart';
 import 'business_payroll_oneoff_cases.dart';
 import 'business_payroll_multiple_cases.dart';
@@ -540,6 +541,11 @@ void Function(dynamic) payrollReceiptValidator(
     if (profile) {
       bad =
           bad ||
+          ['rv_lifecycle_source_contract_version', 'rv_lifecycle_ref'].any(
+            (k) =>
+                v.containsKey(k) != frozen.containsKey(k) ||
+                !payrollSame(v[k], frozen[k]),
+          ) ||
           !payrollSame(v['profile'], frozen['profile']) ||
           !payrollSame(v['source_file'], {
             for (final key in ['id', 'employee_id', 'sha256', 'content_hash'])
@@ -1261,6 +1267,16 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
 
   Future<void> profile([Map<String, dynamic>? previous]) async {
     if (!write('personnel.write') || pendingProfile || busy) return;
+    final rvOpening = session.generation;
+    final rvSources = payrollRvReadable(session)
+        ? payrollRvSources(
+            await session.read(
+              '$payrollRvPath/sources?employee_id=$employeeId',
+            ),
+            employeeId,
+          )
+        : null;
+    if (!mounted || !readable || rvOpening != session.generation) return;
     final previousProfile = businessMap(previous?['profile']);
     final initial = <String, dynamic>{
       ...previousProfile,
@@ -1320,7 +1336,22 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         title: previous == null
             ? 'Lohnprofil mit Originalnachweis'
             : 'Lohnprofil nachvollziehbar korrigieren',
-        fields: payrollProfileFields(files, correction: previous != null),
+        fields: [
+          ...payrollProfileFields(files, correction: previous != null),
+          if (rvSources != null &&
+              businessItems(rvSources['history']).isNotEmpty)
+            BusinessField(
+              'rv_lifecycle_id',
+              'Aktueller RV-Nachweis für den Minijob',
+              type: BusinessInput.choice,
+              choices: {
+                for (final r in [businessItems(rvSources['history']).last])
+                  payrollRvSelection(r):
+                      'Geprüfter RV-Verlauf · Fassung ${r['revision']}',
+              },
+              hint: 'Bei einem aufgenommenen RV-Verlauf die aktuelle Originalfassung ausdrücklich an diesem Minijobprofil binden.',
+            ),
+        ],
         initial: initial,
         readPermission: 'personnel.read',
         writePermission: 'personnel.write',
@@ -1364,6 +1395,21 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
             if (previous != null)
               'correction_reason': '${values['correction_reason']}'.trim(),
           };
+          if (body['profile']['employment_kind'] == 'minijob' &&
+              session.hasFeature('payroll_rv_lifecycle')) {
+            final current = payrollRvSources(
+              await session.read(
+                '$payrollRvPath/sources?employee_id=$employeeId',
+              ),
+              employeeId,
+            );
+            if (!mounted || !readable || opening != session.generation)
+              throw const ApiException(
+                403,
+                'Die private Profilansicht wurde geschlossen.',
+              );
+            body.addAll(payrollRvProfileBinding(current, values));
+          }
           await session.command(
             key(true),
             '/payroll/profiles',
@@ -3249,6 +3295,24 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
                               ),
                         child: const Text(
                           'Jahresquellen und Einmalansprüche öffnen',
+                        ),
+                      ),
+                    if (payrollRvReadable(session))
+                      OutlinedButton(
+                        onPressed: loading || busy
+                            ? null
+                            : () => Navigator.push<void>(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => BusinessPayrollRvPage(
+                                    session: session,
+                                    employee: employee,
+                                    onOriginal: original,
+                                  ),
+                                ),
+                              ),
+                        child: const Text(
+                          'Minijob-RV und Aufhebungsantrag prüfen',
                         ),
                       ),
                     if (payrollWageInterruptionsReadable(session))

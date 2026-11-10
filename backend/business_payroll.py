@@ -105,6 +105,10 @@ class Payroll:
             if row['request_hash'] != fingerprint:
                 raise Problem(409,'Diese Vorgangs-ID wurde bereits mit anderem Inhalt verwendet.')
             result=json.loads(row['result_json'])
+            bound_profile=result if result.get('kind')=='profile' else result.get('source',{}).get('profile',{})
+            if any(key in bound_profile for key in ('rv_lifecycle_source_contract_version','rv_lifecycle_ref')):
+                if self._event(self._row(result['id'],result['kind'],result['revision']))!=result:
+                    raise Problem(500,'Die ursprüngliche RV-gebundene Annahmequittung widerspricht ihrem Lohnarchiv.')
             if result.get('source',{}).get('source_schema_version')==2:
                 self._verify_period_record(result)
             if result.get('source',{}).get('source_schema_version') in (3,4,5):
@@ -175,7 +179,14 @@ class Payroll:
         envelope['payload'] = payload
         if _sha(envelope) != row['content_hash']:
             raise Problem(500,'Integritätsprüfung des Payroll-Archivs fehlgeschlagen.')
-        return dict(payload,**{key:row[key] for key in COLUMNS.split(',') if key not in ('payload_json','identity_key')})
+        result=dict(payload,**{key:row[key] for key in COLUMNS.split(',') if key not in ('payload_json','identity_key')})
+        if row['kind']=='profile' and any(key in result for key in ('rv_lifecycle_source_contract_version','rv_lifecycle_ref')):
+            from business_payroll_rv_lifecycle import validate_archived_profile
+            validate_archived_profile(self.office,result)
+        if row['kind']=='run':
+            from business_payroll_rv_lifecycle import validate_archived_payroll
+            validate_archived_payroll(self.office,result)
+        return result
 
     def _row(self,object_id,kind=None,revision=None):
         identifier(object_id)
@@ -237,9 +248,11 @@ class Payroll:
             return value
 
     def save_profile(self,actor,data):
-        _shape(data,('request_id','employee_id','profile','source_file_id','confirmed','id','revision','correction_reason'),
+        _shape(data,('request_id','employee_id','profile','source_file_id','confirmed','id','revision','correction_reason','rv_lifecycle_source_contract_version','rv_lifecycle_ref'),
                ('request_id','employee_id','profile','source_file_id','confirmed','revision'))
         profile = normalize_profile(data['profile'])
+        from business_payroll_rv_lifecycle import profile_binding_input,bind_profile
+        rv_input=profile_binding_input(data)
         if data['confirmed'] is not True:
             raise Problem(400,'Steuer-/Versicherungsmerkmale und ihre Nachweise ausdrücklich bestätigen.')
         if 'id' in data:
@@ -257,15 +270,20 @@ class Payroll:
                 raise Problem(400,'Ein neuer Gültigkeitsbeginn benötigt ein neues Payroll-Profil.')
             if any(item['profile']['effective_from']==profile['effective_from'] and (not previous or item['id']!=previous['id']) for item in self._all('profile',employee['id'])):
                 raise Problem(409,'Für diesen Gültigkeitsbeginn besteht bereits ein Payroll-Profil.')
+            rv_binding=bind_profile(self.office,fresh,employee,profile,rv_input,previous=previous,clock=self.hr.clock)
             original = self.hr._file(data['source_file_id'],employee['id'])
             if original['purpose'] != 'personnel':
                 raise Problem(400,'Payroll-Stammdaten benötigen einen geschützten Personalaktennachweis.')
             return self._append(fresh,'profile',employee['id'],dict(profile=profile,
                 source_file={key:original[key] for key in ('id','employee_id','sha256','content_hash')},
-                confirmed=True,correction_reason=reason),previous)
+                confirmed=True,correction_reason=reason,**(dict(rv_lifecycle_source_contract_version=1,rv_lifecycle_ref=rv_binding) if rv_binding is not None else {})),previous)
         return self._write(actor,data['employee_id'],'personnel.write','profile.saved',data,save)
 
     def _prepare(self,actor,data):
+        from business_payroll_rv_lifecycle import guard_prepared_payroll
+        return guard_prepared_payroll(self.office,actor,self._prepare_unchecked(actor,data),clock=self.hr.clock)
+
+    def _prepare_unchecked(self,actor,data):
         if data.get('source_schema_version')==5:
             from payroll_multiple_runs import prepare
             return prepare(self,actor,data)

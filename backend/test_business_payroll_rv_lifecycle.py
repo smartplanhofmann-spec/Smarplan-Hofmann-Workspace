@@ -2,6 +2,7 @@
 from copy import deepcopy
 from datetime import datetime,timezone
 import sqlite3
+import base64
 import unittest
 
 from core import Problem
@@ -36,6 +37,12 @@ class RvLifecycleFixture(unittest.TestCase):
         command=dict(body,request_id=rid(),revision=previous['revision'] if previous else 0,status='active',confirmed=True,preview_hash=preview['preview_hash'])
         if previous:command.update(id=previous['id'],correction_reason='Synthetic actual next original procedure state')
         return self.api.save(self.f.owner,command),command
+
+    def add_personal_originals(self,count):
+        for i in range(count):
+            self.f.hr.upload(self.f.owner,dict(request_id=rid(),employee_id=self.f.employee['id'],purpose='personnel',
+                owner_visible=False,filename=f'synthetic-additional-personal-original-{i:03d}.pdf',media_type='application/pdf',
+                content_base64=base64.b64encode(f'%PDF-1.4\nSynthetic unrelated personal original {i}\n%%EOF'.encode()).decode()))
 
 
 class RvLifecycleWorkflow(RvLifecycleFixture):

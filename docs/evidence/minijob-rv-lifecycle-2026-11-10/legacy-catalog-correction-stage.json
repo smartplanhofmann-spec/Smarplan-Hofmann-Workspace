@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "status": "legacy_and_large_catalog_corrections_local_pass_successor_ci_required",
+  "first_candidate": "51c404b59c4bb19ee564f6ee9f4185ddb7961701",
+  "first_local_full": {
+    "tests": 2224,
+    "seconds": 2066.372,
+    "exit_code": 1,
+    "failures": 1,
+    "errors": 3,
+    "skips": 3
+  },
+  "actual_errors": {
+    "sparse_inputs": [
+      "historical original EÜR module",
+      "original Google Apps Script Gmail test"
+    ],
+    "real_regressions": [
+      "Legacy individual-minijob hash-consistent damaged source envelope",
+      "Independent legacy-minijob damaged source envelope"
+    ],
+    "remote_reproduction": {
+      "run_id": 42918195752,
+      "job_id": 130185966648,
+      "failed_case": "online.test_minijob_v11_independent_pg.MinijobV11IndependentPostgres.test_hash_valid_but_unreadable_old_run_blocks_upgrade_without_writing"
+    }
+  },
+  "actual_followups": {
+    "first_mixed_cases": 41,
+    "second_rv_and_legacy_cases": 41,
+    "native_joint": 40,
+    "browser_modules": 1119,
+    "actual_browser": true,
+    "analysis": "no_issues",
+    "postgres": {
+      "cases": 3,
+      "seconds": 68.797,
+      "environment": {
+        "container_id": "561afd9e63e8a3c2477adeaf330fa121e3a3c7f9f1b7dc6f4d35c1bd2a13bd18",
+        "name": "smartplan-rv-lifecycle-pg-20261110",
+        "synthetic": true,
+        "cleanup_verified": true,
+        "loopback_port": "32825",
+        "test_exit_code": 0
+      }
+    }
+  },
+  "many_file_response": {
+    "actual_private_files": 101,
+    "selected_rv_originals": 1,
+    "backend_current_resolution_pass": true,
+    "first_browser_reproduction_failed": true
+  },
+  "old_payroll_modules_byte_identical": 63,
+  "goal_unchanged": true,
+  "logs": [
+    {
+      "original_name": "backend-full.txt",
+      "stored_name": "legacy-catalog-backend-full.txt.gz",
+      "raw_bytes": 8449,
+      "raw_sha256": "ba39a0072634c0774f9d872164423a2912278b43ff5286c8d82686b2cae25907"
+    },
+    {
+      "original_name": "legacy-regression-followup.txt",
+      "stored_name": "legacy-catalog-legacy-regression-followup.txt.gz",
+      "raw_bytes": 8742,
+      "raw_sha256": "45c8deea9e00086743b9db9a094db553b195d168e0d247a7c594fe9eebd947db"
+    },
+    {
+      "original_name": "legacy-and-catalog-final.txt",
+      "stored_name": "legacy-catalog-legacy-and-catalog-final.txt.gz",
+      "raw_bytes": 8625,
+      "raw_sha256": "6ff8bccba9c7882554b9b8719bde8fb51924f458e2557ce0ef19d0aada43972d"
+    },
+    {
+      "original_name": "many-files-browser-before-fix.txt",
+      "stored_name": "legacy-catalog-many-files-browser-before-fix.txt.gz",
+      "raw_bytes": 2132,
+      "raw_sha256": "97890df5a227580ae2b82eb41967523093356af24cf2ebae0f4892bf50f9631b"
+    },
+    {
+      "original_name": "browser-all-catalog-final.txt",
+      "stored_name": "legacy-catalog-browser-all-catalog-final.txt.gz",
+      "raw_bytes": 114610,
+      "raw_sha256": "1bfee1af8ec1814825ae8b5a032a860b47ec110ccb0e843c8d6cfeae92a26c67"
+    },
+    {
+      "original_name": "native-catalog-final.txt",
+      "stored_name": "legacy-catalog-native-catalog-final.txt.gz",
+      "raw_bytes": 6823,
+      "raw_sha256": "1cc4d8c6f7f939022a17f3a95519af3e96e690f887b92dd1094307b23c33928e"
+    },
+    {
+      "original_name": "native-catalog-analyze.txt",
+      "stored_name": "legacy-catalog-native-catalog-analyze.txt.gz",
+      "raw_bytes": 97,
+      "raw_sha256": "b7ae3f8c52f907d910612ec4a97fc7ba1fca36f4d0657602125f482e97d16495"
+    },
+    {
+      "original_name": "browser-flow-catalog-final.txt",
+      "stored_name": "legacy-catalog-browser-flow-catalog-final.txt.gz",
+      "raw_bytes": 265,
+      "raw_sha256": "e488362b6000e5e91ced85a050ccbd07d0b697ecb6d3c5fc658a5e8b008aa93f"
+    },
+    {
+      "original_name": "postgres-fifth.txt",
+      "stored_name": "legacy-catalog-postgres-fifth.txt.gz",
+      "raw_bytes": 759,
+      "raw_sha256": "d45c70d927971e012b9b1db5cee2e82c3657aa3d76b6622dbea80d39b178a148"
+    },
+    {
+      "original_name": "postgres-fifth-environment.json",
+      "stored_name": "legacy-catalog-postgres-fifth-environment.json.gz",
+      "raw_bytes": 237,
+      "raw_sha256": "0bb74c97a51bb74ba7d5a4b284cef6c022176d6020c4a7243743f9d63c4a9db7"
+    },
+    {
+      "original_name": "remote-online4-first.json:content",
+      "stored_name": "first-51c404b-online4-job130185966648.txt.gz",
+      "raw_bytes": 140878,
+      "raw_sha256": "33d3ea3f4878aa1153c26c7fce246fa23f39ff5882d9aa6b5e9966623cec53c9",
+      "source_commit": "51c404b59c4bb19ee564f6ee9f4185ddb7961701",
+      "job_id": 130185966648
+    }
+  ],
+  "changed_code_inventory": [
+    {
+      "path": "app/lib/business_payroll_rv_contract.dart",
+      "sha256": "1b3f52c5f568eb35227c3ac85393cddecdf71976327e88a7e3cff6037299a54a"
+    },
+    {
+      "path": "app/test/business_payroll_rv_lifecycle_test.dart",
+      "sha256": "c9a1b393d63697f9419b712366cb4b2f0e45d2097773c215df505e5ce662f2ea"
+    },
+    {
+      "path": "app/test/fixtures/payroll_rv_lifecycle_many_files.json",
+      "sha256": "ae62c930c4e6eeac87a45d9cf60e81ba1f7ed35b24a5097af1c64417fed48d97"
+    },
+    {
+      "path": "backend/business_payroll.py",
+      "sha256": "0e5c02ae2b97c8c23e3b04b09bcc631a932479abbaef23825676e185bdf95d64"
+    },
+    {
+      "path": "backend/business_payroll_rv_lifecycle.py",
+      "sha256": "2a9e0ec2f514cf05bb8c0e798f5e79f83d66b3fb5d7fe1eddb1c668448b0afd0"
+    },
+    {
+      "path": "backend/test_business_payroll_rv_binding.py",
+      "sha256": "489bc49cdf1e928e47adedebce535a05784cd1b53599ff0e58c431598894dc8b"
+    },
+    {
+      "path": "backend/test_business_payroll_rv_lifecycle.py",
+      "sha256": "01d8f0a41acc6bd7d0ef4932818ac7c2add8cf3216aaace2c2f68ed0ebce5fed"
+    },
+    {
+      "path": "scripts/generate-payroll-rv-lifecycle-fixture.py",
+      "sha256": "4cb29fe0d9cfe4ddeec7a8b3b47207816e0fb5c7bbd751cd7023273267148aa1"
+    },
+    {
+      "path": "web/office/payroll-rv-lifecycle.js",
+      "sha256": "c1dd8593ff9610dc9bc6e189e411bde49c48a7af62adf7b28ec6e4c6b5162ad0"
+    },
+    {
+      "path": "web/office/tests/payroll-rv-lifecycle.test.mjs",
+      "sha256": "0c01d80faa40ab8e32cb91a51fefad8bba0c5ac3acd74d06dbfa1823c6ab7297"
+    }
+  ],
+  "new_full_ci_pass": false,
+  "server_updated": false,
+  "testflight_uploaded": false,
+  "overall_acceptances_closed": 0
+}

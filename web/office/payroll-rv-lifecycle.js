@@ -16,8 +16,8 @@ const note=v=>{if(typeof v!=='string'||!v.trim()||v.length>3000||/[\x00-\x08\x0b
 const hash=async v=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(ordered(v))))),b=>b.toString(16).padStart(2,'0')).join('');
 const ref=v=>{shape(v,'id revision content_hash');return payrollFactRef(v);};
 export const payrollRvSelection=value=>{const r=payrollFactRef(value);return r.id+'/'+r.revision+'/'+r.content_hash;};
-const refs=values=>{
- if(!Array.isArray(values)||values.length>100)throw fail('Der vollständige bisherige RV-Verlauf fehlt.');
+const refs=(values,maximum=100)=>{
+ if(!Array.isArray(values)||values.length>maximum)throw fail('Die begrenzte vollständige Liste der Originalfassungen fehlt.');
  const result=values.map(ref).sort((a,b)=>a.id.localeCompare(b.id)||a.revision-b.revision);
  if(new Set(result.map(r=>r.id+'/'+r.revision)).size!==result.length)throw fail('Jede ursprüngliche RV-Fassung genau einmal angeben.');
  return result;
@@ -93,7 +93,7 @@ export async function payrollRvRecordHashes(v,employeeId){
 
 export function payrollRvSources(s,employeeId){
  if(s?.employee_id!==employeeId||s.employee?.id!==employeeId||s.episode_id!==employeeId||!Number.isSafeInteger(s.employee.revision)||s.employee.revision<1||['files','file_references','profiles','history','prior_assessment_refs'].some(k=>!Array.isArray(s[k]))||['can_write','can_approve','writes_enabled'].some(k=>typeof s[k]!=='boolean'))throw fail('Die privaten RV-Quellen gehören nicht eindeutig zur gewählten Person.');
- if(!same(refs(s.history.map(payrollFactRef)),refs(s.prior_assessment_refs))||!same(refs(s.file_references),refs(s.files.map(f=>({id:f.id,revision:1,content_hash:f.content_hash})))))throw fail('Die vollständigen Originalfassungen fehlen.');
+ if(!same(refs(s.history.map(payrollFactRef),101),refs(s.prior_assessment_refs,101))||!same(refs(s.file_references,1000),refs(s.files.map(f=>({id:f.id,revision:1,content_hash:f.content_hash})),1000)))throw fail('Die vollständigen Originalfassungen fehlen.');
  for(const p of s.profiles)if(p.employee_id!==employeeId||p.kind!=='profile')throw fail('Ein Lohnprofil gehört zu einer anderen Person.');else payrollFactRef(p);
  for(const f of s.files)if(f.employee_id!==employeeId||f.purpose!=='personnel')throw fail('Ein privates Original gehört zu einer anderen Person.');
  for(const v of s.history)payrollRvRecord(v,employeeId);

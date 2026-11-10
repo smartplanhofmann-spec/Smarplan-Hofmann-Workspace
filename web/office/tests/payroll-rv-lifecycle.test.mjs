@@ -8,6 +8,7 @@ import {payrollProfileValidator} from '../payroll.js';
 if(!globalThis.crypto)globalThis.crypto=webcrypto;
 const fixture=JSON.parse(readFileSync(new URL('../../../app/test/fixtures/payroll_rv_lifecycle.json',import.meta.url)));
 const clone=v=>structuredClone(v),cases=fixture.cases;
+const manyFiles=JSON.parse(readFileSync(new URL('../../../app/test/fixtures/payroll_rv_lifecycle_many_files.json',import.meta.url)));
 const caps=()=>({features:['payroll_rv_lifecycle'],capabilities:['business_payroll_rv_lifecycle'],permissions:['personnel.read','personnel.approve'],readonly:false,organization:{modules:{personnel:{enabled:true}}}});
 function values(c){const a=c.input.details.assessment,r=a.revocation;return{...a,exempt_from:a.established_exemption.effective_from,original_profile_id:payrollRvSelection(a.established_exemption.profile_ref),exemption_file_id:a.established_exemption.evidence_ref.id,established_status_confirmed:true,request_state:r?'received':'none',received_on:r?.received_on||'',request_format:r?.request_format||'',request_file_id:r?.request_ref.id||'',notification_received_on:r?.notification_received_on||'',notification_file_id:r?.notification_ref?.id||'',authority_status:r?.authority_status||'',objection_deadline_on:r?.objection_deadline_on||'',deadline_file_id:r?.deadline_ref?.id||'',deadline_review_confirmed:r?.deadline_review_confirmed||false,authority_status_on:r?.authority_status_on||'',authority_file_id:r?.authority_evidence_ref?.id||'',procedure_note:r?.review_note||''};}
 
@@ -55,6 +56,11 @@ test('an ID alone or another revision cannot float to the newest original',()=>{
  for(const selection of [c.record.id,payrollRvSelection({...c.record,revision:2}),payrollRvSelection({...c.record,content_hash:'f'.repeat(64)})])assert.throws(()=>payrollRvProfileBinding(s,{rv_lifecycle_id:selection}));
  const input=values(c);input.original_profile_id=c.input.details.assessment.established_exemption.profile_ref.id;
  assert.throws(()=>payrollRvInput(c.sources_before,input));
+});
+
+test('101 actual private file originals do not exceed the selected RV evidence limit',()=>{
+ const page=payrollRvSources(clone(manyFiles.sources),manyFiles.sources.employee_id);
+ assert.equal(page.files.length,101);assert.equal(page.history[0].source_file_ids.length,1);
 });
 
 test('a pending procedure may hold its actually reviewed future deadline without becoming settled',()=>{

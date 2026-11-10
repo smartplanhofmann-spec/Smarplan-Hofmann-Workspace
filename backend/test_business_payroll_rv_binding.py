@@ -8,6 +8,15 @@ from test_business_payroll_rv_lifecycle import RvLifecycleFixture,rid,settled,re
 
 
 class RvPayrollBinding(RvLifecycleFixture):
+    def test_large_current_private_catalog_does_not_change_the_selected_original(self):
+        from business_payroll_rv_lifecycle import resolve_current
+        record=self.lifecycle();self.bound(record);self.add_personal_originals(100)
+        page=self.api.sources(self.f.owner,dict(employee_id=self.f.employee['id']))
+        self.assertEqual(len(page['files']),101);self.assertEqual(len(record['source_file_ids']),1)
+        self.assertEqual(resolve_current(self.f.office,self.f.owner,self.f.employee['id'],reference(record),clock=lambda:self.f.now),record)
+        current=self.f.payroll.save_profile(self.f.owner,self.profile_command(record,effective='2026-09-01'))
+        self.assertEqual(current['rv_lifecycle_ref'],reference(record))
+
     def lifecycle(self, *, pending=False):
         body=self.body()
         (request if pending else settled)(body['details']['assessment'])

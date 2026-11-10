@@ -370,6 +370,24 @@ def used_profiles(source,calculation):
     return [unique[key] for key in sorted(keys)]
 
 
+def has_profile_binding(record):
+    """Keep the historical envelope reader unchanged for non-RV originals.
+
+    A correctly hashed malformed legacy envelope is still diagnosed by its
+    existing source/upgrade validator. New RV bindings in any source profile
+    need the additional original check, including an in-month profile.
+    """
+    source=record.get('source')
+    if not isinstance(source,dict):return False
+    profiles=[source.get('profile')]
+    for name in ('period_case','calculation_case'):
+        case=source.get(name)
+        if isinstance(case,dict) and isinstance(case.get('sources'),dict):
+            values=case['sources'].get('profiles')
+            if isinstance(values,list):profiles.extend(values)
+    return any(isinstance(profile,dict) and any(key in profile for key in PROFILE_BINDING_FIELDS) for profile in profiles)
+
+
 def guard_prepared_payroll(office,actor,result,*,clock=None):
     profiles=used_profiles(result['source'],result['calculation'])
     minis=[p for p in profiles if p['profile']['employment_kind']=='minijob']

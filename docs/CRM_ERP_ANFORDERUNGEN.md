@@ -205,3 +205,20 @@ mit beiden Clients, tatsächlichem PostgreSQL/EÜR/Jahres-/Restorefall und
 der geprüften SQLite-Lesekorrektur gemeinsam lokal abgeschlossen. Eigene
 neue Veröffentlichung/CI und Gesamt-/Fachabnahme bleiben getrennt.
 Nächster offener Codepunkt sind die belegten Lohnansprüche im Faktorfall.
+
+
+## 10.11.2026 – echte Anmeldeantwort im Belegrestbetragsbrowser
+
+Der veröffentlichte V5-/SQLite-Stand b31028a besteht Backend, Flutter, Windows,
+Mac, HTTPS und Update. Sein Browserjob129627935331 in42755194933 scheitert
+später im Belegrestbetragsablauf: Chromium hat den Antwortkörper der
+Fähigkeiten während des echten Anmelde-Seitenwechsels verworfen. Die
+Einkaufsreparatur wird dadurch nicht als erneut fehlgeschlagen umgedeutet.
+Die Beobachtung liest jetzt den tatsächlichen Antwortkörper vor dessen
+unveränderter Weitergabe. Kein DTO-Ersatz, kein gelockerter fachlicher Test,
+keine verlängerte Zeitgrenze. Der gesamte gezielte Browser besteht mit
+Teil-/Restbeträgen, Centbindung, zwei verlorenen Antworten, Rechteentzug,
+Altbelegen und Mobilansicht.
+[Fehler und tatsächlicher Nachweis](evidence/capacity-login-response-2026-11-10/manifest.json).
+Eigene Folge-CI bleibt erforderlich; keine Serverinstallation. Der Gesamtauftrag
+läuft weiter, der Faktor-/Anspruchsvertrag V12 wird separat weiterentwickelt.

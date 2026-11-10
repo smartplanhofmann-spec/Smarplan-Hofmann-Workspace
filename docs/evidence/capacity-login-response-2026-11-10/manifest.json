@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-10",
+  "base": "b31028aa1f1639cf74b6d52ccd4e11e1d55b78b9",
+  "failed_ci_run": 42755194933,
+  "failed_job": 129627935331,
+  "cause": "Chromium response body discarded after genuine login navigation, capacity-flow.cjs:53",
+  "change": "Read genuine route.fetch body before forwarding the unchanged response; no DTO replacement, no assertion removal or timeout increase",
+  "actual_browser": "passed full targeted capacity workflow: MFA login, original lots and cent-exact returns/reuse, legacy negotiation, late preview, both lost acknowledgments, rights revocation, original C1 histories, 390px",
+  "files": {
+    "actual-browser.txt.gz": {
+      "bytes": 373,
+      "sha256": "bcbab5904d2a73dc8b189dce85c5497fcb54d1b30c4af8fbf74d1d34c1b1bf87"
+    },
+    "capacity-desktop.png": {
+      "bytes": 532191,
+      "sha256": "53932ebd312cef55eb361487507f03be623d648be82658a3af86d97263bc1bd8"
+    },
+    "capacity-mobile.png": {
+      "bytes": 458998,
+      "sha256": "06bbd1a7e101a3c00df2c21862855c05e43806f28cdd0e3a12d89fabe4c25216"
+    },
+    "ci-failure.txt": {
+      "bytes": 360,
+      "sha256": "677d754d3f156e2c0c13465df43e029023ffd58cb88e0547c19bcaec7801795a"
+    }
+  },
+  "limits": [
+    "Published base CI remained failed; a successor requires its own CI.",
+    "No live deployment or financial operation."
+  ]
+}

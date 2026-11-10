@@ -50,7 +50,23 @@ async function capacityFlow({page,context,navigate,ready,login,fixture,screensho
     const caps='**/api/v1/business/capabilities',before=records.filter(item=>item.path.includes('/components/v2/')).length;
     await context.route(caps,async route=>{assert.equal(new URL(route.request().url()).origin,fixture.base_url);const response=await route.fetch({maxRedirects:0}),value=await response.json();await route.fulfill({response,json:{...value,features:value.features.filter(item=>item!=='accounting_document_component_reuse')}});});await open(page,'origin-middle');await page.getByRole('dialog').getByRole('button',{name:'Aufteilung ansehen',exact:true}).waitFor();assert.equal(records.filter(item=>item.path.includes('/components/v2/')).length,before);await close();await context.unroute(caps);
     const refund=await bindRefund();console.log('capacity: six actual imports, three original lots and exact 33.33/6.34 return created; unresolved gate and legacy fallback passed');
-    worker=await context.newPage();worker.on('pageerror',error=>errors.push(error.message));worker.setDefaultTimeout(15000);await worker.goto(fixture.base_url+'/office/');const negotiated=worker.waitForResponse(response=>response.url().endsWith('/business/capabilities'),{timeout:15000});await login(worker,'capacity@browser.example.test');const supported=await (await negotiated).json();refundNotice=supported.features.includes('accounting_refund_origins_v2')&&supported.capabilities.includes('business_accounting_refunds_v2')?REFUND_REUSE_AVAILABLE:REFUND_LIMITATION;
+    worker=await context.newPage();worker.on('pageerror',error=>errors.push(error.message));worker.setDefaultTimeout(15000);await worker.goto(fixture.base_url+'/office/');
+    // Login navigates after authentication. Capture the genuine capability body
+    // before delivering it, so Chromium cannot discard its response identifier
+    // during that navigation. The application receives the original response.
+    let resolveNegotiated;const negotiated=new Promise(resolve=>{resolveNegotiated=resolve;});
+    const observeCapabilities=async route=>{
+      if(route.request().frame().page()!==worker)return route.fallback();
+      assert.equal(new URL(route.request().url()).origin,fixture.base_url);
+      const response=await route.fetch({maxRedirects:0});
+      if(response.ok())resolveNegotiated(await response.json());
+      await route.fulfill({response});
+    };
+    await context.route(caps,observeCapabilities);
+    let supported;
+    try{await login(worker,'capacity@browser.example.test');supported=await bounded(negotiated,'authenticated capacity capability body');}
+    finally{await bounded(context.unroute(caps,observeCapabilities),'capacity capability observer cleanup',5000);}
+    refundNotice=supported.features.includes('accounting_refund_origins_v2')&&supported.capabilities.includes('business_accounting_refunds_v2')?REFUND_REUSE_AVAILABLE:REFUND_LIMITATION;
     // A genuine late preview may not reopen a closed editor or another area.
     // Observe the actual client promise after it has read and parsed the genuine
     // response. Playwright's response.finished() can remain pending for a routed

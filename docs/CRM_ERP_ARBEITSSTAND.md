@@ -7,8 +7,8 @@ Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`
 **Aktueller Codeabschnitt:** Faktor-/Anspruchsvertrag V12 ist in beiden Clients
 und Backend integriert. 55 Backend-,1041 Browser-, neun neue native und21
 Paketfälle sowie echte PG-/MFA-/Konkurrenz-/EÜR-/Jahres-/CRLF-/Restoreprüfung
-bestehen. Die gesamte Appprüfung läuft nach korrigiertem lokalen Pythonpfad
-neu; erster Lauf bleibt fehlgeschlagen. [Stand und genaue Grenzen](CRM_ERP_FAKTOR_ANSPRUECHE_V12_2026-11-10.md).
+bestehen. Die korrigierte gesamte Appprüfung besteht mit1.905 Fällen ohne
+Fehler oder Skip; erster fehlgeschlagener Lauf bleibt erhalten. [Stand und genaue Grenzen](CRM_ERP_FAKTOR_ANSPRUECHE_V12_2026-11-10.md).
 Aktuell veröffentlichter Testbranch: cb7ff63199757da72959a8b52161b6eff62e0117
 (echte Anmeldeantwort im Belegrestbetragsbrowser); eigene CI42758607318 läuft.
 V12 noch nicht veröffentlicht; kein neuer Server-/Gerätestand.
@@ -43,7 +43,7 @@ Konkurrenz-/Sperrprüfung besteht nach gezielter 423-Korrektur; alte Fehler blei
 in den [Rohnachweisen](evidence/source5-repayment-2026-11-10/manifest.json) erhalten.
 V3-Folgeketten b437f2c sind enthalten; Code749a19d und Nachweise936f40f.
 
-**Aktueller Codeabschnitt:** [Weitere Nettoausgleiche V5](CRM_ERP_SOURCE5_NETTOAUSGLEICHE_V5_2026-11-10.md)
+**Vorheriger Codeabschnitt:** [Weitere Nettoausgleiche V5](CRM_ERP_SOURCE5_NETTOAUSGLEICHE_V5_2026-11-10.md)
 in `/workspace/smartplan-source5-adjustments-20261110`. Wiederholte positive,
 negative und betragsgleiche Korrekturen nach einem vollständig belegten
 V4-/V5-Präfix sind in Backend und beiden Clients integriert. Erste unveränderte
@@ -636,3 +636,27 @@ Altbelegen und Mobilansicht.
 [Fehler und tatsächlicher Nachweis](evidence/capacity-login-response-2026-11-10/manifest.json).
 Eigene Folge-CI bleibt erforderlich; keine Serverinstallation. Der Gesamtauftrag
 läuft weiter, der Faktor-/Anspruchsvertrag V12 wird separat weiterentwickelt.
+
+
+## 10.11.2026 – V12 gemeinsam technisch abgeschlossen, Gesamtauftrag fortgesetzt
+
+Der vollständige korrigierte App-Lauf besteht mit **1.905 Fällen ohne Fehler
+oder Skip** in732.859ms. Die tatsächliche Schlussmeldung lautet success:true.
+Der erste1902er-Lauf bleibt mit seinen26 Fehlern im Rohnachweis erhalten.
+55 Backend-,1041 Browsermodul-, neun neue App- und21 Paketfälle, saubere
+Analyse12,4s sowie der tatsächliche PG-/MFA-/Konkurrenz-/EÜR-/Jahres-/CRLF-/
+Restorefall25,979s bestehen. Beide echten Browserabläufe bestehen nach
+Zusammenführung mit der Anmeldeantwort-Korrektur erneut. 1.103 Python-/Dart-/
+JavaScriptdateien sind gegenüber dem vorherigen geprüften Faktorcode bytegleich;
+die zusätzlich integrierte CJS-Testbeobachtung ist gesondert tatsächlich geprüft.
+[56 rohe Prüfdateien, vollständige App-Protokolle und Manifest](evidence/factor-claims-2026-11-10/manifest.json).
+
+Produktcode d1f5ba1562a084127466d1f2fd3d9da6671e0dab auf Basis cb7ff63;
+Veröffentlichung, eigene CI und tatsächlicher Live-/Gerätestand bleiben
+getrennte Nachweise. Der ganze Auftrag läuft weiter. Der nächste konkret
+begonnene Abschnitt ist der ausschließlich lesende Abgleich bereits archivierter
+alter Offline-Serviceprotokolle: vier tatsächliche MFA-/HTTP-Fälle bestehen im
+separaten Arbeitsverzeichnis /workspace/smartplan-legacy-service-recovery-20261110.
+Alte Texte oder Unterschriften werden dabei nicht neu übertragen, neue Firmen
+nicht aus einer alten ungebundenen Adresse abgeleitet und Altaufträge nicht als
+neue Dokumente wiederholt. Diese Folgeentwicklung ist noch nicht veröffentlicht.

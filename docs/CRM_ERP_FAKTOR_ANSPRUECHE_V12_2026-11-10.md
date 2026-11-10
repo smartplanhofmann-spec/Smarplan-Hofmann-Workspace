@@ -35,8 +35,8 @@ Implementierter additiver Vertrag:
 Backend, beide Clients, neue vollständige Quellen-/Plan-/Vorschauhashprüfung,
 frische eigene Funktionsfreigabe, beide verlorenen Antworten, private Belege,
 Zahlung/EÜR/Jahresbasis und tatsächliche PostgreSQL-Wiederherstellung sind
-implementiert und gezielt geprüft. Die vollständige Appprüfung wurde nach einem
-fehlenden lokalen Python-Testpfad neu gestartet. Veröffentlichung, eigene CI,
+implementiert und gezielt geprüft. Die vollständige Appprüfung besteht nach Korrektur des lokalen
+Python-Testpfads mit1.905 Fällen ohne Fehler oder Skip in732.859ms. Veröffentlichung, eigene CI,
 Serverinstallation, Geräte- und fachliche/amtliche Freigaben bleiben gesondert.
 Diese Erweiterung allein ist kein Abschluss des Gesamtziels.
 
@@ -108,3 +108,13 @@ fachlichen und technischen Gesamtabnahmen bleiben eigene offene Anforderungen.
 Die vorhandene V10-Reise- und V11-Minijobfreigabe ist weiterhin unabhängig.
 Keine tatsächliche Zahlung, amtliche Meldung oder neue Liveinstallation wurde
 ausgelöst. Der Gesamtauftrag läuft nach dieser Etappe weiter.
+
+
+## Vollständiger Schlussnachweis
+
+Der korrigierte ganze App-Lauf besteht mit1.905 Fällen ohne Fehler oder Skip,
+Schlussereignis success:true in732.859ms. Der erste fehlgeschlagene Lauf bleibt
+unverändert erhalten. Die beiden echten Browserläufe bestehen auf dem mit
+cb7ff63 zusammengeführten Produktcode erneut. [Manifest und56 Rohnachweise](evidence/factor-claims-2026-11-10/manifest.json)
+führen die einzelnen aktuellen und vorherigen Ergebnisse getrennt.
+Der Gesamtauftrag läuft mit dem nächsten Offline-Protokollabschnitt weiter.

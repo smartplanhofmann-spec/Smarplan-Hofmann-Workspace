@@ -482,3 +482,27 @@ Anmeldeantwort-Korrektur cb7ff63199757da72959a8b52161b6eff62e0117 veröffentlich
 ihre eigene Development-CI42758607318 läuft. Keine neue Liveinstallation.
 Nach Fertigstellung des aktuellen Nachweises wird das Gesamtziel weiter
 abgearbeitet; eine abgeschlossene Einzeletappe beendet den Auftrag nicht.
+
+
+## 10.11.2026 – V12 gemeinsam technisch abgeschlossen, Gesamtauftrag fortgesetzt
+
+Der vollständige korrigierte App-Lauf besteht mit **1.905 Fällen ohne Fehler
+oder Skip** in732.859ms. Die tatsächliche Schlussmeldung lautet success:true.
+Der erste1902er-Lauf bleibt mit seinen26 Fehlern im Rohnachweis erhalten.
+55 Backend-,1041 Browsermodul-, neun neue App- und21 Paketfälle, saubere
+Analyse12,4s sowie der tatsächliche PG-/MFA-/Konkurrenz-/EÜR-/Jahres-/CRLF-/
+Restorefall25,979s bestehen. Beide echten Browserabläufe bestehen nach
+Zusammenführung mit der Anmeldeantwort-Korrektur erneut. 1.103 Python-/Dart-/
+JavaScriptdateien sind gegenüber dem vorherigen geprüften Faktorcode bytegleich;
+die zusätzlich integrierte CJS-Testbeobachtung ist gesondert tatsächlich geprüft.
+[56 rohe Prüfdateien, vollständige App-Protokolle und Manifest](evidence/factor-claims-2026-11-10/manifest.json).
+
+Produktcode d1f5ba1562a084127466d1f2fd3d9da6671e0dab auf Basis cb7ff63;
+Veröffentlichung, eigene CI und tatsächlicher Live-/Gerätestand bleiben
+getrennte Nachweise. Der ganze Auftrag läuft weiter. Der nächste konkret
+begonnene Abschnitt ist der ausschließlich lesende Abgleich bereits archivierter
+alter Offline-Serviceprotokolle: vier tatsächliche MFA-/HTTP-Fälle bestehen im
+separaten Arbeitsverzeichnis /workspace/smartplan-legacy-service-recovery-20261110.
+Alte Texte oder Unterschriften werden dabei nicht neu übertragen, neue Firmen
+nicht aus einer alten ungebundenen Adresse abgeleitet und Altaufträge nicht als
+neue Dokumente wiederholt. Diese Folgeentwicklung ist noch nicht veröffentlicht.

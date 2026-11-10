@@ -1,0 +1,607 @@
+{
+  "created_at": "2026-11-10T05:32:05.018933+00:00",
+  "product_commit": "d1f5ba1562a084127466d1f2fd3d9da6671e0dab",
+  "source_before_rebase": "29aaf59",
+  "base": "cb7ff63199757da72959a8b52161b6eff62e0117",
+  "last_all_green": "17978f6697a02f131fc1a4d319cc279dbe642d50",
+  "scope": "Explicit v12/contract4 full regular class-IV factor month with complete actual P4 claim originals; preserves work and historical kernels",
+  "tests": {
+    "backend": {
+      "cases": 55,
+      "seconds": 53.715
+    },
+    "browser_modules": {
+      "cases": 1041,
+      "failed": 0,
+      "skipped": 0,
+      "duration_ms": 13886.371751
+    },
+    "native_entire": {
+      "cases": 1905,
+      "failed": 0,
+      "skipped": 0,
+      "success": true,
+      "duration_ms": 732859
+    },
+    "native_new": {
+      "cases": 9,
+      "passed": true
+    },
+    "native_review_regression": {
+      "cases": 29,
+      "passed": true
+    },
+    "analysis": {
+      "issues": 0,
+      "seconds": 12.4
+    },
+    "package": {
+      "cases": 21,
+      "seconds": 20.079
+    },
+    "postgres": {
+      "cases": 1,
+      "seconds": 25.979,
+      "actual": [
+        "MFA original and renewed",
+        "separate runtime roles",
+        "concurrent exact run writers",
+        "original receipt replay",
+        "independent CRLF interpreter",
+        "actual net payment and EÜR",
+        "annual basis",
+        "real pg_dump/pg_restore",
+        "same original PDF and immutable receipts"
+      ]
+    },
+    "browser_actual": [
+      "genuine MFA full factor/P4 source selection, two accepted lost ACKs, independent hashes, unchanged time, private statement/PDF,390px",
+      "combined actual capacity login, lot cents, loss before/after ACK, late preview, whole-origin rights, old histories,390px"
+    ]
+  },
+  "independent_reference": {
+    "xml_sha256": "63d8981646d139eba2f4dd990c13b43c4fb3883b402a5a40cddf253aa7aa96b4",
+    "vectors": 7,
+    "executed_with": "unchanged XML decimal expressions in separate Java oracle; no product kernel",
+    "testdata": "backend/testdata/payroll_factor_entitlements_2026.json",
+    "care_method": "ROUND_BASE_AND_ADJUSTMENTS_SEPARATELY_GKV_2025_03_31_SECTION_3_3"
+  },
+  "earlier_attempts": [
+    "initial missing v12 rule/dispatch reproduced",
+    "incorrect comparison of two separately permitted PV rounding methods failed before explicit new policy",
+    "new test fixtures initially used wrong API method, JSON key, constructor or exception argument; final actual guards pass",
+    "first package test had missing local backend virtualenv link",
+    "first entire native run:1902 cases,26 failures including21 explicit missing Python paths; preserved raw JSON, not reclassified as success",
+    "first 1040 Node run:new retry tests omitted auth token; actual original stayed unopened, tests corrected and1041 final cases pass",
+    "first PostgreSQL command also discovered imported old test classes; interrupted that exact own process, imports changed to module aliases; explicit original identity correction was rejected because profile revision requires its own identity, preserved old identity and created a new one",
+    "earlier combined backend run had two nonexistent module names,39 actual cases succeeded; corrected55-case run passes"
+  ],
+  "unchanged_kernels": [
+    {
+      "path": "backend/payroll_annual_basis_2026.py",
+      "sha256": "5b17e71d13ed596a2f4a18ec49f12970e95329ac17dd69ef17709978191ad431"
+    },
+    {
+      "path": "backend/payroll_calculations_2026.py",
+      "sha256": "5133cc7b0a52471bcfd08c76960461799bd92e335ac7e5d141368dc69f14b553"
+    },
+    {
+      "path": "backend/payroll_claims_composition_2026.py",
+      "sha256": "e8a08c7402ae06803045cf5a4421cee1bca0a50183e43677788194c9242e342d"
+    },
+    {
+      "path": "backend/payroll_de_2026.py",
+      "sha256": "c1365355ab501f194f37ede7c4bb0ab2c2347a1252dfda97ae360708593a9789"
+    },
+    {
+      "path": "backend/payroll_entitlements_2026.py",
+      "sha256": "c495a10a871f68dcc13d656a303d5d671855a7b5ea522b454ad141829cb457e7"
+    },
+    {
+      "path": "backend/payroll_factor_2026.py",
+      "sha256": "c55d017120f56b0e2539c793018839820d17aef54611c3ede636e1ee20d1df25"
+    },
+    {
+      "path": "backend/payroll_factor_periods_2026.py",
+      "sha256": "f18b0254d6c96b981433d519adb4895de7e97fcb7e4e9d951105cf95773c63c0"
+    },
+    {
+      "path": "backend/payroll_holidays_2026.py",
+      "sha256": "d8ed5b71ce2f334d5670e707e421212e71abfad953121271efb81ea0eac99280"
+    },
+    {
+      "path": "backend/payroll_multiple_oneoff_2026.py",
+      "sha256": "c6ea0b98dab3528055c7e0b190b93e062dc1469466f670513bd75c8d856f33c7"
+    },
+    {
+      "path": "backend/payroll_oneoff_2026.py",
+      "sha256": "a52973b0f88f0658906db61b610762959b84f1cefe2ded866a663d718f9f1ce8"
+    },
+    {
+      "path": "backend/payroll_oneoff_composition_2026.py",
+      "sha256": "9b48ef4898b043c647b1c238a6f37d8b05bf8f78dcf9967fb691b9803454d0d7"
+    },
+    {
+      "path": "backend/payroll_pap_2026.py",
+      "sha256": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071"
+    },
+    {
+      "path": "backend/payroll_pap_factor_2026.py",
+      "sha256": "92c6dee2d41b5c8985b52d9d8e86831919c05b16bbb504f4bdfc7176be7d088c"
+    },
+    {
+      "path": "backend/payroll_pap_oneoff_2026.py",
+      "sha256": "f2fc8ced86ab844e5c7b4ea592fab2ba5870a7843f47b78bc379b9f874b2f456"
+    },
+    {
+      "path": "backend/payroll_pap_periods_2026.py",
+      "sha256": "9307e599d25512db069bc42b8662ff0aa84b5436808745916bc97018b2675444"
+    },
+    {
+      "path": "backend/payroll_periods_2026.py",
+      "sha256": "c3df3ae3ee93c756010290f382bf17050676a7bbc6a327082ea07b83e7b96890"
+    },
+    {
+      "path": "backend/payroll_segments_2026.py",
+      "sha256": "819894663d24ae4a74e15d4f22c2b421ec34fbf4fc1d8a10a868a62b6270c83d"
+    },
+    {
+      "path": "backend/payroll_sickness_2026.py",
+      "sha256": "05dc76065032993b9ec59035cf17bc99c388b1b119ac30feb4540d937cb45e33"
+    },
+    {
+      "path": "backend/payroll_sickness_phases_2026.py",
+      "sha256": "3a9f7bcc4262d2594e94c6f87bb6f5035901411e64a73f91586fc5b7b9d19c0b"
+    },
+    {
+      "path": "backend/payroll_sickness_start_2026.py",
+      "sha256": "dc69e48b0ef255893b962d6d20ba8dadc478c17a53ccb438b7f12565c1a979c7"
+    },
+    {
+      "path": "backend/payroll_transition_2026.py",
+      "sha256": "b3b649e5179990ed54058ee4daee497a8744277cfe64c98750a5b333963d1897"
+    },
+    {
+      "path": "backend/payroll_travel_2026.py",
+      "sha256": "7c4be0176679fd9d6dcfe1b1049c223e33a1a8b75804f2864df7b0ccd65935fb"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v1.py",
+      "sha256": "03cbcb42b4a5c0eedfc11536c5997a53509c1ab5304a89e2c69c8fbc775164cb"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v2.py",
+      "sha256": "83b2673315b2e828abbf72fef26841bd80e8e8bbd70da45f587a01a5037527e5"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v3.py",
+      "sha256": "6c8496f63c3f44ea56054d7eafa17aa75dbba71bc131306fcf59925d93faf45e"
+    },
+    {
+      "path": "backend/payroll_travel_expenses_2026.py",
+      "sha256": "2d96af39ded426f9868f3011ad3b47cdfc74c25c29f49ade56b6b178f67587d1"
+    },
+    {
+      "path": "backend/payroll_travel_ground_2026.py",
+      "sha256": "9fbc82efc589654ed2eb1425ce50fb4fe6a59b30bcde5ae29d27ec5f595deebc"
+    },
+    {
+      "path": "backend/payroll_travel_mixed_2026.py",
+      "sha256": "0e640106f0d70e3a0f0c54e3154f22e3576d5120dabb9117dbfcf3bde0f6dced"
+    },
+    {
+      "path": "backend/payroll_travel_rates_2026.py",
+      "sha256": "b327e00ea0624b6e41b45843077984af077917eb83400b341a3f88842192b7c0"
+    },
+    {
+      "path": "backend/payroll_travel_tax_2026.py",
+      "sha256": "8b28d2a38923fe64e7e640a1e3487834dea38ab701f07e010bb62dda81495f21"
+    },
+    {
+      "path": "backend/payroll_travel_transport_2026.py",
+      "sha256": "60cc47920cd49bd6daf6ca8a8bba94b49c46b5963d940b655ad100461d2be7d5"
+    },
+    {
+      "path": "backend/payroll_wage_interruptions_2026.py",
+      "sha256": "3039dc435c9c689fbc5a50b005581393e4093c8703a9ae9b74e52d559a236aa9"
+    }
+  ],
+  "goal": {
+    "bytes": 23863,
+    "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "source_hashes": {
+    ".github/workflows/checks.yml": {
+      "bytes": 45491,
+      "sha256": "33e737b417d700285b897db2ff3bf8d9cf9beae9e5a60e8a73d84d72265c65ab"
+    },
+    "app/lib/business_payroll.dart": {
+      "bytes": 147906,
+      "sha256": "b51160dbdae72a906e49af565070df7308a3559ee25f20ce0c8faf7de2297cda"
+    },
+    "app/lib/business_payroll_calculation_case_contract.dart": {
+      "bytes": 49693,
+      "sha256": "d7eccec5d895a4a80b9cdb20450c719162fdf15ffcf6f54317bd4ef6559c6442"
+    },
+    "app/lib/business_payroll_calculation_cases.dart": {
+      "bytes": 71818,
+      "sha256": "11e57f9621fca5c1be1cecd359547334b129067e25c42892fac97d741a5b2282"
+    },
+    "app/lib/business_payroll_factor_claims.dart": {
+      "bytes": 10085,
+      "sha256": "a1eb03431fccd8e5897194b9d6a02b929db74552812a8f95b346ed0ecc0e33b8"
+    },
+    "app/lib/business_session.dart": {
+      "bytes": 131537,
+      "sha256": "1f067808ae46cebb591da0a7c19ac29ec672b663f90ffef3ee3f0b64f967003a"
+    },
+    "app/test/business_payroll_factor_claims_test.dart": {
+      "bytes": 12825,
+      "sha256": "a5020fc4147215e2ff768fbbbf16956be20c6fe2668e0046e2cb588e4c50b9b5"
+    },
+    "app/test/fixtures/payroll_factor_claims.json": {
+      "bytes": 554694,
+      "sha256": "5997b35a6bf53188bbd469afdcdcb7ff0b2a5de36ffcd10bd7dc7e0c8e9fa869"
+    },
+    "backend/business_payroll.py": {
+      "bytes": 63383,
+      "sha256": "f858f97059c3ba8eebddd0bdb61b5876db7f6c2bef05d88c1c41778071816bdf"
+    },
+    "backend/business_payroll_calculation_cases.py": {
+      "bytes": 49899,
+      "sha256": "71d387c5be62b883b804d408d3f25889e604daedc0ceefe03d71cd268afd779a"
+    },
+    "backend/online/test_business_payroll_factor_claims_pg.py": {
+      "bytes": 12503,
+      "sha256": "959306376924e6f589f029c49acb111808a4cac7c352c746728b4f7936a33552"
+    },
+    "backend/online/web.py": {
+      "bytes": 32414,
+      "sha256": "90ceddc863294cc4e16b431ef19b6127022f5058fd2b2a15c6da1a52f597584f"
+    },
+    "backend/payroll_factor_claims_2026.py": {
+      "bytes": 12234,
+      "sha256": "30a62329a33f2ac4b67c571d5940093189fcbe2929c96507b83216170e57606d"
+    },
+    "backend/test_business_payroll_factor_entitlements.py": {
+      "bytes": 19191,
+      "sha256": "8e11743af2a871e43d8c702c2dc708470d947b9df3414cf7817c24a1ce885d3c"
+    },
+    "backend/testdata/payroll_factor_entitlements_2026.json": {
+      "bytes": 5275,
+      "sha256": "54f47cbabfd801803a5476b5ff0bb347d02861aff9147e040ec782e7455852cb"
+    },
+    "scripts/generate-payroll-factor-claims-fixture.py": {
+      "bytes": 1461,
+      "sha256": "1b77d210007d06e5d77ad3b307c2d6de7996043bf7df2590b8af4a9ef669985b"
+    },
+    "scripts/native-release.py": {
+      "bytes": 31813,
+      "sha256": "68fe07a32d371c8e1d45dc410828524913c12e7c0e7fcd912010828b9017006e"
+    },
+    "web/office/payroll-calculation-cases.js": {
+      "bytes": 59139,
+      "sha256": "ae440cbe0737ee401596eaeff0f1517b038509de76abb97861e79d7c2affcb1e"
+    },
+    "web/office/payroll-factor-claims.js": {
+      "bytes": 7229,
+      "sha256": "6824b222f713df8d8525bde8487aae68f4e12f677f13cee092559bd96fe594b8"
+    },
+    "web/office/payroll.js": {
+      "bytes": 88895,
+      "sha256": "2618ddc0da0b7815ca2f4d0dba58775a976721be4c5bbc39f3e544b3c8df5bdb"
+    },
+    "web/office/tests/e2e.cjs": {
+      "bytes": 49955,
+      "sha256": "705b2f6ef8f47f72cf668d38dc237a0896ed64e9fb6e8111952d435f160ab3bb"
+    },
+    "web/office/tests/payroll-factor-claims-flow.cjs": {
+      "bytes": 12056,
+      "sha256": "5d9af58bf37df47f887e5e85171e82cc67638a418844d94d1ed6b2b1a93cd8a5"
+    },
+    "web/office/tests/payroll-factor-claims.test.mjs": {
+      "bytes": 6201,
+      "sha256": "b5253e06211e781958aa14134ee8351b7d3808da6f90378748ba77f8d1f351be"
+    }
+  },
+  "rebase": {
+    "unchanged_source_files": 1103,
+    "proof": "runtime-rebase-comparison.json",
+    "only_test_successor": "web/office/tests/capacity-flow.cjs, separately genuine browser verified"
+  },
+  "raw_logs": [
+    {
+      "file": "factor-entitlements-before-20261110.txt.gz",
+      "sha256": "b1574e30b53a469b9498f037262e4e675973b49c4cfc4e751bba77a553811acd",
+      "uncompressed_bytes": 1637
+    },
+    {
+      "file": "factor-entitlements-care-method-20261110.txt.gz",
+      "sha256": "fae918166e85a36fa74df242a8f9dbb653e78fbbf85e98f6625f206004539510",
+      "uncompressed_bytes": 346
+    },
+    {
+      "file": "factor-entitlements-domain-first-20261110.txt.gz",
+      "sha256": "571c6dfc4bf10b091cf2ccbfe42061461f944ab1faedbd4da4dbd2340bbcaf2d",
+      "uncompressed_bytes": 2418
+    },
+    {
+      "file": "factor-entitlements-fixture-first-20261110.txt.gz",
+      "sha256": "676b072f10f0267ef475dc48f471fd54f712554d9dd7a80c24ad02290916af0e",
+      "uncompressed_bytes": 100
+    },
+    {
+      "file": "factor-entitlements-independent-reference-20261110.txt.gz",
+      "sha256": "034ccff1747743832244b49ddb1bf8fe259a6f8d188533b80463e414b69ecbfd",
+      "uncompressed_bytes": 216
+    },
+    {
+      "file": "factor-entitlements-money-annual-20261110.txt.gz",
+      "sha256": "63459b75aeadb55992769e76c4302919edb076d4cc8af53647765cf01e2a6503",
+      "uncompressed_bytes": 1458
+    },
+    {
+      "file": "factor-entitlements-money-annual-clock-20261110.txt.gz",
+      "sha256": "3e4b74c51fbf0ab68db52605a0f03f1548e566d13167469430be3084b5f70500",
+      "uncompressed_bytes": 582
+    },
+    {
+      "file": "factor-entitlements-run-adapter-20261110.txt.gz",
+      "sha256": "d6131e9cb4a89dec7cb4716e84c3b4a410b079f2e6e5a43c12ff89cde6c7cdec",
+      "uncompressed_bytes": 2420
+    },
+    {
+      "file": "factor-entitlements-structural-probe-20261110.txt.gz",
+      "sha256": "46949ec79d37bd835ba1e533c09df43f6f1057f9eace6825d442614eeda4c146",
+      "uncompressed_bytes": 1118
+    },
+    {
+      "file": "factor-claims-backend-actual-absence-20261110.txt.gz",
+      "sha256": "28792313cdb5ec6a20deed7bd1f63ba718c3dffdbf672e45d3938f44a7315dfd",
+      "uncompressed_bytes": 2507
+    },
+    {
+      "file": "factor-claims-backend-combined-corrected-20261110.txt.gz",
+      "sha256": "f0e8c82f02678268f065cb1025776016f67f039dd487efbfc96f01dac82cedd5",
+      "uncompressed_bytes": 11242
+    },
+    {
+      "file": "factor-claims-backend-combined-final-20261110.txt.gz",
+      "sha256": "c1ae8f3c0fc884e4344cc30124c4cf658a0ba8be3956793f544b79b97e1e214b",
+      "uncompressed_bytes": 11686
+    },
+    {
+      "file": "factor-claims-backend-combined-first-20261110.txt.gz",
+      "sha256": "edaffec11ba2300c43b6798e3243933f44874f6722df2a07ca49be6bcefde44d",
+      "uncompressed_bytes": 10325
+    },
+    {
+      "file": "factor-claims-backend-guards-actual-20261110.txt.gz",
+      "sha256": "b5483abb2ee3bc7f81919978f44b3c854af4a983f73f013485c54b17948a6293",
+      "uncompressed_bytes": 1257
+    },
+    {
+      "file": "factor-claims-backend-guards-first-20261110.txt.gz",
+      "sha256": "7d76b3cb79acaf3b3f324d0a463b915b3b63a84655f0c81f816409d0e7fd85ff",
+      "uncompressed_bytes": 3574
+    },
+    {
+      "file": "factor-claims-backend-guards-fixed-20261110.txt.gz",
+      "sha256": "9db54e02b84ea82ad37c7daa5ed4486cf7944f712b8fdd8a67b3b38aeb6abf4b",
+      "uncompressed_bytes": 913
+    },
+    {
+      "file": "factor-claims-backend-paid-and-unpaid-20261110.txt.gz",
+      "sha256": "53552b6bf88835dac9383a9eca5d2ff6a40bb3c48cd192b44cedc1507d16d1c6",
+      "uncompressed_bytes": 1701
+    },
+    {
+      "file": "factor-claims-browser-first-20261110.txt.gz",
+      "sha256": "b47dfe27ae2836eded21c57edf14ebb06faddb1d4d906ac187d10c82d13a6b84",
+      "uncompressed_bytes": 2607
+    },
+    {
+      "file": "factor-claims-browser-hash-final-20261110.txt.gz",
+      "sha256": "5d98d1cf668f355e8078c78f452330c9e9531a2aeda792c1a49e4c67f92f425b",
+      "uncompressed_bytes": 261
+    },
+    {
+      "file": "factor-claims-browser-summary-20261110.txt.gz",
+      "sha256": "9a544041bcbd302c6ac161dbc26a3c4c50e29324f1faf35ea593eca16dfacf8e",
+      "uncompressed_bytes": 3403
+    },
+    {
+      "file": "factor-claims-browser-view-20261110.txt.gz",
+      "sha256": "5d98d1cf668f355e8078c78f452330c9e9531a2aeda792c1a49e4c67f92f425b",
+      "uncompressed_bytes": 261
+    },
+    {
+      "file": "factor-claims-combined-capacity-20261110.txt.gz",
+      "sha256": "bcbab5904d2a73dc8b189dce85c5497fcb54d1b30c4af8fbf74d1d34c1b1bf87",
+      "uncompressed_bytes": 568
+    },
+    {
+      "file": "factor-claims-fixture-hourly-20261110.txt.gz",
+      "sha256": "010c70fac9f69bc6a52e5bd598c74487fc00333f9d7fadbf2afa67d61a2eaad4",
+      "uncompressed_bytes": 100
+    },
+    {
+      "file": "factor-claims-native-analyze-closed-20261110.txt.gz",
+      "sha256": "cf83216e9f07060472f6bcbb7d88612971d6e737720868443d50621397819266",
+      "uncompressed_bytes": 97
+    },
+    {
+      "file": "factor-claims-native-analyze-final-20261110.txt.gz",
+      "sha256": "139bcc746a4600a1b86e8c75e7fdff3a5666619a5b6bd3614b2815877ef79613",
+      "uncompressed_bytes": 97
+    },
+    {
+      "file": "factor-claims-native-analyze-first-20261110.txt.gz",
+      "sha256": "a1b8f0009ebe1c079a8f4783af50c474e9db8c278734a43846d23fb7a2efca56",
+      "uncompressed_bytes": 97
+    },
+    {
+      "file": "factor-claims-native-contract-first-20261110.txt.gz",
+      "sha256": "301045429e98e6f2fd55c3de51a5b8fdb5bf8f179ac64857349283d1aba24f44",
+      "uncompressed_bytes": 3969
+    },
+    {
+      "file": "factor-claims-native-feature-final-20261110.txt.gz",
+      "sha256": "f99ca332467e8a40f44e2a1fcdf9f6aab4942f59c628b5b60fc13215aea0ea37",
+      "uncompressed_bytes": 5560
+    },
+    {
+      "file": "factor-claims-native-feature-format-20261110.txt.gz",
+      "sha256": "57281a74f8e9c90a4ee6e99eddf10be9b286f97148e3918a2ce19a4774ce97d5",
+      "uncompressed_bytes": 139
+    },
+    {
+      "file": "factor-claims-native-format-20261110.txt.gz",
+      "sha256": "77895729e28259af2ecc1ba2e862ce8562b0de86d96c7527f8c4755b873bdbe4",
+      "uncompressed_bytes": 285
+    },
+    {
+      "file": "factor-claims-native-hourly-first-20261110.txt.gz",
+      "sha256": "2920bea173ffdaae05b642384af704d5a56342dacecc54fe2030ef4275f0e2a8",
+      "uncompressed_bytes": 908
+    },
+    {
+      "file": "factor-claims-native-hourly-format-20261110.txt.gz",
+      "sha256": "b7413000fce186f6e8c8876c777dc175726d111c8c6ec118218a4935b33c872c",
+      "uncompressed_bytes": 102
+    },
+    {
+      "file": "factor-claims-native-pubget-20261110.txt.gz",
+      "sha256": "33e704fc20f0db5a9a37ee8f146d3084685cdb8c352aaa2fd21f09a54fab7cf4",
+      "uncompressed_bytes": 68
+    },
+    {
+      "file": "factor-claims-native-test-format-20261110.txt.gz",
+      "sha256": "a46de52c86314bde200d4382121383f3f44095f0bdc0542a5719a6faa51d3fa6",
+      "uncompressed_bytes": 115
+    },
+    {
+      "file": "factor-claims-native-test-format-actual-20261110.txt.gz",
+      "sha256": "9deeb70d4e327f65cbd555edeba59d3460f4f9f2aa72e7f8f09fa2488bb93dda",
+      "uncompressed_bytes": 102
+    },
+    {
+      "file": "factor-claims-native-ui-actual-20261110.txt.gz",
+      "sha256": "75809445f3374c54fee02dd2bbe2b7956436dda3c97049b90df09c31942021f8",
+      "uncompressed_bytes": 1493
+    },
+    {
+      "file": "factor-claims-native-ui-exception-20261110.txt.gz",
+      "sha256": "30464a10e615101b6a99a2998a9b436b311c1f5c81b945e21f38a962dec33015",
+      "uncompressed_bytes": 670
+    },
+    {
+      "file": "factor-claims-native-ui-first-20261110.txt.gz",
+      "sha256": "f5cdb2f8343dec0c0696f367478862b1af4523909a2f2830187c2f3eb1c16c45",
+      "uncompressed_bytes": 101
+    },
+    {
+      "file": "factor-claims-node-contract-combined-20261110.txt.gz",
+      "sha256": "f927bb9c1064fb5f1af0e0b9d8af85a37d21e7a549bcdff955396c3067073744",
+      "uncompressed_bytes": 1761
+    },
+    {
+      "file": "factor-claims-node-entire-final-20261110.txt.gz",
+      "sha256": "83bd8b90f4f1e73d2758bb68ec135e495db2f226e93aaff4a19bca06ac4e315e",
+      "uncompressed_bytes": 108097
+    },
+    {
+      "file": "factor-claims-node-entire-first-20261110.txt.gz",
+      "sha256": "bb5a14f5db60d60d44a429acc01a7666c01398fff5bd5f1c93664941488ef67b",
+      "uncompressed_bytes": 106576
+    },
+    {
+      "file": "factor-claims-node-entire-hourly-final-20261110.txt.gz",
+      "sha256": "49778505695ef61ba2e3e6bc949999893b58d531e5b5515ab2a19f989d059a9f",
+      "uncompressed_bytes": 106955
+    },
+    {
+      "file": "factor-claims-node-entire-verified-20261110.txt.gz",
+      "sha256": "3cd0f3842f1e32aac8cbb959a47704e1f4fc9d6b8a89f9c2c95ef2263ad7dc1e",
+      "uncompressed_bytes": 106791
+    },
+    {
+      "file": "factor-claims-node-first-20261110.txt.gz",
+      "sha256": "eccf39d088f8eeabd48753a8b2a3806640078803959d63ee013cc3a9853bd604",
+      "uncompressed_bytes": 1512
+    },
+    {
+      "file": "factor-claims-node-hourly-first-20261110.txt.gz",
+      "sha256": "56e5853630923add0d8c27f18854f134cdba65229b6b44d5fcfc641e0871ca04",
+      "uncompressed_bytes": 787
+    },
+    {
+      "file": "factor-claims-node-integration-20261110.txt.gz",
+      "sha256": "c06afa8324c2f630f39088f8768eb83c5a76520b0ceba58a64d97821a0be3dab",
+      "uncompressed_bytes": 450
+    },
+    {
+      "file": "factor-claims-node-token-20261110.txt.gz",
+      "sha256": "34912623c910bd86ac06f9ed2b57532783622c54dc8edb5a833fce3e1224ea01",
+      "uncompressed_bytes": 654
+    },
+    {
+      "file": "factor-claims-package-20261110.txt.gz",
+      "sha256": "5a24265c802e4354f47e8de3d57fa35ab2a1bd388a5149d5c32fec01e4c0ff2b",
+      "uncompressed_bytes": 4903
+    },
+    {
+      "file": "factor-claims-package-combined-20261110.txt.gz",
+      "sha256": "415015f74e6b44660c7d95b66264eb33924b707f6f623446a7832480745f23b7",
+      "uncompressed_bytes": 4564
+    },
+    {
+      "file": "factor-claims-package-final-20261110.txt.gz",
+      "sha256": "de2daff1870ec748cc60ccb44ac6b8a24a707de559b339d7f8ada4670546f6e8",
+      "uncompressed_bytes": 4564
+    },
+    {
+      "file": "factor-claims-postgres-explicit-20261110.txt.gz",
+      "sha256": "5c8a54109ca2610f5fae96ce75d9ec7075a11b115d6ab0c3747e99963fb43167",
+      "uncompressed_bytes": 1451
+    },
+    {
+      "file": "factor-claims-postgres-first-20261110.txt.gz",
+      "sha256": "857bcbedc79309fd1bfc26cafa348b76df0b841091a61f5b55b37e631a7166b2",
+      "uncompressed_bytes": 8708
+    },
+    {
+      "file": "factor-claims-postgres-new-identity-20261110.txt.gz",
+      "sha256": "12c8e8a442940d65cb4fd06f1d22f23766001fa88fd6977cb825d47817fac496",
+      "uncompressed_bytes": 314
+    },
+    {
+      "file": "factor-claims-native-entire-20261110.jsonl.gz",
+      "sha256": "8e5dffa0ef97680a44800d9fdd01905d20cb3bc48c0024b78dcf613433f35304",
+      "uncompressed_bytes": 1238737
+    },
+    {
+      "file": "factor-claims-native-entire-corrected-20261110.jsonl.gz",
+      "sha256": "a220cde778f54196a61005b1656b6eef9b7a5003c2dd7ece094205c2b2c276da",
+      "uncompressed_bytes": 1122818
+    },
+    {
+      "file": "factor-claims-original-monthly-fixture-20261110.json.gz",
+      "sha256": "7f1b9ceb5bc2f3aff13e6230723f181e133507139b77a700f692ab6a686e0d08",
+      "uncompressed_bytes": 234705
+    }
+  ],
+  "own_postgres_container": {
+    "id": "d0eb4fb50adf5fa691178344ab36c349b150842f8c479e7d990d1a39ba2e8729",
+    "task": "factor-claims-20261110",
+    "loopback_port": 32795,
+    "removed_after_verified_success": true,
+    "foreign_containers_untouched": true
+  },
+  "limits": [
+    "Further factor partial/transition/travel/one-off combinations and multiple tax groups remain separate code work.",
+    "Source/branch/CI/live/device and fiscal approval remain distinct; live last user-confirmed a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5.",
+    "No real transfer, statutory filing, email, Apple signed upload or live deployment occurred.",
+    "Completion of this milestone does not end the overall software task; legacy offline report recovery is already in development."
+  ]
+}

@@ -767,3 +767,21 @@ Keine neue Liveinstallation oder echte Geräte-/Fachfreigabe. Der Vorgänger
 b02c84a ist mit allen20 Development-Jobs, unsigniertem iPhone-Release und beiden
 Mailbot-Vertragsjobs vollständig grün; signierter Upload übersprungen.
 Der Gesamtauftrag läuft weiter.
+
+
+## 10.11.2026 – echter Apple-Export eingegrenzt, Keychain-Reparatur lokal geprüft
+
+R11.06: Development42796495383 an deebe20 besteht alle20 Gruppen. Der wirkliche
+manuelle iPhone-Lauf42796610215 besteht den unsignierten Client, archiviert und
+exportiert mit Apple erfolgreich. Die Schlussprüfung weist ein fehlendes
+Keychain-Entitlement nach; kein signiertes Artefakt und kein TestFlight-Upload.
+Der vollständige Erstfehler bleibt erhalten, bestehende Apple-Einrichtung ist
+bestätigt. Keine zusätzlichen Mitgliedschaften oder Geheimniswerte angefragt.
+
+Die [konkrete Reparatur](CRM_ERP_IPHONE_SIGNIERTE_VORBEREITUNG_2026-11-10.md)
+erhält ausschließlich die eigene profilgestützte Gruppe über eine temporäre
+Archivsignatur und einen erneuten endgültigen Apple-Export. Schlussprüfungen
+sind verschärft, nicht gelockert.39 lokale Paket-/Auslieferungs-/CI-Fälle in
+33,283s sowie YAML/22 Shellblöcke bestehen. Neue echte macOS-Prüfung bleibt
+erforderlich. Faktor-/Midijob V14 und die gefundene Mitarbeiterbeleg-Leserlücke
+bleiben separat gesicherte aktive Codearbeit; Gesamtauftrag und A–G sind offen.

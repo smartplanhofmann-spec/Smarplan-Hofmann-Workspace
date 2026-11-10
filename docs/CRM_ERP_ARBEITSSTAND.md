@@ -28,7 +28,7 @@ Etappe verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
 | Stand | Tatsächlich bestätigt |
 |---|---|
 | Aktuell veröffentlichter Quell- und Testbranch | `deebe2017cc0c0a1f17f4ee6dce564658ff15654`, veröffentlicht und Remote-Zeiger bestätigt. Installationskern7449027, vollständige Nachweise und getrennte iPhone-Vorbereitung12798fb enthalten. |
-| Eigene neue Workflowprüfung | Development42796495383 und manueller iPhone-Vorbereitungslauf42796610215 an exakt deebe20 laufen. prepare_signed_ipa=true, upload_to_testflight=false. Der dadurch ersetzte doppelte Push-iPhone-Lauf42796495426 wurde durch bestehende concurrency abgebrochen; kein Produktfehler. |
+| Eigene neue Workflowprüfung | Development42796495383 an exakt deebe20: alle20 Gruppen erfolgreich. Manueller iPhone42796610215: unsignierter Client erfolgreich; echtes Apple-Archiv und signierter Export erfolgreich, abschließende Prüfung wegen fehlendem Keychain-Entitlement gescheitert. Kein signiertes Artefakt oder Upload freigegeben. Der ersetzte doppelte Pushlauf42796495426 ist kein Produktfehler. |
 | Vollständige CI zum Installationsprodukt c4a2d8f | Development42790149143:alle20 Gruppen erfolgreich. Die anHTTP403 vor Testbeginn gescheiterte Gruppe wurde allein wiederholt; alle13 wirklichen Browserabläufe bestehen, Erstfehler erhalten. Unsignierter iPhone42790149399 erfolgreich, signierter Upload übersprungen. Mailbot-Verträge42790149124 auf Linux/Windows erfolgreich; kein echter Versand. |
 | Letzter vollständig grüner Produktstand | `c4a2d8f4ca969f8faab7bd15c9f7fd838e0e97ba`: eigene20 Development-Gruppen, eigener unsignierter iPhone-Release und beide Mailbot-Verträge abgeschlossen. Neue lokale iPhone-Workflowänderung12798fb ist davon getrennt. |
 | Letzter vom Nutzer bestätigter Server | `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5` vom05.11.; drei Dienste/Sicherungstimer und kontrollierter Updateabschluss bestätigt. Kein neuer Liveabgleich oder Update ausgeführt. |
@@ -49,11 +49,28 @@ verlangt eine eigene ausdrückliche Auswahl für den TestFlight-Upload.
 33 lokale Auslieferungs-/Paket-/CI-Fälle,48 tatsächliche Gate-Kombinationen sowie
 YAML- und Bash-Syntax bestehen. App-/Backend-/Browsercode bleibt bytegleich zum
 vollständig geprüften Installationsstand. Bestehende Apple-Einrichtung wurde
-schon für Build108 verwendet; ein verweigerter Metadatenzugriff beweist keine
-fehlenden Secrets. Neuer tatsächlicher signierter Export noch nicht geprüft.
-GitHub hat den wirklichen manuellen Vorbereitungslauf42796610215 angenommen;
-er prüft zunächst den Client vollständig. Die einzige gewählte Außenwirkung
-ist Paketvorbereitung; TestFlight-Upload bleibt ausdrücklichfalse.
+schon für Build108 verwendet. Der wirkliche Lauf42796610215 bestätigt die bestehende
+Apple-Einrichtung: Archiv und signierter Export erfolgreich; die folgende Prüfung
+verweigert das Paket wegen fehlender Keychain-Berechtigung. Keine Veröffentlichung
+des defekten Pakets und kein TestFlight-Upload. Der vollständige Development-Lauf
+42796495383 besteht alle20 Gruppen.
+
+Die lokal geprüfte Reparatur fordert genau die eigene Keychain-Gruppe an und
+übernimmt deren tatsächlichen App-ID-Präfix aus Apples signiertem Export und
+Profil. Eine ausschließlich temporäre Archivsignatur erhält diese Berechtigung
+für den zweiten, endgültigen Apple-Export. Der endgültige Export muss erneut
+Codesignatur, echtes Distributionsteam, eigene konkrete Gruppe, Debuggersperre
+und Quell-/Paketkennung bestehen. Temporäre Pakete sind kein Uploadartefakt.
+39 gemeinsame lokale Paket-/Auslieferungs-/CI-Fälle bestehen in33,283s; alle22
+Shellblöcke und YAML sind geprüft. Neuer tatsächlicher macOS-Nachweis steht aus.
+TestFlight-Upload bleibt ausdrücklichfalse.
+
+Unabhängige nächste Codearbeit liegt unveröffentlicht in
+/workspace/smartplan-factor-transition-20261110: Faktor-/Midijob V14 mit
+eigenen Referenzen, Backend- und Clientverträgen. Sie ist noch nicht gesamthaft
+abgeschlossen. Zusätzlich ist eine tatsächliche Ablehnung neuerer reduzierter
+Mitarbeiterbelege durch beide bisherigen Clientleser gefunden; Korrektur und
+eigene Gegenproben fehlen noch. Beides nicht mit dem veröffentlichten Stand vermischen.
 
 ## Abgeschlossen: Installationsstand und vollständige Serverarchive
 
@@ -109,8 +126,8 @@ Die aktuelle App-Gesamtprüfung darf nicht aus diesem Vorgängerwert abgeleitet 
 
 ## Weiterarbeiten bis zum Gesamtziel
 
-1. Den neuen veröffentlichten iPhone-Vorbereitungsweg und dessen eigene
-   Development-/Paketprüfungen bis zum tatsächlichen Ergebnis auswerten.
+1. Die lokal geprüfte Keychain-Reparatur getrennt veröffentlichen und den
+   erneuten wirklichen Apple-Vorbereitungslauf bis zum tatsächlichen Ergebnis auswerten.
    Keinen TestFlight-Upload aus der Paketvorbereitung ableiten.
 2. Nur tatsächlich überprüfte Ergebnisse in Matrix, Plan, Fortschritt und diese
    aktuelle Zusammenfassung übernehmen. Neue Nachweispushes nicht unnötig so

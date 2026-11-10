@@ -273,11 +273,44 @@ class NativePackageTests(unittest.TestCase):
         info['UIDeviceFamily'] = [1, 2]
         info_path.write_bytes(plistlib.dumps(info))
         entitlements = self.directory / 'signed.plist'
-        entitlements.write_bytes(plistlib.dumps({'com.apple.developer.team-identifier': 'TESTTEAM00',
-            'application-identifier': 'TESTTEAM00.' + release.BUNDLE_ID, 'keychain-access-groups': []}))
+        valid = {'com.apple.developer.team-identifier': 'TESTTEAM00',
+            'application-identifier': 'OLDAPPID00.' + release.BUNDLE_ID,
+            'keychain-access-groups': ['OLDAPPID00.' + release.BUNDLE_ID], 'get-task-allow': False}
+        entitlements.write_bytes(plistlib.dumps(valid))
         release.check_ios(info_path, self.config, '109', signed_entitlements=entitlements, team='TESTTEAM00')
         with self.assertRaisesRegex(ValueError, 'Apple-Team'):
             release.check_ios(info_path, self.config, '109', signed_entitlements=entitlements, team='OTHERTEAM0')
+        for groups in (None, [], ['TESTTEAM00.' + release.BUNDLE_ID], ['OLDAPPID00.*'],
+                       [valid['application-identifier'], 'OLDAPPID00.other-app']):
+            rejected = dict(valid)
+            if groups is None:
+                rejected.pop('keychain-access-groups')
+            else:
+                rejected['keychain-access-groups'] = groups
+            entitlements.write_bytes(plistlib.dumps(rejected))
+            with self.subTest(groups=groups), self.assertRaisesRegex(ValueError, 'Keychain'):
+                release.check_ios(info_path, self.config, '109', signed_entitlements=entitlements, team='TESTTEAM00')
+        for value in (None, True, '', 0):
+            rejected = dict(valid)
+            if value is None:
+                rejected.pop('get-task-allow')
+            else:
+                rejected['get-task-allow'] = value
+            entitlements.write_bytes(plistlib.dumps(rejected))
+            with self.subTest(debug=value), self.assertRaisesRegex(ValueError, 'Debugger'):
+                release.check_ios(info_path, self.config, '109', signed_entitlements=entitlements, team='TESTTEAM00')
+
+    def test_source_entitlements_refuse_empty_shared_or_literal_prefix_group(self):
+        for name in ('app/pubspec.yaml', 'app/lib/app_version.dart', 'app/ios/Runner/Info.plist'):
+            destination = self.directory / name
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(release.ROOT / name, destination)
+        destination = self.directory / 'app/ios/Runner/Runner.entitlements'
+        for groups in ([], ['$(AppIdentifierPrefix)shared'], ['TESTTEAM00.' + release.BUNDLE_ID],
+                       ['$(AppIdentifierPrefix)$(PRODUCT_BUNDLE_IDENTIFIER)', 'other']):
+            destination.write_bytes(plistlib.dumps({'keychain-access-groups': groups}))
+            with self.subTest(groups=groups), self.assertRaisesRegex(ValueError, 'Keychain'):
+                release.source_checks(self.directory)
 
     def test_dictation_package_requires_mic_purpose_and_forbids_background_audio(self):
         info_path, info = self.ios_info()

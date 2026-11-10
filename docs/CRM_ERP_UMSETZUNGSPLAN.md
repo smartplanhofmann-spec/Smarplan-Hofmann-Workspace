@@ -440,3 +440,10 @@ werden auf dem veröffentlichten Stand936f40f entwickelt. V4 ist abgeschlossen
 und veröffentlicht, seine eigene CI läuft; V5 und die Gesamtabnahme bleiben
 offen. Wiederholte positive/negative/null Differenz bei vollständigem gemischtem
 Präfix, tatsächliche Geld-/EÜR-/Jahresketten, beide Clients und Nachweise abarbeiten.
+
+
+Fortschreibung V5: positive/negative/null Folgeausgleiche sind auf7b7b3b0
+mit beiden Clients, tatsächlichem PostgreSQL/EÜR/Jahres-/Restorefall und
+der geprüften SQLite-Lesekorrektur gemeinsam lokal abgeschlossen. Eigene
+neue Veröffentlichung/CI und Gesamt-/Fachabnahme bleiben getrennt.
+Nächster offener Codepunkt sind die belegten Lohnansprüche im Faktorfall.

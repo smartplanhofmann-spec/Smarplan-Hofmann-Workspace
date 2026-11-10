@@ -14,9 +14,9 @@ SQLite-Lese-Cursor eingegrenzt. [Korrektur und Nachweise](CRM_ERP_SQLITE_PARALLE
 keine Wiederverwendung vorbereiteter Abfragen der gemeinsamen lokalen Verbindung;
 Schema- und Archivschutz bleiben aktiv. 77 gemeinsame Fälle und echter
 Bestell-/Teil-/Restlieferungsbrowser bestehen. Noch nicht veröffentlicht;
-Remoteprüfung und Gesamtziel laufen weiter. V5 wird unabhängig fortgesetzt.
+Remoteprüfung und Gesamtziel laufen weiter. V5 ist auf diesem Stand zusammengeführt.
 
-**Aktuelle Veröffentlichung:** V3-Folgeketten und tatsächliche Rückzahlung V4
+**Veröffentlichung vor dem V5-Folgestand (Momentaufnahme):** V3-Folgeketten und tatsächliche Rückzahlung V4
 sind als `936f40f57c769dce515099b4fecc616d05b35280` auf dem autorisierten
 Testbranch veröffentlicht; Remote-SHA bestätigt. Eigene Development42750261490 besitzt erfolgreiche Backend-, Windows-, Mac-, App-,
 HTTPS- und Updatejobs, aber einen echten Fehler im Einkaufsbrowser.
@@ -37,12 +37,17 @@ V3-Folgeketten b437f2c sind enthalten; Code749a19d und Nachweise936f40f.
 **Aktueller Codeabschnitt:** [Weitere Nettoausgleiche V5](CRM_ERP_SOURCE5_NETTOAUSGLEICHE_V5_2026-11-10.md)
 in `/workspace/smartplan-source5-adjustments-20261110`. Wiederholte positive,
 negative und betragsgleiche Korrekturen nach einem vollständig belegten
-V4-/V5-Präfix sind in Backend und beiden Clients in Arbeit. Erste unveränderte
+V4-/V5-Präfix sind in Backend und beiden Clients integriert. Erste unveränderte
 Reproduktion rot; jetzt 48 gemeinsame Backend-, 1.035 Node-, 1.896 vollständige
 App- und 21 Paketfälle, neun neue App-Bedienfälle und echter MFA-/Browserablauf
-bestehen. Analyse sauber10,2s. Tatsächlicher PG-/Restorenachlauf läuft.
-Die separat geprüfte SQLite-Korrektur18b7031 wird zusammengeführt. Noch keine V5-Abnahme oder
-Veröffentlichung. Danach werden die übrigen offenen Gesamtzielpunkte fortgesetzt.
+bestehen. Analyse sauber10,2s. Der tatsächliche PG-/Restorenachlauf besteht
+mit einem Fall/1.019,007s einschließlich EÜR, Jahresbasis und Original-PDF.
+Die separat geprüfte SQLite-Korrektur18b7031 ist zusammengeführt; beide echten
+Browser, drei gemeinsame SQLite-/V5-Fälle/88,686s und 21 Paketfälle/16,078s
+bestehen anschließend. Die eigene Wegwerf-Datenbank ist entfernt. Die lokalen
+technischen V5-Nachweise sind vollständig gesichert. Neue Veröffentlichung/CI
+und fachliche Gesamtabnahme sind gesondert. Der nächste Codeabschnitt gemäß
+Gesamtplan behandelt belegte Lohnansprüche im Faktorfall.
 Ein abgeschlossener Abschnitt beendet ausdrücklich nicht den Gesamtauftrag.
 
 Der frühere Zeitabgleich 75d88a3 ist veröffentlicht. Vier eigene Development-

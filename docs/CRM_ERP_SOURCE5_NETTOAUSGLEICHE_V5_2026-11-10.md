@@ -1,7 +1,8 @@
 # Weitere tatsächliche Nettoausgleiche nach einer Rückzahlung
 
-Stand 10.11.2026. Code und beide Clients integriert; der abschließende tatsächliche
-PostgreSQL-/Restorenachweis läuft noch. Noch keine Veröffentlichung oder Gesamtabnahme.
+Stand 10.11.2026. Code und beide Clients gemeinsam lokal geprüft, einschließlich
+tatsächlicher PostgreSQL-/Wiederherstellungskette. Neue Veröffentlichung/CI und
+fachliche Gesamtabnahme sind gesonderte Zustände.
 Basis ist der veröffentlichte und remote bestätigte Stand
 `936f40f57c769dce515099b4fecc616d05b35280`.
 
@@ -102,3 +103,21 @@ Die unabhängig nachgestellte und geprüfte Korrektur18b7031 wird vor dem neuen
 Veröffentlichungsstand zusammengeführt. Windows, Mac, App, Backend, HTTPS,
 Update und unsignierter iPhone-Build des Vorgängers bestehen; Online-API lief
 beim letzten Abruf noch. Kein neuer Liveabgleich oder signierter Upload.
+
+**Abgeschlossener Nachlauf:** Der vollständige tatsächliche PostgreSQL-Fall
+besteht mit 1.019,007s: ursprüngliche CRLF-/LF-Quellen, frische MFA, sämtliche
+unveränderten positiven und negativen Zahlungsteile, tatsächliche Geldflüsse,
+Ausgabenminderung und EÜR, kein künstlicher Geldfluss bei null Nettodifferenz,
+genau ein ursprünglicher Bruttozufluss in der Jahresbasis, privater Zugriff,
+reduzierter Mitarbeiterbeleg und vollständiger `pg_dump`/`pg_restore` mit
+unveränderten Quittungen, Jahresquelle, Geldflüssen und Original-PDF. Der exakt
+per ID/Name/Aufgabenlabel bestätigte eigene Wegwerfcontainer ist entfernt;
+fremde Container und reale Daten sind unverändert.
+
+Die Zusammenführung auf SQLite-Korrektur18b7031 ist als Produktcode
+`7b7b3b0859b10582734666b7bf59d4ca3e19fe13` eingeordnet. Alle zuvor vorhandenen
+Python-/Dart-/JS-Dateien außer dem separat geprüften `core.py` bleiben bei
+dieser eigenen Einordnung bytegleich. Beide tatsächlichen Browserabläufe
+(Nettoausgleich und Bestellung/Teil-/Restlieferung), drei gemeinsame
+SQLite-/V5-Fälle/88,686s und 21 Paketfälle/16,078s bestehen anschließend gemeinsam.
+[Quellbindungen und sämtliche ursprünglichen Rohläufe](evidence/source5-adjustments-2026-11-10/manifest.json).

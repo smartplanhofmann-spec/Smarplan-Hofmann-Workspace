@@ -3746,3 +3746,18 @@ alle vier neuen Differenzschritte sind angenommen. Ursprüngliche App-,
 Test-/Fixture-, Sandbox- und statischen Registrierungsfehler bleiben erhalten.
 Die separat tatsächlich geprüfte SQLite-Korrektur18b7031 wird vor der neuen
 Veröffentlichung zusammengeführt; Gesamtauftrag bleibt aktiv.
+
+
+### V5 – tatsächliche Datenbank-/Restorekette abgeschlossen und gemeinsam geprüft
+
+Ein tatsächlicher PostgreSQL-/MFA-/CRLF-/EÜR-/Jahres-/Restorefall besteht in
+1.019,007s; V4(-1.400 Cent), V5(+500), V5(-500), V5(0), genau ein ursprünglicher
+Bruttozufluss, private Quittungen und altes PDF sind erhalten. Eigener
+Wegwerfcontainer955513ff ist nach ID/Name/Aufgabenlabel bestätigt und entfernt.
+Produktcode7b7b3b0 enthält die separat geprüfte SQLite-Korrektur18b7031;
+alle zuvor vorhandenen Python-/Dart-/JS-Dateien außer dem separat geprüften
+core.py bleiben bei der Einordnung bytegleich. Beide tatsächlichen Browser,
+drei gemeinsame SQLite-/V5-Fälle/88,686s und 21 Paketfälle/16,078s bestehen
+anschließend. [Vollständige Rohläufe](evidence/source5-adjustments-2026-11-10/manifest.json).
+Keine neue Liveinstallation, signierte Übermittlung oder Gesamtabnahme.
+Nächster Codeabschnitt gemäß Gesamtplan: belegte Lohnansprüche mit Faktor.

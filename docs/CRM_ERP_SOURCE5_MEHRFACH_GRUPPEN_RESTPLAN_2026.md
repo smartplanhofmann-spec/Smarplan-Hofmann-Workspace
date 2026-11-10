@@ -82,3 +82,13 @@ ist erhalten. Keine gültige Gruppierungsregel wird aus einem Suchausschnitt,
 fehlendem Abruf oder der bloßen Gleichheit der Jahreslohnsteuer abgeleitet.
 Der neu implementierte einzelne Faktor-Einmalbezug V15 ist davon getrennt;
 er aktiviert diesen ungeklärten Source5-Mehranspruchszweig nicht.
+
+## Schlussnachprüfung der drei amtlichen Fundstellen am 10.11.
+
+Die zusätzlich indizierte amtliche 2026-Ansicht auf ao.bundesfinanzministerium.de
+sowie die beiden amtlichen Soli-Anhänge I/II wurden erneut unmittelbar geöffnet.
+Alle drei Abrufe liefern HTTP503. Die Suchausschnitte werden weiterhin nicht als
+vollständig gelesene Gruppierungsregel oder unabhängiger Sollwert ausgegeben.
+[Unveränderter Abrufbefund](evidence/source5-final-primary-followup-20261110.json).
+Dieser konkrete Fach-/Quellennachweis fehlt weiterhin; kein historischer Kern
+oder die gezielte Berechenbarkeitssperre wird dafür geändert.

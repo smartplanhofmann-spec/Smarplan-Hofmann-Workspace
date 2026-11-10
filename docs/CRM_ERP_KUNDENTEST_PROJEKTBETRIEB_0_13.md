@@ -1,5 +1,17 @@
 # Erster gemeinsamer Projekttest mit Version 0.13.0
 
+**Aktuelle Übergabe vom 10.11.2026:** Die folgende historische A93-Anleitung
+bleibt zur Einordnung erhalten. Der neue geprüfte Produktcode ist 29b02c8;
+aktuelle Windows-/iPhone-Nachweise und Downloads stehen im
+[Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md). Die
+[Serveranleitung](CRM_ERP_SERVERUPDATE_29B02C8_2026-11-10.md) führt zuerst zur
+bekannten Windows-SSH-Verbindung und dann zum kontrollierten Update.
+Die aktuelle Cloud hat dafür keinen SSH-Zugang; ein neuer installierter
+Serverstand ist noch nicht bestätigt. Für die neuen Funktionen ist der passende
+Serverstand erforderlich. Das Geräteprotokoll umfasst 28 noch ungeprüfte Fälle.
+Die neueste signierte Vorbereitung und ein tatsächlicher TestFlight-Upload sind
+getrennte Schritte; ein altes Paket wird nicht als Nachweis neuer Funktionen verwendet.
+
 **Einordnung vom 09.11.2026:** Die folgenden Server- und Paketnachweise beziehen
 sich auf den tatsächlich bestätigten A93-Stand vom 05.11. Die neue gemeinsame
 Entwicklung 8273852 ist inzwischen auf dem Testbranch veröffentlicht und wird
@@ -76,8 +88,9 @@ Installiert und kontrolliert abgeschlossen ist
 `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5`. Dieser Stand passt zum oben
 verlinkten tatsächlich gebauten Windows-Paket. Die früheren SSH-Ausgaben mit
 6371da1e und die Quellvorbereitung sind im Serverupdate-Verlauf erhalten.
-Sie sind kein aktueller Arbeitsauftrag. Für den Kundentest ist keine weitere
-Serverumstellung nötig. Der Cloud-Assistent hat den Server nicht direkt bedient.
+Sie sind kein aktueller Arbeitsauftrag. Für den damaligen A93-Kundentest war keine weitere
+Serverumstellung nötig; die nachfolgenden Funktionen benötigen den oben
+verlinkten neueren kontrollierten Update. Der Cloud-Assistent hat den Server nicht direkt bedient.
 
 ## Zeiterfassung finden und den eigenen Zugang zuordnen
 

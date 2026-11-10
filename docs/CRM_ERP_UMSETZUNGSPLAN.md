@@ -1108,3 +1108,56 @@ iPhone-/iPad-Paket 208, Artefakt 13789192915; Upload false. Der automatische
 Push-Lauf und der manuelle Lauf sind unterschiedliche Auslöser. Das signierte
 208 enthält den Bankimport und Offline-Konfliktfix, die spätere Personal-
 Korrektur jedoch noch nicht. Keine neue Live- oder Geräteinstallation.
+
+## 10.11.2026 – eigener Gesamtprüfstand 29b02c8 und konkrete Übergabe
+
+Produkt `29b02c82a12d4aa1dfc97eaa84638d840882612d` ist ausschließlich auf dem
+vereinbarten Testbranch veröffentlicht. Die eigene Development-Prüfung
+42872855464 besteht alle 20 Gruppen. Backend: 2.186 Fälle in 1.565,117s,
+drei ausdrücklich ausgewiesene Auslassungen. Linux-App: drei separate native
+PDF-Fälle plus 2.001 Hauptfälle erfolgreich. Beide Windows-Pakete sind
+wirklich gebaut; sie enthalten Bank-XML, Offline-Konfliktklärung und die
+Personal-Kontenauswahl. Aktuelle Downloadlinks und die getrennte signierte
+Vorbereitung stehen im [Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md).
+
+Der automatische unsignierte iPhone-Build 209 stammt aus 42872855484.
+Der ausdrücklich manuelle Vorbereitungslauf 42873343567 verwendet denselben
+Quellstand und Build 210. Seine vollständige tatsächliche macOS-Vorprüfung
+besteht 1.996 Hauptfälle plus drei native PDF-Fälle; fünf nur für Linux
+vorgesehene Integrationsfälle sind dort ausdrücklich ausgelassen und im
+Linuxlauf enthalten. Sein signierter Job 130058782187 besteht tatsächlich:
+Apple-Distributionssignatur, eigenes Team und Keychain-Berechtigung sowie
+Schlüsselbereinigung erfolgreich. Signiertes Artefakt 13794053691 besitzt
+29.959.338 Bytes; SHA256
+bd556ca8b5464b6436ebbd9544831d8013a6e766adf41e838de4d8ee06be4e06.
+Der TestFlight-Schritt ist ausgelassen; kein Upload ausgeführt.
+
+Die Cloud-Unterbrechung hat den zusätzlichen lokalen Gesamtnachlauf beendet,
+bevor ein Abschluss-/Exitstatus gesichert war. Das unveränderte Teilprotokoll
+endet bei 1.229 sichtbaren Erfolgen und zählt nicht als vollständig bestanden.
+Die separate zusätzliche lokale Archivkontrolle ist schon vor Empfang der
+ZIP-Bytes durch Proxy-HTTP403 blockiert, sowohl über den GitHub-Redirect als
+auch über den bereitgestellten Connector-Dateilink. Die angegebenen Paket-
+Digests stammen deshalb ausdrücklich aus GitHub-Artefaktmetadaten; die
+wirklichen erfolgreichen CI-Paketprüfungen bleiben eigene Nachweise.
+
+Die konkrete Serveranleitung enthält zuerst die bekannte Windows-SSH-
+Verbindung und danach das kontrollierte, auf den geprüften Commit festgelegte
+Update. Kein SSH-Schlüssel oder Agent ist in dieser Cloud vorhanden; die
+Ausführungsfrage bleibt beim Nutzer offen. Die letzten bestätigten drei
+Dienste und der installierte Stand gehören weiter zu a93cb4d vom 05.11.
+Keine neue Liveinstallation oder tatsächliche Windows-/iPhone-Prüfung wird
+behauptet. Das Geräteprotokoll enthält 28 ungeprüfte Fälle; seine bisherigen
+20 Zeilen bleiben bytegleich. Die Anleitungen und das konkrete Fach-/
+Sicherheitsprüfpaket sind mit dem aktuellen Produktumfang verbunden.
+
+Originalziel und 61 historische Lohnmodule bleiben bytegleich. Die drei erneut
+geöffneten amtlichen 2026-Steuer-/Soli-Fundstellen liefern HTTP503; daraus wird
+weiterhin keine Source5-Steuergruppenregel erfunden. Die 62 Anforderungen
+behalten ihre tatsächlichen Statuswerte; alle A–G-Gesamtabnahmen bleiben offen.
+Noch vorhandene Codefälle, echte Providerwege, Geräte-/Betriebs- und unabhängige
+Fach-/Sicherheitsnachweise gehören weiter zum Gesamtauftrag. Loxone bleibt auf
+Nutzerwunsch später einzurichten. Die abschließenden Änderungen dieses
+Prüfzyklus sind ausschließlich Dokumentation und Rohbelege; Produktcode bleibt
+identisch zum tatsächlich geprüften Stand 29b02c8. Ein reiner Belegcommit mit
+[skip ci] ersetzt keine neue Produktprüfung und erzeugt keinen neuen Produktbau.

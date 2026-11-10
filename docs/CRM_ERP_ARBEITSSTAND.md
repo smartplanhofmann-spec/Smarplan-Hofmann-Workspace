@@ -23,34 +23,46 @@ Etappe verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
   Die frühere Reihenfolge zuerst Projektbetrieb hat Buchhaltung/Lohn nicht
   aus dem Gesamtziel gestrichen.
 
-## Aktive Fertigstellung: XML-Bankoriginal und neuer Gesamtprüfstand
+## Aktueller geprüfter Produktstand: Bankimport und Personalpflege
 
-Der [CAMT.053.001.08-Import](CRM_ERP_BANK_CAMT_2026-11-10.md) ergänzt CSV
-additiv in Backend, Browser und App. Unverändertes XML, lokales festgelegtes
-Schema, unabhängige Vorschauprüfung, beide Bestätigungen und exakte Wiederholung
-sind implementiert. 49 gemeinsame Fach-/Paketfälle, drei wirkliche PostgreSQL-/
-MFA-/Restorefälle, alle 1.095 Browsermodule, der tatsächliche Browserablauf,
-22 gemeinsame Appfälle und ein zusätzlicher tatsächlicher nativer HTTP-Ablauf
-bestehen. Appanalyse ohne Probleme; vollständige neue Appprüfung mit 1.997 Fällen erfolgreich.
-Die reale Bankdatei und direkte Bankzugänge sind damit nicht ersetzt.
+Produktquelle `29b02c82a12d4aa1dfc97eaa84638d840882612d` ist auf dem
+allein autorisierten Testbranch veröffentlicht. Ihre eigene Development-
+Prüfung 42872855464 besteht alle 20 Gruppen: 2.186 Backendfälle in 1.565,117s
+mit drei ausdrücklich ausgewiesenen Auslassungen, 2.004 Appfälle (drei
+separate PDF-Fälle plus 2.001 Hauptfälle), tatsächliche Windowsbauten,
+Browser-, PostgreSQL-, MFA-, Isolations- und Restoregruppen. Die Rohdaten
+sind im [Personalmanifest](evidence/employee-account-selection-2026-11-10/manifest.json)
+mit dem genauen Quellstand gebunden.
 
-Der zuvor veröffentlichte Offline-Konfliktstand abcc351 hat inzwischen alle
-20 eigenen Developmentgruppen sowie seinen unsignierten iPhone-Release 206
-bestanden. Der manuelle V15-Release 205 ist tatsächlich signiert; Upload false.
-Die Rohmetadaten und der jeweilige genaue Quellumfang bleiben getrennt.
-Der neue Stand 4f67bf8 ist ausschließlich auf dem autorisierten Testbranch
-veröffentlicht. Seine eigene Development-Prüfung 42864815919 und manuelle
-signierte Vorbereitung 42864818725 laufen; TestFlight-Upload false. Der echte
-Start des eingefrorenen Codearchivs c52d207 besteht mit MFA, sieben Browser-
-Assets und dem lokalen XML-Schema. Der tatsächliche Windowsbau bleibt ein
-separater Nachweis. Die laufende lokale Gesamtprüfung wird nicht vorweggenommen.
+Der [CAMT.053.001.08-Import](CRM_ERP_BANK_CAMT_2026-11-10.md) erhält das
+unveränderte Bankoriginal, das festgelegte lokale Schema und beide ausdrücklichen
+Bestätigungen. Die [Personal-Kontenauswahl](CRM_ERP_PERSONAL_KONTENAUSWAHL_2026-11-10.md)
+erlaubt berechtigte Profilpflege ohne Zugang zur Inhaber-Benutzerverwaltung;
+vorhandene Profile bleiben nach Sperrung des Logins korrekt beendbar.
+Die native Offline-Konfliktklärung ist ebenfalls enthalten. Vollständige
+Providerverbindungen und echte Anbieterdateien werden daraus nicht abgeleitet.
+
+Der zusätzliche lokale App-Gesamtnachlauf wurde durch den Ausfall der
+Ausführungsumgebung unterbrochen. Sein Log endet bei 1.229 sichtbaren Erfolgen
+und besitzt keinen Abschluss-/Exitstatus; er gilt ausdrücklich nicht als
+vollständig bestanden. Der vollständige eigene CI-Appnachweis ist davon
+unabhängig erfolgreich. Der ältere Bankstand 4f67bf8 besitzt außerdem seinen
+erhaltenen vollständigen lokalen Nachlauf mit 1.997 Fällen.
+
+Konkrete Pakete, Verteilungsstand und Installationsanleitung stehen im
+[aktuellen Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md). Der automatische
+unsignierte iPhone-Release 209 besteht. Der tatsächliche manuelle Lauf
+42873343567 besteht einschließlich signiertem iPhone-/iPad-Paket 210,
+Artefakt 13794053691; Signatur-/Team-/Keychain-Prüfung und Schlüsselbereinigung
+erfolgreich. TestFlight-Upload bleibt false und sein Schritt ist ausgelassen. Keine neue Liveinstallation, tatsächliche
+Geräte-, Fach-, Sicherheits- oder gesamte Produktivfreigabe wird behauptet.
 
 ## Quellcode, Prüfstand und Installation sind getrennt
 
 | Stand | Tatsächlich bestätigt |
 |---|---|
-| Aktuell veröffentlichter Quell- und Testbranch | `4f67bf8ba68c09c2ed77651b76d3487b85b32465`, ausschließlich auf dem autorisierten Testbranch veröffentlicht und Remote-Zeiger bestätigt. V15, Qonto, native Offline-Konfliktklärung und XML-Bankoriginalimport sind enthalten. |
-| Eigene aktuelle Workflowprüfung | 4f67bf8: Development 42864815919 alle 20 Gruppen erfolgreich, tatsächliche Windows-Komplett-/Onlinepakete und lokaler vollständiger Appnachlauf mit 1.997 Fällen erfolgreich. Automatischer unsignierter iPhone-Release 207 aus 42864818725 erfolgreich. Tatsächlicher manueller Vorbereitungslauf 42864950880 einschließlich signiertem Paket 208 erfolgreich; Upload false. Der ältere V15-Stand besitzt zusätzlich den tatsächlich signierten Release 205. |
+| Aktuell veröffentlichter Produkt- und Teststand | `29b02c82a12d4aa1dfc97eaa84638d840882612d`. Eigene Produktprüfung erfolgreich; nachfolgende reine Dokumentationsbelege ändern diesen Produktcode nicht. |
+| Eigene aktuelle Workflowprüfung | 29b02c8: Development 42872855464 alle 20 Gruppen erfolgreich; 2.186 Backendfälle mit 3 ausgewiesenen Auslassungen, 2.004 Appfälle, beide Windows-Pakete. Automatischer unsignierter iPhone-Release 209 erfolgreich. Manueller Lauf 42873343567 einschließlich tatsächlich signiertem Paket 210 erfolgreich; Signatur-/Team-/Keychain-Prüfung und Schlüsselbereinigung erfolgreich, TestFlight-Schritt ausgelassen. Aktuelle Links und Grenzen im Lieferstand. |
 | Vollständige CI zum Installationsprodukt c4a2d8f | Development42790149143:alle20 Gruppen erfolgreich. Die anHTTP403 vor Testbeginn gescheiterte Gruppe wurde allein wiederholt; alle13 wirklichen Browserabläufe bestehen, Erstfehler erhalten. Unsignierter iPhone42790149399 erfolgreich, signierter Upload übersprungen. Mailbot-Verträge42790149124 auf Linux/Windows erfolgreich; kein echter Versand. |
 | Aktueller geprüfter veröffentlichter Reparaturstand | `40d8fcf5571e8edc898e2e20b1cf7fe36e52149e`: alle20 Development-Gruppen42806104268 erfolgreich. Eigener manueller iPhone42806142665: vollständiger unsignierter Client, endgültiges signiertes IPA, strenge Keychain-/Teamprüfung und Schlüsselbereinigung erfolgreich. Signiertes Artefakt198 vorhanden; TestFlight-Uploadskipped. V14 ist davon getrennt. |
 | Letzter vom Nutzer bestätigter Server | `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5` vom05.11.; drei Dienste/Sicherungstimer und kontrollierter Updateabschluss bestätigt. Der10.11.-GET auf/ready liefert403 durchEnvoy; die tatsächliche Cloud-Zulassungsliste enthält die Domain nicht. Kein neuer bestätigter Ursprungstand und kein Update. |

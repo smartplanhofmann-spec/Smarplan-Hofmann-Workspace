@@ -1,0 +1,18 @@
+{
+  "checked_at": "2026-11-10",
+  "topic": "Source5 multiple same-day bonus claims: final primary-source follow-up",
+  "queries": [
+    "site.lsth.bundesfinanzministerium.de R 39b.6 mehrere sonstige Bezüge gleichzeitig Solidaritätszuschlag",
+    "site.bundesfinanzministerium.de 2026 Lohnsteuer mehrere sonstige Bezüge gleichzeitig R 39b.6"
+  ],
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Internal Error ()\n【turn377779view0】 [wordlim: 200] Source: open({\"ref_id\":\"turn484031search0\",\"lineno\":null}); \nFailed to fetch https://ao.bundesfinanzministerium.de/lsth/2026/A-Einkommensteuergesetz/VI-Steuererhebung-36-47/2-Steuerabzug-vom-Arbeitslohn-Lohnsteuer-38-42g/Paragraf-39b/inhalt.html: (503) Service Unavailable\n--------------------------------------------------------------------------------\nInternal Error ()\n【turn377779view1】 [wordlim: 200] Source: open({\"ref_id\":\"turn484031search4\",\"lineno\":null}); \nFailed to fetch https://lsth.bundesfinanzministerium.de/lsth/2026/B-Anhaenge/Anhang-27/I/inhalt.html: (503) Service Unavailable\n--------------------------------------------------------------------------------\nInternal Error ()\n【turn377779view2】 [wordlim: 200] Source: open({\"ref_id\":\"turn484031search8\",\"lineno\":null}); \nFailed to fetch https://gewsth.bundesfinanzministerium.de/lsth/2026/B-Anhaenge/Anhang-27/II/inhalt.html: (503) Service Unavailable"
+      }
+    ],
+    "isError": false
+  },
+  "interpretation": "All three direct primary-source opens returned HTTP 503. Search snippets are not proof of the applicable grouping rule. The existing unsupported branch and historical calculation modules remain unchanged."
+}

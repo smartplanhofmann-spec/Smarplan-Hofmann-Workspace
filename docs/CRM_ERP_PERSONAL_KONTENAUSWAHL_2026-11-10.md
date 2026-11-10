@@ -72,9 +72,9 @@ Erstfehler werden dadurch nicht nachträglich als Erfolg ausgegeben.
 
 Keine neue Abhängigkeit, Datenbankschemaänderung oder neue Benutzeranlage
 durch den lesenden Endpunkt. Alle 61 historischen Lohnmodule und das originale
-Gesamtziel bleiben bytegleich. Die Integration und ihre eigene Paketprüfung
-werden getrennt nachgetragen; keine Liveinstallation oder Gesamtabnahme wird
-aus diesen lokalen Nachweisen abgeleitet.
+Gesamtziel bleiben bytegleich. Die nachstehenden Integrations- und Paketnachweise
+gehören zu ihren jeweils genauen Quellen; eine Liveinstallation oder Gesamtabnahme
+wird aus lokalen Nachweisen nicht abgeleitet.
 
 ## 10.11.2026 – integrierte Personal-Kontenauswahl und abgeschlossene iPhone-Pakete
 
@@ -95,3 +95,44 @@ iPhone-/iPad-Paket 208, Artefakt 13789192915; Upload false. Der automatische
 Push-Lauf und der manuelle Lauf sind unterschiedliche Auslöser. Das signierte
 208 enthält den Bankimport und Offline-Konfliktfix, die spätere Personal-
 Korrektur jedoch noch nicht. Keine neue Live- oder Geräteinstallation.
+
+## Eigene vollständige Plattformprüfung des integrierten Produktstands
+
+Veröffentlicht ist `29b02c82a12d4aa1dfc97eaa84638d840882612d`. Seine eigene
+Development-Prüfung 42872855464 besteht alle 20 Gruppen. Die tatsächlichen
+Backendlogs enthalten 2.186 Fälle in 1.565,117s mit drei ausgewiesenen
+Auslassungen: zwei separate PostgreSQL-Gegenprüfungen im allgemeinen
+Backendjob und die Windows-Prozessbereinigung auf Linux. Die eigenen
+PostgreSQL-/Windowsgruppen sind zusätzliche getrennte erfolgreiche Jobs.
+Der eigene Flutterjob bestätigt drei separate native PDF-Fälle und 2.001
+Hauptfälle. Alle 1.098 Browsermodulfälle und die tatsächlichen Browserabläufe
+sind Bestandteil des geprüften Produktumfangs. Beide Windows-Pakete sind
+tatsächlich gebaut; der automatische unsignierte iPhone-Release ist 209.
+Aktuelle Artefakte und der getrennte signierte Nachweis stehen im
+[Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md).
+
+Der zusätzliche lokale Gesamtnachlauf wurde während des Cloud-Ausfalls
+unterbrochen. Sein unverändertes Teilprotokoll endet bei 1.229 sichtbaren
+Erfolgen, ohne Abschluss-/Exitstatus. Es wird nicht zum vollständigen
+Prüferfolg umgedeutet; die vollständigen aktuellen CI-Logs bleiben separat.
+Das Geräteprotokoll enthält 28 noch ungeprüfte Fälle einschließlich der
+neuen Personal-, XML-Bank- und nativen Offline-Konfliktabläufe. Die
+[Serveranleitung](CRM_ERP_SERVERUPDATE_29B02C8_2026-11-10.md) ist vorbereitet,
+aber mangels SSH-Zugang in dieser Cloud nicht am Live-System ausgeführt.
+
+Die eigene macOS-Vorprüfung des manuellen iPhone-Builds 210 bestätigt 1.996
+Hauptfälle plus drei separate native PDF-Fälle, fünf ausgewiesene Linux-
+Integrationsauslassungen und den erfolgreichen tatsächlichen iOS-Gerätebau.
+Die fünf plattformbegrenzt ausgelassenen Fälle sind im vollständigen Linux-
+Lauf enthalten. Das vollständige macOS-Protokoll bleibt separat erhalten.
+Zusätzliche lokale Archivdownloads werden vom Cloud-Proxy vor Empfang der
+Bytes mit HTTP403 abgewiesen; die GitHub-Digests sind Metadaten, keine hier
+zusätzlich lokal errechneten Archivprüfsummen.
+
+Der aktuelle manuelle iPhone-Lauf 42873343567 ist jetzt vollständig erfolgreich.
+Signiertes Paket 210: Artefakt 13794053691, 29.959.338 Bytes, SHA256
+bd556ca8b5464b6436ebbd9544831d8013a6e766adf41e838de4d8ee06be4e06.
+Der wirkliche Job 130058782187 bestätigt endgültige Distributionssignatur,
+Team, Keychain-Berechtigung und Schlüsselbereinigung. TestFlight ist
+übersprungen; keine neue Geräteinstallation. Das vollständige Signierlog
+ist mit dem genauen Quellstand im Manifest erhalten.

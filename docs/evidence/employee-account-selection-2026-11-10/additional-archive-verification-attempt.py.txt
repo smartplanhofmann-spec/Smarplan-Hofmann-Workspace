@@ -1,0 +1,100 @@
+import concurrent.futures
+import gzip
+import hashlib
+import io
+import json
+import plistlib
+import subprocess
+import sys
+import zipfile
+from pathlib import Path, PurePosixPath
+
+ROOT = Path('/workspace/Smarplan-Hofmann-Workspace')
+E = ROOT / 'docs/evidence/employee-account-selection-2026-11-10'
+SOURCE = '29b02c82a12d4aa1dfc97eaa84638d840882612d'
+REPO = 'smartplanhofmann-spec/Smarplan-Hofmann-Workspace'
+
+
+def read(name):
+    return json.loads(gzip.decompress((E / (name + '.json.gz')).read_bytes()))
+
+
+def verify(artifact):
+    artifact_id = artifact['id']
+    raw = subprocess.check_output(['gh', 'api', f'repos/{REPO}/actions/artifacts/{artifact_id}/zip'])
+    digest = hashlib.sha256(raw).hexdigest()
+    assert len(raw) == artifact['size_in_bytes']
+    assert 'sha256:' + digest == artifact['digest']
+    archive = zipfile.ZipFile(io.BytesIO(raw))
+    names = archive.namelist()
+    assert len(names) == len(set(names))
+    assert all(not n.startswith('/') and '..' not in PurePosixPath(n).parts for n in names)
+    manifests = [n for n in names if PurePosixPath(n).name == 'RELEASE_MANIFEST.json']
+    assert len(manifests) == 1
+    manifest_path = manifests[0]
+    manifest = json.loads(archive.read(manifest_path))
+    assert manifest['source_commit'] == SOURCE
+    result = {'artifact_id': artifact_id, 'name': artifact['name'], 'archive_bytes': len(raw),
+              'archive_sha256': digest, 'github_digest_matches': True, 'zip_entries': len(names),
+              'manifest_path': manifest_path, 'manifest': manifest, 'executed_on_local_machine': False}
+    prefix = str(PurePosixPath(manifest_path).parent)
+    prefix = '' if prefix == '.' else prefix + '/'
+    if 'Windows' in artifact['name']:
+        listed = manifest['files_sha256']
+        for name, expected in listed.items():
+            assert hashlib.sha256(archive.read(prefix + name)).hexdigest() == expected, name
+        actual = {n[len(prefix):] for n in names if not n.endswith('/') and n != manifest_path}
+        assert actual == set(listed)
+        assert archive.read(prefix + 'smartplan_office.exe')[:2] == b'MZ'
+        assert manifest['api_url'] == ('https://office.smartplan-hofmann.de'
+                if 'Online-Pilot' in artifact['name'] else 'http://127.0.0.1:8765')
+        result['all_manifest_file_hashes_match'] = True
+        result['manifest_file_count'] = len(listed)
+    elif 'UNSIGNED' in artifact['name']:
+        packages = [n for n in names if n.endswith('.zip')]
+        assert len(packages) == 1
+        package = zipfile.ZipFile(io.BytesIO(archive.read(packages[0])))
+        info = plistlib.loads(package.read('Runner.app/Info.plist'))
+        assert str(info['CFBundleVersion']) == str(manifest['build_number'])
+        assert info['CFBundleShortVersionString'] == manifest['version']
+        result['ios_bundle_version'] = info['CFBundleVersion']
+        result['ios_signed'] = False
+    else:
+        packages = [n for n in names if n.endswith('.ipa')]
+        assert len(packages) == 1
+        ipa_raw = archive.read(packages[0])
+        ipa_digest = hashlib.sha256(ipa_raw).hexdigest()
+        sums = [n for n in names if n.endswith('SHA256SUMS.txt')]
+        assert len(sums) == 1 and ipa_digest in archive.read(sums[0]).decode()
+        package = zipfile.ZipFile(io.BytesIO(ipa_raw))
+        info = plistlib.loads(package.read('Payload/Runner.app/Info.plist'))
+        assert str(info['CFBundleVersion']) == str(manifest['build_number'])
+        assert info['CFBundleShortVersionString'] == manifest['version']
+        assert manifest['signed_entitlements_checked'] is True
+        decisions = [n for n in names if n.endswith('IOS_DELIVERY_DECISION.json')]
+        assert len(decisions) == 1
+        result['delivery_decision'] = json.loads(archive.read(decisions[0]))
+        result['ipa_sha256'] = ipa_digest
+        result['ios_bundle_version'] = info['CFBundleVersion']
+        result['ios_signing_verification'] = 'Actual successful macOS signing and entitlement job; Linux archive inspection does not rerun codesign.'
+    return result
+
+
+if '--signed' in sys.argv:
+    artifacts = read('own-final-ios-signed-preparation')['artifacts']['artifacts']
+    artifacts = [a for a in artifacts if 'UNSIGNED' not in a['name']]
+    assert len(artifacts) == 1
+    target = E / 'own-signed-archive-review.json'
+else:
+    artifacts = [a for a in read('own-final-development')['artifacts']['artifacts']
+                 if a['id'] in (13791891675, 13791089491)]
+    artifacts += read('own-final-ios-unsigned')['artifacts']['artifacts']
+    assert len(artifacts) == 3
+    target = E / 'own-windows-unsigned-archive-review.json'
+with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+    results = list(executor.map(verify, artifacts))
+target.write_text(json.dumps({'source_commit': SOURCE, 'result': 'passed', 'artifacts': results},
+                             ensure_ascii=False, indent=2) + '\n')
+for r in results:
+    print(r['artifact_id'], r['name'], r['archive_bytes'], r['archive_sha256'],
+          'source and content hashes verified', r.get('manifest_file_count', r.get('ios_bundle_version')))

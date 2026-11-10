@@ -1,0 +1,19 @@
+{
+  "source_commit": "29b02c82a12d4aa1dfc97eaa84638d840882612d",
+  "checked_at": "2026-11-10",
+  "status": "additional_local_archive_verification_blocked_before_bytes_received",
+  "artifact_ids": [
+    13791891675,
+    13791089491,
+    13791784869
+  ],
+  "cli_download_result": "All three GitHub artifact archive redirects were rejected by the cloud outbound proxy with HTTP 403 Forbidden.",
+  "connector_result": {
+    "artifact_id": 13791089491,
+    "file_provisioning": "successful",
+    "local_file_url_read": "OSError: Tunnel connection failed: 403 Forbidden"
+  },
+  "local_archive_bytes_verified": false,
+  "ci_build_and_package_validation": "The own Development run 42872855464 and unsigned iOS run 42872855484 completed successfully; their actual logs and artifact metadata are preserved separately.",
+  "notes": "Short-lived artifact download credentials and complete signed URLs are deliberately not stored in repository evidence. This network failure is not a failed product test and does not prove a missing or defective artifact."
+}

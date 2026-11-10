@@ -4,7 +4,32 @@ Dieses Paket bereitet die im Gesamtziel vorgesehenen gesonderten Nachweise vor.
 Es beauftragt niemanden, versendet keine Daten und erteilt keine Produktivfreigabe.
 Alle nachstehenden Beispiele verwenden kontrollierte synthetische Daten.
 
-## Bedeutung und zu prüfender Stand
+## Aktueller technischer Prüfumfang
+
+Maßgeblicher neuer Prüfstand ist 29b02c82a12d4aa1dfc97eaa84638d840882612d.
+Er enthält XML-Bankoriginalimport und die begrenzte Personal-Kontenauswahl.
+Seine eigenen Prüfungen und Pakete stehen im [aktuellen Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md).
+Die älteren Zahlen weiter unten bleiben ihren jeweiligen Quellen zugeordnet.
+
+Zusätzliche Fachprüfung: Originalauszug, gebundene EUR-IBAN, vollständige
+Periode, Anfangs-/Endsaldo, Bewegungen und Bankreferenzen abgleichen. Der
+Import allein erzeugt keine Zahlung oder EÜR-Entscheidung. Eine echte Datei
+der Kreissparkasse Rottweil ist noch nicht nachgewiesen. Die synthetischen
+[Formatprüfungen](CRM_ERP_BANK_CAMT_2026-11-10.md) sind keine Anbieterabnahme.
+
+Zusätzlicher Zugriffstest: Globale Personal-Lese-/Verwaltungsrechte erlauben
+ausschließlich aktive Kontenkennungen und E-Mails zur Profilpflege. Die
+Benutzerverwaltung bleibt gesperrt. Projektfreigaben, Rechteentzug, verspätete
+Antworten und Sitzungswechsel prüfen. Das Beenden eines Profils darf seinen
+gesperrten Benutzerzugang nicht entsperren. [Umsetzung und interne Nachweise](CRM_ERP_PERSONAL_KONTENAUSWAHL_2026-11-10.md).
+
+Das Geräteprotokoll umfasst jetzt 28 ausdrücklich noch ungeprüfte Fälle; die
+ursprünglichen 20 Zeilen bleiben unverändert. Neu sind XML-Auszug und
+Personalpflege auf allen drei Clients sowie die native Offline-Konfliktklärung.
+Die Durchführung erfolgt in einem isolierten Testunternehmen; keine
+synthetischen Bankdaten in einen realen betrieblichen Bankbestand übernehmen.
+
+## Bedeutung und historische Prüfstände
 
 Der Nutzer hat zur Prüferfrage um Erklärung gebeten. Gemeint ist die Kontrolle
 der tatsächlichen Buchungs-/Abrechnungsergebnisse durch Steuerberatung oder
@@ -112,7 +137,7 @@ Diese Unterlagen ersetzen keinen unabhängigen Test und keine Nachprüfung.
 
 ## Reale Geräte- und Betriebsabnahme
 
-[20 konkrete Gerätefälle](CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv) und
+[28 konkrete Gerätefälle](CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv) und
 [Projekt-Testfolge](CRM_ERP_KUNDENTEST_PROJEKTBETRIEB_0_13.md) sind vorbereitet.
 Vor Beginn Paketcommit, tatsächlich installierten Serverstand und Firmeninstanz
 abgleichen. Windowsprogramm vollständig entpacken. Für iPhone wird eine

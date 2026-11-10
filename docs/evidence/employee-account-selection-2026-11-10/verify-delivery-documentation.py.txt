@@ -1,0 +1,148 @@
+import csv
+import gzip
+import hashlib
+import io
+import json
+import re
+import subprocess
+from pathlib import Path
+
+ROOT = Path(subprocess.check_output(['git', 'rev-parse', '--show-toplevel']).decode().strip())
+E = ROOT / 'docs/evidence/employee-account-selection-2026-11-10'
+SOURCE = '29b02c82a12d4aa1dfc97eaa84638d840882612d'
+
+
+def git(*args):
+    return subprocess.check_output(['git', *args], cwd=ROOT)
+
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+
+def read(name):
+    return json.loads(gzip.decompress((E / (name + '.json.gz')).read_bytes()))
+
+
+subprocess.run(['git', 'merge-base', '--is-ancestor', SOURCE, 'HEAD'], cwd=ROOT, check=True)
+goal = (ROOT / 'CRM_ERP_Gesamtziel.txt').read_bytes()
+assert len(goal) == 23863
+assert sha(goal) == 'a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5'
+payroll = [n for n in git('ls-files', 'backend/payroll_*.py').decode().splitlines()]
+assert len(payroll) == 61
+for name in payroll:
+    assert (ROOT / name).read_bytes() == git('show', f'4f67bf8:{name}')
+
+csv_path = 'docs/CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv'
+csv_raw = (ROOT / csv_path).read_bytes()
+assert csv_raw.startswith(git('show', f'{SOURCE}:{csv_path}'))
+assert csv_raw.startswith(b'\xef\xbb\xbf')
+assert csv_raw.count(b'\n') == csv_raw.count(b'\r\n')
+rows = list(csv.reader(io.StringIO(csv_raw.decode('utf-8-sig')), delimiter=';'))
+assert len(rows) == 29 and {len(row) for row in rows} == {14}
+assert all(row[10] == 'ungeprüft' for row in rows[1:])
+matrix = (ROOT / 'docs/CRM_ERP_ANFORDERUNGEN.md').read_text()
+matrix_rows = [l for l in matrix.splitlines() if re.match(r'^\| R\d{2}\.\d{2} \|', l)]
+assert len(matrix_rows) == 62
+statuses = {}
+for row in matrix_rows:
+    status = row.split('|')[3].strip()
+    statuses[status] = statuses.get(status, 0) + 1
+assert statuses == {'offen': 11, 'implementiert': 24, 'getestet': 16,
+                    'teilweise; Gesamtanforderung offen': 6, 'extern_blockiert': 5}
+
+guide = (ROOT / 'docs/CRM_ERP_SERVERUPDATE_29B02C8_2026-11-10.md').read_text()
+block = re.findall(r'```bash\n(.*?)\n```', guide, re.S)
+assert len(block) == 1 and SOURCE in block[0]
+subprocess.run(['bash', '-n'], input=block[0].encode(), check=True)
+changed = git('diff', '--name-only', SOURCE).decode().splitlines()
+untracked = git('ls-files', '--others', '--exclude-standard').decode().splitlines()
+assert all(p.startswith('docs/') for p in changed + untracked)
+subprocess.run(['git', '-c', 'core.whitespace=cr-at-eol', 'diff', '--check'], cwd=ROOT, check=True)
+
+dev = read('own-final-development')
+assert dev['source_commit'] == SOURCE and dev['run_id'] == 42872855464
+jobs = dev['jobs']['jobs']
+assert len(jobs) == 20 and all(j['conclusion'] == 'success' for j in jobs)
+backend = read('own-final-backend-log')['log']['content']
+flutter = read('own-final-flutter-log')['log']['content']
+assert 'Ran 2186 tests in 1565.117s' in backend and 'OK (skipped=3)' in backend
+assert '+3: All tests passed!' in flutter and '+2001: All tests passed!' in flutter
+unsigned = read('own-final-ios-unsigned')
+assert unsigned['run']['head_sha'] == SOURCE and unsigned['run']['conclusion'] == 'success'
+signed = read('own-final-ios-signed-preparation')
+assert signed['run']['head_sha'] == SOURCE
+assert signed['upload_to_testflight_authorized'] is False
+if signed['run']['conclusion'] == 'success':
+    sign_jobs = [j for j in signed['jobs']['jobs'] if 'Signiertes iPhone-Paket' in j['name']]
+    assert len(sign_jobs) == 1 and sign_jobs[0]['conclusion'] == 'success'
+    steps = {s['name']: s['conclusion'] for s in sign_jobs[0]['steps']}
+    assert steps['Signiertes iPhone-/iPad-Paket pruefen'] == 'success'
+    assert steps['Zu TestFlight hochladen'] == 'skipped'
+    assert steps['API-Schluessel loeschen'] == 'success'
+    sign_artifacts = [a for a in signed['artifacts']['artifacts'] if 'UNSIGNED' not in a['name']]
+    assert len(sign_artifacts) == 1
+    assert sign_artifacts[0]['workflow_run']['head_sha'] == SOURCE
+
+report = {
+    'source_commit': SOURCE,
+    'result': 'documentation_and_evidence_review_passed',
+    'goal_original_bytes': len(goal), 'goal_original_sha256': sha(goal),
+    'historical_payroll_modules_unchanged': len(payroll),
+    'original_device_csv_bytes_preserved_as_prefix': True,
+    'device_cases': len(rows) - 1, 'device_cases_accepted': 0,
+    'requirements_count': len(matrix_rows), 'requirement_status_counts': statuses,
+    'server_bash_syntax_passed': True, 'server_bash_executed': False,
+    'product_runtime_changes_after_checked_source': False,
+    'own_development_run': dev['run_id'], 'own_development_groups_successful': len(jobs),
+    'own_backend_cases': 2186, 'own_backend_skipped': 3,
+    'own_native_pdf_cases': 3, 'own_native_main_cases': 2001,
+    'local_extra_full_native': 'interrupted_no_completion_or_exit_status',
+    'automatic_unsigned_ios_release': 209,
+    'own_mac_native_pdf_cases': 3, 'own_mac_native_main_cases': 1996,
+    'own_mac_native_skipped_linux_only_cases': 5,
+    'manual_signed_preparation_status': signed['run']['status'],
+    'manual_signed_preparation_conclusion': signed['run']['conclusion'],
+    'testflight_uploaded': False, 'live_server_updated_from_cloud': False,
+    'whole_product_acceptance_A_to_G': 'open',
+    'line_end_check': 'git -c core.whitespace=cr-at-eol diff --check; original Windows CSV remains UTF-8 BOM and CRLF',
+}
+(E / 'delivery-documentation-review.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+
+manifest = json.loads((E / 'manifest.json').read_text())
+manifest['status'] = ('published_own_platform_checks_and_signed_preparation_passed'
+                      if signed['run']['conclusion'] == 'success'
+                      else 'published_own_platform_checks_passed_signed_preparation_pending')
+manifest['published_source_commit'] = SOURCE
+manifest['own_development_run'] = dev['run_id']
+manifest['own_development_groups_successful'] = len(jobs)
+manifest['own_ios_unsigned_run'] = unsigned['run']['id']
+manifest['own_ios_signed_preparation_run'] = signed['run']['id']
+manifest['own_ios_signed_preparation_status'] = signed['run']['status']
+manifest['own_ios_signed_preparation_conclusion'] = signed['run']['conclusion']
+manifest['testflight_upload_authorized'] = False
+manifest['live_update_performed'] = False
+manifest['checks']['own_backend'] = {'tests': 2186, 'seconds': 1565.117, 'skipped': 3}
+manifest['checks']['own_native'] = {'separate_pdf_tests': 3, 'main_tests': 2001, 'successful_total': 2004}
+manifest['checks']['own_mac_native'] = {'separate_pdf_tests': 3, 'main_tests': 1996, 'skipped_linux_only': 5, 'successful_total': 1999}
+manifest['checks']['extra_local_native_run'] = {'status': 'interrupted_no_completion_or_exit_status', 'last_visible_pass_count': 1229}
+manifest['checks']['real_device_cases'] = {'prepared': 28, 'accepted': 0}
+existing = {r['path']: r for r in manifest['raw_files']}
+raw_files = []
+for p in sorted(E.iterdir()):
+    if p.name == 'manifest.json' or not p.is_file():
+        continue
+    raw = p.read_bytes()
+    mutable_receipts = {'delivery-documentation-review.json', 'own-final-ios-signed-preparation.json.gz'}
+    if p.name in existing and p.name not in mutable_receipts:
+        assert existing[p.name]['bytes'] == len(raw)
+        assert existing[p.name]['sha256'] == sha(raw)
+    entry = {'path': p.name, 'bytes': len(raw), 'sha256': sha(raw)}
+    if p.suffix == '.gz':
+        plain = gzip.decompress(raw)
+        entry.update(uncompressed_bytes=len(plain), uncompressed_sha256=sha(plain))
+    raw_files.append(entry)
+manifest['raw_files'] = raw_files
+(E / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
+print(json.dumps(report, ensure_ascii=False, indent=2))
+print('Verified raw evidence files:', len(raw_files))

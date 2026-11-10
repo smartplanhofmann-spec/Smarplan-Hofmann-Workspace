@@ -1,0 +1,42 @@
+{
+  "artifacts": [
+    {
+      "id": 13805341384,
+      "name": "Smartplan-Office-iOS-212",
+      "size_in_bytes": 29979577,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13805341384",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13805341384/zip",
+      "expired": false,
+      "created_at": "2026-11-10T21:33:14Z",
+      "expires_at": "2026-11-24T21:33:11Z",
+      "updated_at": "2026-11-10T21:33:14Z",
+      "digest": "sha256:1061f69bb27c959a009ea3f511f07e07472221c3b28f16f581b58b0aa2f3a9fe",
+      "workflow_run": {
+        "id": 42898966618,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13803523378,
+      "name": "Smartplan-Office-iOS-UNSIGNED-212",
+      "size_in_bytes": 15084011,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13803523378",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13803523378/zip",
+      "expired": false,
+      "created_at": "2026-11-10T21:20:08Z",
+      "expires_at": "2026-11-24T21:20:06Z",
+      "updated_at": "2026-11-10T21:20:08Z",
+      "digest": "sha256:f448ffe99f9c5d63074cddce6d11fe6805a07fadaa1497d3d389f3e72550df84",
+      "workflow_run": {
+        "id": 42898966618,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "observed_at": "2026-11-10T21:09:55.601303+00:00",
+  "development_path": "/tmp/smartplan-minijob-rv-work-20261110",
+  "pure_tests": 9,
+  "seconds": 0.04,
+  "exit_code": 0,
+  "production_integrated": false,
+  "profile_guard_integrated": false,
+  "payroll_binding_integrated": false,
+  "ui_integrated": false,
+  "postgres_restore_tested": false,
+  "independent_fiscal_approval": false,
+  "actual_transmission": false,
+  "limitation": "The component requires an explicitly evidenced and reviewed objection deadline; it does not calculate administrative holiday deadlines or create authority acceptance from elapsed time."
+}

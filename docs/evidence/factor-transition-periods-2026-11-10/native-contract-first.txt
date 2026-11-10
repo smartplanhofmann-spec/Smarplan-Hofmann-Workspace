@@ -1,9 +1,0 @@
-00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/payroll_factor_transition_period_contract_test.dart
-00:00 +0: two actual private API originals and positive factor tax reproduce native complete hashes and exact input
-00:00 +1: self-consistent changed tax and replaced run proof cannot override the separately accepted complete case component
-00:00 +2: foreign private evidence is rejected after recomputing the reported case hashes
-00:00 +3: full months and old labels cannot be promoted into the new actual partial period
-00:00 +4: the native constructor never selects the first original or drops extra sources
-00:00 +5: review types, unknown fields and unpaired Unicode are closed while multiline notes remain valid
-00:00 +6: a blocked calculation never carries apparently complete money or an altered daily remainder
-00:01 +7: All tests passed!

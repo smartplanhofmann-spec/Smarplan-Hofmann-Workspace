@@ -1,0 +1,34 @@
+{
+  "limited_scan_only": true,
+  "scope": "Private-key headers and existing GitHub masking markers; not an independent security audit",
+  "logs": {
+    "ci-job-130119513366.txt.gz": {
+      "private_key_header": false,
+      "secret_redaction_markers": 3
+    },
+    "ci-flutter-job-130118827330.txt.gz": {
+      "private_key_header": false,
+      "secret_redaction_markers": 3
+    },
+    "ci-job-130118826922.txt.gz": {
+      "private_key_header": false,
+      "secret_redaction_markers": 3
+    },
+    "ci-job-130137214723.txt.gz": {
+      "private_key_header": false,
+      "secret_redaction_markers": 99
+    },
+    "ci-job-130118826678.txt.gz": {
+      "private_key_header": false,
+      "secret_redaction_markers": 3
+    },
+    "ci-job-130118827626.txt.gz": {
+      "private_key_header": false,
+      "secret_redaction_markers": 10
+    },
+    "ci-job-130118827673.txt.gz": {
+      "private_key_header": false,
+      "secret_redaction_markers": 3
+    }
+  }
+}

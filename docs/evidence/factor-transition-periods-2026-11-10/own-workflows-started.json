@@ -1,0 +1,42 @@
+[
+  {
+    "id": 42898966618,
+    "name": "iPhone TestFlight",
+    "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729",
+    "status": "in_progress",
+    "conclusion": null,
+    "event": "workflow_dispatch",
+    "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42898966618",
+    "created_at": "2026-11-10T20:49:04Z"
+  },
+  {
+    "id": 42898771085,
+    "name": "Development checks",
+    "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729",
+    "status": "in_progress",
+    "conclusion": null,
+    "event": "push",
+    "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42898771085",
+    "created_at": "2026-11-10T20:47:51Z"
+  },
+  {
+    "id": 42898770963,
+    "name": "iPhone TestFlight",
+    "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729",
+    "status": "in_progress",
+    "conclusion": null,
+    "event": "push",
+    "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42898770963",
+    "created_at": "2026-11-10T20:47:50Z"
+  },
+  {
+    "id": 42898771045,
+    "name": "Mail bot connection",
+    "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729",
+    "status": "completed",
+    "conclusion": "success",
+    "event": "push",
+    "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42898771045",
+    "created_at": "2026-11-10T20:47:50Z"
+  }
+]

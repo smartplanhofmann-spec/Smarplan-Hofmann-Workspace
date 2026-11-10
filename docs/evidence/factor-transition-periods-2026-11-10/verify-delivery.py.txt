@@ -1,0 +1,89 @@
+"""Read-only concrete delivery verification; no deployment or TestFlight upload."""
+from pathlib import Path
+import csv,gzip,hashlib,io,json,re,subprocess,sys
+ROOT=Path('/workspace/Smarplan-Hofmann-Workspace')
+OUT=ROOT/'docs/evidence/factor-transition-periods-2026-11-10'
+SOURCE='4aa0abd6d313fcc5d693606dbef1c7193afb0729'
+BASE='13c666332ce9b82a90bff4164503998cf67750d9'
+allow_pending='--allow-pending' in sys.argv
+pending=[]
+
+def check(value,label):
+    if not value:raise AssertionError(label)
+
+def read(name):return json.loads((OUT/name).read_text())
+def git(*args):return subprocess.check_output(['git','-C',str(ROOT),*args])
+def log(name):
+    p=OUT/name
+    if not p.exists():p=OUT/(name+'.gz')
+    return (gzip.decompress(p.read_bytes()) if p.suffix=='.gz' else p.read_bytes()).decode('utf-8')
+def optional(name):
+    if (OUT/name).exists():return read(name)
+    pending.append(name);return None
+
+def statuses(data,label,expected=None):
+    if data is None:return
+    jobs=data['jobs'];check(expected is None or len(jobs)==expected,label+' job count')
+    for j in jobs:
+        bindings={item['id']:item['head_sha'] for item in read('own-workflows-started.json')}
+        required={'Development':42898771085,'automatic unsigned iOS':42898770963,'signed preparation':42898966618}[label]
+        check(j['run_id']==required and bindings.get(j['run_id'])==SOURCE,label+' source binding')
+        check(j['conclusion'] not in ('failure','cancelled','timed_out','action_required'),label+' failed job')
+    if any(j['status']!='completed' for j in jobs):pending.append(label+' still running');return
+    check(all(j['conclusion']=='success' for j in jobs if 'signiert' not in j['name'].lower()),label+' required success')
+
+raw=(ROOT/'CRM_ERP_Gesamtziel.txt').read_bytes()
+check(len(raw)==23863 and hashlib.sha256(raw).hexdigest()=='a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5','original goal')
+old=[p for p in git('ls-tree','-r','--name-only',BASE,'backend').decode().splitlines() if p.startswith('backend/payroll_') and p.endswith('.py')]
+check(len(old)==61,'historical kernel count')
+for name in old:check((ROOT/name).read_bytes()==git('show',BASE+':'+name),'historical source '+name)
+check(not git('diff','--name-only',SOURCE,'--','app','backend','scripts/native-release.py','web').strip(),'new runtime edits require a new product proof')
+
+def matrix(raw):
+    return {r.split('|')[1].strip():r.split('|')[3].strip() for r in raw.decode().splitlines() if re.match(r'^\| R\d{2}\.\d{2} \|',r)}
+current=matrix((ROOT/'docs/CRM_ERP_ANFORDERUNGEN.md').read_bytes())
+check(len(current)==62 and current==matrix(git('show',BASE+':docs/CRM_ERP_ANFORDERUNGEN.md')),'honest requirement statuses')
+for key in 'ABCDEFG':check(re.search(r'^\| '+key+r' \| offen \|',(ROOT/'docs/CRM_ERP_ANFORDERUNGEN.md').read_text(),re.M),'overall acceptance '+key)
+protocol=(ROOT/'docs/CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv').read_bytes();previous=git('show',BASE+':docs/CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv')
+check(protocol.startswith(previous),'preserved original28device rows')
+rows=list(csv.reader(io.StringIO(protocol.decode('utf-8-sig')),delimiter=';'))
+check(len(rows)==32 and all(len(row)==14 for row in rows),'31actual device protocol rows')
+check(all(row[10]=='ungeprüft' for row in rows[1:]),'no invented device acceptance')
+
+for original,stored,digest in read('compressed-raw-log-map.json'):
+    check(hashlib.sha256(gzip.decompress((OUT/stored).read_bytes())).hexdigest()==digest,'lossless original log '+original)
+reference=json.loads((ROOT/'backend/testdata/payroll_factor_transition_periods_2026.json').read_text())
+check(len(reference['cases'])==300 and reference['production_kernel_imported'] is False,'independent reference metadata')
+check(reference['xml_sha256']=='63d8981646d139eba2f4dd990c13b43c4fb3883b402a5a40cddf253aa7aa96b4','pinned XML')
+check('pass 1109' in log('browser-contract-all-permitted.txt.gz'),'complete Node success')
+check('+2023: All tests passed!' in log('native-full.txt'),'complete local native success')
+check(read('native-full-exit-result.json')['exit_code']==0,'actual native exit')
+check('+2020: All tests passed!' in log('ci-flutter-job-130118827330.txt.gz') and '+3: All tests passed!' in log('ci-flutter-job-130118827330.txt.gz'),'actual own Linux CI2023')
+check('+1975: All tests passed!' in log('ci-job-130118827673.txt.gz') and 'Ran 81 tests in ' in log('ci-job-130118827673.txt.gz'),'actual Windows app and portable backend')
+check('test_business_payroll_factor_transition_period_pg' in log('ci-job-130118827626.txt.gz'),'actual own V16 PostgreSQL job')
+pg=read('postgres-first-result.json');check(pg['exit_code']==0 and pg['removed_after_verified_exact_id_label_loopback'] is True,'actual own PostgreSQL exit and cleanup')
+check(SOURCE in log('frozen-v16-runtime-first.txt.gz') and '"exact_retry": true' in log('frozen-v16-runtime-first.txt.gz'),'frozen actual new runtime')
+
+manifest=read('manifest.json')
+for name,item in manifest['raw_files'].items():
+    p=OUT/name;check(p.is_file() and p.stat().st_size==item['bytes'] and hashlib.sha256(p.read_bytes()).hexdigest()==item['sha256'],'raw file '+name)
+check(manifest['server_installed'] is False and manifest['testflight_uploaded'] is False,'no invented external action')
+statuses(optional('own-development-final.json'),'Development',20)
+statuses(optional('own-auto-ios-final.json'),'automatic unsigned iOS')
+signed=optional('own-signed-preparation-final.json');statuses(signed,'signed preparation',2)
+if signed is not None and all(j['status']=='completed' for j in signed['jobs']):
+    job=next(j for j in signed['jobs'] if any(s['name']=='Zu TestFlight hochladen' for s in j['steps']))
+    upload=[s for s in job['steps'] if s['name']=='Zu TestFlight hochladen']
+    check(len(upload)==1 and upload[0]['conclusion']=='skipped','explicitly skipped TestFlight upload')
+    check(job['conclusion']=='success' and any(s['conclusion']=='success' and s['name']=='API-Schluessel loeschen' for s in job['steps']),'actual signed preparation and cleanup')
+for name in ('own-development-artifacts.json','own-auto-ios-artifacts.json','own-signed-artifacts.json'):
+    data=optional(name)
+    if data is not None:
+        check(data['artifacts'],'actual artifacts '+name)
+        for a in data['artifacts']:
+            check(a['expired'] is False and re.fullmatch(r'sha256:[0-9a-f]{64}',a['digest']) is not None,'actual artifact metadata')
+print(json.dumps(dict(source_commit=SOURCE,original_goal_unchanged=True,preserved_historical_kernels=61,
+    local_and_native_ci_checks='pass',windows_ci='pass',postgres_restore='pass',requirements=62,
+    actual_device_tests_performed=False,device_cases_prepared=31,overall_acceptances_closed=0,
+    server_changed=False,testflight_uploaded=False,pending=pending,complete_internal_delivery_evidence=not pending),indent=2))
+if pending and not allow_pending:raise SystemExit(2)

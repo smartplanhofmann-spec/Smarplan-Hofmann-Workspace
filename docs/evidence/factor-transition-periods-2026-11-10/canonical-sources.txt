@@ -1,1 +1,0 @@
-{"version": "0.13.0", "visible_app_version": "0.13.0", "default_build_number": "130", "supported_devices": ["iPhone", "iPad", "Windows x64"]}

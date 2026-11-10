@@ -1,0 +1,42 @@
+import hashlib,json,os,subprocess,sys,tarfile,tempfile
+from pathlib import Path
+root=Path('/workspace/Smarplan-Hofmann-Workspace')
+commit='4aa0abd6d313fcc5d693606dbef1c7193afb0729'
+assert subprocess.check_output(['git','-C',str(root),'rev-parse','HEAD'],text=True).strip()==commit
+with tempfile.TemporaryDirectory(prefix='smartplan-v16-frozen-') as folder:
+    destination=Path(folder);archive=destination/'source.tar';app=destination/'app';app.mkdir()
+    subprocess.run(['git','-C',str(root),'-c','tar.umask=0022','archive','--format=tar','--output',str(archive),commit,'backend','web'],check=True)
+    digest=hashlib.sha256(archive.read_bytes()).hexdigest()
+    with tarfile.open(archive) as source:source.extractall(app,filter='data')
+    code='''import json,sys
+from pathlib import Path
+sys.path.insert(0,sys.argv[1])
+from online.installation import MARKER,write_context
+write_context(MARKER,sys.argv[2])
+from online.test_offline_instance_binding import OfflineInstanceBindingHttpTests
+f=OfflineInstanceBindingHttpTests('runTest');f.setUp()
+try:
+    assert f.call(f.a,'/business/installation').json['source_commit']==sys.argv[2]
+    assert 'payroll_factor_transition_periods' in f.call(f.a,'/business/capabilities').json['features']
+    origin='https://'+f.a['host']
+    for name in ('payroll-factor-transition-periods.js','payroll-calculation-cases.js','payroll-statements.js','payroll.js'):
+        response=f.a['client'].get('/office/'+name,base_url=origin)
+        assert response.status_code==200,(name,response.status_code)
+finally:f.doCleanups()
+from test_business_payroll_factor_transition_periods import FactorTransitionPeriodFixture
+flow=FactorTransitionPeriodFixture('runTest');flow.setUp()
+try:
+    run=flow.accepted();c=run['calculation']
+    assert c['scope']=='regular_transition_factor_period' and c['gross_minor']==56667 and c['net_minor']==49565
+    assert flow.f.payroll.finalize(flow.f.owner,flow.run_command)==run
+    pdf=flow.f.payroll.export(flow.f.owner,run['id'],'pdf')[0]
+    assert pdf.startswith(b'%PDF-')
+    print(json.dumps(dict(source_commit=sys.argv[2],actual_mfa=True,new_feature=True,new_browser_assets=4,scope=c['scope'],gross_minor=c['gross_minor'],net_minor=c['net_minor'],exact_retry=True,pdf=True)))
+finally:flow.doCleanups()
+'''
+    result=subprocess.run([sys.executable,'-I','-B','-c',code,str(app/'backend'),commit],cwd=destination,
+        env={k:v for k,v in os.environ.items() if k not in ('PYTHONPATH','PYTHONHOME','SMARTPLAN_TEST_DSN')},capture_output=True,text=True,timeout=180)
+    print('Frozen source archive SHA256:',digest,flush=True)
+    print(result.stdout,flush=True)
+    if result.returncode:print(result.stderr,file=sys.stderr)
+    raise SystemExit(result.returncode)

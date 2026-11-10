@@ -1,0 +1,34 @@
+{
+  "source_commit": "4aa0abd6d313fcc5d693606dbef1c7193afb0729",
+  "controlled_fixture": true,
+  "employment_from": "2026-01-01",
+  "employment_to": null,
+  "source_document_is_synthetic": true,
+  "accepted_profiles": [
+    {
+      "id": "ac8532b90134430d9c1daa323f94d19f",
+      "revision": 1,
+      "content_hash": "f1be2566004a2899b79a40d19778d4869cca57c5fb18966439fbb70b0b818217",
+      "effective_from": "2026-08-01",
+      "minijob_rv_exempt": true
+    },
+    {
+      "id": "6a383012c2254749906cd974749319dd",
+      "revision": 1,
+      "content_hash": "dc2a1067c74934c8f0ee055af157437633c710fa6a69f37ce80ba7b4466cc023",
+      "effective_from": "2026-09-01",
+      "minijob_rv_exempt": false
+    },
+    {
+      "id": "4ddb6edf98134082a42d86cb5cb6d27c",
+      "revision": 1,
+      "content_hash": "80d038ca031f01e388c21e738c0aba9d35480b41051e43674ee6f31a4c1bc537",
+      "effective_from": "2026-10-01",
+      "minijob_rv_exempt": true
+    }
+  ],
+  "application_dates_recorded": false,
+  "external_notification_or_nonobjection_proof_recorded": false,
+  "interpretation": "The current source model accepts these profile states without a separate pension-exemption application lifecycle. This observation does not establish that every correction or actual employment case is legally impermissible.",
+  "real_external_action": false
+}

@@ -1,3 +1,0 @@
-Existing V14 can_calculate: False
-Existing V14 blockers: ['factor_transition_full_month_required']
-V16 API before implementation: 400 (400, 'Die Faktor-Midijob-Prognose gehört ausschließlich zum ausdrücklichen v14-Vertrag.')

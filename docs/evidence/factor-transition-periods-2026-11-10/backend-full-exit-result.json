@@ -1,0 +1,17 @@
+{
+  "source_commit": "4aa0abd6d313fcc5d693606dbef1c7193afb0729",
+  "exec_session_id": 31974,
+  "exit_code": 1,
+  "tests": 2178,
+  "errors": 4,
+  "skipped": 3,
+  "seconds": 2774.929,
+  "reason": "PYTHONPATH of the local script invocation omitted the repository root. Four accounting transport modules could not import backend.backup; the separate own CI completed2199cases with3declared skips successfully.",
+  "failed_imports": [
+    "test_accounting_openings_transport",
+    "test_accounting_asset_openings_transport",
+    "test_accounting_open_items_transport",
+    "test_accounting_year_openings_transport"
+  ],
+  "tool_result_observed_at": "2026-11-10T21:28:19.700083+00:00"
+}

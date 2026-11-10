@@ -1,0 +1,308 @@
+{
+  "artifacts": [
+    {
+      "id": 13803825624,
+      "name": "Smartplan-Office-Windows",
+      "size_in_bytes": 40668045,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13803825624",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13803825624/zip",
+      "expired": false,
+      "created_at": "2026-11-10T21:07:22Z",
+      "expires_at": "2026-11-24T21:07:19Z",
+      "updated_at": "2026-11-10T21:07:22Z",
+      "digest": "sha256:3b44d6c06c65b32818b41f42c25492ff383e2c5a8538530ef73af0d4dae8e927",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13803515180,
+      "name": "Smartplan-Online-Checks-1",
+      "size_in_bytes": 16695,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13803515180",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13803515180/zip",
+      "expired": false,
+      "created_at": "2026-11-10T21:00:26Z",
+      "expires_at": "2026-11-24T21:00:25Z",
+      "updated_at": "2026-11-10T21:00:26Z",
+      "digest": "sha256:6b5c781d420c6fd49d851b03fac1f7a570a3f132ed87fbe2562ddbbf1662eb68",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13803161987,
+      "name": "Smartplan-Online-Checks-5",
+      "size_in_bytes": 17143,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13803161987",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13803161987/zip",
+      "expired": false,
+      "created_at": "2026-11-10T21:05:02Z",
+      "expires_at": "2026-11-24T21:05:01Z",
+      "updated_at": "2026-11-10T21:05:02Z",
+      "digest": "sha256:fe801ac034429286d00b5a3d8d537b12c54e9e6f80d93d66e4fc1d9d9f0cb353",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13802673210,
+      "name": "Smartplan-Office-Windows-Online-Pilot",
+      "size_in_bytes": 22284962,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802673210",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802673210/zip",
+      "expired": false,
+      "created_at": "2026-11-10T21:08:48Z",
+      "expires_at": "2026-11-24T21:08:45Z",
+      "updated_at": "2026-11-10T21:08:48Z",
+      "digest": "sha256:0284aa54575255b9135be036a5a8811403683e5abc28539edf496617bc358d39",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13802609276,
+      "name": "Smartplan-Browser-Checks-1",
+      "size_in_bytes": 15623599,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802609276",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802609276/zip",
+      "expired": false,
+      "created_at": "2026-11-10T21:09:01Z",
+      "expires_at": "2026-11-24T21:08:59Z",
+      "updated_at": "2026-11-10T21:09:01Z",
+      "digest": "sha256:21b0f4c7447780e84c23ede8af24c5735693e68df7a854634576f3b9f731e61e",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13802452968,
+      "name": "Smartplan-Browser-Checks-0",
+      "size_in_bytes": 7858340,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802452968",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802452968/zip",
+      "expired": false,
+      "created_at": "2026-11-10T20:59:00Z",
+      "expires_at": "2026-11-24T20:58:58Z",
+      "updated_at": "2026-11-10T20:59:00Z",
+      "digest": "sha256:ec7c05512b49e9019a4f37c5fba649c21e3e07de92c396478643d2224534a792",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13802321971,
+      "name": "Smartplan-Browser-Checks-4",
+      "size_in_bytes": 7864360,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802321971",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802321971/zip",
+      "expired": false,
+      "created_at": "2026-11-10T20:55:39Z",
+      "expires_at": "2026-11-24T20:55:36Z",
+      "updated_at": "2026-11-10T20:55:39Z",
+      "digest": "sha256:195a82c44fa797c2b1a77ae87c23f23918d91a423682be04be838290bd095ba0",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13802263060,
+      "name": "Smartplan-Online-Checks-3",
+      "size_in_bytes": 17488,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802263060",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802263060/zip",
+      "expired": false,
+      "created_at": "2026-11-10T20:57:45Z",
+      "expires_at": "2026-11-24T20:57:44Z",
+      "updated_at": "2026-11-10T20:57:45Z",
+      "digest": "sha256:e3ed75d9cff779bcf1461ffb5c91a3602b6181c5166a97e7fa11cc8f673da68c",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13802172385,
+      "name": "Smartplan-Browser-Checks-3",
+      "size_in_bytes": 9516881,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802172385",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802172385/zip",
+      "expired": false,
+      "created_at": "2026-11-10T20:57:40Z",
+      "expires_at": "2026-11-24T20:57:38Z",
+      "updated_at": "2026-11-10T20:57:40Z",
+      "digest": "sha256:029a267008b5993bfd4efa403b227c43c5c8ce3ed9e586df8d01f108a91131b8",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13802122956,
+      "name": "Smartplan-Browser-Checks-5",
+      "size_in_bytes": 4305831,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802122956",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802122956/zip",
+      "expired": false,
+      "created_at": "2026-11-10T20:56:01Z",
+      "expires_at": "2026-11-24T20:56:00Z",
+      "updated_at": "2026-11-10T20:56:01Z",
+      "digest": "sha256:e3b0edbf191ba120eb73e5447c796346e082dda83e8c3244b18ab40264cae485",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13802083193,
+      "name": "Smartplan-UI-Previews",
+      "size_in_bytes": 1051106,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802083193",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802083193/zip",
+      "expired": false,
+      "created_at": "2026-11-10T20:56:54Z",
+      "expires_at": "2026-11-24T20:56:53Z",
+      "updated_at": "2026-11-10T20:56:54Z",
+      "digest": "sha256:18b4753657c855f1fcf4c5249ca0fc4a47d9432d10de472f8e6d316a5cc5732c",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13802038259,
+      "name": "Smartplan-Browser-Checks-2",
+      "size_in_bytes": 4475594,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802038259",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13802038259/zip",
+      "expired": false,
+      "created_at": "2026-11-10T20:57:30Z",
+      "expires_at": "2026-11-24T20:57:30Z",
+      "updated_at": "2026-11-10T20:57:30Z",
+      "digest": "sha256:bd413b09e6e5f27960f9fd28997bcbfbced9d0d3e554613cd9e40da3dd01f2d1",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13801599884,
+      "name": "Smartplan-Online-Checks-4",
+      "size_in_bytes": 17553,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13801599884",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13801599884/zip",
+      "expired": false,
+      "created_at": "2026-11-10T21:07:17Z",
+      "expires_at": "2026-11-24T21:07:16Z",
+      "updated_at": "2026-11-10T21:07:17Z",
+      "digest": "sha256:bd952ca8f9ed9be073f7da6d1d3f68f8a9bbcea381e496f1b3cca268f38bdecf",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13801528181,
+      "name": "Smartplan-Online-Checks-2",
+      "size_in_bytes": 16777,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13801528181",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13801528181/zip",
+      "expired": false,
+      "created_at": "2026-11-10T20:55:16Z",
+      "expires_at": "2026-11-24T20:55:15Z",
+      "updated_at": "2026-11-10T20:55:16Z",
+      "digest": "sha256:06aefa8ff9bbc2f745319c7cafd148eca4381e72c739226a09ca1ade0d9a0e88",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13801263267,
+      "name": "Smartplan-Windows-Start-und-Sicherung",
+      "size_in_bytes": 19611625,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13801263267",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13801263267/zip",
+      "expired": false,
+      "created_at": "2026-11-10T20:48:48Z",
+      "expires_at": "2026-11-24T20:48:46Z",
+      "updated_at": "2026-11-10T20:48:48Z",
+      "digest": "sha256:12c3cb479a28fd6aad50af28e3e39ac5440e7ea2a2d2203329b0d88d7b4215b0",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    },
+    {
+      "id": 13800664735,
+      "name": "Smartplan-Online-Checks-0",
+      "size_in_bytes": 18742,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13800664735",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13800664735/zip",
+      "expired": false,
+      "created_at": "2026-11-10T20:55:20Z",
+      "expires_at": "2026-11-24T20:55:19Z",
+      "updated_at": "2026-11-10T20:55:20Z",
+      "digest": "sha256:60aacbea322b9d1e23df52ec8e5afc43f8ea7f53f830b8da7659513fd4d42798",
+      "workflow_run": {
+        "id": 42898771085,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4aa0abd6d313fcc5d693606dbef1c7193afb0729"
+      }
+    }
+  ]
+}

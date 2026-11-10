@@ -1203,3 +1203,44 @@ Backendläufe sind aktiv. Originalziel und61historische Lohnmodule sind gegen
 13c6663 bytegleich geprüft. Die [V16-Beschreibung](CRM_ERP_FAKTOR_MIDIJOB_TEILMONAT_V16_2026-11-10.md)
 enthält Umfang und Grenzen; keine neue Serverinstallation, TestFlight-
 Veröffentlichung, Geräte-/Fachfreigabe oder A–G-Gesamtabnahme wird behauptet.
+
+
+## 10.11.2026 – V16 vollständig technisch geprüft, signiertes Paket212 vorhanden
+
+Produktquelle4aa0abd ist auf dem einzigen autorisierten Testbranch veröffentlicht.
+Alle20eigenen Development-Gruppen42898771085 bestehen.2.199Backendfälle
+in1.611,192s mit3ausgewiesenen Auslassungen,2.023Linux-Appfälle, tatsächliche
+Windowsbauten mit1.975App-/81portablen Backendfällen, eigene Browser-/PG-/MFA-/
+Isolations-/Update-/Restoregruppen erfolgreich. Vollständiger lokaler App-Lauf:
+2.023Fälle in25:11. Lokaler Backend-Erstaufruf:2.178erfasste Fälle,4Importfehler
+wegen fehlendem Projektpfad und3Auslassungen; dieser Erstlauf bleibt rot.
+Korrigierter Nachlauf der4Module plus des später ergänzten Austrittsfalls:
+25Fälle in24,747s erfolgreich. Der eigene CI-Vollnachweis ist separat grün.
+
+Automatischer iPhone-Release211 und tatsächliche manuelle Vorbereitung
+42898966618 erfolgreich, signiertes Paket212/Artefakt13805341384 vorhanden.
+Endgültige Apple-/Team-/Keychain-Prüfung und Schlüsselbereinigung erfolgreich,
+TestFlight-Schritt ausgelassen. Das [Manifest](evidence/factor-transition-periods-2026-11-10/manifest.json)
+enthält Originalausgaben, alle Erstfehler und Metadaten; Rohlogs sind
+verlustfrei mit geprüfter Dekomprimierung komprimiert. Ein erster interner
+Belegleser erwartete `head_sha` an normalisierten Jobdaten; diese enthalten
+`run_id`. Der korrigierte Leser bindet jeden tatsächlichen Lauf an seine
+separat beobachtete Commitkennung. Das war kein Produktfehler und bleibt belegt.
+
+Originalziel und61historische Lohnmodule bytegleich.31reale Gerätefälle sind
+ungeprüft, bisherige28Zeilen bytegleich. Konkrete
+[Serveranleitung für4aa0abd](CRM_ERP_SERVERUPDATE_4AA0ABD_2026-11-10.md)
+ist vorbereitet und syntaktisch geprüft, nicht am Server ausgeführt. Der reine
+Bereitschaftsabruf aus der Cloud liefert403; kein Serverausfall oder neuer
+Installationsstand wird daraus abgeleitet. Keine echte Zahlung/Meldung/Nachricht,
+keine neue Liveinstallation, TestFlight-Verteilung oder A–G-Gesamtabnahme.
+
+Die tatsächliche nächste RV-Lebenslauflücke ist anhand akzeptierter synthetischer
+Profilzustände reproduziert. §6SGBVI, Minijob-Zentrale und einschlägige
+2026-Richtlinien sind direkt gelesen. In eigener Arbeitskopie
+/workspace/smartplan-minijob-rv-20261110, Branchcodex/minijob-rv-lifecycle-20261110,
+stehen erste Zustands-/Speicherwege mit15erfolgreichen Fällen. Speicherung
+bewahrt den vollständigen ursprünglichen Revisionspräfix; offene Verfahren
+bleiben unentschieden. Profil-/Lohnbindung, beide Clients und tatsächliche
+Geld-/Jahres-/PG-/Restorefolge sind ausdrücklich noch nicht fertig. Der neue
+RV-Code wird nicht als Teil der abgeschlossenen4aa0abd-Pakete ausgegeben.

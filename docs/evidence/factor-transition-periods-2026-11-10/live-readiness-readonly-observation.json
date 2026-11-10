@@ -1,0 +1,13 @@
+{
+  "observed_at": "2026-11-10T20:54:41.671967+00:00",
+  "url": "https://office.smartplan-hofmann.de/ready",
+  "method": "GET",
+  "read_only": true,
+  "curl_exit_code": 22,
+  "http_status": 403,
+  "server_changed": false,
+  "authenticated": false,
+  "actual_server_readiness": "not_established",
+  "installed_source_commit": "not_established",
+  "interpretation": "HTTP403 is only the observed access failure; it does not prove a stopped server or new installation."
+}

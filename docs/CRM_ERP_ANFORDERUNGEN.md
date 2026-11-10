@@ -55,12 +55,13 @@ Zusätzliche aktive Integration10.11.: Der [belegte Faktor-/Midijob-Teilmonat V1
 ergänzt genau einen tatsächlichen Eintritts-/Austrittsmonat mit ausdrücklich
 belegter 30-Tage-Vertragsmethode und separater Zwölfmonatsprognose. Eigene
 XML-/Beitragsreferenzen, beide Clients und vollständiger PG-/Restoreweg sind
-lokal geprüft. Die gemeinsamen Gesamtläufe laufen; R09.03/D und A–G bleiben
-offen. Fehlende weitere Rechenfälle werden damit nicht als extern blockiert erklärt.
+lokal geprüft. Alle20eigenen Development-Gruppen,2.199Backendfälle mit3Auslassungen,
+2.023Linux-Appfälle, Windows-Paketierung und tatsächliche signierte iPhone-
+Vorbereitung212 sind erfolgreich. R09.03/D und A–G bleiben offen. Fehlende weitere Rechenfälle werden damit nicht als extern blockiert erklärt.
 
 ## Status und Nachweise
 
-Aktueller Produktnachweis: [29b02c8 samt tatsächlichen Paketen](CRM_ERP_LIEFERSTAND_AKTUELL.md) besteht alle 20 eigenen Development-Gruppen. 2.186 Backendfälle mit drei ausgewiesenen Auslassungen und 2.004 Appfälle sind in unveränderten Logs belegt. [28 reale Gerätefälle](CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv) bleiben ausdrücklich ungeprüft; kein Serverwechsel oder A–G-Abschluss aus CI ableiten. Der zusätzliche lokale Appnachlauf ist durch den Cloud-Ausfall unterbrochen und besitzt keinen Abschlussstatus.
+Aktueller Produktnachweis: [4aa0abd samt tatsächlichen Paketen](CRM_ERP_LIEFERSTAND_AKTUELL.md) besteht alle20eigenen Development-Gruppen,2.199Backendfälle mit3ausgewiesenen Auslassungen und2.023Linux-Appfälle sowie Windows-Paketierung und signierte iPhone-Vorbereitung212. [31reale Gerätefälle](CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv) bleiben ungeprüft; die bisherigen28Zeilen sind bytegleich. Kein Serverwechsel, TestFlight-Upload oder A–G-Abschluss ausCI ableiten. Der neue vollständige lokale App-Lauf besteht2.023Fälle. Ältere unterbrochene und gescheiterte Aufrufe bleiben mit ihren tatsächlichen Grenzen dokumentiert.
 
 Aktueller zusätzlicher Nachweis10.11.: [Installationsstand und vollständiges
 Serverarchiv](CRM_ERP_INSTALLIERTER_QUELLSTAND_2026-11-10.md) bestehen lokal mit

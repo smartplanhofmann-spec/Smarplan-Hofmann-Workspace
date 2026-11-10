@@ -1,0 +1,46 @@
+{
+  "observed_at": "2026-11-10T21:42:59.137779+00:00",
+  "baseline": "4aa0abd6d313fcc5d693606dbef1c7193afb0729",
+  "worktree": "/workspace/smartplan-minijob-rv-20261110",
+  "branch": "codex/minijob-rv-lifecycle-20261110",
+  "published": false,
+  "first_domain_success": {
+    "tests": 15,
+    "seconds": 4.597
+  },
+  "current_component_and_storage_tests": 16,
+  "export_privacy_package_selection": {
+    "first_tests": 70,
+    "first_errors": 14,
+    "reason": "Sparse worktree initially omitted required native/operator files; unchanged sources materialized from its exact HEAD.",
+    "package_followup_tests": 20,
+    "package_followup_failures": 1,
+    "package_failure_reason": "Own worktree initially lacked backend/.venv; read-only development symlink to the existing backend interpreter added.",
+    "actual_package_import_followup_tests": 1,
+    "actual_package_import_followup_seconds": 3.018,
+    "followup_exit_code": 0,
+    "distinct_combined_tests": 70,
+    "not_a_retroactively_successful_first_run": true
+  },
+  "other_preserved_errors": [
+    "Initial synthetic as-of date was later than the fixture clock",
+    "Second fixture attempt supplied a string where the clock requires datetime",
+    "First writer did not hash the complete parent-format acceptance envelope; transaction rolled back. Corrected writer uses the full immutable envelope."
+  ],
+  "storage_integrated": true,
+  "profile_binding_integrated": false,
+  "payroll_binding_integrated": false,
+  "clients_integrated": false,
+  "postgres_restore_tested": false,
+  "actual_external_action": false,
+  "files_sha256": {
+    "backend/business_api.py": "34a1896a66c5580c89749033629bb23697611c8f40484597399073a0043a859c",
+    "backend/business_schema.py": "9112941a6b49aca9f64055255681a3e3648929a64ca747171722bb4ee2ce4630",
+    "backend/company_export_catalog.py": "09c8bb360ce408692e0217a8abd266fd66f87406ba2405dd26d518682632f314",
+    "scripts/native-release.py": "e0be48fb3eafcd8b2aa22445605b0b4b1f8dd8920e0b00b59e17bc88f0230300",
+    "backend/business_payroll_rv_lifecycle.py": "7ce8939ba8034567c721c05ba4f9a15fa89d8de992eb6ba1f5d08a8e4712bab1",
+    "backend/payroll_minijob_rv_lifecycle_2026.py": "c0897cf3f88e502fc33812420b03db357da549b53171bdcce493f5abe8f67b67",
+    "backend/test_business_payroll_rv_lifecycle.py": "97e0e1fd0f52fd1342a8e95fb9192d9cba0fa4e399bcfb27962cafcd729818e0",
+    "backend/test_payroll_minijob_rv_lifecycle_2026.py": "85e16467ee77470af0f335795789daaf6d612ad973ea781d898c353e5e11a845"
+  }
+}

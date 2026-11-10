@@ -1,3 +1,0 @@
-browser: namespace, PID, network and seccomp sandboxes verified before application access
-factor Midijob: actual MFA/HTTP, unchanged original factor, separate partial-period prognosis, two exact lost-ACK retries, unchanged project times, private PDF, real employee own DTO/PDF/JSON, no private routes, fresh revocation clearing and390px passed
-1 targeted factor/Midijob partial-period workflow passed

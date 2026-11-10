@@ -46,6 +46,24 @@ fassungen ersetzen den fehlenden Gruppierungsnachweis nicht; es wird keine neue
 Gruppenberechnung daraus freigeschaltet. Reale Fach-/Sicherheitsabnahme und
 Meldezugänge werden getrennt von dieser verbleibenden Codearbeit geführt.
 
+## Zusätzlicher aktueller Abgleich nach V16
+
+Die älteren Zwischenstände oben bleiben historisch. V14 und der
+[Faktor-Einmalbezug V15](CRM_ERP_FAKTOR_EINMALBEZUG_V15_PLAN_2026-11-10.md)
+sind bereits im vollständig geprüften gemeinsamen Produkt29b02c8 enthalten.
+Der [Faktor-/Midijob-Teilmonat V16](CRM_ERP_FAKTOR_MIDIJOB_TEILMONAT_V16_2026-11-10.md)
+ist als4aa0abd veröffentlicht, mit beiden Clients, unabhängigen Gegenwerten
+und tatsächlicher PG-/Geld-/Restorefolge lokal geprüft; seine vollständigen
+Gesamtläufe und Pakete sind aktuell aktiv. Diese abgegrenzten Fälle schließen
+weder alle Versicherungsfälle noch R09/D pauschal ab.
+
+Der eigene noch fehlende Minijob-RV-Lebenslauf ist im
+[aktuellen Bestandsbefund](CRM_ERP_MINIJOB_RV_LEBENSLAUF_PLAN_2026-11-10.md)
+anhand einer tatsächlichen synthetischen API-Folge reproduziert. §6SGBVI,
+Minijob-Zentrale und die einschlägigen Richtlinienabschnitte sind unmittelbar
+gelesen. Der konkrete Umsetzungsvertrag bleibt Codearbeit; ein bestätigter
+Profil-Bool oder dieser Plan wird nicht als fertige Lebenslaufprüfung gezählt.
+
 ## Historische Fortschreibung09.11.2026
 
 Der reguläre volle Monat mit ausdrücklich

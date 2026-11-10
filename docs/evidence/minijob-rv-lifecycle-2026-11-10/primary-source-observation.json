@@ -1,0 +1,54 @@
+{
+  "observed_at": "2026-11-10T20:58:33.724135+00:00",
+  "sources": [
+    {
+      "url": "https://www.gesetze-im-internet.de/sgb_6/__6.html",
+      "directly_read": true,
+      "sections": [
+        "1b",
+        "3",
+        "4",
+        "6"
+      ]
+    },
+    {
+      "url": "https://www.minijob-zentrale.de/DE/die-minijobs/befreiung_rentenversicherungspflicht",
+      "directly_read": true,
+      "sections": [
+        "Befreiung bei Minijobs",
+        "Aufhebung der Befreiung"
+      ]
+    },
+    {
+      "url": "https://www.minijob-zentrale.de/SharedDocs/Downloads/DE/Rundschreiben/Geringfuegigkeitsrichtlinien-2026.pdf?__blob=publicationFile",
+      "directly_read": true,
+      "pages_read": [
+        34,
+        35,
+        37,
+        38,
+        39,
+        40,
+        70,
+        71,
+        72
+      ],
+      "document_date": "2026-01-05",
+      "relevant_sections": [
+        "B2.2.4.1",
+        "B2.2.4.4",
+        "B2.2.4.6",
+        "B2.2.4.7",
+        "C3.2"
+      ]
+    },
+    {
+      "url": "https://rvrecht.deutsche-rentenversicherung.de/SharedDocs/rvRecht/01_GRA_SGB/06_SGB_VI/pp_0001_25/gra_sgb006_p_0006.html",
+      "directly_read": false,
+      "error": "timeout"
+    }
+  ],
+  "new_code_implemented": false,
+  "historical_code_changed": false,
+  "external_notification": false
+}

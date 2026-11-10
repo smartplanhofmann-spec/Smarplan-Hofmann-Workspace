@@ -1,0 +1,9 @@
+{
+  "path": "docs/CRM_ERP_SERVERUPDATE_4AA0ABD_2026-11-10.md",
+  "commit": "4aa0abd6d313fcc5d693606dbef1c7193afb0729",
+  "bash_syntax_exit_code": 0,
+  "executed_on_server": false,
+  "requires_successful_all_twenty_groups": true,
+  "source_commit_assertion": true,
+  "all_twenty_groups_success_confirmed": true
+}

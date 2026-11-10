@@ -1,1 +1,0 @@
-{"cases": 2, "bytes": 643896, "amounts": [{"name": "partial_low", "gross": 56667, "tax": 0, "net": 49565}, {"name": "partial_factor_tax", "gross": 113333, "tax": 3740, "net": 84944}]}

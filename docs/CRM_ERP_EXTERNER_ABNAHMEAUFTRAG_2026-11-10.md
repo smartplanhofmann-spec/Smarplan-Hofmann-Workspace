@@ -6,7 +6,7 @@ Alle nachstehenden Beispiele verwenden kontrollierte synthetische Daten.
 
 ## Aktueller technischer Prüfumfang
 
-Maßgeblicher neuer Prüfstand ist 29b02c82a12d4aa1dfc97eaa84638d840882612d.
+Maßgeblicher neuer Prüfstand ist4aa0abd6d313fcc5d693606dbef1c7193afb0729.
 Er enthält XML-Bankoriginalimport und die begrenzte Personal-Kontenauswahl.
 Seine eigenen Prüfungen und Pakete stehen im [aktuellen Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md).
 Die älteren Zahlen weiter unten bleiben ihren jeweiligen Quellen zugeordnet.
@@ -23,11 +23,43 @@ Benutzerverwaltung bleibt gesperrt. Projektfreigaben, Rechteentzug, verspätete
 Antworten und Sitzungswechsel prüfen. Das Beenden eines Profils darf seinen
 gesperrten Benutzerzugang nicht entsperren. [Umsetzung und interne Nachweise](CRM_ERP_PERSONAL_KONTENAUSWAHL_2026-11-10.md).
 
-Das Geräteprotokoll umfasst jetzt 28 ausdrücklich noch ungeprüfte Fälle; die
-ursprünglichen 20 Zeilen bleiben unverändert. Neu sind XML-Auszug und
+Das Geräteprotokoll umfasst jetzt31 ausdrücklich noch ungeprüfte Fälle; die
+bisherigen28Zeilen und ursprünglichen20Zeilen bleiben jeweils unverändert. Neu sind XML-Auszug und
 Personalpflege auf allen drei Clients sowie die native Offline-Konfliktklärung.
 Die Durchführung erfolgt in einem isolierten Testunternehmen; keine
 synthetischen Bankdaten in einen realen betrieblichen Bankbestand übernehmen.
+
+## Zusätzlicher V16-Prüfstand – technische Gesamtprüfung abgeschlossen
+
+Quellstand `4aa0abd6d313fcc5d693606dbef1c7193afb0729` ergänzt den belegten
+Faktor-/Midijob-Teilmonat. Alle20eigenen Development-Gruppen, Windows-Paketierung,
+automatischer iPhone-Release211 und tatsächliche signierte Vorbereitung212 sind
+erfolgreich. Der frühere geprüfte Paketstand29b02c8 bleibt historisch erhalten.
+
+Der [genaue V16-Vertrag](CRM_ERP_FAKTOR_MIDIJOB_TEILMONAT_V16_2026-11-10.md)
+beschränkt sich auf einen Eintritt/Austritt, einen ausdrücklich belegten
+30-Tage-Monatsvertrag, unveränderten ELStAM-Faktor und separat bestätigte
+Zwölfmonatsprognose. Beispiele für den Eintritt am15.10.2026:
+
+| Fester Monatsvertrag | Tatsächliche Steuer-/SV-Tage | Teilbrutto | Lohnsteuer | Arbeitnehmer-SV | Netto |
+|---|---:|---:|---:|---:|---:|
+|1.000,00EUR|17|566,67EUR|0,00EUR|71,02EUR|495,65EUR|
+|2.000,00EUR|17|1.133,33EUR|37,40EUR|246,49EUR|849,44EUR|
+
+Die kontrollierte PG-/MFA-/Konkurrenz-/Zahlungs-/EÜR-/Jahres-/Restorekette
+besteht; die neue Quelle und vollständige Finanzkomponente bleiben im
+angenommenen Fall gebunden. Bitte insbesondere vertragliche Bruttokürzung,
+tatsächliche Steuer-/SV-Zeit, Teilbemessungsgrenzen, DRV-Übergangsformel,
+Pflegebeiträge und tägliche Faktor-PAP-Ausführung unabhängig prüfen.
+
+[300 einzeln prüfbare Sollwertzeilen](evidence/factor-transition-periods-2026-11-10/independent-reference-review.csv)
+enthalten Ganzzahlen inCent, genaue Faktoren und Eingangsmerkmale. Ihre
+Steuerwerte stammen aus getrennten Java-Ausführungen der fest gehashten PAP-
+XML; die Beiträge aus eigenständiger rationaler Rechnung. Der Vollnachweis ist
+[JSON](../backend/testdata/payroll_factor_transition_periods_2026.json), seine
+Entstehung im [Referenzprogramm](../scripts/payroll-factor-transition-period-reference.py)
+reproduzierbar. Diese internen Gegenwerte ersetzen keine unabhängige Fachprüfung.
+Sie enthalten ausdrücklich keine echte Mitarbeiterabrechnung oder Zahlung.
 
 ## Bedeutung und historische Prüfstände
 
@@ -137,7 +169,7 @@ Diese Unterlagen ersetzen keinen unabhängigen Test und keine Nachprüfung.
 
 ## Reale Geräte- und Betriebsabnahme
 
-[28 konkrete Gerätefälle](CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv) und
+[31 konkrete Gerätefälle](CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv) und
 [Projekt-Testfolge](CRM_ERP_KUNDENTEST_PROJEKTBETRIEB_0_13.md) sind vorbereitet.
 Vor Beginn Paketcommit, tatsächlich installierten Serverstand und Firmeninstanz
 abgleichen. Windowsprogramm vollständig entpacken. Für iPhone wird eine

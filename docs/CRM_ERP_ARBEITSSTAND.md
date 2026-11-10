@@ -7,7 +7,7 @@ Etappe verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
 ## Projekt und verbindliche Quellen
 
 - Hauptprojekt: `/workspace/Smarplan-Hofmann-Workspace`, Branch
-  `codex/finish-20261108`.
+  `codex/factor-transition-periods-20261110`.
 - Einzig autorisierter Veröffentlichungsbranch:
   `codex/testupdate-0.7-projects-20261104` im bestehenden Repository.
   Kein Force-Push oder Standardbranchwechsel daraus ableiten.
@@ -23,23 +23,39 @@ Etappe verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
   Die frühere Reihenfolge zuerst Projektbetrieb hat Buchhaltung/Lohn nicht
   aus dem Gesamtziel gestrichen.
 
-## Aktive Integration: Faktor-/Midijob-Teilmonat V16
+## Aktive Codearbeit: Minijob-RV-Lebenslauf
 
-Arbeitsbranch `codex/factor-transition-periods-20261110`, Basis13c6663.
-Der additive [V16-Vertrag](CRM_ERP_FAKTOR_MIDIJOB_TEILMONAT_V16_2026-11-10.md)
-ist in Backend, Browser und App integriert. 300 unabhängige XML-/Beitragswerte,
-24 gemeinsame Backendfälle, tatsächlicher Austritts-API-Fall, beide Client-
-abläufe, verlorene Antworten, Rechteentzug und tatsächliche PostgreSQL-/
-MFA-/Konkurrenz-/Geld-/Jahres-/CRLF-/Restorefolge bestehen lokal. Analyse und
-30 Paket-/CI-/Archivfälle bestehen. Vollständige neue App-/Backendläufe sind
-aktiv; eigene neue Veröffentlichung, CI und Gerätepakete folgen. Der bisherige
-Produktstand29b02c8, signiertes Paket210 und sein Verteilungsstatus bleiben
-separate bestätigte Zustände. Kein Gesamtabschluss wird daraus abgeleitet.
+Getrennte eigene Arbeitskopie `/workspace/smartplan-minijob-rv-20261110`, Branch
+`codex/minijob-rv-lifecycle-20261110`, Basis4aa0abd. Der
+[Bestands-/Quellenbefund](CRM_ERP_MINIJOB_RV_LEBENSLAUF_PLAN_2026-11-10.md)
+und erste Entwicklungsbelege sind vorhanden. Reine Zustandskomponente und
+private append-only Speicherung bestehen15erste Fälle; eine weitere geprüfte
+Bestätigungsfolge ergänzt den Komponentenvertrag. Profilbindung, tatsächliche
+Lohn-/Geld-/Jahres-/Restorekette und beide Clients sind noch Codearbeit.
+Noch keine Veröffentlichung dieser neuen RV-Implementierung.
 
-Der zuvor genannte Nettoausgleich nach V4 ist schon als V5 implementiert und
-geprüft. Veraltete Restvermerke sind mit seinem wirklichen Nachweis verbunden.
+## Neuester vollständig geprüfter Produktstand: V16
 
-## Aktueller geprüfter Produktstand: Bankimport und Personalpflege
+Produktquelle `4aa0abd6d313fcc5d693606dbef1c7193afb0729` ist ausschließlich auf
+dem autorisierten Testbranch veröffentlicht. Alle20eigenen Development-Gruppen
+42898771085 bestehen:2.199Backendfälle mit3ausgewiesenen Auslassungen,
+2.023Appfälle aufLinux, tatsächliche Windowsbauten mit1.975App- und81portablen
+Backendfällen, Browser, PostgreSQL, MFA, Isolation, Update und Restore.
+Automatischer iPhone-Release211 und tatsächlich signierte Vorbereitung212
+42898966618 erfolgreich; endgültige Signatur-/Team-/Keychain-Prüfung sowie
+Schlüsselbereinigung bestätigt, TestFlight-Schritt ausgelassen. Konkrete
+[Pakete und Grenzen](CRM_ERP_LIEFERSTAND_AKTUELL.md).
+
+Der [belegte V16-Teilmonat](CRM_ERP_FAKTOR_MIDIJOB_TEILMONAT_V16_2026-11-10.md)
+und das einzeln entpackte eingefrorene Quellarchiv sind geprüft. Der vollständige
+lokale App-Lauf besteht2.023Fälle. Der zusätzliche lokale Backend-Erstaufruf
+bleibt wegen4Importfehlern durch den Testaufruf rot; der korrigierte25er-Nachlauf
+ist getrennt erfolgreich. Originalziel und61historische Lohnmodule bleiben
+bytegleich.31reale Gerätefälle und alleA–G bleiben ungeprüft/offen. Kein neuer
+Liveupdate oder TestFlight-Upload. Der zuvor genannte weitere Nettoausgleich
+nachV4 ist bereits alsV5 implementiert und geprüft.
+
+## Erhaltener vorheriger Produktnachweis: Bankimport und Personalpflege
 
 Produktquelle `29b02c82a12d4aa1dfc97eaa84638d840882612d` ist auf dem
 allein autorisierten Testbranch veröffentlicht. Ihre eigene Development-
@@ -77,17 +93,13 @@ Geräte-, Fach-, Sicherheits- oder gesamte Produktivfreigabe wird behauptet.
 
 | Stand | Tatsächlich bestätigt |
 |---|---|
-| Aktuell veröffentlichter Produkt- und Teststand | `29b02c82a12d4aa1dfc97eaa84638d840882612d`. Eigene Produktprüfung erfolgreich; nachfolgende reine Dokumentationsbelege ändern diesen Produktcode nicht. |
-| Eigene aktuelle Workflowprüfung | 29b02c8: Development 42872855464 alle 20 Gruppen erfolgreich; 2.186 Backendfälle mit 3 ausgewiesenen Auslassungen, 2.004 Appfälle, beide Windows-Pakete. Automatischer unsignierter iPhone-Release 209 erfolgreich. Manueller Lauf 42873343567 einschließlich tatsächlich signiertem Paket 210 erfolgreich; Signatur-/Team-/Keychain-Prüfung und Schlüsselbereinigung erfolgreich, TestFlight-Schritt ausgelassen. Aktuelle Links und Grenzen im Lieferstand. |
-| Vollständige CI zum Installationsprodukt c4a2d8f | Development42790149143:alle20 Gruppen erfolgreich. Die anHTTP403 vor Testbeginn gescheiterte Gruppe wurde allein wiederholt; alle13 wirklichen Browserabläufe bestehen, Erstfehler erhalten. Unsignierter iPhone42790149399 erfolgreich, signierter Upload übersprungen. Mailbot-Verträge42790149124 auf Linux/Windows erfolgreich; kein echter Versand. |
-| Aktueller geprüfter veröffentlichter Reparaturstand | `40d8fcf5571e8edc898e2e20b1cf7fe36e52149e`: alle20 Development-Gruppen42806104268 erfolgreich. Eigener manueller iPhone42806142665: vollständiger unsignierter Client, endgültiges signiertes IPA, strenge Keychain-/Teamprüfung und Schlüsselbereinigung erfolgreich. Signiertes Artefakt198 vorhanden; TestFlight-Uploadskipped. V14 ist davon getrennt. |
-| Letzter vom Nutzer bestätigter Server | `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5` vom05.11.; drei Dienste/Sicherungstimer und kontrollierter Updateabschluss bestätigt. Der10.11.-GET auf/ready liefert403 durchEnvoy; die tatsächliche Cloud-Zulassungsliste enthält die Domain nicht. Kein neuer bestätigter Ursprungstand und kein Update. |
-| Geräte-/Fach-/Gesamtabnahme | Keine neue echte Windows-/iPhone- oder externe Fach-/Sicherheitsfreigabe aus Cloudtests ableiten. |
+| Geprüfter veröffentlichter Produktcode |4aa0abd6d313fcc5d693606dbef1c7193afb0729; spätere Belegcommits ändern den Produktcode nicht.|
+| Eigene gemeinsame Prüfung |Development42898771085 alle20Gruppen erfolgreich;2.199Backendfälle mit3Auslassungen,2.023Linux-Appfälle, Windowsbau/-Pakete, Browser-/PG-/MFA-/Isolations-/Update-/Restoregruppen.|
+| Eigene iPhone-Pakete |Automatischer Release211 und signierte Vorbereitung42898966618/Paket212 erfolgreich. Endgültige Signatur-/Team-/Keychain-Prüfung und Schlüsselbereinigung erfolgreich; Upload ausgelassen.|
+| Getrennte neue Codearbeit |Eigene Arbeitskopie/workspace/smartplan-minijob-rv-20261110 aufBasis4aa0abd; RV-Komponenten-/Speicherweg noch nicht vollständig mit Profil, Lohn, Clients und Geld-/Restoreweg verbunden.|
+| Letzte bestätigte Serverinstallation |a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5, Nutzerbestätigung05.11.; keine neuere Installation behauptet.|
+| Reale Geräte-/Fach-/Sicherheitsabnahme |31Gerätefälle ungeprüft; A–G offen; keine beauftragte oder durchgeführte unabhängige Gesamtfreigabe.|
 
-Das tatsächliche [Windows-Online-Paket c4a2d8f](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42790149143/artifacts/13752796971)
-ist gebaut (22183211Bytes). Ein unsignierter iPhone-Build ist keine installierbare
-signierte Verteilung. Die Backendkennung0.12.0-online-pilot ist eine API-
-Kompatibilitätskennung, keine App-/Paketversion.
 
 ## Historischer Vorbereitungsabschnitt: signiertes iPhone-Paket getrennt vom Upload
 

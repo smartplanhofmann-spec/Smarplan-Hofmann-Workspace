@@ -3,8 +3,9 @@
 Aktive Entwicklung auf `codex/factor-transition-periods-20261110`, Basis
 13c6663. Der veröffentlichte Produktstand 29b02c8 und seine tatsächlich
 erfolgreichen 20 Prüfgruppen, Windows-Pakete und signierte iPhone-Vorbereitung
-210 bleiben davon getrennt. Der neue Vertrag ist lokal mit abgegrenzten tatsächlichen Abläufen geprüft;
-Gesamtprüfungen und eigene neue Veröffentlichung laufen noch. Originalziel und historische Rechenversionen bleiben erhalten.
+210 bleiben davon getrennt. Produktquelle4aa0abd ist veröffentlicht und besteht alle20eigenen
+Development-Gruppen, Windows-Paketierung, automatischen iPhone-Release211 und
+tatsächliche signierte iPhone-Vorbereitung212. TestFlight-Upload bleibt false. Originalziel und historische Rechenversionen bleiben erhalten.
 
 ## Tatsächliche verbleibende Funktion
 
@@ -66,7 +67,37 @@ Regression. Ergebnisse werden erst nach tatsächlichem Lauf eingetragen.
 Keine Meldung, Überweisung, echte Nachricht, Serverinstallation oder
 TestFlight-Veröffentlichung wird durch diesen neuen Rechenvertrag ausgelöst.
 
-## Tatsächlicher lokaler Integrationsstand
+## Abschließender technischer Nachweis
+
+Eigene Development-Prüfung42898771085: alle20Gruppen erfolgreich.
+2.199Backendfälle in1.611,192s mit3ausgewiesenen Auslassungen; Linux-App2.020
+Hauptfälle plus3native PDF-Fälle, insgesamt2.023. Windows1.975App- und81portable
+Backendfälle samt tatsächlicher Paketierung. Eigener tatsächlicher PG-/MFA-/
+Konkurrenz-/Cash-/EÜR-/Jahres-/CRLF-/Restoreweg und neuer sowie alter echter
+Browserablauf erfolgreich. Der separat entpackte feste Commit4aa0abd besteht
+MFA, neue Fähigkeit, vier Browserdateien, wirklichen Fall/Lauf/PDF und Retry.
+
+Der vollständige lokale App-Lauf besteht mit2.023Fällen in25:11. Der zusätzliche
+lokale Backendaufruf hatte wegen des fehlenden Projektverzeichnisses im
+Pythonpfad4Importfehler unter2.178erfassten Fällen. Die betroffenen4Module und
+der später ergänzte Austrittsfall bestehen mit25Fällen im korrigierten Nachlauf.
+2.178−4Platzhalter+25tatsächliche Fälle ergeben2.199verschiedene ausgewählte
+Fälle; der erste rote Aufruf bleibt rot. Der eigene vollständige CI-Lauf ist
+davon getrennt erfolgreich. Der ältere Node-Sandboxfehler und alle weiteren
+Erstbefunde bleiben ebenfalls als unveränderte Rohbelege erhalten.
+
+Automatischer iPhone-Release211 und manuelle Vorbereitung42898966618 mit
+signiertem Paket212 erfolgreich. Mac-Vorprüfung:2.015Hauptfälle plus3native PDF-
+Fälle;5Linux-Integrationsfälle ausdrücklich ausgelassen und separat bestanden.
+Endgültige Apple-Distributionssignatur, Team und Keychain-Berechtigung sowie
+Schlüsselbereinigung bestätigt. Tatsächlicher TestFlight-Schritt ausgelassen.
+Die konkreten [Pakete und Prüfsummen](CRM_ERP_LIEFERSTAND_AKTUELL.md),
+[Serveranleitung](CRM_ERP_SERVERUPDATE_4AA0ABD_2026-11-10.md) und das
+[Manifest](evidence/factor-transition-periods-2026-11-10/manifest.json)
+binden diese unterschiedlichen Zustände. Keine neue Liveinstallation, reale
+Geräteprüfung oder unabhängige Fachfreigabe wird daraus abgeleitet.
+
+## Erhaltener lokaler Zwischenstand vor der Veröffentlichung
 
 Der neue Quellenvertrag 7 ist additiv im Backend, Browser, nativen Client und
 kanonischen Windows-Quelleninventar eingebunden. Der Browser und die App führen

@@ -1,6 +1,0 @@
-test_actual_exit_rebinds_employee_identity_preparation_and_period_without_rewriting_prior_full_month (test_business_payroll_factor_transition_periods.FactorTransitionExitWorkflow.test_actual_exit_rebinds_employee_identity_preparation_and_period_without_rewriting_prior_full_month) ... ok
-
-----------------------------------------------------------------------
-Ran 1 test in 1.997s
-
-OK

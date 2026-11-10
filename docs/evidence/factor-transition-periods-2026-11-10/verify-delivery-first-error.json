@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "error": "AssertionError: Development source binding",
+  "reason": "The connector normalizes job metadata to run_id and does not include per-job head_sha. Corrected reader binds every actual run_id to the separately observed actual workflow head_sha.",
+  "product_failure": false
+}

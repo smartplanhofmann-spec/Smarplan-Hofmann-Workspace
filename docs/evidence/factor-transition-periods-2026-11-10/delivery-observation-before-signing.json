@@ -1,0 +1,19 @@
+{
+  "source_commit": "4aa0abd6d313fcc5d693606dbef1c7193afb0729",
+  "original_goal_unchanged": true,
+  "preserved_historical_kernels": 61,
+  "local_and_native_ci_checks": "pass",
+  "windows_ci": "pass",
+  "postgres_restore": "pass",
+  "requirements": 62,
+  "actual_device_tests_performed": false,
+  "device_cases_prepared": 31,
+  "overall_acceptances_closed": 0,
+  "server_changed": false,
+  "testflight_uploaded": false,
+  "pending": [
+    "own-signed-preparation-final.json",
+    "own-signed-artifacts.json"
+  ],
+  "complete_internal_delivery_evidence": false
+}

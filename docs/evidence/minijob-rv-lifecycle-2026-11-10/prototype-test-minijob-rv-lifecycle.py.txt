@@ -1,0 +1,104 @@
+from copy import deepcopy
+import unittest
+from minijob_rv_lifecycle_2026 import assess, normalize, InvalidEvidence
+
+
+def fixture():
+    ref=dict(id='a'*32,revision=1,content_hash='a'*64)
+    profile=dict(id='b'*32,revision=2,content_hash='b'*64,kind='profile',employee_id='e'*32,
+        profile=dict(effective_from='2026-01-01',employment_kind='minijob',minijob_rv_exempt=True))
+    source=dict(ref,employee_id='e'*32,purpose='personnel')
+    value=dict(schema_version=1,employee_id='e'*32,episode_id='f'*32,
+        employment_from='2026-01-01',employment_to=None,target_month='2026-10',reviewed_as_of='2026-10-31',
+        sole_continuous_commercial_minijob_confirmed=True,no_old_age_or_other_exclusion_confirmed=True,
+        established_exemption=dict(effective_from='2026-01-01',profile_ref={k:profile[k] for k in ('id','revision','content_hash')},
+            evidence_ref=ref,established_status_confirmed=True),revocation=None,
+        review_note='Synthetic original established exemption and known sole employment reviewed')
+    return value,dict(original_profile=profile,source_files=[source])
+
+
+def request(value, *, received='2026-07-17', status='not_notified'):
+    ref=value['established_exemption']['evidence_ref']
+    value['revocation']=dict(received_on=received,request_format='electronic',request_ref=ref,
+        notification_received_on=None,notification_ref=None,authority_status=status,
+        objection_deadline_on=None,deadline_ref=None,deadline_review_confirmed=False,
+        authority_status_on=None,authority_evidence_ref=None,review_note='Synthetic actual original received request')
+    return value
+
+
+def settled(value, *, received='2026-07-17', notified='2026-07-21', deadline='2026-08-21', recorded='2026-08-22'):
+    request(value,received=received,status='non_objection_verified')
+    r=value['revocation'];ref=value['established_exemption']['evidence_ref']
+    r.update(notification_received_on=notified,notification_ref=ref,objection_deadline_on=deadline,
+        deadline_ref=ref,deadline_review_confirmed=True,authority_status_on=recorded,authority_evidence_ref=ref)
+    return value
+
+
+class RevocationContract(unittest.TestCase):
+    def test_original_exemption_remains_bound_without_application_or_generated_action(self):
+        v,s=fixture();original=deepcopy((v,s));r=assess(v,**s)
+        self.assertTrue(r['can_bind_payroll']);self.assertEqual(r['status'],'exempt');self.assertIs(r['minijob_rv_exempt'],True)
+        self.assertIsNone(r['candidate_effective_from']);self.assertEqual((v,s),original)
+        self.assertTrue(all(r[k] is False for k in ('creates_profile','payment_created','external_transmission','official_system_approval')))
+        self.assertNotIn('net_minor',r)
+
+    def test_unnotified_application_never_becomes_authority_acceptance_from_elapsed_time(self):
+        v,s=fixture();request(v);r=assess(v,**s)
+        self.assertEqual(r['candidate_effective_from'],'2026-08-01');self.assertFalse(r['can_bind_payroll']);self.assertIsNone(r['minijob_rv_exempt'])
+        v.update(target_month='2026-07',reviewed_as_of='2026-07-31');r=assess(v,**s)
+        self.assertTrue(r['can_bind_payroll']);self.assertTrue(r['minijob_rv_exempt'])
+
+    def test_verified_nonobjection_binds_future_effect_to_request_not_later_notification(self):
+        for received,effective in [('2026-07-01','2026-08-01'),('2026-07-31','2026-08-01'),('2026-08-31','2026-09-01')]:
+            v,s=fixture();settled(v,received=received,notified='2026-09-02',deadline='2026-10-02',recorded='2026-10-05')
+            with self.subTest(received=received):
+                r=assess(v,**s);self.assertEqual(r['candidate_effective_from'],effective);self.assertTrue(r['can_bind_payroll']);self.assertFalse(r['minijob_rv_exempt'])
+
+    def test_explicit_calendar_month_floor_does_not_replace_actual_reviewed_deadline(self):
+        v,s=fixture();settled(v,received='2026-08-31',notified='2026-08-31',deadline='2026-09-30',recorded='2026-10-01')
+        self.assertTrue(assess(v,**s)['can_bind_payroll'])
+        for edit in [dict(objection_deadline_on='2026-09-29'),dict(authority_status_on='2026-09-30'),dict(deadline_review_confirmed=False),dict(deadline_ref=None)]:
+            changed=deepcopy(v);changed['revocation'].update(edit)
+            with self.subTest(edit=edit),self.assertRaises(InvalidEvidence):assess(changed,**s)
+
+    def test_pending_or_objected_procedure_remains_unresolved_after_candidate_effect(self):
+        for status in ('pending','objected'):
+            v,s=fixture();settled(v);v['revocation']['authority_status']=status
+            if status=='pending':v['revocation'].update(authority_status_on=None,authority_evidence_ref=None)
+            r=assess(v,**s);self.assertFalse(r['can_bind_payroll']);self.assertIsNone(r['minijob_rv_exempt'])
+
+    def test_complete_known_history_prevents_retracted_or_second_application(self):
+        previous,s=fixture();settled(previous);previous['reviewed_as_of']='2026-09-30'
+        current=deepcopy(previous);current['reviewed_as_of']='2026-10-31'
+        self.assertTrue(assess(current,**s,prior_assessments=[previous])['can_bind_payroll'])
+        for change in [lambda v:v.update(revocation=None),lambda v:v['revocation'].update(received_on='2026-08-17'),
+                lambda v:v['revocation'].update(notification_received_on='2026-07-22'),
+                lambda v:v['revocation'].update(authority_status='pending',authority_status_on=None,authority_evidence_ref=None),
+                lambda v:v.update(reviewed_as_of='2026-09-29')]:
+            v=deepcopy(current);change(v)
+            with self.subTest(value=v),self.assertRaises(InvalidEvidence):assess(v,**s,prior_assessments=[previous])
+
+    def test_exact_owned_original_profile_private_file_and_no_duplicate_source_are_required(self):
+        for edit in [lambda s:s['original_profile']['profile'].update(minijob_rv_exempt=False),
+                lambda s:s['original_profile'].update(employee_id='d'*32),
+                lambda s:s['source_files'][0].update(employee_id='d'*32),
+                lambda s:s['source_files'][0].update(content_hash='c'*64),
+                lambda s:s['source_files'].append(deepcopy(s['source_files'][0]))]:
+            v,s=fixture();edit(s)
+            with self.subTest(source=s),self.assertRaises(InvalidEvidence):assess(v,**s)
+
+    def test_unknown_fields_bool_versions_unicode_dates_and_future_facts_fail_closed(self):
+        for edit in [lambda v:v.update(schema_version=True),lambda v:v.update(extra=True),
+                lambda v:v.update(review_note='\ud800'),lambda v:v.update(target_month='2027-01'),
+                lambda v:v.update(sole_continuous_commercial_minijob_confirmed=1),
+                lambda v:request(v,received='2026-06-30'),lambda v:request(v,received='2026-11-01'),
+                lambda v:request(v,received='2026-02-30')]:
+            v,s=fixture();edit(v)
+            with self.subTest(value=v),self.assertRaises(InvalidEvidence):assess(v,**s)
+
+    def test_unverified_scope_and_partial_employment_cannot_bind_full_month_payroll(self):
+        for change in [dict(sole_continuous_commercial_minijob_confirmed=False),
+                dict(no_old_age_or_other_exclusion_confirmed=False),dict(employment_to='2026-10-15')]:
+            v,s=fixture();v.update(change);r=assess(v,**s);self.assertFalse(r['can_bind_payroll']);self.assertIsNone(r['minijob_rv_exempt'])
+
+if __name__=='__main__':unittest.main()

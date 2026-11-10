@@ -1,2 +1,0 @@
-Formatted test/payroll_factor_transition_period_contract_test.dart
-Formatted 1 file (1 changed) in 0.05 seconds.

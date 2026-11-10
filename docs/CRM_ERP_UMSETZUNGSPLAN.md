@@ -126,6 +126,13 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
 
 ## Fortlaufende Abschlussarbeit ab 10.11.2026
 
+Aktueller Nachtrag: Installationskennung, feste Commitarchive und vollständige
+Serverpakete sind lokal abgeschlossen, einschließlich1939 aktueller Appfälle.
+19 Remotegruppen bestehen; eine gezielte Wiederholung nach externemHTTP403 vor
+Testbeginn sowie der eigene iPhone-Release laufen. Anschließend den signierten
+iPhone-Vorbereitungsweg vom ausdrücklich gewählten TestFlight-Upload trennen;
+verbleibende Code-/Fach-/Betriebsarbeiten am Gesamtziel bleiben aktiv.
+
 1. Tatsächliche Windows-Auslieferung mit gemeinsamem Quellenstaging korrigieren;
    lokale 21 Paket-/Inventarfälle bestehen, eigene neue Remoteprüfung folgt.
 2. Spätere tatsächliche positive Source5-Nettozahlungen mit unverändertem

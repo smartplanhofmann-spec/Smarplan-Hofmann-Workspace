@@ -4160,3 +4160,20 @@ bleibt bytegleich in CRM_ERP_ARBEITSSTAND_HISTORIE_BIS_2026-11-10.md erhalten.
 Widersprüchliche frühere Zwischenmeldungen werden damit nicht gelöscht oder als
 aktuell behandelt. Das Gesamtziel, laufende Schlussprüfungen und verbleibende
 Code-/Fach-/Geräte-/Betriebsnachweise sind ausdrücklich getrennt benannt.
+
+## 10.11.2026 – gesamter aktueller App-Lauf abgeschlossen, genauer CI-Nachlauf
+
+1939 tatsächliche sichtbare Appfälle bestehen ohne Fehler/Skip.258 verborgene
+Ladeeinträge zählen nicht als Tests. Tatsächlicher success:true-Schluss1429392ms,
+Runnerexit0 nach1436,017s. Voller Rohbericht, Status und Zählung sind im
+[Installationsnachweis](evidence/installation-context-2026-11-10/manifest.json)
+gesichert und gegen alle gespeicherten Rohhashes und das unveränderte Ziel geprüft.
+
+Der veröffentlichte Stand c4a2d8f besteht19 Development-Gruppen. Gruppe3 der
+Browserabläufe scheitert vor jedem Produkttest am Download eines unverändert
+gepinnten externen Prüfwerkzeugs mitHTTP403. Erstfehler und19 Erfolge bleiben
+getrennt erhalten. Nach Abschluss des übrigen Laufs wurde ausschließlich der
+fehlgeschlagene Job erneut gestartet: Ersatzjob129757269510, noch aktiv.
+Die iPhone-Prüfung läuft ebenfalls noch; daraus keine Signierung oder Geräte-
+installation ableiten. Die weitere Codearbeit am getrennten signierten
+Vorbereitungsweg läuft unabhängig; kein TestFlight-Upload wurde gestartet.

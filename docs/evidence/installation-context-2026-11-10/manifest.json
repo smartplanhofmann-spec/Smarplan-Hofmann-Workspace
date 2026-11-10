@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "core_and_final_operator_pg_archive_checks_complete_whole_native_running",
+  "status": "all_local_complete_remote_exact_failed_download_retry_running",
   "base_commit": "8e6cff5fabdd34ca58ed52e4fb2cc9b8ecfb1e7c",
   "raw_files": [
     {
@@ -192,6 +192,31 @@
       "path": "installation-context-deep-marker-checked-20261110.txt.gz",
       "bytes": 311,
       "sha256": "2d7d53cad923330cf0d36dcf7919a3e8ed9fb680f68e2abbcb142b1188d82850"
+    },
+    {
+      "path": "installation-context-whole-native-first-20261110.jsonl.gz",
+      "bytes": 1162284,
+      "sha256": "d0c9631f3701a5c098f913035ba422a67d3b7aad1519ebc749d654d0a140f1af"
+    },
+    {
+      "path": "installation-context-whole-native-status-20261110.json.gz",
+      "bytes": 166,
+      "sha256": "d394a1fa31b901d1a45b9be1e2cc6463f9991161aa513bcc8e17afe2865b49ed"
+    },
+    {
+      "path": "installation-context-whole-native-final-counts-20261110.json.gz",
+      "bytes": 254,
+      "sha256": "23194d40eb7b04f4f9aa23ac64281b7de9240263adb3b399de71468921f61aca"
+    },
+    {
+      "path": "installation-context-c4-development-attempt1-final-20261110.json.gz",
+      "bytes": 48505,
+      "sha256": "0fa86945d7a003f81adb5090c2635519b7c6a51b4ef6d018e9a96d9a50655dd7"
+    },
+    {
+      "path": "installation-context-c4-browser3-remote-failure-20261110.txt.gz",
+      "bytes": 63929,
+      "sha256": "ce4415c48c602ecc0842f1a4d704f82a53e947d93d070f97f849e9102ac9b9ef"
     }
   ],
   "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
@@ -208,7 +233,17 @@
     "first_operator_run_cases": 88,
     "first_operator_run_seconds": 659.471,
     "final_operator_run": 88,
-    "whole_native": "running",
+    "whole_native": {
+      "visible_passed": 1939,
+      "failed": 0,
+      "skipped": 0,
+      "hidden_loader_entries_excluded": 258,
+      "success": true,
+      "machine_duration_ms": 1429392,
+      "runner_seconds": 1436.0174045450112,
+      "non_json_output_lines": 224,
+      "diagnostic_arrays": 224
+    },
     "actual_current_commit_archive_runtime": true,
     "live_deployment": false,
     "real_device_acceptance": false,
@@ -216,5 +251,15 @@
     "actual_archive_runtime_seconds": 4.629,
     "archive_runtime_commit": "74490271b00a2f14f8a10a30aa69b703dd4c4d98"
   },
-  "product_commit": "74490271b00a2f14f8a10a30aa69b703dd4c4d98"
+  "product_commit": "74490271b00a2f14f8a10a30aa69b703dd4c4d98",
+  "remote_publication_commit": "c4a2d8f4ca969f8faab7bd15c9f7fd838e0e97ba",
+  "remote_development": {
+    "run_id": 42790149143,
+    "attempt1_success": 19,
+    "attempt1_failed_job": 129741200471,
+    "failure": "HTTP403 downloading pinned validator before any browser test; no selected test command executed",
+    "exact_failed_job_retry_accepted": true,
+    "attempt2_failed_job_retry": 129757269510,
+    "status": "in_progress; do not claim success until actual completion"
+  }
 }

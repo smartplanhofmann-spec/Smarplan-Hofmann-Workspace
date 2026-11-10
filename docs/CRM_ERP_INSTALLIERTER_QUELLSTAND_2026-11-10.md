@@ -130,3 +130,21 @@ Keine neue Liveinstallation oder echte Geräte-/Fachfreigabe. Der Vorgänger
 b02c84a ist mit allen20 Development-Jobs, unsigniertem iPhone-Release und beiden
 Mailbot-Vertragsjobs vollständig grün; signierter Upload übersprungen.
 Der Gesamtauftrag läuft weiter.
+
+## Vollständige lokale Appprüfung und gezielter Remote-Nachlauf
+
+Die aktuelle gesamte App-Suite besteht mit1939 sichtbaren Fällen, keinem Fehler
+und keinem Skip.258 verborgene Ladeeinträge sind ausgeschlossen. Der tatsächliche
+Maschinenschluss meldet success:true bei1429392ms, der Runner endet mit0 nach
+1436,017s. Unveränderter Rohbericht, Runnerstatus und unabhängige Endzählung sind
+im bestehenden Nachweisarchiv gesichert; sämtliche dort verzeichneten Rohhashes
+und das Originalziel wurden erneut abgeglichen.
+
+Für den veröffentlichten c4a2d8f bestehen19 von20 Development-Gruppen. Die andere
+Gruppe browser-journeys(3) startet noch keinen Produkttest: Der gepinnte amtliche
+Rechnungsprüfer kann wegenHTTP403 nicht geladen werden. Erster Rohfehler und
+alle19 erfolgreichen Jobzustände bleiben erhalten. GitHub hat die gezielte
+Wiederholung von129741200471 angenommen; laufender Ersatzjob129757269510.
+Keine Quellenpins, Prüfsummen oder Pflichtprüfungen wurden dafür geändert.
+Der eigene unsignierte iPhone-Release ist bei diesem Nachtrag noch aktiv.
+Kein neuer Livebetrieb, Apple-Upload oder echte Geräte-/Fachfreigabe.

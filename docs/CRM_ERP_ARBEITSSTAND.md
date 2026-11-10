@@ -28,7 +28,7 @@ Etappe verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
 | Stand | Tatsächlich bestätigt |
 |---|---|
 | Aktuell veröffentlichter Quell- und Testbranch | `c4a2d8f4ca969f8faab7bd15c9f7fd838e0e97ba`, veröffentlicht und Remote-Zeiger bestätigt. Installationskern7449027, Schlussnachweise/V13-CI enthalten. |
-| Eigene aktuelle CI | Development42790149143 und unsignierter iPhone42790149399 laufen. Mailbot-Verträge42790149124 auf Linux/Windows bereits erfolgreich; kein echter Versand. |
+| Eigene aktuelle CI | Development42790149143:19 erfolgreiche Gruppen, eine vor Testbeginn am gepinnten Werkzeugdownload mitHTTP403 abgebrochen; gezielte Wiederholung dieses Jobs wurde angenommen und läuft. Unsignierter iPhone42790149399 noch aktiv. Mailbot-Verträge42790149124 auf Linux/Windows erfolgreich; kein echter Versand. |
 | Letzter vollständig grüner Produktstand | `b02c84ab24cbe3331a92df950e74134138865e52`: alle20 Development42783465222-Jobs, unsignierter iPhone42783465231 und beide Mailbot-Verträge erfolgreich; signierter Upload übersprungen. |
 | Letzter vom Nutzer bestätigter Server | `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5` vom05.11.; drei Dienste/Sicherungstimer und kontrollierter Updateabschluss bestätigt. Kein neuer Liveabgleich oder Update ausgeführt. |
 | Geräte-/Fach-/Gesamtabnahme | Keine neue echte Windows-/iPhone- oder externe Fach-/Sicherheitsfreigabe aus Cloudtests ableiten. |
@@ -66,12 +66,12 @@ Implementiert und tatsächlich geprüft:
   Restore401, danach tatsächliche neue MFA-Anmeldung. Alle vier eigenen PG-
   Container nach voller ID/Label/Loopback geprüft entfernt; fremde unverändert.
 
-**Noch aktiv:** vollständige aktuelle native Suite, dauerhaft gespeichert unter
-`/tmp/installation-context-whole-native-first-20261110.jsonl`; RunnerPID406772.
-Schlussstatus `/tmp/installation-context-whole-native-status-20261110.json`.
-Nur sichtbare testDone-Fälle zählen; verborgene Ladeeinträge ausschließen.
-Bis zur tatsächlichen success:true-Schlussmeldung keinen Vollerfolg behaupten.
-Die eigenen aktuellen Remotejobs ebenfalls bis zum wirklichen Abschluss prüfen.
+Die vollständige aktuelle App-Suite ist abgeschlossen: **1939 sichtbare Fälle,
+kein Fehler und kein Skip**, tatsächliche success:true-Schlussmeldung1429392ms,
+Runner1436,017s.258 verborgene Ladeeinträge werden nicht mitgezählt. Rohbericht,
+Schlussstatus und unabhängige Zählung sind im verlinkten Nachweisarchiv gesichert.
+Die gezielte Remote-Wiederholung nach dem Werkzeugdownloadfehler und der eigene
+unsignierte iPhone-Release sind bis zum wirklichen Abschluss weiter zu prüfen.
 
 ## Abgeschlossener Vorgänger: Faktor, Ansprüche und bereits bezahlte Reisen
 
@@ -90,8 +90,9 @@ Die aktuelle App-Gesamtprüfung darf nicht aus diesem Vorgängerwert abgeleitet 
 
 ## Weiterarbeiten bis zum Gesamtziel
 
-1. Aktuelle native Schlussmeldung und Remotejobs auswerten, tatsächliche Fehler
-   beheben und vollständige Nachweise einschließlich aller Vorfehler sichern.
+1. Die gezielte Remote-Wiederholung und den eigenen iPhone-Release auswerten,
+   tatsächliche Fehler beheben und die Vorfehler erhalten. Der lokale App-
+   Gesamtlauf ist mit1939 Fällen erfolgreich abgeschlossen.
 2. Nur tatsächlich überprüfte Ergebnisse in Matrix, Plan, Fortschritt und diese
    aktuelle Zusammenfassung übernehmen. Neue Nachweispushes nicht unnötig so
    auslösen, dass noch benötigte laufende CI durch concurrency abgebrochen wird.

@@ -1,0 +1,949 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "d22dea7756b29bb5c1bef2dd5f18c15a7fa2fb0d",
+  "baseline_workflow_sha256": "dcf1c224f8093fd0d5d2534e91c4c903b2dd553cd99c07bc937033d0e997e732",
+  "online": [
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_online.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_report_integrity_pg.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_instance_isolation.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_company*isolation*.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_organization_http.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_inventory_article_references_api.py",
+      "-v"
+    ],
+    [
+      "test_project_creation_replay",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_project_milestones_http.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_offline_instance_binding.py",
+      "-v"
+    ],
+    [
+      "-v",
+      "online.test_legacy_time_recovery",
+      "online.test_legacy_time_recovery_pg"
+    ],
+    [
+      "-v",
+      "online.test_commercial_country_scope",
+      "online.test_commercial_country_scope_pg"
+    ],
+    [
+      "test_project_creation_counterreview.ProjectCreationPostgresCounterreview",
+      "-v"
+    ],
+    [
+      "online.test_project_creation_journal",
+      "online.test_project_creation_journal_pg",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_organization_pg.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_purchasing_journey.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_purchasing_catalog_http.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_postgres_purchasing_integration.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_portal_http.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_portal_journey.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_postgres_portal_integration.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_http.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_journey.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_postgres_accounting_integration.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_allocations_http.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_allocations_journey.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_postgres_accounting_allocations_integration.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_components_http.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_components_journey.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_postgres_accounting_components_integration.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_refunds_http.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_refunds_journey.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_postgres_accounting_refunds_integration.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_capacity_http.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_capacity_journey.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_postgres_accounting_capacity_integration.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_refunds_v2_http.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_refunds_v2_journey.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_postgres_accounting_refunds_v2_integration.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_profile_http.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_profile_journey.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_postgres_accounting_profile_integration.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_plans_online.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_plan_imports.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_import_cancellation.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_plan_deletions.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_workspace_api.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_inquiry_attachments_api.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_business_intake_contract.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_integration*.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_release.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_release_workspace.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_release_attachments.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_release_integrations.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_storage.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_onedrive.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_business*.py",
+      "-v"
+    ],
+    [
+      "-v",
+      "online.test_legacy_service_report_recovery"
+    ],
+    [
+      "-v",
+      "online.test_legacy_service_report_recovery_pg"
+    ],
+    [
+      "-v",
+      "online.test_factor_travel_review_pg"
+    ],
+    [
+      "-v",
+      "online.test_minijob_v11_independent_pg"
+    ],
+    [
+      "-v",
+      "online.test_material_returns_pg"
+    ],
+    [
+      "-v",
+      "online.test_material_returns_http"
+    ],
+    [
+      "-v",
+      "online.test_communication_history_pg"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_year_package_pg.py",
+      "-v"
+    ],
+    [
+      "-v",
+      "online.test_accounting_year_package_v2_pg"
+    ],
+    [
+      "-v",
+      "online.test_year_values_full_financial_restore_pg"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_open_items_pg.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_year_openings_pg.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_customer_workspace*.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_assistant*.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_company_events*.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_company_handover*.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_customer_execution_journey_pg.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_customer_finance_service_journey_pg.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_release_business.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_provisioning*.py",
+      "-v"
+    ]
+  ],
+  "browser": [
+    {
+      "id": "default",
+      "script": "tests/e2e.cjs"
+    },
+    {
+      "id": "accounting-openings",
+      "script": "tests/e2e.cjs",
+      "workflow": "accounting-openings"
+    },
+    {
+      "id": "project-economics",
+      "script": "tests/e2e.cjs",
+      "workflow": "project-economics"
+    },
+    {
+      "id": "asset-provenance",
+      "script": "tests/e2e.cjs",
+      "workflow": "asset-provenance"
+    },
+    {
+      "id": "personnel-workflow",
+      "script": "tests/e2e.cjs",
+      "workflow": "personnel-workflow"
+    },
+    {
+      "id": "travel-allowances",
+      "script": "tests/e2e.cjs",
+      "workflow": "travel-allowances"
+    },
+    {
+      "id": "travel-v3",
+      "script": "tests/e2e.cjs",
+      "workflow": "travel-v3"
+    },
+    {
+      "id": "private-car-mileage",
+      "script": "tests/e2e.cjs",
+      "workflow": "private-car-mileage"
+    },
+    {
+      "id": "private-car-mileage-restart",
+      "script": "tests/e2e.cjs",
+      "workflow": "private-car-mileage-restart"
+    },
+    {
+      "id": "sales",
+      "script": "tests/e2e.cjs",
+      "workflow": "sales"
+    },
+    {
+      "id": "communication-history",
+      "script": "tests/e2e.cjs",
+      "workflow": "communication-history"
+    },
+    {
+      "id": "project-context",
+      "script": "tests/e2e.cjs",
+      "workflow": "project-context"
+    },
+    {
+      "id": "project-tasks",
+      "script": "tests/e2e.cjs",
+      "workflow": "project-tasks"
+    },
+    {
+      "id": "project-milestones",
+      "script": "tests/e2e.cjs",
+      "workflow": "project-milestones"
+    },
+    {
+      "id": "project-customer",
+      "script": "tests/e2e.cjs",
+      "workflow": "project-customer"
+    },
+    {
+      "id": "inventory-article-refs",
+      "script": "tests/e2e.cjs",
+      "workflow": "inventory-article-refs"
+    },
+    {
+      "id": "material-return",
+      "script": "tests/e2e.cjs",
+      "workflow": "material-return"
+    },
+    {
+      "id": "material-return-restart",
+      "script": "tests/e2e.cjs",
+      "workflow": "material-return-restart"
+    },
+    {
+      "id": "commercial-country-scope",
+      "script": "tests/e2e.cjs",
+      "workflow": "commercial-country-scope"
+    },
+    {
+      "id": "time-tracking",
+      "script": "tests/e2e.cjs",
+      "workflow": "time-tracking"
+    },
+    {
+      "id": "payroll",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll"
+    },
+    {
+      "id": "payroll-transition",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-transition"
+    },
+    {
+      "id": "payroll-factor",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-factor"
+    },
+    {
+      "id": "payroll-factor-travel",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-factor-travel"
+    },
+    {
+      "id": "payroll-factor-claims",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-factor-claims"
+    },
+    {
+      "id": "payroll-individual-minijob",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-individual-minijob"
+    },
+    {
+      "id": "payroll-periods",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-periods"
+    },
+    {
+      "id": "payroll-factor-periods",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-factor-periods"
+    },
+    {
+      "id": "payroll-entitlements",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-entitlements"
+    },
+    {
+      "id": "payroll-travel-tax-policies",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-travel-tax-policies"
+    },
+    {
+      "id": "payroll-calculation-cases",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-calculation-cases"
+    },
+    {
+      "id": "payroll-wage-interruptions",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-wage-interruptions"
+    },
+    {
+      "id": "payroll-annual-basis",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-annual-basis"
+    },
+    {
+      "id": "payroll-zero-account",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-zero-account"
+    },
+    {
+      "id": "payroll-oneoff-cases",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-oneoff-cases"
+    },
+    {
+      "id": "payroll-multiple-cases",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-multiple-cases"
+    },
+    {
+      "id": "payroll-positive-correction",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-positive-correction"
+    },
+    {
+      "id": "payroll-payment-dates",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-payment-dates"
+    },
+    {
+      "id": "payroll-repayment",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-repayment"
+    },
+    {
+      "id": "payroll-adjustment",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-adjustment"
+    },
+    {
+      "id": "mobile-login",
+      "script": "tests/e2e.cjs",
+      "workflow": "mobile-login"
+    },
+    {
+      "id": "payroll-statements",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-statements"
+    },
+    {
+      "id": "assistant",
+      "script": "tests/e2e.cjs",
+      "workflow": "assistant"
+    },
+    {
+      "id": "company-events",
+      "script": "tests/e2e.cjs",
+      "workflow": "company-events"
+    },
+    {
+      "id": "speech",
+      "script": "tests/e2e.cjs",
+      "workflow": "speech"
+    },
+    {
+      "id": "company-handover",
+      "script": "tests/e2e.cjs",
+      "workflow": "company-handover"
+    },
+    {
+      "id": "migrations",
+      "script": "tests/e2e.cjs",
+      "workflow": "migrations"
+    },
+    {
+      "id": "custom-fields",
+      "script": "tests/e2e.cjs",
+      "workflow": "custom-fields"
+    },
+    {
+      "id": "service",
+      "script": "tests/e2e.cjs",
+      "workflow": "service"
+    },
+    {
+      "id": "maintenance-contracts",
+      "script": "tests/e2e.cjs",
+      "workflow": "maintenance-contracts"
+    },
+    {
+      "id": "document-time-billing",
+      "script": "tests/e2e.cjs",
+      "workflow": "document-time-billing",
+      "postgres": true
+    },
+    {
+      "id": "privacy-cases",
+      "script": "tests/e2e.cjs",
+      "workflow": "privacy-cases"
+    },
+    {
+      "id": "payroll-cash",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-cash"
+    },
+    {
+      "id": "historical-assets",
+      "script": "tests/e2e.cjs",
+      "workflow": "historical-assets"
+    },
+    {
+      "id": "accounting-open-items",
+      "script": "tests/e2e.cjs",
+      "workflow": "accounting-open-items"
+    },
+    {
+      "id": "bank-reconciliation",
+      "script": "tests/e2e.cjs",
+      "workflow": "bank-reconciliation"
+    },
+    {
+      "id": "resource-custody",
+      "script": "tests/e2e.cjs",
+      "workflow": "resource-custody"
+    },
+    {
+      "id": "purchase-changes",
+      "script": "tests/e2e.cjs",
+      "workflow": "purchase-changes"
+    },
+    {
+      "id": "catalog-imports",
+      "script": "tests/e2e.cjs",
+      "workflow": "catalog-imports"
+    },
+    {
+      "id": "catalog-prices",
+      "script": "tests/e2e.cjs",
+      "workflow": "catalog-prices"
+    },
+    {
+      "id": "accessibility",
+      "script": "tests/e2e.cjs",
+      "workflow": "accessibility"
+    },
+    {
+      "id": "invoice-chain",
+      "script": "tests/e2e.cjs",
+      "workflow": "invoice-chain"
+    },
+    {
+      "id": "inventory-counts",
+      "script": "tests/e2e.cjs",
+      "workflow": "inventory-counts"
+    },
+    {
+      "id": "company-overview",
+      "script": "tests/e2e.cjs",
+      "workflow": "company-overview"
+    },
+    {
+      "id": "accounting-allocation",
+      "script": "tests/e2e.cjs",
+      "workflow": "accounting-allocation"
+    },
+    {
+      "id": "accounting-capacity",
+      "script": "tests/e2e.cjs",
+      "workflow": "accounting-capacity"
+    },
+    {
+      "id": "accounting-components",
+      "script": "tests/e2e.cjs",
+      "workflow": "accounting-components"
+    },
+    {
+      "id": "accounting-profile",
+      "script": "tests/e2e.cjs",
+      "workflow": "accounting-profile"
+    },
+    {
+      "id": "accounting-refunds",
+      "script": "tests/e2e.cjs",
+      "workflow": "accounting-refunds"
+    },
+    {
+      "id": "accounting-refunds-v2",
+      "script": "tests/e2e.cjs",
+      "workflow": "accounting-refunds-v2"
+    },
+    {
+      "id": "planning-relogin",
+      "script": "tests/e2e.cjs",
+      "workflow": "planning-relogin"
+    },
+    {
+      "id": "purchasing-catalog",
+      "script": "tests/e2e.cjs",
+      "workflow": "purchasing-catalog"
+    },
+    {
+      "id": "purchasing-receipts",
+      "script": "tests/e2e.cjs",
+      "workflow": "purchasing-receipts"
+    },
+    {
+      "id": "customer-workspace",
+      "script": "tests/customer-workspace-e2e.cjs"
+    },
+    {
+      "id": "accounting-euer",
+      "script": "tests/accounting-euer-e2e.cjs"
+    },
+    {
+      "id": "accounting-year-package",
+      "script": "tests/accounting-year-package-e2e.cjs"
+    },
+    {
+      "id": "accounting-year-package-v2",
+      "script": "tests/accounting-year-package-v2-e2e.cjs"
+    },
+    {
+      "id": "accounting-year-values-profile-void",
+      "script": "tests/accounting-year-values-profile-void-e2e.cjs"
+    }
+  ]
+}

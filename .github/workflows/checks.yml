@@ -16,6 +16,10 @@ jobs:
       - name: Check update and recovery in an isolated container
         run: bash scripts/test-update-flow.sh
   online-api:
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [0, 1, 2, 3, 4, 5]
     runs-on: ubuntu-24.04
     services:
       postgres:
@@ -29,7 +33,7 @@ jobs:
           --health-cmd "pg_isready -U postgres -d smartplan_check"
           --health-interval 5s --health-timeout 5s --health-retries 10
     env:
-      PYTHONPATH: backend
+      PYTHONPATH: .:backend:backend/business_tests:backend/online:scripts
       SMARTPLAN_TEST_DSN: host=127.0.0.1 port=55433 dbname=smartplan_check user=postgres password=disposable-ci-only
     steps:
       - uses: actions/checkout@v4
@@ -38,85 +42,14 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install -r backend/online/requirements.lock
       - run: python -m pip check
-      - name: PostgreSQL-, Speicher- und OneDrive-Vertraege pruefen
+      - name: Require complete CI selection and failure contracts
+        run: python -m unittest discover -s scripts -p test_ci_check_groups.py -v
+      - name: PostgreSQL, storage and API group
         run: |
-          python -m unittest discover -s backend/online -p test_online.py -v
-          python -m unittest discover -s backend/online -p test_report_integrity_pg.py -v
-          python -m unittest discover -s backend/online -p test_instance_isolation.py -v
-          python -m unittest discover -s backend/online -p 'test_company*isolation*.py' -v
-          python -m unittest discover -s backend/online -p test_organization_http.py -v
-          python -m unittest discover -s backend/online -p test_inventory_article_references_api.py -v
-          PYTHONPATH=backend python -m unittest test_project_creation_replay -v
-          python -m unittest discover -s backend/online -p test_project_milestones_http.py -v
-          python -m unittest discover -s backend/online -p test_offline_instance_binding.py -v
-          PYTHONPATH=backend python -m unittest -v online.test_legacy_time_recovery online.test_legacy_time_recovery_pg
-          PYTHONPATH=backend python -m unittest -v online.test_commercial_country_scope online.test_commercial_country_scope_pg
-          PYTHONPATH=backend python -m unittest test_project_creation_counterreview.ProjectCreationPostgresCounterreview -v
-          PYTHONPATH=backend python -m unittest online.test_project_creation_journal online.test_project_creation_journal_pg -v
-          python -m unittest discover -s backend/online -p test_organization_pg.py -v
-          python -m unittest discover -s backend/online -p test_purchasing_journey.py -v
-          python -m unittest discover -s backend/online -p test_purchasing_catalog_http.py -v
-          python -m unittest discover -s backend/online -p test_postgres_purchasing_integration.py -v
-          python -m unittest discover -s backend/online -p test_portal_http.py -v
-          python -m unittest discover -s backend/online -p test_portal_journey.py -v
-          python -m unittest discover -s backend/online -p test_postgres_portal_integration.py -v
-          python -m unittest discover -s backend/online -p test_accounting_http.py -v
-          python -m unittest discover -s backend/online -p test_accounting_journey.py -v
-          python -m unittest discover -s backend/online -p test_postgres_accounting_integration.py -v
-          python -m unittest discover -s backend/online -p test_accounting_allocations_http.py -v
-          python -m unittest discover -s backend/online -p test_accounting_allocations_journey.py -v
-          python -m unittest discover -s backend/online -p test_postgres_accounting_allocations_integration.py -v
-          python -m unittest discover -s backend/online -p test_accounting_components_http.py -v
-          python -m unittest discover -s backend/online -p test_accounting_components_journey.py -v
-          python -m unittest discover -s backend/online -p test_postgres_accounting_components_integration.py -v
-          python -m unittest discover -s backend/online -p test_accounting_refunds_http.py -v
-          python -m unittest discover -s backend/online -p test_accounting_refunds_journey.py -v
-          python -m unittest discover -s backend/online -p test_postgres_accounting_refunds_integration.py -v
-          python -m unittest discover -s backend/online -p test_accounting_capacity_http.py -v
-          python -m unittest discover -s backend/online -p test_accounting_capacity_journey.py -v
-          python -m unittest discover -s backend/online -p test_postgres_accounting_capacity_integration.py -v
-          python -m unittest discover -s backend/online -p test_accounting_refunds_v2_http.py -v
-          python -m unittest discover -s backend/online -p test_accounting_refunds_v2_journey.py -v
-          python -m unittest discover -s backend/online -p test_postgres_accounting_refunds_v2_integration.py -v
-          python -m unittest discover -s backend/online -p test_accounting_profile_http.py -v
-          python -m unittest discover -s backend/online -p test_accounting_profile_journey.py -v
-          python -m unittest discover -s backend/online -p test_postgres_accounting_profile_integration.py -v
-          python -m unittest discover -s backend/online -p test_plans_online.py -v
-          python -m unittest discover -s backend/online -p test_plan_imports.py -v
-          python -m unittest discover -s backend/online -p test_import_cancellation.py -v
-          python -m unittest discover -s backend/online -p test_plan_deletions.py -v
-          python -m unittest discover -s backend/online -p test_workspace_api.py -v
-          python -m unittest discover -s backend/online -p test_inquiry_attachments_api.py -v
-          python -m unittest discover -s backend/online -p test_business_intake_contract.py -v
-          python -m unittest discover -s backend/online -p 'test_integration*.py' -v
-          python -m unittest discover -s backend/online -p test_release.py -v
-          python -m unittest discover -s backend/online -p test_release_workspace.py -v
-          python -m unittest discover -s backend/online -p test_release_attachments.py -v
-          python -m unittest discover -s backend/online -p test_release_integrations.py -v
-          python -m unittest discover -s backend/online -p test_storage.py -v
-          python -m unittest discover -s backend/online -p test_onedrive.py -v
-          python -m unittest discover -s backend/online -p 'test_business*.py' -v
-          python -m unittest -v online.test_legacy_service_report_recovery
-          python -m unittest -v online.test_legacy_service_report_recovery_pg
-          python -m unittest -v online.test_factor_travel_review_pg
-          python -m unittest -v online.test_minijob_v11_independent_pg
-          python -m unittest -v online.test_material_returns_pg
-          python -m unittest -v online.test_material_returns_http
-          python -m unittest -v online.test_communication_history_pg
-          python -m unittest discover -s backend/online -p test_accounting_year_package_pg.py -v
-          python -m unittest -v online.test_accounting_year_package_v2_pg
-          python -m unittest -v online.test_year_values_full_financial_restore_pg
-          python -m unittest discover -s backend/online -p test_accounting_open_items_pg.py -v
-          python -m unittest discover -s backend/online -p test_accounting_year_openings_pg.py -v
-          python -m unittest discover -s backend/online -p 'test_customer_workspace*.py' -v
-          python -m unittest discover -s backend/online -p 'test_assistant*.py' -v
-          python -m unittest discover -s backend/online -p 'test_company_events*.py' -v
-          python -m unittest discover -s backend/online -p 'test_company_handover*.py' -v
-          python -m unittest discover -s backend/online -p test_customer_execution_journey_pg.py -v
-          python -m unittest discover -s backend/online -p test_customer_finance_service_journey_pg.py -v
-          python -m unittest discover -s backend/online -p test_release_business.py -v
-          python -m unittest discover -s backend/online -p 'test_provisioning*.py' -v
+          python scripts/ci-check-groups.py --suite online --group ${{ matrix.group }} --groups 6 --list > "$RUNNER_TEMP/online-selected.json"
+          python scripts/ci-check-groups.py --suite online --group ${{ matrix.group }} --groups 6 --report "$RUNNER_TEMP/online-results.json"
       - name: Check online units, scripts and real HTTPS runtime
+        if: matrix.group == 0
         run: |
           bash -n deploy/hetzner/online/*.sh
           systemd-analyze verify deploy/hetzner/online/*.service deploy/hetzner/online/*.timer
@@ -125,6 +58,17 @@ jobs:
           bash deploy/hetzner/https/fetch-caddy.sh "$smartplan_caddy_test"
           SMARTPLAN_CADDY_BINARY="$smartplan_caddy_test/caddy" python backend/online/test_runtime.py
           SMARTPLAN_CADDY_BINARY="$smartplan_caddy_test/caddy" python -m unittest discover -s backend/online -p test_release_tls.py -v
+      - name: Retain exact selected commands and raw results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Smartplan-Online-Checks-${{ matrix.group }}
+          path: |
+            ${{ runner.temp }}/online-selected.json
+            ${{ runner.temp }}/online-results.json
+            ${{ runner.temp }}/online-results.logs/
+          if-no-files-found: error
+          retention-days: 14
   https-setup:
     runs-on: ubuntu-latest
     steps:
@@ -161,6 +105,40 @@ jobs:
         run: node integrations/google_apps_script/test_gmail.js
   business-services:
     runs-on: ubuntu-24.04
+    env:
+      PYTHONPATH: backend:backend/business_tests:backend/online:scripts
+      PYTHONDONTWRITEBYTECODE: '1'
+      SMARTPLAN_SRGB_ICC: /usr/share/color/icc/ghostscript/srgb.icc
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install backend and actual local invoice validators
+        run: |
+          python -m pip install -r backend/online/requirements.lock
+          python -m pip check
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends openjdk-21-jre-headless ghostscript icc-profiles-free
+          python scripts/fetch-einvoice-tools.py "$RUNNER_TEMP/smartplan-invoice-tools" --github-env "$GITHUB_ENV"
+          python -m unittest discover -s scripts -p test_einvoice_tools.py -v
+      - name: Require all commercial, SMTP and official e-invoice tests
+        run: |
+          python -m unittest discover -s backend/business_tests -v
+          python -m unittest discover -s backend -p test_business_contact_snapshot.py -v
+      - name: Require complete browser module and CI group contracts
+        run: |
+          node --test web/office/tests/*.test.mjs
+          python -m unittest discover -s scripts -p test_ci_check_groups.py -v
+  browser-journeys:
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [0, 1, 2, 3, 4, 5]
+    runs-on: ubuntu-24.04
     services:
       postgres:
         image: postgres:16-bookworm
@@ -192,121 +170,29 @@ jobs:
           sudo apt-get install -y --no-install-recommends openjdk-21-jre-headless ghostscript icc-profiles-free
           python scripts/fetch-einvoice-tools.py "$RUNNER_TEMP/smartplan-invoice-tools" --github-env "$GITHUB_ENV"
           python -m unittest discover -s scripts -p test_einvoice_tools.py -v
-      - name: Require all commercial, SMTP and official e-invoice tests
-        run: |
-          python -m unittest discover -s backend/business_tests -v
-          python -m unittest discover -s backend -p test_business_contact_snapshot.py -v
-      - name: Test responsive browser client with actual auth and API
+      - name: Install pinned browser client test dependencies
+        run: npm ci --prefix web/office --ignore-scripts --no-audit --no-fund
+      - name: Require responsive browser group with actual auth and API
         env:
           SMARTPLAN_BROWSER_TEST_PYTHON: python
           SMARTPLAN_BROWSER_SCREENSHOT_DIR: ${{ runner.temp }}/smartplan-browser-previews
-          # The runner's packaged Chrome has the vendor AppArmor userns
-          # profile. An unprofiled /usr/bin/chromium cannot start its sandbox
-          # on Ubuntu 24.04; keep both sandboxing and the host policy enabled.
           SMARTPLAN_CHROMIUM_BINARY: /opt/google/chrome/chrome
+          SMARTPLAN_TEST_DSN: host=127.0.0.1 port=55434 dbname=smartplan_check user=postgres password=disposable-browser-only
         run: |
-          smartplan_browser_log="$RUNNER_TEMP/smartplan-browser-check.log"
-          set +e
-          {
-            node --test web/office/tests/*.test.mjs &&
-            npm ci --prefix web/office --ignore-scripts --no-audit --no-fund &&
-            cd web/office &&
-            test -x "$SMARTPLAN_CHROMIUM_BINARY" &&
-            "$SMARTPLAN_CHROMIUM_BINARY" --version &&
-            node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=accounting-openings node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=project-economics node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=asset-provenance node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=personnel-workflow node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=travel-allowances node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=travel-v3 node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=private-car-mileage node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=private-car-mileage-restart node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=sales node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=communication-history node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=project-context node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=project-tasks node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=project-milestones node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=project-customer node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=inventory-article-refs node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=material-return node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=material-return-restart node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=commercial-country-scope node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=time-tracking node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-transition node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-factor node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-factor-travel node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-factor-claims node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-individual-minijob node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-periods node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-factor-periods node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-entitlements node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-travel-tax-policies node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-calculation-cases node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-wage-interruptions node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-annual-basis node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-zero-account node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-oneoff-cases node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-multiple-cases node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-positive-correction node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-payment-dates node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-repayment node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-adjustment node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=mobile-login node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-statements node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=assistant node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=company-events node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=speech node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=company-handover node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=migrations node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=custom-fields node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=service node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=maintenance-contracts node tests/e2e.cjs &&
-            SMARTPLAN_TEST_DSN='host=127.0.0.1 port=55434 dbname=smartplan_check user=postgres password=disposable-browser-only' SMARTPLAN_BROWSER_WORKFLOW=document-time-billing node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=privacy-cases node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=payroll-cash node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=historical-assets node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=accounting-open-items node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=bank-reconciliation node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=resource-custody node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=purchase-changes node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=catalog-imports node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=catalog-prices node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=accessibility node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=invoice-chain node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=inventory-counts node tests/e2e.cjs &&
-            SMARTPLAN_BROWSER_WORKFLOW=company-overview node tests/e2e.cjs &&
-            node tests/customer-workspace-e2e.cjs &&
-            node tests/accounting-euer-e2e.cjs &&
-            node tests/accounting-year-package-e2e.cjs &&
-            node tests/accounting-year-package-v2-e2e.cjs &&
-            node tests/accounting-year-values-profile-void-e2e.cjs
-          } 2>&1 | tee "$smartplan_browser_log"
-          smartplan_browser_exit=${PIPESTATUS[0]}
-          set -e
-          if [ "$smartplan_browser_exit" -ne 0 ]; then
-            python - "$smartplan_browser_log" <<'PY'
-          from pathlib import Path
-          import sys
-          lines = Path(sys.argv[1]).read_text(errors='replace').splitlines()
-          if 'SMARTPLAN_BROWSER_FAILURE_BEGIN' in lines:
-              start = lines.index('SMARTPLAN_BROWSER_FAILURE_BEGIN') + 1
-              end = lines.index('SMARTPLAN_BROWSER_FAILURE_END', start) if 'SMARTPLAN_BROWSER_FAILURE_END' in lines[start:] else len(lines)
-              selected = lines[start:end]
-          else:
-              selected = lines if len(lines) <= 50 else lines[:35] + ['[middle diagnostic lines omitted]'] + lines[-15:]
-          detail = '\n'.join(line[:500] for line in selected)[:25000]
-          print('::error title=Browser acceptance::' + detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A'))
-          PY
-          fi
-          exit "$smartplan_browser_exit"
-      - name: Upload synthetic browser acceptance screenshots
-        if: success()
+          test -x "$SMARTPLAN_CHROMIUM_BINARY"
+          "$SMARTPLAN_CHROMIUM_BINARY" --version
+          python scripts/ci-check-groups.py --suite browser --group ${{ matrix.group }} --groups 6 --list > "$RUNNER_TEMP/browser-selected.json"
+          python scripts/ci-check-groups.py --suite browser --group ${{ matrix.group }} --groups 6 --report "$RUNNER_TEMP/browser-results.json"
+      - name: Retain actual browser group evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Smartplan-Browser-Previews
-          path: ${{ runner.temp }}/smartplan-browser-previews/
+          name: Smartplan-Browser-Checks-${{ matrix.group }}
+          path: |
+            ${{ runner.temp }}/browser-selected.json
+            ${{ runner.temp }}/browser-results.json
+            ${{ runner.temp }}/browser-results.logs/
+            ${{ runner.temp }}/smartplan-browser-previews/
           if-no-files-found: error
           retention-days: 14
   flutter:

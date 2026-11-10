@@ -4,6 +4,14 @@ Stand: 10.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
+**Aktive technische Gesamtprüfung:** Die bisherigen154 Online- und nun78
+Browserabläufe werden vollständig auf je sechs unabhängige Gruppen verteilt.
+Neun vorhandene Browserziele fehlten bislang in der zentralen CI und sind
+zusätzlich aufgenommen. Sieben Auswahl-/Fehlerverträge,25 echte MFA-/HTTPfälle,
+1041 Browsermodul- und21 Paket-/Inventarfälle bestehen; sechs komplette lokale
+Browsergruppen laufen. [Vertrag, Rohfehler und Grenzen](CRM_ERP_GESAMTPRUEFUNG_GRUPPEN_2026-11-10.md).
+Kein neuer Push oder Live-/Gerätestand; Gesamtauftrag bleibt aktiv.
+
 **Aktueller geprüfter Codeabschnitt (10.11.):** Der lesende Abgleich alter
 Offline-Serviceprotokolle ist als aa2ab36 auf799c144 integriert:1.915 vollständige
 Appfälle ohne Fehler/Skip,58 gemeinsame Backend-,29 native Altbestands-, ein

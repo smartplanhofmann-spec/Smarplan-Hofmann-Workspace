@@ -3884,3 +3884,18 @@ offen. Als nächste technische Folge werden die langen automatischen
 Gesamtprüfungen auf unabhängige Gruppen verteilt, mit vollständiger Erhaltung
 aller bisherigen Prüfaufrufe und getrennten Artefakten. Kein Teilabschluss
 beendet den Auftrag; weitere Offline-/Fachfälle bleiben im Gesamtplan.
+
+
+## 10.11.2026 – vollständige Prüfgruppen in Arbeit
+
+A–G/technische Integration: [Vollständige Prüfgruppen](CRM_ERP_GESAMTPRUEFUNG_GRUPPEN_2026-11-10.md)
+verteilen alle bisherigen Onlineauswahlen (aktuell154 Datei-/Modulaufrufe) auf
+sechs unabhängige PostgreSQL-Gruppen. Alle69 bisherigen echten Browserabläufe
+bleiben erhalten; neun vorhandene bisher fehlende Zielabläufe ergänzen die
+zentrale Auswahl auf78. Kommerzielle Backend- und Browsermodulprüfungen bleiben
+zusätzlich verpflichtend. Sieben tatsächliche Auswahl-/Fehler-/Prozessverträge,
+25 echte MFA-/HTTP-Fälle,1041 Browsermodulfälle und21 Paket-/Inventarfälle
+bestehen; YAML und Erhaltung der übrigen Jobs sind geprüft. Erste YAML-/lokale
+venv-Aufbaufehler bleiben als solche erhalten. Die sechs vollständigen lokalen
+Browsergruppen sind noch aktiv. Nicht veröffentlicht; keine Live-/Geräteabnahme.
+Weitere verbleibende Fach-/Offline-Codearbeit folgt unmittelbar danach.

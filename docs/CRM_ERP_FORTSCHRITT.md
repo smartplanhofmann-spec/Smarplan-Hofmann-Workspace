@@ -4240,3 +4240,15 @@ sind verschärft, nicht gelockert.39 lokale Paket-/Auslieferungs-/CI-Fälle in
 33,283s sowie YAML/22 Shellblöcke bestehen. Neue echte macOS-Prüfung bleibt
 erforderlich. Faktor-/Midijob V14 und die gefundene Mitarbeiterbeleg-Leserlücke
 bleiben separat gesicherte aktive Codearbeit; Gesamtauftrag und A–G sind offen.
+
+
+## 10.11.2026 – Keychain-Reparatur veröffentlicht, echte Gegenprobe angenommen
+
+40d8fcf5571e8edc898e2e20b1cf7fe36e52149e ist ausschließlich auf dem autorisierten
+Testbranch veröffentlicht und dessen Remote-Zeiger bestätigt. GitHub nimmt den
+manuellen signierten Vorbereitungslauf42806142665 mitprepare_signed_ipa=true und
+upload_to_testflight=false wirklich an. Die vollständige App-Voraussetzung läuft;
+kein endgültiges repariertes IPA bestätigt. Development42806104268 läuft separat.
+Der doppelte gleichbranchige Pushlauf42806103960 ist durch bestehende concurrency
+ersetzt; kein Produktfehler. Bereits abgeschlossene Erstfehler/20 Erfolge sowie
+neue konkrete Laufkennungen bleiben im Auslieferungsnachweis erhalten.

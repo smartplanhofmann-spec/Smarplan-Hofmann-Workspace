@@ -360,6 +360,7 @@ def main():
     parser.add_argument('--synthetic-speech', action='store_true', help='Inject the explicit test-only local speech transport')
     parser.add_argument('--synthetic-installation-context', action='store_true', help='Record only this disposable fixture source marker')
     parser.add_argument('--synthetic-qonto', action='store_true', help='Inject synthetic read-only Qonto replies, never a bank connection')
+    parser.add_argument('--synthetic-qonto-own-key', action='store_true', help='Use the exact synthetic own-company API key header, never a bank connection')
     parser.add_argument('--synthetic-handover', action='store_true', help='Bind only the disposable company archive fixture')
     parser.add_argument('--synthetic-payroll-cash', action='store_true', help='Seed only the payroll workflow financial sources')
     args = parser.parse_args()
@@ -385,9 +386,9 @@ def main():
             metadata = seed(office, directory, payroll_cash=args.synthetic_payroll_cash)
             fixture_key = Fernet.generate_key()
             bank_feeds=None
-            if args.synthetic_qonto:
+            if args.synthetic_qonto or args.synthetic_qonto_own_key:
                 from qonto_fixture import seed_qonto
-                bank_feeds=seed_qonto(office,metadata)
+                bank_feeds=seed_qonto(office,metadata,own_key=args.synthetic_qonto_own_key)
             if args.synthetic_handover or args.synthetic_company_events:
                 from online.instance import bind
                 from online.storage import Storage

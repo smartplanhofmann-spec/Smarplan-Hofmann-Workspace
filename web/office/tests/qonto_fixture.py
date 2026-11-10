@@ -11,7 +11,7 @@ from online.test_integration_http import Response
 from online.test_integration_qonto import ORG, TOKEN, IBAN, org, row, page
 
 
-def seed_qonto(office, metadata):
+def seed_qonto(office, metadata, *, own_key=False):
     import uuid
     actor=dict(office.db.execute("SELECT id,role,email FROM users WHERE role='owner'").fetchone())
     def request(**values):return dict(request_id=uuid.uuid4().hex,**values)
@@ -20,7 +20,7 @@ def seed_qonto(office, metadata):
     class Provider:
         def open(self, request, *, timeout):
             assert request.get_method()=='GET' and request.data is None
-            assert request.get_header('Authorization')=='Bearer '+TOKEN
+            assert request.get_header('Authorization')==('synthetic-company:'+TOKEN if own_key else 'Bearer '+TOKEN)
             url=urlsplit(request.full_url)
             assert url.scheme=='https' and url.netloc=='thirdparty.qonto.com'
             if url.path=='/v2/organization':value=org()
@@ -29,4 +29,6 @@ def seed_qonto(office, metadata):
                 value=page([row(1),row(2,status='pending',settled_at=None,amount=5,amount_cents=500,side='credit'),row(3,status='declined'),row(4,status='reversed')])
             return Response(json.dumps(value,separators=(',',':')).encode())
     metadata['qonto_account_id']=account['id']
-    return BankFeeds(office,config=lambda:Config(ORG,account['id'],TOKEN),reader=QontoReader(http=IntegrationHttp('qonto',opener=Provider())))
+    return BankFeeds(office,config=lambda:Config(ORG,account['id'],TOKEN,
+        auth_mode='own_account_api_key' if own_key else 'oauth_access_token',login='synthetic-company' if own_key else ''),
+        reader=QontoReader(http=IntegrationHttp('qonto',opener=Provider())))

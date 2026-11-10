@@ -579,7 +579,8 @@
       "-p",
       "test_bank_feeds_pg.py",
       "-v"
-    ]
+    ],
+    ["online.test_qonto_own_account", "-v"]
   ],
   "browser": [
     {
@@ -991,6 +992,11 @@
       "id": "qonto-readonly",
       "script": "tests/e2e.cjs",
       "workflow": "qonto-readonly"
+    },
+    {
+      "id": "qonto-own-account",
+      "script": "tests/e2e.cjs",
+      "workflow": "qonto-own-account"
     }
   ]
 }

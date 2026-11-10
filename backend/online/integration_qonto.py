@@ -101,22 +101,34 @@ def _object(pairs):
     return result
 
 
+def authorization(token, auth_mode='oauth_access_token', login=None):
+    """Exact Qonto header: API key is sign-in:key, not Basic or Bearer."""
+    if not isinstance(token, str) or not re.fullmatch(r'[A-Za-z0-9._~+/-]{16,8192}={0,2}', token):
+        raise Problem(409, 'Der serverseitige Qonto-Lesezugang muss erneuert werden.')
+    if auth_mode == 'oauth_access_token' and login in (None, ''):
+        return 'Bearer ' + token
+    if (auth_mode == 'own_account_api_key' and isinstance(login, str) and
+            re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]{0,199}', login)):
+        return login + ':' + token
+    raise Problem(409, 'Die serverseitige Qonto-Anmeldungsart muss geprüft werden.')
+
+
 class QontoReader:
     def __init__(self, *, http=None):
         self.http = http or IntegrationHttp('qonto')
 
-    def collect(self, *, token, organization_id, iban, updated_from, updated_to):
+    def collect(self, *, token, organization_id, iban, updated_from, updated_to,
+                auth_mode='oauth_access_token', login=None):
         first, last = window(updated_from, updated_to)
         _id(organization_id)
         iban = _iban(iban)
-        if not isinstance(token, str) or not re.fullmatch(r'[A-Za-z0-9._~+/-]{16,8192}={0,2}', token):
-            raise Problem(409, 'Der serverseitige Qonto-Lesezugang muss erneuert werden.')
+        header = authorization(token, auth_mode, login)
         sources = []
         size = 0
 
         def get(path, params=None):
             nonlocal size
-            body, headers = self.http.raw(path, params=params, headers={'Authorization': 'Bearer ' + token}, max_bytes=MAX_PAGE_BYTES)
+            body, headers = self.http.raw(path, params=params, headers={'Authorization': header}, max_bytes=MAX_PAGE_BYTES)
             size += len(body)
             if size > MAX_TOTAL_BYTES:
                 raise invalid()

@@ -14,7 +14,7 @@ from business_bank_reconciliation import BankReconciliation
 from business_operations import transaction
 from business_organization import module_enabled
 from business_schema import state
-from online.integration_qonto import QontoReader, window, _id
+from online.integration_qonto import QontoReader, window, _id, authorization
 
 
 def methods(path):
@@ -26,12 +26,16 @@ class Config:
     organization_id: str
     account_id: str
     token: str = field(repr=False)
+    auth_mode: str = 'oauth_access_token'
+    login: str = field(default='', repr=False)
 
 
 def environment_config():
     names = ('SMARTPLAN_QONTO_ORGANIZATION_ID', 'SMARTPLAN_QONTO_ACCOUNT_ID', 'SMARTPLAN_QONTO_TOKEN_FILE')
     values = [os.environ.get(name, '') for name in names]
-    if not any(values):
+    configured_mode = os.environ.get('SMARTPLAN_QONTO_AUTH_MODE', '')
+    login = os.environ.get('SMARTPLAN_QONTO_LOGIN', '')
+    if not any(values) and not configured_mode and not login:
         return None
     try:
         organization, account, filename = values
@@ -45,9 +49,9 @@ def environment_config():
                     info.st_uid not in (0, os.geteuid()) or info.st_size > 8194):
                 raise ValueError()
             token = handle.read(8195).decode('ascii').strip()
-        if not re.fullmatch(r'[A-Za-z0-9._~+/-]{16,8192}={0,2}', token):
-            raise ValueError()
-        return Config(organization, account, token)
+        mode = configured_mode or 'oauth_access_token'
+        authorization(token, mode, login)
+        return Config(organization, account, token, mode, login)
     except (OSError, ValueError, UnicodeError, Problem):
         raise Problem(409, 'Die serverseitige Qonto-Lesekonfiguration muss geprüft werden.') from None
 
@@ -95,12 +99,13 @@ class BankFeeds:
             return dict(schema_version=1, provider='qonto', configured=config is not None,
                         account_id=config.account_id if config else None,
                         read_only=True, direct_payments=False, complete_statements=False,
-                        authentication='operator_oauth_access_token'), 200, 'application/json'
+                        authentication='operator_' + config.auth_mode if config else None), 200, 'application/json'
         if config is None:
             raise Problem(409, 'Qonto ist serverseitig noch nicht als Lesezugang eingerichtet.')
         window(data['updated_from'], data['updated_to'])
         result = self.reader.collect(token=config.token, organization_id=config.organization_id,
-                                     iban=binding['payload']['iban'], **data)
+                                     iban=binding['payload']['iban'], auth_mode=config.auth_mode,
+                                     login=config.login, **data)
         with transaction(self.office):
             fresh_config = self.config()
             fresh = self._access(token, fresh_config)

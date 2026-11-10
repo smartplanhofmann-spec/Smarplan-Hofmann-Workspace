@@ -9,7 +9,7 @@ gehören ausschließlich in geschützte Server-/Umgebungseinstellungen.
 
 | Anbieter | Tatsächlich geprüfte offizielle Quelle | Aktueller Umfang / verbleibender Schritt |
 |---|---|---|
-| Qonto | [V2-Organisation](https://docs.qonto.com/api-reference/business-api/organization-accounts/organizations/retrieve-the-authenticated-organization-and-list-bank-accounts), [Transaktionen](https://docs.qonto.com/api-reference/business-api/transactions-statements/transactions/list-transactions), [Pagination](https://docs.qonto.com/api-reference/business-api/introduction/pagination), [Migrationsfrist15.11.](https://docs.qonto.com/guides/migrations/deprecated-organization-endpoints) | Neuer serverseitiger Leseabschnitt mit beiden Clients. OAuth-Token nur im privaten Serverfile; echter Zugang und Providerabnahme fehlen. |
+| Qonto | [V2-Organisation](https://docs.qonto.com/api-reference/business-api/organization-accounts/organizations/retrieve-the-authenticated-organization-and-list-bank-accounts), [Transaktionen](https://docs.qonto.com/api-reference/business-api/transactions-statements/transactions/list-transactions), [Pagination](https://docs.qonto.com/api-reference/business-api/introduction/pagination), [Migrationsfrist15.11.](https://docs.qonto.com/guides/migrations/deprecated-organization-endpoints), [API-Key-Vertrag](https://docs.qonto.com/guides/authentication/api-key) | Serverseitiger Leseabschnitt mit beiden Clients. Eigener API-Key-Zugang additiv zum Betreiber-OAuth-Token; Geheimnis nur im privaten Serverfile. Echter Zugang und Providerabnahme fehlen. |
 | Sparkasse | Sparkasseninstitut und tatsächlicher Zugangsweg noch zu bestimmen | Bank-/Institutsname abwarten; konkreten FinTS-/EBICS-/lizenzierten Kontoinformationsweg samt Vertrag prüfen. Keine gemeinsame erfundene Sparkassen-API. |
 | Amex | [Offizielles Open-Banking-Angebot](https://developer.americanexpress.com/open-banking) | Account-/Transaction-Zugang nennt regulierte AISPs, ausgewählte Produkte/Emittenten und gesonderten Spezifikationszugang. Das belegt keinen frei nutzbaren deutschen Zugang. Business/Corporate und tatsächlicher Vertrag fehlen. |
 | Granzow | [Schnittstellenangebot](https://www.granzow.de/schnittstellenloesungen) | UGL, IDS, OCI und DatanormOnline2.0 werden angeboten. Echte Vertragsversion, Partnerendpunkt, Einwilligung und Testzugang separat prüfen. Vorhandenes begrenztes CSV-/A14-Profil ist keine vollständige IDS-/UGL-Anbindung. |
@@ -75,14 +75,31 @@ Geschützte Serverkonfiguration:
 - `SMARTPLAN_QONTO_ACCOUNT_ID`: bestehende kanonische Smartplan-Geldkonto-ID,
   mit aktuell bestätigter aktiver Bankbindung/IBAN.
 - `SMARTPLAN_QONTO_TOKEN_FILE`: absoluter Pfad zu einem regulären privaten
-  File mit dem OAuth-Access-Token; keine Symlinks, keine Gruppen-/Fremdrechte,
+  File mit dem OAuth-Access-Token bzw. dem Secret-Key im ausdrücklichen
+  Eigenkonto-Modus; keine Symlinks, keine Gruppen-/Fremdrechte,
   Eigentümer Dienstbenutzer oder root. Inhalt wird pro Abruf erneut gelesen.
+- `SMARTPLAN_QONTO_AUTH_MODE`: `own_account_api_key` für das eigene Unternehmen
+  oder `oauth_access_token` für einen vorhandenen Betreiber-OAuth-Token.
+  Ohne Angabe bleibt aus Kompatibilitätsgründen der veröffentlichte OAuth-Modus.
+  Der Modus wird niemals aus einem Geheimnis geraten.
+- `SMARTPLAN_QONTO_LOGIN`: ausschließlich im Eigenkonto-Key-Modus der tatsächliche
+  Qonto-Organisations-Sign-in. Im OAuth-Modus muss diese Angabe leer bleiben.
 
-Der offizielle Bearer-Vertrag mit Scope `organization.read` ist geprüft.
-Einrichtungs-/Einwilligungs-/Token-Erneuerungsflow, API-Key-Authentifizierung
-und Sandbox werden in dieser Version nicht angeboten. Abgelaufene Freigaben
-werden sichtbar abgewiesen. Eine automatische Token-Erneuerung ist kein
-vorgetäuschter Bestandteil dieses Leseabschnitts. Keine Geheimnisse in Repository,
+Beide Authentifizierungsverträge sind primär belegt. Im Eigenkonto-Modus lautet
+der Header exakt `Authorization: sign-in:secret-key`, ohne Bearer/Basic und ohne
+Base64. Im OAuth-Modus bleibt `Bearer access-token` mit `organization.read`.
+Der Eigenkonto-Key ist für die Automatisierung des eigenen Qonto-Unternehmens
+gedacht. Eine Integration im Auftrag fremder Kunden benötigt laut Qonto OAuth;
+diese Begrenzung wird nicht durch ein Key-Profil umgangen. Der erfolgreiche
+Abruf muss in beiden Modi weiterhin Organisations-UUID und gebundene IBAN
+bestätigen. Ein ungeprüfter Gleichheitsvertrag zwischen Sign-in und einem
+Organisationsfeld wird nicht erfunden. Schlüsselwechsel oder Anmeldungsart-/
+Sign-in-Wechsel während des Abrufs verwerfen das Ergebnis.
+
+OAuth-Einwilligungs-/Token-Erneuerungsflow und Sandbox werden in dieser Version
+nicht angeboten. Abgelaufene Freigaben werden sichtbar abgewiesen. Eine
+automatische OAuth-Erneuerung ist kein vorgetäuschter Bestandteil des Key-Zugangs.
+Keine Geheimnisse in Repository,
 Browserdaten, Befehlsausgaben, Fehlermeldungen oder Chat eingeben.
 
 Die aktuelle Cloud hat keine Bankgeheimnisse und erlaubt die neuen Provider-

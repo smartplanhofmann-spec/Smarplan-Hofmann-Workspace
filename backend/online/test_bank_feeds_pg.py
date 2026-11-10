@@ -19,6 +19,8 @@ from online import release
 
 @unittest.skipUnless(existing.fixture.DSN,'Disposable loopback SMARTPLAN_TEST_DSN required')
 class BankFeedPostgres(unittest.TestCase):
+    auth_mode='oauth_access_token'
+    sign_in=''
     setUp=existing.BankReconciliationPostgres.setUp
     call=existing.BankReconciliationPostgres.call
     reopen=existing.BankReconciliationPostgres.reopen
@@ -41,9 +43,16 @@ class BankFeedPostgres(unittest.TestCase):
         statement,command,original=self.statement(account,binding,['119.00'])
         before=restore_horizon(self.office)
         euer=self.call('GET','/business/accounting/euer').json
-        config=Config(ORG,account['id'],TOKEN)
+        config=Config(ORG,account['id'],TOKEN,auth_mode=self.auth_mode,login=self.sign_in)
         def service(office):
-            return BankFeeds(office,config=lambda:config,reader=QontoReader(http=IntegrationHttp('qonto',opener=Opener(response(org()),response(page([row()])),response(org())))))
+            fixture=self
+            class AuditOpener(Opener):
+                def open(self,request,**kwargs):
+                    expected=fixture.sign_in+':'+TOKEN if fixture.auth_mode=='own_account_api_key' else 'Bearer '+TOKEN
+                    fixture.assertEqual(request.get_header('Authorization'),expected)
+                    fixture.assertEqual(request.get_method(),'GET')
+                    return super().open(request,**kwargs)
+            return BankFeeds(office,config=lambda:config,reader=QontoReader(http=IntegrationHttp('qonto',opener=AuditOpener(response(org()),response(page([row()])),response(org())))))
         self.app=create_app(office=self.office,key=self.key,host='office.example.test',bank_feeds=service(self.office))
         self.client=self.app.test_client()
         result=self.call('POST','/bank-feeds/qonto/read',dict(updated_from=FROM,updated_to=TO)).json
@@ -68,6 +77,11 @@ class BankFeedPostgres(unittest.TestCase):
                 after=release.snapshot_fingerprint(target)
                 for table in TABLES:self.assertEqual(after[table],fingerprints[table])
             finally:restored.db.close()
+
+
+class OwnAccountBankFeedPostgres(BankFeedPostgres):
+    auth_mode='own_account_api_key'
+    sign_in='synthetic-own-company'
 
 
 if __name__=='__main__':unittest.main()

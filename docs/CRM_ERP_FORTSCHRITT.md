@@ -4398,3 +4398,15 @@ Smartplan-Office-iOS-200: Artefakt13769975157,29898645Bytes; TestFlight
 übersprungen. EnthältV14 und korrigierte Mitarbeiterbelege, noch kein Qonto.
 Vollständige Erfolg-/Job-/Artefaktrohdaten und erster Netzwerkfehler erhalten.
 Keine neue Geräte-/Server-/Fachabnahme daraus ableiten.
+
+
+## 10.11.2026 – Qonto-Vorläufer vollständig grün, Eigenkonto-Key zur Veröffentlichung
+
+Eigene Development42821768166 anca14af3 besteht alle20 Gruppen, einschließlich
+Windows, kompletter App, Backend, tatsächlicher Online-/Browser-, HTTPS-/
+Update-/Restoreprüfungen. Kein Fremdstand als Nachweis übernommen. Der lokal
+geprüfte Eigenkonto-Key67b99d3 wird danach ausschließlich auf dem autorisierten
+Testbranch veröffentlicht; keine laufende notwendige Prüfung dafür verdrängt.
+Eigenkonto-Code43 gemeinsame Fälle und zwei tatsächliche PG-/MFA-/Restorefälle
+plus echter Browser sind separat nachgewiesen; Clientruntime seitca14 bytegleich.
+Der neue eigene Remote-Nachlauf ist nach tatsächlichem Push getrennt zu prüfen.

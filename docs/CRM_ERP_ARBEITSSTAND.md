@@ -278,3 +278,9 @@ Signatur-/Team-/Keychain-Prüfung und Bereinigung bestehen. Artefakt13769975157
 mit29898645Bytes vorhanden; TestFlight-Uploadskipped. V14 enthalten, Qonto noch
 nicht enthalten. Der tatsächliche erste Netzwerkfehler bleibt erhalten.
 Keine neue Geräteinstallation oder Serveraktualisierung daraus ableiten.
+
+
+Aktueller Nachlauf: ca14af3/Development42821768166 ist mit allen20 Gruppen
+erfolgreich abgeschlossen. Eigenkonto-Key67b99d3 samt Nachweisen wird jetzt
+für den autorisierten Testbranch veröffentlicht. Die neue eigene Remoteprüfung
+bleibt vom abgeschlossenen Vorläufer getrennt. Keine Liveinstallation.

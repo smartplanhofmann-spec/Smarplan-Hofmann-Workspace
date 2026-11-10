@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "own_company_key_additive_tested_local_not_published",
+  "status": "own_company_key_tested_predecessor_all20_ci_success_ready_for_authorized_publication",
   "product_commit": "67b99d3d45b6461d9306a78f9502aa851b46d761",
   "base_published_commit": "ca14af3822aac0706c2acf80bdb568cc5f29afbb",
   "raw_files": [
@@ -83,6 +83,11 @@
       "path": "loxone-catalogue-direct-escalated-attempt-20261110.headers.gz",
       "bytes": 143,
       "sha256": "79c8e1f47c6a1e5ca06a38f21f774b8a150c9b5ea92b1bf9f6a663dc89eced9a"
+    },
+    {
+      "path": "qonto-readonly-own-development-closed-20261110.json.gz",
+      "bytes": 48505,
+      "sha256": "bccd3212772508998ac32becd81efe630d32a3eeeeb27cda42fb46af9c352414"
     }
   ],
   "results": {
@@ -110,7 +115,8 @@
     "unsigned_iphone_run": 42821768001,
     "mailbot_run": 42821768083,
     "mailbot_success": true,
-    "development_conclusion": "running"
+    "development_conclusion": "success",
+    "development_all_success": 20
   },
   "signed_delivery": {
     "source_commit": "91fa18bf5290ef7f411c7c7d9f722bb78e3dd954",

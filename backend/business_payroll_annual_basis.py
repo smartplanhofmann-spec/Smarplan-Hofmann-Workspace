@@ -17,12 +17,28 @@ from business_operations import identifier,text,transaction
 from business_personnel_workflow import _integer,_sha,_shape
 from business_payroll_facts import PayrollFacts,reference,ref,file_ids,employee_view,EMPLOYEE_FIELDS
 from payroll_annual_basis_2026 import (ANNUAL_BASIS_VERSION,KINDS,normalize_details,
-    build_annual_plan,employer_key,dates,running_tax_year)
+    build_annual_plan as build_annual_plan_v1,employer_key,dates,running_tax_year)
 from payroll_oneoff_2026 import BRANCHES,annual_social_room
 
 FEATURES=('payroll_annual_basis',)
 TABLES=('business_payroll_annual_events','business_payroll_annual_requests')
 ID=r'[a-f0-9]{32}'
+
+
+def build_annual_plan(snapshot,*,rule_version=None):
+    if 'annual_source_contract' in snapshot:
+        from payroll_factor_annual_basis_2026 import build_plan,RULE_VERSION
+        return build_plan(snapshot,rule_version=RULE_VERSION if rule_version is None else rule_version)
+    if 'annual_source_contract' in snapshot.get('annual_basis',{}).get('sources',{}):
+        raise Problem(409,'Die V2-Jahresbasis benötigt ihre ausdrücklich versionierte Jahressteuerprognose.')
+    return build_annual_plan_v1(snapshot,rule_version=ANNUAL_BASIS_VERSION if rule_version is None else rule_version)
+
+
+def _source_api(office,sources,*,clock=None):
+    if 'annual_source_contract' in sources:
+        from business_payroll_factor_annual_basis import FactorAnnualBasis
+        return FactorAnnualBasis(office,clock=clock)
+    return PayrollAnnualBasis(office,clock=clock)
 _CHECKS=ContextVar('payroll_annual_original_checks',default=None)
 
 
@@ -102,6 +118,26 @@ class PayrollAnnualBasis:
         self.office,self.db=office,office.db
         self.facts=PayrollFacts(office,clock=clock);self.hr=self.facts.hr
 
+    @staticmethod
+    def _operation(kind):
+        return 'annual.saved:'+kind
+
+    def _check_current_case(self,employee,candidate,*,fresh):
+        from business_payroll_calculation_cases import PayrollCalculationCases,validate_case_sources
+        api=PayrollCalculationCases(self.office,clock=self.hr.clock)
+        validate_case_sources(self.office,candidate)
+        if fresh and (reference(api._get(candidate['id']))!=reference(candidate) or api._snapshot(employee,'calculation_case',candidate['details'],candidate['source_file_ids'],
+                planned_on=candidate['sources']['flat_travel_tax']['recording_context']['planned_recording_on'] if candidate['sources']['flat_travel_tax'] else None,
+                rule_version=candidate['rule_version'],source_contract_version=candidate['source_contract_version'])!=candidate['sources']):
+            raise Problem(409,'Aktuelle laufende Monatsquelle wurde geändert.')
+
+    def _planned_calculation(self,employee,candidate,*,fresh):
+        from payroll_calculations_2026 import CALCULATION_RULE_VERSION,SOURCE_CONTRACT_VERSION,calculate_calculation_source
+        if candidate['rule_version']!=CALCULATION_RULE_VERSION or candidate['source_contract_version']!=SOURCE_CONTRACT_VERSION:
+            raise Problem(409,'Dieser noch nicht abgeschlossene Monatsfall benötigt seinen eigenen Jahresvorschauvertrag; zuerst den verifizierten Monatslauf abschließen.')
+        self._check_current_case(employee,candidate,fresh=fresh)
+        return calculate_calculation_source(candidate['sources'],rule_version=candidate['rule_version'],source_contract_version=candidate['source_contract_version'])
+
     def _access(self,actor,employee_id,permission='personnel.read'):
         return self.facts._access(actor,employee_id,permission)
 
@@ -170,7 +206,7 @@ class PayrollAnnualBasis:
             self.facts._files(employee_id,result['source_file_ids'],fresh=True)
             # Re-resolve dependencies with the original accepted employee view;
             # current top-level employee revision is checked at the caller.
-            if self._snapshot(result['sources']['employee'],result['kind'],result['details'],result['source_file_ids'],
+            if _source_api(self.office,result['sources'],clock=self.hr.clock)._snapshot(result['sources']['employee'],result['kind'],result['details'],result['source_file_ids'],
                     fresh=True,current_one_off_id=current_one_off_id)!=result['sources']:
                 raise Problem(409,'Jahresquelle entspricht nicht mehr ihren vollständigen aktuellen Originalen.')
         return result
@@ -360,14 +396,7 @@ class PayrollAnnualBasis:
                 from business_payroll_calculation_cases import validate_case_sources
                 if candidate['employee_id']!=employee_id or candidate['kind']!='calculation_case' or candidate['status']!='active' or reference(candidate)!=d['current_calculation_case_ref']:
                     raise Problem(409,'Aktuelle laufende Monatsquelle ist nicht kanonisch an diese Person gebunden.')
-                from payroll_calculations_2026 import CALCULATION_RULE_VERSION,SOURCE_CONTRACT_VERSION
-                if candidate['rule_version']!=CALCULATION_RULE_VERSION or candidate['source_contract_version']!=SOURCE_CONTRACT_VERSION:
-                    raise Problem(409,'Dieser noch nicht abgeschlossene Monatsfall benötigt seinen eigenen Jahresvorschauvertrag; zuerst den verifizierten Monatslauf abschließen.')
-                validate_case_sources(self.office,candidate)
-                if fresh and (reference(api._get(candidate['id']))!=reference(candidate) or api._snapshot(employee,'calculation_case',candidate['details'],candidate['source_file_ids'],
-                        planned_on=candidate['sources']['flat_travel_tax']['recording_context']['planned_recording_on'] if candidate['sources']['flat_travel_tax'] else None)!=candidate['sources']):
-                    raise Problem(409,'Aktuelle laufende Monatsquelle wurde geändert.')
-                calc=calculate_calculation_source(candidate['sources'],rule_version=candidate['rule_version'],source_contract_version=candidate['source_contract_version'])
+                calc=self._planned_calculation(employee,candidate,fresh=fresh)
                 if not calc['payroll_calculation_complete']:raise Problem(409,'Die laufende aktuelle Monatsrechnung muss vollständig sein.')
                 if candidate['details']['month']!=d['coverage_to'][:7]:raise Problem(400,'Geplante laufende Rechnung gehört ausschließlich zum letzten Jahresbasismonat.')
                 current=dict(id=candidate['id'],revision=candidate['revision'],content_hash=candidate['content_hash'],employee_id=employee_id,
@@ -485,7 +514,7 @@ class PayrollAnnualBasis:
         if not isinstance(data['preview_hash'],str) or not re.fullmatch('[a-f0-9]{64}',data['preview_hash']):raise Problem(400,'Die genaue geprüfte Jahresvorschau ist erforderlich.')
         d=normalize_details(data['kind'],data['details']);ids=file_ids(data['source_file_ids']);_integer(data['employee_revision'],1);_integer(data['revision'])
         reason=text(data.get('correction_reason',''),'Korrekturgrund',2000,required=bool(data.get('id')))
-        operation='annual.saved:'+data['kind'];fingerprint=_sha([operation,data])
+        operation=self._operation(data['kind']);fingerprint=_sha([operation,data])
         with transaction(self.office):
             fresh,employee=self._access(actor,data['employee_id'],'personnel.approve');self._gate(fresh,new=False)
             receipt=self.db.execute('SELECT * FROM business_payroll_annual_requests WHERE user_id=? AND request_id=?',(fresh['id'],data['request_id'])).fetchone()
@@ -541,12 +570,12 @@ class PayrollAnnualBasis:
 
 @_original_check_scope
 def validate_annual_sources(office,value):
-    api=PayrollAnnualBasis(office)
+    api=_source_api(office,value['sources'])
     checks=_CHECKS.get();key=(id(office),'annual',_sha(value))
     if key in checks:return True
     try:
         row=api._row(value['id'],value['revision']);payload=json.loads(row['payload_json']);command=payload['accepted_command']
-        if (value!=api._event(row) or _sha(['annual.saved:'+value['kind'],command])!=row['command_hash']
+        if (value!=api._event(row) or _sha([api._operation(value['kind']),command])!=row['command_hash']
                 or command['employee_id']!=value['employee_id'] or command['kind']!=value['kind'] or command['confirmed'] is not True
                 or command['status']!=value['status'] or normalize_details(value['kind'],command['details'])!=value['details']
                 or file_ids(command['source_file_ids'])!=value['source_file_ids'] or command['preview_hash']!=value['preview_hash']
@@ -555,7 +584,7 @@ def validate_annual_sources(office,value):
                 or effective(value['kind'],value['details'])!=(value['effective_from'],value['effective_to'])):
             raise ValueError('Changed original annual acceptance')
         receipt=office.db.execute('SELECT * FROM business_payroll_annual_requests WHERE user_id=? AND request_id=?',(row['created_by'],command['request_id'])).fetchone()
-        if receipt is None or any(receipt[key]!=expected for key,expected in dict(operation='annual.saved:'+value['kind'],request_hash=row['command_hash'],fact_id=value['id'],fact_revision=value['revision'],fact_content_hash=value['content_hash'],created_at=row['created_at']).items()):
+        if receipt is None or any(receipt[key]!=expected for key,expected in dict(operation=api._operation(value['kind']),request_hash=row['command_hash'],fact_id=value['id'],fact_revision=value['revision'],fact_content_hash=value['content_hash'],created_at=row['created_at']).items()):
             raise ValueError('Changed annual acceptance receipt')
         employee=value['sources']['employee'];_shape(employee,EMPLOYEE_FIELDS,EMPLOYEE_FIELDS)
         if value['status']=='active' and command['employee_revision']!=employee['revision']:raise ValueError('Changed accepted employee revision')
@@ -595,6 +624,8 @@ def validate_integrity(office):
 
 
 def methods(path):
+    if path.startswith('/payroll/annual-facts/factor-v2'):
+        path=path.replace('/payroll/annual-facts/factor-v2','/payroll/annual-facts',1)
     if path=='/payroll/annual-facts':return 'GET, POST'
     if path=='/payroll/annual-facts/preview':return 'POST'
     if path=='/payroll/annual-facts/sources' or re.fullmatch('/payroll/annual-facts/'+ID+'(?:/history)?',path):return 'GET'
@@ -605,7 +636,11 @@ def dispatch(office,actor,path,method,data):
     allowed=methods(path)
     if allowed is None:return None
     if method not in allowed.split(', '):raise Problem(405,'Methode für diese Jahresquellenroute nicht zulässig.')
-    api=PayrollAnnualBasis(office)
+    if path.startswith('/payroll/annual-facts/factor-v2'):
+        from business_payroll_factor_annual_basis import FactorAnnualBasis
+        api=FactorAnnualBasis(office)
+        path=path.replace('/payroll/annual-facts/factor-v2','/payroll/annual-facts',1)
+    else:api=PayrollAnnualBasis(office)
     if method=='POST':result=api.preview(actor,data) if path.endswith('/preview') else api.save(actor,data)
     else:
         _shape(data,('_query',));query=data.get('_query',{})

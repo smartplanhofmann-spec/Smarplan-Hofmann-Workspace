@@ -38,6 +38,7 @@ const _scopes = {
   'regular_transition_factor_month',
   'regular_standard_multiple_oneoff',
   'regular_standard_oneoff',
+  'regular_standard_factor_claims_oneoff',
   'regular_standard_segments',
   'regular_transition_segments',
   'commercial_minijob_segments_flat_tax',
@@ -113,8 +114,8 @@ Future<Map<String, dynamic>> payrollStatement(
   Map<String, dynamic>? reference,
 }) async {
   final v = businessMap(raw),
-      oneoff = [3, 4].contains(businessMap(raw)['schema_version']),
-      composite = [2, 3, 4].contains(businessMap(raw)['schema_version']);
+      oneoff = [3, 4, 5].contains(businessMap(raw)['schema_version']),
+      composite = [2, 3, 4, 5].contains(businessMap(raw)['schema_version']);
   _shape(v, [
     if (oneoff) 'one_off_summary',
     if (composite) ...['earnings_summary', 'travel_summary'],
@@ -134,7 +135,7 @@ Future<Map<String, dynamic>> payrollStatement(
   ]);
   final ref = businessMap(v['run_ref']);
   _shape(ref, ['id', 'revision', 'content_hash']);
-  if (![1, 2, 3, 4].contains(v['schema_version']) ||
+  if (![1, 2, 3, 4, 5].contains(v['schema_version']) ||
       !_id.hasMatch(employeeId) ||
       v['employee_id'] != employeeId ||
       !_id.hasMatch('${ref['id']}') ||
@@ -175,7 +176,11 @@ Future<Map<String, dynamic>> payrollStatement(
       (v['schema_version'] == 4) !=
           (c['rule_version'] == 'de_2026_multiple_oneoff_v7') ||
       (v['schema_version'] == 4) !=
-          (c['scope'] == 'regular_standard_multiple_oneoff'))
+          (c['scope'] == 'regular_standard_multiple_oneoff') ||
+      (v['schema_version'] == 5) !=
+          (c['rule_version'] == 'de_2026_factor_claims_oneoff_v15') ||
+      (v['schema_version'] == 5) !=
+          (c['scope'] == 'regular_standard_factor_claims_oneoff'))
     _fail(
       'Die Belegversion stimmt nicht mit dem Gesamtlohnregelstand überein.',
     );
@@ -726,7 +731,7 @@ class _StatementsState extends State<BusinessPayrollStatementsPage>
         ),
       for (final entry in statementAmounts.entries)
         line(entry.value, money(c[entry.key])),
-      if ([2, 3, 4].contains(v['schema_version'])) ...[
+      if ([2, 3, 4, 5].contains(v['schema_version'])) ...[
         line('Belegte Nettoabzüge', money(c['net_deductions_minor'])),
         const Text('Eigene Entgeltbestandteile'),
         for (final row in businessItems(v['earnings_summary']))
@@ -756,7 +761,7 @@ class _StatementsState extends State<BusinessPayrollStatementsPage>
           v['travel_summary']['letter_m'] == true ? 'Ja' : 'Nein',
         ),
       ],
-      if ([3, 4].contains(v['schema_version'])) ...[
+      if ([3, 4, 5].contains(v['schema_version'])) ...[
         const Text('Einmalzahlung / sonstiger Bezug'),
         line(
           'Brutto der Einmalzahlung',
@@ -809,7 +814,7 @@ class _StatementsState extends State<BusinessPayrollStatementsPage>
             ),
       ],
       Notice(
-        [2, 3, 4].contains(v['schema_version'])
+        [2, 3, 4, 5].contains(v['schema_version'])
             ? 'Der berechnete Auszahlungsbetrag ist kein Zahlungsnachweis. Steuerfreie Reiseerstattungen werden außerhalb dieses Lohnnettos gezahlt. Es wurde keine amtliche Meldung übermittelt.'
             : 'Der berechnete Auszahlungsbetrag ist kein Zahlungsnachweis. Auslagen und Reisekosten werden gesondert belegt. Es wurde keine amtliche Meldung übermittelt.',
       ),

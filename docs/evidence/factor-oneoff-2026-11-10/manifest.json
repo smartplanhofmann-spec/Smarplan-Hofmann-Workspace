@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "pure_tax_component_proven_full_source_and_client_integration_active",
+  "status": "source4_v15_full_pg_money_annual_restore_and_both_clients_proven_full_regressions_active",
   "base_commit": "5c779b92d2e3269c4fc799a02879c83b943ff129",
   "raw_files": [
     {
@@ -27,6 +27,251 @@
       "path": "factor-oneoff-pure-and-source-boundary-final-20261110.txt.gz",
       "bytes": 4061,
       "sha256": "1b0f46fb9cec316f026368620b609deb3ca6c5cf67960ab557e2c6daaf414ed6"
+    },
+    {
+      "path": "factor-oneoff-all-browser-first-20261110.txt.gz",
+      "bytes": 111496,
+      "sha256": "be2fbe2fb9227d2b33a78b8668aa2df63de5b216abdbd29c5507f4f4d20a3604"
+    },
+    {
+      "path": "factor-oneoff-analyze-first-20261110.txt.gz",
+      "bytes": 97,
+      "sha256": "09bfb818d1a44195230765c19dc58253d27e64aced2901e0d788d89645d192d0"
+    },
+    {
+      "path": "factor-oneoff-annual-own-pg-first-20261110.json.gz",
+      "bytes": 275,
+      "sha256": "24415e38017df944cd18e856763c2ed5c28a1e813cd461adc9ee271ddba787ca"
+    },
+    {
+      "path": "factor-oneoff-annual-pg-first-20261110.txt.gz",
+      "bytes": 338,
+      "sha256": "d5ab69b910b59abd2116313ddfc0cf72f2bb2d8c039330858c2687042a58099e"
+    },
+    {
+      "path": "factor-oneoff-annual-pg-first-result-20261110.json.gz",
+      "bytes": 384,
+      "sha256": "e24612f9b8be68df9cac2e060145b231f623491b1726a4ddced6aee696d9a494"
+    },
+    {
+      "path": "factor-oneoff-annual-pg-runner-20261110.py.gz",
+      "bytes": 4105,
+      "sha256": "68339b18beffd258ea4591dda1779d8dbd8302edde0f823952bbc2dddb3a5ece"
+    },
+    {
+      "path": "factor-oneoff-annual-pg-runner-first-20261110.txt.gz",
+      "bytes": 366,
+      "sha256": "a71c5f06fbcb3a2c8093a503f8c00114ddc19864999f0d17997b9a5127bf9890"
+    },
+    {
+      "path": "factor-oneoff-annual-v2-before-20261110.txt.gz",
+      "bytes": 1110,
+      "sha256": "488b74798adda62fe30760f32026761c99a74f759db48bd86e0cbf9de5b555fe"
+    },
+    {
+      "path": "factor-oneoff-annual-v2-first-20261110.txt.gz",
+      "bytes": 7476,
+      "sha256": "2b83c984994126dc193028370c6a02c14d20f9fcdf8208ae13925b05f3fc057d"
+    },
+    {
+      "path": "factor-oneoff-annual-v2-forecast-first-20261110.txt.gz",
+      "bytes": 8371,
+      "sha256": "097984b2c4d01d2e603b373cd04ae7497944724b4a03a0882cd4f2be7b9b0c85"
+    },
+    {
+      "path": "factor-oneoff-annual-v2-joint-package-first-20261110.txt.gz",
+      "bytes": 15420,
+      "sha256": "eba4610ac70b29193ed9420a948e9f01dd5e1129962a5b2f08566dcf291b5873"
+    },
+    {
+      "path": "factor-oneoff-annual-v2-second-20261110.txt.gz",
+      "bytes": 4246,
+      "sha256": "3d3cfbcac87de494d8afa6fd74670129cefc1cea7c4f89e9d656e4b71989d832"
+    },
+    {
+      "path": "factor-oneoff-backend-joint-final-20261110.txt.gz",
+      "bytes": 12134,
+      "sha256": "14ce587d353ee909deed44fca1c08d55af8a70b49610ac64dcffc9c20715b13d"
+    },
+    {
+      "path": "factor-oneoff-browser-contract-first-20261110.txt.gz",
+      "bytes": 1517,
+      "sha256": "2b531c1273ed7c8827c7261b8354934ee464c1aee591a38c9dc36d95b263738c"
+    },
+    {
+      "path": "factor-oneoff-browser-contract-second-20261110.txt.gz",
+      "bytes": 1517,
+      "sha256": "abf7a45bd8ac6198c79873fce2a0461de74c09c7869862675715a4f4ce737516"
+    },
+    {
+      "path": "factor-oneoff-browser-contract-third-20261110.txt.gz",
+      "bytes": 444,
+      "sha256": "a760b7531f35d47551ee9ceca98b0d54e9a728f3be12553efc056b6cf89ace56"
+    },
+    {
+      "path": "factor-oneoff-browser-hashes-first-20261110.txt.gz",
+      "bytes": 442,
+      "sha256": "b8fcdd1be5e492a7a1559a51f64e3f69f4ad79305aea056f1eb84c42c89b5bcb"
+    },
+    {
+      "path": "factor-oneoff-browser-hashes-second-20261110.txt.gz",
+      "bytes": 442,
+      "sha256": "71f5d2960700bf4d5e8392e3ceb1879d6b575b94feedbc29b190e480a6c848a3"
+    },
+    {
+      "path": "factor-oneoff-browser-joint-first-20261110.txt.gz",
+      "bytes": 3739,
+      "sha256": "f0bc775bf518819146447b22229cb9d065e97b22d6528f0b449530eb237f38e0"
+    },
+    {
+      "path": "factor-oneoff-browser-router-final-20261110.txt.gz",
+      "bytes": 2186,
+      "sha256": "b788289cda2e15532fe5dc31b0d65af416728e2400487ef7423205043088f9fe"
+    },
+    {
+      "path": "factor-oneoff-browser-seed-fragment-20261110.txt.gz",
+      "bytes": 4033,
+      "sha256": "a0ec91949e8f6859235f754b6162d68b485ff2dbbefb13581a433f257d72c5a5"
+    },
+    {
+      "path": "factor-oneoff-browser-workflow-contract-first-20261110.txt.gz",
+      "bytes": 553,
+      "sha256": "16bf6376a57f416011ec2782faf37c9921e4052c8fe6bfd42ae97f61fccb4e87"
+    },
+    {
+      "path": "factor-oneoff-component-proof-20261110.py.gz",
+      "bytes": 3810,
+      "sha256": "c776b7b38f4a82e5ac5f12dbdd43948fe633c93f1ed4e372a52cd2d845f39042"
+    },
+    {
+      "path": "factor-oneoff-composition-before-20261110.txt.gz",
+      "bytes": 1138,
+      "sha256": "8ebd2aea45f91b5965529858e218c9754e6fa2e20fb77bb4f43532dd7267fa98"
+    },
+    {
+      "path": "factor-oneoff-composition-first-20261110.txt.gz",
+      "bytes": 830,
+      "sha256": "511da00424cba484878db19508d9f5d2b6454f379679e3a7f0b55221758773ad"
+    },
+    {
+      "path": "factor-oneoff-composition-independent-tax-first-20261110.txt.gz",
+      "bytes": 133,
+      "sha256": "e1854184149373e064e4669d56d0013d2b464694c6d8afb1bef9793c6315b71f"
+    },
+    {
+      "path": "factor-oneoff-composition-positive-tax-second-20261110.txt.gz",
+      "bytes": 830,
+      "sha256": "ceb5c67a761f2b006d6d5d4f0c307d1328501dc4c8e2888dcf5597c38e6935d4"
+    },
+    {
+      "path": "factor-oneoff-composition-reference-final-20261110.txt.gz",
+      "bytes": 830,
+      "sha256": "6b26b1a050863a25ae6541b29b2b64eb111bb7f3697b0dc95b97f5e9e470b9af"
+    },
+    {
+      "path": "factor-oneoff-crlf-paid-first-20261110.txt.gz",
+      "bytes": 1306,
+      "sha256": "d9d2190ee0241558e22f9825e768afa19f56b228e2e548041cdc7fa77406065c"
+    },
+    {
+      "path": "factor-oneoff-fixture-first-20261110.txt.gz",
+      "bytes": 116,
+      "sha256": "4b9ca31ff0b8621995ee34261aeb2a9584774e327932d0f5159f9eb74b80bf20"
+    },
+    {
+      "path": "factor-oneoff-fixture-second-20261110.txt.gz",
+      "bytes": 116,
+      "sha256": "dc3c0f999be3dc7b674edf8b4ee7042beb4d3c52080e617fb35e90445057045d"
+    },
+    {
+      "path": "factor-oneoff-full-own-pg-first-20261110.json.gz",
+      "bytes": 273,
+      "sha256": "b49e1e10665adbb31de1665804a65635b9eb5020fb6985e7b97a6d972d7b47e0"
+    },
+    {
+      "path": "factor-oneoff-full-pg-first-20261110.txt.gz",
+      "bytes": 326,
+      "sha256": "1876772d723ed04e738cdf685d515231fbe99e4d2fc401def2b817c7a4e9b91f"
+    },
+    {
+      "path": "factor-oneoff-full-pg-first-result-20261110.json.gz",
+      "bytes": 381,
+      "sha256": "9d5e610eec9cfa346701db7fe9c6ef38457acd1148e36430a33aa2b499188fe9"
+    },
+    {
+      "path": "factor-oneoff-full-pg-runner-20261110.py.gz",
+      "bytes": 4093,
+      "sha256": "f7f1a5484d6ec541bfe364a7924fb7af66f3cbeff52cbb06af1a394e5fcf6393"
+    },
+    {
+      "path": "factor-oneoff-native-contract-first-20261110.txt.gz",
+      "bytes": 3186,
+      "sha256": "0cc3e68e0fd23b24d3b6c88db8d19942dda686a4b8dad36e287c946241d918fc"
+    },
+    {
+      "path": "factor-oneoff-native-contract-second-20261110.txt.gz",
+      "bytes": 1402,
+      "sha256": "203d536a7c43cdadaefa952ecf8ef16ee8d55729bfbcd4c62a4a2ab683a1cf18"
+    },
+    {
+      "path": "factor-oneoff-native-flow-first-20261110.txt.gz",
+      "bytes": 5549,
+      "sha256": "5cde12cd191254b8073fdc5a0533edad7f2c3686d78da62289c4f815e12dc86d"
+    },
+    {
+      "path": "factor-oneoff-native-mode-replay-first-20261110.txt.gz",
+      "bytes": 1352,
+      "sha256": "f5f982b1aa03fa5ec5e2b3086bb9e366267162c0a8e2ad0f066b3b5f60ff871f"
+    },
+    {
+      "path": "factor-oneoff-private-browser-first-20261110.txt.gz",
+      "bytes": 3724,
+      "sha256": "f7022024df3b59618b885ca5869db7c6543e0d85f108dd2ed41803f31e625299"
+    },
+    {
+      "path": "factor-oneoff-private-case-before-20261110.txt.gz",
+      "bytes": 1110,
+      "sha256": "9732d19ff71b588f5a12d89fdc23f4a84d7042b26fe016260bbc1f2b7dd3e3e8"
+    },
+    {
+      "path": "factor-oneoff-private-case-first-20261110.txt.gz",
+      "bytes": 2262,
+      "sha256": "bc542b8a3ce7d5bf9db706270088f6b96c4a7a44c121ec21c6798b9e65a8cf11"
+    },
+    {
+      "path": "factor-oneoff-real-browser-final-20261110.txt.gz",
+      "bytes": 531,
+      "sha256": "b29350cae5c0b00a78e248701715e8151e32e791f2229d9e2e7ca0007a8743ae"
+    },
+    {
+      "path": "factor-oneoff-real-browser-first-20261110.txt.gz",
+      "bytes": 2980,
+      "sha256": "d5396e83eae3a33e2740366ae31ab1165ea6ef0bd8783a058e67a90c85280807"
+    },
+    {
+      "path": "factor-oneoff-real-browser-second-20261110.txt.gz",
+      "bytes": 366,
+      "sha256": "a50d30e31b0c236beaa7f7560bfe15bfd5944a78febfb83619dd04154cbfab9e"
+    },
+    {
+      "path": "factor-oneoff-runs-first-20261110.txt.gz",
+      "bytes": 4952,
+      "sha256": "0a8376acbc28a12bf77fabc94058311b1e90b91ba4a6d7c67b241955094b1aec"
+    },
+    {
+      "path": "factor-oneoff-runs-second-20261110.txt.gz",
+      "bytes": 1650,
+      "sha256": "bc6256e991b2a60061f5647134e558b19f7377b359aa5f3000133d38f3c87897"
+    },
+    {
+      "path": "payroll-factor-oneoff-mobile.png",
+      "bytes": 59681,
+      "sha256": "5fa3f5abd624b952c5fda381494d6427ee98aa9862ffc647c8303100ba4b2c1c"
+    },
+    {
+      "path": "payroll-oneoff-own-mobile.png",
+      "bytes": 62120,
+      "sha256": "aad253f038f472d20482b1dfcf78c568e349152f927919ec1feb7f43e4e958f4"
     }
   ],
   "independent_xml_vectors": 344,
@@ -36,10 +281,42 @@
   "actual_old_annual_guard_409": true,
   "no_annual_or_cash_mutation": true,
   "old_payroll_modules_byte_unchanged": 57,
-  "product_rule_registered": false,
-  "source_route_registered": false,
-  "client_flow_implemented": false,
+  "product_rule_registered": true,
+  "source_route_registered": true,
+  "client_flow_implemented": true,
   "published": false,
   "expert_approval": false,
-  "next_work": "Explicit annual source V2 and v15 composition preserving originals; current V1 planned-factor guard remains unchanged"
+  "next_work": "Complete full app, native/package/CI checks and original HTTP permission follow-up; then integrate and publish only authorized test branch; real expert/device/server acceptance remains separate",
+  "actual_full_postgres": {
+    "tests": 1,
+    "seconds": 76.023,
+    "runner_seconds": 77.791,
+    "concurrent_case_and_run_writers": true,
+    "one_claim_consumption": true,
+    "actual_payment_cash_euer_annual": true,
+    "full_restore": true,
+    "old_session_401": true,
+    "new_real_mfa": true
+  },
+  "node_contracts": {
+    "tests": 1086,
+    "failures": 0,
+    "skips": 0,
+    "seconds": 28.681
+  },
+  "native_focused": {
+    "initial_joint_tests": 28,
+    "mode_and_replay_tests": 6
+  },
+  "actual_browser": true,
+  "actual_schema5_employee_pdf_privacy_browser": true,
+  "full_app_pending": true,
+  "backend_joint": {
+    "tests": 48,
+    "passed": 47,
+    "initial_socket_permission_errors": 1,
+    "seconds": 298.029,
+    "http_followup_pending": true
+  },
+  "independent_composition_xml_vectors": 12
 }

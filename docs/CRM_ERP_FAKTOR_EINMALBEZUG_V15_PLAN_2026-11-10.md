@@ -67,3 +67,46 @@ Die reine Steuerkomponente erfüllt diese Integrationsschritte noch nicht.
 R09.03/D und die Gesamtabnahmen werden dadurch nicht abgeschlossen.
 Gewählte Banken/Lieferanten und deren bereits abgeschlossene Codearbeit
 bleiben parallel im [aktuellen Arbeitsstand](CRM_ERP_ARBEITSSTAND.md) erhalten.
+
+## Integrationsnachweis im laufenden Arbeitsstand10.11.
+
+Der neue V2-Jahresweg besteht69 gemeinsame Backend-/Paketfälle208,674s und
+einen tatsächlichen MFA-/PostgreSQL-/Konkurrenz-/Restorefall25,482s. Die neue
+Zusammensetzung verwendet außerdem12 unabhängige XML-Steuergegenwerte für
+die tatsächlichen Testprofile; positiver STS/SOLZS ist ausdrücklich geprüft.
+Zehn neue/alte private Falltests44,262s bestehen. Neue/alte Laufprüfung fand
+zunächst die fehlende ausdrückliche Abschlussumfangsfreigabe; Erstfehler bleibt
+erhalten. Nach gezielter Ergänzung bestehen die tatsächliche Netto-/Abgaben-/
+EÜR-Kette und Originalwiederholung sowie der bereits bezahlte laufende
+Originalbetrag mit ausschließlich zusätzlicher Bonusdifferenz. Fünf gemeinsame
+CRLF-/Quellen-/Zahlungsfälle17,588s bestehen.57 alte Lohnmodule bleiben erhalten.
+
+Der vollständige neue PostgreSQL-/MFA-Fall besteht76,023s (Runner77,791s): zwei
+wirkliche konkurrierende Fall- und Laufbestätigungen erzeugen jeweils nur ein
+Original und einen Anspruchsverbrauch. Tatsächlicher Zahlungsbeleg, Netto-Cash,
+EÜR, abgeschlossene Jahresbasis, reduzierter Mitarbeiterbeleg, Original-PDF,
+Sicherung, vollständige Wiederherstellung, exakte Quittungswiederholung,
+Sperre der alten Sitzung und neue echte MFA-Anmeldung bestehen. Die eigene
+512MiB-tmpfs-Datenbank ist nach exakter ID-/Label-/Loopbackprüfung entfernt.
+Kein Kundenserver oder Originalbestand wurde verändert.
+
+Explizite Quellenwege /payroll/annual-facts/factor-v2 und
+/payroll/one-off-cases/factor-v15 sind lokal angebunden. Die alte V1-/V6-Grenze
+bleibt erhalten; keine V5-Schattenquelle. Der Source4-Lauf wählt seine Regel
+aus dem tatsächlich autorisierten gespeicherten Original. Gemeinsame
+Anspruchsidentität und Verbrauchstabellen verhindern einen zweiten Eigentümer.
+
+Der Mitarbeiterbeleg besitzt eine eigene Schema5-Projektion mit bekannten
+Regel-/Umfangspaaren. Beide Leser prüfen tatsächliche API-/PDF-Fixtures;
+keine privaten Jahresquellen oder Faktoren im Mitarbeiterbeleg.36 gemeinsame
+Browserverträge1,085s und sieben native Vertrags-/Beleg-/390px-Fälle bestehen.
+Erster nativer Sandboxlauf konnte keinen lokalen Testsocket öffnen; der gleiche
+Lauf mit regulärer Ausführungsfreigabe besteht. Neue private Oberflächenauswahl
+und getrennte Wiederholungskennungen sind eingebaut. Ihre tatsächliche
+Browser-/App-Bedienung, Freigabeentzug und gemeinsame Schlussprüfung laufen
+noch. Daher noch keine Veröffentlichung oder vollständige V15-Clientabnahme.
+
+Die Nutzerpräzisierung Kreissparkasse Rottweil / Amex Business und die auf
+später verschobene Loxone-Hostfreigabe sind im Hauptprojekt unter
+[Bank-/Lieferantenverträgen](CRM_ERP_BANK_LIEFERANTEN_ANBINDUNGEN_2026-11-10.md)
+festgehalten. Sie ersetzen keine tatsächliche Bank-/Lieferantenfreischaltung.

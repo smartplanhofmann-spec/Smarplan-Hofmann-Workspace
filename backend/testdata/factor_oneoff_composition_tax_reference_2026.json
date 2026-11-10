@@ -1,0 +1,273 @@
+{
+  "schema_version": 1,
+  "xml_sha256": "63d8981646d139eba2f4dd990c13b43c4fb3883b402a5a40cddf253aa7aa96b4",
+  "production_kernel_imported": false,
+  "runtime_network": false,
+  "official_system_approval": false,
+  "cases": [
+    {
+      "pap_input": {
+        "af": 1,
+        "f": "0.000",
+        "LZZ": 2,
+        "RE4": 419355,
+        "JRE4": 1419355,
+        "SONSTB": 50000,
+        "STKL": 4,
+        "ZKF": "0",
+        "KVZ": "2.90",
+        "PVS": 0,
+        "PVZ": 1,
+        "PVA": 0,
+        "R": 0
+      },
+      "expected": {
+        "STS": 0,
+        "SOLZS": 0,
+        "BKS": 0
+      }
+    },
+    {
+      "pap_input": {
+        "af": 1,
+        "f": "0.000",
+        "LZZ": 2,
+        "RE4": 419355,
+        "JRE4": 1419355,
+        "SONSTB": 50000,
+        "STKL": 4,
+        "ZKF": "0",
+        "KVZ": "2.90",
+        "PVS": 0,
+        "PVZ": 1,
+        "PVA": 0,
+        "R": 1
+      },
+      "expected": {
+        "STS": 0,
+        "SOLZS": 0,
+        "BKS": 0
+      }
+    },
+    {
+      "pap_input": {
+        "af": 1,
+        "f": "0.753",
+        "LZZ": 2,
+        "RE4": 419355,
+        "JRE4": 1419355,
+        "SONSTB": 50000,
+        "STKL": 4,
+        "ZKF": "0",
+        "KVZ": "2.90",
+        "PVS": 0,
+        "PVZ": 1,
+        "PVA": 0,
+        "R": 0
+      },
+      "expected": {
+        "STS": 0,
+        "SOLZS": 0,
+        "BKS": 0
+      }
+    },
+    {
+      "pap_input": {
+        "af": 1,
+        "f": "0.753",
+        "LZZ": 2,
+        "RE4": 419355,
+        "JRE4": 1419355,
+        "SONSTB": 50000,
+        "STKL": 4,
+        "ZKF": "0",
+        "KVZ": "2.90",
+        "PVS": 0,
+        "PVZ": 1,
+        "PVA": 0,
+        "R": 1
+      },
+      "expected": {
+        "STS": 0,
+        "SOLZS": 0,
+        "BKS": 0
+      }
+    },
+    {
+      "pap_input": {
+        "af": 1,
+        "f": "0.999",
+        "LZZ": 2,
+        "RE4": 419355,
+        "JRE4": 1419355,
+        "SONSTB": 50000,
+        "STKL": 4,
+        "ZKF": "0",
+        "KVZ": "2.90",
+        "PVS": 0,
+        "PVZ": 1,
+        "PVA": 0,
+        "R": 0
+      },
+      "expected": {
+        "STS": 0,
+        "SOLZS": 0,
+        "BKS": 0
+      }
+    },
+    {
+      "pap_input": {
+        "af": 1,
+        "f": "0.999",
+        "LZZ": 2,
+        "RE4": 419355,
+        "JRE4": 1419355,
+        "SONSTB": 50000,
+        "STKL": 4,
+        "ZKF": "0",
+        "KVZ": "2.90",
+        "PVS": 0,
+        "PVZ": 1,
+        "PVA": 0,
+        "R": 1
+      },
+      "expected": {
+        "STS": 0,
+        "SOLZS": 0,
+        "BKS": 0
+      }
+    },
+    {
+      "pap_input": {
+        "af": 1,
+        "f": "0.000",
+        "LZZ": 2,
+        "RE4": 419355,
+        "JRE4": 13419355,
+        "SONSTB": 50000,
+        "STKL": 4,
+        "ZKF": "0",
+        "KVZ": "2.90",
+        "PVS": 0,
+        "PVZ": 1,
+        "PVA": 0,
+        "R": 0
+      },
+      "expected": {
+        "STS": 0,
+        "SOLZS": 0,
+        "BKS": 0
+      }
+    },
+    {
+      "pap_input": {
+        "af": 1,
+        "f": "0.000",
+        "LZZ": 2,
+        "RE4": 419355,
+        "JRE4": 13419355,
+        "SONSTB": 50000,
+        "STKL": 4,
+        "ZKF": "0",
+        "KVZ": "2.90",
+        "PVS": 0,
+        "PVZ": 1,
+        "PVA": 0,
+        "R": 1
+      },
+      "expected": {
+        "STS": 0,
+        "SOLZS": 0,
+        "BKS": 0
+      }
+    },
+    {
+      "pap_input": {
+        "af": 1,
+        "f": "0.753",
+        "LZZ": 2,
+        "RE4": 419355,
+        "JRE4": 13419355,
+        "SONSTB": 50000,
+        "STKL": 4,
+        "ZKF": "0",
+        "KVZ": "2.90",
+        "PVS": 0,
+        "PVZ": 1,
+        "PVA": 0,
+        "R": 0
+      },
+      "expected": {
+        "STS": 15800,
+        "SOLZS": 869,
+        "BKS": 0
+      }
+    },
+    {
+      "pap_input": {
+        "af": 1,
+        "f": "0.753",
+        "LZZ": 2,
+        "RE4": 419355,
+        "JRE4": 13419355,
+        "SONSTB": 50000,
+        "STKL": 4,
+        "ZKF": "0",
+        "KVZ": "2.90",
+        "PVS": 0,
+        "PVZ": 1,
+        "PVA": 0,
+        "R": 1
+      },
+      "expected": {
+        "STS": 15800,
+        "SOLZS": 869,
+        "BKS": 15800
+      }
+    },
+    {
+      "pap_input": {
+        "af": 1,
+        "f": "0.999",
+        "LZZ": 2,
+        "RE4": 419355,
+        "JRE4": 13419355,
+        "SONSTB": 50000,
+        "STKL": 4,
+        "ZKF": "0",
+        "KVZ": "2.90",
+        "PVS": 0,
+        "PVZ": 1,
+        "PVA": 0,
+        "R": 0
+      },
+      "expected": {
+        "STS": 20900,
+        "SOLZS": 1149,
+        "BKS": 0
+      }
+    },
+    {
+      "pap_input": {
+        "af": 1,
+        "f": "0.999",
+        "LZZ": 2,
+        "RE4": 419355,
+        "JRE4": 13419355,
+        "SONSTB": 50000,
+        "STKL": 4,
+        "ZKF": "0",
+        "KVZ": "2.90",
+        "PVS": 0,
+        "PVZ": 1,
+        "PVA": 0,
+        "R": 1
+      },
+      "expected": {
+        "STS": 20900,
+        "SOLZS": 1149,
+        "BKS": 20900
+      }
+    }
+  ]
+}

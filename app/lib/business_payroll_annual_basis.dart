@@ -178,8 +178,10 @@ class BusinessPayrollAnnualBasisPage extends StatefulWidget {
     required this.session,
     required this.employee,
     required this.onOriginal,
+    this.factorMode = false,
     this.onSelected,
   });
+  final bool factorMode;
   final BusinessSession session;
   final Map<String, dynamic> employee;
   final Future<void> Function(Map<String, dynamic>) onOriginal;
@@ -194,7 +196,10 @@ class _BusinessPayrollAnnualBasisPageState
     with WidgetsBindingObserver {
   BusinessSession get session => widget.session;
   String get employeeId => widget.employee['id'];
-  String get commandKey => 'payroll-annual-basis-$employeeId';
+  String get annualPath =>
+      '/payroll/annual-facts${widget.factorMode ? '/factor-v2' : ''}';
+  String get commandKey =>
+      'payroll-${widget.factorMode ? 'factor-' : ''}annual-basis-$employeeId';
   Map<String, dynamic>? sources, selected, preview, previewBody, correction;
   List<Map<String, dynamic>> history = [];
   bool loading = false, busy = false, historical = false, suspended = false;
@@ -204,7 +209,10 @@ class _BusinessPayrollAnnualBasisPageState
   int epoch = 0;
   final privateDialogs = <DialogRoute<dynamic>>[];
   final pageScroll = ScrollController();
-  bool get readable => !suspended && payrollAnnualBasisReadable(session);
+  bool get readable =>
+      !suspended &&
+      payrollAnnualBasisReadable(session) &&
+      (!widget.factorMode || session.hasFeature('payroll_factor_oneoff'));
   bool get permitted =>
       readable && !session.readonly && session.can('personnel.approve');
   bool get writable =>
@@ -213,7 +221,7 @@ class _BusinessPayrollAnnualBasisPageState
       sources?['writes_enabled'] == true &&
       sources?['can_approve'] == true;
   Map<String, dynamic>? get pending =>
-      session.pendingCommandValues(commandKey, path: '/payroll/annual-facts');
+      session.pendingCommandValues(commandKey, path: annualPath);
   @override
   void initState() {
     super.initState();
@@ -334,11 +342,17 @@ class _BusinessPayrollAnnualBasisPageState
       _fail('Aktuelle globale Personal-Lese- und Freigaberechte fehlen.', 403);
     final captured = session.generation,
         value = payrollAnnualSources(
-          await session.read(
-            '/payroll/annual-facts/sources?employee_id=$employeeId',
-          ),
+          await session.read('$annualPath/sources?employee_id=$employeeId'),
           employeeId,
         );
+    value['annual_facts'] = businessItems(value['annual_facts'])
+        .where(
+          (fact) =>
+              !['annual_basis', 'annual_tax_forecast'].contains(fact['kind']) ||
+              (fact['plan']['rule_version'] == payrollFactorAnnualRule) ==
+                  widget.factorMode,
+        )
+        .toList();
     if (!mounted ||
         !readable ||
         opening != epoch ||
@@ -414,7 +428,10 @@ class _BusinessPayrollAnnualBasisPageState
 
   Future<void> repeat() => act(() async {
     final opening = epoch;
-    final result = await session.repeatPayrollAnnualBasisCommand(employeeId);
+    final result = await session.repeatPayrollAnnualBasisCommand(
+      employeeId,
+      factorMode: widget.factorMode,
+    );
     if (mounted && readable && opening == epoch)
       await inspect(businessMap(result));
   });
@@ -433,7 +450,7 @@ class _BusinessPayrollAnnualBasisPageState
     final result = payrollAnnualRecord(
       await session.command(
         commandKey,
-        '/payroll/annual-facts',
+        annualPath,
         body,
         validateResult: payrollAnnualValidator(
           body,
@@ -543,7 +560,7 @@ class _BusinessPayrollAnnualBasisPageState
         }, previous: previous);
         final checked = payrollAnnualPreview(
           await session.api.call(
-            session.path('/payroll/annual-facts/preview'),
+            session.path('$annualPath/preview'),
             payrollAnnualPreviewInput(body),
           ),
           body,
@@ -640,7 +657,7 @@ class _BusinessPayrollAnnualBasisPageState
     final opening = epoch;
     await fresh();
     final page = businessMap(
-          await session.read('/payroll/annual-facts/${fact['id']}/history'),
+          await session.read('$annualPath/${fact['id']}/history'),
         ),
         items = businessItems(page['items']);
     if (page['employee_id'] != employeeId ||
@@ -824,7 +841,11 @@ class _BusinessPayrollAnnualBasisPageState
                       ? null
                       : () => act(() => inspect(fact, old: true)),
                 ),
-              for (final kind in payrollAnnualKinds.entries)
+              for (final kind in payrollAnnualKinds.entries.where(
+                (entry) =>
+                    !widget.factorMode ||
+                    ['annual_basis', 'annual_tax_forecast'].contains(entry.key),
+              ))
                 Card(
                   child: Padding(
                     padding: const EdgeInsets.all(16),

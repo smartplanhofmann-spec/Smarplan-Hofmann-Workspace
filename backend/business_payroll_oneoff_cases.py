@@ -12,7 +12,7 @@ from business_payroll_calculation_cases import PayrollCalculationCases
 from payroll_de_2026 import month_range
 from payroll_oneoff_composition_2026 import ONEOFF_RULE_VERSION as RULE_VERSION, SOURCE_CONTRACT_VERSION, calculate_oneoff_source
 
-FEATURES = ('payroll_oneoff_cases',)
+FEATURES = ('payroll_oneoff_cases','payroll_factor_oneoff')
 TABLES = ('business_payroll_oneoff_case_events', 'business_payroll_oneoff_case_requests', 'business_payroll_oneoff_consumptions')
 KIND = 'one_off_case'
 ID = r'[a-f0-9]{32}'
@@ -69,6 +69,10 @@ def identity_key(details): return 'earning:' + details['one_off_earning_ref']['i
 
 
 class PayrollOneoffCases(PayrollFacts):
+    rule_version=RULE_VERSION
+    source_contract_version=SOURCE_CONTRACT_VERSION
+    running_rule='de_2026_segments_entitlements_v5'
+    running_contract=1
     def _gate(self, actor, *, new=True):
         from business_schema import require_capability
         from business_organization import require_active
@@ -101,14 +105,14 @@ class PayrollOneoffCases(PayrollFacts):
         if (running['employee_id'] != employee_id or running['kind'] != 'calculation_case'
                 or running['status'] != 'active' or reference(running) != value):
             raise Problem(409, 'Laufender Originalfall gehört nicht zur Person oder ist nicht wirksam.')
-        if running['rule_version']!='de_2026_segments_entitlements_v5' or running['source_contract_version']!=1:
+        if running['rule_version']!=self.running_rule or running['source_contract_version']!=self.running_contract:
             raise Problem(409,'Einmalbezüge auf einem Faktor-Reisefall benötigen ihren eigenen Regelzweig.')
         validate_running_case(self.office, running)
         planned = running['sources']['flat_travel_tax']
         planned_on = planned['recording_context']['planned_recording_on'] if planned else None
         if fresh and (reference(cases._get(value['id'])) != value
                 or cases._snapshot(employee, 'calculation_case', running['details'], running['source_file_ids'],
-                    planned_on=planned_on) != running['sources']):
+                    planned_on=planned_on,rule_version=running['rule_version'],source_contract_version=running['source_contract_version']) != running['sources']):
             raise Problem(409, 'Der tatsächliche laufende Quellenfall wurde geändert.')
         earning = annual._reference(employee_id, details['one_off_earning_ref'], 'one_off_earning', fresh=fresh)
         if fresh:
@@ -122,7 +126,7 @@ class PayrollOneoffCases(PayrollFacts):
             current_one_off_id=earning['id'])
             if details['previous_annual_basis_ref'] else None)
         forecast = annual._reference(employee_id, details['annual_tax_forecast_ref'], 'annual_tax_forecast', fresh=fresh)
-        pure = dict(schema_version=1, source_contract_version=SOURCE_CONTRACT_VERSION, rule_version=RULE_VERSION,
+        pure = dict(schema_version=1, source_contract_version=self.source_contract_version, rule_version=self.rule_version,
             employee_id=employee_id, month=details['month'], running_calculation_case=running,
             one_off_earning=earning, current_annual_basis=current, previous_annual_basis=previous, annual_tax_forecast=forecast)
         original_employee = running['sources']['period_case']['sources']['preparation']['snapshot']['employee']
@@ -135,10 +139,10 @@ class PayrollOneoffCases(PayrollFacts):
     def _plan(snapshot):
         return calculate_oneoff_source(snapshot['calculation_source'], rule_version=RULE_VERSION, source_contract_version=SOURCE_CONTRACT_VERSION)
 
-    @staticmethod
-    def _versions(data):
-        if (data['kind'] != KIND or data['rule_version'] != RULE_VERSION
-                or type(data['source_contract_version']) is not int or data['source_contract_version'] != SOURCE_CONTRACT_VERSION):
+    @classmethod
+    def _versions(cls,data):
+        if (data['kind'] != KIND or data['rule_version'] != cls.rule_version
+                or type(data['source_contract_version']) is not int or data['source_contract_version'] != cls.source_contract_version):
             raise Problem(400, 'Einmalbezugsfall und explizite Regel-/Quellenversion erforderlich.')
         _integer(data['employee_revision'], 1)
 
@@ -220,7 +224,7 @@ class PayrollOneoffCases(PayrollFacts):
                 else:
                     snapshot = self._snapshot(employee, details, ids); plan = self._plan(snapshot)
                     if _sha(dict(source_snapshot=snapshot, plan=plan)) != data['preview_hash']: raise Problem(409, 'Einmalbezugsquellen wurden seit der Vorschau geändert.')
-                payload = dict(rule_version=RULE_VERSION, source_contract_version=SOURCE_CONTRACT_VERSION,
+                payload = dict(rule_version=self.rule_version, source_contract_version=self.source_contract_version,
                     details=details, source_file_ids=ids, plan=plan, preview_hash=data['preview_hash'],
                     correction_reason=reason, accepted_command=json.loads(canonical(data)))
                 first, last = month_range(details['month'])
@@ -249,18 +253,28 @@ class PayrollOneoffCases(PayrollFacts):
             if record['status'] != 'active' or reference(record) != value or fresh and reference(self._get(value['id'])) != value:
                 raise Problem(409, 'Einmalbezugsfall wurde geändert oder aufgehoben.')
             validate_case_sources(self.office, record)
-            if fresh and self._snapshot(employee, record['details'], record['source_file_ids']) != record['sources']:
+            if fresh and _case_api(self.office,record,clock=self.hr.clock)._snapshot(employee, record['details'], record['source_file_ids']) != record['sources']:
                 raise Problem(409, 'Einmalbezugsfall entspricht nicht mehr seinen tatsächlichen Originalen.')
             return record
 
 
+def _case_api(office,value,*,clock=None):
+    if value.get('rule_version')==RULE_VERSION:
+        return PayrollOneoffCases(office,clock=clock)
+    from payroll_factor_oneoff_composition_2026 import RULE_VERSION as FACTOR_RULE
+    if value.get('rule_version')==FACTOR_RULE:
+        from business_payroll_factor_oneoff_cases import FactorOneoffCases
+        return FactorOneoffCases(office,clock=clock)
+    raise Problem(400,'Unbekannte ausdrückliche Einmalbezugsregel.')
+
+
 def validate_case_sources(office, value):
-    api = PayrollOneoffCases(office)
     try:
+        api = _case_api(office,value)
         row = api._row(value['id'], value['revision']); payload = json.loads(row['payload_json']); command = payload['accepted_command']; api._versions(command)
         details = normalize_details(value['details']); first, last = month_range(details['month']); fingerprint = _sha(['one_off_case.saved', command])
         receipt = office.db.execute('SELECT * FROM ' + TABLES[1] + ' WHERE user_id=? AND request_id=?', (value['created_by'], command['request_id'])).fetchone()
-        if (api._event(row) != value or value['rule_version'] != RULE_VERSION or type(value['source_contract_version']) is not int or value['source_contract_version'] != SOURCE_CONTRACT_VERSION
+        if (api._event(row) != value or value['rule_version'] != api.rule_version or type(value['source_contract_version']) is not int or value['source_contract_version'] != api.source_contract_version
                 or value['kind'] != KIND or value['effective_from'] != first.isoformat() or value['effective_to'] != last.isoformat()
                 or row['identity_key'] != (identity_key(details) if value['revision'] == 1 else None)
                 or row['command_hash'] != fingerprint or receipt is None or receipt['operation'] != 'one_off_case.saved'
@@ -276,7 +290,10 @@ def validate_case_sources(office, value):
         if employee['id'] != value['employee_id'] or value['status'] == 'active' and employee['revision'] != command['employee_revision']:
             raise ValueError('Changed originally accepted employee revision')
         expected = api._snapshot(employee, details, value['source_file_ids'], fresh=False); plan = api._plan(expected)
-        from oneoff_provenance_compat import calculation_matches
+        if value['rule_version']==RULE_VERSION:
+            from oneoff_provenance_compat import calculation_matches
+        else:
+            from payroll_factor_oneoff_composition_2026 import calculation_matches
         if calculation_matches(expected['calculation_source'],plan,value['plan']):plan=value['plan']
         if expected != value['sources'] or plan != value['plan'] or value['preview_hash'] != _sha(dict(source_snapshot=expected, plan=plan)):
             raise ValueError('Changed one-off historical originals or arithmetic')
@@ -407,6 +424,8 @@ def validate_integrity(office):
 
 
 def methods(path):
+    if path.startswith('/payroll/one-off-cases/factor-v15'):
+        path=path.replace('/payroll/one-off-cases/factor-v15','/payroll/one-off-cases',1)
     if path == '/payroll/one-off-cases': return 'GET, POST'
     if path == '/payroll/one-off-cases/preview': return 'POST'
     if path == '/payroll/one-off-cases/sources' or re.fullmatch('/payroll/one-off-cases/' + ID + '(?:/history)?', path): return 'GET'
@@ -417,7 +436,11 @@ def dispatch(office, actor, path, method, data):
     allowed = methods(path)
     if allowed is None: return None
     if method not in allowed.split(', '): raise Problem(405, 'Methode für diesen Einmalbezugsfall nicht erlaubt.')
-    api = PayrollOneoffCases(office)
+    if path.startswith('/payroll/one-off-cases/factor-v15'):
+        from business_payroll_factor_oneoff_cases import FactorOneoffCases
+        api=FactorOneoffCases(office)
+        path=path.replace('/payroll/one-off-cases/factor-v15','/payroll/one-off-cases',1)
+    else:api = PayrollOneoffCases(office)
     if method == 'POST': result = api.preview(actor, data) if path.endswith('/preview') else api.save(actor, data)
     else:
         _shape(data, ('_query',)); query = data.get('_query', {})

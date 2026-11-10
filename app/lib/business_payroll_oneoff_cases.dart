@@ -43,6 +43,8 @@ class PayrollOneoffCasePlanView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if(plan['rule_version']==payrollFactorOneOffRule)
+          line('Belegter ELStAM-Faktor', '${detail['tax_factor']}'),
         line('Lohnmonat', '${plan['month']}'),
         line('Laufendes Originalbrutto', _money(running['gross_minor'])),
         line('Einmaliger Bruttoanspruch', _money(detail['amount_minor'])),
@@ -135,9 +137,11 @@ class BusinessPayrollOneoffCasesPage extends StatefulWidget {
     required this.session,
     required this.employee,
     required this.onOriginal,
+    this.factorMode = false,
     required this.onCalculate,
     this.initialMonth,
   });
+  final bool factorMode;
   final BusinessSession session;
   final Map<String, dynamic> employee;
   final Future<void> Function(Map<String, dynamic>) onOriginal, onCalculate;
@@ -152,7 +156,10 @@ class _BusinessPayrollOneoffCasesPageState
     with WidgetsBindingObserver {
   BusinessSession get session => widget.session;
   String get employeeId => widget.employee['id'];
-  String get commandKey => 'payroll-oneoff-cases-$employeeId';
+  String get casePath =>
+      '/payroll/one-off-cases${widget.factorMode ? '/factor-v15' : ''}';
+  String get commandKey =>
+      'payroll-${widget.factorMode ? 'factor-' : ''}oneoff-cases-$employeeId';
   late String month;
   Map<String, dynamic>? sources, selected, preview, previewBody, correction;
   List<Map<String, dynamic>> history = [];
@@ -163,7 +170,10 @@ class _BusinessPayrollOneoffCasesPageState
   int epoch = 0;
   final privateDialogs = <DialogRoute<dynamic>>[];
   final pageScroll = ScrollController();
-  bool get readable => !suspended && payrollOneoffCasesReadable(session);
+  bool get readable =>
+      !suspended &&
+      payrollOneoffCasesReadable(session) &&
+      (!widget.factorMode || session.hasFeature(payrollFactorOneOffFeature));
   bool get permitted =>
       readable && !session.readonly && session.can('personnel.approve');
   bool get writable =>
@@ -172,7 +182,7 @@ class _BusinessPayrollOneoffCasesPageState
       sources?['writes_enabled'] == true &&
       sources?['can_approve'] == true;
   Map<String, dynamic>? get pending =>
-      session.pendingCommandValues(commandKey, path: '/payroll/one-off-cases');
+      session.pendingCommandValues(commandKey, path: casePath);
   @override
   void initState() {
     super.initState();
@@ -303,11 +313,18 @@ class _BusinessPayrollOneoffCasesPageState
     final captured = session.generation,
         value = payrollOneOffCaseSources(
           await session.read(
-            '/payroll/one-off-cases/sources?employee_id=$employeeId&month=$wanted',
+            '$casePath/sources?employee_id=$employeeId&month=$wanted',
           ),
           employeeId,
           wanted,
         );
+    value['one_off_cases'] = businessItems(value['one_off_cases'])
+        .where(
+          (fact) =>
+              fact['rule_version'] ==
+              (widget.factorMode ? payrollFactorOneOffRule : payrollOneOffRule),
+        )
+        .toList();
     if (!mounted ||
         !readable ||
         opening != epoch ||
@@ -385,7 +402,10 @@ class _BusinessPayrollOneoffCasesPageState
 
   Future<void> repeat() => act(() async {
     final opening = epoch;
-    final result = await session.repeatPayrollOneoffCaseCommand(employeeId);
+    final result = await session.repeatPayrollOneoffCaseCommand(
+      employeeId,
+      factorMode: widget.factorMode,
+    );
     if (mounted && readable && opening == epoch)
       await inspect(businessMap(result));
   });
@@ -404,7 +424,7 @@ class _BusinessPayrollOneoffCasesPageState
     final result = payrollOneOffCaseRecord(
       await session.command(
         commandKey,
-        '/payroll/one-off-cases',
+        casePath,
         body,
         validateResult: payrollOneOffCaseValidator(
           body,
@@ -602,13 +622,16 @@ class _BusinessPayrollOneoffCasesPageState
       await act(() async {
         await fresh(write: true, forMonth: wanted);
         if (opening != epoch) return;
-        final body = payrollOneOffCaseInput(employeeId, page, {
-          ...values,
-          'month': wanted,
-        }, previous: previous);
+        final body = payrollOneOffCaseInput(
+          employeeId,
+          page,
+          {...values, 'month': wanted},
+          previous: previous,
+          factorMode: widget.factorMode,
+        );
         final checked = payrollOneOffCasePreview(
           await session.api.call(
-            session.path('/payroll/one-off-cases/preview'),
+            session.path('$casePath/preview'),
             payrollOneOffCasePreviewInput(body),
           ),
           body,
@@ -690,8 +713,10 @@ class _BusinessPayrollOneoffCasesPageState
           'employee_id': employeeId,
           'employee_revision': page['employee']['revision'],
           'kind': 'one_off_case',
-          'rule_version': payrollOneOffRule,
-          'source_contract_version': 1,
+          'rule_version': widget.factorMode
+              ? payrollFactorOneOffRule
+              : payrollOneOffRule,
+          'source_contract_version': widget.factorMode ? 2 : 1,
           'id': fact['id'],
           'revision': fact['revision'],
           'status': 'void',
@@ -711,7 +736,7 @@ class _BusinessPayrollOneoffCasesPageState
     final opening = epoch;
     await fresh(forMonth: fact['details']['month']);
     final page = businessMap(
-          await session.read('/payroll/one-off-cases/${fact['id']}/history'),
+          await session.read('$casePath/${fact['id']}/history'),
         ),
         items = businessItems(page['items']);
     if (items.indexed.any(

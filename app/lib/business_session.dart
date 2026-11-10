@@ -2391,30 +2391,38 @@ class BusinessSession extends ChangeNotifier {
     );
   }
 
-  Future<dynamic> repeatPayrollOneoffCaseCommand(String employeeId) {
-    final key = 'payroll-oneoff-cases-$employeeId';
+  Future<dynamic> repeatPayrollOneoffCaseCommand(
+    String employeeId, {
+    bool factorMode = false,
+  }) {
+    final key =
+        'payroll-${factorMode ? 'factor-' : ''}oneoff-cases-$employeeId';
+    final route = '/payroll/one-off-cases${factorMode ? '/factor-v15' : ''}';
     final operation = _pending[key];
     final details = operation?.body['details'];
     final month = details is Map ? details['month'] : null;
     return _repeatWorkflowCommand(
       key,
-      matches: (path) => path == '/payroll/one-off-cases',
-      readPath:
-          '/payroll/one-off-cases/sources?employee_id=$employeeId&month=$month',
+      matches: (path) => path == route,
+      readPath: '$route/sources?employee_id=$employeeId&month=$month',
       requireRights: () {
         if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(employeeId) ||
             month is! String ||
             !RegExp(r'^2026-(0[1-9]|1[0-2])$').hasMatch(month) ||
             projectId != null ||
             !hasFeature('payroll_oneoff_cases') ||
+            factorMode && !hasFeature('payroll_factor_oneoff') ||
             !hasModule('payroll_oneoff_cases') ||
             !can('personnel.read') ||
             !canWrite('personnel.approve') ||
             operation?.body['kind'] != 'one_off_case' ||
             operation?.body['rule_version'] !=
-                'de_2026_oneoff_composition_v6' ||
+                (factorMode
+                    ? 'de_2026_factor_claims_oneoff_v15'
+                    : 'de_2026_oneoff_composition_v6') ||
             operation?.body['source_contract_version'] is! int ||
-            operation?.body['source_contract_version'] != 1 ||
+            operation?.body['source_contract_version'] !=
+                (factorMode ? 2 : 1) ||
             operation?.body['employee_id'] != employeeId) {
           throw const ApiException(
             403,
@@ -2502,17 +2510,28 @@ class BusinessSession extends ChangeNotifier {
     );
   }
 
-  Future<dynamic> repeatPayrollAnnualBasisCommand(String employeeId) {
-    final key = 'payroll-annual-basis-$employeeId';
+  Future<dynamic> repeatPayrollAnnualBasisCommand(
+    String employeeId, {
+    bool factorMode = false,
+  }) {
+    final key =
+        'payroll-${factorMode ? 'factor-' : ''}annual-basis-$employeeId';
+    final route = '/payroll/annual-facts${factorMode ? '/factor-v2' : ''}';
     final operation = _pending[key];
     return _repeatWorkflowCommand(
       key,
-      matches: (path) => path == '/payroll/annual-facts',
-      readPath: '/payroll/annual-facts/sources?employee_id=$employeeId',
+      matches: (path) => path == route,
+      readPath: '$route/sources?employee_id=$employeeId',
       requireRights: () {
         if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(employeeId) ||
             projectId != null ||
             !hasFeature('payroll_annual_basis') ||
+            factorMode && !hasFeature('payroll_factor_oneoff') ||
+            factorMode &&
+                ![
+                  'annual_basis',
+                  'annual_tax_forecast',
+                ].contains(operation?.body['kind']) ||
             !hasModule('payroll_annual_basis') ||
             !can('personnel.read') ||
             !canWrite('personnel.approve') ||
@@ -2687,6 +2706,7 @@ class BusinessSession extends ChangeNotifier {
         }
       },
       requireRights: () {
+        if (_pending[key]?.body['accepted_scope'] == 'regular_standard_factor_claims_oneoff' && !hasFeature('payroll_factor_oneoff')) throw const ApiException(403,'Die aktuelle Freigabe für den ursprünglichen Faktor-Einmalbezug fehlt.');
         if (_pending[key]?.body['accepted_scope'] ==
                 'commercial_minijob_individual_month' &&
             !hasFeature('payroll_individual_minijob'))
@@ -3415,6 +3435,7 @@ class BusinessSession extends ChangeNotifier {
     }
     final epoch = _epoch;
     _guard(epoch);
+    if ((path=='/payroll/one-off-cases/factor-v15' || path=='/payroll/annual-facts/factor-v2' || path=='/payroll/runs'&&values['accepted_scope']=='regular_standard_factor_claims_oneoff')&&!hasFeature('payroll_factor_oneoff')) throw const ApiException(403,'Die aktuelle Freigabe für den Faktor-Einmalbezug fehlt.');
     if ((path == '/payroll/calculation-cases' &&
                 values['rule_version'] ==
                     'de_2026_factor_transition_month_v14' ||

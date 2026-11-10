@@ -6,6 +6,11 @@ import 'business_payroll_calculation_case_contract.dart';
 import 'business_session.dart' show businessMap, businessItems;
 
 const payrollAnnualRule = 'de_2025_2026_annual_basis_v1';
+const payrollFactorAnnualRule = 'de_2026_factor_planned_annual_basis_v2';
+const payrollFactorAnnualContract = {
+  'version': 2,
+  'rule_version': payrollFactorAnnualRule,
+};
 const payrollAnnualKinds = {
   'imported_period': 'Belegte externe Lohnperiode',
   'imported_one_off': 'Bereits verarbeiteter externer Einmalbezug',
@@ -100,7 +105,12 @@ Map<String, dynamic> payrollAnnualPlan(
   final v = businessMap(raw);
   if (v['schema_version'] is! int ||
       v['schema_version'] != 1 ||
-      v['rule_version'] != payrollAnnualRule ||
+      ![
+        payrollAnnualRule,
+        payrollFactorAnnualRule,
+      ].contains(v['rule_version']) ||
+      v['rule_version'] == payrollFactorAnnualRule &&
+          !['annual_basis', 'annual_tax_forecast'].contains(kind) ||
       v['employee_id'] != employeeId ||
       v['kind'] != kind ||
       !payrollAnnualKinds.containsKey(kind) ||
@@ -135,7 +145,44 @@ void _bindings(
   List<dynamic> ids,
   String employeeId,
   String kind,
+  Map<String, dynamic> plan,
 ) {
+  final factor = plan['rule_version'] == payrollFactorAnnualRule;
+  if (factor
+      ? !payrollFactsSame(
+          s['annual_source_contract'],
+          payrollFactorAnnualContract,
+        )
+      : s.containsKey('annual_source_contract'))
+    _fail('Der ausdrückliche Jahresquellenvertrag wurde ersetzt.');
+  if (factor) {
+    if (kind == 'annual_tax_forecast') {
+      payrollAnnualRecord(s['annual_basis'], employeeId, kind: 'annual_basis');
+      if (s['annual_basis']['plan']['rule_version'] != payrollFactorAnnualRule)
+        _fail('Die Faktorprognose benötigt die eigene V2-Jahresbasis.');
+    }
+    final c = payrollCalculationCaseRecord(
+      kind == 'annual_basis'
+          ? s['current_calculation_case']
+          : s['annual_basis']['sources']['current_calculation_case'],
+      employeeId,
+    );
+    if (c['rule_version'] != 'de_2026_factor_claims_month_v12' ||
+        c['source_contract_version'] != 4 ||
+        !payrollFactsSame(plan['factor_case_ref'], payrollFactRef(c)) ||
+        !payrollFactsSame(
+          plan['factor_profile_ref'],
+          payrollFactRef(c['sources']['profiles'][0]),
+        ) ||
+        kind == 'annual_tax_forecast' &&
+            !payrollFactsSame(
+              plan['factor_profile_ref'],
+              payrollFactRef(s['tax_identity']['sources']['profile']),
+            ))
+      _fail(
+        'Die V2-Jahresquelle hat ihren ursprünglichen Faktorfall oder ihr Faktorprofil verloren.',
+      );
+  }
   if (s['schema_version'] is! int ||
       s['schema_version'] != 1 ||
       s['employee']?['id'] != employeeId ||
@@ -288,7 +335,7 @@ Map<String, dynamic> payrollAnnualRecord(
   final p = payrollAnnualPlan(v['plan'], employeeId, v['kind']);
   if (p['source_hash'] != v['source_hash'])
     _fail('Der Jahresplan passt nicht zu seinen eingefrorenen Quellen.');
-  _bindings(s, d, v['source_file_ids'], employeeId, v['kind']);
+  _bindings(s, d, v['source_file_ids'], employeeId, v['kind'], p);
   return v;
 }
 
@@ -616,6 +663,7 @@ Map<String, dynamic> payrollAnnualPreview(
     body['source_file_ids'],
     body['employee_id'],
     body['kind'],
+    p,
   );
   return v;
 }

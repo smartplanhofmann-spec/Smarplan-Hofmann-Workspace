@@ -133,8 +133,8 @@ class Payroll:
             from payroll_multiple_runs import verify_record
             return verify_record(self,record)
         if record['source'].get('source_schema_version')==4:
-            from payroll_oneoff_runs import verify_record
-            return verify_record(self,record)
+            from business_payroll_oneoff_dispatch import adapter
+            return adapter(record['source']).verify_record(self,record)
         from business_payroll_calculation_cases import PayrollCalculationCases,validate_case_sources
         from payroll_travel_recording import validate_tax_recording
         if self._event(self._row(record['id'],'run',record['revision']))!=record:
@@ -270,7 +270,7 @@ class Payroll:
             from payroll_multiple_runs import prepare
             return prepare(self,actor,data)
         if data.get('source_schema_version')==4:
-            from payroll_oneoff_runs import prepare
+            from business_payroll_oneoff_dispatch import prepare
             return prepare(self,actor,data)
         if data.get('source_schema_version')==3:
             return self._prepare_calculation(actor,data)
@@ -345,7 +345,7 @@ class Payroll:
         _shape(data,fields,input_fields+('request_id','preview_hash','accepted_scope','confirmed','revision'))
         if data['confirmed'] is not True or not isinstance(data['preview_hash'],str) or not re.fullmatch(r'[a-f0-9]{64}',data['preview_hash']):
             raise Problem(400,'Geprüfte Berechnungsvorschau und ausdrückliche Bestätigung erforderlich.')
-        if data['accepted_scope'] not in ('commercial_minijob_flat_tax','social_contributions_only','regular_standard_monthly', 'regular_standard_factor_monthly',FACTOR_PERIOD_SCOPE,'regular_standard_factor_taxfree_travel_month','regular_standard_factor_claims_month','regular_standard_factor_claims_paid_travel_month','regular_transition_factor_month','regular_transition_monthly',INDIVIDUAL_MINIJOB_SCOPE)+PERIOD_SCOPES+CALCULATION_SCOPES+('regular_standard_oneoff','regular_standard_multiple_oneoff'):
+        if data['accepted_scope'] not in ('commercial_minijob_flat_tax','social_contributions_only','regular_standard_monthly', 'regular_standard_factor_monthly',FACTOR_PERIOD_SCOPE,'regular_standard_factor_taxfree_travel_month','regular_standard_factor_claims_month','regular_standard_factor_claims_paid_travel_month','regular_transition_factor_month','regular_transition_monthly',INDIVIDUAL_MINIJOB_SCOPE)+PERIOD_SCOPES+CALCULATION_SCOPES+('regular_standard_oneoff','regular_standard_factor_claims_oneoff','regular_standard_multiple_oneoff'):
             raise Problem(400,'Den tatsächlich verfügbaren Berechnungsumfang ausdrücklich bestätigen.')
         if 'id' in data:
             identifier(data['id'])
@@ -519,8 +519,8 @@ def _calculate_source(source,*,rule_version=None):
         from payroll_multiple_runs import calculate_run_source
         return calculate_run_source(source,rule_version=rule_version)
     if source.get('source_schema_version')==4:
-        from payroll_oneoff_runs import calculate_run_source
-        return calculate_run_source(source,rule_version=rule_version)
+        from business_payroll_oneoff_dispatch import adapter
+        return adapter(source).calculate_run_source(source,rule_version=rule_version)
     if source.get('source_schema_version')==3:
         from payroll_calculations_2026 import build_calculation_plan,calculate_calculation_source
         fields=('source_schema_version','employee_id','month','input','profile','preparation','calculation_case')
@@ -626,6 +626,7 @@ def _render(prepared):
         'regular_transition_factor_month':'Midijob mit belegtem ELStAM-Faktor',
         'regular_standard_period':'Lohnberechnungsbeleg mit Zeitnachweis',
         'regular_standard_oneoff':'Lohnberechnungsbeleg mit sonstigem Bezug',
+        'regular_standard_factor_claims_oneoff':'Lohnberechnungsbeleg mit Faktor und sonstigem Bezug',
         'regular_standard_multiple_oneoff':'Lohnberechnungsbeleg mit einzeln zugeordnetem sonstigem Bezug',
         'regular_transition_period':'Midijob-Lohnberechnungsbeleg mit Zeitnachweis',
         'social_contributions_only':'Sozialversicherungsberechnung – Lohnsteuer offen'}.get(result['scope'],'Payroll-Prüfbeleg')
@@ -725,7 +726,7 @@ def _render(prepared):
 
 def _delta(current,previous):
     keys=('gross_minor','employee_social_total_minor','employer_social_total_minor','employer_flat_tax_minor','net_minor')
-    regular=('regular_standard_monthly', 'regular_standard_factor_monthly','regular_standard_factor_period','regular_standard_factor_taxfree_travel_month','regular_standard_factor_claims_month','regular_standard_factor_claims_paid_travel_month','regular_transition_factor_month','regular_transition_monthly','regular_standard_period','regular_transition_period','regular_standard_segments','regular_transition_segments','regular_standard_oneoff','regular_standard_multiple_oneoff')
+    regular=('regular_standard_monthly', 'regular_standard_factor_monthly','regular_standard_factor_period','regular_standard_factor_taxfree_travel_month','regular_standard_factor_claims_month','regular_standard_factor_claims_paid_travel_month','regular_transition_factor_month','regular_transition_monthly','regular_standard_period','regular_transition_period','regular_standard_segments','regular_transition_segments','regular_standard_oneoff','regular_standard_factor_claims_oneoff','regular_standard_multiple_oneoff')
     if current['scope'] in regular or previous['scope'] in regular:
         keys+=('individual_wage_tax_minor','solidarity_minor','church_tax_minor','employee_tax_minor','payout_minor')
     result={key:current[key]-previous[key] if current[key] is not None and previous[key] is not None else None for key in keys}

@@ -40,6 +40,13 @@ def _revision(value):
 def project(record):
     """Positive allowlist, including nested fields; never copy arbitrary extras."""
     source, calculation = record['source'], record['calculation']
+    factor_oneoff=calculation.get('rule_version')=='de_2026_factor_claims_oneoff_v15'
+    if (factor_oneoff or calculation.get('scope')=='regular_standard_factor_claims_oneoff') and (
+            not factor_oneoff or source.get('source_schema_version')!=4
+            or calculation.get('source_contract_version')!=2
+            or calculation.get('scope')!='regular_standard_factor_claims_oneoff'
+            or calculation.get('payroll_calculation_complete') is not True):
+        raise Problem(409,'Der Faktor-Einmalbeleg benötigt seinen vollständigen ausdrücklich versionierten Originalfall.')
     source5 = source.get('source_schema_version') == 5
     source5_extra = None
     if source5:
@@ -100,7 +107,7 @@ def project(record):
         # Source4 carries private annual evidence. Only the employee's amounts
         # and the resulting year assignment belong in the employee statement.
         extra = source5_extra if source5 else calculation['one_off_details']
-        base['schema_version'] = 4 if source5 else 3
+        base['schema_version'] = 4 if source5 else 5 if factor_oneoff else 3
         base['one_off_summary'] = dict(
             amount_minor=extra['amount_minor'], receipt_date=extra['receipt_date'],
             **{key: extra['assignment'][key] for key in ('tax_year', 'social_year', 'march_clause')},
@@ -151,7 +158,7 @@ def render_pdf(statement):
         line('Unvollständiger Rechenumfang: Lohnsteuer und Netto sind noch nicht vollständig ermittelt.')
     for key in AMOUNTS:
         line(LABELS[key] + ': ' + _money(calculation[key]))
-    if statement['schema_version'] in (2, 3, 4):
+    if statement['schema_version'] in (2, 3, 4, 5):
         line('Belegte Nettoabzüge: ' + _money(calculation['net_deductions_minor']))
         line('Eigene Entgeltbestandteile', True)
         labels = dict(ordinary_work='Regelmäßiges Arbeitsentgelt',
@@ -169,7 +176,7 @@ def render_pdf(statement):
             ('employee_flat_tax_deduction_minor', 'Belegter Arbeitnehmer-Steuerkostenabzug')):
             line(label + ': ' + _money(travel[key]))
         line('Mahlzeitenmerkmal M: ' + ('Ja' if travel['letter_m'] else 'Nein'))
-    if statement['schema_version'] in (3, 4):
+    if statement['schema_version'] in (3, 4, 5):
         extra = statement['one_off_summary']
         line('Einmalzahlung / sonstiger Bezug', True)
         line('Brutto der Einmalzahlung: ' + _money(extra['amount_minor']))
@@ -193,7 +200,7 @@ def render_pdf(statement):
             for item in summary[name]:
                 line(f"{title}: {item['start']} bis {item['end']} / {item[days]}")
     line('Berechneter Auszahlungsbetrag ist kein Zahlungsnachweis. '
-         + ('Steuerfreie Reiseerstattungen werden außerhalb dieses Lohnnettos gezahlt.' if statement['schema_version'] in (2, 3, 4)
+         + ('Steuerfreie Reiseerstattungen werden außerhalb dieses Lohnnettos gezahlt.' if statement['schema_version'] in (2, 3, 4, 5)
             else 'Auslagen und Reisekosten werden gesondert belegt.'))
     line('Keine amtliche Meldung oder vollständige gesetzliche Entgeltbescheinigung. Nachweis des ausgewiesenen Rechenumfangs.')
     line('Beleg-SHA256: ' + statement['statement_hash'])

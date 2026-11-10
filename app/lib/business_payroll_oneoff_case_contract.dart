@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cryptography/dart.dart';
+
 import 'api.dart';
 import 'business_payroll_facts.dart';
 import 'business_payroll_calculation_case_contract.dart';
@@ -7,6 +9,64 @@ import 'business_payroll_annual_basis_contract.dart';
 import 'business_session.dart' show businessMap, businessItems;
 
 const payrollOneOffRule = 'de_2026_oneoff_composition_v6';
+const payrollFactorOneOffRule = 'de_2026_factor_claims_oneoff_v15';
+const payrollFactorOneOffFeature = 'payroll_factor_oneoff';
+dynamic _ordered(dynamic value) => value is List
+    ? value.map(_ordered).toList()
+    : value is Map
+    ? {for (final key in value.keys.toList()..sort()) key: _ordered(value[key])}
+    : value;
+String _sourceHash(dynamic value) => const DartSha256()
+    .hashSync(utf8.encode(jsonEncode(_ordered(value))))
+    .bytes
+    .map((v) => v.toRadixString(16).padLeft(2, '0'))
+    .join();
+void payrollFactorOneOffCaseHashes(Map<String, dynamic> value) {
+  final s = businessMap(value['sources'] ?? value['source_snapshot']),
+      p = businessMap(value['plan']),
+      c = businessMap(s['calculation_source']);
+  if (p['rule_version'] != payrollFactorOneOffRule)
+    _fail('Ausdrücklichen Faktor-Einmalfall prüfen.');
+  payrollFactorClaimsCaseHashes(businessMap(c['running_calculation_case']));
+  if (_sourceHash(s) != value['source_hash'] ||
+      _sourceHash(c) != p['one_off_details']['source_snapshot_hash'] ||
+      _sourceHash({'source_snapshot': s, 'plan': p}) != value['preview_hash'])
+    _fail(
+      'Der Faktor-Einmalfall bindet geänderte Originalquellen oder einen geänderten Plan.',
+    );
+  for (final raw in [
+    c['one_off_earning'],
+    c['current_annual_basis'],
+    c['previous_annual_basis'],
+    c['annual_tax_forecast'],
+  ].where((v) => v != null)) {
+    final fact = businessMap(raw),
+        plan = businessMap(fact['plan']),
+        basis = Map<String, dynamic>.from(plan)
+          ..remove('plan_hash')
+          ..remove('can_confirm');
+    if (_sourceHash(fact['sources']) != fact['source_hash'] ||
+        _sourceHash(basis) != plan['plan_hash'] ||
+        _sourceHash({'source_snapshot': fact['sources'], 'plan': plan}) !=
+            fact['preview_hash'])
+      _fail(
+        'Eine ursprüngliche Jahresquelle wurde gegenüber ihrem bestätigten Plan verändert.',
+      );
+  }
+}
+
+void payrollFactorOneOffRunHashes(Map<String, dynamic> value) {
+  payrollFactorOneOffCaseHashes(businessMap(value['source']['one_off_case']));
+  if (_sourceHash({
+        'source': value['source'],
+        'calculation': value['calculation'],
+      }) !=
+      value['preview_hash'])
+    _fail(
+      'Der Faktor-Einmallauf bindet andere ursprüngliche Quellen oder Rechenwerte.',
+    );
+}
+
 Map<String, dynamic> payrollOneOffCaseRunInput(Map<String, dynamic> fact) {
   payrollOneOffCaseRecord(fact, fact['employee_id']);
   if (fact['status'] != 'active' ||
@@ -57,6 +117,8 @@ Map<String, dynamic> payrollOneOffSource(
     'calculation': c['running_calculation'],
     'can_finalize': c['running_calculation']['payroll_calculation_complete'],
   }, runningInput);
+  if (c['rule_version'] == payrollFactorOneOffRule)
+    payrollFactorOneOffRunHashes(v);
   return v;
 }
 
@@ -109,8 +171,11 @@ Map<String, dynamic> payrollOneOffCalculation(dynamic raw) {
   final v = businessMap(raw),
       d = businessMap(v['one_off_details']),
       r = payrollCompositeCalculation(v['running_calculation']);
-  if (v['rule_version'] != payrollOneOffRule ||
-      v['source_contract_version'] != 1 ||
+  final factor = v['rule_version'] == payrollFactorOneOffRule;
+  if ((factor
+          ? v['source_contract_version'] != 2
+          : v['rule_version'] != payrollOneOffRule ||
+                v['source_contract_version'] != 1) ||
       !_hash.hasMatch('${v['rules_sha256']}') ||
       v['currency'] != 'EUR' ||
       v['official_system_approval'] != false ||
@@ -151,11 +216,18 @@ Map<String, dynamic> payrollOneOffCalculation(dynamic raw) {
       );
     return v;
   }
-  if (v['scope'] != 'regular_standard_oneoff' ||
+  if (v['scope'] !=
+          (factor
+              ? 'regular_standard_factor_claims_oneoff'
+              : 'regular_standard_oneoff') ||
       v['payroll_calculation_complete'] != true ||
       v['social_contributions_available'] != true ||
       (v['blockers'] as List).isNotEmpty ||
-      r['scope'] != 'regular_standard_segments')
+      r['scope'] !=
+          (factor
+              ? 'regular_standard_factor_claims_month'
+              : 'regular_standard_segments') ||
+      factor && r['rule_version'] != 'de_2026_factor_claims_month_v12')
     _fail('Unbekannter abschließbarer Einmalbezugsumfang.');
   final a = businessMap(d['assignment']),
       s = businessMap(d['social']),
@@ -168,7 +240,10 @@ Map<String, dynamic> payrollOneOffCalculation(dynamic raw) {
       s['rule_version'] != 'de_social_oneoff_2025_2026_v1' ||
       s['year'] != a['social_year'] ||
       ['rules_hash', 'source_hash'].any((k) => !_hash.hasMatch('${s[k]}')) ||
-      t['pap_version'] != 'bmf_2026_2025_11_12_standard_oneoff_v1' ||
+      t['pap_version'] !=
+          (factor
+              ? 'bmf_2026_2025_11_12_factor_oneoff_v1'
+              : 'bmf_2026_2025_11_12_standard_oneoff_v1') ||
       !_hash.hasMatch('${t['pap_hash']}') ||
       d['assigned_part_key'] is! String ||
       (d['assigned_part_key'] as String).isEmpty)
@@ -225,7 +300,24 @@ Map<String, dynamic> payrollOneOffCalculation(dynamic raw) {
   final difference =
       _integer(t['annual_tax_after_minor']) -
       _integer(t['annual_tax_before_minor']);
-  if (_integer(t['STS']) != (difference < 0 ? 0 : difference) ||
+  if (factor) {
+    if (!RegExp(r'^0\.[0-9]{3}$').hasMatch('${d['tax_factor']}') ||
+        t['unscaled_tax_difference_minor'] != difference ||
+        _integer(t['STS']) !=
+            ((difference < 0 ? 0 : difference) *
+                    int.parse(d['tax_factor'].substring(2)) ~/
+                    100000) *
+                100 ||
+        t['solidarity_threshold_minor'] != 2035000 ||
+        _integer(t['annual_solidarity_assessment_minor']) % 100 != 0 ||
+        _integer(t['SOLZS']) !=
+            (t['annual_solidarity_assessment_minor'] > 2035000
+                ? t['STS'] * 55 ~/ 1000
+                : 0) ||
+        t['BKS'] != (d['church_tax_percent'] == 0 ? 0 : t['STS']))
+      _fail('Die Faktor-Sondersteuer widerspricht ihrem eigenen PAP-Vertrag.');
+  }
+  if ((!factor && _integer(t['STS']) != (difference < 0 ? 0 : difference)) ||
       ![0, 8, 9].contains(d['church_tax_percent']) ||
       _integer(d['church_tax_minor']) !=
           _integer(t['BKS']) * d['church_tax_percent'] ~/ 100)
@@ -307,9 +399,11 @@ void _bindings(
       'Mitarbeiterrevision, konkrete Angaben oder Originale des Einmalbezugs wurden ersetzt.',
     );
   final c = businessMap(s['calculation_source']);
+  final factor = plan['rule_version'] == payrollFactorOneOffRule;
   if (c['schema_version'] != 1 ||
-      c['source_contract_version'] != 1 ||
-      c['rule_version'] != payrollOneOffRule ||
+      c['source_contract_version'] != (factor ? 2 : 1) ||
+      c['rule_version'] !=
+          (factor ? payrollFactorOneOffRule : payrollOneOffRule) ||
       c['employee_id'] != id ||
       c['month'] != d['month'])
     _fail('Der eingefrorene Einmalbezugsquellenstand ist unbekannt.');
@@ -337,6 +431,16 @@ void _bindings(
       forecast = c['annual_tax_forecast'],
       p = plan['one_off_details'],
       original = plan['running_calculation'];
+  if (factor &&
+      (r['rule_version'] != 'de_2026_factor_claims_month_v12' ||
+          r['source_contract_version'] != 4 ||
+          current['plan']['rule_version'] != payrollFactorAnnualRule ||
+          forecast['plan']['rule_version'] != payrollFactorAnnualRule ||
+          p['tax_factor'] !=
+              r['sources']['profiles'][0]['profile']['tax_factor']))
+    _fail(
+      'Der Faktor-Einmalfall benötigt die ursprünglichen V12-/V2-Quellen und denselben Faktor.',
+    );
   if (!payrollFactsSame(current['sources']['current_calculation_case'], r) ||
       !payrollFactsSame(
         current['details']['current_calculation_case_ref'],
@@ -398,11 +502,14 @@ void _bindings(
 
 Map<String, dynamic> payrollOneOffCaseRecord(dynamic raw, String id) {
   final v = businessMap(raw), d = businessMap(v['details']);
+  final factor = v['rule_version'] == payrollFactorOneOffRule;
   payrollFactRef(v);
   if (v['employee_id'] != id ||
       v['kind'] != 'one_off_case' ||
-      v['rule_version'] != payrollOneOffRule ||
-      v['source_contract_version'] != 1 ||
+      (factor
+          ? v['source_contract_version'] != 2
+          : v['rule_version'] != payrollOneOffRule ||
+                v['source_contract_version'] != 1) ||
       !['active', 'void'].contains(v['status']) ||
       ['source_hash', 'preview_hash'].any((k) => !_hash.hasMatch('${v[k]}')) ||
       (v['revision'] == 1
@@ -417,6 +524,7 @@ Map<String, dynamic> payrollOneOffCaseRecord(dynamic raw, String id) {
     );
   final plan = payrollOneOffCasePlan(v['plan'], id, d['month']);
   _bindings(businessMap(v['sources']), d, v['source_file_ids'], id, plan);
+  if (factor) payrollFactorOneOffCaseHashes(v);
   return v;
 }
 
@@ -439,9 +547,21 @@ Map<String, dynamic> payrollOneOffCaseInput(
   Map<String, dynamic> sources,
   Map<String, dynamic> values, {
   Map<String, dynamic>? previous,
+  bool factorMode = false,
 }) {
   final month = payrollFactMonth(values['month']),
       s = payrollOneOffCaseSources(sources, id, month);
+  final selectedRule = factorMode ? payrollFactorOneOffRule : payrollOneOffRule;
+  if (factorMode &&
+          !payrollFactsSame(
+            s['annual_source_contract'],
+            payrollFactorAnnualContract,
+          ) ||
+      previous != null && previous['rule_version'] != selectedRule)
+    _fail(
+      'Den ursprünglichen ausdrücklichen Faktor-/Standardfall beibehalten.',
+      400,
+    );
   if (previous != null) {
     payrollOneOffCaseRecord(previous, id);
     if (previous['details']['month'] != month)
@@ -467,8 +587,8 @@ Map<String, dynamic> payrollOneOffCaseInput(
     'employee_id': id,
     'employee_revision': s['employee']['revision'],
     'kind': 'one_off_case',
-    'rule_version': payrollOneOffRule,
-    'source_contract_version': 1,
+    'rule_version': selectedRule,
+    'source_contract_version': factorMode ? 2 : 1,
     'details': {
       'month': month,
       'running_calculation_case_ref': source(

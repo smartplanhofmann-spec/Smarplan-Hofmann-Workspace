@@ -40,6 +40,8 @@ const payrollScopes = {
   'regular_standard_multiple_oneoff': 'Regulärer Gesamtlohn mit vollständigem Einzelanspruch · getrennte Zahlungstage',
   'multiple_oneoff_review_required':
       'Monatsgruppe mit ungeklärter Steuer- oder Beitragszuordnung',
+  'regular_standard_factor_claims_oneoff':
+      'Faktor-Monat mit belegtem Einmalbezug',
   'regular_standard_oneoff':
       'Regulärer Gesamtlohn mit belegtem Einmalbezug · PAP 2026',
   'regular_standard_segments': 'Regulärer belegter Gesamtfall · PAP 2026',
@@ -246,7 +248,7 @@ Map<String, dynamic> payrollCalculation(dynamic value) {
   ].contains(v['rule_version']);
   if (v['rule_version'] == payrollMultipleRule)
     return payrollMultipleCalculation(v);
-  if (v['rule_version'] == payrollOneOffRule)
+  if ([payrollOneOffRule, payrollFactorOneOffRule].contains(v['rule_version']))
     return payrollOneOffCalculation(v);
   if (payrollCalculationCaseRuleKnown(
     v['rule_version'],
@@ -539,6 +541,8 @@ void Function(dynamic) payrollReceiptValidator(
               key: file?[key],
           });
     } else {
+      if (v['calculation']?['rule_version'] == payrollFactorOneOffRule)
+        payrollFactorOneOffRunHashes(v);
       if (v['calculation']?['rule_version'] == payrollFactorClaimsRule)
         payrollFactorClaimsRunHashes(v);
       if (v['calculation']?['rule_version'] == payrollFactorClaimTravelRule)
@@ -594,6 +598,7 @@ void Function(dynamic) payrollReceiptValidator(
                     'regular_standard_period',
                     'regular_transition_period',
                     'regular_standard_oneoff',
+                    'regular_standard_factor_claims_oneoff',
                     'regular_standard_multiple_oneoff',
                     'regular_standard_segments',
                     'regular_standard_factor_claims_month',
@@ -1502,6 +1507,12 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
     try {
       await fresh();
       if (!currentContext(owner, person, ticket)) return;
+      if (fact['rule_version'] == payrollFactorOneOffRule &&
+          !session.hasFeature(payrollFactorOneOffFeature))
+        throw const ApiException(
+          403,
+          'Die aktuelle Freigabe für den Faktor-Einmalbezug fehlt.',
+        );
       if (fact['rule_version'] == payrollFactorTransitionRule &&
           !session.hasFeature(payrollFactorTransitionFeature))
         throw const ApiException(
@@ -1697,7 +1708,10 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
     await privateRoute<void>(correctionRoute);
   }
 
-  Future<void> openOneOffCases([Map<String, dynamic>? previous]) async {
+  Future<void> openOneOffCases([
+    Map<String, dynamic>? previous,
+    bool factorMode = false,
+  ]) async {
     if (!canPreview) return;
     final owner = session,
         person = employeeId,
@@ -1711,6 +1725,10 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
             session: owner,
             employee: originalEmployee,
             initialMonth: previous?['source']?['month'],
+            factorMode:
+                factorMode ||
+                previous?['calculation']?['rule_version'] ==
+                    payrollFactorOneOffRule,
             onOriginal: (file) async {
               if (currentContext(owner, person, ticket)) await original(file);
             },
@@ -2698,6 +2716,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
                   payrollFactorTransitionRule,
                   individualMinijobRule,
                   payrollOneOffRule,
+                  payrollFactorOneOffRule,
                   payrollMultipleRule,
                 ].contains(calc['rule_version'])
                 ? 'Die belegten Arbeitnehmerabzüge übersteigen den verbleibenden Barbetrag. Zusätzlicher Arbeitnehmeranteil: ${payrollMoney(calc['employee_additional_payment_minor'])}. Der berechnete Auszahlungsbetrag beträgt 0,00 €.'
@@ -2712,6 +2731,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         payrollFactorTransitionRule,
         individualMinijobRule,
         payrollOneOffRule,
+        payrollFactorOneOffRule,
         payrollMultipleRule,
       ].contains(calc['rule_version'])) ...[
         ListTile(
@@ -2728,6 +2748,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
             'gross_minor':
                 [
                   payrollOneOffRule,
+                  payrollFactorOneOffRule,
                   payrollMultipleRule,
                 ].contains(calc['rule_version'])
                 ? calc['running_calculation']['gross_minor']
@@ -2744,7 +2765,10 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         PayrollPeriodPlanView(
           plan: {...businessMap(calc['period_details']), 'blockers': []},
         ),
-      if (calc['rule_version'] == payrollOneOffRule)
+      if ([
+        payrollOneOffRule,
+        payrollFactorOneOffRule,
+      ].contains(calc['rule_version']))
         PayrollOneoffCasePlanView(plan: calc),
       if (calc['rule_version'] == payrollMultipleRule)
         PayrollMultipleCasePlanView(plan: calc),
@@ -2804,6 +2828,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
               payrollFactorTransitionRule,
               individualMinijobRule,
               payrollOneOffRule,
+              payrollFactorOneOffRule,
               payrollMultipleRule,
             ].contains(calc['rule_version'])
             ? 'Unfallversicherung ist nicht enthalten. Steuerfreie Reiseerstattungen werden außerhalb des Lohnnettos verarbeitet. Amtliche Meldungen und tatsächliche Zahlungen erfolgen separat.'
@@ -3149,6 +3174,34 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
                           'Monatsgruppen mit getrennten Zahlungstagen öffnen',
                         ),
                       ),
+                    if (payrollOneoffCasesReadable(session) &&
+                        session.hasFeature(payrollFactorOneOffFeature)) ...[
+                      OutlinedButton(
+                        onPressed: loading || busy
+                            ? null
+                            : () => openOneOffCases(null, true),
+                        child: const Text('Faktor-Einmalbezugsfälle öffnen'),
+                      ),
+                      OutlinedButton(
+                        onPressed: loading || busy
+                            ? null
+                            : () => Navigator.push<void>(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      BusinessPayrollAnnualBasisPage(
+                                        session: session,
+                                        employee: employee,
+                                        onOriginal: original,
+                                        factorMode: true,
+                                      ),
+                                ),
+                              ),
+                        child: const Text(
+                          'Faktor-Jahresbasis und Steuerprognose öffnen',
+                        ),
+                      ),
+                    ],
                     if (payrollOneoffCasesReadable(session))
                       OutlinedButton(
                         onPressed: loading || busy ? null : openOneOffCases,

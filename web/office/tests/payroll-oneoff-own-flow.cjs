@@ -3,6 +3,7 @@ const assert=require('node:assert/strict'),crypto=require('node:crypto'),fs=requ
 
 async function payrollOneOffOwnFlow(h,employee,run){
   const {page,context,navigate,fixture,screenshots}=h;
+  const expectedSchema=run.calculation.rule_version==='de_2026_factor_claims_oneoff_v15'?5:run.calculation.rule_version==='de_2026_oneoff_composition_v6'?3:null;assert.ok(expectedSchema,'Only known original Source4 rules have an own-statement contract');
   const close=async()=>{const dialog=page.getByRole('dialog');if(await dialog.count())await dialog.getByRole('button',{name:'Dialog schließen',exact:true}).click();};
   await close();await navigate(page,'Personal');
   await page.getByRole('button',{name:'Personalakte, Reisen und Lohnvorbereitung',exact:true}).click();
@@ -32,7 +33,7 @@ async function payrollOneOffOwnFlow(h,employee,run){
       await list.getByRole('button',{name:'Lohnnachweis ansehen',exact:true}).click();
       statement=(await Promise.race([response,new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Genuine employee Source4 statement response was not observed')),30000);})])).statement;
     }finally{clearTimeout(timer);await context.unroute(statementRoute,captureStatement);}
-    assert.equal(statement.schema_version,3);assert.deepEqual(statement.run_ref,{id:run.id,revision:run.revision,content_hash:run.content_hash});
+    assert.equal(statement.schema_version,expectedSchema);assert.deepEqual(statement.run_ref,{id:run.id,revision:run.revision,content_hash:run.content_hash});
     assert.equal(statement.one_off_summary.amount_minor,run.calculation.one_off_details.amount_minor);
     assert.equal(statement.one_off_summary.employee_social_total_minor,run.calculation.one_off_details.social.employee_total_minor);
     assert.equal(statement.calculation.payout_minor,run.calculation.payout_minor);
@@ -59,7 +60,7 @@ async function payrollOneOffOwnFlow(h,employee,run){
     const forbiddenRequests=requests.filter(p=>/\/payroll\/(?:runs|profiles|facts|annual-facts|one-off-cases)(?:\/|$)|\/personnel\/files/.test(p));
     assert.deepEqual(forbiddenRequests,[],'Employee-statement navigation requested private routes: '+JSON.stringify(forbiddenRequests));
     await close();
-    console.log('payroll oneoff employee statement: actual Source4 reduced schema3, own bonus, independent PDF SHA256, no annual/source originals, exact history and mobile390 passed');
+    console.log('payroll oneoff employee statement: actual Source4 reduced schema'+expectedSchema+', own bonus, independent PDF SHA256, no annual/source originals, exact history and mobile390 passed');
     return statement;
   }finally{page.off('request',capture);}
 }

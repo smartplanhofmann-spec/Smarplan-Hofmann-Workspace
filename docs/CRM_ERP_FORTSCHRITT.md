@@ -4497,3 +4497,24 @@ vom Nutzer auf später verschoben. Abschlussprüfung ist verständlich erklärt,
 noch keine Prüfer benannt oder beauftragt. Weitere direkte Providerwege und
 benannte Lohnfälle, insbesondere die ungeklärte Source5-Steuergruppe, bleiben
 aktiv offen. R09.03/D und die übrigen Gesamtabnahmen werden nicht geschlossen.
+
+
+## 10.11.2026 – V15 tatsächlich veröffentlicht, eigene Remoteprüfung läuft
+
+Der lokal geprüfte Gesamtstand1fa0bcceb28a822bed9600ad18e33ba54d2c227f ist
+nach Fast-forward im Hauptprojekt /workspace/Smarplan-Hofmann-Workspace
+und ohne Force ausschließlich auf codex/testupdate-0.7-projects-20261104
+veröffentlicht. Remote-Hash ist tatsächlich erneut gelesen und identisch.
+Der endgültige eingefrorene Archiv-/MFA-Laufzeitstart besteht1/7,390s.
+Die eigene Development-Prüfung42842985262 und der unsignierte iPhone-Lauf
+42842985277 sind gestartet. Zusätzliche signierte Vorbereitung mit
+prepare_signed_ipa=true und upload_to_testflight=false ist angenommen.
+Keine dieser neuen Remoteprüfungen wird vor ihrem Abschluss als bestanden
+behauptet; alte51c-Ergebnisse bleiben eigene Nachweise. Kein Liveupdate.
+
+Auf Nutzerfrage zum Prozentstand: Die unveränderte Matrix enthält62
+Hauptanforderungen:24 implementiert,16 getestet,6 teilweise,11 offen,5 extern
+blockiert.40/62 entsprechen rund65 Prozent der erfassten Anforderungen. Das
+ist eine ungewichtete Statusquote, keine Aussage über Restaufwand oder
+produktive Einsatzbereitschaft. Zusätzliche V15-Prüfungen schließen die
+übergeordneten Lohn-/Gesamtabnahmen nicht pauschal.

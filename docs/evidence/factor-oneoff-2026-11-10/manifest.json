@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "v15_full_local_app_browser_backend_money_pg_restore_package_passed_publication_preparation",
+  "status": "published_local_checks_passed_own_remote_checks_running",
   "base_commit": "5c779b92d2e3269c4fc799a02879c83b943ff129",
   "raw_files": [
     {
@@ -312,6 +312,16 @@
       "path": "factor-oneoff-native-payment-reader-final-20261110.txt.gz",
       "bytes": 407,
       "sha256": "b7910c45b82be115d237c8975424f77d5d52e199ff57ee45df76d0c9906c3574"
+    },
+    {
+      "path": "factor-oneoff-release-head-archive-runtime-20261110.txt.gz",
+      "bytes": 335,
+      "sha256": "dd37e2831e1f9454157a24ea0c2fff060b08d3ecd3275138a262f82163204c58"
+    },
+    {
+      "path": "factor-oneoff-published-runs-second-20261110.json.gz",
+      "bytes": 1011,
+      "sha256": "74b31e6ac5b50fb1311655da2329440d267d8ba8346c97a9805979260fa4d266"
     }
   ],
   "independent_xml_vectors": 344,
@@ -324,9 +334,9 @@
   "product_rule_registered": true,
   "source_route_registered": true,
   "client_flow_implemented": true,
-  "published": false,
+  "published": true,
   "expert_approval": false,
-  "next_work": "Publish only the authorized test branch, inspect its own CI and prepare signed IPA without TestFlight upload; preserve missing real provider/device/expert/server acceptances",
+  "next_work": "Inspect this source own remote CI and concrete Windows/iPhone builds; signed preparation authorized, TestFlight upload remains false; remaining goal requirements remain open",
   "actual_full_postgres": {
     "tests": 1,
     "seconds": 76.023,
@@ -391,5 +401,18 @@
   "native_payment_reader_followup": {
     "tests": 3,
     "passed": true
+  },
+  "published_commit": "1fa0bcceb28a822bed9600ad18e33ba54d2c227f",
+  "publication_branch": "codex/testupdate-0.7-projects-20261104",
+  "remote_source_verified": true,
+  "own_remote_development_run": 42842985262,
+  "own_unsigned_iphone_run": 42842985277,
+  "live_deployment": false,
+  "own_signed_preparation": {
+    "run_id": 42843099650,
+    "source_commit": "1fa0bcceb28a822bed9600ad18e33ba54d2c227f",
+    "prepare_signed_ipa": true,
+    "upload_to_testflight": false,
+    "state": "in_progress"
   }
 }

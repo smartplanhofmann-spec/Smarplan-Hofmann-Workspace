@@ -4151,3 +4151,12 @@ Keine neue Liveinstallation oder echte Geräte-/Fachfreigabe. Der Vorgänger
 b02c84a ist mit allen20 Development-Jobs, unsigniertem iPhone-Release und beiden
 Mailbot-Vertragsjobs vollständig grün; signierter Upload übersprungen.
 Der Gesamtauftrag läuft weiter.
+
+## 10.11.2026 – aktueller Arbeitsstand von historischen Momentaufnahmen getrennt
+
+Der verbindliche Arbeitsstand ist auf den tatsächlich aktuellen Quell-, Test-,
+CI- und zuletzt bestätigten Serverstand verdichtet. Sämtlicher vorheriger Text
+bleibt bytegleich in CRM_ERP_ARBEITSSTAND_HISTORIE_BIS_2026-11-10.md erhalten.
+Widersprüchliche frühere Zwischenmeldungen werden damit nicht gelöscht oder als
+aktuell behandelt. Das Gesamtziel, laufende Schlussprüfungen und verbleibende
+Code-/Fach-/Geräte-/Betriebsnachweise sind ausdrücklich getrennt benannt.

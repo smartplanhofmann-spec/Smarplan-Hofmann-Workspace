@@ -4849,3 +4849,23 @@ in68,797s; eigener Container ID/Label/Port geprüft entfernt. Analyse ohne Befun
 Kein rückwirkend grüner Erstlauf, keine Freigabe51c404b. Der korrigierte gesamte
 Nachfolger benötigt seinen eigenen eingefrorenen Archiv-/Remote-/Paketnachweis.
 Alle bisherigen Grenzen, Quellen, offenen34Gerätefälle und A–G bleiben erhalten.
+
+## Vollständiger Erstlauf und zeitabhängiger Browsertest
+
+Der eigene Development-Erstlauf42918195752 zu51c404b endet endgültig mit
+17erfolgreichen und3fehlgeschlagenen Gruppen. Die Backendgruppe meldet
+2.224Fälle,2Fehler und3Auslassungen in1.658,926s. Beide Fehler betreffen die
+bereits getrennt behobene Altbelegregression; PostgreSQL-Gruppe4 reproduziert
+dieselbe Ursache. Browsergruppe2 scheitert zusätzlich im Betriebsmittelablauf:
+Chromium normalisiert Nullsekunden in `datetime-local`, wodurch Playwright
+`2026-11-11T00:09:00` als abweichende Eingabe zurückweist.
+
+Der Test wählt jetzt ausdrücklich eine tatsächliche synthetische volle Minute
+und übergibt deren kanonische Minutendarstellung. Der vollständige wirkliche
+MFA-/HTTP-Browserablauf besteht einschließlich genau gespeichertem Zeitpunkt,
+verlorener Ausgabeantwort, beschädigter Rückgabe mit Buchungssperre, erhaltener
+Originalrücknahme, begründeter Korrektur und bytegleichem Originaldownload.
+Die produktive Betriebsmittellogik bleibt unverändert. Rohlogs des roten
+Erstlaufs und erfolgreichen Nachlaufs stehen verlustfrei komprimiert unter
+`docs/evidence/minijob-rv-lifecycle-2026-11-10/`. Der korrigierte Gesamtstand
+benötigt weiterhin seine eigene vollständige Remoteprüfung und Paketnachweise.

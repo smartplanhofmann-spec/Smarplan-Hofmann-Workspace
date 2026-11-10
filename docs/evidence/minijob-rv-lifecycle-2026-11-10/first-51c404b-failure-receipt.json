@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "source_commit": "51c404b59c4bb19ee564f6ee9f4185ddb7961701",
+  "run_id": 42918195752,
+  "success_jobs": 17,
+  "failed_jobs": 3,
+  "backend": {
+    "cases": 2224,
+    "errors": 2,
+    "skips": 3,
+    "seconds": 1658.926
+  },
+  "postgres_failed_case": "online.test_minijob_v11_independent_pg.MinijobV11IndependentPostgres.test_hash_valid_but_unreadable_old_run_blocks_upgrade_without_writing",
+  "browser_failed_flow": "resource-custody",
+  "browser_actual_error": "locator.fill Malformed value: 2026-11-11T00:09:00",
+  "source_released": false,
+  "logs": [
+    {
+      "file": "first-51c404b-backend-job130185966180.txt.gz",
+      "raw_bytes": 541022,
+      "raw_sha256": "568db484496d096e9fce45e78e8f37e7126ca0acf0227147cfc6327df286acd5",
+      "job_id": 130185966180,
+      "source_commit": "51c404b59c4bb19ee564f6ee9f4185ddb7961701"
+    },
+    {
+      "file": "first-51c404b-browser2-job130185966943.txt.gz",
+      "raw_bytes": 89849,
+      "raw_sha256": "24f9268099c9963ad1e280e78d28777ab9d8244e1afc02127be1bbd655574b45",
+      "job_id": 130185966943,
+      "source_commit": "51c404b59c4bb19ee564f6ee9f4185ddb7961701"
+    }
+  ]
+}

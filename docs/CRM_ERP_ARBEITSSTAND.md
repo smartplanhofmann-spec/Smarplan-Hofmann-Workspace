@@ -61,6 +61,13 @@ Der frühere Workspacepfad ist ein Kompatibilitätslink. Die Verlagerung wegen
 voller Platte hat alle2.335Einträge und den Gitstatus geprüft erhalten.
 63historische Lohnmodule und das Originalziel bleiben bytegleich.
 
+Ergänzung: Der endgültige RV-Erstlauf besitzt17erfolgreiche und3rote
+Development-Gruppen. Neben der getrennt behobenen Altbelegregression ist eine
+Nullsekunden-Eingabe im Betriebsmittel-Browsertest korrigiert. Sein tatsächlicher
+MFA-/HTTP-Nachlauf einschließlich gespeichertem Rückgabezeitpunkt besteht.
+Produktive Betriebsmittellogik bleibt unverändert; vollständiger Nachfolgerlauf
+und dessen eigene Paketnachweise bleiben erforderlich.
+
 ## Neuester vollständig geprüfter Produktstand: V16
 
 Produktquelle `4aa0abd6d313fcc5d693606dbef1c7193afb0729` ist ausschließlich auf

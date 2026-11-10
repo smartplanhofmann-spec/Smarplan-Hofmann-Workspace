@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "source_base": "40928dcb62170e2ce9a15e6919b10cb9456a5c77",
+  "changed_test": "web/office/tests/resource-custody-flow.cjs",
+  "actual_browser_flow": "resource-custody",
+  "exit_code": 0,
+  "controlled_synthetic_data": true,
+  "checks": [
+    "actual MFA and HTTP",
+    "canonical minute boundary in datetime-local",
+    "stored returned_at equals selected actual synthetic minute",
+    "lost handoff acknowledgement exact replay",
+    "damaged return blocks new booking",
+    "immutable correction preserves original return",
+    "original PDF byte equality",
+    "390px viewport no overflow"
+  ],
+  "log": {
+    "file": "resource-custody-minute-final.txt.gz",
+    "raw_bytes": 475,
+    "raw_sha256": "e9c6711b1c0d3f0d543099e3882e57b93e556961b40c472548652eab8abff22a"
+  },
+  "production_custody_code_changed": false,
+  "overall_ci_successor_pending": true
+}

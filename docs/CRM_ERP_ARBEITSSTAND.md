@@ -27,8 +27,8 @@ Etappe verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
 
 | Stand | Tatsächlich bestätigt |
 |---|---|
-| Aktuell veröffentlichter Quell- und Testbranch | `40d8fcf5571e8edc898e2e20b1cf7fe36e52149e`, veröffentlicht und Remote-Zeiger bestätigt. Installationskern7449027 und lokal geprüfte eigene Keychain-Reparatur enthalten. |
-| Eigene neue Workflowprüfung | Development42796495383 an exakt deebe20: alle20 Gruppen erfolgreich. Manueller iPhone42796610215: unsignierter Client erfolgreich; echtes Apple-Archiv und signierter Export erfolgreich, abschließende Prüfung wegen fehlendem Keychain-Entitlement gescheitert. Kein signiertes Artefakt oder Upload freigegeben. Der ersetzte doppelte Pushlauf42796495426 ist kein Produktfehler. |
+| Aktuell veröffentlichter Quell- und Testbranch | `91fa18bf5290ef7f411c7c7d9f722bb78e3dd954`, veröffentlicht und Remote-Zeiger bestätigt. V14, Mitarbeiterbeleg-Leser, Datumsanzeige und getrennte iPhone-Prüfläufe enthalten. |
+| Eigene aktuelle Workflowprüfung | An91fa18b: Development42814265700 und unsignierter iPhone42814265712 laufen; Mailbot42814265743 erfolgreich, kein echter Versand. Manueller signierter Vorbereitungslauf42816832390 läuft mit Uploadfalse; er ersetzt den unabhängigen Pushlauf nicht. Vorläuferfehler bleiben historisch erhalten. |
 | Vollständige CI zum Installationsprodukt c4a2d8f | Development42790149143:alle20 Gruppen erfolgreich. Die anHTTP403 vor Testbeginn gescheiterte Gruppe wurde allein wiederholt; alle13 wirklichen Browserabläufe bestehen, Erstfehler erhalten. Unsignierter iPhone42790149399 erfolgreich, signierter Upload übersprungen. Mailbot-Verträge42790149124 auf Linux/Windows erfolgreich; kein echter Versand. |
 | Aktueller geprüfter veröffentlichter Reparaturstand | `40d8fcf5571e8edc898e2e20b1cf7fe36e52149e`: alle20 Development-Gruppen42806104268 erfolgreich. Eigener manueller iPhone42806142665: vollständiger unsignierter Client, endgültiges signiertes IPA, strenge Keychain-/Teamprüfung und Schlüsselbereinigung erfolgreich. Signiertes Artefakt198 vorhanden; TestFlight-Uploadskipped. V14 ist davon getrennt. |
 | Letzter vom Nutzer bestätigter Server | `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5` vom05.11.; drei Dienste/Sicherungstimer und kontrollierter Updateabschluss bestätigt. Der10.11.-GET auf/ready liefert403 durchEnvoy; die tatsächliche Cloud-Zulassungsliste enthält die Domain nicht. Kein neuer bestätigter Ursprungstand und kein Update. |
@@ -78,11 +78,15 @@ TestFlight-Upload bleibt ausdrücklichfalse.
 Arbeitskopie /workspace/smartplan-factor-transition-20261110, Branch
 codex/factor-transition-20261110. Produkt e70b135, lokal mit der getrennten
 Keychain-Reparatur und deren Nachweisen zu13b9092 integriert. Der aktuelle
-Kandidat wird ausschließlich für den autorisierten Testbranch vorbereitet;
-Hauptprojekt-/Remotezeiger und eigene neue Remoteprüfung bleiben getrennt. Der vollständige tatsächliche
+Kandidat ist als91fa18b auf dem autorisierten Testbranch veröffentlicht und der Remote-Zeiger bestätigt;
+eigene neue Remoteprüfung und Installation bleiben getrennt. Der vollständige tatsächliche
 App-Lauf an13b9092 ist abgeschlossen:1961 sichtbare Fälle, kein Fehler/Skip,
 260 verborgene Ladeeinträge ausgeschlossen, success:true1437145ms, Exit0 nach
-1446,014s. Der vollständige Backendlauf mit2133 entdeckten Fällen ist noch aktiv.
+1446,014s. Der vollständige Backendlauf endet um12:32:14UTC erfolgreich:2133 Fälle,
+2130 erfolgreich und drei ausdrücklich übersprungen, keine Fehler,2757,214s.
+Zwei PG-Gegenprüfungen benötigen einen separaten Test-DSN, die Windows-
+Prozessbereinigung läuft ausschließlich in Windows-CI. V14 besitzt daneben
+einen tatsächlichen eigenen PostgreSQL-/Restore-Nachweis.
 [Enger V14-Vertrag und aktuelle Rohdaten](CRM_ERP_FAKTOR_MIDIJOB_V14_2026-11-10.md).
 
 - Genau ein belegter voller2026-Monat, reguläre KlasseIV mit echtem Faktor,
@@ -104,8 +108,8 @@ App-Lauf an13b9092 ist abgeschlossen:1961 sichtbare Fälle, kein Fehler/Skip,
 - 58 gemeinsame Backend-/Belegprojektions-/CI-/Paketfälle bestehen61,686s;
   nach Integration der iPhone-Reparatur weitere33 Paket-/Auslieferungs-/Inventar-
   fälle39,748s. Zusätzliche Korrektur bewahrt alte Fälle, Läufe, PDFs und Quittungen.
-  Die vollständige aktuelle App-Schlussmeldung liegt vor; vollständige Backend-
-  Schlussmeldung und eigene neue Remoteprüfung fehlen.
+  Die vollständigen aktuellen App- und Backend-Schlussmeldungen liegen vor;
+  eigene neue Remoteprüfung läuft noch.
 
 Vorfehler einschließlich echter400 bei widersprüchlichem PG-Testprofil,
 Widget-Test-Timeraufbau und lokalem Zeitzonen-Unterprozess-EPERM bleiben
@@ -206,3 +210,19 @@ Fortsetzungsregister `/tmp/smartplan-active-integration-20261109.json` nennt
 Arbeitskopien, Quellstände, laufende Prüfungen und Rohdateien; es ersetzt keine
 im Repository abgeschlossenen Nachweise. Bestehende Branches/Arbeitskopien und
 lokale Änderungen erhalten. Keine neuen Agenten ohne ausdrückliche Anweisung.
+
+## Aktive Fortsetzung: ausgewählte Bank- und Lieferantenanbindungen
+
+Direkte Nutzerentscheidung10.11.: Qonto, Sparkasse, Amex; Lieferanten Granzow,
+Alexander Bürkle, Loxone und Voltus. Die frühere offene Anbieterauswahl ist
+damit beantwortet. Genaue Sparkasse und Amex Business/Corporate sind noch
+angefragt. Keine Zugangsdaten wurden im Chat verlangt oder übernommen.
+
+Der bestehende CSV-Bankabgleich bleibt bestehen. Nächster Codeabschnitt:
+serverseitig lesendes Qonto-V2-Konto-/Transaktionsoriginal mit offizieller
+Authentifizierung, exakten Centbeträgen, begrenzter Pagination, aktuellen
+Rechten und ohne automatische Finanzbuchung. Granzow/AB-Protokollangebote
+und die offizielle Voltus-IDS2.5-Anleitung sind recherchiert; Loxone-Shopvertrag,
+Partnerzugänge und vollständige echte Bank-/Lieferantenabnahme fehlen.
+Die Cloud hat weder Providergeheimnisse noch die neuen Zielhosts freigegeben.
+Lokale kontrollierte Implementierung und Gegenproben laufen unabhängig weiter.

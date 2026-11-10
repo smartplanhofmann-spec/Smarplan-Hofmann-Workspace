@@ -176,3 +176,9 @@ nicht. Damit ist der tatsächliche Ursprungserver nicht neu bestätigt. Keine
 Anmeldung, keine private Abfrage und keine Installation. Der zuletzt vom Nutzer
 bestätigte Quellstand bleibt a93cb4d vom05.11.; aus dem Cloudfehler wird kein
 Serverausfall abgeleitet. Das aktuelle Gesamtziel ist weiterhin offen.
+
+
+Nachlauf12:32UTC: vollständiger Backend-Lauf2133 Fälle,2130 erfolgreich,
+drei erläuterte Auslassungen, keine Fehler,2757,214s. App-/Backendruntime
+bleibt bytegleich zum vollständigen Prüfstand13b9092. Kandidat91fa18b ist
+veröffentlicht und Remote-Zeiger bestätigt. Eigene neue Remoteprüfung läuft.

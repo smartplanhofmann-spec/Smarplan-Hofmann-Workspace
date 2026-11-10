@@ -836,3 +836,27 @@ Signiertes Paket198: Artefakt13762109533,29866901Bytes; TestFlight-Uploadskipped
 Das Paket enthält noch keinen V14-Client und beweist keine Geräteabnahme. Der
 öffentliche Serverabruf erhält Cloud-403; beobachtete eingeschränkte Freigabe
 enthält die Domain nicht. Kein bestätigter neuer Ursprungstand oder Liveupdate.
+
+
+## 10.11.2026 – V14 veröffentlicht, vollständiger Backend-Lauf erfolgreich, Anbieter gewählt
+
+Veröffentlicht und Remote-Zeiger bestätigt:91fa18bf5290ef7f411c7c7d9f722bb78e3dd954.
+Der vollständige Backend-Lauf an13b9092 endet12:32:14UTC mit2133 Fällen:
+2130 erfolgreich, drei ausdrücklich übersprungen, keine Fehler;2757,214s.
+Zwei PG-Projekt-Gegenprüfungen ohne Test-DSN und die Linux-fremde Windows-
+Prozessbereinigung sind die Auslassungen. App-/Backendruntime ist zum geprüften
+Stand bytegleich. Vollständiger aktueller App-Lauf1961 ohne Fehler/Skip liegt vor.
+Rohbericht, Status und Runner sind mit unveränderten früheren Fehlern archiviert.
+
+Eigene91fa-Prüfung: Development42814265700, unsignierter iPhone42814265712
+und ausdrücklich signierter Vorbereitungslauf42816832390 laufen. Mailbot
+42814265743 ist erfolgreich. TestFlight-Upload bleibtfalse; kein Liveupdate
+oder neue Geräteabnahme.
+
+Der Nutzer wählt Qonto, Sparkasse, Amex sowie Granzow, Alexander Bürkle, Loxone
+und Voltus. R07.05/R08.03/R12.03 erhalten diese konkrete Entscheidung. Genaue
+Sparkasse und Amex-Produkt sind noch angefragt; kein Geheimnis im Chat. Nächste
+Implementierung ist eine serverseitige lesende Qonto-Anbindung nach offiziellem
+V2-Vertrag, mit exakten Originalbeträgen und ohne erfundene Auszugssalden oder
+automatische Buchung. Anbieterzugänge, Cloud-Zielhostfreigaben und reale
+Partnerabnahme werden davon getrennt geführt; der Gesamtauftrag bleibt aktiv.

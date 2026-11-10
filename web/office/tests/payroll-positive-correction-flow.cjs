@@ -5,6 +5,7 @@ const request=value=>({request_id:crypto.randomUUID().replaceAll('-',''),...valu
 const ref=value=>({id:value.id,revision:value.revision,content_hash:value.content_hash});
 async function payrollPositiveCorrectionFlow(h){
  const {page,context,navigate,ready,fixture,screenshots}=h;let token,employee,file;
+ const actualDates=h.actualDates===true,paymentVersion=actualDates?3:2,proofName=actualDates?'payroll-payment-dates':'payroll-positive-correction';
  const records=[],capture=req=>{if(new URL(req.url()).origin===fixture.base_url&&req.headers().authorization)token=req.headers().authorization;};
  page.on('request',capture);
  const modal=name=>page.getByRole('dialog',{name,exact:true});
@@ -42,7 +43,7 @@ async function payrollPositiveCorrectionFlow(h){
   const reviewFile=await privateFile('complete-internal-and-external-payments-and-no-remittances');
   let loseRun=true,losePayment=true;
   const watched=['**/api/v1/business/payroll/preview','**/api/v1/business/payroll/runs','**/api/v1/business/payroll/account-records'];
-  const intercept=async route=>{const req=route.request(),response=await route.fetch({maxRedirects:0}),value=await response.json(),body=req.method()==='POST'?req.postDataJSON():null,url=new URL(req.url());records.push({path:url.pathname,status:response.status(),body,value});if(response.ok()&&body&&url.pathname.endsWith('/runs')&&body.settlement_review&&loseRun){loseRun=false;return route.abort('failed');}if(response.ok()&&body?.details?.payment_source_schema_version===2&&losePayment){losePayment=false;return route.abort('failed');}return route.fulfill({response});};
+  const intercept=async route=>{const req=route.request(),response=await route.fetch({maxRedirects:0}),value=await response.json(),body=req.method()==='POST'?req.postDataJSON():null,url=new URL(req.url());records.push({path:url.pathname,status:response.status(),body,value});if(response.ok()&&body&&url.pathname.endsWith('/runs')&&body.settlement_review&&loseRun){loseRun=false;return route.abort('failed');}if(response.ok()&&body?.details?.payment_source_schema_version===paymentVersion&&losePayment){losePayment=false;return route.abort('failed');}return route.fulfill({response});};
   for(const pattern of watched)await context.route(pattern,intercept);
   try{
    await openPayroll();await page.getByRole('button',{name:'Monatsberechnung korrigieren',exact:true}).click();
@@ -67,19 +68,19 @@ async function payrollPositiveCorrectionFlow(h){
    for(let i=1;i<=2;i++)for(const label of ['Tatsächlicher Zahlungstag ','Belegter Zahlbetrag EUR ','Zahlungsnachweis / Referenz ','Laufender Nettoanteil EUR ','Bonusanteil EUR '])assert.equal(await payment.getByLabel(label+i,{exact:true}).isDisabled(),true);
    assert.equal(await payment.getByLabel('Bonusanteil EUR 2',{exact:true}).inputValue(),(bonusNet/100).toFixed(2));
    await payment.getByLabel('Gültiger Stamm- und Steuermerkmalsnachweis',{exact:true}).selectOption(identity.id+'@'+identity.revision);
-   await payment.getByLabel('Tatsächlicher Zahlungstag 3',{exact:true}).fill(t.receipt_date);await payment.getByLabel('Belegter Zahlbetrag EUR 3',{exact:true}).fill((t.additional_net_minor/100).toFixed(2));
+   await payment.getByLabel('Tatsächlicher Zahlungstag 3',{exact:true}).fill(actualDates?'2026-11-02':t.receipt_date);await payment.getByLabel('Belegter Zahlbetrag EUR 3',{exact:true}).fill((t.additional_net_minor/100).toFixed(2));
    await payment.getByLabel('Zahlungsnachweis / Referenz 3',{exact:true}).fill('POSITIVE-ACTUAL-ADDITIONAL-NET');await payment.getByLabel('Laufender Nettoanteil EUR 3',{exact:true}).fill('0.00');await payment.getByLabel('Bonusanteil EUR 3',{exact:true}).fill((t.additional_net_minor/100).toFixed(2));
    await payment.getByLabel('Gesondert belegte steuerfreie Bezüge (€)',{exact:true}).fill('0.00');await payment.getByLabel('Geschütztes Original des Nachweises',{exact:true}).selectOption(file.id);
    for(const checkbox of await payment.getByRole('checkbox').all())await checkbox.check();await payment.getByRole('button',{name:'Geprüften Lohnkontonachweis speichern',exact:true}).click();await payment.getByRole('alert').waitFor();await retry();
-   const payPosts=records.filter(r=>r.body?.details?.payment_source_schema_version===2);assert.equal(payPosts.length,2);assert.deepEqual(payPosts[0].body,payPosts[1].body);assert.deepEqual(payPosts[0].value,payPosts[1].value);
-   const paid=payPosts[0].value;assert.deepEqual(paid.details.payments.slice(0,2),oldPayment.details.payments);assert.deepEqual(paid.details.settlement_allocations.slice(0,2),oldPayment.details.settlement_allocations);assert.deepEqual(paid.sources.single_payment_plan.new_payment_indexes,[2]);
+   const payPosts=records.filter(r=>r.body?.details?.payment_source_schema_version===paymentVersion);assert.equal(payPosts.length,2);assert.deepEqual(payPosts[0].body,payPosts[1].body);assert.deepEqual(payPosts[0].value,payPosts[1].value);
+   const paid=payPosts[0].value;assert.equal(paid.sources.single_payment_plan.schema_version,paymentVersion);assert.equal(paid.details.payments[2].paid_on,actualDates?'2026-11-02':t.receipt_date);assert.equal(paid.sources.single_payment_plan.bonus_receipt_date,'2026-10-31');if(actualDates)assert.equal(paid.sources.single_payment_plan.settlement_date_basis,'actual_positive_transfer_2026');assert.deepEqual(paid.details.payments.slice(0,2),oldPayment.details.payments);assert.deepEqual(paid.details.settlement_allocations.slice(0,2),oldPayment.details.settlement_allocations);assert.deepEqual(paid.sources.single_payment_plan.new_payment_indexes,[2]);
    assert.deepEqual(await api('/payroll/account-records/'+oldPayment.id),oldPayment);assert.deepEqual((await api('/payroll/runs/'+oldRun.id+'/history')).items.find(r=>r.revision===oldRun.revision),oldRun);
    await openPayroll();await page.getByRole('button',{name:'Lohnkonto-Nachweise öffnen',exact:true}).click();await page.setViewportSize({width:390,height:844});await page.waitForFunction(()=>document.querySelector('.sidebar').inert);
    await page.getByText('Belegte zusätzliche Nettozahlung',{exact:true}).waitFor();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
    await page.getByText('Belegte zusätzliche Nettozahlung',{exact:true}).scrollIntoViewIfNeeded();
-   await page.screenshot({path:path.join(screenshots,'payroll-positive-correction-mobile.png'),fullPage:false});
-   console.log('positive Source5 browser: genuine corrected prior-employer evidence, explicit complete external-payment review, same gross, two unchanged old payment parts, positive same-day addition, exact lost run/payment ACK replay, immutable v1 and mobile390 passed');
+   await page.screenshot({path:path.join(screenshots,proofName+'-mobile.png'),fullPage:false});
+   console.log((actualDates?'later actual transfer V3; ':'')+'positive Source5 browser: genuine corrected prior-employer evidence, explicit complete external-payment review, same gross, two unchanged old payment parts, positive addition, exact lost run/payment ACK replay, immutable v1 and mobile390 passed');
   }finally{for(const pattern of watched)await context.unroute(pattern,intercept);}
- }finally{page.off('request',capture);await fs.writeFile(path.join(screenshots,'payroll-positive-correction-commands.json'),JSON.stringify(records,null,2));}
+ }finally{page.off('request',capture);await fs.writeFile(path.join(screenshots,proofName+'-commands.json'),JSON.stringify(records,null,2));}
 }
 module.exports={payrollPositiveCorrectionFlow};

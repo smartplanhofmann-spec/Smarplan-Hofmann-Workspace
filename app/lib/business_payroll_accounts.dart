@@ -124,6 +124,7 @@ Map<String, dynamic> _multipleSettlementV1(
   Map<String, dynamic> run, {
   Map<String, dynamic>? prior,
   Map<String, dynamic>? archived,
+  bool actualPositiveDates = false,
 }) {
   payrollMultipleSource({
     ...run,
@@ -189,7 +190,10 @@ Map<String, dynamic> _multipleSettlementV1(
       final o = a['one_off_allocations'][0];
       _multipleKeys(o, ['event_key', 'net_minor']);
       b = _multipleInteger(o['net_minor'], 1);
-      if (o['event_key'] != event['event_key'] || date != event['receipt_date'])
+      if (o['event_key'] != event['event_key'] ||
+          (actualPositiveDates
+              ? date.compareTo(event['receipt_date']) < 0
+              : date != event['receipt_date']))
         _multipleFail(
           'Die Bonuszahlung gehört zu genau ihrem ursprünglichen Zuflussereignis und Tag.',
         );
@@ -309,17 +313,18 @@ Map<String, dynamic> _positiveSettlement(
   Map<String, dynamic>? archived,
 }) {
   final transition = payrollPositiveTransition(run);
+  final version = details['payment_source_schema_version'];
   if (details['payment_source_schema_version'] is! int ||
-      details['payment_source_schema_version'] != 2 ||
+      ![2, 3].contains(version) ||
       !_same(details['prior_payment_ref'], transition['prior_payment_ref']))
     _multipleFail(
       'Die zusätzliche Zahlung benötigt genau ihre gebundene vorherige Zahlungsfassung.',
     );
-  final base = _multipleSettlementV1({
-    ...details,
-    'payment_source_schema_version': 1,
-    'prior_payment_ref': null,
-  }, run);
+  final base = _multipleSettlementV1(
+    {...details, 'payment_source_schema_version': 1, 'prior_payment_ref': null},
+    run,
+    actualPositiveDates: version == 3,
+  );
   final parts = details['payments'] as List,
       allocations = details['settlement_allocations'] as List;
   int count;
@@ -342,6 +347,10 @@ Map<String, dynamic> _positiveSettlement(
     payrollAccountRecord(prior, run['employee_id'], kind: 'payment');
     final old = businessMap(prior['sources']?['run']),
         oldPlan = businessMap(prior['sources']?['single_payment_plan']);
+    if (version == 2 && oldPlan['schema_version'] == 3)
+      _multipleFail(
+        'Ein später datierter Zahlungspräfix benötigt weiterhin Zahlungsfassung 3.',
+      );
     if (old['source']?['source_schema_version'] != 5 ||
         !_same(payrollFactRef(prior), transition['prior_payment_ref']) ||
         !_same(payrollFactRef(old), transition['prior_run_ref']) ||
@@ -399,6 +408,10 @@ Map<String, dynamic> _positiveSettlement(
             0,
             (sum, p) => sum + _multipleInteger(p['amount_minor'], 1),
           );
+  final notBefore = [
+    transition['receipt_date'] as String,
+    ...parts.take(count).map((p) => p['paid_on'] as String),
+  ].reduce((a, b) => a.compareTo(b) >= 0 ? a : b);
   if (previousTotal != transition['prior_total_net_minor'] ||
       previousRunning != transition['running_net_minor'] ||
       additional != transition['additional_net_minor'] ||
@@ -409,14 +422,23 @@ Map<String, dynamic> _positiveSettlement(
                 a['running_minor'] != 0 ||
                 (a['one_off_allocations'] as List).length != 1,
           ) ||
-      parts.skip(count).any((p) => p['paid_on'] != transition['receipt_date']))
+      parts
+          .skip(count)
+          .any(
+            (p) => version == 3
+                ? (p['paid_on'] as String).compareTo(notBefore) < 0
+                : p['paid_on'] != transition['receipt_date'],
+          ))
     _multipleFail(
       'Nur die positive zusätzliche Nettoschuld am ursprünglichen Bonus-Zuflusstag darf ergänzt werden.',
     );
   return {
     ...base,
-    'schema_version': 2,
-    'contract': payrollPositivePaymentContract,
+    'schema_version': version,
+    'contract': version == 3
+        ? payrollPositivePaymentDatesContract
+        : payrollPositivePaymentContract,
+    if (version == 3) 'settlement_date_basis': 'actual_positive_transfer_2026',
     'prior_settlement_refs': {
       'run': transition['prior_run_ref'],
       'payment': transition['prior_payment_ref'],
@@ -439,7 +461,7 @@ Map<String, dynamic> _multipleSettlement(
   Map<String, dynamic>? prior,
   Map<String, dynamic>? archived,
 }) {
-  if (details['payment_source_schema_version'] == 2)
+  if ([2, 3].contains(details['payment_source_schema_version']))
     return _positiveSettlement(details, run, prior: prior, archived: archived);
   if (run.containsKey('settlement_transition'))
     _multipleFail(
@@ -481,7 +503,7 @@ void _multiplePaymentRecord(Map<String, dynamic> value) {
     _multipleFail(
       'Der Zahlungsplan widerspricht seinen tatsächlichen Originalteilen, Tagen oder Erfüllungsbeträgen.',
     );
-  if (value['details']['payment_source_schema_version'] == 2 &&
+  if ([2, 3].contains(value['details']['payment_source_schema_version']) &&
       (plan['composition_hash'] != payrollPositiveHash(run['calculation']) ||
           plan['plan_hash'] !=
               payrollPositiveHash({...plan}..remove('plan_hash'))))
@@ -751,6 +773,7 @@ Map<String, dynamic> payrollAccountDetails(
   Map<String, dynamic> values,
   Map<String, List<Map<String, dynamic>>> sources, {
   int count = 0,
+  bool paymentDates = false,
 }) {
   if (!payrollAccountKinds.containsKey(kind))
     throw const FormatException('Unbekannte Lohnkontonachweisart.');
@@ -863,7 +886,7 @@ Map<String, dynamic> payrollAccountDetails(
       final event =
           run!['calculation']['multiple_one_off_details']['receipt_events'][0];
       details['payment_source_schema_version'] =
-          run.containsKey('settlement_transition') ? 2 : 1;
+          run.containsKey('settlement_transition') ? (paymentDates ? 3 : 2) : 1;
       details['prior_payment_ref'] = prior == null
           ? null
           : payrollFactRef(prior);
@@ -882,10 +905,22 @@ Map<String, dynamic> payrollAccountDetails(
                   ],
           },
       ];
+      if (run.containsKey('settlement_transition') && paymentDates) {
+        final allocations = details['settlement_allocations'] as List;
+        final parts = details['payments'] as List;
+        final requiresDates =
+            prior?['sources']?['single_payment_plan']?['schema_version'] == 3 ||
+            List.generate(count, (i) => i).any(
+              (i) =>
+                  (allocations[i]['one_off_allocations'] as List).isNotEmpty &&
+                  parts[i]['paid_on'] != event['receipt_date'],
+            );
+        details['payment_source_schema_version'] = requiresDates ? 3 : 2;
+      }
       try {
         _multipleSettlement(details, run, prior: prior);
       } on ApiException catch (error) {
-        if (details['payment_source_schema_version'] == 2) {
+        if ([2, 3].contains(details['payment_source_schema_version'])) {
           throw FormatException(error.message);
         }
         rethrow;
@@ -1287,11 +1322,18 @@ class _BusinessPayrollAccountsPageState
       final multiple = selectedRun?['source']?['source_schema_version'] == 5;
       final positiveCorrection =
           selectedRun?.containsKey('settlement_transition') == true;
+      final positivePaymentDates =
+          positiveCorrection &&
+          (previous != null
+              ? previous['details']['payment_source_schema_version'] == 3
+              : session.hasFeature(payrollPositivePaymentDatesFeature));
       final transition = positiveCorrection
           ? payrollPositiveTransition(selectedRun!)
           : null;
       if (positiveCorrection &&
           (!session.hasFeature(payrollPositiveCorrectionFeature) ||
+              positivePaymentDates &&
+                  !session.hasFeature(payrollPositivePaymentDatesFeature) ||
               !session.hasModule('payroll_multiple_cases')))
         throw const ApiException(
           409,
@@ -1583,8 +1625,9 @@ class _BusinessPayrollAccountsPageState
                 type: BusinessInput.choice,
                 required: true,
                 choices: {
-                  'review':
-                      '${_money(transition!['additional_net_minor'])} am ursprünglichen Zuflusstag ${businessDate(transition['receipt_date'])}; kein automatischer Geldtransfer',
+                  'review': positivePaymentDates
+                      ? '${_money(transition!['additional_net_minor'])} mit tatsächlichem Zahlungstag 2026; ursprünglicher Bruttozufluss unverändert; kein automatischer Geldtransfer'
+                      : '${_money(transition!['additional_net_minor'])} am ursprünglichen Zuflusstag ${businessDate(transition['receipt_date'])}; kein automatischer Geldtransfer',
                 },
               ),
             );
@@ -1668,7 +1711,9 @@ class _BusinessPayrollAccountsPageState
               type: BusinessInput.decimal,
               required: true,
               hint: positiveCorrection
-                  ? 'Nur einen tatsächlich zusätzlich gezahlten positiven Betrag am ursprünglichen Bonus-Zuflusstag erfassen.'
+                  ? positivePaymentDates
+                        ? 'Nur tatsächlich zusätzlich gezahlte positive Beträge mit ihrem wirklichen Zahlungstag 2026 erfassen. Der Bruttozufluss bleibt unverändert.'
+                        : 'Nur einen tatsächlich zusätzlich gezahlten positiven Betrag am ursprünglichen Bonus-Zuflusstag erfassen.'
                   : 'Negativ nur für tatsächliche Arbeitnehmer-Nachzahlung. Nur tatsächlich geflossene Beträge erfassen.',
             ),
             BusinessField(
@@ -1841,6 +1886,7 @@ class _BusinessPayrollAccountsPageState
                 paymentValues,
                 sources,
                 count: count,
+                paymentDates: positivePaymentDates,
               ),
               'source_file_id': file['id'],
               'confirmed': true,
@@ -1875,6 +1921,10 @@ class _BusinessPayrollAccountsPageState
                 );
               if (positiveCorrection &&
                   (!session.hasFeature(payrollPositiveCorrectionFeature) ||
+                      body['details']['payment_source_schema_version'] == 3 &&
+                          !session.hasFeature(
+                            payrollPositivePaymentDatesFeature,
+                          ) ||
                       !session.hasModule('payroll_multiple_cases')))
                 throw const ApiException(
                   409,
@@ -1930,6 +1980,7 @@ class _BusinessPayrollAccountsPageState
           if ([
             1,
             2,
+            3,
           ].contains(value['details']['payment_source_schema_version'])) ...[
             const Text('Belegte Nettozuordnung'),
             for (final a in businessItems(
@@ -1946,10 +1997,16 @@ class _BusinessPayrollAccountsPageState
             Notice(
               value['details']['prior_payment_ref'] == null
                   ? 'Keine frühere Zahlung übernommen.'
-                  : value['details']['payment_source_schema_version'] == 2
+                  : [2, 3].contains(
+                      value['details']['payment_source_schema_version'],
+                    )
                   ? 'Alle früheren Zahlungsteile und ihre Nettozuordnungen bleiben unverändert. Nur zusätzlich belegte positive Beträge werden ergänzt.'
                   : 'Frühere laufende Zahlungsoriginale bleiben unverändert erhalten.',
             ),
+            if (value['details']['payment_source_schema_version'] == 3)
+              const Notice(
+                'Die ursprünglichen Bruttozuflüsse bleiben unverändert. Zusätzliche Nettozahlungen sind an ihren tatsächlichen belegten Zahlungstagen erfasst.',
+              ),
           ],
           if (value['kind'] == 'payment' &&
               (value['details']['payments'] as List).isEmpty)

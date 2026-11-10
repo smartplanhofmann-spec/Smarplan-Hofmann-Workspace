@@ -36,6 +36,26 @@ Dateiverweise, eine spät ungültige Betreiberablage und der tatsächliche Impor
 des entpackten Backends. Die ursprünglichen 20 Fälle des Zwischenstands bleiben
 als eigener Nachweis erhalten. [Quellhashes und Rohläufe](evidence/windows-package-finish-2026-11-10/manifest.json).
 
-Ein neuer tatsächlicher Windows-Build und sein geprüftes Lieferartefakt werden
-erst nach der neuen Remoteprüfung bestätigt. Signierung, Bedienung auf einem
-realen Kundengerät und Liveinstallation bleiben getrennte Nachweise.
+Der tatsächliche Windows-Job129556586367 auf dem veröffentlichten Quellstand
+`d083ed48f0cade4fefc989a8299e3189b7b5bd37` besteht nun einschließlich vollständiger
+lokaler Pythonumgebung, nativer PDF-Prüfung, App-/Launcher-/Sicherungs-/Restoretests,
+EXE, Paketierung und separatem Online-Pilotpaket. Das vollständige Windowsartefakt
+13725804527 ist mit 36.436.633 Bytes und GitHub-Digest
+`e0b021539901bad20fdd3fb4af7709f65fa16c0e9e94de755795c82ece539372` vorhanden.
+Der separate lokale Download seines vom GitHub-Werkzeug gelieferten Dateiverweises
+scheitert an Proxy-CONNECT403. Deshalb wird keine zusätzliche lokale Prüfung der
+Archivbytes behauptet. [Tatsächlicher Abruf](evidence/windows-package-finish-2026-11-10/publication-observed-20261110.json).
+
+Die vollständige CI dieses Quellstands ist noch nicht grün. Die Backendprüfung
+suchte in den inzwischen zentralisierten Supportlisten nach drei Dateinamen im
+Text. Sie prüft nun tatsächlich die bytegleichen Module im gebauten Support-ZIP.
+Der Browser-Zeittest wählte bei einer Zweistundenschicht über Berlin-Mitternacht
+den ersten, teilweise unter 30 Minuten langen Tag für einen 30-Minuten-Abzug.
+Er wählt jetzt den tatsächlich längsten freigegebenen Tag; Originalintervall,
+Abzug, verlorene Antwort, Wiederholungsauftrag und Gesamtprüfung bleiben gleich.
+Drei Registrierungsfälle und der tatsächliche MFA-/Browserablauf bestehen lokal.
+[Unveränderte Fehlerausschnitte](evidence/windows-package-finish-2026-11-10/followup-ci-failure-excerpts.txt)
+bleiben getrennt von den Nachläufen erhalten. Signierung, Bedienung auf einem
+realen Kundengerät und Liveinstallation bleiben eigene Nachweise.
+
+Der abschließende [CI-Abruf](evidence/windows-package-finish-2026-11-10/publication-completed-20261110.json) bestätigt sechs erfolgreiche Development-Jobs und zwei fehlgeschlagene Prüfungen. Auch die separate unsignierte iPhone-Veröffentlichungsprüfung besteht; signierter Upload übersprungen. Der Gesamtstand wird deshalb weiterhin nicht als vollständig grün bezeichnet.

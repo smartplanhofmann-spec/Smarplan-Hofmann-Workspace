@@ -67,7 +67,12 @@ async function timeTrackingFlow({page, context, navigate, ready, login, fixture,
       await ready(page);
     }
     const approved = await api('/business/time/entries/' + original.id);
-    const day = approved.approved_work_dates[0];
+    // The two-hour original can cross Berlin midnight. Correct a day with
+    // enough actual approved time, preserving the same total and -30 minutes.
+    const approvedDays = await Promise.all(approved.approved_work_dates.map(async day => ({
+      day, summary: await api('/business/time/summary?employee_id=' + owner.id + '&from=' + day + '&to=' + day),
+    })));
+    const day = approvedDays.sort((a,b) => b.summary.net_seconds - a.summary.net_seconds)[0].day;
     const summaryPath = '/business/time/summary?employee_id=' + owner.id + '&from=' + day + '&to=' + day;
     const before = await api(summaryPath);
     await page.getByRole('button', {name: 'Zeiteintrag prüfen', exact: true}).click();

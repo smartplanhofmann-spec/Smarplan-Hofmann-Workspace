@@ -1,8 +1,9 @@
 """Additive Source5 positive net correction with immutable original transfers.
 
 No new gross event, payment creation, debt waiver, tax transmission or mutation
-of the v1 settlement is performed here. This narrow branch accepts additional
-actual same-day transfers only after a separately corrected complete source.
+of the v1 settlement is performed here. V2 retains its actual same-day contract;
+V3 binds later actual positive transfers to the unchanged original gross event.
+Both require a separately corrected complete source.
 """
 from copy import deepcopy
 import json
@@ -15,6 +16,7 @@ from payroll_multiple_payments import _payment_key,previous_actual_settlements
 
 TRANSITION_CONTRACT='source5_positive_net_correction_v1'
 PAYMENT_CONTRACT='source5_positive_net_correction_v2'
+PAYMENT_DATES_CONTRACT='source5_positive_net_correction_v3'
 TRANSITION_FIELDS=('schema_version','contract','employee_id','month','previous_run_ref','prior_run_ref',
     'prior_payment_ref','prior_plan_hash','old_composition_hash','new_composition_hash','component_key',
     'event_key','receipt_date','running_net_minor','prior_total_net_minor','total_net_minor',
@@ -141,7 +143,7 @@ def _transition(previous,current,prior,observation):
     before=due(prior['run']['calculation']);total=due(calc);running=due(calc['running_calculation'])
     if total<=before or running<0:_error('Dieser Vertrag umfasst ausschließlich eine positive zusätzliche Nettoverpflichtung.')
     old_plan=prior['payment']['sources']['single_payment_plan']
-    if type(old_plan['schema_version']) is not int or old_plan['schema_version'] not in (1,2) or old_plan['plan_hash']!=_sha({k:v for k,v in old_plan.items() if k!='plan_hash'}):
+    if type(old_plan['schema_version']) is not int or old_plan['schema_version'] not in (1,2,3) or old_plan['plan_hash']!=_sha({k:v for k,v in old_plan.items() if k!='plan_hash'}):
         _error('Unveränderter alter Zahlungsplan erforderlich.')
     value=dict(schema_version=1,contract=TRANSITION_CONTRACT,employee_id=source['employee_id'],month=source['month'],
         previous_run_ref=reference(previous),prior_run_ref=reference(prior['run']),prior_payment_ref=reference(prior['payment']),
@@ -205,9 +207,16 @@ def verify_transition(payroll,run):
     return True
 
 
-def build_positive_payment_plan(run,*,payments,allocations,as_of,prior_settlement):
-    """Pure v2 plan. All prior money and its allocation remain literal prefixes."""
+def build_positive_payment_plan(run,*,payments,allocations,as_of,prior_settlement,payment_source_schema_version=2):
+    """V2 retains its original same-day contract; V3 records actual later days.
+
+    V3 changes no gross receipt, calculation, debt or historic payment. Only
+    additional positive, evidenced 2026 cash transfers may have a later date.
+    """
     from payroll_oneoff_2026 import _date,_int
+    version=payment_source_schema_version
+    if type(version) is not int or version not in (2,3):
+        _error('Ausdrückliche unterstützte positive Zahlungsfassung erforderlich.')
     value=validate_transition_shape(run['settlement_transition']);prior=prior_settlement
     source,calc,part,event=_same_subject(prior['run'],run)
     if (run.get('kind')!='run' or run.get('confirmed') is not True or run.get('status')!='calculation_recorded'
@@ -223,6 +232,8 @@ def build_positive_payment_plan(run,*,payments,allocations,as_of,prior_settlemen
         _error('Zahlungsplan benötigt genau den angenommenen Korrekturlauf und seine wirkliche Vorzahlung.')
     old_payments=prior['payment']['details']['payments'];old_allocations=prior['payment']['details']['settlement_allocations']
     old_plan=prior['payment']['sources']['single_payment_plan']
+    if version==2 and old_plan.get('schema_version')==3:
+        _error('Ein später datierter Zahlungspräfix benötigt weiterhin Zahlungsfassung 3.')
     if (old_plan['plan_hash']!=value['prior_plan_hash'] or old_plan['plan_hash']!=_sha({k:v for k,v in old_plan.items() if k!='plan_hash'})
             or old_plan['payments']!=old_payments or old_plan['allocations']!=old_allocations):
         _error('Vorheriger Zahlungsplan oder seine tatsächlichen Zuordnungen wurden verändert.')
@@ -230,6 +241,7 @@ def build_positive_payment_plan(run,*,payments,allocations,as_of,prior_settlemen
     if (not isinstance(payments,list) or not count<len(payments)<=20 or not isinstance(allocations,list)
             or len(allocations)!=len(payments) or payments[:count]!=old_payments or allocations[:count]!=old_allocations):
         _error('Vollständigen unveränderten Zahlungs- und Zuordnungspräfix mit zusätzlicher tatsächlicher Zahlung angeben.')
+    not_before=max([event['receipt_date']]+[p['paid_on'] for p in old_payments])
     seen=set();new_total=0
     for index,payment in enumerate(payments):
         _shape(payment,('paid_on','amount_minor','payment_reference'),('paid_on','amount_minor','payment_reference'))
@@ -249,13 +261,15 @@ def build_positive_payment_plan(run,*,payments,allocations,as_of,prior_settlemen
             _int(a['one_off_allocations'][0]['net_minor'],1)
             if (a['running_minor']!=0 or type(a['running_minor']) is not int
                     or a['one_off_allocations']!=[dict(event_key=event['event_key'],net_minor=payment['amount_minor'])]
-                    or payment['paid_on']!=event['receipt_date']):
-                _error('Neue Teile erfüllen ausschließlich dieselbe Bonus-Nettoverpflichtung am belegten ursprünglichen Zuflusstag.')
+                    or (payment['paid_on']!=event['receipt_date'] if version==2
+                        else payment['paid_on']<not_before)):
+                _error('Neue Teile erfüllen ausschließlich dieselbe Bonus-Nettoverpflichtung am belegten ursprünglichen Zuflusstag.'
+                    if version==2 else 'Zusätzliche positive Zahlungen müssen dieselbe Bonus-Nettoverpflichtung frühestens nach dem bisherigen Zahlungspräfix erfüllen.')
             new_total+=payment['amount_minor']
     if (new_total!=value['additional_net_minor'] or sum(p['amount_minor'] for p in payments)!=due(calc)
             or sum(p['amount_minor'] for p in old_payments)!=value['prior_total_net_minor']):
         _error('Neue Nettozahlungen müssen genau die bestätigte positive Differenz erfüllen.')
-    plan=dict(schema_version=2,contract=PAYMENT_CONTRACT,employee_id=source['employee_id'],month=source['month'],
+    plan=dict(schema_version=version,contract=PAYMENT_CONTRACT if version==2 else PAYMENT_DATES_CONTRACT,employee_id=source['employee_id'],month=source['month'],
         composition_hash=_sha(calc),event_key=event['event_key'],bonus_receipt_date=event['receipt_date'],
         running_net_minor=value['running_net_minor'],one_off_net_minor=due(calc)-value['running_net_minor'],total_net_minor=due(calc),
         payments=deepcopy(payments),allocations=deepcopy(allocations),
@@ -264,6 +278,7 @@ def build_positive_payment_plan(run,*,payments,allocations,as_of,prior_settlemen
         actual_payment_created=False,cash_import_created=False,claim_consumption_created=False,
         prior_total_net_minor=value['prior_total_net_minor'],additional_net_minor=value['additional_net_minor'],
         prior_plan_hash=value['prior_plan_hash'],transition_hash=value['transition_hash'])
+    if version==3:plan['settlement_date_basis']='actual_positive_transfer_2026'
     return dict(plan,plan_hash=_sha(plan))
 
 
@@ -274,7 +289,8 @@ def resolve_positive_payment_plan(accounts,run,details):
     if reference(paid)!=value['prior_payment_ref']:_error('Gebundene vorherige Zahlungsfassung fehlt.')
     prior=_resolved_payment(accounts,run,paid)
     return build_positive_payment_plan(run,payments=details['payments'],allocations=details['settlement_allocations'],
-        as_of=accounts.hr.now()[:10],prior_settlement=prior)
+        as_of=accounts.hr.now()[:10],prior_settlement=prior,
+        payment_source_schema_version=details['payment_source_schema_version'])
 
 
 def require_current_positive_settlement(accounts,run,details):

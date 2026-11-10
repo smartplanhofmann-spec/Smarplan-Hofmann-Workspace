@@ -13,6 +13,15 @@ aktive Codearbeit im Gesamtumfang. Der [zentrale Arbeitsstand](CRM_ERP_ARBEITSST
 verbindet diese Fortsetzung mit dem bisherigen Projektphasenplan. Historische
 Lohn-/Buchhaltungsnachweise bleiben erhalten.
 
+Fortsetzung 10.11.: Der tatsächliche Windows-Pack-/Build-/Sicherungsnachlauf auf
+d083ed4 besteht. Zwei zusätzliche veraltete bzw. mitternachtsabhängige Prüfungen
+sind korrigiert und lokal nachgeprüft. [Source5-Zahlungstage V3](CRM_ERP_SOURCE5_ZAHLUNGSTAGE_V3_2026-11-10.md)
+ergänzen danach belegte positive Nettozahlungen an späteren tatsächlichen Tagen,
+mit vollständigem Originalpräfix, aktueller Fachfreigabe und unverändertem
+Bruttozufluss. Gesamtprüfung und neuer eigener Remote-Nachlauf gehören zum
+Abschluss dieses Abschnitts. Anschließend werden verbleibende Code- und
+Abnahmepunkte des Gesamtziels unmittelbar weiter bearbeitet.
+
 Stand: 09.11.2026. Maßgeblich bleiben das unveränderte
 [Gesamtziel](../CRM_ERP_Gesamtziel.txt) und die
 [Anforderungsmatrix](CRM_ERP_ANFORDERUNGEN.md). Projekt:

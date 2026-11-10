@@ -1,5 +1,6 @@
 """Exact additive registry/portable export scope; no new financial horizon."""
 import io
+import importlib.util
 import json
 from pathlib import Path
 import tempfile
@@ -72,10 +73,13 @@ class CompanyEventRegistrationTests(unittest.TestCase):
             self.assertFalse(business_api.offline_path(path,'GET'))
             self.assertFalse(business_api.offline_path(path,'POST'))
         root=Path(__file__).resolve().parents[1]
-        for name in ('scripts/native-release.py','scripts/package-windows-support.py','.github/workflows/checks.yml'):
-            data=(root/name).read_text()
-            for module in ('business_company_events.py','company_event_sources.py','company_event_worker.py'):
-                self.assertIn(module,data)
+        spec=importlib.util.spec_from_file_location('company_event_windows_package',root/'scripts/package-windows-support.py')
+        package=importlib.util.module_from_spec(spec);spec.loader.exec_module(package)
+        with tempfile.TemporaryDirectory(prefix='synthetic-company-event-package-') as directory:
+            archive=Path(directory)/'support.zip';package.build(archive)
+            with zipfile.ZipFile(archive) as bundle:
+                for module in ('business_company_events.py','company_event_sources.py','company_event_worker.py'):
+                    self.assertEqual(bundle.read('Smartplan_Windows_Start_und_Sicherung/backend/'+module),(root/'backend'/module).read_bytes())
 
 
 if __name__=='__main__':unittest.main()

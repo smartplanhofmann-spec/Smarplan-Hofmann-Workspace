@@ -1,0 +1,59 @@
+Source d083ed48f0cade4fefc989a8299e3189b7b5bd37; Development42733367444.
+Bounded verbatim failure excerpts; complete raw logs remain at the original GitHub jobs.
+Job129556586255 backend:
+2026-11-10T01:29:58.9568861Z FAIL: test_api_is_strict_and_never_offline_and_worker_modules_are_packaged (test_company_event_registration.CompanyEventRegistrationTests.test_api_is_strict_and_never_offline_and_worker_modules_are_packaged)
+2026-11-10T01:29:58.9570388Z ----------------------------------------------------------------------
+2026-11-10T01:29:58.9570982Z Traceback (most recent call last):
+2026-11-10T01:29:58.9579642Z   File "/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/backend/test_company_event_registration.py", line 78, in test_api_is_strict_and_never_offline_and_worker_modules_are_packaged
+2026-11-10T01:29:58.9581114Z     self.assertIn(module,data)
+2026-11-10T01:29:58.9603642Z AssertionError: 'business_company_events.py' not found in '"""Build reproducible Windows support sources for the development package."""\nfrom pathlib import Path\nimport argparse\nimport hashlib\nimport importlib.util\nimport json\nimport zipfile\n\nROOT = Path(__file__).resolve().parent.parent\n_source_spec = importlib.util.spec_from_file_location(\'smartplan_native_package_sources\', ROOT / \'scripts/native-release.py\')\n_native_sources = importlib.util.module_from_spec(_source_spec)\n_source_spec.loader.exec_module(_native_sources)\nBACKEND_FILES = _native_sources.BACKEND_FILES\nWINDOWS_FILES = ("Starten.cmd", "Sicherung_erstellen.cmd", "Sicherung_wiederherstellen.cmd",\n                 "Run.cmd", "START_HIER.txt")\nOFFLINE_INSTALLER_FILES = (\'Python_Umgebung_aktualisieren.cmd\', \'Python_Umgebung_aktualisieren.py\')\nOPERATOR_FILES = _native_sources.O [long quoted source omitted]
+2026-11-10T01:29:58.9625010Z 
+2026-11-10T01:29:58.9625256Z ----------------------------------------------------------------------
+2026-11-10T01:29:58.9625798Z Ran 2092 tests in 1379.076s
+2026-11-10T01:29:58.9626039Z 
+2026-11-10T01:29:58.9626194Z FAILED (failures=1, skipped=3)
+2026-11-10T01:29:59.0642816Z ##[error]Process completed with exit code 1.
+2026-11-10T01:29:59.0791081Z Post job cleanup.
+Job129556586186 business-services:
+2026-11-10T01:33:51.7720794Z SMARTPLAN_BROWSER_FAILURE_BEGIN
+2026-11-10T01:33:51.7721205Z locator.waitFor: Timeout 15000ms exceeded.
+2026-11-10T01:33:51.7721442Z Call log:
+2026-11-10T01:33:51.7721794Z   - waiting for getByRole('dialog', { name: 'Freigegebene Zeit korrigieren', exact: true }) to be detached
+2026-11-10T01:33:51.7722648Z     34 × locator resolved to visible <section class="modal" role="dialog" tabindex="-1" aria-modal="true" aria-label="Freigegebene Zeit korrigieren">…</section>
+2026-11-10T01:33:51.7722939Z 
+2026-11-10T01:33:51.7723254Z     at Object.timeTrackingFlow (/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/web/office/tests/time-tracking-flow.cjs:85:18)
+2026-11-10T01:33:51.7723795Z     at async main (/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:273:7)
+2026-11-10T01:33:51.7724512Z Browser launch context: {"browser":"/opt/google/chrome/chrome","uid":1001,"apparmor_enabled":"Y","apparmor_profile":"unconfined","apparmor_restrict_unprivileged_userns":"1","unprivileged_userns_clone":"1","max_user_namespaces":"58121"}
+2026-11-10T01:33:51.7743827Z Visible alerts: [
+2026-11-10T01:33:51.7744210Z   'Keine sichere Antwort erhalten. Verbindung prüfen und dieselbe Eingabe erneut senden.'
+2026-11-10T01:33:51.7744732Z ]
+2026-11-10T01:33:51.7746883Z Page errors: []
+2026-11-10T01:33:51.7747082Z Browser console errors: [
+2026-11-10T01:33:51.7747458Z   'Failed to load resource: net::ERR_FAILED',
+2026-11-10T01:33:51.7747670Z   'Failed to load resource: net::ERR_FAILED'
+2026-11-10T01:33:51.7747812Z ]
+2026-11-10T01:33:51.7763041Z Visible headings: [
+2026-11-10T01:33:51.7763187Z   'Personal & Zeiten',
+2026-11-10T01:33:51.7763334Z   'Nettoarbeitszeit im Monat',
+2026-11-10T01:33:51.7763538Z   'Arbeitszeiteinträge',
+2026-11-10T01:33:51.7763671Z   'Tagesfreigaben',
+2026-11-10T01:33:51.7763804Z   'Mitarbeiterprofile',
+2026-11-10T01:33:51.7763950Z   'Freigegebene Zeit korrigieren',
+2026-11-10T01:33:51.7764107Z   'Original und Korrekturverlauf'
+2026-11-10T01:33:51.7764241Z ]
+2026-11-10T01:33:51.7774594Z Active section: personnel
+2026-11-10T01:33:51.7774784Z Pending API requests: []
+2026-11-10T01:33:51.9139424Z Fixture log tail:
+2026-11-10T01:33:51.9139693Z GET /api/v1/business/capabilities HTTP/1.1" 200 -
+2026-11-10T01:33:51.9140087Z 127.0.0.1 - - [10/Nov/2026 02:33:36] "GET /api/v1/business/overview HTTP/1.1" 200 -
+2026-11-10T01:33:51.9140718Z 127.0.0.1 - - [10/Nov/2026 02:33:36] "GET /api/v1/business/employees HTTP/1.1" 200 -
+2026-11-10T01:33:51.9141305Z 127.0.0.1 - - [10/Nov/2026 02:33:36] "GET /api/v1/business/time/entries?employee_id=627e71fdb97e42269fd0bcd7fa192a20&from=2026-11-01&to=2026-11-10 HTTP/1.1" 200 -
+2026-11-10T01:33:51.9142172Z 127.0.0.1 - - [10/Nov/2026 02:33:36] "GET /api/v1/business/time/summary?employee_id=627e71fdb97e42269fd0bcd7fa192a20&from=2026-11-01&to=2026-11-10 HTTP/1.1" 200 -
+2026-11-10T01:33:51.9142683Z 127.0.0.1 - - [10/Nov/2026 02:33:36] "GET /api/v1/business/time/entries/d61f35526b4e4986af97ac10bdc9a7f0 HTTP/1.1" 200 -
+2026-11-10T01:33:51.9143189Z 127.0.0.1 - - [10/Nov/2026 02:33:36] "GET /api/v1/business/time/summary?employee_id=627e71fdb97e42269fd0bcd7fa192a20&from=2026-11-09&to=2026-11-09 HTTP/1.1" 200 -
+2026-11-10T01:33:51.9143930Z 127.0.0.1 - - [10/Nov/2026 02:33:36] "GET /api/v1/business/time/entries/d61f35526b4e4986af97ac10bdc9a7f0 HTTP/1.1" 200 -
+2026-11-10T01:33:51.9144605Z 127.0.0.1 - - [10/Nov/2026 02:33:36] "GET /api/v1/business/capabilities?project_id=e61492c828694d0fae6af9215f85a360 HTTP/1.1" 200 -
+2026-11-10T01:33:51.9145777Z 127.0.0.1 - - [10/Nov/2026 02:33:36] "[31m[1mPOST /api/v1/business/time/entries/d61f35526b4e4986af97ac10bdc9a7f0/correct HTTP/1.1[0m" 409 -
+2026-11-10T01:33:51.9146516Z 127.0.0.1 - - [10/Nov/2026 02:33:36] "GET /api/v1/business/capabilities?project_id=e61492c828694d0fae6af9215f85a360 HTTP/1.1" 200 -
+2026-11-10T01:33:51.9147436Z 127.0.0.1 - - [10/Nov/2026 02:33:36] "[31m[1mPOST /api/v1/business/time/entries/d61f35526b4e4986af97ac10bdc9a7f0/correct HTTP/1.1[0m" 409 -
+2026-11-10T01:33:51.9147824Z 

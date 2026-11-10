@@ -13,6 +13,16 @@ gestrichen. Der [zentrale Arbeitsstand](CRM_ERP_ARBEITSSTAND.md) dokumentiert
 wiederhergestellten Quellstand, neue Arbeiten und tatsächliche externe
 Voraussetzungen. Historische Lohn-/Buchhaltungsnachweise bleiben erhalten.
 
+**Fortsetzung 10.11.2026:** [Source5-Zahlungstage V3](CRM_ERP_SOURCE5_ZAHLUNGSTAGE_V3_2026-11-10.md)
+ergänzen für R09/D belegte spätere positive Nettozahlungen im Jahr 2026, ohne
+ursprüngliche Bruttoereignisse, frühere Zahlungen oder Reisekosten umzudatieren.
+Der neue Vertrag besitzt eigene Backend-, Browser-, App- und tatsächliche
+PostgreSQL-/Restoreprüfungen. V1/V2 und historische Rechenmodule bleiben erhalten.
+Dies ist ein begrenzter zusätzlicher Prüfumfang; R09 und D bleiben bis zur
+vollständigen Fach-/Gesamtabnahme offen. Der [Windows-Nachlauf](CRM_ERP_WINDOWS_PAKETQUELLEN_2026-11-10.md)
+bestätigt inzwischen tatsächlich Build, Paketierung und Sicherung/Restore auf
+Windows; er ersetzt keine reale Geräteprüfung und keine Gesamtfreigabe.
+
 **Bedienanpassung vom 06.11.2026:** Die [Browser-Projektauswahl](CRM_ERP_BROWSER_PROJEKTAUSWAHL_2026-11-06.md)
 erscheint im neuen Quellstand nur in tatsächlich projektbezogenen Bereichen.
 Allgemeine Bereiche entfernen den vorherigen Projektkontext auch für

@@ -3,6 +3,8 @@ import {PAYROLL_MULTIPLE_RULE,payrollMultipleSource} from './payroll-multiple-ca
 export const POSITIVE_CORRECTION_FEATURE='payroll_source5_positive_corrections';
 export const POSITIVE_CORRECTION_CONTRACT='source5_positive_net_correction_v1';
 export const POSITIVE_PAYMENT_CONTRACT='source5_positive_net_correction_v2';
+export const POSITIVE_PAYMENT_DATES_FEATURE='payroll_source5_payment_dates';
+export const POSITIVE_PAYMENT_DATES_CONTRACT='source5_positive_net_correction_v3';
 
 const ID=/^[a-f0-9]{32}$/,HASH=/^[a-f0-9]{64}$/;
 const clone=value=>JSON.parse(JSON.stringify(value));
@@ -21,6 +23,7 @@ const without=(value,name)=>Object.fromEntries(Object.entries(value).filter(([ke
 const TRANSITION_KEYS='schema_version contract employee_id month previous_run_ref prior_run_ref prior_payment_ref prior_plan_hash old_composition_hash new_composition_hash component_key event_key receipt_date running_net_minor prior_total_net_minor total_net_minor additional_net_minor remittance_observation settlement_review transition_hash';
 const PLAN_KEYS='schema_version contract employee_id month composition_hash event_key bonus_receipt_date running_net_minor one_off_net_minor total_net_minor payments allocations prior_settlement_refs preserved_prior_payment_indexes new_payment_indexes actual_payment_created cash_import_created claim_consumption_created plan_hash';
 const POSITIVE_PLAN_KEYS=PLAN_KEYS+' prior_total_net_minor additional_net_minor prior_plan_hash transition_hash';
+const planKeys=version=>POSITIVE_PLAN_KEYS+(version===3?' settlement_date_basis':'');
 const REMITTANCE_COMPONENTS={employee_tax:'employee_tax_minor',employee_social:'employee_social_total_minor',employer_social:'employer_social_total_minor',employer_flat_tax:'employer_flat_tax_minor'};
 
 export function positiveCorrectionReview(value){
@@ -103,7 +106,7 @@ export async function verifyPositiveCorrectionPreview(value,input,{previous=null
 function paymentParts(details,run){
   const {d,event,running,net}=calculation(run),parts=details.payments,allocations=details.settlement_allocations;
   need(run.kind==='run'&&run.confirmed===true&&run.status==='calculation_recorded'&&run.accepted_scope===run.calculation.scope);
-  need(details.payment_source_schema_version===2&&details.run_id===run.id&&details.run_revision===run.revision);
+  need([2,3].includes(details.payment_source_schema_version)&&details.run_id===run.id&&details.run_revision===run.revision);
   need(Array.isArray(parts)&&parts.length>=2&&parts.length<=20&&Array.isArray(allocations)&&allocations.length===parts.length);
   const seen=new Set();let runningSum=0,bonusSum=0;
   for(const [i,part]of parts.entries()){
@@ -115,7 +118,7 @@ function paymentParts(details,run){
     const allocation=allocations[i];keys(allocation,'payment_index running_minor one_off_allocations');integer(allocation.running_minor);
     need(allocation.payment_index===i&&Array.isArray(allocation.one_off_allocations)&&allocation.one_off_allocations.length<=1);
     let bonus=0;
-    for(const oneoff of allocation.one_off_allocations){keys(oneoff,'event_key net_minor');bonus=integer(oneoff.net_minor,1);need(oneoff.event_key===event.event_key&&date===event.receipt_date,'Der Bonusanteil gehört zum unveränderten ursprünglichen Zuflusstag.');}
+    for(const oneoff of allocation.one_off_allocations){keys(oneoff,'event_key net_minor');bonus=integer(oneoff.net_minor,1);need(oneoff.event_key===event.event_key&&(details.payment_source_schema_version===3?date>=event.receipt_date:date===event.receipt_date),'Die Nettozahlung muss dasselbe ursprüngliche Bruttoereignis erfüllen.');}
     need(allocation.running_minor+bonus===part.amount_minor);runningSum+=allocation.running_minor;bonusSum+=bonus;
   }
   need(runningSum===running&&bonusSum===net-running&&total(parts.map(part=>part.amount_minor))===net,'Alle belegten Zahlungsteile müssen das korrigierte Netto genau erfüllen.');
@@ -128,23 +131,27 @@ function layout(details,run,{prior=null,archivedPlan=null}={}){
   need(same(details.prior_payment_ref,t.prior_payment_ref));
   const count=prior?prior.details.payments.length:archivedPlan?.preserved_prior_payment_indexes?.length;
   integer(count,1);need(count<parts.length);
+  const version=details.payment_source_schema_version;
   if(prior){
     need(prior.kind==='payment'&&prior.confirmed===true&&prior.employee_id===run.employee_id&&same(ref(prior),t.prior_payment_ref));
     const old=prior.sources?.run,oldPlan=prior.sources?.single_payment_plan,before=calculation(old);
     need(same(ref(old),t.prior_run_ref)&&old.employee_id===run.employee_id);sameSubject(old,run);
     need(before.net===t.prior_total_net_minor&&oldPlan?.plan_hash===t.prior_plan_hash);
+    need(version===3||oldPlan.schema_version!==3,'Ein später datierter Zahlungspräfix benötigt weiterhin Zahlungsfassung 3.');
     need(same(parts.slice(0,count),prior.details.payments)&&same(allocations.slice(0,count),prior.details.settlement_allocations),'Alle bereits belegten Zahlungen und Zuordnungen müssen unverändert am Anfang stehen.');
   }
   need(total(parts.slice(0,count).map(part=>part.amount_minor))===t.prior_total_net_minor);
   need(total(allocations.slice(0,count).map(part=>part.running_minor))===running);
-  need(parts.slice(count).every((part,index)=>part.paid_on===event.receipt_date&&allocations[count+index].running_minor===0&&allocations[count+index].one_off_allocations.length===1));
+  const notBefore=[event.receipt_date,...parts.slice(0,count).map(p=>p.paid_on)].sort().at(-1);
+  need(parts.slice(count).every((part,index)=>(version===3?part.paid_on>=notBefore:part.paid_on===event.receipt_date)&&allocations[count+index].running_minor===0&&allocations[count+index].one_off_allocations.length===1));
   need(total(parts.slice(count).map(part=>part.amount_minor))===t.additional_net_minor);
-  return {schema_version:2,contract:POSITIVE_PAYMENT_CONTRACT,employee_id:run.employee_id,month:run.source.month,
+  return {schema_version:version,contract:version===3?POSITIVE_PAYMENT_DATES_CONTRACT:POSITIVE_PAYMENT_CONTRACT,employee_id:run.employee_id,month:run.source.month,
     event_key:event.event_key,bonus_receipt_date:event.receipt_date,running_net_minor:running,one_off_net_minor:net-running,total_net_minor:net,
     payments:clone(parts),allocations:clone(allocations),prior_settlement_refs:{run:clone(t.prior_run_ref),payment:clone(t.prior_payment_ref)},
     preserved_prior_payment_indexes:Array.from({length:count},(_,i)=>i),new_payment_indexes:Array.from({length:parts.length-count},(_,i)=>i+count),
     actual_payment_created:false,cash_import_created:false,claim_consumption_created:false,prior_total_net_minor:t.prior_total_net_minor,
-    additional_net_minor:t.additional_net_minor,prior_plan_hash:t.prior_plan_hash,transition_hash:t.transition_hash};
+    additional_net_minor:t.additional_net_minor,prior_plan_hash:t.prior_plan_hash,transition_hash:t.transition_hash,
+    ...(version===3?{settlement_date_basis:'actual_positive_transfer_2026'}:{})};
 }
 
 export function positiveCorrectionPaymentDetails(details,run,prior){
@@ -156,7 +163,7 @@ export function positiveCorrectionPaymentDetails(details,run,prior){
 export function positiveCorrectionPaymentRecord(value){
   const run=value?.sources?.run,plan=value?.sources?.single_payment_plan;
   need(value.kind==='payment'&&value.confirmed===true&&value.employee_id===run?.employee_id);
-  keys(plan,POSITIVE_PLAN_KEYS);need(HASH.test(plan.composition_hash)&&HASH.test(plan.plan_hash));
+  keys(plan,planKeys(value.details?.payment_source_schema_version));need(HASH.test(plan.composition_hash)&&HASH.test(plan.plan_hash));
   const expected=layout(value.details,run,{archivedPlan:plan});
   need(same(without(without(plan,'composition_hash'),'plan_hash'),expected),'Der ursprüngliche Korrektur-Zahlungsplan wurde verändert.');
   return value;
@@ -166,9 +173,9 @@ export async function positiveCorrectionPaymentPlan(details,run,prior){
   need(prior?.sources?.single_payment_plan,'Den tatsächlich belegten vorherigen Zahlungsnachweis ausdrücklich auswählen.');
   await verifyPositiveCorrectionTransition(run.settlement_transition,run);
   const oldPlan=prior.sources.single_payment_plan,old=prior.sources.run;
-  keys(oldPlan,oldPlan.schema_version===1?PLAN_KEYS:POSITIVE_PLAN_KEYS);
-  need((oldPlan.schema_version===1&&oldPlan.contract==='source5_single_other_payment_settlement_v1')||(oldPlan.schema_version===2&&oldPlan.contract===POSITIVE_PAYMENT_CONTRACT));
-  if(oldPlan.schema_version===2)await verifyPositiveCorrectionPaymentRecord(prior);
+  keys(oldPlan,oldPlan.schema_version===1?PLAN_KEYS:planKeys(oldPlan.schema_version));
+  need((oldPlan.schema_version===1&&oldPlan.contract==='source5_single_other_payment_settlement_v1')||(oldPlan.schema_version===2&&oldPlan.contract===POSITIVE_PAYMENT_CONTRACT)||(oldPlan.schema_version===3&&oldPlan.contract===POSITIVE_PAYMENT_DATES_CONTRACT));
+  if([2,3].includes(oldPlan.schema_version))await verifyPositiveCorrectionPaymentRecord(prior);
   need(same(oldPlan.payments,prior.details.payments)&&same(oldPlan.allocations,prior.details.settlement_allocations),'Die frühere Zahlung stimmt nicht mit ihren ursprünglichen Nettozuordnungen überein.');
   need(await positiveCorrectionHash(without(oldPlan,'plan_hash'))===oldPlan.plan_hash&&await positiveCorrectionHash(old.calculation)===oldPlan.composition_hash&&oldPlan.composition_hash===run.settlement_transition.old_composition_hash,'Der vorherige tatsächliche Zahlungsplan gehört zu einer anderen Originalrechnung.');
   const plan={...layout(details,run,{prior}),composition_hash:await positiveCorrectionHash(run.calculation)};

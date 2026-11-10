@@ -9,6 +9,9 @@ import 'business_session.dart' show businessMap;
 const payrollPositiveCorrectionFeature = 'payroll_source5_positive_corrections';
 const payrollPositiveCorrectionContract = 'source5_positive_net_correction_v1';
 const payrollPositivePaymentContract = 'source5_positive_net_correction_v2';
+const payrollPositivePaymentDatesFeature = 'payroll_source5_payment_dates';
+const payrollPositivePaymentDatesContract =
+    'source5_positive_net_correction_v3';
 
 Never _bad() => throw const ApiException(
   0,

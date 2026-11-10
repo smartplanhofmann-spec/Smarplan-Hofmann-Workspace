@@ -14,7 +14,7 @@ from business_operations import identifier,text,transaction
 from business_personnel_workflow import PersonnelWorkflow,_sha,_shape,_integer
 from payroll_de_2026 import calculate,day,month_range
 
-FEATURES=('payroll_wage_account',)
+FEATURES=('payroll_wage_account','payroll_source5_payment_dates')
 TABLES=('business_payroll_account_events','business_payroll_account_requests')
 ID=r'[a-f0-9]{32}'
 IDENTITY_FIELDS=('profile_id','profile_revision','given_name','family_name','date_of_birth','address_line',
@@ -171,7 +171,7 @@ class PayrollAccounts:
             raise Problem(409,'Identitäts-/Steuernachweis deckt diese Profilrevision und den erforderlichen Beschäftigungszeitraum nicht ab.')
         return identity
 
-    def _payment_fields(self,details,calculation,month,*,verified_composite=False,receipt_date=None):
+    def _payment_fields(self,details,calculation,month,*,verified_composite=False,receipt_date=None,additional_net_indexes=()):
         payments=details['payments']
         actual_due=calculation['net_minor']-calculation.get('net_deductions_minor',0)
         # A private declaration tied to an actual verified zero-payable run is
@@ -195,7 +195,8 @@ class PayrollAccounts:
             seen.add(_payment_key(payment));total+=amount
         if total!=actual_due:
             raise Problem(400,'Die belegten Zahlungen abzüglich Arbeitnehmer-Nachzahlungen müssen dem tatsächlichen Auszahlungsnetto nach belegten Nettoabzügen entsprechen.')
-        if calculation.get('travel_expenses_included_in_net') and any(payment['paid_on'][:7]!=month for payment in payments):
+        if calculation.get('travel_expenses_included_in_net') and any(payment['paid_on'][:7]!=month
+                for index,payment in enumerate(payments) if index not in additional_net_indexes):
             raise Problem(409,'Reise-Mehrerstattungen müssen im tatsächlich gebundenen Zuflussmonat ausgezahlt werden; den Gesamtfall bei abweichender Zahlung korrigieren.')
         if receipt_date is not None and any(payment['paid_on']!=receipt_date for payment in payments):
             raise Problem(409,'Dieser Einmalfall benötigt sämtliche tatsächlich belegten Nettozahlungsteile am gebundenen Anspruchszuflusstag; unterschiedliche Zuflusstage benötigen eine gesonderte belegte Aufteilung.')
@@ -217,8 +218,8 @@ class PayrollAccounts:
             run=self.payroll._event(self.payroll._row(details['run_id'],'run',details['run_revision']))
             if run['source'].get('source_schema_version')==5:
                 fields=PAYMENT_FIELDS+('payment_source_schema_version','settlement_allocations','prior_payment_ref')
-                expected=2 if 'settlement_transition' in run else 1
-                if type(details.get('payment_source_schema_version')) is not int or details['payment_source_schema_version']!=expected:
+                expected=(2,3) if 'settlement_transition' in run else (1,)
+                if type(details.get('payment_source_schema_version')) is not int or details['payment_source_schema_version'] not in expected:
                     raise Problem(400,'Source5-Zahlungen benötigen die zum angenommenen Lauf gehörende ausdrückliche Zuordnungsfassung.')
         _shape(details,fields,fields)
         details=json.loads(canonical(details))
@@ -276,16 +277,23 @@ class PayrollAccounts:
             period_plan=(record['source']['calculation_case']['plan'] if source_version in (3,4,5) else
                 record['source']['period_case']['plan'] if source_version==2 else None)
             identity=self._identity(employee_id,details,record['source']['profile'],record['source']['month'],period_plan=period_plan)
-            self._payment_fields(details,record['calculation'],record['source']['month'],verified_composite=source_version in (3,4,5),
-                receipt_date=record['calculation']['one_off_details']['receipt_date'] if source_version==4 else None)
             sources=dict(run=record,identity=identity)
             if source_version==5:
-                if details['payment_source_schema_version']==2:
+                if details['payment_source_schema_version'] in (2,3):
                     from payroll_multiple_corrections import resolve_positive_payment_plan
                     sources['single_payment_plan']=resolve_positive_payment_plan(self,record,details)
                 else:
                     from payroll_multiple_payments import resolve_single_payment_plan
                     sources['single_payment_plan']=resolve_single_payment_plan(self,record,details)
+            # Only an independently resolved V3 positive bonus difference may
+            # have a later cash month. The full old transfer/allocation prefix,
+            # including every original travel amount/date, is already sealed.
+            # Other payroll/travel contracts retain their original date guard.
+            additional=(sources['single_payment_plan']['new_payment_indexes']
+                if source_version==5 and details['payment_source_schema_version']==3 else ())
+            self._payment_fields(details,record['calculation'],record['source']['month'],verified_composite=source_version in (3,4,5),
+                receipt_date=record['calculation']['one_off_details']['receipt_date'] if source_version==4 else None,
+                additional_net_indexes=additional)
             if source_version in (3,4,5):
                 sources['identity_intervals']=[]
                 for period in period_plan['identity_intervals']:
@@ -347,7 +355,7 @@ class PayrollAccounts:
                     raise Problem(400,'Geschützter Personalakten-Originalnachweis erforderlich.')
                 details,sources,key=self._normalize(employee['id'],data['kind'],data['details'])
                 if data['kind']=='payment' and sources['run']['source'].get('source_schema_version')==5:
-                    if details['payment_source_schema_version']==2:
+                    if details['payment_source_schema_version'] in (2,3):
                         from payroll_multiple_corrections import require_current_positive_settlement
                         require_current_positive_settlement(self,sources['run'],details)
                     else:

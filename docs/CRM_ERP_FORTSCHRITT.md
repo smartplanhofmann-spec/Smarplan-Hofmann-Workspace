@@ -4791,3 +4791,61 @@ bewahrt den vollständigen ursprünglichen Revisionspräfix; offene Verfahren
 bleiben unentschieden. Profil-/Lohnbindung, beide Clients und tatsächliche
 Geld-/Jahres-/PG-/Restorefolge sind ausdrücklich noch nicht fertig. Der neue
 RV-Code wird nicht als Teil der abgeschlossenen4aa0abd-Pakete ausgegeben.
+
+
+## 10.11.2026 – RV-Verlauf integriert, eigener Kandidat51c404b veröffentlicht
+
+Die private tatsächliche Antrags-/Melde-/Fristhistorie, vollständiger Revisionspräfix,
+konkrete Profilquellenfassung und Lohnmonatsprüfung sind mit Browser und App
+verbunden. Ein offenes Verfahren bleibt ungeklärt; eine tatsächlich geprüfte
+zukünftige Frist ist kein zukünftiges eingetretenes Ereignis. Das ursprüngliche
+Befreiungsprofil bleibt erhalten. Nachweisänderungen während offener Profileingabe
+fordern erneute bewusste Auswahl, statt dieselbe ID auf eine neuere Fassung
+umzustellen. Die tatsächliche Browserfolge prüft diesen Fall und den Rechteentzug.
+
+25 neue Backendfälle, 39 gemeinsame Appfälle, 1.118 gesamte Browser-Modulfälle,
+Analyse ohne Befund, tatsächlicher PostgreSQL-/MFA-/Konkurrenz-/Komplettrestorelauf
+in42,624s sowie22eigene eingefrorene Paket-/Archivfälle auf51c404b bestehen.
+Der frühere gesamte lokale App-Lauf besteht2.033Fälle in16:53; die spätere
+Auswahl-/Fristerweiterung besitzt ihren getrennten Nachlauf. Der zusätzliche
+lokale Backend-Erstlauf ist noch aktiv und enthält einen ersten Fehler. Der gezielte
+historische Anlageexport nach Ergänzung unveränderter Sparse-Belege besteht;
+der Erstlauf wird nicht rückwirkend grün. Neue und ältere Erstfehler bleiben
+verlustfrei komprimiert mit Rohhashen im RV-Entwicklungsnachweis erhalten.
+
+Die eigene volle Arbeitskopie wurde nach byte-/linkgleicher Prüfung aller2.335
+Einträge auf den temporären Datenträger verlagert. Die ursprüngliche Cloud-
+Arbeitsplatte war voll; eine App-Analyse ohne fehlgeschlagene Paketkonfiguration
+wurde nicht als Produktbefund gewertet. Hauptprojekt und fremde Arbeitskopien
+bleiben erhalten.63historische Lohnmodule und das Originalziel bleiben bytegleich.
+
+Featurecommitdf043c7 und Integration51c404b sind ausschließlich auf dem Testbranch
+veröffentlicht. Eigene vollständige Development42918195752, automatisches iPhone
+42918195769 und signierte Vorbereitung42918342817 sind aktiv. Letztere verwendet
+`prepare_signed_ipa=true`, `upload_to_testflight=false`. Eigene Artefakte und
+Gesamtergebnisse stehen noch aus.34reale Gerätefälle bleiben ungeprüft; die
+vorherigen31Zeilen sind bytegleich. Keine Liveinstallation, echte Zahlung/Meldung,
+TestFlight-Veröffentlichung oder A–G-Gesamtabnahme. Der Gesamtauftrag läuft weiter.
+
+
+## 10.11.2026 – vollständiger RV-Erstlauf rot, konkrete Ursachen korrigiert
+
+Der ganze lokale Backend-Erstlauf erfasst2.224Fälle in2.066,372s und endet mit
+einer Fehlprüfung, drei Fehlern und dreiAuslassungen. Zwei Aufbaufehler stammen
+von nicht materialisierten ursprünglichen Beleg-/Gmail-Dateien. Zwei echte
+Altlohn-Regressionen rufen die zusätzliche RV-Prüfung zu früh auf einem bewusst
+beschädigten, hashkonsistenten alten Umschlag auf. Die Remote-PG-Gruppe4 auf
+51c404b reproduziert denselben Fehler. Die Codekorrektur9a20836 beschränkt die
+zusätzliche Prüfung auf tatsächliche RV-Bindungen und erhält die bisherigen
+fachlichen Sperren vor Wiederverwendung bzw. Upgrade. Alte Daten werden nicht
+repariert oder als vermeintlicher Nachweis einer Nichtverwendung behandelt.
+
+Ein tatsächlicher privater Dateikatalog mit101Originalen und einem weiterhin
+einzeln gebundenen RV-Original reproduziert eine weitere Clientgrenze. Voller
+Dateikatalog und bisheriger RV-Präfix sind jetzt getrennt begrenzt. Beide41er-
+Backendnachläufe,40gemeinsame Appfälle,1.119Browser-Modulfälle und tatsächlicher
+Browser bestehen. Drei tatsächliche PG-/Altbeleg-/Komplettrestorefälle bestehen
+in68,797s; eigener Container ID/Label/Port geprüft entfernt. Analyse ohne Befund.
+Kein rückwirkend grüner Erstlauf, keine Freigabe51c404b. Der korrigierte gesamte
+Nachfolger benötigt seinen eigenen eingefrorenen Archiv-/Remote-/Paketnachweis.
+Alle bisherigen Grenzen, Quellen, offenen34Gerätefälle und A–G bleiben erhalten.

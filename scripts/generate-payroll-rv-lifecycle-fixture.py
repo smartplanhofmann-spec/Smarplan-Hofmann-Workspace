@@ -33,7 +33,22 @@ def generate():
     return dict(schema_version=1,synthetic=True,external_transmission=False,cases=cases)
 
 
+def generate_many_files():
+    f=RvPayrollBinding('runTest');f.setUp()
+    try:
+        record=f.lifecycle();f.bound(record)
+        f.add_personal_originals(100)
+        from business_payroll_rv_lifecycle import resolve_current
+        from business_payroll_facts import reference
+        assert resolve_current(f.f.office,f.f.owner,f.f.employee['id'],reference(record),clock=lambda:f.f.now)==record
+        page=f.api.sources(f.f.owner,dict(employee_id=f.f.employee['id']))
+        assert len(page['files'])==101 and len(record['source_file_ids'])==1
+        return dict(schema_version=1,synthetic=True,external_transmission=False,sources=page,bound_originals=1)
+    finally:f.doCleanups()
+
+
 if __name__=='__main__':
     target=Path(sys.argv[1]);target.parent.mkdir(parents=True,exist_ok=True)
-    target.write_text(json.dumps(generate(),ensure_ascii=False,sort_keys=True,indent=2)+'\n')
+    result=generate_many_files() if '--many-files' in sys.argv[2:] else generate()
+    target.write_text(json.dumps(result,ensure_ascii=False,sort_keys=True,indent=2)+'\n')
     print(str(target))

@@ -12,6 +12,9 @@ final fixture = jsonDecode(
   File('test/fixtures/payroll_rv_lifecycle.json').readAsStringSync(),
 ) as Map<String, dynamic>;
 final cases = businessItems(fixture['cases']);
+final manyFiles = jsonDecode(
+  File('test/fixtures/payroll_rv_lifecycle_many_files.json').readAsStringSync(),
+) as Map<String, dynamic>;
 Map<String, dynamic> copy(dynamic v) =>
     Map<String, dynamic>.from(jsonDecode(jsonEncode(v)) as Map);
 Map<String, dynamic> values(Map<String, dynamic> c) {
@@ -105,6 +108,17 @@ class RvApi extends OfficeApi {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  test(
+    '101 actual private file originals are distinct from selected RV evidence',
+    () {
+      final page = payrollRvSources(
+        copy(manyFiles['sources']),
+        manyFiles['sources']['employee_id'],
+      );
+      expect(page['files'], hasLength(101));
+      expect(page['history'][0]['source_file_ids'], hasLength(1));
+    },
+  );
   test('an ID alone or another revision cannot float to the newest original', () {
     final c = cases.last, s = copy(c['sources']);
     for (final selection in [

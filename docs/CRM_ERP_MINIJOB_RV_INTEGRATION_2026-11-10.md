@@ -1,11 +1,11 @@
 # Belegter Minijob-RV-Verlauf und Abrechnungsbindung
 
-Entwicklungsstand 10.11.2026, Basis `4aa0abd`. Dieser neue Abschnitt ist noch
-nicht veröffentlicht. Der vollständige lokale Backendlauf läuft; ein Fehlerzeichen
-im Backend-Erstlauf ist noch anhand seines endgültigen
-Fehlerberichts zuzuordnen. Der gezielte Nachlauf des an dieser Stelle ausgewählten
-historischen Anlageexports besteht. Ein späterer Erfolg macht den Erstlauf nicht
-rückwirkend grün. Die ausgelieferten V16-Pakete bleiben getrennte Nachweise.
+Entwicklungsstand 10.11.2026, Basis `4aa0abd`. Der erste Kandidat `51c404b`
+ist auf dem Testbranch veröffentlicht, jedoch wegen der nachstehend belegten
+Altbelegregressionen nicht freigegeben. Die Korrektur und der größere tatsächliche
+Originalkatalog sind getrennt nachgeprüft. Der vollständige Erstlauf bleibt rot;
+seine erfolgreichen gezielten Nachläufe ändern daran nichts. Die ausgelieferten
+V16-Pakete bleiben getrennte Nachweise.
 
 ## Tatsächlich angeschlossener Umfang
 
@@ -129,6 +129,41 @@ ergänzten Fälle und die Auswahländerung besitzen den gesonderten Nachlauf;
 der Gesamtlauf ist kein eingefrorener Vollnachweis dieses späteren Kandidaten.
 Der neue eingefrorene Archiv- und eigene CI-Nachweis müssen dessen endgültige
 Commitkennung verwenden.
+
+## Korrektur nach dem vollständigen Backend-Erstlauf
+
+Der ganze lokale Erstlauf erfasst 2.224 Fälle in 2.066,372 Sekunden und endet
+mit einer Fehlprüfung, drei Fehlern und drei ausgewiesenen Auslassungen. Zwei
+Aufbaufehler betreffen ursprünglich nicht materialisierte unveränderte Beleg-
+bzw. Gmail-Skriptdateien in der eigenen Sparse-Arbeitskopie. Diese sind ergänzt.
+
+Zwei tatsächliche Regressionen betreffen die alte reine Umschlagprüfung eines
+hashkonsistenten, aber inhaltlich beschädigten Lohnoriginals. Die zusätzliche
+RV-Prüfung verlangte dort schon einen Quellenkörper, obwohl bestehende fachliche
+Altbelegprüfer diesen beschädigten Körper erst anschließend und vor jeder
+weiteren Verwendung ausdrücklich zurückweisen. Die zusätzliche Prüfung greift
+jetzt nur bei einer tatsächlich vorhandenen RV-Profilbindung. Bindungen in
+verschachtelten Monatsprofilen werden ebenfalls erkannt. Beschädigte Altbelege
+werden dadurch weder repariert noch als Beweis einer Nichtverwendung behandelt.
+Die bisherigen fachlichen Upgrade-/Integritätsprüfungen sperren sie weiterhin.
+
+Eine weitere tatsächliche Gegenprobe erzeugt über die Personalakten-API 100
+zusätzliche Originale: Der aktuelle Dateikatalog enthält 101 Dateien, während
+der RV-Nachweis unverändert genau ein ursprüngliches Original bindet. Beide
+Clients verwechselten zunächst die Grenze des früheren RV-Präfixes mit dieser
+Dateiliste. Die jeweiligen Grenzen werden jetzt getrennt geprüft. Die neue
+Vorführung stammt aus echten kontrollierten Speicherantworten und enthält
+keine echten Mitarbeiterdaten.
+
+Die Altlohn-/Gmail-/Anlage-/RV-Gegenprüfung besteht 41 Fälle. Ein zusätzlicher
+41er-Lauf der RV-Regeln, tatsächlichen großen Akte und bisherigen Minijob-
+Altbelegprüfungen besteht ebenfalls. Der aktuelle gemeinsame App-Nachlauf
+besteht 40 Fälle, der ganze Browser-Modullauf 1.119 Fälle und der wirkliche
+Browserablauf ebenfalls. Die App-Analyse meldet keine Befunde. Die nachfolgende echte PostgreSQL-Prüfung
+besteht alle drei RV-/Altbeleg-/Restorefälle in 68,797 Sekunden, der eigene
+Testcontainer ist anhand ID/Label/Port entfernt. Der eigene vollständige
+Nachfolgekandidat wird getrennt ausgewiesen; der erste Kandidat wird nicht
+rückwirkend als vollständig bestanden dargestellt.
 
 ## Verbleibende Grenzen
 

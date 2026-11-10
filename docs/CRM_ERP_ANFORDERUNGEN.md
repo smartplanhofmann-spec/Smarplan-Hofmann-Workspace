@@ -540,3 +540,21 @@ Keine neue Liveinstallation oder echte Geräte-/Fachfreigabe. Der Vorgänger
 b02c84a ist mit allen20 Development-Jobs, unsigniertem iPhone-Release und beiden
 Mailbot-Vertragsjobs vollständig grün; signierter Upload übersprungen.
 Der Gesamtauftrag läuft weiter.
+
+
+Fortsetzung10.11., RV-Kandidat51c404b: Der [belegte Minijob-RV-Verlauf](CRM_ERP_MINIJOB_RV_INTEGRATION_2026-11-10.md)
+verbindet private Originale und vollständigen Präfix mit konkreter Profilfassung,
+tatsächlichem Lohnmonat und beiden Clients. 25 neue Backend-,39 gemeinsame App-
+und1.118Browser-Modulfälle sowie wirklicher Browser, PostgreSQL/Restore und eigener
+eingefrorener Archivlauf bestehen. Die eigenen gesamten Remote-/Windows-/iPhone-
+Prüfungen sind aktiv. R09.03, weitere Teilumfänge und alleA–G bleiben offen;
+kein neuer Server-, Geräte-, TestFlight- oder Fachfreigabestatus daraus ableiten.
+
+
+RV-Nachprüfung10.11.: Der gesamte Erstlauf auf51c404b ist mit zwei echten
+Altbelegregressionen und zwei Sparse-Aufbaufehlern rot beendet. Die Korrektur
+9a20836 erhält alte Umschlag-/Fachsperren und trennt Dateikatalog-/Präfixgrenzen.
+Gezielte41er-Backendnachläufe,40gemeinsame App- und1.119Browserfälle sowie drei
+wirkliche PG-/Restorefälle bestehen.51c404b wird nicht freigegeben. Der Nachfolger
+benötigt seine eigenen vollständigen Lauf-/Paketnachweise; Statuszeilen und A–G
+werden dadurch nicht als abgeschlossen bewertet.

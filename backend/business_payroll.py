@@ -184,8 +184,8 @@ class Payroll:
             from business_payroll_rv_lifecycle import validate_archived_profile
             validate_archived_profile(self.office,result)
         if row['kind']=='run':
-            from business_payroll_rv_lifecycle import validate_archived_payroll
-            validate_archived_payroll(self.office,result)
+            from business_payroll_rv_lifecycle import has_profile_binding,validate_archived_payroll
+            if has_profile_binding(result):validate_archived_payroll(self.office,result)
         return result
 
     def _row(self,object_id,kind=None,revision=None):

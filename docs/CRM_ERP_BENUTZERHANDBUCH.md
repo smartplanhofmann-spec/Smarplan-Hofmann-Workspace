@@ -253,6 +253,40 @@ gesonderte Abführungen werden mit Originalen erfasst. Ihre Übernahme erzeugt
 eine aggregierte Finanzquelle, die anschließend in der EÜR eingeordnet wird.
 Finanzleser erhalten dadurch keinen Zugriff auf private Mitarbeiterakten.
 
+### Belegte Minijob-RV-Befreiung und Aufhebung
+
+Die neue RV-Funktion mit Nachfolgekorrektur `9a20836` ergänzt unter **Personal → Mitarbeiter →
+Personalakte, Reisen und Lohnvorbereitung → Lohnberechnung 2026** den Schritt
+**Minijob-RV und Aufhebungsantrag prüfen**. Er ist nur mit privater
+Personal-Lesefreigabe erreichbar. Das Festhalten eines Prüfstands benötigt
+zusätzlich die aktuelle fachliche Freigabe.
+
+Zuerst die privaten Originale in der Personalakte erfassen. Im RV-Verlauf das
+ursprüngliche befreite Minijobprofil samt Original, den tatsächlichen Antragseingang,
+die Meldung und den belegten Verfahrensstand auswählen. Eine Widerspruchsfrist
+muss tatsächlich einschließlich anwendbarer Feiertage geprüft sein. Eine bekannte
+zukünftige Frist darf in einem offenen Verfahren stehen; sie gilt dadurch nicht
+als abgelaufen. Die Vorschau prüfen und anschließend ausdrücklich bestätigen.
+
+Danach ein zum tatsächlichen Wirksamkeitsmonat passendes Lohnprofil erfassen
+und dort die genaue aktuelle Fassung des RV-Nachweises ausdrücklich auswählen.
+Wird der Nachweis während einer geöffneten Profileingabe geändert, die Quellen
+neu laden und die neue Fassung erneut prüfen. Die Auswahl wird nicht automatisch
+auf die neueste Fassung umgestellt. Erst dann die Monatsberechnung prüfen.
+
+Ein offenes oder beanstandetes Verfahren sperrt die Abrechnung ab dem möglichen
+Wirkungsbeginn. Frühere Fassungen bleiben in der Historie erreichbar. Bei einer
+verlorenen Speicherantwort **Ursprüngliche RV-Anfrage unverändert prüfen**
+verwenden; der bestehende Auftrag wird dadurch geklärt, nicht ersetzt.
+
+Dieser Ablauf betrifft die belegte Aufhebung einer bereits bestehenden Befreiung
+im einzigen durchgehenden gewerblichen Minijob nach 2012. Anfangsbefreiung,
+Wiederbeginn, parallele Minijobs und besondere Rentenfälle brauchen eigene
+Prüfungen. Er erteilt keine Behördenfreigabe und versendet keine Meldung.
+Ausführlicher [Umfang und Nachweise](CRM_ERP_MINIJOB_RV_INTEGRATION_2026-11-10.md).
+
+### Weitere Monats- und Anspruchsnachweise
+
 Für Ein- und Austritte werden zuerst die tatsächlichen Beschäftigungszeiten,
 Entgeltvereinbarungen, Steuer-/Versicherungsprofile und Arbeitspläne belegt.
 Der bestätigte Monatsfall zeigt Anspruchstage, Steuertage und SV-Tage getrennt.

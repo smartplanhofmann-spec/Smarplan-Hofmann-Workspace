@@ -60,8 +60,8 @@ Map<String, dynamic> _ref(dynamic v) {
   return payrollFactRef(businessMap(v));
 }
 
-List<Map<String, dynamic>> _refs(dynamic values) {
-  if (values is! List || values.length > 100) _bad();
+List<Map<String, dynamic>> _refs(dynamic values, [int maximum = 100]) {
+  if (values is! List || values.length > maximum) _bad();
   final refs = values.map(_ref).toList()
     ..sort(
       (a, b) => '${a['id']}'.compareTo('${b['id']}') != 0
@@ -396,11 +396,11 @@ Map<String, dynamic> payrollRvSources(dynamic raw, String employeeId) {
       ['can_write', 'can_approve', 'writes_enabled'].any((k) => s[k] is! bool))
     _bad();
   if (!_same(
-        _refs(businessItems(s['history']).map(payrollFactRef).toList()),
-        _refs(s['prior_assessment_refs']),
+        _refs(businessItems(s['history']).map(payrollFactRef).toList(), 101),
+        _refs(s['prior_assessment_refs'], 101),
       ) ||
       !_same(
-        _refs(s['file_references']),
+        _refs(s['file_references'], 1000),
         _refs(
           businessItems(s['files'])
               .map(
@@ -411,6 +411,7 @@ Map<String, dynamic> payrollRvSources(dynamic raw, String employeeId) {
                 },
               )
               .toList(),
+          1000,
         ),
       ))
     _bad();

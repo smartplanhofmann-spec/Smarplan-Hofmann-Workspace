@@ -1,0 +1,12 @@
+{
+  "previous_cases": 31,
+  "current_cases": 34,
+  "previous_prefix_bytes": 7191,
+  "previous_prefix_sha256": "fe4f549dcf9ff92977786e5b926e4f97b898586024ac93d131189acb04e2c38e",
+  "prefix_byte_identical": true,
+  "all_cases_unperformed": true,
+  "delimiter": ";",
+  "columns": 14,
+  "encoding": "UTF-8-BOM",
+  "line_endings": "CRLF"
+}

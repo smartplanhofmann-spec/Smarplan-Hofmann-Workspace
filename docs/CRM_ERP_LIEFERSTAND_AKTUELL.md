@@ -1,5 +1,15 @@
 # Aktueller Lieferstand
 
+Der erste RV-Testkandidat51c404b ist wegen belegter Altlohn-Regressionen nicht
+freigegeben. Die Korrektur9a20836 und der tatsächliche größere Originalkatalog
+bestehen ihre gezielten Backend-, Browser-, App- und PostgreSQL-/Restoreprüfungen.
+[Umfang und Erstfehler](CRM_ERP_MINIJOB_RV_INTEGRATION_2026-11-10.md).
+Der Nachfolger benötigt seinen eigenen vollständigen Plattform- und Paketnachweis.
+Läufe und Artefakte von51c404b oder4aa0abd sind kein Nachweis dieses Nachfolgers.
+Kein TestFlight-Upload und kein neuer Liveupdate. Die nachstehenden V16-Pakete
+bleiben der letzte vollständig abgeschlossene Lieferstand.
+
+
 Stand10.11.2026. Hauptprojekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Geprüfter veröffentlichter Produktcode:
 `4aa0abd6d313fcc5d693606dbef1c7193afb0729`, ausschließlich auf dem freigegebenen

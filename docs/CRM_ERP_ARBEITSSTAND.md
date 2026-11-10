@@ -23,16 +23,43 @@ Etappe verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
   Die frühere Reihenfolge zuerst Projektbetrieb hat Buchhaltung/Lohn nicht
   aus dem Gesamtziel gestrichen.
 
-## Aktive Codearbeit: Minijob-RV-Lebenslauf
+## Aktuelle RV-Korrektur nach vollständigem Erstlauf
 
-Getrennte eigene Arbeitskopie `/workspace/smartplan-minijob-rv-20261110`, Branch
-`codex/minijob-rv-lifecycle-20261110`, Basis4aa0abd. Der
-[Bestands-/Quellenbefund](CRM_ERP_MINIJOB_RV_LEBENSLAUF_PLAN_2026-11-10.md)
-und erste Entwicklungsbelege sind vorhanden. Reine Zustandskomponente und
-private append-only Speicherung bestehen15erste Fälle; eine weitere geprüfte
-Bestätigungsfolge ergänzt den Komponentenvertrag. Profilbindung, tatsächliche
-Lohn-/Geld-/Jahres-/Restorekette und beide Clients sind noch Codearbeit.
-Noch keine Veröffentlichung dieser neuen RV-Implementierung.
+Der erste veröffentlichte RV-Kandidat51c404b ist wegen zweier tatsächlich
+reproduzierter Altlohn-Regressionen nicht freigegeben. Der lokale ganze Erstlauf
+endet mit2.224Fällen in2.066,372s, einer Fehlprüfung, drei Fehlern und drei
+Auslassungen. Zwei Fehler betreffen fehlende ursprüngliche Sparse-Dateien,
+zwei den zu früh aufgerufenen neuen RV-Prüfer bei beschädigten Altbelegen.
+Die eigene PostgreSQL-Gruppe4 reproduziert denselben Altbelegfehler unabhängig.
+Der Erstlauf und die Remotegruppe bleiben rot; erfolgreiche Nachläufe ändern
+sie nicht nachträglich.
+
+Die Codekorrektur9a20836 bewahrt die bisherige reine Umschlagprüfung alter
+ungebundener Originale; die bestehenden fachlichen Sperren vor Verwendung und
+Upgrade bleiben wirksam. Neue RV-Bindungen einschließlich verschachtelter
+Profile werden weiter geprüft. Ein zusätzlicher tatsächlicher Dateikatalog mit
+101privaten Originalen und einem unveränderten gebundenen RV-Original deckt eine
+verwechselte Clientgrenze auf. Dateikatalog und RV-Präfix besitzen jetzt getrennte
+Grenzen. Beide41er-Backendnachläufe,40gemeinsame Appfälle,1.119Browsermodulfälle,
+wirklicher Browser sowie drei echte PostgreSQL-/Altbeleg-/Restorefälle in68,797s
+bestehen. Die App-Analyse meldet keine Befunde. Der vorherige gesamte lokale
+App-Lauf besteht2.033Fälle; spätere Ergänzungen sind getrennt geprüft.
+
+Der korrigierte Gesamtkandidat benötigt seinen eigenen eingefrorenen Archiv-
+und vollständigen Remote-/Windows-/iPhone-Nachweis. Frühere Läufe42918195752,
+42918195769und42918342817 gehören ausschließlich zu51c404b und dürfen nicht als
+Prüfung seines Nachfolgers ausgegeben werden. Signierte Vorbereitungen verwenden
+weiterhin `prepare_signed_ipa=true`, `upload_to_testflight=false`. Der letzte
+vollständig abgeschlossene Lieferstand bleibt bis zum neuen Nachweis V16/4aa0abd.
+Konkrete neue Serverbefehle werden nach dem neuen Nachweis im Lieferstand ergänzt.
+34reale Gerätefälle bleiben ungeprüft. Keine neue Liveinstallation oder Meldung.
+
+[Umfang und Entwicklungsnachweise](CRM_ERP_MINIJOB_RV_INTEGRATION_2026-11-10.md).
+Hauptprojekt `/workspace/Smarplan-Hofmann-Workspace`, separate Arbeitskopie
+`/tmp/smartplan-minijob-rv-20261110`, Branch `codex/minijob-rv-lifecycle-20261110`.
+Der frühere Workspacepfad ist ein Kompatibilitätslink. Die Verlagerung wegen
+voller Platte hat alle2.335Einträge und den Gitstatus geprüft erhalten.
+63historische Lohnmodule und das Originalziel bleiben bytegleich.
 
 ## Neuester vollständig geprüfter Produktstand: V16
 

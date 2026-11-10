@@ -107,3 +107,5 @@ Codearbeit. Mehrere Bonusgruppen, andere Brutto-/SV-Zuordnungen, Jahreswechsel,
 allgemeine steuerliche Rückwirkung und behördliche Erstattungen bleiben eigene
 Fälle beziehungsweise Fachnachweise. Dieser Abschnitt führt keine Meldung,
 Überweisung, Liveinstallation, Signierung oder produktive Gesamtfreigabe aus.
+
+Produktcode 749a19d6f42ece098c70fe494ebae97abb3d87f8 ist auf b437f2c eingeordnet. Alle 14 geprüften Laufzeitdateien sind nach dem Rebase bytegleich; der zusätzliche V3-PG-Jahresfall und beide Fortschrittseinträge bleiben erhalten. [Quellhashes, Rohläufe, vollständiger App-Bericht und Grenzen](evidence/source5-repayment-2026-11-10/manifest.json).

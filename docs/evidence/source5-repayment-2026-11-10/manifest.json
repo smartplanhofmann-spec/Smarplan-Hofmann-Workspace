@@ -1,0 +1,537 @@
+{
+  "product_commit": "749a19d6f42ece098c70fe494ebae97abb3d87f8",
+  "source_before_rebase": "bd5e5e578b295a7fa09f87d34d0cde5dedb62855",
+  "base": "b437f2c30ba3fd7de34a0f1c270e693df9210dd8",
+  "last_published_all_green": "17978f6697a02f131fc1a4d319cc279dbe642d50",
+  "scope": "Actual negative employee repayments on immutable positive Source5 V1/V2/V3 prefixes; no external transfer, filing or live installation",
+  "tests": {
+    "backend": {
+      "passed": 50,
+      "seconds": 373.767
+    },
+    "node": {
+      "passed": 1026,
+      "skipped": 0,
+      "final_ms": 10753.275619
+    },
+    "native_entire": {
+      "passed": 1878,
+      "skipped": 0,
+      "success": true,
+      "terminal_ms": 693950,
+      "jsonl": "source5-repayment-native-entire-20261110.jsonl.gz",
+      "jsonl_sha256": "7e243bfaeccbc6cbcab1c767fa235ef618617b0181fb24ecf85f15e348a56d40"
+    },
+    "native_focused": {
+      "passed": 14
+    },
+    "native_analysis": {
+      "result": "clear",
+      "seconds": 15.8
+    },
+    "packages": {
+      "passed": 21,
+      "seconds": 15.98
+    },
+    "actual_browser": "MFA/API/negative V4/lost run and payment ACK/exact originals/mobile390 passed",
+    "actual_postgres_single_restore": {
+      "passed": 1,
+      "seconds": 562.836
+    },
+    "actual_postgres_later_two_case_run": {
+      "passed": 1,
+      "errors": 1,
+      "seconds": 623.387,
+      "failed_case": "Untranslated 10s PostgreSQL advisory lock acquisition timeout; original raw run retained"
+    },
+    "actual_http_held_lock": {
+      "passed": 1,
+      "seconds": 3.166
+    },
+    "actual_postgres_corrected_concurrency_and_http": {
+      "passed": 2,
+      "seconds": 83.502,
+      "observed_concurrent_outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "one_original_receipt": true
+    }
+  },
+  "unchanged_kernels": [
+    {
+      "path": "backend/payroll_annual_basis_2026.py",
+      "sha256": "5b17e71d13ed596a2f4a18ec49f12970e95329ac17dd69ef17709978191ad431"
+    },
+    {
+      "path": "backend/payroll_calculations_2026.py",
+      "sha256": "5133cc7b0a52471bcfd08c76960461799bd92e335ac7e5d141368dc69f14b553"
+    },
+    {
+      "path": "backend/payroll_claims_composition_2026.py",
+      "sha256": "e8a08c7402ae06803045cf5a4421cee1bca0a50183e43677788194c9242e342d"
+    },
+    {
+      "path": "backend/payroll_de_2026.py",
+      "sha256": "c1365355ab501f194f37ede7c4bb0ab2c2347a1252dfda97ae360708593a9789"
+    },
+    {
+      "path": "backend/payroll_entitlements_2026.py",
+      "sha256": "c495a10a871f68dcc13d656a303d5d671855a7b5ea522b454ad141829cb457e7"
+    },
+    {
+      "path": "backend/payroll_factor_2026.py",
+      "sha256": "c55d017120f56b0e2539c793018839820d17aef54611c3ede636e1ee20d1df25"
+    },
+    {
+      "path": "backend/payroll_factor_periods_2026.py",
+      "sha256": "f18b0254d6c96b981433d519adb4895de7e97fcb7e4e9d951105cf95773c63c0"
+    },
+    {
+      "path": "backend/payroll_holidays_2026.py",
+      "sha256": "d8ed5b71ce2f334d5670e707e421212e71abfad953121271efb81ea0eac99280"
+    },
+    {
+      "path": "backend/payroll_multiple_oneoff_2026.py",
+      "sha256": "c6ea0b98dab3528055c7e0b190b93e062dc1469466f670513bd75c8d856f33c7"
+    },
+    {
+      "path": "backend/payroll_oneoff_2026.py",
+      "sha256": "a52973b0f88f0658906db61b610762959b84f1cefe2ded866a663d718f9f1ce8"
+    },
+    {
+      "path": "backend/payroll_oneoff_composition_2026.py",
+      "sha256": "9b48ef4898b043c647b1c238a6f37d8b05bf8f78dcf9967fb691b9803454d0d7"
+    },
+    {
+      "path": "backend/payroll_pap_2026.py",
+      "sha256": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071"
+    },
+    {
+      "path": "backend/payroll_pap_factor_2026.py",
+      "sha256": "92c6dee2d41b5c8985b52d9d8e86831919c05b16bbb504f4bdfc7176be7d088c"
+    },
+    {
+      "path": "backend/payroll_pap_oneoff_2026.py",
+      "sha256": "f2fc8ced86ab844e5c7b4ea592fab2ba5870a7843f47b78bc379b9f874b2f456"
+    },
+    {
+      "path": "backend/payroll_pap_periods_2026.py",
+      "sha256": "9307e599d25512db069bc42b8662ff0aa84b5436808745916bc97018b2675444"
+    },
+    {
+      "path": "backend/payroll_periods_2026.py",
+      "sha256": "c3df3ae3ee93c756010290f382bf17050676a7bbc6a327082ea07b83e7b96890"
+    },
+    {
+      "path": "backend/payroll_segments_2026.py",
+      "sha256": "819894663d24ae4a74e15d4f22c2b421ec34fbf4fc1d8a10a868a62b6270c83d"
+    },
+    {
+      "path": "backend/payroll_sickness_2026.py",
+      "sha256": "05dc76065032993b9ec59035cf17bc99c388b1b119ac30feb4540d937cb45e33"
+    },
+    {
+      "path": "backend/payroll_sickness_phases_2026.py",
+      "sha256": "3a9f7bcc4262d2594e94c6f87bb6f5035901411e64a73f91586fc5b7b9d19c0b"
+    },
+    {
+      "path": "backend/payroll_sickness_start_2026.py",
+      "sha256": "dc69e48b0ef255893b962d6d20ba8dadc478c17a53ccb438b7f12565c1a979c7"
+    },
+    {
+      "path": "backend/payroll_transition_2026.py",
+      "sha256": "b3b649e5179990ed54058ee4daee497a8744277cfe64c98750a5b333963d1897"
+    },
+    {
+      "path": "backend/payroll_travel_2026.py",
+      "sha256": "7c4be0176679fd9d6dcfe1b1049c223e33a1a8b75804f2864df7b0ccd65935fb"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v1.py",
+      "sha256": "03cbcb42b4a5c0eedfc11536c5997a53509c1ab5304a89e2c69c8fbc775164cb"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v2.py",
+      "sha256": "83b2673315b2e828abbf72fef26841bd80e8e8bbd70da45f587a01a5037527e5"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v3.py",
+      "sha256": "6c8496f63c3f44ea56054d7eafa17aa75dbba71bc131306fcf59925d93faf45e"
+    },
+    {
+      "path": "backend/payroll_travel_expenses_2026.py",
+      "sha256": "2d96af39ded426f9868f3011ad3b47cdfc74c25c29f49ade56b6b178f67587d1"
+    },
+    {
+      "path": "backend/payroll_travel_ground_2026.py",
+      "sha256": "9fbc82efc589654ed2eb1425ce50fb4fe6a59b30bcde5ae29d27ec5f595deebc"
+    },
+    {
+      "path": "backend/payroll_travel_mixed_2026.py",
+      "sha256": "0e640106f0d70e3a0f0c54e3154f22e3576d5120dabb9117dbfcf3bde0f6dced"
+    },
+    {
+      "path": "backend/payroll_travel_rates_2026.py",
+      "sha256": "b327e00ea0624b6e41b45843077984af077917eb83400b341a3f88842192b7c0"
+    },
+    {
+      "path": "backend/payroll_travel_tax_2026.py",
+      "sha256": "8b28d2a38923fe64e7e640a1e3487834dea38ab701f07e010bb62dda81495f21"
+    },
+    {
+      "path": "backend/payroll_travel_transport_2026.py",
+      "sha256": "60cc47920cd49bd6daf6ca8a8bba94b49c46b5963d940b655ad100461d2be7d5"
+    },
+    {
+      "path": "backend/payroll_wage_interruptions_2026.py",
+      "sha256": "3039dc435c9c689fbc5a50b005581393e4093c8703a9ae9b74e52d559a236aa9"
+    }
+  ],
+  "unchanged_old_payment_file_sha256": "06b281118921401ac02d9b33086b989fbc30aa47e67fe26ff7983b4a44a5ef86",
+  "goal": {
+    "bytes": 23863,
+    "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "source_hashes": [
+    {
+      "path": ".github/workflows/checks.yml",
+      "sha256": "36e3d020309ff7ebaef38a167fde47bd009f539c371954164d03c3aa9e97fb50"
+    },
+    {
+      "path": "app/lib/business_payroll.dart",
+      "sha256": "93b06eecdb47ac17a8eda53ec9b1d5b117a6406f7664b9a4212e0c76940d1697"
+    },
+    {
+      "path": "app/lib/business_payroll_accounts.dart",
+      "sha256": "32cd0b3d9289c4ea0f1f1d63f0545841efcc264f9d363e5b5c22e072250b2fcd"
+    },
+    {
+      "path": "app/lib/business_payroll_multiple_case_contract.dart",
+      "sha256": "42cb478b3745abb9d4aff8d3382b478f8e8d238482fc8f8d0daa48d84f0db37f"
+    },
+    {
+      "path": "app/lib/business_payroll_source5_repayment.dart",
+      "sha256": "5ba0c0ca3635fba6132d7915e4819e331dae27794fc74a24d3ff8a2ee99bdd8b"
+    },
+    {
+      "path": "app/test/business_source5_repayment_page_test.dart",
+      "sha256": "174d0d19a69c40197db9f1719a3a00356ed15671877f5739de1f88d4f4a1014a"
+    },
+    {
+      "path": "app/test/business_source5_repayment_test.dart",
+      "sha256": "3dcf9d9765687307d5f1bb73a6a0369932e54b08051d2f227ae1b46774e06262"
+    },
+    {
+      "path": "app/test/fixtures/source5_repayment.json",
+      "sha256": "0e1fc66621431095d3d7ac3e8e9873006db669d13362d31ac48f67dadc75ed3e"
+    },
+    {
+      "path": "backend/business_payroll_accounts.py",
+      "sha256": "7b38d6536cf2343f9bb5e3c67923cfc66bd4383dfdc035da66abdfa02d87b9ab"
+    },
+    {
+      "path": "backend/business_payroll_annual_basis.py",
+      "sha256": "0e98ab34dafb6bb5a01e033d160009c2c1087e8ee13f6be526f174dcd0bbace1"
+    },
+    {
+      "path": "backend/online/store.py",
+      "sha256": "3ceec608880d12a9d0c436de8651e56666851cf64b185f8ff2b8d81ce622ed09"
+    },
+    {
+      "path": "backend/online/test_business_payroll_repayments_pg.py",
+      "sha256": "73c073e29f2ca3447790a252982051119d35e028a4e8a732029e9cbcc8fcf7a9"
+    },
+    {
+      "path": "backend/online/web.py",
+      "sha256": "6175a04e1ca7b1fcff2be2aa1b886be558e272b46bc7f7b05af5a985f7f888ac"
+    },
+    {
+      "path": "backend/payroll_multiple_corrections.py",
+      "sha256": "6a9ce3f7a0a933f24ca86a1cf8cd0edb5c30c2389952f1e5871bc27f6e940384"
+    },
+    {
+      "path": "backend/payroll_multiple_repayments.py",
+      "sha256": "2b57a1a1e57ff1f7ab1ff171acc1e68c894d7d98f68d7e62b4a65b981f04bf85"
+    },
+    {
+      "path": "backend/test_business_payroll_source5_repayments.py",
+      "sha256": "eb2d19bfe964f59ef59ce9f472d6e4d0bbee706f48f64970b11c968cc1b83028"
+    },
+    {
+      "path": "scripts/generate-source5-repayment-fixture.py",
+      "sha256": "007d9e2639ce3ea4d2703f0afb655730d97833726056e15a6ba891ed00f37d0f"
+    },
+    {
+      "path": "scripts/native-release.py",
+      "sha256": "b0695f652f9ba3df4bec3fca9a1a06992a058c4e8646323fb4313625bb4361b8"
+    },
+    {
+      "path": "web/office/payroll-accounts.js",
+      "sha256": "26019c6c2e675940778fc7cc3713f61ac69a4202321b93fe76dbdfeef28ab7cd"
+    },
+    {
+      "path": "web/office/payroll-positive-correction.js",
+      "sha256": "bd88f97aad58b04b64727d47af7c9f20668a81199fd85864ba0dc5a0632b48dd"
+    },
+    {
+      "path": "web/office/payroll-repayment.js",
+      "sha256": "967d3422a01e0616afe29df418a6eb462d2bfc46a4d605cc145541e2d0898239"
+    },
+    {
+      "path": "web/office/payroll.js",
+      "sha256": "6eeb6c0fdd18ae24e4f6949dc772a6da2eff4c37527a51e6ddd484bd02c1d9b7"
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "sha256": "ea3d273b09fc1c098944e74c650ca8144706e2ff1f61390a66631ecd9ba721bc"
+    },
+    {
+      "path": "web/office/tests/payroll-positive-correction-flow.cjs",
+      "sha256": "e77d482238b2d27f651ac8a1376c1e1eea10dadf7b128197926b377833d00b86"
+    },
+    {
+      "path": "web/office/tests/payroll-repayment.test.mjs",
+      "sha256": "a506bcc87b33cdd2e5a236cf37abd665abf523b04e9c1b218550717cbfcb9625"
+    }
+  ],
+  "raw_logs": [
+    {
+      "file": "source5-repayment-backend-complete-first-20261110.log.gz",
+      "sha256": "66bcb6e6fc0bdc4c2d4bf9d60f2111126f61de43f3dbbb296615cfc6f24d31f8",
+      "gzip_sha256": "7a9b2ee1fc97cc48437c614bc1893c52397e4dc5d71fe8db9a4c2a5fea4693b2",
+      "original_bytes": 10942
+    },
+    {
+      "file": "source5-repayment-before-20261110.log.gz",
+      "sha256": "422b4b255c73b0aba8e78b004b5aee52595db60ecc4579c6ef53dcb1a99e574c",
+      "gzip_sha256": "33a9bdce6b340987245f8dcb233a059cffa8f3c7fdd76af9ce8bc1118547a806",
+      "original_bytes": 2375
+    },
+    {
+      "file": "source5-repayment-browser-final-20261110.log.gz",
+      "sha256": "24145e3c96b32ee020898ce193141f31384d2b5a778d661e982219c9818fb9b5",
+      "gzip_sha256": "bd1b1206988a7613de5c7d445aabdce6e244f2e5106ea760188be424cab8a976",
+      "original_bytes": 499
+    },
+    {
+      "file": "source5-repayment-browser-first-20261110.log.gz",
+      "sha256": "1e430bf75ad48fbc7985fab3d4afa0b0dd14c1d46acb6f4839840af0d54c8a86",
+      "gzip_sha256": "02c273514b7eddd1ac5fbf7a504623f5be108ab86a62a9b3e35122c22c948a9f",
+      "original_bytes": 2449
+    },
+    {
+      "file": "source5-repayment-browser-static-20261110.log.gz",
+      "sha256": "5ac4d8fd4fc6324a54ebfc97b12ecac4efdcff45dd59b506a594026bf42e5361",
+      "gzip_sha256": "8a7374a675c068247ecc0f3e02d4d71a1ae0a964cbd47a99cadc983194fa9786",
+      "original_bytes": 481
+    },
+    {
+      "file": "source5-repayment-domain-first-20261110.log.gz",
+      "sha256": "649ee9dd708349cd69c813ee01978bc61f41cfab8a3a6520924473130a8cb04f",
+      "gzip_sha256": "65736d1ae19e3d9ae892c53a35f1f7426b83a9c072e419f00a167059d96f4f19",
+      "original_bytes": 349
+    },
+    {
+      "file": "source5-repayment-fixture-first-20261110.log.gz",
+      "sha256": "089ce3efd2dad799c5ceb1f0b51359a8aaad13f15bd8ad47b484d7bb12a2fa96",
+      "gzip_sha256": "a9b2a6d8df221a1fbf0b67ac8607a57846d1b97ef95fbc7f4a2716c067ebc634",
+      "original_bytes": 91
+    },
+    {
+      "file": "source5-repayment-fixture-ui-20261110.log.gz",
+      "sha256": "a809f560518bfdde701eca000f4824afca604b9a6e2ffa1bb4afbde836b3da48",
+      "gzip_sha256": "820a9a2b87380c6757d1c539d363196b9d4a29b87ebfe42e839fa1d9f177fa7f",
+      "original_bytes": 91
+    },
+    {
+      "file": "source5-repayment-fixture-ui-snapshot-20261110.log.gz",
+      "sha256": "3dc066c3d49a8fbd4c35c16e396aebb6f7639ea7bb2b0a58ef53145e7bd90e7f",
+      "gzip_sha256": "c25e17b288d27625acafaf5cd8e7d2732a7756eb67413e8eb2d430f20ae65c9b",
+      "original_bytes": 91
+    },
+    {
+      "file": "source5-repayment-guards-first-20261110.log.gz",
+      "sha256": "784e0be52698043fbf080f1472b12108a303945e58d0a93f882f62133b5b73cc",
+      "gzip_sha256": "292c18f09c69ec9f1298b5bbc3015bfab96bdbfd8ec8b24b4b71b37cdae3535a",
+      "original_bytes": 329
+    },
+    {
+      "file": "source5-repayment-native-account-first-20261110.log.gz",
+      "sha256": "48d7fdd835b24d6dda0eabf606d614a31915f84bc0c3a3c39f990aef1b3fe2a9",
+      "gzip_sha256": "8c4ef897b34246e944641951d7d9fc9f31e8dc76bcb91a224d33fe2e0b34d34a",
+      "original_bytes": 2337
+    },
+    {
+      "file": "source5-repayment-native-analyze-clean-20261110.log.gz",
+      "sha256": "da572917ba3c717b026b7823e3d99d71a004d9f309cb1531e7554a8f49816677",
+      "gzip_sha256": "73c27829f2dd0f89ce07bb5a788dd4c47abfe551e83da2b8f81cc517e0bda9f6",
+      "original_bytes": 97
+    },
+    {
+      "file": "source5-repayment-native-analyze-final-20261110.log.gz",
+      "sha256": "36d5d1866e595fd103f95c221439a1a98fbecf35b353204ec2ccf674b4064188",
+      "gzip_sha256": "0fda83bd047bba77f3e17b0dc9b727f5d675fb42d7c0c58bf0e1fdf197b9453e",
+      "original_bytes": 281
+    },
+    {
+      "file": "source5-repayment-native-analyze-first-20261110.log.gz",
+      "sha256": "7287e837f4fa8344685818c99ba56b000515fdd5a2952ab4bc9836f421421615",
+      "gzip_sha256": "a0a8235d4190cf8cdde80afb94451f994b5a26cb4fae2b58cb197f25e319e9be",
+      "original_bytes": 97
+    },
+    {
+      "file": "source5-repayment-native-analyze-ui-20261110.log.gz",
+      "sha256": "1528847727e29aceb75b1d3a3ed5ee2e77c35eb9a13c7e285d0d6691e7e76e9f",
+      "gzip_sha256": "6fa12dfe49bcb178939d6fb9335525ad93af9e93a4b954b3cd172c196390e2e4",
+      "original_bytes": 97
+    },
+    {
+      "file": "source5-repayment-native-entire-20261110.log.gz",
+      "sha256": "c43e2767264d6dd0bc4abe350db1feed278d7fdb019e532b3d9461c001ec13a4",
+      "gzip_sha256": "521759e6dd607fbfd111d2f90cd71e8c6e70dffbb933b927a6bf08a4a749422b",
+      "original_bytes": 383388
+    },
+    {
+      "file": "source5-repayment-native-first-20261110.log.gz",
+      "sha256": "cc140c1e94dfd0695facbec38a8591c585cbe29837d8fb323f9055b288f5773c",
+      "gzip_sha256": "ee26786086060147dd87f84ca7235f5563b29d452beafe608cd6841bf1702618",
+      "original_bytes": 2260
+    },
+    {
+      "file": "source5-repayment-native-pages-first-20261110.log.gz",
+      "sha256": "fa1c4151cfa3716d27439df00b14cf83795a144b824f3d56d507c43ecb3c9909",
+      "gzip_sha256": "2a48065eb2fc00bf1a110d5f41d57ae60e24f704bb083e4960846f29f61d0217",
+      "original_bytes": 3026
+    },
+    {
+      "file": "source5-repayment-native-setup-20261110.log.gz",
+      "sha256": "d4cb7a3c68b4133b4f6e58c67ff5bfd13725d8021e930388cdc98da8a575919d",
+      "gzip_sha256": "33e704fc20f0db5a9a37ee8f146d3084685cdb8c352aaa2fd21f09a54fab7cf4",
+      "original_bytes": 68
+    },
+    {
+      "file": "source5-repayment-node-account-first-20261110.log.gz",
+      "sha256": "8f11be766cfe8f435a1e0cff09957a3be3afb938c19c13474ba574dbcdf9998b",
+      "gzip_sha256": "c1cd0de3a53a5cec1af8a5316c473304039f2f4d4e6b6952635591018e45a74c",
+      "original_bytes": 1549
+    },
+    {
+      "file": "source5-repayment-node-entire-final-20261110.log.gz",
+      "sha256": "19609cfb256806e418a81bba5b3437cc15c44693424a9685a0488c01ea6ffe57",
+      "gzip_sha256": "e562d241c4e848fab3249bbd22e2f95a77e06f831691a100e3b915265659316c",
+      "original_bytes": 105014
+    },
+    {
+      "file": "source5-repayment-node-entire-first-20261110.log.gz",
+      "sha256": "00e462ee80efe498f46c9f22798690c1e70631fa4b08e3ed3a9c20c22fce1b15",
+      "gzip_sha256": "f5293daee3856108c133193797248242d3df11a8ff1c355a7d35f9f06a100bc7",
+      "original_bytes": 105055
+    },
+    {
+      "file": "source5-repayment-node-first-20261110.log.gz",
+      "sha256": "38d8080c18921d51e0962666dd79b316015c1ed803e4dea05c933aa707b71053",
+      "gzip_sha256": "7262ccd8c6eb79a908140c6b4eec901acb4ce68fe9ac728ca4fa60882efec04e",
+      "original_bytes": 167
+    },
+    {
+      "file": "source5-repayment-node-noisolation-first-20261110.log.gz",
+      "sha256": "ee9f36cfade906474f9d12e018b8452489a719fdb1b0d95959ba4f798ec92976",
+      "gzip_sha256": "bf9ebc75dcc7f04a1efed0fda013a6ab35a759cce2b58fbc4a1911da606bd9c9",
+      "original_bytes": 382
+    },
+    {
+      "file": "source5-repayment-node-ui-contract-20261110.log.gz",
+      "sha256": "acf589923294b820a493d5b74df65316741995e4e667cd51ef6026552ef1d68d",
+      "gzip_sha256": "4b72e4eb3ed808982ac0bda985e89d451056ccbaff7646bd6551cbc8bc6cbcfb",
+      "original_bytes": 1552
+    },
+    {
+      "file": "source5-repayment-own-pg-cid-20261110.log.gz",
+      "sha256": "d3e85867a68f59fe703b2255560f932f9fad3d0c3805ca117c8703091e74d383",
+      "gzip_sha256": "35e8234be7ad300af5c6cb47de42a3d3486698a741c194db22b508f945301db9",
+      "original_bytes": 65
+    },
+    {
+      "file": "source5-repayment-package-first-20261110.log.gz",
+      "sha256": "0657681d5a9689a6f31203c21fc164c65d9d2a33ccd196a4d4c4277fe7129ad2",
+      "gzip_sha256": "11801cfd5d9bfc6986ff3730c9f42b5faaff050f262c419596231ff44271cd12",
+      "original_bytes": 4732
+    },
+    {
+      "file": "source5-repayment-postgres-annual-projection-20261110.log.gz",
+      "sha256": "d3a8a8c7d00ce5690abd897af1726e763b8552bdc688b31b00dfefd17d33e562",
+      "gzip_sha256": "0929d61116784c2b9d789d5dc5f3a99d8fd27818f91ff9d0de8fdd9b7d2333db",
+      "original_bytes": 337
+    },
+    {
+      "file": "source5-repayment-postgres-busy-http-first-20261110.log.gz",
+      "sha256": "5538fd7b0512a637c8fbe42634ee3a539f0cce14970afd00e556256f66fea84d",
+      "gzip_sha256": "2b56c80d247bbc8c4849c546d6212c084744f6a5d873899331870c46053016ed",
+      "original_bytes": 327
+    },
+    {
+      "file": "source5-repayment-postgres-complete-final-20261110.log.gz",
+      "sha256": "5aa98feab312830ba84ce0d135afb0bdfe865158822f79c569bac848263b4f36",
+      "gzip_sha256": "21cc0fc5fead9d7ad5114291ec13d1539eecc44ed8e8553d95bd789b76041b16",
+      "original_bytes": 3770
+    },
+    {
+      "file": "source5-repayment-postgres-concurrency-busy-corrected-20261110.log.gz",
+      "sha256": "e40a75e08b01b092e6567c6859cff99d9e6f4b18f1ab2b4b32b20d7921cbd72d",
+      "gzip_sha256": "762b2f69d710f56979fedf7a4ffcebdeac15e0dfeb7a02782d19f9f1a9c26650",
+      "original_bytes": 595
+    },
+    {
+      "file": "source5-repayment-postgres-first-20261110.log.gz",
+      "sha256": "5344da2b9beeaacf2c2b12cc9094fd1c8976663fef3f2baa03aefda182efa9cf",
+      "gzip_sha256": "eae8380bdc3a9270430618e423cfdc4eaea927a2a8f72d9e72c97b852be068d0",
+      "original_bytes": 1445
+    },
+    {
+      "file": "source5-repayment-postgres-preserved-prefix-20261110.log.gz",
+      "sha256": "a3d76d73e8628abd4e4f41d2aa1fb5c007000b85050f7e3823530e0985aa0f02",
+      "gzip_sha256": "92b8efb874310a57bc9dd8932b741809d3069726abaaabac62a5970270beb749",
+      "original_bytes": 1457
+    },
+    {
+      "file": "source5-repayment-postgres-public-error-20261110.log.gz",
+      "sha256": "2eecb671ebb9f1051200503982c68dfeba9694c26c5cfda5f7881516f69450a1",
+      "gzip_sha256": "1344915684b33ba01c619fc2b769558256a70024784bc8591c45bd20188dde67",
+      "original_bytes": 1259
+    }
+  ],
+  "rebase": {
+    "tested_runtime_files": 14,
+    "all_byte_identical": true,
+    "hashes": {
+      "backend/business_payroll_accounts.py": "7b38d6536cf2343f9bb5e3c67923cfc66bd4383dfdc035da66abdfa02d87b9ab",
+      "backend/business_payroll_annual_basis.py": "0e98ab34dafb6bb5a01e033d160009c2c1087e8ee13f6be526f174dcd0bbace1",
+      "backend/payroll_multiple_corrections.py": "6a9ce3f7a0a933f24ca86a1cf8cd0edb5c30c2389952f1e5871bc27f6e940384",
+      "backend/payroll_multiple_repayments.py": "2b57a1a1e57ff1f7ab1ff171acc1e68c894d7d98f68d7e62b4a65b981f04bf85",
+      "backend/online/store.py": "3ceec608880d12a9d0c436de8651e56666851cf64b185f8ff2b8d81ce622ed09",
+      "backend/online/web.py": "6175a04e1ca7b1fcff2be2aa1b886be558e272b46bc7f7b05af5a985f7f888ac",
+      "app/lib/business_payroll.dart": "93b06eecdb47ac17a8eda53ec9b1d5b117a6406f7664b9a4212e0c76940d1697",
+      "app/lib/business_payroll_accounts.dart": "32cd0b3d9289c4ea0f1f1d63f0545841efcc264f9d363e5b5c22e072250b2fcd",
+      "app/lib/business_payroll_multiple_case_contract.dart": "42cb478b3745abb9d4aff8d3382b478f8e8d238482fc8f8d0daa48d84f0db37f",
+      "app/lib/business_payroll_source5_repayment.dart": "5ba0c0ca3635fba6132d7915e4819e331dae27794fc74a24d3ff8a2ee99bdd8b",
+      "web/office/payroll.js": "6eeb6c0fdd18ae24e4f6949dc772a6da2eff4c37527a51e6ddd484bd02c1d9b7",
+      "web/office/payroll-accounts.js": "26019c6c2e675940778fc7cc3713f61ac69a4202321b93fe76dbdfeef28ab7cd",
+      "web/office/payroll-positive-correction.js": "bd88f97aad58b04b64727d47af7c9f20668a81199fd85864ba0dc5a0632b48dd",
+      "web/office/payroll-repayment.js": "967d3422a01e0616afe29df418a6eb462d2bfc46a4d605cc145541e2d0898239"
+    },
+    "new_v3_followup_test_retained": true
+  },
+  "own_postgres_container": {
+    "id": "14b338966c373963fcf3e16046d408115f92165d0a90f3b970f5cc6f1c1eaa75",
+    "label": "smartplan.task=source5-repayment-20261110",
+    "removed": true,
+    "foreign_containers_changed": false
+  },
+  "limits": [
+    "No complete project acceptance inferred",
+    "Further mixed positive/negative/unchanged net corrections after V4 remain actual code work",
+    "Own new remote CI and real device/live/fiscal approval remain separate",
+    "Native V4 widget acceptance uses controlled API fixtures; genuine MFA/HTTP proof is the separate browser/PostgreSQL run"
+  ]
+}

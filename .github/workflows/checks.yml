@@ -48,16 +48,6 @@ jobs:
         run: |
           python scripts/ci-check-groups.py --suite online --group ${{ matrix.group }} --groups 6 --list > "$RUNNER_TEMP/online-selected.json"
           python scripts/ci-check-groups.py --suite online --group ${{ matrix.group }} --groups 6 --report "$RUNNER_TEMP/online-results.json"
-      - name: Check online units, scripts and real HTTPS runtime
-        if: matrix.group == 0
-        run: |
-          bash -n deploy/hetzner/online/*.sh
-          systemd-analyze verify deploy/hetzner/online/*.service deploy/hetzner/online/*.timer
-          smartplan_caddy_test=$(mktemp -d)
-          trap 'rm -rf -- "$smartplan_caddy_test"' EXIT
-          bash deploy/hetzner/https/fetch-caddy.sh "$smartplan_caddy_test"
-          SMARTPLAN_CADDY_BINARY="$smartplan_caddy_test/caddy" python backend/online/test_runtime.py
-          SMARTPLAN_CADDY_BINARY="$smartplan_caddy_test/caddy" python -m unittest discover -s backend/online -p test_release_tls.py -v
       - name: Retain exact selected commands and raw results
         if: always()
         uses: actions/upload-artifact@v4
@@ -69,6 +59,38 @@ jobs:
             ${{ runner.temp }}/online-results.logs/
           if-no-files-found: error
           retention-days: 14
+  online-runtime:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16-bookworm
+        env:
+          POSTGRES_DB: smartplan_check
+          POSTGRES_PASSWORD: disposable-ci-only
+        ports:
+          - 55433:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d smartplan_check"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PYTHONPATH: backend
+      SMARTPLAN_TEST_DSN: host=127.0.0.1 port=55433 dbname=smartplan_check user=postgres password=disposable-ci-only
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r backend/online/requirements.lock
+      - run: python -m pip check
+      - name: Check online units, scripts and real HTTPS runtime
+        run: |
+          bash -n deploy/hetzner/online/*.sh
+          systemd-analyze verify deploy/hetzner/online/*.service deploy/hetzner/online/*.timer
+          smartplan_caddy_test=$(mktemp -d)
+          trap 'rm -rf -- "$smartplan_caddy_test"' EXIT
+          bash deploy/hetzner/https/fetch-caddy.sh "$smartplan_caddy_test"
+          SMARTPLAN_CADDY_BINARY="$smartplan_caddy_test/caddy" python backend/online/test_runtime.py
+          SMARTPLAN_CADDY_BINARY="$smartplan_caddy_test/caddy" python -m unittest discover -s backend/online -p test_release_tls.py -v
   https-setup:
     runs-on: ubuntu-latest
     steps:

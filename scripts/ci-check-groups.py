@@ -10,6 +10,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import signal
 import subprocess
 import sys
 import time
@@ -61,7 +62,7 @@ def select(all_tasks, group, groups):
     return [row for index, row in enumerate(all_tasks) if index % groups == group]
 
 
-def run(selected, suite, report, environ=None, *, annotations=True):
+def run(selected, suite, report, environ=None, *, annotations=True, timeout_seconds=2700):
     """Execute every selected command; any failure makes the group fail."""
     if not selected:
         raise ValueError('Empty check execution')
@@ -96,8 +97,20 @@ def run(selected, suite, report, environ=None, *, annotations=True):
         logfile = logdir / (row['id'] + '.txt')
         try:
             with logfile.open('w') as output:
-                process = subprocess.run(row['argv'], cwd=row['cwd'], env=env, stdout=output, stderr=subprocess.STDOUT, check=False)
-            code = process.returncode
+                process = subprocess.Popen(row['argv'], cwd=row['cwd'], env=env, stdout=output, stderr=subprocess.STDOUT, start_new_session=True)
+                try:
+                    code = process.wait(timeout=timeout_seconds)
+                except subprocess.TimeoutExpired:
+                    # Terminate only this owned command's session, including
+                    # its loopback fixtures. Later independent checks still run.
+                    os.killpg(process.pid, signal.SIGTERM)
+                    try:
+                        process.wait(timeout=5)
+                    except subprocess.TimeoutExpired:
+                        os.killpg(process.pid, signal.SIGKILL)
+                        process.wait(timeout=5)
+                    output.write('\nCommand exceeded its explicit runtime limit.\n')
+                    code = 124
         except OSError as error:
             logfile.write_text(type(error).__name__ + ': ' + str(error) + '\n')
             code = 127

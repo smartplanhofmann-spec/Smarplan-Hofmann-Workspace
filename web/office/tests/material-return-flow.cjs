@@ -17,12 +17,29 @@ async function materialReturnFlow({page,context,navigate,ready,login,fixture,scr
   const issue=await api('/inventory/movements',request({kind:'issue',article_id:article.id,from_location_id:location.id,project_id:fixture.project_id,quantity:'6',note:'Synthetic original issue'}));
   const before=await api('/projects/'+fixture.project_id+'/costs');assert.equal(issue.cost_net,'60.0000');
   await api('/articles/'+article.id,request({revision:article.revision,cost_price_net:'77.00'}));
+  // Observe the client's real parsed result. A routed background response can
+  // leave Playwright response.finished() pending after successful delivery.
+  // This transparent probe preserves every request, byte, value and error.
+  await page.evaluate(async expectedPath=>{
+   const {OfficeApi}=await import('/office/office.js'),original=OfficeApi.prototype.get;
+   window.__materialOriginalObserved={state:'waiting'};
+   OfficeApi.prototype.get=async function(path){
+    if(path!==expectedPath)return original.call(this,path);
+    try{const value=await original.call(this,path);window.__materialOriginalObserved={state:'fulfilled',ids:value.items.map(item=>item.id).sort()};return value;}
+    catch(error){window.__materialOriginalObserved={state:'rejected',name:error.name,status:error.status};throw error;}
+   };
+   window.__restoreMaterialOriginalObserver=()=>{OfficeApi.prototype.get=original;delete window.__materialOriginalObserved;delete window.__restoreMaterialOriginalObserver;};
+  },'/business/inventory/movements?project_id='+fixture.project_id);
   let release,observed;const hold=new Promise(resolve=>release=resolve),seen=new Promise(resolve=>observed=resolve),delayed=new RegExp('/api/v1/business/inventory/movements\\?project_id='+fixture.project_id+'$');
   const delayLoad=async route=>{const response=await route.fetch({maxRedirects:0});observed();await hold;await route.fulfill({response});};await context.route(delayed,delayLoad);
   try{
    await page.getByRole('button',{name:'Material zurückgeben',exact:true}).click();const chooser=modal('Projekt der Materialrückgabe');await chooser.waitFor();await chooser.getByLabel('Projekt der ursprünglichen Entnahme',{exact:true}).selectOption(fixture.project_id);await chooser.getByRole('button',{name:'Originalentnahmen öffnen',exact:true}).click();let timeout;try{await Promise.race([seen,new Promise((_,reject)=>{timeout=setTimeout(()=>reject(new Error('Delayed material original GET was not observed')),15000);})]);}finally{clearTimeout(timeout);}await close();await page.getByRole('button',{name:'Lagerort anlegen',exact:true}).click();await modal('Lagerort').waitFor();
-   const completed=page.waitForResponse(response=>delayed.test(response.url()));release();await(await completed).finished();await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));assert.equal(await page.getByRole('dialog').getAttribute('aria-label'),'Lagerort','late return GET must not replace another dialog');
-  }finally{release();await context.unroute(delayed,delayLoad);await close();}
+   const completed=page.waitForResponse(response=>delayed.test(response.url()),{timeout:15000});release();assert.equal((await completed).status(),200);
+   await page.waitForFunction(()=>window.__materialOriginalObserved.state!=='waiting',null,{timeout:15000,polling:50});
+   const parsed=await page.evaluate(()=>window.__materialOriginalObserved);assert.equal(parsed.state,'fulfilled');assert.ok(parsed.ids.includes(issue.id),'the actual client must parse the genuine original issue');
+   await page.evaluate(()=>new Promise(resolve=>setTimeout(resolve,0)));assert.equal(await page.getByRole('dialog').getAttribute('aria-label'),'Lagerort','late return GET must not replace another dialog');
+   console.log('material return: genuine original response parsed after closing its editor, replacement dialog preserved');
+  }finally{release();await context.unroute(delayed,delayLoad);await page.evaluate(()=>window.__restoreMaterialOriginalObserver?.());await close();}
   await selectIssue(issue);const editor=modal('Rückgabe zur Originalentnahme');assert.match(await editor.innerText(),/10,00/);assert.equal(await editor.getByLabel('Artikel',{exact:true}).count(),0);assert.equal(await editor.getByLabel('Projekt für Entnahme',{exact:true}).count(),0);await enter(location,'6.0001','Synthetic over-return');await editor.getByRole('alert').waitFor();assert.equal(records.length,0);
   await enter(location,'2','Synthetic first return');await editor.getByRole('alert').waitFor();assert.equal(records.length,1);
   if(restart){

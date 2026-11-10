@@ -43,7 +43,7 @@ Teilfortschritt, Endstatus und einzelne rohe Logs werden auch bei Fehlern als
 getrennte Gruppenartefakte erhalten. Es gibt kein continue-on-error.
 
 Der bisherige tatsächliche HTTPS-/Worker-Runtimetest bleibt mit identischen
-Befehlen genau einmal in Onlinegruppe0. Update-, HTTPS-, Backend-, Flutter- und
+Befehlen genau einmal in einem eigenen Job mit frischer PostgreSQL-Instanz. Update-, HTTPS-, Backend-, Flutter- und
 beide nativen Buildkonfigurationen bleiben unverändert. Weder Fachregeln noch
 Signierung, Auslieferungsziel oder echte Betriebsdaten werden geändert.
 
@@ -77,3 +77,42 @@ abgeschlossenen Prüfläufen entfernt. Danach läuft dieselbe anhand voller ID,
 Aufgabenlabel und Loopback-Port32798 bestätigte eigene Instanz. Fremde Container
 bleiben unverändert. Abschluss, Rohbelege und spätere eigene Remote-CI werden
 getrennt ergänzt. Noch keine neue Veröffentlichung oder Serverinstallation.
+
+
+## Zusätzlich tatsächlich eingegrenzte Prüfprobleme
+
+Der Materialrückgabe-Test wartete nach Freigabe einer echten verspäteten
+HTTP-Antwort unbegrenzt auf Playwright response.finished(). Der eigene genaue
+Prüfprozess wurde angehalten; dieser Originalversuch bleibt unvollständig/rot.
+Die transparente Beobachtung des tatsächlichen OfficeApi.get-Ergebnisses
+bestätigt jetzt innerhalb einer festen Frist das wirklich gelesene ursprüngliche
+Entnahmeobjekt und unveränderten Ersatzdialog. Requests, Antworten und sämtliche
+Bestands-/Preis-/Rechte-/Wiederholungsprüfungen bleiben erhalten. Der tatsächliche
+gezielte korrigierte Ablauf besteht. Die Jahresarchiv-V2-Beobachtung bekommt
+zusätzlich begrenzte echte Antwortgates mit vollständiger Freigabe im Fehlerpfad;
+sein isolierter echter ZIP-/Prüfer-/Rechte-/Lifecycleablauf besteht ebenfalls.
+Ein versuchter Eigentumscheck fand die alte Gruppe bereits als Zombieprozess;
+es wurde dort kein Prozess beendet und kein Abschluss daraus abgeleitet.
+
+Ein anschließend in derselben gebrauchten PG-Fixture gestarteter Runtimefall
+wurde korrekt durch die feste abweichende Firmenbindung abgewiesen. Das ist
+kein Grund, den Produktwächter zu lockern. Die CI-Runtime erhält stattdessen
+ihren eigenen PostgreSQL-Dienst. Genau der unveränderte echte HTTPS-/MFA-/PDF-/
+Worker-Neustartfall und TLS-Gatefall bestehen auf der separaten frischen eigenen
+Instanz in17,277s und2,263s. Drei echte PG-/Restorefälle über den Gruppenläufer
+bestehen davor in39,748s. Beide eigenen PG-Instanzen wurden danach mit voller
+ID, Aufgabenlabel und Loopback-Port erneut geprüft und entfernt.
+
+Acht Auswahl-/Fehler-/Prozessverträge bestehen einschließlich eines tatsächlich
+zeitüberschrittenen Kindes: Status124 bleibt rot, die spätere Prüfung wird
+wirklich ausgeführt. Jeder echte Einzelaufruf bekommt45 Minuten Obergrenze und
+nur seine eigene Prozessgruppe wird bei Überschreitung beendet. Dies hebt
+keinen internen Fach-/Netzwerk-/Datenbanktimeout auf.
+
+Die lokalen Browsergruppen1,2,3 und5 sind jeweils vollständig mit13 Fällen
+erfolgreich. Die ursprüngliche lange Werkzeugsitzung für Gruppe0 endete ohne
+abschließenden Nachweis; sie gilt nicht als Erfolg. Die vollständige Gruppe0
+läuft jetzt in einem eigenen dauerhaft protokollierten Prozess. Die betroffene
+Gruppe4 wird vollständig mit ihren13 Fällen wiederholt. Die Originalberichte
+und ihre Teilstände werden getrennt von Wiederholungen erhalten. Eine gesamte
+78er-Browserabnahme wird erst nach tatsächlichem Abschluss ausgewiesen.

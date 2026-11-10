@@ -111,6 +111,16 @@ class CompleteChecks(unittest.TestCase):
             self.assertIn('explicit disposable PostgreSQL DSN',result.stderr)
             self.assertFalse(report.exists())
 
+    def test_actual_timeout_is_red_and_later_command_still_runs(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);report=root/'report.json'
+            tasks=[dict(id='bounded-child',argv=[sys.executable,'-c','import time; time.sleep(10)'],cwd=directory),
+                   dict(id='after-timeout',argv=[sys.executable,'-c','print("later check completed")'],cwd=directory)]
+            self.assertEqual(groups.run(tasks,'online',report,annotations=False,timeout_seconds=0.25),1)
+            result=json.loads(report.read_text());self.assertEqual([r['exit_code'] for r in result['results']],[124,0])
+            self.assertTrue(result['complete']);self.assertEqual(result['failed'],1)
+            self.assertIn('runtime limit',(report.with_suffix('.logs')/'bounded-child.txt').read_text())
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -148,3 +148,16 @@ Wiederholung von129741200471 angenommen; laufender Ersatzjob129757269510.
 Keine Quellenpins, Prüfsummen oder Pflichtprüfungen wurden dafür geändert.
 Der eigene unsignierte iPhone-Release ist bei diesem Nachtrag noch aktiv.
 Kein neuer Livebetrieb, Apple-Upload oder echte Geräte-/Fachfreigabe.
+
+### Endgültiger Remote-Abschluss
+
+Die gezielte Wiederholung129757269510 ist erfolgreich: Alle13 ausgewählten
+wirklichen Browserabläufe enden mitexit0. Keine Auswahl oder Prüfung wurde
+entfernt. Der ursprüngliche Werkzeugdownloadfehler bleibt separat erhalten.
+Damit bestehen alle20 Development-Gruppen42790149143 am veröffentlichten
+c4a2d8f. Auch der eigene unsignierte iPhone-Release42790149399 besteht;
+der signierte Upload ist übersprungen. Beide Mailbot-Verträge bestehen.
+Das aktuelle tatsächliche Windows-Online-Artefakt13752796971 hat22183211Bytes;
+Lokalpaket13753096316, Start/Sicherung13750992870, iPhone-UNSIGNED194
+ist13752144091. Nachweisdateien enthalten Quellcommit und Zustand; kein
+unsigniertes Artefakt wird als installierbare iPhone-Auslieferung bezeichnet.

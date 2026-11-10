@@ -128,9 +128,11 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
 
 Aktueller Nachtrag: Installationskennung, feste Commitarchive und vollständige
 Serverpakete sind lokal abgeschlossen, einschließlich1939 aktueller Appfälle.
-19 Remotegruppen bestehen; eine gezielte Wiederholung nach externemHTTP403 vor
-Testbeginn sowie der eigene iPhone-Release laufen. Anschließend den signierten
-iPhone-Vorbereitungsweg vom ausdrücklich gewählten TestFlight-Upload trennen;
+Alle20 Remotegruppen und der eigene unsignierte iPhone-Release bestehen nach
+gezielter unveränderter Wiederholung des vor Testbeginn extern gescheiterten
+Downloads. Der signierte iPhone-Vorbereitungsweg ist lokal mit33 gemeinsamen
+Fällen geprüft und vom ausdrücklich gewählten TestFlight-Upload getrennt.
+Seine Veröffentlichung und wirkliche signierte Vorbereitung folgen;
 verbleibende Code-/Fach-/Betriebsarbeiten am Gesamtziel bleiben aktiv.
 
 1. Tatsächliche Windows-Auslieferung mit gemeinsamem Quellenstaging korrigieren;

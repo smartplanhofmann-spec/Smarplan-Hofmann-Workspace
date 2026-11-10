@@ -28,17 +28,31 @@ Etappe verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
 | Stand | Tatsächlich bestätigt |
 |---|---|
 | Aktuell veröffentlichter Quell- und Testbranch | `c4a2d8f4ca969f8faab7bd15c9f7fd838e0e97ba`, veröffentlicht und Remote-Zeiger bestätigt. Installationskern7449027, Schlussnachweise/V13-CI enthalten. |
-| Eigene aktuelle CI | Development42790149143:19 erfolgreiche Gruppen, eine vor Testbeginn am gepinnten Werkzeugdownload mitHTTP403 abgebrochen; gezielte Wiederholung dieses Jobs wurde angenommen und läuft. Unsignierter iPhone42790149399 noch aktiv. Mailbot-Verträge42790149124 auf Linux/Windows erfolgreich; kein echter Versand. |
-| Letzter vollständig grüner Produktstand | `b02c84ab24cbe3331a92df950e74134138865e52`: alle20 Development42783465222-Jobs, unsignierter iPhone42783465231 und beide Mailbot-Verträge erfolgreich; signierter Upload übersprungen. |
+| Eigene aktuelle CI | Development42790149143:alle20 Gruppen erfolgreich. Die anHTTP403 vor Testbeginn gescheiterte Gruppe wurde allein wiederholt; alle13 wirklichen Browserabläufe bestehen, Erstfehler erhalten. Unsignierter iPhone42790149399 erfolgreich, signierter Upload übersprungen. Mailbot-Verträge42790149124 auf Linux/Windows erfolgreich; kein echter Versand. |
+| Letzter vollständig grüner Produktstand | `c4a2d8f4ca969f8faab7bd15c9f7fd838e0e97ba`: eigene20 Development-Gruppen, eigener unsignierter iPhone-Release und beide Mailbot-Verträge abgeschlossen. Neue lokale iPhone-Workflowänderung12798fb ist davon getrennt. |
 | Letzter vom Nutzer bestätigter Server | `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5` vom05.11.; drei Dienste/Sicherungstimer und kontrollierter Updateabschluss bestätigt. Kein neuer Liveabgleich oder Update ausgeführt. |
 | Geräte-/Fach-/Gesamtabnahme | Keine neue echte Windows-/iPhone- oder externe Fach-/Sicherheitsfreigabe aus Cloudtests ableiten. |
 
-Das tatsächliche [Windows-Online-Paket b02c84a](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42783465222/artifacts/13749327057)
-ist gebaut (22166950Bytes). Ein unsignierter iPhone-Build ist keine installierbare
+Das tatsächliche [Windows-Online-Paket c4a2d8f](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42790149143/artifacts/13752796971)
+ist gebaut (22183211Bytes). Ein unsignierter iPhone-Build ist keine installierbare
 signierte Verteilung. Die Backendkennung0.12.0-online-pilot ist eine API-
 Kompatibilitätskennung, keine App-/Paketversion.
 
-## Aktive Arbeit: Installationsstand und vollständige Serverarchive
+## Aktive Arbeit: signiertes iPhone-Paket getrennt vom Upload
+
+Arbeitskopie `/workspace/smartplan-ios-signed-preparation-20261110`, Branch
+`codex/ios-signed-preparation-20261110`. Lokal12798fb. Der geprüfte neue
+[Vorbereitungsweg](CRM_ERP_IPHONE_SIGNIERTE_VORBEREITUNG_2026-11-10.md) erlaubt
+die signierte Paketvorbereitung auf dem exakten autorisierten Testbranch und
+verlangt eine eigene ausdrückliche Auswahl für den TestFlight-Upload.
+33 lokale Auslieferungs-/Paket-/CI-Fälle,48 tatsächliche Gate-Kombinationen sowie
+YAML- und Bash-Syntax bestehen. App-/Backend-/Browsercode bleibt bytegleich zum
+vollständig geprüften Installationsstand. Bestehende Apple-Einrichtung wurde
+schon für Build108 verwendet; ein verweigerter Metadatenzugriff beweist keine
+fehlenden Secrets. Neuer tatsächlicher signierter Export noch nicht geprüft.
+Veröffentlichen und danach den konkreten Vorbereitungsweg ohne Upload prüfen.
+
+## Abgeschlossen: Installationsstand und vollständige Serverarchive
 
 Arbeitskopie `/workspace/smartplan-installation-context-20261110`, Branch
 `codex/installation-context-20261110`. Produktcode7449027 und veröffentlichter
@@ -71,7 +85,9 @@ kein Fehler und kein Skip**, tatsächliche success:true-Schlussmeldung1429392ms,
 Runner1436,017s.258 verborgene Ladeeinträge werden nicht mitgezählt. Rohbericht,
 Schlussstatus und unabhängige Zählung sind im verlinkten Nachweisarchiv gesichert.
 Die gezielte Remote-Wiederholung nach dem Werkzeugdownloadfehler und der eigene
-unsignierte iPhone-Release sind bis zum wirklichen Abschluss weiter zu prüfen.
+unsignierte iPhone-Release sind ebenfalls erfolgreich abgeschlossen. Die erste
+gescheiterte Downloadphase bleibt getrennt erhalten; sämtliche13 ausgewählten
+Browserabläufe bestehen in der Wiederholung unverändert.
 
 ## Abgeschlossener Vorgänger: Faktor, Ansprüche und bereits bezahlte Reisen
 
@@ -90,9 +106,9 @@ Die aktuelle App-Gesamtprüfung darf nicht aus diesem Vorgängerwert abgeleitet 
 
 ## Weiterarbeiten bis zum Gesamtziel
 
-1. Die gezielte Remote-Wiederholung und den eigenen iPhone-Release auswerten,
-   tatsächliche Fehler beheben und die Vorfehler erhalten. Der lokale App-
-   Gesamtlauf ist mit1939 Fällen erfolgreich abgeschlossen.
+1. Den neuen lokal geprüften iPhone-Vorbereitungsweg auf dem autorisierten
+   Testbranch veröffentlichen und dessen eigenen wirklichen Paketnachweis
+   abschließen. Keinen TestFlight-Upload aus der Paketvorbereitung ableiten.
 2. Nur tatsächlich überprüfte Ergebnisse in Matrix, Plan, Fortschritt und diese
    aktuelle Zusammenfassung übernehmen. Neue Nachweispushes nicht unnötig so
    auslösen, dass noch benötigte laufende CI durch concurrency abgebrochen wird.

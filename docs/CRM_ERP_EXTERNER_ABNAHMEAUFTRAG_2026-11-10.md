@@ -6,13 +6,16 @@ Alle nachstehenden Beispiele verwenden kontrollierte synthetische Daten.
 
 ## Genau zu prüfender Stand
 
-- Produkt b02c84ab24cbe3331a92df950e74134138865e52 besteht alle 20 eigenen
+- Vorgänger b02c84ab24cbe3331a92df950e74134138865e52 besteht alle 20 eigenen
   Development-Jobs, Windows und unsignierten iPhone-Release. Signierte Verteilung
   fehlt. [V13-Nachweise](evidence/factor-claims-paid-travel-2026-11-10/manifest.json).
 - Aktueller Testbranch c4a2d8f4ca969f8faab7bd15c9f7fd838e0e97ba ergänzt den
   gelesenen Installationsstand und vollständige eingefrorene Serverarchive.
-  Seine eigene vollständige App-Suite und Remote-CI laufen beim Anlegen dieses
-  Pakets noch. [Aktueller Arbeitsstand](CRM_ERP_ARBEITSSTAND.md).
+  Seine eigene vollständige App-Suite besteht mit1939 Fällen, sämtliche20
+  Development-Gruppen und der eigene unsignierte iPhone-Release sind ebenfalls
+  erfolgreich. Der neue getrennte signierte Vorbereitungsweg ist als lokaler
+  Nachfolger12798fb mit33 eigenen Fällen geprüft; ein neues signiertes Paket
+  wird daraus noch nicht behauptet. [Aktueller Arbeitsstand](CRM_ERP_ARBEITSSTAND.md).
 - Letzte bestätigte Serverinstallation ist A93 vom 05.11.2026. Ein späterer
   Quell- oder Appstand beweist keinen Serverwechsel. Ein Update ist ein eigener
   kontrollierter Betriebsablauf; die folgende Abnahme führt es nicht aus.

@@ -4177,3 +4177,24 @@ fehlgeschlagene Job erneut gestartet: Ersatzjob129757269510, noch aktiv.
 Die iPhone-Prüfung läuft ebenfalls noch; daraus keine Signierung oder Geräte-
 installation ableiten. Die weitere Codearbeit am getrennten signierten
 Vorbereitungsweg läuft unabhängig; kein TestFlight-Upload wurde gestartet.
+
+## 10.11.2026 – c4a2d8f vollständig grün; signierter iPhone-Weg lokal korrigiert
+
+Der gezielte Ersatzjob129757269510 besteht sämtliche13 ausgewählten tatsächlichen
+Browserabläufe. Der ursprüngliche Downloadfehler vor Testbeginn bleibt erhalten.
+Damit sind alle20 Development-Gruppen42790149143 und der eigene unsignierte
+iPhone-Release42790149399 erfolgreich; signierter Upload übersprungen.
+Die Mailbot-Verträge42790149124 bestehen auf beiden Betriebssystemen, ohne
+echten Versand. Neue tatsächliche Windows-Online-/Lokal-/Sicherungspakete und
+iPhone-UNSIGNED194 sind im Nachweisarchiv mit ihren exakten Artefakten erfasst.
+
+Der lokale Nachfolger12798fb trennt erstmals die signierte Paketvorbereitung
+auf dem autorisierten Testbranch vom ausdrücklich gewählten TestFlight-Upload.
+33 gemeinsame lokale Auslieferungs-/Paket-/CI-Fälle bestehen, einschließlich48
+wirklich ausgewerteter Workflow-Kombinationen und tatsächlicher CLI-Gegenproben.
+YAML und alle Bash-Blöcke sind syntaktisch geprüft. App, Backend und Browsercode
+bleiben vollständig unverändert. Vorfehler und die verweigerte ausschließlich
+lesende Secret-Metadatenabfrage bleiben im
+[eigenen Nachweisarchiv](evidence/ios-signed-preparation-2026-11-10/manifest.json).
+DerAPI403 beweist keine fehlende Apple-Einrichtung. Noch kein neuer wirklicher
+signierter Export, Upload oder Geräteabschluss; Gesamtauftrag bleibt aktiv.

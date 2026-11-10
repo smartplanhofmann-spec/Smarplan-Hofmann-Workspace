@@ -51,8 +51,11 @@ und reale Geräte-/Fachabnahme bleiben eigene Nachweise.
 Aktueller zusätzlicher Nachweis10.11.: [Installationsstand und vollständiges
 Serverarchiv](CRM_ERP_INSTALLIERTER_QUELLSTAND_2026-11-10.md) bestehen lokal mit
 1939 Appfällen,1058 Browsermodulen,88 Betreiberfällen und tatsächlicher PG-/MFA-/
-Restoreprüfung. Der eigene Remote-Nachlauf und echte Betriebs-/Geräteabnahme
-bleiben getrennt; A–G werden daraus nicht pauschal abgeschlossen.
+Restoreprüfung. Die20 eigenen Remotegruppen und der eigene unsignierte
+iPhone-Release sind erfolgreich. Der neue [signierte Vorbereitungsweg](CRM_ERP_IPHONE_SIGNIERTE_VORBEREITUNG_2026-11-10.md)
+besitzt33 eigene lokale Auslieferungs-/Paket-/CI-Fälle; tatsächliche neue
+Signierung sowie Betriebs-/Geräteabnahme bleiben separat. A–G werden daraus
+nicht pauschal abgeschlossen.
 
 - `offen`: Der konkret genannte Umfang fehlt oder ist nur teilweise vorhanden.
 - `implementiert`: Der abgegrenzte Umfang ist im Quelltext vorhanden; aktuelle

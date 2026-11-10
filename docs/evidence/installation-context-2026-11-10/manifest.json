@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "all_local_complete_remote_exact_failed_download_retry_running",
+  "status": "all_local_and_exact_published_remote_checks_complete",
   "base_commit": "8e6cff5fabdd34ca58ed52e4fb2cc9b8ecfb1e7c",
   "raw_files": [
     {
@@ -217,6 +217,36 @@
       "path": "installation-context-c4-browser3-remote-failure-20261110.txt.gz",
       "bytes": 63929,
       "sha256": "ce4415c48c602ecc0842f1a4d704f82a53e947d93d070f97f849e9102ac9b9ef"
+    },
+    {
+      "path": "installation-context-c4-iphone-final-20261110.json.gz",
+      "bytes": 3665,
+      "sha256": "a5bc282371a868a431c76c6dc63dab9edf4e792f5550dabd9a5981a86e2b835d"
+    },
+    {
+      "path": "installation-context-c4-development-final-20261110.json.gz",
+      "bytes": 48505,
+      "sha256": "ba13909f8930e32646e485de57f62fe2cdd2325d2b4f7a42820106e6f71c86ff"
+    },
+    {
+      "path": "installation-context-c4-development-artifacts-20261110.json.gz",
+      "bytes": 14361,
+      "sha256": "ce2da5fa7d5140e3b7b2bf8e88485e638989fc5771f981298f28945f03cdd98b"
+    },
+    {
+      "path": "installation-context-c4-iphone-artifacts-20261110.json.gz",
+      "bytes": 928,
+      "sha256": "7d946389275f9d307a59a981f5c06f713d68caa6fa5e1693ee062a91e1b9a34f"
+    },
+    {
+      "path": "installation-context-c4-browser3-retry-success-20261110.txt.gz",
+      "bytes": 77000,
+      "sha256": "78ea991a964cde8829096d517c974edf9a2178e1ff5d104f8c46fe5c2de9b063"
+    },
+    {
+      "path": "installation-context-c4-closed-workflows-20261110.json.gz",
+      "bytes": 785,
+      "sha256": "e3cabf7da3c1935c1974dfe00d5109560ec7847d14825c61536c8b8af17a2945"
     }
   ],
   "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
@@ -260,6 +290,39 @@
     "failure": "HTTP403 downloading pinned validator before any browser test; no selected test command executed",
     "exact_failed_job_retry_accepted": true,
     "attempt2_failed_job_retry": 129757269510,
-    "status": "in_progress; do not claim success until actual completion"
-  }
+    "status": "success",
+    "final_successful_jobs": 20,
+    "exact_retried_browser_cases": [
+      "asset-provenance",
+      "sales",
+      "inventory-article-refs",
+      "payroll-transition",
+      "payroll-individual-minijob",
+      "payroll-wage-interruptions",
+      "payroll-payment-dates",
+      "company-events",
+      "maintenance-contracts",
+      "bank-reconciliation",
+      "invoice-chain",
+      "accounting-profile",
+      "customer-workspace"
+    ],
+    "first_failure_preserved": true,
+    "prior_successful_jobs_retained": 19
+  },
+  "remote_unsigned_iphone": {
+    "run_id": 42790149399,
+    "status": "success",
+    "signed_upload": "skipped",
+    "artifact": 13752144091,
+    "build_number": 194
+  },
+  "current_built_windows": {
+    "online_artifact": 13752796971,
+    "online_bytes": 22183211,
+    "local_artifact": 13753096316,
+    "local_bytes": 36521432,
+    "start_and_backup_artifact": 13750992870
+  },
+  "all_own_workflow_runs_closed_success": true
 }

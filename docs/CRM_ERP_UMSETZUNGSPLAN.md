@@ -932,3 +932,20 @@ in den Einstellungen gebeten; keine Geheimnisse angefragt, keine Netzsperre
 umgangen. Alle16 neuen Rohdateien sind im Eigenkonto-Manifest erhalten.
 Gesamtziel, fehlende Fach-/Geräte-/Betriebsabnahmen und übrige Codearbeit
 bleiben ausdrücklich bestehen.
+
+
+## 10.11.2026 – Faktor-Einmalbezug: reiner Steuerbaustein geprüft, Quellenintegration aktiv
+
+Der neue additive PAP-Baustein stimmt in344 unabhängig aus der fest gehashten
+XML in Java erzeugten Fällen exakt für STS/SOLZS/BKS überein.20 gemeinsame
+neue/alte Fälle0,904s und tatsächliche CRLF-Quellenkopien bestehen;57 bestehende
+Lohnmodule bleiben bytegleich. Der anfänglich fehlende Komponentenvertrag ist
+als roter Erstnachweis erhalten. Kein Lohnfall oder neuer Auszahlungsweg ist
+dadurch freigeschaltet.
+
+Die tatsächliche V12-/P4-/Faktor-API-Gegenprobe bestätigt409 im alten geplanten
+Jahresvertrag ohne Jahres-/Lohn-/Cashmutation. Dafür wird jetzt ein ausdrücklicher
+[neuer Jahres-/Einmalbezugsquellenweg](CRM_ERP_FAKTOR_EINMALBEZUG_V15_PLAN_2026-11-10.md)
+implementiert. Alte Jahres-V1-, Steuer- und SV-Regeln bleiben erhalten.
+Anschließend folgen Belege, Zahlungen, Jahres-/EÜR-Kette und beide Clients mit
+tatsächlicher PostgreSQL-/Restoreprüfung. R09.03/D und Gesamtziel bleiben offen.

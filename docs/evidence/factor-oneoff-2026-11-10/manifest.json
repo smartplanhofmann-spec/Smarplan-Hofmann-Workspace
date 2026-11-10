@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "status": "pure_tax_component_proven_full_source_and_client_integration_active",
+  "base_commit": "5c779b92d2e3269c4fc799a02879c83b943ff129",
+  "raw_files": [
+    {
+      "path": "factor-oneoff-independent-xml-first-20261110.txt.gz",
+      "bytes": 134,
+      "sha256": "c2129ac2e5f27fc903e2c5a9b37548e595db29aa9287deea6cef1eba0972a6f2"
+    },
+    {
+      "path": "factor-oneoff-pure-before-20261110.txt.gz",
+      "bytes": 1041,
+      "sha256": "e5009533f63745bc643a165916fb7e4c4611964a95ebc93ca3bf2f4ddeacaf13"
+    },
+    {
+      "path": "factor-oneoff-pure-first-20261110.txt.gz",
+      "bytes": 696,
+      "sha256": "4dca831b37d89704c149e621b1693b8b95bf57f94ee8fe7d8e9cc66040d203b0"
+    },
+    {
+      "path": "factor-oneoff-pure-and-source-boundary-first-20261110.txt.gz",
+      "bytes": 3839,
+      "sha256": "97945552e3b3857403bac2af21a0eae34f9d717facc4bedab1578eb3f5cb4c4d"
+    },
+    {
+      "path": "factor-oneoff-pure-and-source-boundary-final-20261110.txt.gz",
+      "bytes": 4061,
+      "sha256": "1b0f46fb9cec316f026368620b609deb3ca6c5cf67960ab557e2c6daaf414ed6"
+    }
+  ],
+  "independent_xml_vectors": 344,
+  "joint_tests": 20,
+  "joint_seconds": 0.904,
+  "actual_crlf_source_copies": true,
+  "actual_old_annual_guard_409": true,
+  "no_annual_or_cash_mutation": true,
+  "old_payroll_modules_byte_unchanged": 57,
+  "product_rule_registered": false,
+  "source_route_registered": false,
+  "client_flow_implemented": false,
+  "published": false,
+  "expert_approval": false,
+  "next_work": "Explicit annual source V2 and v15 composition preserving originals; current V1 planned-factor guard remains unchanged"
+}

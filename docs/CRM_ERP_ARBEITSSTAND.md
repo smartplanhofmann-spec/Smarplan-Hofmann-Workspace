@@ -268,3 +268,13 @@ Envoy. Aktuelle erzwungene Hostfreigabe enthält pim.loxone.com nicht. Der Nutze
 ist um genau diese zusätzliche Freigabe in den Einstellungen gebeten; kein
 Konfigurationswerkzeug verfügbar, kein Umgehen der Netzrichtlinie. Andere
 Arbeiten laufen weiter. Quellen und bestehende Freigaben bleiben erhalten.
+
+## Aktive Codearbeit: Faktor-Einmalbezug nach eigenem Jahresvertrag
+
+Arbeitskopie /workspace/smartplan-factor-transition-20261110, neuer Branch
+codex/factor-oneoff-20261110 an5c779b9. Der ursprüngliche V14-Branch ist erhalten.
+Reiner neuer Steuerbaustein mit344 unabhängigen XML-Vektoren und20 gemeinsamen
+Fällen geprüft; keine Registrierung oder neue Client-/Zahlungsfreigabe.
+Die tatsächlich festgestellte alte Jahres-V1-Grenze wird durch einen ausdrücklichen
+versionierten Quellenweg ergänzt. [Umfang und nächste Schritte](CRM_ERP_FAKTOR_EINMALBEZUG_V15_PLAN_2026-11-10.md).
+Qonto-/Apple-/Netzwerknachweise bleiben davon getrennt erhalten.

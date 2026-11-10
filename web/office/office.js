@@ -1543,6 +1543,7 @@ async function refresh() {
     if(modal?.querySelector('[data-project-tasks]'))closeModal();
     if(modal?.querySelector('[data-project-milestones]'))closeModal();
     if(modal?.querySelector('[data-maintenance-contract]'))closeModal();
+    if(modal?.querySelector('[data-employee-accounts]')&&(state.section!=='personnel'||!has('personnel.read')||!canWrite('personnel.manage','personnel')))closeModal();
     if(modal?.querySelector('[data-custom-fields]'))closeModal();
     if(modal?.querySelector('[data-assistant-project]'))closeModal();
     if(modal?.querySelector('[data-company-events]'))closeModal();
@@ -2975,10 +2976,26 @@ function timeDialog(entry=null) {
     (data,key)=>mutation(key,'/time/events',{...data,project_id:entry?.project_id||data.project_id,entry_id:entry?.id||state.newTimeEntryId||(state.newTimeEntryId=requestId()),device_id:entry?.events?.at(-1)?.device_id||state.deviceId,sequence:(entry?.last_sequence||0)+1,revision:entry?.revision||0}),
     {key:'time-event-'+(entry?.id||'start')+'-'+(entry?.revision||0),submit:'Zeitereignis speichern',after:()=>{state.newTimeEntryId=null;refresh();}}),'Der Browser speichert keine dauerhafte Offlinewarteschlange. Bei unklarer Antwort dieselbe Eingabe in diesem Fenster erneut senden.');
 }
+export function employeeAccountSelection(value) {
+  const reject=()=>{throw new Error('Die Kontenauswahl konnte nicht vollständig geprüft werden. Bitte neu laden.');};
+  if(!value||Object.keys(value).sort().join(' ')!=='items schema_version'||value.schema_version!==1||!Array.isArray(value.items)||value.items.length>500)reject();
+  const seen=new Set();
+  return value.items.map(item=>{
+    if(!item||Object.keys(item).sort().join(' ')!=='email id'||!/^[a-f0-9]{32}$/.test(item.id)||seen.has(item.id)||typeof item.email!=='string'||[...item.email].length>254||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(item.email))reject();
+    seen.add(item.id);return {id:item.id,email:item.email};
+  });
+}
 async function employeeDialog(employee=null) {
-  const users=collection(await api.get('/users'));
-  dialog(employee?'Mitarbeiterprofil ändern':'Mitarbeiterprofil anlegen',form('',[field('user_id','Benutzerkonto','select',employee?.user_id||'',{options:options(users,item=>item.email),required:true}),field('name','Anzeigename','text',employee?.name||'',{required:true}),field('weekly_minutes','Wöchentliche Sollminuten','integer',employee?.weekly_minutes??2400,{required:true,min:0,max:10080}),field('hourly_cost_minor','Historischer Kostensatz in Cent / Stunde','integer',employee?.hourly_cost_minor??0,{required:true,min:0,help:'3500 entspricht 35,00 EUR. Bestehende Zeiteinträge behalten ihren ursprünglichen Satz.'}),field('active','Aktiv','checkbox',employee?.active??true)],
-    (data,key)=>mutation(key,'/employees'+(employee?'/'+employee.id:''),{...data,...(employee?{revision:employee.revision}:{})}),{key:'employee-'+(employee?.id||'new')}));
+  const generation=api.generation,render=state.render,opening=dialogGeneration;
+  const modern=state.features.has('employee_account_selection_v1');
+  const fresh=async()=>{const caps=await api.get(biz('/capabilities'));return caps.readonly===false&&Array.isArray(caps.capabilities)&&caps.capabilities.includes('business_planning')&&Array.isArray(caps.permissions)&&caps.permissions.includes('personnel.read')&&caps.permissions.includes('personnel.manage')&&(!modern||Array.isArray(caps.features)&&caps.features.includes('employee_account_selection_v1'));};
+  const users=employee?[{id:employee.user_id,email:employee.name}]:modern?employeeAccountSelection(await api.get(biz('/employees/account-selection'))):collection(await api.get('/users'));
+  if(!await fresh()){await refresh();return;}
+  if(generation!==api.generation||render!==state.render||opening!==dialogGeneration||state.section!=='personnel'||!canWrite('personnel.manage','personnel')||!has('personnel.read'))return;
+  const editor=form('',[field('user_id','Benutzerkonto','select',employee?.user_id||'',{options:employee?options(users,item=>item.email):[['','Bitte auswählen'],...options(users,item=>item.email)],required:true,disabled:!!employee}),field('name','Anzeigename','text',employee?.name||'',{required:true}),field('weekly_minutes','Wöchentliche Sollminuten','integer',employee?.weekly_minutes??2400,{required:true,min:0,max:10080}),field('hourly_cost_minor','Historischer Kostensatz in Cent / Stunde','integer',employee?.hourly_cost_minor??0,{required:true,min:0,help:'3500 entspricht 35,00 EUR. Bestehende Zeiteinträge behalten ihren ursprünglichen Satz.'}),field('active','Aktiv','checkbox',employee?.active??true)],
+    async(data,key)=>{const capture=dialogGeneration,epoch=api.generation,view=state.render;const allowed=await fresh();if(!editor.isConnected||capture!==dialogGeneration||epoch!==api.generation||view!==state.render)return undefined;if(!allowed){closeModal();await refresh();return undefined;}if(!has('personnel.read')||!canWrite('personnel.manage','personnel'))throw new Error('Die aktuelle Personalberechtigung fehlt.');return mutation(key,'/employees'+(employee?'/'+employee.id:''),{...data,...(employee?{revision:employee.revision}:{})});},{key:'employee-'+(employee?.id||'new')});
+  editor.setAttribute('data-employee-accounts','true');
+  dialog(employee?'Mitarbeiterprofil ändern':'Mitarbeiterprofil anlegen',editor);
 }
 
 const maintenanceContracts=maintenanceContractsUi({api,field,form,dialog,el,notice,button,action,closeModal,refresh,updatePending,

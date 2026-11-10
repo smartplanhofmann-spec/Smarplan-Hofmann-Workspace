@@ -15,7 +15,7 @@ import uuid
 
 from core import Problem, canonical, digest
 
-FEATURES = ('project_timeline',)
+FEATURES = ('project_timeline', 'employee_account_selection_v1')
 TIMELINE_MAX_DAYS = 1096
 TIMELINE_MAX_PROJECTS = 500
 _TIMELINE_SELECT = '''SELECT p.id,p.name,pp.payload AS profile_payload,
@@ -257,6 +257,17 @@ class Planning:
         return {'items': result}
 
     @_atomic
+    def employee_account_selection(self, actor, query=None):
+        actor = _require(self.office, actor, 'personnel.manage')
+        _require(self.office, actor, 'personnel.read')
+        if query:
+            raise Problem(400, 'Die Kontenauswahl erlaubt keine Such- oder Fremdfirmenparameter.')
+        rows = self.db.execute('SELECT id,email FROM users WHERE active=1 ORDER BY email,id LIMIT 501').fetchall()
+        if len(rows) > 500:
+            raise Problem(413, 'Die Kontenauswahl ist zu groß; keine unvollständige Liste verwenden.')
+        return {'schema_version': 1, 'items': [dict(row) for row in rows]}
+
+    @_atomic
     def save_employee(self, actor, data):
         actor = _require(self.office, actor, 'personnel.manage')
         _shape(data, ('user_id', 'name', 'active', 'weekly_minutes', 'hourly_cost_minor', 'employment_from', 'employment_to', 'effective_from'))
@@ -282,7 +293,8 @@ class Planning:
                 value[key] = _date(value[key]).isoformat()
         if value['employment_from'] and value['employment_to'] and value['employment_from'] > value['employment_to']:
             raise Problem(400, 'Beschäftigungsende liegt vor Beginn.')
-        if not self.db.execute('SELECT 1 FROM users WHERE id=? AND active=1', (value['user_id'],)).fetchone():
+        target = self.db.execute('SELECT active FROM users WHERE id=?', (value['user_id'],)).fetchone()
+        if not target or current is None and target['active'] != 1:
             raise Problem(400, 'Aktiver Benutzer erwartet.')
         duplicate = self.db.execute('SELECT id FROM business_employees WHERE user_id=?', (value['user_id'],)).fetchone()
         if duplicate and duplicate['id'] != value['id']:
@@ -741,6 +753,12 @@ def protected_tables():
 def dispatch(office, actor, path, method, data):
     service = Planning(office)
     query = data.get('_query', {})
+    if path == '/employees/account-selection':
+        if method != 'GET':
+            raise Problem(405, 'HTTP-Methode nicht erlaubt.')
+        if set(data) - {'_query'} or not isinstance(query, dict):
+            raise Problem(400, 'Nur eine leere Kontenauswahl ist zulässig.')
+        return service.employee_account_selection(actor, query), 200, 'application/json'
     match = re.fullmatch(r'/(employees|resources|appointments|absences|shifts)(?:/([a-f0-9]{32}))?', path)
     if match:
         kind, identifier = match.groups()
@@ -791,6 +809,8 @@ def dispatch(office, actor, path, method, data):
 
 
 def methods(path):
+    if path == '/employees/account-selection':
+        return 'GET'
     if re.fullmatch(r'/(employees|resources|appointments|absences|shifts)(?:/[a-f0-9]{32})?', path):
         return 'GET, POST'
     if re.fullmatch(r'/absences/[a-f0-9]{32}/approve', path):

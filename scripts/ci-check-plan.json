@@ -1005,6 +1005,11 @@
       "id": "bank-camt",
       "script": "tests/e2e.cjs",
       "workflow": "bank-camt"
+    },
+    {
+      "id": "employee-account-selection",
+      "script": "tests/e2e.cjs",
+      "workflow": "employee-account-selection"
     }
   ]
 }

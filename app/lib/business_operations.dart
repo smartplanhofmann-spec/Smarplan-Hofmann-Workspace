@@ -15,7 +15,36 @@ import 'business_personnel_workflow.dart';
 import 'business_inventory_counts.dart';
 import 'business_material_returns.dart';
 import 'offline_plans.dart';
+import 'offline_vault.dart' show offlineId;
 import 'design.dart';
+
+List<Map<String, dynamic>> employeeAccountSelection(dynamic value) {
+  Never reject() => throw const ApiException(
+    0,
+    'Die Kontenauswahl konnte nicht vollständig geprüft werden. Bitte neu laden.',
+  );
+  if (value is! Map ||
+      value.length != 2 ||
+      !value.containsKey('items') ||
+      value['schema_version'] != 1 ||
+      value['schema_version'] is! int ||
+      value['items'] is! List ||
+      (value['items'] as List).length > 500)
+    reject();
+  final seen = <String>{};
+  return (value['items'] as List).map((item) {
+    if (item is! Map ||
+        item.length != 2 ||
+        item['id'] is! String ||
+        !RegExp(r'^[a-f0-9]{32}$').hasMatch(item['id']) ||
+        !seen.add(item['id']) ||
+        item['email'] is! String ||
+        (item['email'] as String).runes.length > 254 ||
+        !RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(item['email']))
+      reject();
+    return <String, dynamic>{'id': item['id'], 'email': item['email']};
+  }).toList();
+}
 
 typedef _Section = ({
   String id,
@@ -300,6 +329,18 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
 
   String? selected, error;
   bool loading = false;
+  bool employeeEditorOpening = false;
+  DialogRoute<bool>? employeeRoute;
+
+  void closeEmployeeEditor() {
+    final route = employeeRoute;
+    if (route == null) return;
+    employeeRoute = null;
+    WidgetsBindingShim.afterFrame(() {
+      if (route.isActive) route.navigator?.removeRoute(route);
+    });
+  }
+
   int epoch = 0, refreshSerial = 0;
   CatalogPriceFlow? catalogFlow;
   final references = <String, Map<String, String>>{};
@@ -333,6 +374,13 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
   }
 
   void changed() {
+    if (employeeRoute != null &&
+        (widget.session.projectId != null ||
+            !widget.session.hasFeature('employee_account_selection_v1') ||
+            !widget.session.can('personnel.read') ||
+            !widget.session.canWrite('personnel.manage') ||
+            !widget.session.sectionEnabled('personnel')))
+      closeEmployeeEditor();
     if (mounted)
       setState(() {
         if (!widget.session.can('inventory.read')) {
@@ -346,6 +394,7 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
   void didUpdateWidget(covariant BusinessAreaPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.session != widget.session || oldWidget.area != widget.area) {
+      closeEmployeeEditor();
       catalogFlow?.dispose();
       catalogFlow = null;
       oldWidget.session.removeListener(changed);
@@ -364,6 +413,7 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
 
   @override
   void dispose() {
+    closeEmployeeEditor();
     catalogFlow?.dispose();
     epoch++;
     widget.session.removeListener(changed);
@@ -468,7 +518,11 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
       'inventory/reservations' => ['articles', 'inventory/locations'],
       'maintenance/contracts' => ['assets'],
       'absences' => ['employees'],
-      'employees' => ['users'],
+      'employees' =>
+        widget.session.hasFeature('employee_account_selection_v1') ||
+                !widget.session.canWrite('personnel.manage')
+            ? <String>[]
+            : ['users'],
       _ => <String>[],
     };
     try {
@@ -497,6 +551,84 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
       if (mounted && current == epoch) setState(() => error = '$e');
     } finally {
       if (mounted && current == epoch) setState(() => loading = false);
+    }
+  }
+
+  Future<void> openEmployee([Map<String, dynamic>? record]) async {
+    if (employeeEditorOpening) return;
+    employeeEditorOpening = true;
+    final session = widget.session;
+    bool allowed() =>
+        mounted &&
+        identical(session, widget.session) &&
+        selected == 'employees' &&
+        session.projectId == null &&
+        session.allowed &&
+        session.hasFeature('employee_account_selection_v1') &&
+        session.hasModule('planning') &&
+        session.can('personnel.read') &&
+        session.canWrite('personnel.manage') &&
+        session.sectionEnabled('personnel');
+    try {
+      await session.load();
+      if (!allowed()) return;
+      final generation = session.generation;
+      final people = record == null
+          ? employeeAccountSelection(
+              await session.read('/employees/account-selection'),
+            )
+          : <Map<String, dynamic>>[
+              {'id': record['user_id'], 'email': record['name']},
+            ];
+      if (!allowed() || generation != session.generation) return;
+      final key = 'employee-profile-${offlineId()}';
+      final route = DialogRoute<bool>(
+        context: context,
+        builder: (_) => BusinessEditor(
+          session: session,
+          title: record == null
+              ? 'Mitarbeiterprofil anlegen'
+              : 'Mitarbeiterprofil ändern',
+          readPermission: 'personnel.manage',
+          writePermission: 'personnel.manage',
+          readAllowed: allowed,
+          initial: record ?? const {},
+          fields: [
+            BusinessField(
+              'user_id',
+              'Benutzerkonto',
+              type: BusinessInput.choice,
+              required: true,
+              choices: {
+                for (final person in people)
+                  '${person['id']}': '${person['email']}',
+              },
+            ),
+            ...fields('employees').where((f) => f.name != 'user_id'),
+          ],
+          onSave: (values) async {
+            await session.load();
+            if (!allowed())
+              throw const ApiException(
+                403,
+                'Die aktuelle Personalberechtigung fehlt.',
+              );
+            await session.command(
+              key,
+              '/employees${record == null ? '' : '/${record['id']}'}',
+              {...values, if (record != null) 'revision': record['revision']},
+            );
+          },
+        ),
+      );
+      employeeRoute = route;
+      await Navigator.of(context).push(route);
+      if (identical(employeeRoute, route)) employeeRoute = null;
+    } catch (e) {
+      if (mounted && session.can('personnel.read'))
+        setState(() => error = '$e');
+    } finally {
+      employeeEditorOpening = false;
     }
   }
 
@@ -1248,7 +1380,13 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
                     readPermission: section.read,
                     writePermission: section.write,
                     fields: fields(section.id),
-                    onCreate: section.id == 'measurements'
+                    onCreate:
+                        section.id == 'employees' &&
+                            widget.session.hasFeature(
+                              'employee_account_selection_v1',
+                            )
+                        ? () => openEmployee()
+                        : section.id == 'measurements'
                         ? () async {
                             await Navigator.push<void>(
                               context,
@@ -1260,7 +1398,14 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
                             );
                           }
                         : null,
-                    onOpen: section.id == 'articles'
+                    onOpen:
+                        section.id == 'employees' &&
+                            widget.session.hasFeature(
+                              'employee_account_selection_v1',
+                            ) &&
+                            widget.session.canWrite('personnel.manage')
+                        ? (record) => openEmployee(record)
+                        : section.id == 'articles'
                         ? openCatalogArticle
                         : section.id == 'assets' &&
                               widget.session.hasFeature('custom_fields')

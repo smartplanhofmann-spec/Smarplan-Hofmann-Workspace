@@ -418,3 +418,16 @@ Prüfungen werden im Repository dokumentiert. Fertigstellung setzt den benannten
 Funktionsumfang, durchgängige Abnahmen, Installation/Betrieb und erforderliche
 externe Nachweise voraus. Es wird kein Fertigstellungsprozentsatz aus der Zahl
 der Dateien oder Einzeltests abgeleitet.
+
+
+## 10.11.2026 – Fortsetzung nach grüner V3-Veröffentlichung
+
+17978f6 besteht acht Development-Jobs und den unsignierten iPhone-Build.
+b437f2c vervollständigt geprüfte spätere Bonuspräfixe und ihre einmalige
+Jahreszuordnung. [V4-Rückzahlungen](CRM_ERP_SOURCE5_NETTORUECKZAHLUNG_V4_2026-11-10.md)
+sind durch beide Clients, EÜR, Jahresbasis und echte PG-Wiederherstellung geprüft.
+Die tatsächliche zusätzliche Konkurrenz-/HTTP-Sperrprüfung besteht nach gezielter
+Status423-Behandlung ohne Erhöhung der Zeitgrenzen oder falschen Annahmestatus.
+Nach Code-/Nachweissicherung und eigener Veröffentlichung werden wiederholte
+positive, negative und betragsgleiche Ausgleiche auf einem gemischten V4-Präfix
+additiv geschlossen. Weitere Gesamtanforderungen und Abnahmen bleiben erhalten.

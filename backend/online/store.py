@@ -58,6 +58,12 @@ class Database:
                 self.execute('SELECT pg_advisory_xact_lock(?)', (LOCK_ID,))
         except BaseException as error:
             self.contexts.pop().__exit__(type(error), error, error.__traceback__)
+            if isinstance(error, psycopg.errors.LockNotAvailable):
+                from core import Problem
+                # No body has run, but this may be an uncertain retry of an
+                # earlier request. Preserve its original; never claim that
+                # the original operation was not accepted.
+                raise Problem(423, 'Ein anderer Vorgang wird gerade gespeichert. Bitte den ursprünglichen Auftrag unverändert erneut senden.') from None
             raise
         return self
 

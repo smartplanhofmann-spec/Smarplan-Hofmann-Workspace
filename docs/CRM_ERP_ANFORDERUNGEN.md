@@ -36,6 +36,16 @@ mit ihren eigenen Prüfnachweisen dokumentiert. Diese Matrix bewertet den
 vereinbarten Produktumfang; alte Prüfpunkte A1–O4 aus dem HERO-Bericht ersetzen
 keine der nachstehenden Gesamtabnahmen A–G.
 
+Zusätzlicher geprüfter Teilumfang 10.11.: Die [V4-Netto-Rückzahlung](CRM_ERP_SOURCE5_NETTORUECKZAHLUNG_V4_2026-11-10.md)
+erhält frühere positive Zahlungen und führt den wirklichen Rückfluss über
+Lohnkonto, EÜR und Jahresbasis. Browser, App, MFA/PostgreSQL und Restore sind
+geprüft; betragstreue Originalwiederholung und aktuelle Fachrechte bleiben nötig.
+Weitere Ausgleiche auf einem bereits gemischten Rückzahlungspräfix sind noch
+Codearbeit. R09/D werden dadurch nicht pauschal abgeschlossen. Der veröffentlichte
+V3-Vorgänger 17978f6 ist inzwischen in sämtlichen acht eigenen Development-Jobs
+und im unsignierten iPhone-Build erfolgreich; signierte Verteilung, Livebetrieb
+und reale Geräte-/Fachabnahme bleiben eigene Nachweise.
+
 ## Status und Nachweise
 
 - `offen`: Der konkret genannte Umfang fehlt oder ist nur teilweise vorhanden.

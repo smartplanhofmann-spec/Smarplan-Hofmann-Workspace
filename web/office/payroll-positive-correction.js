@@ -50,6 +50,10 @@ function sameSubject(previous,current){
   need(['tax_year','social_year','assigned_period_ref','assigned_period_end'].every(key=>same(oldExtra.assignment[key],newExtra.assignment[key]))&&same(oldExtra.assigned_part_key,newExtra.assigned_part_key),'Geänderte Steuer- oder Sozialversicherungszuordnungen benötigen einen eigenen Korrekturweg.');
 }
 
+// Shared original-subject checks; neither grants a correction or changes money.
+export function source5Calculation(run){return calculation(run);}
+export function source5UnchangedSubject(previous,current){sameSubject(previous,current);}
+
 export function positiveCorrectionTransition(value,run,{previous=null}={}){
   keys(value,TRANSITION_KEYS);
   const {c,d,event,running,net}=calculation(run);

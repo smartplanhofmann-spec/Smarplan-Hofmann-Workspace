@@ -37,6 +37,9 @@ def due(calculation):return calculation['net_minor']-calculation['net_deductions
 
 
 def normalize_review(value):
+    if isinstance(value,dict) and value.get('schema_version')==2:
+        from payroll_multiple_repayments import normalize_review as repayment_review
+        return repayment_review(value)
     _shape(value,('schema_version','payments_complete','remittances_complete','evidence_ref'),
         ('schema_version','payments_complete','remittances_complete','evidence_ref'))
     if (type(value['schema_version']) is not int or value['schema_version']!=1
@@ -170,6 +173,9 @@ def prepare_transition(payroll,previous,current):
     if review is None:_error('Tatsächliche Zahlungen und Abführungen zuerst vollständig mit privatem Originalbeleg prüfen.')
     _review_evidence(payroll,review,current['source']['employee_id'],fresh=True)
     observation=current_observation(payroll.office,current['source']['employee_id'],current['source']['month'],current['calculation'])
+    if review['schema_version']==2:
+        from payroll_multiple_repayments import build_transition
+        return build_transition(previous,current,prior,observation)
     return _transition(previous,current,prior,observation)
 
 
@@ -177,6 +183,8 @@ def validate_transition_shape(value):
     _shape(value,TRANSITION_FIELDS,TRANSITION_FIELDS)
     if type(value['schema_version']) is not int or value['schema_version']!=1 or value['contract']!=TRANSITION_CONTRACT:
         _error('Unbekannter positiver Netto-Korrekturvertrag.')
+    if not isinstance(value['settlement_review'],dict) or value['settlement_review'].get('schema_version')!=1:
+        _error('Der ursprüngliche positive Korrekturvertrag benötigt seine unveränderte Vollständigkeitsprüfung der Version 1.')
     for key in ('previous_run_ref','prior_run_ref','prior_payment_ref'):ref(value[key])
     for key in ('prior_plan_hash','old_composition_hash','new_composition_hash','transition_hash'):_hash(value[key])
     for key in ('running_net_minor','prior_total_net_minor','total_net_minor','additional_net_minor'):_integer(value[key],0,10**12)
@@ -189,6 +197,9 @@ def validate_transition_shape(value):
 
 
 def verify_transition(payroll,run):
+    if run['settlement_transition'].get('schema_version')==2:
+        from payroll_multiple_repayments import verify_transition as verify_repayment
+        return verify_repayment(payroll,run)
     value=validate_transition_shape(run['settlement_transition'])
     if run['revision']<2:_error('Erstlauf kann keinen bezahlten Vorgänger korrigieren.')
     previous=payroll._event(payroll._row(run['id'],'run',run['revision']-1))

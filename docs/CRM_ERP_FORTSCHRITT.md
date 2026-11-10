@@ -3675,3 +3675,32 @@ und acht bestehende native Bedienfälle bestehen. Quellhashes und Rohläufe sind
 verlinkt; historische 2026-Kerne und alte Zahlungsdatei bleiben bytegleich.
 Der veröffentlichte Vorgänger 17978f6 läuft weiterhin in seinen eigenen
 Remoteprüfungen. Die neue Korrektur und weitere V4-Codearbeit werden fortgesetzt.
+
+## 10.11.2026 – tatsächliche Netto-Rückzahlung V4 und sichere PG-Sperrantwort
+
+[V4-Vertrag, Umsetzung und Nachweise](CRM_ERP_SOURCE5_NETTORUECKZAHLUNG_V4_2026-11-10.md):
+50 Backendfälle/373,767s, 1.026 Browserfälle ohne Skip, vollständige 1.878 Appfälle
+mit success:true und null Skip, 14 gezielte Appfälle und 21 Paket-/Inventarfälle
+bestehen. Analyse nach Entfernung eines unbenutzten Testimports ohne Befund.
+Die echte MFA-/Browserbedienung besteht mit bewusst gewählter Rückzahlungsrichtung,
+privaten Originalen, unverändertem Brutto und alten Zahlungen, negativem
+Rückzahlungsteil, beiden verlorenen angenommenen Antworten und genauer Wiederholung.
+
+Die echte gebundene PG-/EÜR-/Jahres-/Restorekette besteht einzeln in 562,836s
+und erneut als erfolgreicher zweiter Fall im erhaltenen fehlerhaften
+Zweifalllauf/623,387s. Dessen erster Konkurrenzfall erhält zunächst einen rohen
+PG-LockNotAvailable nach der bestehenden zehnsekündigen Grenze. Diese wird
+beibehalten; nach bereits vorhandenem Rollback wird der Erwerbsfehler gezielt
+als 423 ohne falschen Nichtannahmestatus zurückgegeben. Ein tatsächlicher
+gehaltener Lock bestätigt HTTP423, saubere Verbindung und anschließenden Auftrag
+in 3,166s. Der korrigierte gemeinsame Konkurrenz-/Sperrnachlauf besteht mit
+zwei Fällen in 83,502s: beobachtet accepted,accepted, identische Quittungen und
+genau ein Auftrag; Rollenentzug und erneute echte MFA ebenfalls geprüft.
+Die ursprünglichen roten Läufe werden nicht als vollständig grün umgedeutet.
+
+17978f6 ist jetzt in sämtlichen acht eigenen Development-Jobs und im unsignierten
+iPhone-Build grün; signierter Upload übersprungen. Kein neuer Liveabgleich oder
+Meldung/Zahlung. Die lokalen V3-Folgekorrekturen b437f2c und V4-Code werden mit
+Nachweisen zusammengeführt und erhalten eigene CI. Der nächste konkrete
+Codeabschnitt schließt weitere positive, negative und betragsgleiche Ausgleiche
+nach einer abgeschlossenen V4-Rückzahlung; das Gesamtziel bleibt aktiv.

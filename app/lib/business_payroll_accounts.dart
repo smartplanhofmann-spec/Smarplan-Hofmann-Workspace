@@ -7,6 +7,7 @@ import 'business_payroll_facts.dart' show payrollFactRef, payrollFactDate;
 import 'business_payroll_multiple_case_contract.dart'
     show payrollMultipleSource;
 import 'business_payroll_source5_transition.dart';
+import 'business_payroll_source5_repayment.dart';
 
 import 'api.dart';
 import 'business_session.dart';
@@ -461,6 +462,17 @@ Map<String, dynamic> _multipleSettlement(
   Map<String, dynamic>? prior,
   Map<String, dynamic>? archived,
 }) {
+  if (details['payment_source_schema_version'] == 4) {
+    final plan = payrollRepaymentPaymentPlan(
+      details,
+      run,
+      prior: prior,
+      archived: archived,
+    );
+    return {...plan}
+      ..remove('composition_hash')
+      ..remove('plan_hash');
+  }
   if ([2, 3].contains(details['payment_source_schema_version']))
     return _positiveSettlement(details, run, prior: prior, archived: archived);
   if (run.containsKey('settlement_transition'))
@@ -503,7 +515,7 @@ void _multiplePaymentRecord(Map<String, dynamic> value) {
     _multipleFail(
       'Der Zahlungsplan widerspricht seinen tatsächlichen Originalteilen, Tagen oder Erfüllungsbeträgen.',
     );
-  if ([2, 3].contains(value['details']['payment_source_schema_version']) &&
+  if ([2, 3, 4].contains(value['details']['payment_source_schema_version']) &&
       (plan['composition_hash'] != payrollPositiveHash(run['calculation']) ||
           plan['plan_hash'] !=
               payrollPositiveHash({...plan}..remove('plan_hash'))))
@@ -774,6 +786,7 @@ Map<String, dynamic> payrollAccountDetails(
   Map<String, List<Map<String, dynamic>>> sources, {
   int count = 0,
   bool paymentDates = false,
+  bool repayments = false,
 }) {
   if (!payrollAccountKinds.containsKey(kind))
     throw const FormatException('Unbekannte Lohnkontonachweisart.');
@@ -885,8 +898,17 @@ Map<String, dynamic> payrollAccountDetails(
       final prior = payments.where((p) => _ref(p) == selected).firstOrNull;
       final event =
           run!['calculation']['multiple_one_off_details']['receipt_events'][0];
-      details['payment_source_schema_version'] =
-          run.containsKey('settlement_transition') ? (paymentDates ? 3 : 2) : 1;
+      final repayment = run['settlement_transition']?['schema_version'] == 2;
+      if (repayment && !repayments)
+        throw const ApiException(
+          403,
+          'Die aktuelle Freigabe für belegte Netto-Rückzahlungen fehlt.',
+        );
+      details['payment_source_schema_version'] = repayment
+          ? 4
+          : run.containsKey('settlement_transition')
+          ? (paymentDates ? 3 : 2)
+          : 1;
       details['prior_payment_ref'] = prior == null
           ? null
           : payrollFactRef(prior);
@@ -895,17 +917,23 @@ Map<String, dynamic> payrollAccountDetails(
           {
             'payment_index': i,
             'running_minor': payrollAccountMinor(values['running_$i']),
-            'one_off_allocations': payrollAccountMinor(values['bonus_$i']) == 0
+            'one_off_allocations':
+                payrollAccountMinor(values['bonus_$i'], signed: repayment) == 0
                 ? []
                 : [
                     {
                       'event_key': event['event_key'],
-                      'net_minor': payrollAccountMinor(values['bonus_$i']),
+                      'net_minor': payrollAccountMinor(
+                        values['bonus_$i'],
+                        signed: repayment,
+                      ),
                     },
                   ],
           },
       ];
-      if (run.containsKey('settlement_transition') && paymentDates) {
+      if (run.containsKey('settlement_transition') &&
+          paymentDates &&
+          !repayment) {
         final allocations = details['settlement_allocations'] as List;
         final parts = details['payments'] as List;
         final requiresDates =
@@ -1322,16 +1350,20 @@ class _BusinessPayrollAccountsPageState
       final multiple = selectedRun?['source']?['source_schema_version'] == 5;
       final positiveCorrection =
           selectedRun?.containsKey('settlement_transition') == true;
+      final repayment =
+          selectedRun?['settlement_transition']?['schema_version'] == 2;
       final positivePaymentDates =
           positiveCorrection &&
+          !repayment &&
           (previous != null
               ? previous['details']['payment_source_schema_version'] == 3
               : session.hasFeature(payrollPositivePaymentDatesFeature));
       final transition = positiveCorrection
-          ? payrollPositiveTransition(selectedRun!)
+          ? payrollSettlementTransition(selectedRun!)
           : null;
       if (positiveCorrection &&
           (!session.hasFeature(payrollPositiveCorrectionFeature) ||
+              repayment && !session.hasFeature(payrollRepaymentFeature) ||
               positivePaymentDates &&
                   !session.hasFeature(payrollPositivePaymentDatesFeature) ||
               !session.hasModule('payroll_multiple_cases')))
@@ -1625,7 +1657,9 @@ class _BusinessPayrollAccountsPageState
                 type: BusinessInput.choice,
                 required: true,
                 choices: {
-                  'review': positivePaymentDates
+                  'review': repayment
+                      ? '${_money(transition!['repayment_minor'])} tatsächliche Rückzahlung 2026; neue Zahlbeträge und Bonusanteile negativ eingeben; frühere Zahlungen bleiben unverändert; kein automatischer Geldeinzug'
+                      : positivePaymentDates
                       ? '${_money(transition!['additional_net_minor'])} mit tatsächlichem Zahlungstag 2026; ursprünglicher Bruttozufluss unverändert; kein automatischer Geldtransfer'
                       : '${_money(transition!['additional_net_minor'])} am ursprünglichen Zuflusstag ${businessDate(transition['receipt_date'])}; kein automatischer Geldtransfer',
                 },
@@ -1887,6 +1921,7 @@ class _BusinessPayrollAccountsPageState
                 sources,
                 count: count,
                 paymentDates: positivePaymentDates,
+                repayments: repayment,
               ),
               'source_file_id': file['id'],
               'confirmed': true,
@@ -1925,6 +1960,8 @@ class _BusinessPayrollAccountsPageState
                           !session.hasFeature(
                             payrollPositivePaymentDatesFeature,
                           ) ||
+                      body['details']['payment_source_schema_version'] == 4 &&
+                          !session.hasFeature(payrollRepaymentFeature) ||
                       !session.hasModule('payroll_multiple_cases')))
                 throw const ApiException(
                   409,
@@ -1981,6 +2018,7 @@ class _BusinessPayrollAccountsPageState
             1,
             2,
             3,
+            4,
           ].contains(value['details']['payment_source_schema_version'])) ...[
             const Text('Belegte Nettozuordnung'),
             for (final a in businessItems(
@@ -1997,7 +2035,7 @@ class _BusinessPayrollAccountsPageState
             Notice(
               value['details']['prior_payment_ref'] == null
                   ? 'Keine frühere Zahlung übernommen.'
-                  : [2, 3].contains(
+                  : [2, 3, 4].contains(
                       value['details']['payment_source_schema_version'],
                     )
                   ? 'Alle früheren Zahlungsteile und ihre Nettozuordnungen bleiben unverändert. Nur zusätzlich belegte positive Beträge werden ergänzt.'
@@ -2008,6 +2046,11 @@ class _BusinessPayrollAccountsPageState
                 'Die ursprünglichen Bruttozuflüsse bleiben unverändert. Zusätzliche Nettozahlungen sind an ihren tatsächlichen belegten Zahlungstagen erfasst.',
               ),
           ],
+          if (value['kind'] == 'payment' &&
+              value['details']['payment_source_schema_version'] == 4)
+            const Notice(
+              'Die tatsächliche Rückzahlung des Beschäftigten ist mit ihrem eigenen Tag und Original erfasst. Frühere Zahlungen und der ursprüngliche Bruttozufluss bleiben unverändert. Hier wird kein Geld eingezogen.',
+            ),
           if (value['kind'] == 'payment' &&
               (value['details']['payments'] as List).isEmpty)
             const Notice(

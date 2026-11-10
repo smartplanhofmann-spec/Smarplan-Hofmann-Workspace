@@ -8,35 +8,33 @@ Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`
  den Auftrag. Die verbleibende Codearbeit und technische Gesamtabnahme werden
  weiter abgearbeitet; echte externe Freigaben bleiben als solche benannt.
 
-**Aktuelle Veröffentlichung:** Die [Windows-Paketquellenkorrektur](CRM_ERP_WINDOWS_PAKETQUELLEN_2026-11-10.md)
-ist als `d083ed48f0cade4fefc989a8299e3189b7b5bd37` auf dem autorisierten Testbranch
-veröffentlicht. Der tatsächliche Windows-Job129556586367 besteht einschließlich
-App, lokaler Pythonumgebung, Sicherung/Wiederherstellung und beider Lieferpakete.
-Development42733367444 ist dadurch noch nicht vollständig grün: Eine veraltete
-Paket-Quelltextprüfung und ein mitternachtsabhängiger Browser-Zeittest sind rot.
-Beide Ursachen sind lokal korrigiert und tatsächlich nachgeprüft; die alten
-Fehler bleiben dokumentiert. Der [abschließende Abruf](evidence/windows-package-finish-2026-11-10/publication-completed-20261110.json)
-bestätigt sechs erfolgreiche Development-Jobs und den erfolgreichen unsignierten
-iPhone-Releasebuild; signierter Upload übersprungen. Die zwei Fehler bleiben
-rot und werden erst durch eigene Nachläufe des korrigierten Quellstands ersetzt.
-Keine neue Liveinstallation oder echte Geräteabnahme.
+**Aktuelle Veröffentlichung:** Source5-Zahlungstage V3 und die beiden konkreten
+CI-Prüfkorrekturen sind als 17978f6697a02f131fc1a4d319cc279dbe642d50 veröffentlicht.
+Der [abschließende tatsächliche Abruf](evidence/source5-payment-dates-2026-11-10/publication-completed-17978-20261110.json)
+bestätigt alle acht Development-Jobs einschließlich Windows, Browser und
+PostgreSQL sowie den unsignierten iPhone-Build. Signierter Upload übersprungen.
+Der unterbrochene lokale App-Vorlauf bleibt getrennt; sein vollständiger
+Neustart besteht mit 1.872 Fällen ohne Skip. Keine neue Liveinstallation.
 
-**Aktueller Codeabschnitt:** Die [Source5-Zahlungstage V3](CRM_ERP_SOURCE5_ZAHLUNGSTAGE_V3_2026-11-10.md)
-schließen spätere tatsächliche positive Nettozahlungen bei unverändertem
-Brutto und ursprünglichen Zahlungs-/Zuordnungspräfixen. Browser, App und
-Backend sind integriert; tatsächliche MFA-/PostgreSQL-/Restore- und
-Bedienprüfungen sowie die abschließende Gesamtprüfung werden dokumentiert.
-Arbeitskopie: `/workspace/smartplan-source5-payment-dates-20261110`, Basis d083ed4.
-Die früheren V1-/V2-Verträge und 32 historische Rechenmodule bleiben erhalten.
+**Aktuelle lokale Folgekorrektur:** b437f2c30ba3fd7de34a0f1c270e693df9210dd8
+ist im Hauptbranch vorgezogen, noch nicht separat veröffentlicht. Die
+[V3-Folgeketten](CRM_ERP_SOURCE5_ZAHLUNGSTAGE_V3_FOLGEKETTEN_2026-11-10.md)
+erhalten validierte spätere Bonuspräfixe bei Reisekosten und schreiben genau
+einen ursprünglichen Bruttozufluss in die Jahresbasis fort. Neuer tatsächlicher
+PG-/MFA-/Jahresfall, 32 Backend-, 15 alte Jahres- und acht App-Bedienfälle bestehen.
+
+**Aktueller Codeabschnitt:** [Tatsächliche Netto-Rückzahlung V4](CRM_ERP_SOURCE5_NETTORUECKZAHLUNG_V4_2026-11-10.md)
+in `/workspace/smartplan-source5-repayment-20261110`. Backend, Browser, App und
+Paketierung sind integriert. 50 Backend-, 1.026 Browser-, 1.878 vollständige
+App- und 21 Paket-/Inventarfälle sowie echter Browser und PG/EÜR/Jahresbasis/
+Restore bestehen. Die zusätzliche echte Konkurrenzprüfung deckte einen
+Sperrzeitfehler auf; die gezielte 423-Behandlung mit unverändertem Original und
+bestehendem Rollback ist jetzt mit tatsächlichem HTTP und Konkurrenz nachgeprüft.
+Konkurrenz-/Sperrnachlauf: zwei Fälle in 83,502 Sekunden; beide Annahmen gleich,
+genau ein gespeicherter Auftrag. Alte Fehlversuche bleiben erhalten.
+Code-/Nachweiscommits, Einordnung auf b437f2c und eigene neue CI werden fertiggestellt.
+Danach folgen weitere Nettoausgleiche nach V4 und die übrigen Gesamtzielpunkte.
 Ein abgeschlossener Abschnitt beendet ausdrücklich nicht den Gesamtauftrag.
-
-Der nach dem Cloud-Neustart erneut gestartete vollständige App-Lauf besteht
-mit 1.872 Fällen ohne Skip. Der alte Vorlauf endete bei 1.639 beobachteten
-Erfolgen ohne Endergebnis und bleibt als unterbrochen erhalten.
-Parallel wird in `/workspace/smartplan-source5-repayment-20261110` auf f1e1655
-der ausdrücklich versionierte tatsächliche Netto-Rückzahlungsfall entwickelt.
-Seine erste Backend-Geldflusskette besteht; V4 ist unveröffentlicht,
-Clients und Integrationsnachweise sind noch offen.
 
 Der frühere Zeitabgleich 75d88a3 ist veröffentlicht. Vier eigene Development-
 Jobs bestehen; vier weitere sowie beide iPhone-Jobs sind beim Nachfolger

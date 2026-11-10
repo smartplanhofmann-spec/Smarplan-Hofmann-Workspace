@@ -14,7 +14,7 @@ from business_operations import identifier,text,transaction
 from business_personnel_workflow import PersonnelWorkflow,_sha,_shape,_integer
 from payroll_de_2026 import calculate,day,month_range
 
-FEATURES=('payroll_wage_account','payroll_source5_payment_dates')
+FEATURES=('payroll_wage_account','payroll_source5_payment_dates','payroll_source5_net_repayments')
 TABLES=('business_payroll_account_events','business_payroll_account_requests')
 ID=r'[a-f0-9]{32}'
 IDENTITY_FIELDS=('profile_id','profile_revision','given_name','family_name','date_of_birth','address_line',
@@ -218,7 +218,7 @@ class PayrollAccounts:
             run=self.payroll._event(self.payroll._row(details['run_id'],'run',details['run_revision']))
             if run['source'].get('source_schema_version')==5:
                 fields=PAYMENT_FIELDS+('payment_source_schema_version','settlement_allocations','prior_payment_ref')
-                expected=(2,3) if 'settlement_transition' in run else (1,)
+                expected=((4,) if run['settlement_transition']['schema_version']==2 else (2,3)) if 'settlement_transition' in run else (1,)
                 if type(details.get('payment_source_schema_version')) is not int or details['payment_source_schema_version'] not in expected:
                     raise Problem(400,'Source5-Zahlungen benötigen die zum angenommenen Lauf gehörende ausdrückliche Zuordnungsfassung.')
         _shape(details,fields,fields)
@@ -279,7 +279,10 @@ class PayrollAccounts:
             identity=self._identity(employee_id,details,record['source']['profile'],record['source']['month'],period_plan=period_plan)
             sources=dict(run=record,identity=identity)
             if source_version==5:
-                if details['payment_source_schema_version'] in (2,3):
+                if details['payment_source_schema_version']==4:
+                    from payroll_multiple_repayments import resolve_payment_plan
+                    sources['single_payment_plan']=resolve_payment_plan(self,record,details)
+                elif details['payment_source_schema_version'] in (2,3):
                     from payroll_multiple_corrections import resolve_positive_payment_plan
                     sources['single_payment_plan']=resolve_positive_payment_plan(self,record,details)
                 else:
@@ -291,7 +294,7 @@ class PayrollAccounts:
             # Other payroll/travel contracts retain their original date guard.
             additional=(tuple(a['payment_index'] for a in sources['single_payment_plan']['allocations']
                 if a['running_minor']==0)
-                if source_version==5 and details['payment_source_schema_version']==3 else ())
+                if source_version==5 and details['payment_source_schema_version'] in (3,4) else ())
             self._payment_fields(details,record['calculation'],record['source']['month'],verified_composite=source_version in (3,4,5),
                 receipt_date=record['calculation']['one_off_details']['receipt_date'] if source_version==4 else None,
                 additional_net_indexes=additional)
@@ -356,7 +359,7 @@ class PayrollAccounts:
                     raise Problem(400,'Geschützter Personalakten-Originalnachweis erforderlich.')
                 details,sources,key=self._normalize(employee['id'],data['kind'],data['details'])
                 if data['kind']=='payment' and sources['run']['source'].get('source_schema_version')==5:
-                    if details['payment_source_schema_version'] in (2,3):
+                    if details['payment_source_schema_version'] in (2,3,4):
                         from payroll_multiple_corrections import require_current_positive_settlement
                         require_current_positive_settlement(self,sources['run'],details)
                     else:

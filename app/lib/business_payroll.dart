@@ -1,3 +1,5 @@
+import 'business_payroll_source5_repayment.dart';
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
@@ -551,7 +553,7 @@ void Function(dynamic) payrollReceiptValidator(
               ))
         bad = true;
       if (!bad && v.containsKey('settlement_transition'))
-        payrollPositiveTransition(v);
+        payrollSettlementTransition(v);
       final expectedDelta = prior == null
           ? null
           : {
@@ -1146,7 +1148,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
       for (final record in businessItems(result[1])) {
         payrollCalculation(record['calculation']);
         if (record.containsKey('settlement_transition'))
-          payrollPositiveTransition(record);
+          payrollSettlementTransition(record);
       }
       if (!mounted || captured != epoch || !readable) return;
       setState(() {
@@ -1557,6 +1559,14 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
           input['settlement_review'] = review;
         }
       }
+      if (input['settlement_review']?['schema_version'] == 2) {
+        await fresh(permission: 'personnel.approve');
+        if (!session.hasFeature(payrollRepaymentFeature))
+          throw const ApiException(
+            403,
+            'Die aktuelle Freigabe für belegte Netto-Rückzahlungen fehlt.',
+          );
+      }
       final value = payrollPreview(
         await session.api.call(session.path('/payroll/preview'), input),
         input,
@@ -1569,7 +1579,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
             409,
             'Dieser Server unterstützt den belegten positiven Korrekturvertrag noch nicht.',
           );
-        final transition = payrollPositiveTransition(value);
+        final transition = payrollSettlementTransition(value);
         if (previous == null ||
             !payrollSame(
               transition['previous_run_ref'],
@@ -1726,6 +1736,16 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
             reviewRoute.isActive &&
             mayContinue?.call() != false,
         fields: [
+          if (session.hasFeature(payrollRepaymentFeature))
+            const BusinessField(
+              'settlement_kind',
+              'Belegte Richtung des Nettoausgleichs',
+              type: BusinessInput.choice,
+              choices: {
+                'positive': 'Zusätzliche positive Nettozahlung',
+                'repayment': 'Tatsächliche Rückzahlung des Beschäftigten',
+              },
+            ),
           const BusinessField(
             'payments_complete',
             'Sämtliche tatsächlich erfolgten Zahlungen für diesen Monat, einschließlich externer Vorgänge, sind vollständig im Programm belegt.',
@@ -1750,6 +1770,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
           ),
         ],
         initial: const {
+          'settlement_kind': 'positive',
           'payments_complete': false,
           'remittances_complete': false,
           'evidence_file': '',
@@ -1793,8 +1814,15 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
             throw const FormatException(
               'Ein zugängliches geschütztes Original für diesen Mitarbeiter auswählen.',
             );
-          acceptedReview = payrollPositiveSettlementReview({
-            'schema_version': 1,
+          final repayment = values['settlement_kind'] == 'repayment';
+          if (repayment && !session.hasFeature(payrollRepaymentFeature))
+            throw const ApiException(
+              403,
+              'Die aktuelle Freigabe für belegte Netto-Rückzahlungen fehlt.',
+            );
+          acceptedReview = payrollSettlementReview({
+            'schema_version': repayment ? 2 : 1,
+            if (repayment) 'contract': payrollRepaymentReviewContract,
             'payments_complete': values['payments_complete'],
             'remittances_complete': values['remittances_complete'],
             'evidence_ref': {
@@ -2043,6 +2071,8 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         );
       if (proof.containsKey('settlement_transition') &&
           (!session.hasFeature(payrollPositiveCorrectionFeature) ||
+              proof['settlement_transition']['schema_version'] == 2 &&
+                  !session.hasFeature(payrollRepaymentFeature) ||
               !session.hasModule('payroll_multiple_cases')))
         throw const ApiException(
           409,
@@ -2093,7 +2123,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         for (final r in rows) {
           payrollCalculation(r['calculation']);
           if (r.containsKey('settlement_transition'))
-            payrollPositiveTransition(r);
+            payrollSettlementTransition(r);
         }
       if (mounted && readable && opening == session.generation)
         setState(() {
@@ -2518,7 +2548,14 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
   }
 
   Widget positiveCorrectionNotice(Map<String, dynamic> value) {
-    final transition = payrollPositiveTransition(value);
+    final transition = payrollSettlementTransition(value);
+    if (transition['schema_version'] == 2)
+      return Notice(
+        'Belegte Rückzahlungsverpflichtung des Beschäftigten: ${payrollMoney(transition['repayment_minor'])}. '
+        'Bisher tatsächlich bezahlt: ${payrollMoney(transition['prior_total_net_minor'])}; '
+        'korrigierte Nettoschuld: ${payrollMoney(transition['total_net_minor'])}. '
+        'Frühere Zahlungen bleiben unverändert. Die tatsächliche Rückzahlung ist separat mit eigenem Tag und Original zu belegen. Hier wird kein Geld eingezogen.',
+      );
     return Notice(
       'Belegte zusätzliche Nettozahlung: ${payrollMoney(transition['additional_net_minor'])}. '
       'Bisher erfüllt: ${payrollMoney(transition['prior_total_net_minor'])}; '

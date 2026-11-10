@@ -36,6 +36,30 @@ Boolean(vm.runInNewContext(expression,{...context,startsWith:(s,p)=>s.startsWith
 
 
 class ActualWorkflowGates(unittest.TestCase):
+    def test_signed_preparation_is_not_cancelled_by_an_ordinary_push(self):
+        workflow, _, _, _ = gates()
+        template = re.search(r'^  group: (.+)$',workflow,re.MULTILINE).group(1)
+        code = r"""const fs=require('node:fs'),vm=require('node:vm');
+const input=JSON.parse(fs.readFileSync(0,'utf8'));
+console.log(JSON.stringify(input.contexts.map(context=>input.template.replace(/\$\{\{(.*?)\}\}/g,
+(_,expression)=>String(vm.runInNewContext(expression,context,{timeout:100}))))));"""
+        contexts=[dict(github=dict(event_name=event,ref=ref),inputs=flags)
+            for ref in (TEST_REF,LEGACY_REF)
+            for event,flags in (
+                ('push',{}),
+                ('workflow_dispatch',dict(prepare_signed_ipa=False,upload_to_testflight=False)),
+                ('workflow_dispatch',dict(prepare_signed_ipa=True,upload_to_testflight=False)),
+                ('workflow_dispatch',dict(prepare_signed_ipa=False,upload_to_testflight=True)))]
+        groups=json.loads(subprocess.check_output(['node','-e',code],
+            input=json.dumps(dict(template=template,contexts=contexts)),text=True))
+        for start in (0,4):
+            unsigned,manual_unsigned,signed,upload=groups[start:start+4]
+            self.assertEqual(unsigned,manual_unsigned)
+            self.assertEqual(signed,upload)
+            self.assertNotEqual(unsigned,signed,'An ordinary push must not cancel explicit signed preparation')
+        self.assertNotEqual(groups[0],groups[4])
+        self.assertNotEqual(groups[2],groups[6])
+
     def test_temporary_archive_never_becomes_the_published_distribution_artifact(self):
         _, job, _, _ = gates()
         order = [job.index(text) for text in (

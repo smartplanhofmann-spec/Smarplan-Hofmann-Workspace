@@ -70,6 +70,8 @@ async function payrollFactorTransitionFlow({page,context,navigate,ready,login,fi
   await technician.getByRole('button',{name:'Lohnberechnung 2026 öffnen',exact:true}).click();
   const ownList=technician.getByRole('dialog',{name:'Meine Lohnnachweise · Synthetic technician',exact:true});await ownList.getByRole('button',{name:'Lohnnachweis ansehen',exact:true}).click();
   const ownDetail=technician.getByRole('dialog',{name:'Mitarbeiter-Lohnnachweis · 2026-10',exact:true});await ownDetail.waitFor();assert.match(await ownDetail.innerText(),/1.498,67/);
+  const actualDates=await ownDetail.getByRole('row').filter({hasText:'Regelmäßiges Arbeitsentgelt'}).getByRole('cell').nth(1).innerText();
+  assert.match(actualDates,/01\.10\.2026/);assert.doesNotMatch(actualDates,/\d{1,2}:\d{2}/,'Calendar-only wage dates must never acquire artificial times from map indices');
   assert.equal(ownPaths.some(p=>/\/payroll\/(runs|profiles|facts)(\/|$)/.test(p)),false);
   const own=(await api(technician,'/payroll/employee-statements/'+run.id)).statement;assert.equal(own.calculation.net_minor,149867);
   for(const key of ['profile','tax_identifier','source_file_ids','verification_note','factor_transition_assessment'])assert.equal(JSON.stringify(own).includes('"'+key+'":'),false);
@@ -82,6 +84,7 @@ async function payrollFactorTransitionFlow({page,context,navigate,ready,login,fi
     const denied=await technicianContext.request.get(fixture.base_url+'/api/v1/business'+suffix,{headers:{Authorization:tokens.get(technician),Origin:fixture.base_url}});assert.equal(denied.status(),403);
   }
   await technician.setViewportSize({width:390,height:844});assert.equal(await technician.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+  await ownDetail.getByText('Netto',{exact:true}).scrollIntoViewIfNeeded();
   await technician.screenshot({path:path.join(screenshots,'payroll-factor-transition-own-mobile.png'),fullPage:false});
   await api(page,'/settings/permissions',request({user_id:employee.user_id,permission:'time.own',scope:'*',effect:'deny',revision:0}));
   await ownDetail.getByRole('button',{name:'Eigenen PDF-Lohnnachweis herunterladen',exact:true}).click();await ownDetail.getByRole('alert').waitFor();assert.equal(await ownDetail.getByText('Netto',{exact:true}).count(),0);

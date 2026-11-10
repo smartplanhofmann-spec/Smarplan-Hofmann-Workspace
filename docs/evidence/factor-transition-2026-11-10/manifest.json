@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "implemented_focused_client_browser_and_full_PG_restore_passed_whole_app_and_package_pending",
+  "status": "complete_native_focused_financial_PG_clients_package_evidence_ready_test_candidate_full_backend_still_running",
   "base_commit": "a40fc569ff34bae26a832b7267fbe6eb9d1bf083",
   "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
   "raw_files": [
@@ -218,6 +218,111 @@
       "path": "factor-transition-joint-backend-package-first-20261110.txt.gz",
       "bytes": 12822,
       "sha256": "2540040932089e265e2e00b25e166aae666ab38890737968bc23055833aaa178"
+    },
+    {
+      "path": "factor-transition-integrated-package-inventory-first-20261110.txt.gz",
+      "bytes": 6901,
+      "sha256": "420b6b24ae8f73a799fb6acaf78b0fb36ba37d5eb4dc6c8414d3e1e4e7f9bf1c"
+    },
+    {
+      "path": "ios-keychain-concurrency-before-20261110.txt.gz",
+      "bytes": 1132,
+      "sha256": "2bee7c90db0202d3dfd8699bbfa35feac71b3f09389cd15913af8b6a0a318400"
+    },
+    {
+      "path": "ios-keychain-concurrency-after-20261110.txt.gz",
+      "bytes": 2426,
+      "sha256": "b5bdcd07f2eb8e2f941018a0741330add2c511db3ad6a32dad1431e5ab4a14cf"
+    },
+    {
+      "path": "ios-keychain-concurrency-yaml-shell-20261110.txt.gz",
+      "bytes": 166,
+      "sha256": "bbcc3c8fab77d61d9d7fcc10d284b76dcbfdce32c845dbad4dd29642cd16deef"
+    },
+    {
+      "path": "payroll-statement-composites-date-callback-final-20261110.txt.gz",
+      "bytes": 1769,
+      "sha256": "93c34b39f00308fac76a014dc2516c7f8c86d7f2e8b09901c160583d12bd485c"
+    },
+    {
+      "path": "factor-transition-real-browser-second-20261110.txt.gz",
+      "bytes": 419,
+      "sha256": "dc1a7abe99934957384c8b0171d0380951574b89163aa246534e41c8ca8194eb"
+    },
+    {
+      "path": "source5-primary-recheck-20261110.json.gz",
+      "bytes": 880,
+      "sha256": "d1fef01747488b747d102e3858b28ffa76ad0359e3ff9282a29ebf456ea9a214"
+    },
+    {
+      "path": "smartplan-public-ready-attempt-20261110.json.gz",
+      "bytes": 815,
+      "sha256": "5a1ae66dfbc227b9a44971196bdcf889d7fc44b01e04ad0b5f5b701202f33db6"
+    },
+    {
+      "path": "smartplan-public-ready-20261110.headers.gz",
+      "bytes": 143,
+      "sha256": "6cd18b64d33b384957c3ddaa4e252725119a158db93096ca8c0e820d25f6c05c"
+    },
+    {
+      "path": "ios-keychain-repair-closed-development-windows-20261110.json.gz",
+      "bytes": 51342,
+      "sha256": "cabd55ed8be57d5711ef6e5f61613daab8ac33f1200d219a77b341b72e14f864"
+    },
+    {
+      "path": "date-callback-fixed-payroll-factor-transition-synthetic-commands.json.gz",
+      "bytes": 1632596,
+      "sha256": "52c623771dac6fc58af71dff3873ce9b4322a93f9531af657c0dc7425cdbca2b"
+    },
+    {
+      "path": "date-callback-fixed-payroll-factor-transition-own-mobile.png",
+      "bytes": 56810,
+      "sha256": "8ddb853f4e6e2709147249c111eb676dd007a9acb70c2b2d23042d3efe2fbb00"
+    },
+    {
+      "path": "factor-transition-whole-native-first-20261110.jsonl.gz",
+      "bytes": 1151785,
+      "sha256": "1429b69417e1914253435706d89cb61f35a95c19e06cfd42d51bea08de99fe17"
+    },
+    {
+      "path": "factor-transition-whole-native-first-status-20261110.json.gz",
+      "bytes": 409,
+      "sha256": "3fea30708b54366c52b03a21336894c792f2b1609c755bcfba83700f08bbac0c"
+    },
+    {
+      "path": "factor-transition-whole-native-final-counts-20261110.json.gz",
+      "bytes": 333,
+      "sha256": "458b056ea6a24392d188058ab266191dc0f8e0be58264b90b76b19ba06ca7321"
+    },
+    {
+      "path": "factor-transition-whole-native-first-stderr-20261110.txt.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "factor-transition-whole-native-runner-20261110.py.gz",
+      "bytes": 1290,
+      "sha256": "1e2bfc5843f4a84906fb409de92d8e1ee0246949d5394ffc5846efac168ff091"
+    },
+    {
+      "path": "factor-transition-native-progress-20261110.py.gz",
+      "bytes": 1446,
+      "sha256": "f9c307a6461a9c521d7e9b7a9a0ed3ae20eef376bed6761813468cfe20a3c5c3"
+    },
+    {
+      "path": "factor-transition-product-source-bom-final-20261110.json.gz",
+      "bytes": 90216,
+      "sha256": "5fd0b2446b995360f15e71d85cbe1b6225c208c852f34282282712aaa0bf5903"
+    },
+    {
+      "path": "ios-keychain-repair-real-signed-success-20261110.log.gz",
+      "bytes": 1459349,
+      "sha256": "285fca7f4f8f7ade06eaa3a4bfe231433dce011ec186c1210806a8688f3e9bde"
+    },
+    {
+      "path": "ios-keychain-repair-closed-signing-artifacts-20261110.json.gz",
+      "bytes": 9693,
+      "sha256": "473b95d51554f6af8dcc5587df224ae1f207d451f67614cad010552b98906dfb"
     }
   ],
   "code_sha256": {
@@ -246,7 +351,14 @@
     "original_pdf_note_correction_seconds": 1.847,
     "projection_and_ci_cases": 9,
     "joint_backend_package_cases": 58,
-    "joint_backend_package_seconds": 61.686
+    "joint_backend_package_seconds": 61.686,
+    "integrated_ios_and_native_package_inventory_cases": 33,
+    "integrated_package_seconds": 39.748,
+    "current_whole_native_cases": 1961,
+    "current_whole_native_failures": 0,
+    "current_whole_native_skips": 0,
+    "product_inventory_components": 153,
+    "product_inventory_exact_committed_match": true
   },
   "preserved_failures": [
     "missing initial API contract",
@@ -260,5 +372,79 @@
     "live_installation": false,
     "device_acceptance": false,
     "expert_approval": false
+  },
+  "integration_commit": "13b9092f64fba715715d83965e064f0e29536731",
+  "product_commit": "e70b135bc51abac644a16ce3af6639cb781b2633",
+  "whole_app": {
+    "status": "success",
+    "source_commit": "13b9092f64fba715715d83965e064f0e29536731",
+    "visible_cases": 1961,
+    "failures": 0,
+    "skips": 0,
+    "hidden_loaders_excluded": 260,
+    "machine_done_ms": 1437145,
+    "runner_seconds": 1446.0140458570095,
+    "runner_exit": 0,
+    "app_backend_runtime_byte_unchanged_after_start": true,
+    "separately_checked_changes_after_start": [
+      "browser-only date callback",
+      "iOS workflow concurrency group",
+      "docs and evidence"
+    ]
+  },
+  "browser_follow_up": {
+    "visual_finding": "map passed index as formatDate time flag, introducing fake12:00 into calendar-only wages",
+    "minimal_fix": "explicit unary callback; date originals and formatter unchanged",
+    "actual_browser_second": "passed real employee date cell without time, own PDF/JSON, fresh rights and lost replies",
+    "contract_tests": 17,
+    "image_visually_reviewed": true,
+    "flutter_runtime_changed": false
+  },
+  "delivery_concurrency": {
+    "actual_old_group_conflict_reproduced": true,
+    "targeted_cases": 12,
+    "seconds": 2.368,
+    "new_group_separates": "explicit signed or upload mode from normal unsigned checks on each branch",
+    "upload_guard_changed": false,
+    "actual_current_signed_run_cancelled": false
+  },
+  "requirement_snapshot": {
+    "total": 62,
+    "implemented": 24,
+    "tested": 16,
+    "partial": 6,
+    "open": 11,
+    "external_blocked": 5,
+    "global_completion_percent": null
+  },
+  "whole_backend": {
+    "status": "running",
+    "source_commit": "13b9092f64fba715715d83965e064f0e29536731",
+    "discovered_cases": 2133,
+    "raw_report": "/tmp/factor-transition-whole-backend-first-20261110.txt",
+    "status_file": "/tmp/factor-transition-whole-backend-first-status-20261110.json"
+  },
+  "delivery_proof": {
+    "source_commit": "40d8fcf5571e8edc898e2e20b1cf7fe36e52149e",
+    "development_run": 42806104268,
+    "development_success_groups": 20,
+    "signed_only_run": 42806142665,
+    "unsigned_job": 129795776344,
+    "signed_job": 129809992563,
+    "unsigned_conclusion": "success",
+    "signed_conclusion": "success",
+    "signed_artifact_id": 13762109533,
+    "signed_artifact_name": "Smartplan-Office-iOS-198",
+    "signed_artifact_bytes": 29866901,
+    "signed_artifact_digest": "sha256:45ad0aa86f545a986cdbe94bd7528b2c3c1179ac980941fe9e5e6cd56acdef6c",
+    "upload_to_testflight": "skipped",
+    "new_V14_in_this_artifact": false,
+    "new_device_acceptance": false
+  },
+  "publication": {
+    "target": "codex/testupdate-0.7-projects-20261104",
+    "state": "prepared candidate; actual push and remote pointer to be confirmed separately",
+    "live_installation": false,
+    "testflight_upload": false
   }
 }

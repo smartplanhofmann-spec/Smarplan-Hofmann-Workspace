@@ -20,10 +20,17 @@ erlaubt zusätzlich den TestFlight-Upload. Der bisherige Releasebranch bleibt
 technisch kompatibel; dieser Auftrag veröffentlicht ausschließlich auf dem
 autorisierten Testbranch.
 
-Die neuen Auswahlen gelten erst für den veröffentlichten Workflow-Quellstand.
-Die [technische Vorbereitung mit tatsächlichen Prüfungen und Grenzen](docs/CRM_ERP_IPHONE_SIGNIERTE_VORBEREITUNG_2026-11-10.md)
-belegt für sich weder ein bereits signiertes IPA noch einen neuen Upload.
-Bestehendes Apple-Konto, App-ID und vier Secrets werden weiterverwendet.
+Die Auswahlen gelten im veröffentlichten Reparaturstand40d8fcf. Der tatsächliche
+[manuelle Lauf42806142665](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42806142665)
+besteht einschließlich endgültigem Apple-Export, strenger Team-/Keychainprüfung
+und Schlüsselbereinigung. Das signierte
+[Paket0.13.0/Build198](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42806142665/artifacts/13762109533)
+ist als Artefakt vorhanden. TestFlight-Upload ist ausdrücklichübersprungen;
+keine neue Geräteabnahme. Dieser Quellstand enthält noch nicht den zusätzlichen
+Faktor-/Midijob-ClientV14. Die [technischen Nachweise einschließlich erstem
+Keychain-Fehler](docs/CRM_ERP_IPHONE_SIGNIERTE_VORBEREITUNG_2026-11-10.md)
+bleiben getrennt erhalten. Bestehendes Apple-Konto, App-ID und vier Secrets
+werden weiterverwendet; keine neue Mitgliedschaft oder App-ID anlegen.
 
 ## Historisches Testupdate 0.7.0: Projektpläne und Offline-Speicherung
 
@@ -87,8 +94,10 @@ Rückkehr zur Berichtsansicht am echten iPhone prüfen, auch mit Rotationssperre
 
 TestFlight-Builds sind jeweils 90 Tage nutzbar. Für die weitere Testverteilung
 rechtzeitig einen neuen Build bereitstellen, auch wenn der Code unverändert ist.
-Die aktuelle Abacus-GitHub-Integration kann den Workflow laut Abacus-Bericht
-nicht selbst starten; der Nutzer startet den Upload über „Run workflow“.
+Der ältere Abacus-Bericht über einen nicht selbst startbaren Workflow ist
+historisch. Codex hat die aktuelle signierte Vorbereitung tatsächlich gestartet.
+Ein TestFlight-Upload bleibt davon getrennt und benötigt weiterhin die eigene
+ausdrückliche Auswahl; er wurde für Build198 nicht ausgeführt.
 Die im erfolgreichen Lauf gemeldete Warnung „Node.js 20 is deprecated“ blockiert
 das Update nicht. Verwendete GitHub Actions bei einer späteren Wartung aktualisieren.
 

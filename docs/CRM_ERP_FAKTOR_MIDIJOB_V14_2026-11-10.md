@@ -3,8 +3,9 @@
 Stand10.11.2026. Gesamtziel bleibt vollständig erhalten. Arbeitskopie
 `/workspace/smartplan-factor-transition-20261110`, Branch
 `codex/factor-transition-20261110`, Basis a40fc56. Die neue API und beide Clients sind lokal implementiert und
-gezielt geprüft. Vollständige gemeinsame App-/Paketprüfung und Veröffentlichung
-stehen aus; keine neue Serverinstallation oder fachliche Freigabe.
+gezielt geprüft. Die vollständige aktuelle Appprüfung besteht1961 Fälle ohne
+Fehler/Skip; Paketprüfung ist abgeschlossen. Der vollständige Backendlauf ist
+noch aktiv. Testbranch-Kandidat; keine Serverinstallation oder fachliche Freigabe.
 
 ## Beobachtete offene Funktion
 
@@ -75,7 +76,7 @@ Rohdaten erhalten. Vollständige explizite historische ELStAM-Identitäten sind
 jetzt ohne Umschreiben ihrer Fassung lesbar. Nach gezielter Lebenszyklus-
 korrektur des Tests bestehen alle acht neuen nativen Fälle einschließlich des
 wirklichen vollständig ausgefüllten Formulars. Die gesamte Appanalyse ist
-sauber (12,4s); die vollständige aktuelle App-Suite steht noch aus.
+sauber (12,4s); die vollständige aktuelle App-Suite besteht inzwischen1961 Fälle ohne Fehler/Skip.
 
 1077 Browser-Vertragstests bestehen ohne Fehler/Skip. Der erste Gesamtmodullauf
 besteht1076 Fälle und scheitert allein beim Zeitzonen-Unterprozess mit Sandbox-
@@ -124,12 +125,54 @@ Mitarbeiteranmeldung ist zusätzlich durchgeführt; ein gebautes Gerät ersetzt
 sie nicht. Der Projektor bleibt bytegleich und eine eigene Gegenprobe erzeugt
 sämtliche elf Datensätze exakt erneut.
 
-Die zusammenhängende aktuelle App-/Paketprüfung, eigene Remoteprüfung und
-Gesamtziel-Abnahmen fehlen noch. Keine Prozent- oder Gesamtfreigabe aus diesen
+Die aktuelle App-/Paketprüfung ist abgeschlossen. Die vollständige Backend-
+Schlussmeldung, eigene Remoteprüfung und Gesamtziel-Abnahmen fehlen noch. Keine Prozent- oder Gesamtfreigabe aus diesen
 abgegrenzten Erfolgen ableiten. Nachweise werden in
 [evidence/factor-transition-2026-11-10/manifest.json](evidence/factor-transition-2026-11-10/manifest.json)
 gesichert; frühere Fehlläufe bleiben von späteren Erfolgen getrennt.
 
 58 gemeinsame neue/alte Backend-, Belegprojektions-, CI- und Paketfälle bestehen
-in61,686s. Der tatsächliche aktuelle vollständige App-Lauf bleibt als eigener
-noch auszuführender Nachweis getrennt.
+in61,686s. Der anschließende tatsächliche vollständige App-Lauf besteht1961 sichtbare
+Fälle ohne Fehler/Skip und bleibt als eigener Nachweis getrennt.
+
+
+## Vollständige aktuelle Appprüfung und getrennte Auslieferung
+
+Der integrierte Stand13b9092 besteht1961 sichtbare Appfälle ohne Fehler und
+Skip.260 verborgene Ladeeinträge werden ausdrücklich nicht mitgezählt. Die
+wirkliche success:true-Schlussmeldung steht bei1437145ms; Runnerexit0 nach
+1446,014s. App-/Backenddateien sind seit Start bytegleich. Nachträglich geändert
+sind ausschließlich Dokumentation, der separat geprüfte iPhone-Workflowguard
+und die unten beschriebene Browser-Datumsanzeige. Der vollständige Backendlauf
+mit2133 entdeckten Fällen ist noch aktiv und wird nicht als bestanden gezählt.
+Die153-Komponenten-Inventarausgabe ist exakt mit der eingecheckten identisch.
+
+Die tatsächliche mobile Sichtprüfung zeigt einen bestehenden Callbackfehler:
+map übergibt den Arrayindex als zweiten formatDate-Parameter und erzeugt dadurch
+für reine Lohndaten ab dem zweiten Tag eine erfundene12:00-Uhrzeit. Ausschließlich
+der Callback ist jetzt einstellig. Formatierer und Lohndaten bleiben unverändert.
+17 gezielte Vertragsfälle und der erneute tatsächliche MFA-/Mitarbeiter-/PDF-/
+JSON-/Widerrufsablauf bestehen; die neue Datumszelle enthält keine Uhrzeit.
+Beide echten Bilder und vollständige synthetische Befehlsprotokolle bleiben
+getrennt erhalten; die Korrektur ist auch tatsächlich visuell geprüft.
+
+Die echte Keychain-Gegenprobe42806142665 an40d8fcf ist abgeschlossen: beide Jobs
+bestehen, privater Erstexport und endgültiger Apple-Export gelingen, finale
+Signatur-/Team-/Berechtigungsprüfung besteht, Schlüsselbereinigung besteht.
+Signiertes Artefakt Smartplan-Office-iOS-198:13762109533,29866901Bytes.
+TestFlight-Upload ist ausdrücklichskipped; keine Geräteabnahme. Dieses Artefakt
+beweist den reparierten Auslieferungsweg, enthält jedoch noch nicht den neuen
+V14-Client. Der unabhängige Development-Lauf42806104268 besteht alle20 Gruppen.
+Die neue tatsächlich rot/grün geprüfte Gruppenwahl trennt normale Quellprüfungen
+von ausdrücklich signierten Läufen und verhindert ihren Abbruch durch einen
+normalen Push.12 gezielte Auslieferungsfälle bestehen2,368s, YAML/22 Shellblöcke
+bestehen. Die48 tatsächlichen Auswahlkombinationen und der Uploadguard bleiben
+erhalten. Der bereits abgeschlossene echte Signierlauf wird nicht nachträglich
+als Prüfung dieses zusätzlichen lokalen Workflowguards ausgegeben.
+
+Der zusätzliche öffentliche Serverabruf liefert403 durchEnvoy. Die beobachtete
+Cloud-Zulassungsliste ist eingeschränkt und enthält office.smartplan-hofmann.de
+nicht. Damit ist der tatsächliche Ursprungserver nicht neu bestätigt. Keine
+Anmeldung, keine private Abfrage und keine Installation. Der zuletzt vom Nutzer
+bestätigte Quellstand bleibt a93cb4d vom05.11.; aus dem Cloudfehler wird kein
+Serverausfall abgeleitet. Das aktuelle Gesamtziel ist weiterhin offen.

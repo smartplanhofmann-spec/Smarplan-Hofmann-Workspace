@@ -34,7 +34,8 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: ios-testflight-${{ github.ref }}
+  # Ordinary source checks must never cancel explicit signing/upload work.
+  group: ios-testflight-${{ github.ref }}-${{ github.event_name == 'workflow_dispatch' && (inputs.prepare_signed_ipa || inputs.upload_to_testflight) && 'signed' || 'unsigned' }}
   cancel-in-progress: ${{ startsWith(github.ref, 'refs/heads/codex/testupdate-0.7-') }}
 jobs:
   unsigned:

@@ -30,8 +30,8 @@ Etappe verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
 | Aktuell veröffentlichter Quell- und Testbranch | `40d8fcf5571e8edc898e2e20b1cf7fe36e52149e`, veröffentlicht und Remote-Zeiger bestätigt. Installationskern7449027 und lokal geprüfte eigene Keychain-Reparatur enthalten. |
 | Eigene neue Workflowprüfung | Development42796495383 an exakt deebe20: alle20 Gruppen erfolgreich. Manueller iPhone42796610215: unsignierter Client erfolgreich; echtes Apple-Archiv und signierter Export erfolgreich, abschließende Prüfung wegen fehlendem Keychain-Entitlement gescheitert. Kein signiertes Artefakt oder Upload freigegeben. Der ersetzte doppelte Pushlauf42796495426 ist kein Produktfehler. |
 | Vollständige CI zum Installationsprodukt c4a2d8f | Development42790149143:alle20 Gruppen erfolgreich. Die anHTTP403 vor Testbeginn gescheiterte Gruppe wurde allein wiederholt; alle13 wirklichen Browserabläufe bestehen, Erstfehler erhalten. Unsignierter iPhone42790149399 erfolgreich, signierter Upload übersprungen. Mailbot-Verträge42790149124 auf Linux/Windows erfolgreich; kein echter Versand. |
-| Letzter vollständig grüner Produktstand | `c4a2d8f4ca969f8faab7bd15c9f7fd838e0e97ba`: eigene20 Development-Gruppen, eigener unsignierter iPhone-Release und beide Mailbot-Verträge abgeschlossen. Neue lokale iPhone-Workflowänderung12798fb ist davon getrennt. |
-| Letzter vom Nutzer bestätigter Server | `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5` vom05.11.; drei Dienste/Sicherungstimer und kontrollierter Updateabschluss bestätigt. Kein neuer Liveabgleich oder Update ausgeführt. |
+| Aktueller geprüfter veröffentlichter Reparaturstand | `40d8fcf5571e8edc898e2e20b1cf7fe36e52149e`: alle20 Development-Gruppen42806104268 erfolgreich. Eigener manueller iPhone42806142665: vollständiger unsignierter Client, endgültiges signiertes IPA, strenge Keychain-/Teamprüfung und Schlüsselbereinigung erfolgreich. Signiertes Artefakt198 vorhanden; TestFlight-Uploadskipped. V14 ist davon getrennt. |
+| Letzter vom Nutzer bestätigter Server | `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5` vom05.11.; drei Dienste/Sicherungstimer und kontrollierter Updateabschluss bestätigt. Der10.11.-GET auf/ready liefert403 durchEnvoy; die tatsächliche Cloud-Zulassungsliste enthält die Domain nicht. Kein neuer bestätigter Ursprungstand und kein Update. |
 | Geräte-/Fach-/Gesamtabnahme | Keine neue echte Windows-/iPhone- oder externe Fach-/Sicherheitsfreigabe aus Cloudtests ableiten. |
 
 Das tatsächliche [Windows-Online-Paket c4a2d8f](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42790149143/artifacts/13752796971)
@@ -65,17 +65,51 @@ und Quell-/Paketkennung bestehen. Temporäre Pakete sind kein Uploadartefakt.
 Shellblöcke und YAML sind geprüft. Die Reparatur40d8fcf ist ausschließlich auf dem autorisierten Testbranch veröffentlicht
 und der Remote-Zeiger bestätigt. GitHub hat den erneuten manuellen Vorbereitungslauf
 42806142665 mitprepare_signed_ipa=true undupload_to_testflight=false angenommen.
-Seine unsignierte vollständige App-Voraussetzung läuft; der endgültige reparierte
-Export ist noch nicht bestätigt. Eigene Development-Prüfung42806104268 läuft.
+Beide Jobs sind inzwischen erfolgreich abgeschlossen. Der endgültige reparierte
+Export besteht seine tatsächliche Signatur-/Team-/Keychain-Prüfung. Signiertes
+Artefakt Smartplan-Office-iOS-198:13762109533,29866901Bytes, noch ohne V14.
+Schlüsselbereinigung besteht, TestFlight-Uploadskipped. Eigene Development-Prüfung
+42806104268 besteht alle20 Gruppen.
 Der doppelte Push-iPhone42806103960 wurde durch bestehende concurrency ersetzt.
 TestFlight-Upload bleibt ausdrücklichfalse.
 
-Unabhängige nächste Codearbeit liegt unveröffentlicht in
-/workspace/smartplan-factor-transition-20261110: Faktor-/Midijob V14 mit
-eigenen Referenzen, Backend- und Clientverträgen. Sie ist noch nicht gesamthaft
-abgeschlossen. Zusätzlich ist eine tatsächliche Ablehnung neuerer reduzierter
-Mitarbeiterbelege durch beide bisherigen Clientleser gefunden; Korrektur und
-eigene Gegenproben fehlen noch. Beides nicht mit dem veröffentlichten Stand vermischen.
+## Aktive Gesamtprüfung: Faktor-/Midijob V14 und Mitarbeiterbeleg-Leser
+
+Arbeitskopie /workspace/smartplan-factor-transition-20261110, Branch
+codex/factor-transition-20261110. Produkt e70b135, lokal mit der getrennten
+Keychain-Reparatur und deren Nachweisen zu13b9092 integriert. Der aktuelle
+Kandidat wird ausschließlich für den autorisierten Testbranch vorbereitet;
+Hauptprojekt-/Remotezeiger und eigene neue Remoteprüfung bleiben getrennt. Der vollständige tatsächliche
+App-Lauf an13b9092 ist abgeschlossen:1961 sichtbare Fälle, kein Fehler/Skip,
+260 verborgene Ladeeinträge ausgeschlossen, success:true1437145ms, Exit0 nach
+1446,014s. Der vollständige Backendlauf mit2133 entdeckten Fällen ist noch aktiv.
+[Enger V14-Vertrag und aktuelle Rohdaten](CRM_ERP_FAKTOR_MIDIJOB_V14_2026-11-10.md).
+
+- Genau ein belegter voller2026-Monat, reguläre KlasseIV mit echtem Faktor,
+  unveränderter Monatsvertrag und separate private Zwölfmonatsprognose.
+ 32 unabhängige XML-Steuerreferenzen und neun DRV-Beitragsbasen geprüft.
+ 55 bestehende Lohnmodule bytegleich; Originalprofil bleibt unverändert.
+- Browser/App mit tatsächlicher Prognoseauswahl, Vorschau, ausdrücklicher
+  Bestätigung und unverändertem Wiederholungsauftrag nach verlorener Antwort.
+ 1077 gesamte Browser-Vertragstests, acht neue native Faktor-Fälle, saubere
+  Appanalyse12,4s und wirklicher MFA-/Chromium-/390px-/Widerrufsablauf bestehen.
+- Echte PostgreSQL-/MFA-/Parallelitäts-/Cash-/EÜR-/Jahres-/CRLF-/volle Restorekette
+  besteht54,205s. Bei1000Euro Brutto: Basen854,06/568,36, Netto874,67,
+  EÜR874,67, Vorsteuer0. Alte Sitzung nach Restore401, neue echte MFA besteht.
+- Gefundene beidseitige Mitarbeiterbeleg-Leserlücke für V10–V14 ist korrigiert.
+  Elf aus tatsächlichen API-Läufen mit unverändertem Projektor/Renderer erzeugte
+  reduzierte JSON-/PDF-Belege bestehen in17 Browser- und18 Appfällen. Unbekannte
+  oder vertauschte Regeln/Umfänge, private Ergänzungen und Fremdzugriff bleiben
+  gesperrt. Kein historischer Beleg oder PDF wird umgeschrieben.
+- 58 gemeinsame Backend-/Belegprojektions-/CI-/Paketfälle bestehen61,686s;
+  nach Integration der iPhone-Reparatur weitere33 Paket-/Auslieferungs-/Inventar-
+  fälle39,748s. Zusätzliche Korrektur bewahrt alte Fälle, Läufe, PDFs und Quittungen.
+  Die vollständige aktuelle App-Schlussmeldung liegt vor; vollständige Backend-
+  Schlussmeldung und eigene neue Remoteprüfung fehlen.
+
+Vorfehler einschließlich echter400 bei widersprüchlichem PG-Testprofil,
+Widget-Test-Timeraufbau und lokalem Zeitzonen-Unterprozess-EPERM bleiben
+unverändert erhalten. Beide eigenen PG-Container sind geprüft entfernt.
 
 ## Abgeschlossen: Installationsstand und vollständige Serverarchive
 
@@ -131,8 +165,10 @@ Die aktuelle App-Gesamtprüfung darf nicht aus diesem Vorgängerwert abgeleitet 
 
 ## Weiterarbeiten bis zum Gesamtziel
 
-1. Die lokal geprüfte Keychain-Reparatur getrennt veröffentlichen und den
-   erneuten wirklichen Apple-Vorbereitungslauf bis zum tatsächlichen Ergebnis auswerten.
+1. Den integrierten V14-Stand mit abgeschlossenem1961-Appnachweis und gezielten
+   Finanz-/Client-/PG-Prüfungen weiter bis zum tatsächlichen Backend- und
+   eigenen Remote-/Paketabschluss bringen. Der Keychain-Reparaturstand40d8fcf
+   besitzt inzwischen sein wirkliches signiertes Paket198.
    Keinen TestFlight-Upload aus der Paketvorbereitung ableiten.
 2. Nur tatsächlich überprüfte Ergebnisse in Matrix, Plan, Fortschritt und diese
    aktuelle Zusammenfassung übernehmen. Neue Nachweispushes nicht unnötig so

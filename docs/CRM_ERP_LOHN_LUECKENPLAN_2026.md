@@ -25,7 +25,9 @@ stehen im [V13-Archiv](evidence/factor-claims-paid-travel-2026-11-10/manifest.js
 und [Installationsarchiv](evidence/installation-context-2026-11-10/manifest.json).
 Dies ist keine unabhängige Lohnfachprüfung oder Meldungsfreigabe.
 
-Offen bleiben insbesondere Faktor-Midijobs und Faktor-Einmalbezüge, zusätzliche
+Der enge [Faktor-Midijob V14](CRM_ERP_FAKTOR_MIDIJOB_V14_2026-11-10.md) ist lokal implementiert und mit beiden Clients sowie vollständiger tatsächlicher PG-/Restorekette geprüft; der aktuelle App-Gesamtlauf besteht1961 Fälle ohne Fehler/Skip, vollständiger Backendlauf noch aktiv, keine Veröffentlichung.
+
+Offen bleiben insbesondere weitere Faktor-Midijobfälle und Faktor-Einmalbezüge, zusätzliche
 Perioden-/Versicherungs-/Leistungsfälle, weitere Source5-Gruppen und Änderungen
 der Brutto-/Steuer-/SV-Zuordnung sowie der neue Korrekturvertrag zur nachträglichen
 V13-Erweiterung bereits verwendeter V10-/V12-Fälle. Die bisher vorhandene
@@ -35,9 +37,12 @@ gesperrt. Sonstige unten genannte noch nicht belegte Fälle bleiben offen.
 
 Für [Source5-Gruppen](CRM_ERP_SOURCE5_MEHRFACH_GRUPPEN_RESTPLAN_2026.md)
 fehlt weiterhin die verifizierte aktuelle Gruppierungsgrundlage. Die ergänzende
-öffentliche Web-Recherche am10.11. findet amtliche2026-Verweise, erhält für die
-vollständigen R39b.6-/§39b-/Inhaltsseiten aber jeweils503. Suchauszüge oder
-ältere Jahresfassungen ersetzen diesen Nachweis nicht; es wird keine neue
+öffentliche Web-Recherche am10.11. findet amtliche2026-Verweise; der erste Abruf
+der vollständigen R39b.6-/§39b-/Inhaltsseiten liefert jeweils503. Bei der erneuten
+Prüfung am selben Tag ist §39b EStG vollständig lesbar und gelesen, die konkrete
+R39b.6-Seite bleibt503. Der Jahressteuervergleich entscheidet das bestehende
+Zusammenfassungs-Gegenbeispiel allein nicht. Suchauszüge oder ältere Jahres-
+fassungen ersetzen den fehlenden Gruppierungsnachweis nicht; es wird keine neue
 Gruppenberechnung daraus freigeschaltet. Reale Fach-/Sicherheitsabnahme und
 Meldezugänge werden getrennt von dieser verbleibenden Codearbeit geführt.
 

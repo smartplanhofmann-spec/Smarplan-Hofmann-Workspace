@@ -59,3 +59,15 @@ Weitere Tage, Teilansprüche, Bruttoänderungen, bereits bezahlte Gruppen und
 Rückzahlungen sind zusätzliche explizite Fälle. Sie dürfen nicht durch eine
 neue Gruppenfreigabe stillschweigend berechenbar werden. Die bisherigen
 gezielten Sperren bleiben bis zum jeweiligen vollständigen Nachweis aktiv.
+
+
+## Quellen-Nachprüfung10.11.2026
+
+Bei der erneuten öffentlichen Primärquellenprüfung ist die aktuelle vollständige
+Fassung von §39b EStG tatsächlich lesbar und gelesen, insbesondere Absatz3 mit
+Jahressteuervergleich und Absatz6 zum maschinellen PAP. Die konkrete aktuelle
+amtliche R39b.6-Seite und die BMF-Inhaltsseite liefern weiterhin503. Der bloße
+Jahressteuervergleich entscheidet das bereits dokumentierte Soli-Gegenbeispiel
+für zwei gleichzeitig gezahlte Ansprüche nicht. Die fehlende einschlägige
+Gruppierungsgrundlage bleibt daher ausdrücklich offen. Kein alter Gruppenkern,
+kein historischer Geldfluss und keine Berechenbarkeitssperre wird geändert.

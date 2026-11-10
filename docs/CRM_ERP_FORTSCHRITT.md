@@ -4252,3 +4252,42 @@ kein endgültiges repariertes IPA bestätigt. Development42806104268 läuft sepa
 Der doppelte gleichbranchige Pushlauf42806103960 ist durch bestehende concurrency
 ersetzt; kein Produktfehler. Bereits abgeschlossene Erstfehler/20 Erfolge sowie
 neue konkrete Laufkennungen bleiben im Auslieferungsnachweis erhalten.
+
+
+## 10.11.2026 – Faktor-Midijob und Mitarbeiterbeleg-Leser integriert, App-Gesamtlauf aktiv
+
+R09.03/D: e70b135 implementiert den ausdrücklich belegten v14-Faktor-Midijob
+und korrigiert die Ablehnung tatsächlicher neuerer reduzierter Mitarbeiterbelege
+in beiden Clients. Historische Lohnmodule, Projektor und Original-PDFs bleiben
+unverändert. Die [gezielten Nachweise](CRM_ERP_FAKTOR_MIDIJOB_V14_2026-11-10.md)
+umfassen1077 Browsermodule, wirklichen MFA-Browser mit zwei verlorenen Antworten
+und eigenem Mitarbeiter-PDF/JSON,58 gemeinsame Backend-/CI-/Paketfälle sowie
+echte vollständige PostgreSQL-/EÜR-/Jahres-/CRLF-/Restorekette54,205s und alte401/
+neueMFA. Nach lokaler Integration der getrennten Keychain-Reparatur13b9092
+bestehen33 Paket-/Auslieferungs-/Inventarfälle39,748s. Der vollständige App-Lauf
+ist um11:34:42UTC gestartet; noch kein Schlussresultat. Kein neuer V14-Push oder
+Liveupdate, laufenden tatsächlichen signierten iPhone-Nachlauf nicht abbrechen.
+
+
+## 10.11.2026 – gesamter V14-Client grün und echte signierte iPhone-Reparatur abgeschlossen
+
+1961 sichtbare Appfälle bestehen ohne Fehler/Skip;260 verborgene Ladeeinträge
+sind ausgeschlossen. Echter success:true-Schluss1437145ms, Runnerexit0 nach
+1446,014s an13b9092. App-/Backendruntime seit Start unverändert.153-Komponenten-
+Inventar stimmt exakt mit dem eingecheckten überein. Der vollständige Backendlauf
+mit2133 entdeckten Fällen bleibt aktiv. Kein neuer V14-Push oder Liveupdate.
+
+Die tatsächliche mobile Sichtprüfung findet und korrigiert den bestehenden
+Arrayindex-/Zeitflagfehler für reine Lohndaten;17 gezielte Vertragsfälle und der
+erneute echte Mitarbeiter-/MFA-/PDF-/JSON-/390px-/Widerrufsablauf bestehen.
+Altes Bild und neue visuelle Gegenprobe sind getrennt erhalten. Ein zusätzlicher
+roter/grüner Workflowtest trennt künftig normale und ausdrücklich signierte
+Läufe;12 gezielte Fälle und YAML/22 Shellblöcke bestehen, Uploadguard bleibt.
+
+Separater tatsächlicher Auslieferungsnachweis an40d8fcf: Development42806104268
+alle20 Gruppen erfolgreich. Manueller iPhone42806142665 beide Jobs erfolgreich,
+finale Keychain-/Team-/Distributionsprüfung und Schlüsselbereinigung erfolgreich.
+Signiertes Paket198: Artefakt13762109533,29866901Bytes; TestFlight-Uploadskipped.
+Das Paket enthält noch keinen V14-Client und beweist keine Geräteabnahme. Der
+öffentliche Serverabruf erhält Cloud-403; beobachtete eingeschränkte Freigabe
+enthält die Domain nicht. Kein bestätigter neuer Ursprungstand oder Liveupdate.

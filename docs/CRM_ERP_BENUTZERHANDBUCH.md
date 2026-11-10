@@ -334,6 +334,38 @@ bleiben erhalten. Ein bereits verwendeter Fall oder eine unvollständige
 Verwendungshistorie bleibt gesperrt und erfordert fachliche Klärung.
 [Geprüfter Umfang und Grenzen](CRM_ERP_FAKTOR_ANSPRUECHE_BEZAHLTE_REISEN_V13_2026-11-10.md).
 
+
+### Midijob mit belegtem ELStAM-Faktor
+
+Den Mitarbeiter in **Personal** öffnen, dann **Lohnberechnung2026 öffnen**,
+**Abrechnungsfälle mit Ansprüchen und Reisen** und
+**Midijob mit belegtem ELStAM-Faktor** wählen. Browser und App bieten die
+getrennte Auswahl der ursprünglichen Monats-, Beschäftigungs-, Profil- und
+Identitätsnachweise. Das tatsächliche Faktorprofil wird dabei nicht geändert.
+
+Das private Prognoseoriginal, seinen Gültigkeitszeitraum, den tatsächlichen
+Prüftag und die ursprüngliche Zwölfmonatsprognose eintragen. Der feste
+regelmäßige Monatslohn, alleinige Beschäftigung und das Fehlen vorhersehbarer
+Einmalbezüge müssen tatsächlich belegt sein und werden nicht vorbestätigt.
+Dieser erste Fall umfasst genau einen vollständigen Monat mit unverändertem
+Monatsvertrag und603,01 bis2000Euro regelmäßigem Monatslohn. Zusätzliche
+Ansprüche, Reisen oder Wechsel benötigen ihren eigenen Abrechnungsfall.
+
+**Faktor-Midijob unverbindlich prüfen** zeigt die getrennten Beitragsbasen,
+Faktorsteuer und das hergeleitete Netto. Erst die Vorschau ausdrücklich
+bestätigen und den Gesamtfall festhalten, danach die Lohnberechnung gesondert
+bestätigen. Im kontrollierten2000-Euro-Beispiel ergeben sich435Euro Arbeitnehmer-
+beiträge,66,33Euro Lohnsteuer und1498,67Euro Netto. Dies sind Testdaten, keine
+Vorgaben für eine andere Person. Eine verlorene Antwort über den bestehenden
+Originalauftrag unverändert wiederholen; eine Berechnung ist kein Zahlungs-
+oder Meldungsnachweis. [Geprüfter Umfang](CRM_ERP_FAKTOR_MIDIJOB_V14_2026-11-10.md).
+
+Die eigene Mitarbeiteransicht kann die daraus erzeugten reduzierten Lohnbelege
+mit PDF, JSON und Historie anzeigen. Private Prognose- und ELStAM-Originale
+bleiben geschützt. Nach einem Rechtewiderruf werden geöffnete Werte entfernt;
+ein laufender Download ist dann nicht mehr freigegeben. Alte Fassungen und
+Originaldateien bleiben unverändert.
+
 ## Assistent, Sprache und Regeln
 
 Der Assistent zeigt seine berechtigten Quellen und schlägt konkrete Aktionen

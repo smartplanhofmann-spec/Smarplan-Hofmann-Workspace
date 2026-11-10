@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "source_commit": "91fa18bf5290ef7f411c7c7d9f722bb78e3dd954",
+  "run": 42816832390,
+  "successful_retry_signed_job": 129852986325,
+  "unsigned_job": 129852988894,
+  "both_jobs_success": true,
+  "first_signed_job": 129847153231,
+  "first_failure": "Apple export network connection lost; following no-profile error",
+  "first_failure_preserved_in": "../qonto-own-account-2026-11-10/v14-actual-signed-network-failure-20261110.log.gz",
+  "signed_artifact": {
+    "id": 13769975157,
+    "name": "Smartplan-Office-iOS-200",
+    "bytes": 29898645,
+    "digest": "sha256:c4104027578eebcb1d111a78047cdd6227a2009848c80ea7980bc7d75570adb9"
+  },
+  "strict_final_signature_team_keychain_verified": true,
+  "temporary_material_cleanup_success": true,
+  "testflight_upload": "skipped",
+  "V14_included": true,
+  "Qonto_included": false,
+  "new_device_acceptance": false,
+  "raw_files": [
+    {
+      "path": "v14-signed-200-job-success-20261110.log.gz",
+      "bytes": 1455508,
+      "sha256": "511b8efcce8a0a20f91e36bbaa291fabc42cac1d22ce872e6de372a0f4606d65"
+    },
+    {
+      "path": "v14-signed-200-artifacts-20261110.json.gz",
+      "bytes": 1823,
+      "sha256": "2fbf393d3b892054e270ba4eee1399da0632070bee0c6371cfa1f34e5ec03d34"
+    },
+    {
+      "path": "v14-signed-200-jobs-20261110.json.gz",
+      "bytes": 7232,
+      "sha256": "0752bd3055ad648e3d1b70375d253819dddddd322a6cea843672019309ca7e6d"
+    }
+  ]
+}

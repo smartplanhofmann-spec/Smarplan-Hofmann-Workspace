@@ -124,7 +124,12 @@
     "upload_to_testflight": false,
     "older_successful_198_not_invalidated": true,
     "rerun_signed_job": 129852986325,
-    "rerun_status": "in_progress"
+    "rerun_status": "success",
+    "signed_artifact_id": 13769975157,
+    "signed_artifact_name": "Smartplan-Office-iOS-200",
+    "final_signature_team_keychain": "success",
+    "testflight_upload": "skipped",
+    "Qonto_included": false
   },
   "boundaries": {
     "new_own_key_not_published": true,

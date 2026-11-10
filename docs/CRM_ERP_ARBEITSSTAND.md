@@ -268,3 +268,13 @@ Envoy. Aktuelle erzwungene Hostfreigabe enthält pim.loxone.com nicht. Der Nutze
 ist um genau diese zusätzliche Freigabe in den Einstellungen gebeten; kein
 Konfigurationswerkzeug verfügbar, kein Umgehen der Netzrichtlinie. Andere
 Arbeiten laufen weiter. Quellen und bestehende Freigaben bleiben erhalten.
+
+
+## Tatsächlicher iPhone-Nachlauf erfolgreich
+
+[Signiertes Paket200](CRM_ERP_IPHONE_SIGNIERTES_PAKET_200_2026-11-10.md) an91fa18b:
+Wiederholungsjob129852986325 erfolgreich, beide Apple-Exporte, strenge finale
+Signatur-/Team-/Keychain-Prüfung und Bereinigung bestehen. Artefakt13769975157
+mit29898645Bytes vorhanden; TestFlight-Uploadskipped. V14 enthalten, Qonto noch
+nicht enthalten. Der tatsächliche erste Netzwerkfehler bleibt erhalten.
+Keine neue Geräteinstallation oder Serveraktualisierung daraus ableiten.

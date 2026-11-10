@@ -4387,3 +4387,14 @@ in den Einstellungen gebeten; keine Geheimnisse angefragt, keine Netzsperre
 umgangen. Alle16 neuen Rohdateien sind im Eigenkonto-Manifest erhalten.
 Gesamtziel, fehlende Fach-/Geräte-/Betriebsabnahmen und übrige Codearbeit
 bleiben ausdrücklich bestehen.
+
+
+## 10.11.2026 – signierter V14-iPhone-Nachlauf200 erfolgreich
+
+Unveränderter Quellstand91fa18b, manueller Lauf42816832390, wiederholter
+Signierjob129852986325 erfolgreich. Zwei tatsächliche Apple-Exporte sowie
+finale Team-/Signatur-/Keychain-Prüfungen und Bereinigung erfolgreich.
+Smartplan-Office-iOS-200: Artefakt13769975157,29898645Bytes; TestFlight
+übersprungen. EnthältV14 und korrigierte Mitarbeiterbelege, noch kein Qonto.
+Vollständige Erfolg-/Job-/Artefaktrohdaten und erster Netzwerkfehler erhalten.
+Keine neue Geräte-/Server-/Fachabnahme daraus ableiten.

@@ -284,3 +284,21 @@ Aktueller Nachlauf: ca14af3/Development42821768166 ist mit allen20 Gruppen
 erfolgreich abgeschlossen. Eigenkonto-Key67b99d3 samt Nachweisen wird jetzt
 für den autorisierten Testbranch veröffentlicht. Die neue eigene Remoteprüfung
 bleibt vom abgeschlossenen Vorläufer getrennt. Keine Liveinstallation.
+
+
+## Eigene Qonto-CI und ergänzte Nutzerentscheidungen10.11.
+
+Quellstand51c731a: alle20 eigenen Development-Gruppen erfolgreich, tatsächliche
+Appsuite1962 Fälle, Backend2133 mit3 Auslassungen; eigener unsignierter
+iPhone-Build202 erfolgreich. Neue signierte Vorbereitung scheitert zunächst
+an fehlender Runnerzuweisung (kein Schritt ausgeführt); genau ein gezielter
+Wiederholungsversuch läuft. Signiertes V14-Paket200 bleibt eigener Nachweis;
+kein TestFlight-Upload oder neues Serverupdate.23 Rohdateien im
+Eigenkonto-Manifest sind geprüft.
+
+Nutzer hat Kreissparkasse Rottweil und Amex Business-Karte präzisiert und
+Loxones Hostfreigabe auf später verschoben. Die Bedeutung der unabhängigen
+Fach-/Sicherheitsabnahme ist erklärt; keine Prüfer benannt oder beauftragt.
+Direkte Providerfreigaben bleiben externe Schritte. Die laufende V15-Arbeitskopie
+hat inzwischen eine vollständige tatsächliche PostgreSQL-/Geld-/Jahres-/
+Restorekette bestanden; ihre Client- und gemeinsame Schlussprüfung läuft noch.

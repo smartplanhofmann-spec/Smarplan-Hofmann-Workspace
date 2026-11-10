@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "own_company_key_tested_predecessor_all20_ci_success_ready_for_authorized_publication",
+  "status": "own_company_key_published_own_all20_ci_success_unsigned_202_success_signed_runner_retry_pending",
   "product_commit": "67b99d3d45b6461d9306a78f9502aa851b46d761",
   "base_published_commit": "ca14af3822aac0706c2acf80bdb568cc5f29afbb",
   "raw_files": [
@@ -88,6 +88,36 @@
       "path": "qonto-readonly-own-development-closed-20261110.json.gz",
       "bytes": 48505,
       "sha256": "bccd3212772508998ac32becd81efe630d32a3eeeeb27cda42fb46af9c352414"
+    },
+    {
+      "path": "qonto51-own-development-closed-20261110.json.gz",
+      "bytes": 52276,
+      "sha256": "26bd092254ca5f1c3a0658ac58b7ddcb48adee2991e8f852239857442ada7d66"
+    },
+    {
+      "path": "qonto51-latest-runs-20261110.json.gz",
+      "bytes": 1017,
+      "sha256": "2bd31ab152f8681710b886b183d8f4251b27e44a8dd34b6db48cbb32854a49c1"
+    },
+    {
+      "path": "qonto51-signed-run-failed-metadata-20261110.json.gz",
+      "bytes": 2824,
+      "sha256": "e93b36695ad3f65f2e46c17def01fd4dfd5d90fd5ecc048bd5f205f917b99fe4"
+    },
+    {
+      "path": "qonto51-signed-cancelled-job-details-20261110.json.gz",
+      "bytes": 1047,
+      "sha256": "17f6e8464a80636e3e61e4575cf5ab7769c8b5e9eee1a3740f1516ee0c98c022"
+    },
+    {
+      "path": "qonto51-full-flutter-job-20261110.json.gz",
+      "bytes": 566256,
+      "sha256": "28998eea40c7cef369a64a3ff7561aae2b933816ff1f961437fabdc8f1ac5b0b"
+    },
+    {
+      "path": "qonto51-full-backend-job-20261110.json.gz",
+      "bytes": 520389,
+      "sha256": "1bde1829db1ee7d9e11d0dac431bb31f4b20fd87b7ff5fcf9a2721e4c1b52f58"
     }
   ],
   "results": {
@@ -151,5 +181,30 @@
     "observed_enforced_policy_contains_host": false,
     "user_setup_question_pending": true,
     "configuration_tool_available": false
-  }
+  },
+  "published_commit": "51c731a453ea756bdbcb07a517762f1e48837256",
+  "own_development_run": {
+    "id": 42827280612,
+    "jobs": 20,
+    "all_success": true
+  },
+  "unsigned_iphone": {
+    "run_id": 42827280641,
+    "artifact_id": 13772996557,
+    "name": "Smartplan-Office-iOS-UNSIGNED-202",
+    "archive_sha256": "361889198a639e42d423ec7ab0bf53e4f5ca363be3cf9263a4965cbdc590d9f6"
+  },
+  "own_signed_preparation": {
+    "run_id": 42827443587,
+    "first_signed_job": 129885997499,
+    "first_conclusion": "cancelled",
+    "runner_id": 0,
+    "steps_executed": 0,
+    "log_fetch": "404_BlobNotFound",
+    "one_targeted_rerun_accepted": true,
+    "upload_to_testflight": false
+  },
+  "own_full_app_cases": 1962,
+  "own_full_backend_cases": 2133,
+  "own_full_backend_skips": 3
 }

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 import 'business_session.dart';
+import 'business_qonto_readonly.dart';
 import 'business_travel_cash.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -507,6 +508,61 @@ class _BusinessBankReconciliationPageState
     } catch (e) {
       if (mounted) setState(() => error = '$e');
     }
+  }
+
+  Future<void> qontoRead() async {
+    await fresh();
+    final status = businessMap(
+      await session.legacyRead('/api/bank-feeds/qonto/status'),
+    );
+    await fresh();
+    if (status['provider'] != 'qonto' ||
+        status['read_only'] != true ||
+        status['configured'] is! bool)
+      _fail('Der Qonto-Verbindungsstand ist nicht eindeutig.');
+    if (status['configured'] != true) {
+      display('qonto-unconfigured', 'Qonto lesen', {});
+      return;
+    }
+    final accountId = '${status['account_id']}';
+    await fresh(account: accountId);
+    await editor(
+      'Qonto lesen',
+      [
+        const BusinessField(
+          'from',
+          'Änderungen ab (UTC, einschließlich)',
+          type: BusinessInput.date,
+          required: true,
+        ),
+        const BusinessField(
+          'to',
+          'Änderungen bis (UTC, ausschließlich)',
+          type: BusinessInput.date,
+          required: true,
+        ),
+      ],
+      (values) async {
+        final body = qontoWindow(values);
+        await fresh(account: accountId);
+        final result = await session.api.call(
+          '/api/bank-feeds/qonto/read',
+          body,
+        );
+        final page = await fresh(account: accountId);
+        final binding = businessItems(page['items'])
+            .firstWhere((v) => v['account_id'] == accountId);
+        final checked = await qontoReadView(
+          result,
+          accountId: accountId,
+          bindingHash: binding['content_hash'],
+          iban: binding['payload']['iban'],
+          body: body,
+        );
+        await fresh(account: accountId);
+        display('qonto', 'Qonto · gelesene Umsatzänderungen', checked);
+      },
+    );
   }
 
   Widget card(String title, List<Widget> children) => Card(
@@ -1209,6 +1265,8 @@ class _BusinessBankReconciliationPageState
     switch (view) {
       case 'accounts':
         return [
+          if (session.hasFeature('qonto_read_only'))
+            action('Qonto-Umsatzänderungen lesen', qontoRead),
           if (bankAdministrative(session))
             action('Vorhandenes Geldkonto mit Bank verbinden', () => binding()),
           for (final item in businessItems(v['items']))
@@ -1230,6 +1288,39 @@ class _BusinessBankReconciliationPageState
             const Notice(
               'Vorhandenes EUR-Geldkonto der Art Bank auswählen. Geldkonten werden unter EÜR-Vorbereitung angelegt.',
             ),
+        ];
+      case 'qonto-unconfigured':
+        return [
+          const Notice(
+            'Qonto ist noch nicht verbunden. Ein Administrator muss den Lesezugang auf dem Server einrichten. Der CSV-Bankabgleich steht weiterhin zur Verfügung.',
+          ),
+          action('Alle Bankkonten', load),
+        ];
+      case 'qonto':
+        return [
+          const Notice(
+            'Dieser Abruf zeigt Umsatzänderungen. Er ist kein vollständiger Kontoauszug und erzeugt keine Zahlung oder Buchung.',
+          ),
+          Text('${v['organization']['name']} · ${v['account_after']['iban']}'),
+          Text(
+            'Aktuell gelesener Saldo: ${businessMoney(qontoMoney(v['account_after']['balance_cents']))}',
+          ),
+          const Notice(
+            'Der Zeitraum bezieht sich auf Änderungen beim Anbieter. Bereits früher gebuchte Umsätze können darin enthalten sein. Vorgemerkte, abgelehnte und stornierte Umsätze sind gesondert gekennzeichnet.',
+          ),
+          for (final row in businessItems(v['items']))
+            card(qontoStatusLabel(row['status'])!, [
+              Text('${row['counterparty'] ?? row['label']}'),
+              Text(
+                '${businessMoney(qontoMoney(row['signed_amount_cents']))} · ${businessDate(row['updated_at'], time: true)}',
+              ),
+            ]),
+          if (businessItems(v['items']).isEmpty)
+            const Notice(
+              'Für diesen Änderungszeitraum wurden keine Umsätze geliefert.',
+            ),
+          action('Erneut lesen', qontoRead),
+          action('Alle Bankkonten', load),
         ];
       case 'account':
         final b = businessMap(v['binding']);

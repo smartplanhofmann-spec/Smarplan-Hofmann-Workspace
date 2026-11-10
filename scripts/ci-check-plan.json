@@ -563,6 +563,22 @@
       "-p",
       "test_provisioning*.py",
       "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_bank_feeds_service.py",
+      "-v"
+    ],
+    [
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_bank_feeds_pg.py",
+      "-v"
     ]
   ],
   "browser": [
@@ -970,6 +986,11 @@
       "id": "accessibility-forms",
       "script": "tests/e2e.cjs",
       "workflow": "accessibility-forms"
+    },
+    {
+      "id": "qonto-readonly",
+      "script": "tests/e2e.cjs",
+      "workflow": "qonto-readonly"
     }
   ]
 }

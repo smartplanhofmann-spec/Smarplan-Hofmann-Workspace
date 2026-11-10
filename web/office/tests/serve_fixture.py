@@ -359,6 +359,7 @@ def main():
     parser.add_argument('--synthetic-company-events', action='store_true', help='Bind only the disposable company event fixture')
     parser.add_argument('--synthetic-speech', action='store_true', help='Inject the explicit test-only local speech transport')
     parser.add_argument('--synthetic-installation-context', action='store_true', help='Record only this disposable fixture source marker')
+    parser.add_argument('--synthetic-qonto', action='store_true', help='Inject synthetic read-only Qonto replies, never a bank connection')
     parser.add_argument('--synthetic-handover', action='store_true', help='Bind only the disposable company archive fixture')
     parser.add_argument('--synthetic-payroll-cash', action='store_true', help='Seed only the payroll workflow financial sources')
     args = parser.parse_args()
@@ -383,6 +384,10 @@ def main():
             ''')
             metadata = seed(office, directory, payroll_cash=args.synthetic_payroll_cash)
             fixture_key = Fernet.generate_key()
+            bank_feeds=None
+            if args.synthetic_qonto:
+                from qonto_fixture import seed_qonto
+                bank_feeds=seed_qonto(office,metadata)
             if args.synthetic_handover or args.synthetic_company_events:
                 from online.instance import bind
                 from online.storage import Storage
@@ -396,7 +401,7 @@ def main():
                 installation.write_context(marker,'1'*40)
                 installation.MARKER=marker
                 metadata['installation_source_commit']='1'*40
-            app = create_app(office=office, key=fixture_key, host='127.0.0.1',
+            app = create_app(office=office, key=fixture_key, host='127.0.0.1', bank_feeds=bank_feeds,
                 **({'storage':storage,'instance_id':fixture_instance} if args.synthetic_handover or args.synthetic_company_events else {}))
             original_unexpected = app.error_handler_spec[None][None][Exception]
             def synthetic_exception_diagnostic(error):

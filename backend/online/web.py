@@ -142,7 +142,7 @@ def dispatch(office, user, path, method, data, token):
 
 
 def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None, storage_config=None,
-               integrations=None, instance_id=None):
+               integrations=None, bank_feeds=None, instance_id=None):
     host = host or os.environ['SMARTPLAN_PUBLIC_HOST']
     if not re.fullmatch(r'[a-z0-9]+(?:[.-][a-z0-9]+)+', host):
         raise RuntimeError('Gültiger öffentlicher Hostname erforderlich.')
@@ -158,6 +158,8 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     office.client_original_key_instance = instance['instance_id'] if instance else None
     from online.integrations_service import OnlineIntegrations, methods as integration_methods
     integrations = integrations or OnlineIntegrations(office, key, host)
+    from online.bank_feeds_service import BankFeeds, methods as bank_feed_methods
+    bank_feeds = bank_feeds or BankFeeds(office)
     # Only this verified online context advertises reachable portal links.
     # Local Office constructors intentionally do not set a public origin.
     office.portal_origin = 'https://' + host
@@ -167,6 +169,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     app.extensions['smartplan_storage'] = storage
     app.extensions['smartplan_onedrive'] = storage.onedrive
     app.extensions['smartplan_integrations'] = integrations
+    app.extensions['smartplan_bank_feeds'] = bank_feeds
     app.extensions['smartplan_instance'] = instance
     app.config.update(MAX_CONTENT_LENGTH=1_000_000, PROPAGATE_EXCEPTIONS=False)
     # Only reachable on loopback; Caddy replaces these two forwarding headers.
@@ -230,6 +233,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                  'payroll-cash.js': 'text/javascript',
                  'service.js': 'text/javascript',
                  'bank-reconciliation.js': 'text/javascript',
+                 'qonto-readonly.js': 'text/javascript',
                  'resource-custody.js': 'text/javascript',
                  'purchase-changes.js': 'text/javascript',
                  'catalog-imports.js': 'text/javascript', 'catalog-prices.js': 'text/javascript',
@@ -417,6 +421,8 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     @app.route('/api/v1/<path:path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
     def api(path):
         path = '/' + path
+        if bank_feed_methods(path):
+            request.max_content_length = 4096
         if path == '/business/assistant/speech/transcribe' and request.method == 'POST':
             request.max_content_length = 2_600_000
         if request.method == 'POST' and re.fullmatch(r'/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files|adapters/[a-f0-9]{32}/import|catalog-prices/sources/[a-f0-9]{32}/imports)', path):
@@ -425,7 +431,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
             request.max_content_length = 7_100_000
         methods = (METHODS.get(path) or
                    next((allowed for pattern, allowed in PATTERNS if re.fullmatch(pattern, path)), None) or
-                   workspace_api.methods(path) or integration_methods(path) or business_api.methods(path))
+                   workspace_api.methods(path) or integration_methods(path) or bank_feed_methods(path) or business_api.methods(path))
         if not methods:
             raise Problem(404, 'Funktion nicht gefunden')
         if request.method not in methods.split(', '):
@@ -435,7 +441,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
             return response
         if path in ('/offline/context', '/offline/access/v2') and request.query_string:
             raise Problem(400, 'Keine zusätzlichen Offline-Filter erlaubt')
-        strict_accounting_body = (path in ('/offline/context', '/offline/access/v2', '/business/client-original-key') or path == '/business/accounting/profile' or
+        strict_accounting_body = (bank_feed_methods(path) or path in ('/offline/context', '/offline/access/v2', '/business/client-original-key') or path == '/business/accounting/profile' or
             path.startswith(('/business/accounting/allocations/', '/business/accounting/components/',
                              '/business/accounting/refunds/', '/business/accounting/profile/')) or
             business_api.strict_report_path(path) or business_api.strict_workflow_path(path))
@@ -452,13 +458,13 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
             if request.headers.get('Content-Encoding', 'identity') != 'identity':
                 raise Problem(400, 'Komprimierte Uploadabschnitte werden nicht unterstützt')
             data = request.get_data(cache=False)
-        elif request.method == 'POST' and (path == '/business/service-reports/offline' or business_api.strict_workflow_path(path)):
+        elif request.method == 'POST' and (bank_feed_methods(path) or path == '/business/service-reports/offline' or business_api.strict_workflow_path(path)):
             if not request.is_json:
                 raise Problem(415, 'JSON-Erfassung erwartet.')
             if path in ('/business/offline/recovery/lookup', '/business/offline/recovery/time-event', '/business/offline/recovery/service-report'):
                 request.max_content_length = 4096
             data = business_api.decode_offline_report(request.get_data(cache=False),
-                max_bytes=(4096 if path in ('/business/offline/recovery/lookup', '/business/offline/recovery/time-event', '/business/offline/recovery/service-report') else
+                max_bytes=(4096 if bank_feed_methods(path) or path in ('/business/offline/recovery/lookup', '/business/offline/recovery/time-event', '/business/offline/recovery/service-report') else
                     2_600_000 if path == '/business/assistant/speech/transcribe' else
                     2_850_000 if re.fullmatch(r'/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files|adapters/[a-f0-9]{32}/import|catalog-prices/sources/[a-f0-9]{32}/imports)', path) else
                     7_100_000 if path in ('/business/bank/import/preview', '/business/bank/statements', '/business/accounting/opening-balances/originals', '/business/accounting/historical-assets/originals', '/business/accounting/open-items/originals', '/business/accounting/year-values/originals') or re.fullmatch(r'/business/catalog-prices/imports/[a-f0-9]{32}/(?:preview|apply)',path) else 1_000_000))
@@ -501,11 +507,16 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                 office, user, path, request.method, data, offline=plan_token,
                 offline_capabilities=plan_access.business_capabilities(office, token) if plan_token else ())
             if path == '/business/capabilities' and not plan_token and isinstance(result, dict):
-                result['features'] = sorted(set(result.get('features', [])) | {'installation_context'})
+                result['features'] = sorted(set(result.get('features', [])) | {'installation_context', 'qonto_read_only'})
             return (jsonify(result), status) if mimetype == 'application/json' and not isinstance(result, workspace_api.BinaryAttachment) else Response(
                 _wsgi_body(result), status=status, mimetype=mimetype,
                 headers={'Content-Disposition': workspace_api.attachment_disposition(
                     getattr(result, 'filename', 'smartplan-dokument'))})
+        if bank_feed_methods(path):
+            if request.query_string or (request.method == 'GET' and request.get_data(cache=False)):
+                raise Problem(400, 'Bankabruf erwartet keine URL-Filter oder GET-Inhalte.')
+            result, status, mimetype = bank_feeds.dispatch(token, path, request.method, data)
+            return jsonify(result), status
         if integration_methods(path):
             # Authenticate without holding Office's transaction over provider IO.
             with office.lock, office.db:

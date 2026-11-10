@@ -25,6 +25,7 @@ MAX_JSON = 2 * 1024 * 1024
 _ROOTS = {
     "sevdesk": "https://my.sevdesk.de/api/v1",
     "google_calendar": "https://www.googleapis.com",
+    "qonto": "https://thirdparty.qonto.com",
 }
 _SEVDESK = re.compile(r"/(?:Contact|Order|Invoice|SevUser)(?:/[1-9][0-9]{0,19})?\Z")
 _GOOGLE = re.compile(
@@ -209,7 +210,8 @@ class IntegrationHttp:
             if any(ord(c) < 32 for c in decoded) or "\\" in decoded or any(p in (".", "..") for p in decoded.split("/")):
                 raise Problem(400, "Ungültiger Anbieterpfad.")
             allowed = ((self.provider == "sevdesk" and bool(_SEVDESK.fullmatch(path))) or
-                       (self.provider == "google_calendar" and bool(_GOOGLE.fullmatch(path))))
+                       (self.provider == "google_calendar" and bool(_GOOGLE.fullmatch(path))) or
+                       (self.provider == "qonto" and path in ("/v2/organization", "/v2/transactions")))
             if not allowed:
                 raise Problem(400, "Nicht erlaubter Anbieterpfad.")
             url = _ROOTS[self.provider] + path
@@ -223,9 +225,19 @@ class IntegrationHttp:
                 raise Problem(400, "Ungültige Anbieterparameter.")
             forbidden = {"access_token", "refresh_token", "api_key", "token", "authorization", "client_secret", "code"}
             for key, value in params.items():
+                if self.provider == "qonto" and key == "status[]":
+                    if (not isinstance(value, list) or not value or len(value) > 4 or
+                            any(v not in ("pending", "declined", "completed", "reversed") for v in value)
+                            or len(set(value)) != len(value)):
+                        raise Problem(400, "Ungültige Anbieterparameter.")
+                    continue
                 if not isinstance(key, str) or key.lower() in forbidden or not isinstance(value, (str, int, bool)) or len(str(value)) > 8192:
                     raise Problem(400, "Ungültige Anbieterparameter.")
-            query = urlencode(params)
+            if self.provider == "qonto":
+                allowed = {"iban", "status[]", "updated_at_from", "updated_at_to", "sort_by", "page", "per_page"}
+                if path == "/v2/organization" or set(params) - allowed:
+                    raise Problem(400, "Nicht erlaubte Anbieterparameter.")
+            query = urlencode(params, doseq=self.provider == "qonto")
             if len(query) > 16384:
                 raise Problem(400, "Zu viele Anbieterparameter.")
             parts = urlsplit(url)
@@ -245,8 +257,8 @@ class IntegrationHttp:
                     len(key) > 200 or len(value) > 16384 for key, value in form.items())):
             raise Problem(400, "Ungültiger Anbieterauftrag.")
         url = self._url(path, method, params, form is not None)
-        if self.provider == "sevdesk" and (json_body is not None or form is not None):
-            raise Problem(400, "Sevdesk wird ausschließlich lesend verwendet.")
+        if self.provider in ("sevdesk", "qonto") and (json_body is not None or form is not None):
+            raise Problem(400, "Diese Verbindung wird ausschließlich lesend verwendet.")
         if self.provider == "google_calendar" and json_body is not None:
             raise Problem(400, "Nicht erlaubte Anbieteroperation.")
         outgoing = {"Accept": "application/json"}

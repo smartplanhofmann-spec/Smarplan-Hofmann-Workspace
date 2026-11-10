@@ -98,11 +98,12 @@ install -d -m 0755 /opt/smartplan-online/releases "$smartplan_release" "$smartpl
   umask 0022
   # Git's default tar.umask=0002 produces group-writable headers. Root tar
   # preserves those permissions unless explicitly told to apply our umask.
-  git -c tar.umask=0022 -C "$smartplan_repo" archive HEAD backend web |
+  git -c tar.umask=0022 -C "$smartplan_repo" archive "$smartplan_commit" backend web |
     tar -x --no-same-permissions -C "$smartplan_release/app"
   python3 -m venv "$smartplan_release/venv"
   "$smartplan_release/venv/bin/python" -m pip install --requirement "$smartplan_release/app/backend/online/requirements.lock"
   "$smartplan_release/venv/bin/python" -m pip check
+  (cd "$smartplan_release/app/backend"; "$smartplan_release/venv/bin/python" -m online.installation --commit "$smartplan_commit")
   "$smartplan_release/venv/bin/python" -m compileall -q "$smartplan_release/app/backend"
 )
 smartplan_helper() { (cd "$smartplan_release/app/backend"; "$smartplan_release/venv/bin/python" -m online.release "$@"); }

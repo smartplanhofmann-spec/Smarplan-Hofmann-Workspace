@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "local_technical_scope_complete_published_independent_ci_running",
+  "status": "local_and_own_remote_technical_scope_complete",
   "base_commit": "798cc61c91c132ddb1d889996cd06dd8ab816d23",
   "core_commit": "7abba321f7c544fe295af15c2e8d0eada88335a2",
   "rule_version": "de_2026_factor_claims_paid_travel_month_v13",
@@ -385,6 +385,21 @@
       "path": "factor-claims-paid-travel-published-development-first-20261110.json.gz",
       "bytes": 28771,
       "sha256": "e8963523d9684737d7356706944c8d095fe0235f62f1ced974c8bc5705406d41"
+    },
+    {
+      "path": "factor-claims-paid-travel-artifacts-closed-20261110.json.gz",
+      "bytes": 11873,
+      "sha256": "98359c4fe427f6a855752434162f6bcbae52c976d2ee935fea65de9823bcfc36"
+    },
+    {
+      "path": "factor-claims-paid-travel-iphone-closed-20261110.json.gz",
+      "bytes": 2264,
+      "sha256": "c0943e4d95cbbebed742217e4c76fec88ef9124d7e06922a6b30cdcb1f272fb7"
+    },
+    {
+      "path": "factor-claims-paid-travel-development-closed-20261110.json.gz",
+      "bytes": 29283,
+      "sha256": "5bbda749f675875cec680b4234fd9837bcb72b71a6ea09c5228af7d77afa8bff"
     }
   ],
   "historical_kernels_unchanged": [
@@ -565,12 +580,13 @@
     "whole_native_runner_seconds": 1344.2936004700023,
     "whole_native_machine_completion_ms": 1339826,
     "whole_native_hidden_loading_entries_not_counted": 257,
-    "development_success_so_far": 16,
-    "development_running": 4,
+    "development_success_so_far": 20,
+    "development_running": 0,
     "development_run": 42783465222,
     "unsigned_iphone_run": 42783465231,
-    "unsigned_iphone_status": "in_progress",
-    "mail_bot_contracts_both_os": true
+    "unsigned_iphone_status": "success",
+    "mail_bot_contracts_both_os": true,
+    "signed_iphone_upload": "skipped"
   },
   "product_commit": "b02c84ab24cbe3331a92df950e74134138865e52",
   "published_commit": "b02c84ab24cbe3331a92df950e74134138865e52",

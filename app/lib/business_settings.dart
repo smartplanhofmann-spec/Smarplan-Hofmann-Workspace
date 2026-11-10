@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'business_session.dart';
+import 'business_installation.dart';
 import 'business_custom_fields.dart';
 import 'business_company_handover.dart';
 import 'business_privacy_cases.dart';
@@ -253,6 +254,7 @@ class _BusinessSettingsPageState extends State<BusinessSettingsPage> {
           ),
           const SizedBox(height: 20),
         ],
+        BusinessInstallationPanel(session: widget.session),
         if (error != null) Notice(error!, error: true),
         if (countryScope != null)
           Card(

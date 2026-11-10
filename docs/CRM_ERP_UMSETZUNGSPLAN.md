@@ -714,3 +714,19 @@ Verwendete V10-/V12-Fälle, weitere fachliche Lohn-/Steuerkombinationen und die
 begonnen ist die ausschließlich lesende Installationskennung mit festem
 Paketnachweis; fünf echte MFA-/Datei-/Rechtefälle bestehen im isolierten
 Arbeitsverzeichnis /workspace/smartplan-installation-context-20261110.
+
+
+## 10.11.2026 – installierter Quellstand und vollständige Serverarchive
+
+R11.04/R15.02/F/G: [Installationsnachweis](CRM_ERP_INSTALLIERTER_QUELLSTAND_2026-11-10.md)
+ist isoliert begonnen. Echter vorheriger MFA-/HTTP404 ist reproduziert; fünf
+neue HTTP-/Dateifälle, zwei Browserverträge, zehn native gemeinsame Prüfungen,
+saubere Analyse25,4s und echter MFA-/Chromium-/390px-/Rechteentzug bestehen.
+Die zwei wirklichen Git-/Tar-Gegenprüfungen bestätigen eine zusätzliche Lücke:
+Archivierung von HEAD konnte vom zuvor ausgewählten Stand abweichen. Beide
+Betreiberbefehle archivieren jetzt den festgelegten Commit; die Erstinstallation
+enthält nun auch die zuvor fehlenden Browserdateien. Der Paketmarker ist nur
+lesbar und pro Prozess eingefroren; unbekannter Stand wird nicht geraten.
+Volle Betreiber-/PG-/Restore-/Paket- und Schlussnachweise laufen; noch nicht
+veröffentlicht, keine neue Serverinstallation. V13 bleibt lokal vollständig
+geprüft und als Produkt b02c84a veröffentlicht; alle20 eigenen Development-Jobs und sein unsignierter iPhone-Build bestehen; signierter Upload übersprungen.

@@ -358,6 +358,7 @@ def main():
     parser.add_argument('--port', type=int, default=0)
     parser.add_argument('--synthetic-company-events', action='store_true', help='Bind only the disposable company event fixture')
     parser.add_argument('--synthetic-speech', action='store_true', help='Inject the explicit test-only local speech transport')
+    parser.add_argument('--synthetic-installation-context', action='store_true', help='Record only this disposable fixture source marker')
     parser.add_argument('--synthetic-handover', action='store_true', help='Bind only the disposable company archive fixture')
     parser.add_argument('--synthetic-payroll-cash', action='store_true', help='Seed only the payroll workflow financial sources')
     args = parser.parse_args()
@@ -389,6 +390,12 @@ def main():
                 storage = Storage(office, fixture_key, '127.0.0.1', config={'server': {'path': str(directory/'handover-storage')}})
                 bind(office, fixture_instance, '127.0.0.1', fixture_key, storage)
                 metadata['handover_instance_id'] = fixture_instance
+            if args.synthetic_installation_context:
+                from online import installation
+                marker=directory/'BUILD_SOURCE.json'
+                installation.write_context(marker,'1'*40)
+                installation.MARKER=marker
+                metadata['installation_source_commit']='1'*40
             app = create_app(office=office, key=fixture_key, host='127.0.0.1',
                 **({'storage':storage,'instance_id':fixture_instance} if args.synthetic_handover or args.synthetic_company_events else {}))
             original_unexpected = app.error_handler_spec[None][None][Exception]

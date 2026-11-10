@@ -121,7 +121,7 @@ if command == 'git':
         for index, argument in enumerate(args[:-1]):
             if argument == '-c' and args[index + 1].startswith('tar.umask='):
                 archive_umask = int(args[index + 1].split('=', 1)[1], 8)
-        event('archive', paths=args[args.index('archive') + 2:], tar_umask=archive_umask)
+        event('archive', source_commit=args[args.index('archive')+1], paths=args[args.index('archive') + 2:], tar_umask=archive_umask)
         with tarfile.open(fileobj=sys.stdout.buffer, mode='w|') as archive:
             for name in ('backend', 'backend/online', 'web', 'web/office'):
                 info = tarfile.TarInfo(name + '/')
@@ -129,6 +129,7 @@ if command == 'git':
                 archive.addfile(info)
             for name, data in {'backend/generation': b'new\n', 'backend/online/requirements.lock': b'',
                                'backend/online/release.py': b'# Synthetic boundary\n',
+                               'backend/online/installation.py': Path('/source/backend/online/installation.py').read_bytes(),
                                'backend/business_schema.py': b'# Synthetic boundary\n',
                                'web/office/index.html': b'<title>Synthetic office fixture</title>'}.items():
                 info = tarfile.TarInfo(name)
@@ -360,6 +361,12 @@ elif command in ('python', 'python3', 'python3.12'):
             if scenario['fault'] == 'install_pip_' + args[2]:
                 sys.exit(1)
         sys.exit(0)
+    if args[:2] == ['-m', 'online.installation']:
+        event('installation_marker', arguments=args[2:], cwd=os.getcwd())
+        if scenario['fault'] == 'installation_marker':
+            sys.exit(1)
+        # Execute the actual archived standard-library writer, not a fabricated receipt.
+        os.execv('/usr/local/bin/python3', ['/usr/local/bin/python3', *args])
     if args[:2] == ['-m', 'online.import_worker']:
         status = Path('/proc/self/status').read_text()
         nnp = int(next(line.split(':', 1)[1].strip() for line in status.splitlines() if line.startswith('NoNewPrivs:')))

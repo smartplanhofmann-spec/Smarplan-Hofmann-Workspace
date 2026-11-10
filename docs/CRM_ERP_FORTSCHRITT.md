@@ -4078,3 +4078,48 @@ Verwendete V10-/V12-Fälle, weitere fachliche Lohn-/Steuerkombinationen und die
 begonnen ist die ausschließlich lesende Installationskennung mit festem
 Paketnachweis; fünf echte MFA-/Datei-/Rechtefälle bestehen im isolierten
 Arbeitsverzeichnis /workspace/smartplan-installation-context-20261110.
+
+
+## 10.11.2026 – installierter Quellstand und vollständige Serverarchive
+
+R11.04/R15.02/F/G: [Installationsnachweis](CRM_ERP_INSTALLIERTER_QUELLSTAND_2026-11-10.md)
+ist isoliert begonnen. Echter vorheriger MFA-/HTTP404 ist reproduziert; fünf
+neue HTTP-/Dateifälle, zwei Browserverträge, zehn native gemeinsame Prüfungen,
+saubere Analyse25,4s und echter MFA-/Chromium-/390px-/Rechteentzug bestehen.
+Die zwei wirklichen Git-/Tar-Gegenprüfungen bestätigen eine zusätzliche Lücke:
+Archivierung von HEAD konnte vom zuvor ausgewählten Stand abweichen. Beide
+Betreiberbefehle archivieren jetzt den festgelegten Commit; die Erstinstallation
+enthält nun auch die zuvor fehlenden Browserdateien. Der Paketmarker ist nur
+lesbar und pro Prozess eingefroren; unbekannter Stand wird nicht geraten.
+Volle Betreiber-/PG-/Restore-/Paket- und Schlussnachweise laufen; noch nicht
+veröffentlicht, keine neue Serverinstallation. V13 bleibt lokal vollständig
+geprüft und als Produkt b02c84a veröffentlicht; seine eigene CI läuft unabhängig.
+
+
+## Tatsächlicher gemeinsamer Zwischenabschluss
+
+1058 Browsermodule ohne Fehler/Skip,35 gemeinsame HTTP-/CI-/Archiv-/Paket-/
+Inventarfälle in48,814s, zehn native Einstellungsfälle und saubere Analyse25,4s
+bestehen. Der abschließende echte MFA-/Chromium-/390px-/Widerrufsablauf besteht.
+Der erste isolierte Betreiberlauf besteht mit88 Fällen in659,471s; nach den
+anschließend eingebundenen festen Commit-Assertions läuft die vollständige
+Wiederholung am endgültigen unveränderten Stand. Die komplette aktuelle App-
+Suite ist ebenfalls aktiv; daraus wird noch kein Abschluss behauptet.
+
+Der echte PostgreSQL-/Runtime-/MFA-/vollständige Restorefall besteht in30,201s.
+Fachjournal-Zeilen bleiben beim Lesen unverändert. Ein Wiederherstellen übernimmt
+keinen alten Code-Marker; eine neu gestartete App liest ihren eigenen neuen
+Paketstand. Die alte Sitzung wird korrekt mit401 abgewiesen, danach wird eine
+wirkliche neue MFA-Anmeldung mit frischem TOTP-Zeitfenster verwendet. Frühere
+Test-SQL-, Speicher- und Alt-Sitzungs-Erwartungsfehler bleiben erhalten. Alle
+vier eigenen PG-Container wurden nach ID-/Aufgabenlabel-/Loopback-Prüfung
+entfernt; letzterPort32807. Es wurden nur ignorierte Test-Buildcaches abgeschlossener
+Arbeitskopien freigegeben; Quellen, Branches und Nachweise bleiben erhalten.
+
+[Rohe Prüfdateien und genauer Stand](evidence/installation-context-2026-11-10/manifest.json).
+Eine zusätzliche Prüfung des tatsächlich eingecheckten vollständigen Git-
+Quellarchivs ist vorbereitet und wird nach diesem ersten Corecommit ausgeführt.
+Neue Veröffentlichung, eigener Remote-CI-Stand, Liveinstallation und reale
+Geräteabnahme bleiben separat. Der Vorgänger b02c84a besteht inzwischen alle20
+Development-Jobs, seinen unsignierten iPhone-Build und beide Mailbot-Verträge;
+signierter Upload übersprungen. Gesamtauftrag aktiv.

@@ -1,3 +1,4 @@
+import {readInstallationContext} from './installation-context.js';
 import {stockReturnsUi,isStockReturn,stockReturnPendingAuthorize,stockReturnOriginal,stockReturnKey,stockReturnReceipt,stockReturnRights,stockReturnMovement} from './stock-returns.js';
 import {browserOriginalJournal,originalCanonical} from './original-journal.js';
 import {privateCarMileageUi,MILEAGE_FEATURE,MILEAGE_READ_FEATURE} from './private-car-mileage.js';
@@ -3032,12 +3033,26 @@ export function commercialCountryScopeView(scope, settings) {
     unsupported:!scope.supported_issuer};
 }
 
+async function installationDialog() {
+  const stamp = `${api.generation}/${state.render}`;
+  const current = () => stamp === `${api.generation}/${state.render}` && !!state.user &&
+    has('settings.manage') && document.visibilityState !== 'hidden';
+  const value = await readInstallationContext(api,{current});
+  if(!current())return;
+  dialog('Installierter Serverstand',el('div',{class:'stack'},
+    notice(value.recorded?'Quellstand beim Paketbau festgehalten.':'Für diese laufende Installation ist kein verlässlicher Paketstand erfasst. Der Stand wird nicht aus einer Arbeitskopie abgeleitet.'),
+    value.recorded?el('p',{},el('strong',{},'Installierter Quellstand: '),el('code',{},value.source)):null,
+    el('p',{},`API-Kompatibilität: ${value.compatibility}`),
+    el('p',{class:'muted'},'Die Kompatibilitätskennung ist keine App-Buildnummer. Eine neuere App aktualisiert den verbundenen Server nicht automatisch.')));
+}
+
 async function settingsView() {
   const [branding,statuses,organization]=await Promise.all([api.get(biz('/settings/branding')),api.get(biz('/project-statuses')),
     state.features.has('organization_modules')?api.get(biz('/organization')):Promise.resolve(null)]);
   const countryScope=state.features.has('commercial_country_scope')?
     commercialCountryScopeView(await api.get(biz('/commercial/rule-scope')),branding):null;
   const content=el('div',{class:'stack'},heading('Einstellungen','Betriebsdaten und Freigaben. Externe Integrationen bleiben ausdrücklich getrennt.'),
+    state.features.has('installation_context')&&has('settings.manage')?panel('Version und Support',el('p',{},'Den Paketstand der verbundenen Serverinstallation lesen.'),button('Serverstand anzeigen',()=>action(()=>installationDialog()),'small')):null,
     countryScope?panel('Länderumfang der Rechnungsstellung',notice(countryScope.message,countryScope.unsupported?'warn':'info')):null,
     organization?organizationPanel(organization):null,
     yearValuesWorkspace.available()?panel('Belegte frühere Jahreswerte',notice('Originalgebundene historische Journalzeilen vor Softwarebeginn; keine neue Zahlung und kein neuer Vorsteueranspruch.'),button('Jahresvorträge öffnen',()=>action(()=>yearValuesWorkspace.open()),'small')):null,

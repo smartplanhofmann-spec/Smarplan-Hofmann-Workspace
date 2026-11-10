@@ -16,7 +16,10 @@ import workspace_api
 import business_api
 from online.plan_imports import PlanImports, CHUNK_SIZE, ensure_sqlite_schema
 
+API_COMPATIBILITY_VERSION = '0.12.0-online-pilot'
+
 METHODS = {
+    '/business/installation': 'GET',
     '/business/client-original-key': 'GET',
     '/offline/access': 'POST', '/offline/access/v2': 'POST', '/offline/context': 'GET', '/offline/logout': 'POST',
     '/me': 'GET', '/logout': 'POST', '/users': 'GET, POST',
@@ -158,6 +161,8 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     # Only this verified online context advertises reachable portal links.
     # Local Office constructors intentionally do not set a public origin.
     office.portal_origin = 'https://' + host
+    from online.installation import read_context
+    installation_context = {**read_context(), 'api_compatibility_version': API_COMPATIBILITY_VERSION}
     app = Flask(__name__, static_folder=None)
     app.extensions['smartplan_storage'] = storage
     app.extensions['smartplan_onedrive'] = storage.onedrive
@@ -192,6 +197,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     @app.get('/office/<asset>')
     def office_browser(asset='index.html'):
         types = {'index.html': 'text/html', 'office.js': 'text/javascript', 'office.css': 'text/css',
+                 'installation-context.js': 'text/javascript',
                  'original-journal.js': 'text/javascript',
                  'time-tracking.js': 'text/javascript', 'document-time-sources.js': 'text/javascript',
                  'project-economics.js': 'text/javascript', 'project-milestones.js': 'text/javascript', 'maintenance-contracts.js': 'text/javascript', 'asset-provenance.js': 'text/javascript',
@@ -303,7 +309,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                 business_caps = list(storage['capabilities'])
                 if set(business_schema.MODULE_NAMES).issubset(business_caps):
                     business_caps.append('business_suite')
-            return jsonify(status='ok', version='0.12.0-online-pilot', database='ok',
+            return jsonify(status='ok', version=API_COMPATIBILITY_VERSION, database='ok',
                            schema_version=storage['storage_version'],
                            compatibility_mode=storage['compatibility_mode'],
                            capabilities=['project_plans', 'offline_plan_access', 'plan_imports', 'plan_deletion',
@@ -472,6 +478,14 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                 re.fullmatch(r'/projects/[a-f0-9]{32}/plans(?:/[a-f0-9]{32})?', path) or
                 re.fullmatch(r'/projects/[a-f0-9]{32}/plan-imports(?:/[a-f0-9]{32}(?:/(?:complete|source|preview|result|chunks/[0-9]{1,3}))?)?', path)):
             raise Problem(403, 'Offline-Zugang erlaubt ausschließlich Projektpläne und Planquellen')
+        if path == '/business/installation':
+            if request.query_string or request.get_data(cache=False):
+                raise Problem(400, 'Installationsstand erwartet keine Filter oder Inhalte.')
+            from business_foundation import require_permission
+            with office.lock, office.db:
+                user = office.user(token)
+                require_permission(office, user, 'settings.manage')
+                return jsonify(installation_context)
         if path == '/business/client-original-key':
             from online.client_originals import wrapping_key
             with office.lock, office.db:
@@ -486,6 +500,8 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
             result, status, mimetype = business_api.dispatch(
                 office, user, path, request.method, data, offline=plan_token,
                 offline_capabilities=plan_access.business_capabilities(office, token) if plan_token else ())
+            if path == '/business/capabilities' and not plan_token and isinstance(result, dict):
+                result['features'] = sorted(set(result.get('features', [])) | {'installation_context'})
             return (jsonify(result), status) if mimetype == 'application/json' and not isinstance(result, workspace_api.BinaryAttachment) else Response(
                 _wsgi_body(result), status=status, mimetype=mimetype,
                 headers={'Content-Disposition': workspace_api.attachment_disposition(

@@ -136,6 +136,8 @@ class OperatorFlowFixture:
         target = APP if physical else APP / 'releases/old'
         (target / 'app/backend').mkdir(parents=True, exist_ok=True)
         (target / 'app/backend/generation').write_text('old\n')
+        (target / 'app/backend/online').mkdir(exist_ok=True)
+        (target / 'app/backend/online/BUILD_SOURCE.json').write_text(json.dumps(dict(schema_version=1,source_commit=OLD)))
         (target / 'venv/bin').mkdir(parents=True, exist_ok=True)
         binary = target / 'venv/bin/python'
         if binary.is_symlink():
@@ -188,9 +190,16 @@ class UpdateFlowTests(OperatorFlowFixture, unittest.TestCase):
         self.assertEqual(metadata['original_commit'], OLD)
         self.assertEqual(metadata['new_commit'], NEW)
         self.assertTrue(metadata['previous_app_was_link'])
+        self.assertEqual(json.loads((APP / 'app/backend/online/BUILD_SOURCE.json').read_text()),
+                         dict(schema_version=1,source_commit=NEW))
+        self.assertEqual(json.loads((Path(metadata['previous_app'])/'backend/online/BUILD_SOURCE.json').read_text()),
+                         dict(schema_version=1,source_commit=OLD))
         events = self.events()
+        marker = next(i for i,e in enumerate(events) if e['event']=='installation_marker')
+        self.assertEqual(next(e for e in events if e['event']=='archive')['source_commit'],NEW)
         prepare = next(i for i, event in enumerate(events) if event.get('action') == 'prepare')
         stopped = next(i for i, event in enumerate(events) if event.get('unit') == 'smartplan-online.service' and event.get('action') == 'stop')
+        self.assertLess(marker,stopped)
         activating = next(i for i, event in enumerate(events) if event.get('action') == 'phase' and event['flags'].get('--value') == 'activating')
         public_write = next(i for i, event in enumerate(events) if event['event'] == 'public_write')
         gate_restart = next(i for i, event in enumerate(events) if event.get('unit') == 'smartplan-https.service' and event.get('action') == 'restart')
@@ -214,6 +223,14 @@ class UpdateFlowTests(OperatorFlowFixture, unittest.TestCase):
         for item in Path(metadata['new_release']).rglob('*'):
             if not item.is_symlink():
                 self.assertEqual(item.stat().st_mode & 0o022, 0, str(item))
+
+    def test_failed_source_marker_preparation_keeps_original_release_and_does_not_enter_maintenance(self):
+        self.configure(fault='installation_marker')
+        result=self.run_update()
+        self.assertNotEqual(result.returncode,0)
+        self.assert_old_release()
+        self.assertEqual(json.loads((APP/'app/backend/online/BUILD_SOURCE.json').read_text())['source_commit'],OLD)
+        self.assertFalse(any(e.get('event')=='helper' and e.get('action')=='phase' for e in self.events()))
 
     def test_exact_legacy_caddy_is_migrated_only_after_candidate_verification(self):
         old = CHECKOUT / 'deploy/hetzner/online/Caddyfile.v0.11'

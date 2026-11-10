@@ -34,16 +34,18 @@ smartplan_listen="$(runuser -u postgres -- psql --no-psqlrc -Atqc 'SHOW listen_a
 [[ -z "$(runuser -u postgres -- psql --no-psqlrc -Atqc "SELECT 1 FROM pg_roles WHERE rolname='smartplan-online'")" ]] || fail 'Datenbankrolle existiert bereits.'
 [[ -z "$(runuser -u postgres -- psql --no-psqlrc -Atqc "SELECT 1 FROM pg_database WHERE datname='smartplan_online'")" ]] || fail 'Datenbank existiert bereits.'
 
+smartplan_install_commit="$(git -C "$smartplan_repo" rev-parse HEAD)"
 install -d -m 0755 /opt/smartplan-online /opt/smartplan-online/app
 (
   umask 0022
-  git -c tar.umask=0022 -C "$smartplan_repo" archive HEAD backend |
+  git -c tar.umask=0022 -C "$smartplan_repo" archive "$smartplan_install_commit" backend web |
     tar -x --no-same-permissions -C /opt/smartplan-online/app
   python3 -m venv /opt/smartplan-online/venv
   /opt/smartplan-online/venv/bin/python -m pip install --requirement /opt/smartplan-online/app/backend/online/requirements.lock
   /opt/smartplan-online/venv/bin/python -m pip check
+  (cd /opt/smartplan-online/app/backend; /opt/smartplan-online/venv/bin/python -m online.installation --commit "$smartplan_install_commit")
 )
-git -C "$smartplan_repo" rev-parse HEAD > /opt/smartplan-online/SOURCE_COMMIT
+printf '%s\n' "$smartplan_install_commit" > /opt/smartplan-online/SOURCE_COMMIT
 chmod 0644 /opt/smartplan-online/SOURCE_COMMIT
 useradd --system --user-group --no-create-home --home-dir /var/lib/smartplan-online --shell /usr/sbin/nologin smartplan-online
 install -d -m 0700 -o smartplan-online -g smartplan-online /var/lib/smartplan-online

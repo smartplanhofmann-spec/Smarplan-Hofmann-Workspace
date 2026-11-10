@@ -180,3 +180,15 @@ Verwendete V10-/V12-Fälle, weitere fachliche Lohn-/Steuerkombinationen und die
 begonnen ist die ausschließlich lesende Installationskennung mit festem
 Paketnachweis; fünf echte MFA-/Datei-/Rechtefälle bestehen im isolierten
 Arbeitsverzeichnis /workspace/smartplan-installation-context-20261110.
+
+
+## Eigene entfernte Prüfungen abgeschlossen
+
+Produkt b02c84ab24cbe3331a92df950e74134138865e52 besteht alle20 Development-
+42783465222-Jobs, den unsignierten iPhone42783465231-Release und beide
+Mailbot-Vertragsjobs42783465489. Signierter Upload bleibt übersprungen.
+[Abgeschlossener echter Abruf](evidence/factor-claims-paid-travel-2026-11-10/factor-claims-paid-travel-development-closed-20261110.json.gz).
+Tatsächlich gebautes [Windows-Online-Paket](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42783465222/artifacts/13749327057)
+mit Quellbindung b02c84a ist vorhanden (22166950Bytes); Windows-Lokalpaket
+13749646662 und Start-/Sicherungsarchiv13746718146 sind ebenfalls vorhanden.
+Kein neuer Server- oder tatsächlicher Gerätestand wird daraus abgeleitet.

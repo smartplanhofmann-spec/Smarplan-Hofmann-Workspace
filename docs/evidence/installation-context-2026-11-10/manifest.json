@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "status": "core_committed_whole_native_and_final_operator_run_pending",
+  "base_commit": "8e6cff5fabdd34ca58ed52e4fb2cc9b8ecfb1e7c",
+  "raw_files": [
+    {
+      "path": "installation-context-analyze-first-20261110.txt.gz",
+      "bytes": 97,
+      "sha256": "96325d9d27918636db04c811a9f587170c28b988ac74e06b794d9a77a8fa3f16"
+    },
+    {
+      "path": "installation-context-browser-contract-first-20261110.txt.gz",
+      "bytes": 328,
+      "sha256": "765fb532dcd0549b7c807755107c516c87dcaf0110a095b1dfa57f316bfb47a3"
+    },
+    {
+      "path": "installation-context-browser-first-20261110.txt.gz",
+      "bytes": 289,
+      "sha256": "1e3c94a808e4fd6a7911318d64287ce85458f561ffaa42b1ebfc4132df5b5b52"
+    },
+    {
+      "path": "installation-context-browser-second-20261110.txt.gz",
+      "bytes": 289,
+      "sha256": "1e3c94a808e4fd6a7911318d64287ce85458f561ffaa42b1ebfc4132df5b5b52"
+    },
+    {
+      "path": "installation-context-ci-final-20261110.txt.gz",
+      "bytes": 2037,
+      "sha256": "1e1b86ec70c337dd92d3cdc6c805556523584c380dcd5601dde6b0b2727eb2ea"
+    },
+    {
+      "path": "installation-context-common-package-first-20261110.txt.gz",
+      "bytes": 7976,
+      "sha256": "7caea1cce2368d32fa3ce892541ec7e22e72ae237607461e8c55798ddf03051f"
+    },
+    {
+      "path": "installation-context-completed-test-cache-cleanup-20261110.json.gz",
+      "bytes": 306,
+      "sha256": "a3ef6d2dc37372b1a75db0ee4e7a7735c547d86da8ef581c2c54805aa3fc7613"
+    },
+    {
+      "path": "installation-context-earlier-test-cache-cleanup-20261110.json.gz",
+      "bytes": 933,
+      "sha256": "4586b10ba619f764572aa84a083994a575c85d64a98fa98646c18e1df55742b2"
+    },
+    {
+      "path": "installation-context-http-before-20261110.txt.gz",
+      "bytes": 1359,
+      "sha256": "abbf2026990361344ba7b511599d8691adb0a26de23582af00c9f50025ae9484"
+    },
+    {
+      "path": "installation-context-http-ci-first-20261110.txt.gz",
+      "bytes": 3118,
+      "sha256": "e2e7d3243cba4816bfc47087d52dfdcf276c35fc4de2117e643397d22d3c8518"
+    },
+    {
+      "path": "installation-context-http-first-20261110.txt.gz",
+      "bytes": 307,
+      "sha256": "f098f1660dd7a92bbdabc72675ca40d777de4a3761270b20f8d0a752ca34d571"
+    },
+    {
+      "path": "installation-context-http-marker-first-20261110.txt.gz",
+      "bytes": 1178,
+      "sha256": "7a530c5e05fcee6c1751c67f9f14ec115704c5e9ebddda063a55302a7ff55447"
+    },
+    {
+      "path": "installation-context-native-final-20261110.txt.gz",
+      "bytes": 1933,
+      "sha256": "6e5ec8c4291699b2e18476ae4367c41e79283ce1ebbf64d26cf20fe54acdfa23"
+    },
+    {
+      "path": "installation-context-native-first-20261110.txt.gz",
+      "bytes": 4646,
+      "sha256": "2f5cbfcc2b6c0b0da79c8439194c0d02916417ab1437936abe1494109f652cf6"
+    },
+    {
+      "path": "installation-context-native-second-20261110.txt.gz",
+      "bytes": 1933,
+      "sha256": "98e6a1f6e5928e2f1035cc8ea609e9bce5b60034f415441f92da547bfde1e110"
+    },
+    {
+      "path": "installation-context-own-pg-20261110.json.gz",
+      "bytes": 153,
+      "sha256": "8dfca15d52cec57221d56771b7b5ab93feda4cadb724ffc9ef076b09f04c6eff"
+    },
+    {
+      "path": "installation-context-own-pg-first-20261110.json.gz",
+      "bytes": 153,
+      "sha256": "c5480b7fa2fd2b587ec2b8f478cfb4117e60abdc94386b76976dbb138b9a67dc"
+    },
+    {
+      "path": "installation-context-own-pg-second-20261110.json.gz",
+      "bytes": 153,
+      "sha256": "3b8bd2fb022d0e415374a3a1b83449dba7eaf48e4d06fbdb04a28c25b487f27e"
+    },
+    {
+      "path": "installation-context-own-pg-third-20261110.json.gz",
+      "bytes": 153,
+      "sha256": "92e58a0f1e114682fe8d73077f751af95e183682905cf4987093cd77193c1a75"
+    },
+    {
+      "path": "installation-context-pg-first-20261110.txt.gz",
+      "bytes": 1750,
+      "sha256": "4a64a0e7659b82d97ce504204e602c4f026277849cb49e110e1a737d94e7830a"
+    },
+    {
+      "path": "installation-context-pg-first-result-20261110.json.gz",
+      "bytes": 262,
+      "sha256": "78335b497b45a18345e19beebbca9b5871623fdc4baaafbfcb8e7bb6353aff37"
+    },
+    {
+      "path": "installation-context-pg-fourth-20261110.txt.gz",
+      "bytes": 330,
+      "sha256": "2e0955ab40952bc5456f51a5950d24ba5b1826a38cba2de47aae634f1aa1d5be"
+    },
+    {
+      "path": "installation-context-pg-result-20261110.json.gz",
+      "bytes": 262,
+      "sha256": "8d8dd18b3cfd80737d1c2ee95d6f01b2d7f8d3fc7b2a83e18448f2abcc84f968"
+    },
+    {
+      "path": "installation-context-pg-second-20261110.txt.gz",
+      "bytes": 1761,
+      "sha256": "4edb87d6dbd184c42e648f120f4710b279a950bda7c7311c974efbfbd8d40ce2"
+    },
+    {
+      "path": "installation-context-pg-second-result-20261110.json.gz",
+      "bytes": 261,
+      "sha256": "070918044291eab433c621333154b3dbd2159cb8392f852a1007ccc83733cfac"
+    },
+    {
+      "path": "installation-context-pg-third-20261110.txt.gz",
+      "bytes": 1085,
+      "sha256": "8cc0317b29310e0f1bd81cfeb853c93a6df5a2cf3357d110a17317b066dc7ced"
+    },
+    {
+      "path": "installation-context-pg-third-result-20261110.json.gz",
+      "bytes": 262,
+      "sha256": "61c890d25b07ad8d2f73599039a1cf32a524b932d10332ba638510f01ad5cb83"
+    },
+    {
+      "path": "installation-context-proof-base-integration-20261110.txt.gz",
+      "bytes": 2789,
+      "sha256": "8f917068b8594097123cb43927b6b0c3a4107b041e8af8f5241aae06ad2ddc10"
+    },
+    {
+      "path": "installation-context-pubget-20261110.txt.gz",
+      "bytes": 68,
+      "sha256": "d4cb7a3c68b4133b4f6e58c67ff5bfd13725d8021e930388cdc98da8a575919d"
+    },
+    {
+      "path": "installation-context-real-archive-after-20261110.txt.gz",
+      "bytes": 322,
+      "sha256": "d48e1e0f549ce00b5df120c9179873f3290c5342357f7d143c345e67544fd4f9"
+    },
+    {
+      "path": "installation-context-real-archive-before-20261110.txt.gz",
+      "bytes": 2575,
+      "sha256": "ad9f9e5c7e10d9637b62579b2db218c4171524b97b57730728d686f6d03191fe"
+    },
+    {
+      "path": "installation-context-update-flow-first-20261110.txt.gz",
+      "bytes": 16348,
+      "sha256": "d7d02fb45ca4eacf4fd6e6fa6c59905b4f329c1d09b76b4eab13e98edeec0aaa"
+    },
+    {
+      "path": "installation-context-whole-node-first-20261110.txt.gz",
+      "bytes": 108755,
+      "sha256": "fc4f515bb589ea79082bed0d3a7f8526a5252b6f9e73f8bee0412af07dda433b"
+    },
+    {
+      "path": "installation-context-worktree-20261110.txt.gz",
+      "bytes": 3284,
+      "sha256": "b017bf5e8bffd1cd3b4a33e24464c42ed63da249e0d1ac279cb02f6f076c51f3"
+    },
+    {
+      "path": "installation-source-mobile.png",
+      "bytes": 76294,
+      "sha256": "260f981382c3c28a4f4b9f922a20d236015edcaae69f682c1cb7a745359752f5"
+    }
+  ],
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "actual_results": {
+    "browser_modules": 1058,
+    "http_ci_archive_package": 35,
+    "native_focused_and_previous_settings": 10,
+    "analysis_clean_seconds": 25.4,
+    "actual_mfa_browser": true,
+    "actual_pg_mfa_full_restore_seconds": 30.201,
+    "old_session_after_restore_rejected": true,
+    "new_mfa_after_restore_required": true,
+    "all_own_pg_removed": true,
+    "first_operator_run_cases": 88,
+    "first_operator_run_seconds": 659.471,
+    "final_operator_run": "running",
+    "whole_native": "running",
+    "actual_current_commit_archive_runtime": "pending_core_commit",
+    "live_deployment": false,
+    "real_device_acceptance": false
+  }
+}

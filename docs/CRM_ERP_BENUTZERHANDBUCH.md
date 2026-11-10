@@ -23,6 +23,16 @@ Nettopreise. Den tatsächlichen Gültigkeitsbeginn, Geldkonten, Anfangsbestände
 Ausstellerangaben tragen Sie anhand Ihrer Unterlagen ein. Ein Standardsteuersatz
 ersetzt nicht die Prüfung des einzelnen Geschäftsvorfalls.
 
+## Version und Support
+
+Nach einem passenden Serverupdate unter **Einstellungen → Version und Support →
+Serverstand anzeigen** den Quellstand der verbundenen Installation lesen.
+Dafür sind aktuelle Administrationsrechte nötig. Fehlt ein verlässlicher
+Paketnachweis, zeigt die Anwendung diesen Stand ausdrücklich als nicht erfasst.
+Eine vorhandene API-Kompatibilitätskennung wie0.12.0-online-pilot ist keine
+App-Buildnummer. Ein neuer Testbranch aktualisiert die laufende Installation
+nicht automatisch. Bei einem älteren Server wird diese neue Aktion nicht angeboten.
+
 ## Vom Kunden zum ausgeführten Auftrag
 
 1. Einen Kunden und gegebenenfalls Ansprechpartner unter Kontakte erfassen.

@@ -427,3 +427,18 @@ ausstehenden Originalaufträge klären. Eine vollständige Übernahme bisher
 ungebundener Altbestände ist ein eigener noch offener Schritt. Die lokalen
 Dateien dafür nicht vorsorglich löschen oder in die Ablage einer anderen
 Firma kopieren.
+
+
+## Qonto-Umsatzänderungen lesen
+
+Im neuen Serverstand unter **Finanzen → Bankabgleich → Qonto-Umsatzänderungen
+lesen** in Browser und App. Ohne eingerichteten Server-Lesezugang wird dies
+ausdrücklich angezeigt; der CSV-Bankabgleich bleibt verfügbar. Einen UTC-
+Änderungszeitraum von höchstens31 Tagen wählen. Das Enddatum ist ausgeschlossen.
+Vorgemerkt, abgeschlossen, abgelehnt und storniert sind gesonderte Status.
+Der Zeitraum bezeichnet Anbieteränderungen und kann frühere Buchungen enthalten.
+Der gelesene Saldo ersetzt keinen vollständigen Kontoauszug. Die Ansicht
+erzeugt keine Zahlung oder Buchung. Private Bankdaten erfordern aktuelle
+globale Bank-, Finanz- und Buchführungsleserechte.
+
+[Einrichtung, enger Umfang und fehlende Providerabnahme](CRM_ERP_BANK_LIEFERANTEN_ANBINDUNGEN_2026-11-10.md).

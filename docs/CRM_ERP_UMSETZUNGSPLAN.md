@@ -860,3 +860,42 @@ Implementierung ist eine serverseitige lesende Qonto-Anbindung nach offiziellem
 V2-Vertrag, mit exakten Originalbeträgen und ohne erfundene Auszugssalden oder
 automatische Buchung. Anbieterzugänge, Cloud-Zielhostfreigaben und reale
 Partnerabnahme werden davon getrennt geführt; der Gesamtauftrag bleibt aktiv.
+
+
+## 10.11.2026 – ausgewählte Anbieter dokumentiert und Qonto mit beiden Clients umgesetzt
+
+Produkt01c368f902c8dc5c9d6c1834616cfad2fd7ffd55 ergänzt den
+[Qonto-Leseabschnitt und gewählte Anbieter](CRM_ERP_BANK_LIEFERANTEN_ANBINDUNGEN_2026-11-10.md). Der neue Weg liest V2-Organisation und
+Umsatzänderungen genau einer bestehenden aktiven Bankbindung. Centwerte und
+belegte Identität bleiben exakt; alle vier Status werden getrennt angezeigt.
+Frische Rechte/Zugangsdaten/Kontorevisionen werden beidseitig von IO geprüft.
+Keine Zahlung, Bestellung, Buchung, erfundener Auszug oder Provider-Liveabruf.
+
+59 gemeinsame Backend-/Transport-/CI-/Paketfälle37,742s,1081 gesamte
+Browsermodulfälle25,098s und15 native Bank-/Qonto-Fälle bestehen; Appanalyse
+sauber16,3s. Wirklicher MFA-/Browser-/390px-/Abmeldeablauf besteht. Tatsächliche
+getrennte PG-Runtime, Cash-/Bankoriginale unverändert, voller Dump/Restore,
+alterToken401 und neue tatsächliche MFA bestehen33,452s.41 Rohdateien samt
+unveränderten Vorfehlern sind im neuen Manifest geprüft.57 Lohnmodule,
+Originalziel und Abhängigkeitsinventar153 bleiben unverändert. Ein zusätzlicher
+nach Commit ausgeführter Quellarchivfall sowie zwei Inventarfälle bestehen.
+
+Der erste PG-Volumeversuch scheitert vor Tests am Speicherplatz und sein erster
+Cleanup-Guard an fehlenden Ports des bereits gestoppten Containers. Exakte
+ID/Task/konfigurierte Loopbackbindung wurden separat geprüft und allein dieser
+Container entfernt. Bounded512MiB-Tmpfs-Wiederholung erfolgreich und ebenfalls
+genau geprüft entfernt. Andere Vorfehler (Importe, Testrollen, Worktree-Aufbau,
+fehlender statischer Modulpfad, abweichendes synthetisches Zeitfenster) bleiben
+erhalten; Produktprüfungen wurden dafür nicht gelockert.
+
+An91fa18b sind inzwischen alle20 eigenen Development-Gruppen42814265700
+und der unsignierte iPhone42814265712 erfolgreich. Windows-Artefakte sind
+vorhanden. Manuelle signierte Vorbereitung42816832390 läuft separat,
+Uploadfalse. Diese Gesamtprüfung enthält noch keinen Qonto-Code. Neuer
+Qonto-Kandidat wird ausschließlich für den autorisierten Testbranch vorbereitet.
+
+Echte Zugänge, OAuth-Einwilligung/Erneuerung, nachgewiesener Auszugsimport,
+konkrete Sparkasse/Amex-Produkt und Lieferantenverträge bleiben offen. Loxone
+bietet offizielle CSV/DATANORM-Dateien, deren tatsächliches Schema noch nicht
+gelesen werden konnte. Alle Gesamtziel-Abnahmen und übrigen Lohn-/Buchhaltungs-
+Restarbeiten bleiben bestehen; keine neue Liveinstallation oder Geräteabnahme.

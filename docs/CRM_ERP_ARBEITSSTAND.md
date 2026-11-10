@@ -28,7 +28,7 @@ Etappe verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
 | Stand | Tatsächlich bestätigt |
 |---|---|
 | Aktuell veröffentlichter Quell- und Testbranch | `91fa18bf5290ef7f411c7c7d9f722bb78e3dd954`, veröffentlicht und Remote-Zeiger bestätigt. V14, Mitarbeiterbeleg-Leser, Datumsanzeige und getrennte iPhone-Prüfläufe enthalten. |
-| Eigene aktuelle Workflowprüfung | An91fa18b: Development42814265700 und unsignierter iPhone42814265712 laufen; Mailbot42814265743 erfolgreich, kein echter Versand. Manueller signierter Vorbereitungslauf42816832390 läuft mit Uploadfalse; er ersetzt den unabhängigen Pushlauf nicht. Vorläuferfehler bleiben historisch erhalten. |
+| Eigene aktuelle Workflowprüfung | An91fa18b: Development42814265700 alle20 Gruppen erfolgreich, unsignierter iPhone42814265712 erfolgreich. Mailbot42814265743 erfolgreich, kein echter Versand. Manueller signierter Vorbereitungslauf42816832390 läuft mit Uploadfalse; er ersetzt den unabhängigen Pushlauf nicht. Vorläuferfehler bleiben historisch erhalten. |
 | Vollständige CI zum Installationsprodukt c4a2d8f | Development42790149143:alle20 Gruppen erfolgreich. Die anHTTP403 vor Testbeginn gescheiterte Gruppe wurde allein wiederholt; alle13 wirklichen Browserabläufe bestehen, Erstfehler erhalten. Unsignierter iPhone42790149399 erfolgreich, signierter Upload übersprungen. Mailbot-Verträge42790149124 auf Linux/Windows erfolgreich; kein echter Versand. |
 | Aktueller geprüfter veröffentlichter Reparaturstand | `40d8fcf5571e8edc898e2e20b1cf7fe36e52149e`: alle20 Development-Gruppen42806104268 erfolgreich. Eigener manueller iPhone42806142665: vollständiger unsignierter Client, endgültiges signiertes IPA, strenge Keychain-/Teamprüfung und Schlüsselbereinigung erfolgreich. Signiertes Artefakt198 vorhanden; TestFlight-Uploadskipped. V14 ist davon getrennt. |
 | Letzter vom Nutzer bestätigter Server | `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5` vom05.11.; drei Dienste/Sicherungstimer und kontrollierter Updateabschluss bestätigt. Der10.11.-GET auf/ready liefert403 durchEnvoy; die tatsächliche Cloud-Zulassungsliste enthält die Domain nicht. Kein neuer bestätigter Ursprungstand und kein Update. |
@@ -79,7 +79,7 @@ Arbeitskopie /workspace/smartplan-factor-transition-20261110, Branch
 codex/factor-transition-20261110. Produkt e70b135, lokal mit der getrennten
 Keychain-Reparatur und deren Nachweisen zu13b9092 integriert. Der aktuelle
 Kandidat ist als91fa18b auf dem autorisierten Testbranch veröffentlicht und der Remote-Zeiger bestätigt;
-eigene neue Remoteprüfung und Installation bleiben getrennt. Der vollständige tatsächliche
+eigene neue Remoteprüfung besteht inzwischen alle20 Gruppen; Installation bleibt getrennt. Der vollständige tatsächliche
 App-Lauf an13b9092 ist abgeschlossen:1961 sichtbare Fälle, kein Fehler/Skip,
 260 verborgene Ladeeinträge ausgeschlossen, success:true1437145ms, Exit0 nach
 1446,014s. Der vollständige Backendlauf endet um12:32:14UTC erfolgreich:2133 Fälle,
@@ -109,7 +109,7 @@ einen tatsächlichen eigenen PostgreSQL-/Restore-Nachweis.
   nach Integration der iPhone-Reparatur weitere33 Paket-/Auslieferungs-/Inventar-
   fälle39,748s. Zusätzliche Korrektur bewahrt alte Fälle, Läufe, PDFs und Quittungen.
   Die vollständigen aktuellen App- und Backend-Schlussmeldungen liegen vor;
-  eigene neue Remoteprüfung läuft noch.
+  eigene neue Remoteprüfung besteht alle20 Gruppen.
 
 Vorfehler einschließlich echter400 bei widersprüchlichem PG-Testprofil,
 Widget-Test-Timeraufbau und lokalem Zeitzonen-Unterprozess-EPERM bleiben
@@ -214,15 +214,32 @@ lokale Änderungen erhalten. Keine neuen Agenten ohne ausdrückliche Anweisung.
 ## Aktive Fortsetzung: ausgewählte Bank- und Lieferantenanbindungen
 
 Direkte Nutzerentscheidung10.11.: Qonto, Sparkasse, Amex; Lieferanten Granzow,
-Alexander Bürkle, Loxone und Voltus. Die frühere offene Anbieterauswahl ist
-damit beantwortet. Genaue Sparkasse und Amex Business/Corporate sind noch
-angefragt. Keine Zugangsdaten wurden im Chat verlangt oder übernommen.
+Alexander Bürkle, Loxone und Voltus. Genaue Sparkasse und Amex Business/Corporate
+sind noch angefragt. Keine Zugangsdaten wurden im Chat verlangt oder übernommen.
 
-Der bestehende CSV-Bankabgleich bleibt bestehen. Nächster Codeabschnitt:
-serverseitig lesendes Qonto-V2-Konto-/Transaktionsoriginal mit offizieller
-Authentifizierung, exakten Centbeträgen, begrenzter Pagination, aktuellen
-Rechten und ohne automatische Finanzbuchung. Granzow/AB-Protokollangebote
-und die offizielle Voltus-IDS2.5-Anleitung sind recherchiert; Loxone-Shopvertrag,
-Partnerzugänge und vollständige echte Bank-/Lieferantenabnahme fehlen.
-Die Cloud hat weder Providergeheimnisse noch die neuen Zielhosts freigegeben.
-Lokale kontrollierte Implementierung und Gegenproben laufen unabhängig weiter.
+[Qonto-Leseabschnitt und gewählte Anbieter](CRM_ERP_BANK_LIEFERANTEN_ANBINDUNGEN_2026-11-10.md) ist als Produkt01c368f lokal eingecheckt:
+serverseitig lesende V2-Organisation und begrenzte Umsatzänderungen, exakte
+Centbeträge, alle vier Status, aktuelle Bank-/Finanz-/Buchführungsrechte vor/nach
+Anbieterkommunikation, ohne SQL-Lock über IO. Browser und App öffnen die neue
+Ansicht aus dem Bankabgleich und kennzeichnen fehlende Einrichtung. Keine
+automatische Buchung, kein erfundener vollständiger Kontoauszug.
+
+59 gemeinsame Backend-/Transport-/CI-/Paketfälle37,742s,1081 gesamte
+Browsermodule25,098s,15 gezielte native Fälle und saubere Appanalyse16,3s
+bestehen. Tatsächlicher MFA-/Chromium-/390px-/Abmeldeablauf sowie echte
+getrennte PostgreSQL-Runtime mit erhaltenen Cash-/Bankoriginalen, vollständigem
+Dump/Restore, alter401 und neuer tatsächlicher MFA bestehen33,452s.
+Alle41 Rohdateien samt Erstfehlern sind hash-/bytegeprüft archiviert.
+Der erste PG-Container scheitert vor Tests am vollen Volume, wird anhand exakter
+ID/Markierung geprüft entfernt; Wiederholung mit begrenztem512MiB-Tmpfs besteht.
+Keine fremden Container bereinigt.57 Lohnmodule und Originalziel bleiben bytegleich.
+
+Qonto-Zugang ist in diesem Abschnitt nur ein geschütztes Betreiber-OAuth-Token.
+Einwilligung/automatische Erneuerung, tatsächlicher Zugang, Feed-Originalarchiv
+und Einbindung als geprüfter Auszug bleiben offen. Keine Bankgeheimnisse und
+neuen Provider-Zielhosts in dieser Cloud vorhanden. Für Loxone sind offizielle
+EUR-/CHF-CSV und DATANORM4/5 recherchiert; die CSV-Weiterleitung ist über das
+Recherchewerkzeug nicht lesbar, DATANORM erfordert Shopanmeldung. Kein
+Dateischema geraten. Granzow-/AB-Protokollangebote und Voltus-IDS2.5 sind
+recherchiert; Vertrags-/Partnerzugänge und echte Anbieterabnahme fehlen.
+Eigener neuer Push/CI und reale Server-/Geräteinstallation werden separat geführt.

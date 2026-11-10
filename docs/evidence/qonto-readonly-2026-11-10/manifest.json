@@ -1,0 +1,279 @@
+{
+  "schema_version": 1,
+  "status": "bounded_read_only_implementation_tested_candidate",
+  "product_commit": "01c368f902c8dc5c9d6c1834616cfad2fd7ffd55",
+  "base_commit": "62e5460",
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "raw_files": [
+    {
+      "path": "qonto-readonly-transport-first-20261110.txt.gz",
+      "bytes": 1620,
+      "sha256": "5b60cebbcc40a425c7e279ef9be45bb4385a9704c20b348b08e60ef9df749355"
+    },
+    {
+      "path": "qonto-readonly-service-first-20261110.txt.gz",
+      "bytes": 1283,
+      "sha256": "943adad27d2cc2757e391c18d139fe5042359ebba03596e9e7aca3cc2e7f0000"
+    },
+    {
+      "path": "qonto-readonly-service-second-20261110.txt.gz",
+      "bytes": 1152,
+      "sha256": "8c90f62f2a5400826722728d587e33b4f4ca2dd3db35f2af696482181df6ec61"
+    },
+    {
+      "path": "qonto-readonly-service-third-20261110.txt.gz",
+      "bytes": 2407,
+      "sha256": "a9ff25cb5eb88dee7977667823f94f9df606ca90758554e193a8ed3954cd266c"
+    },
+    {
+      "path": "qonto-readonly-service-and-transport-fourth-20261110.txt.gz",
+      "bytes": 2725,
+      "sha256": "9417ea5d22d760b8ac2fc1e83ca3ef2e8b1c45856fe99414098e1d45e1d363b0"
+    },
+    {
+      "path": "qonto-readonly-final-api-guards-20261110.txt.gz",
+      "bytes": 2725,
+      "sha256": "237a4a3ff16d0c6c9fdd7d4aba82e00bddd7c78c6ad1baf1587fd7a85b6007d9"
+    },
+    {
+      "path": "qonto-readonly-joint-backend-first-20261110.txt.gz",
+      "bytes": 12469,
+      "sha256": "b1bd9a6c3357875b88ef21d616f617299d66e6465b2dcf603a618d1c996a4949"
+    },
+    {
+      "path": "qonto-readonly-joint-backend-second-20261110.txt.gz",
+      "bytes": 11741,
+      "sha256": "5d12cf35ede2bafedd743ac05f4acba2098ec2596edf58f025c7d30fdddb2b60"
+    },
+    {
+      "path": "qonto-readonly-joint-final-20261110.txt.gz",
+      "bytes": 12730,
+      "sha256": "8060a42bafefbb0321db3abf39d342a8d49917fa01ba756151b775caeaafcd46"
+    },
+    {
+      "path": "qonto-readonly-actual-fixture-20261110.txt.gz",
+      "bytes": 147,
+      "sha256": "584042b15d6ca0cf49714b0dd0f94399ccc0f83eaf41f02bd052f0242e0a7efb"
+    },
+    {
+      "path": "qonto-readonly-actual-fixture-second-20261110.txt.gz",
+      "bytes": 147,
+      "sha256": "953456e212f5e8a46a814aad1343ef98fb0653b4bec63b373cd6b201291252c9"
+    },
+    {
+      "path": "qonto-readonly-browser-contract-first-20261110.txt.gz",
+      "bytes": 218,
+      "sha256": "356c3366f1b450db53f830e9f6c595ecb0cff668acf20d574024e744f6fe9d05"
+    },
+    {
+      "path": "qonto-readonly-browser-contract-second-20261110.txt.gz",
+      "bytes": 1633,
+      "sha256": "b47d47a5282908b7b64fabe2688e99e9a609fa3489067ed8574881c7cddfc0eb"
+    },
+    {
+      "path": "qonto-readonly-all-browser-contracts-first-20261110.txt.gz",
+      "bytes": 110943,
+      "sha256": "38ef5e10023e1c670291f6e3d11d82ccae2b8b88ad7ce909ea2204eb4ea842e4"
+    },
+    {
+      "path": "qonto-readonly-real-browser-first-20261110.txt.gz",
+      "bytes": 2434,
+      "sha256": "a30cf050f28dec534cbf1488631e5458c53fc743548887549020c639e9d953bc"
+    },
+    {
+      "path": "qonto-readonly-real-browser-second-20261110.txt.gz",
+      "bytes": 276,
+      "sha256": "306d7de2f2c1afaec045523ffffb893f8cc858230c32101cb8a5cc5efbe23711"
+    },
+    {
+      "path": "qonto-readonly-native-first-20261110.txt.gz",
+      "bytes": 5007,
+      "sha256": "5b56e3cd835974d7b0539a2ba29caa5f7677c3e20ea020be1f6005f9afcf4430"
+    },
+    {
+      "path": "qonto-readonly-native-second-20261110.txt.gz",
+      "bytes": 2775,
+      "sha256": "073c5d8d5883639b5b632ed5301bf33de7de7c8d78ff3d88559e1e28f64f9181"
+    },
+    {
+      "path": "qonto-readonly-native-final-20261110.txt.gz",
+      "bytes": 2775,
+      "sha256": "88020242122deab69309fbc44f1babf48d87be801a5c25679b10066b8ccbabee"
+    },
+    {
+      "path": "qonto-readonly-native-analyze-first-20261110.txt.gz",
+      "bytes": 11230620,
+      "sha256": "08fcd291b4074cf5f194dff366863406a7a222d5502a5295fd9ad671550def0c"
+    },
+    {
+      "path": "qonto-readonly-native-analyze-second-20261110.txt.gz",
+      "bytes": 213,
+      "sha256": "290ba019fcc76169adfbce9f75096f36f36d54598b157116b3249647dd49e1ee"
+    },
+    {
+      "path": "qonto-readonly-native-analyze-third-20261110.txt.gz",
+      "bytes": 97,
+      "sha256": "da572917ba3c717b026b7823e3d99d71a004d9f309cb1531e7554a8f49816677"
+    },
+    {
+      "path": "qonto-readonly-native-analyze-final-20261110.txt.gz",
+      "bytes": 97,
+      "sha256": "c83c5b2e9cb0cc22fee320ff06256deaadf58ea35fe961b6facf604349bf5b4c"
+    },
+    {
+      "path": "qonto-readonly-native-offline-pub-20261110.txt.gz",
+      "bytes": 68,
+      "sha256": "d4cb7a3c68b4133b4f6e58c67ff5bfd13725d8021e930388cdc98da8a575919d"
+    },
+    {
+      "path": "qonto-readonly-native-format-20261110.txt.gz",
+      "bytes": 187,
+      "sha256": "0679ce0a487b221c1036738be75d9806092cf85df9c8609c0349170608572463"
+    },
+    {
+      "path": "qonto-readonly-pg-runner-first-20261110.txt.gz",
+      "bytes": 649,
+      "sha256": "dd6d19a84415a9901386ce50566eee07d3e18bd1dd1fd7765ce6f3634febf82a"
+    },
+    {
+      "path": "qonto-readonly-pg-first-startup-failure-20261110.txt.gz",
+      "bytes": 601,
+      "sha256": "6f4a8ba7ca6d7b9908daca2e8950b09bdf5f4077cafe3583c50437281a6fe675"
+    },
+    {
+      "path": "qonto-readonly-pg-first-cleanup-20261110.json.gz",
+      "bytes": 281,
+      "sha256": "0a59f5d9722dd1fd929a9d27cb6c2016000dab3f007bf3df0d7183093d2fbf6d"
+    },
+    {
+      "path": "qonto-readonly-pg-first-runner-preserved-20261110.py.gz",
+      "bytes": 3832,
+      "sha256": "2a76c4988019b05de01894191232c0a12b68658298b58dd1b2bc94dd58e554cc"
+    },
+    {
+      "path": "qonto-readonly-pg-runner-20261110.py.gz",
+      "bytes": 4063,
+      "sha256": "210085769f5e141fcca1dd7486c25fea642a8b356a4d9f749e54acafe2a56ceb"
+    },
+    {
+      "path": "qonto-readonly-pg-second-20261110.txt.gz",
+      "bytes": 316,
+      "sha256": "ebf6f5401485d0c1f0caa1fafd7d72b45b3dac0c2c856309aa08bd929584e10c"
+    },
+    {
+      "path": "qonto-readonly-pg-second-result-20261110.json.gz",
+      "bytes": 375,
+      "sha256": "c15be2e1d7c88c8db3916b9e2606fa12606c25d25f49f84367c28f7f881d02ef"
+    },
+    {
+      "path": "qonto-readonly-pg-runner-second-20261110.txt.gz",
+      "bytes": 357,
+      "sha256": "172742748188f12f4f5def158cb528ba3d442452c1062f4438261a5dd782530a"
+    },
+    {
+      "path": "qonto-readonly-committed-source-archive-20261110.txt.gz",
+      "bytes": 322,
+      "sha256": "dbbc5897d7e7af7c0712562373e6e26c8e363c64b95a32460f1415e053be86ef"
+    },
+    {
+      "path": "qonto-readonly-inventory-final-20261110.txt.gz",
+      "bytes": 500,
+      "sha256": "c1e4a79b1ec8230507ee685b56e15139fc1f1fc0634d4a2c0698696a7e447972"
+    },
+    {
+      "path": "qonto-readonly-source-bom-20261110.json.gz",
+      "bytes": 90216,
+      "sha256": "5fd0b2446b995360f15e71d85cbe1b6225c208c852f34282282712aaa0bf5903"
+    },
+    {
+      "path": "qonto-readonly-source-preservation-20261110.json.gz",
+      "bytes": 191,
+      "sha256": "584b9f726aa0f6e0cbd6a68e26a42e8e7c8186aa6aded03ac6dc182b30c059e1"
+    },
+    {
+      "path": "qonto-readonly-official-research-20261110.json.gz",
+      "bytes": 144635,
+      "sha256": "15f5d7192dd1a0dd885b9e57f56f04bc7a29483adc866cce40f253d398d8f369"
+    },
+    {
+      "path": "v14-own-development-success-20261110.json.gz",
+      "bytes": 48505,
+      "sha256": "ff0a69e8d02a51fee788e288a82d81bf65695f89959e0a883807cb2e6ffe3d85"
+    },
+    {
+      "path": "v14-own-development-artifacts-20261110.json.gz",
+      "bytes": 14361,
+      "sha256": "2f0427511a7bb8391377c81bf8853aa2c210b0ee6ca7401f78ec3f936961b5c7"
+    },
+    {
+      "path": "qonto-readonly-mobile.png",
+      "bytes": 67409,
+      "sha256": "ae1831b3e0943f5de7424cdd30dbffe12a026fa8da32f314b7425bb1302c674f"
+    }
+  ],
+  "results": {
+    "joint_backend_transport_ci_package": 59,
+    "joint_seconds": 37.742,
+    "browser_modules": 1081,
+    "browser_modules_ms": 25098.358128,
+    "browser_failures": 0,
+    "browser_skips": 0,
+    "native_focused_cases": 15,
+    "native_analyze": "No issues found;16.3s",
+    "actual_browser": "real MFA/HTTP, pinned synthetic upstream, four statuses,390px, logout clearance",
+    "mobile_image_visually_reviewed": true,
+    "actual_pg": "separated runtime, real MFA, old cash/EUR and bank originals preserved, full dump restore, old401,newMFA read",
+    "actual_pg_seconds": 33.452,
+    "actual_pg_runner_seconds": 34.83928933698917,
+    "committed_source_archive_cases": 1,
+    "inventory_cases": 2,
+    "pinned_components": 153,
+    "source_bom_exact_match": true,
+    "old_payroll_modules_byte_unchanged": 57
+  },
+  "preserved_failures": [
+    "missing transaction import in first two new service attempts",
+    "fixture tried to deny immutable owner rights; corrected to actual delegated accountant",
+    "new worktree had no Flutter package config; offline locked resolution completed",
+    "unnecessary Dart cast warning fixed",
+    "first browser missing explicit static asset allowlist entry; real regression case added",
+    "first native synthetic reply window differed from actual date form; regenerated through actual MFA/HTTP",
+    "first package fixture had no backend/.venv; linked existing locked environment",
+    "first disposable PostgreSQL volume lacked disk before tests; exact stopped container verified/removed; bounded512MiB tmpfs repeat passed"
+  ],
+  "previous_whole_product": {
+    "source_commit": "91fa18bf5290ef7f411c7c7d9f722bb78e3dd954",
+    "development_run": 42814265700,
+    "all_groups_success": 20,
+    "unsigned_iphone_run": 42814265712,
+    "unsigned_iphone_success": true,
+    "local_native_cases": 1961,
+    "local_backend_cases": 2133,
+    "local_backend_skips": 3,
+    "new_qonto_not_in_previous_whole_product": true
+  },
+  "external": {
+    "selected_banks": [
+      "Qonto",
+      "Sparkasse",
+      "Amex"
+    ],
+    "selected_suppliers": [
+      "Granzow",
+      "Alexander Bürkle",
+      "Loxone",
+      "Voltus"
+    ],
+    "exact_sparkasse_and_amex_product": "awaiting optional user clarification",
+    "real_provider_access": false,
+    "provider_credentials_received": false,
+    "live_installation": false,
+    "new_device_acceptance": false,
+    "external_expert_approval": false,
+    "testflight_upload": false
+  },
+  "publication": {
+    "branch": "codex/testupdate-0.7-projects-20261104",
+    "state": "candidate; actual push and own remote results recorded separately"
+  }
+}

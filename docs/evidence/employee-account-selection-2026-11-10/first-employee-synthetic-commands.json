@@ -1,0 +1,48 @@
+[
+  {
+    "body": {
+      "user_id": "6970d62c20534d9bb1ab9e4e7ef690f1",
+      "name": "Synthetic reviewed employee",
+      "weekly_minutes": 1200,
+      "hourly_cost_minor": 2500,
+      "active": true,
+      "request_id": "c1bc93c2173b4d32825d0a096769855e"
+    },
+    "status": 201,
+    "value": {
+      "active": true,
+      "employment_from": null,
+      "employment_to": null,
+      "hourly_cost_minor": 2500,
+      "id": "fea75022edf64e55b1480c119ac1d9bc",
+      "name": "Synthetic reviewed employee",
+      "revision": 1,
+      "updated_at": "2026-11-10T17:49:53+00:00",
+      "user_id": "6970d62c20534d9bb1ab9e4e7ef690f1",
+      "weekly_minutes": 1200
+    }
+  },
+  {
+    "body": {
+      "user_id": "6970d62c20534d9bb1ab9e4e7ef690f1",
+      "name": "Synthetic reviewed employee",
+      "weekly_minutes": 1200,
+      "hourly_cost_minor": 2500,
+      "active": true,
+      "request_id": "c1bc93c2173b4d32825d0a096769855e"
+    },
+    "status": 201,
+    "value": {
+      "active": true,
+      "employment_from": null,
+      "employment_to": null,
+      "hourly_cost_minor": 2500,
+      "id": "fea75022edf64e55b1480c119ac1d9bc",
+      "name": "Synthetic reviewed employee",
+      "revision": 1,
+      "updated_at": "2026-11-10T17:49:53+00:00",
+      "user_id": "6970d62c20534d9bb1ab9e4e7ef690f1",
+      "weekly_minutes": 1200
+    }
+  }
+]

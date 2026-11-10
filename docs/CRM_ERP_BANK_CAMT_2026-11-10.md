@@ -128,3 +128,17 @@ Parser und genau sein beigefügtes Schema; neun gemeinsame Paket-/CI-Fälle
 bestehen in 3,238s. Die native Gesamtprüfung läuft noch. Die unveränderten
 CRLF-/Lizenzbytes erhalten eine auf diese Fremdquellen begrenzte Git-
 Whitespaceausnahme; kein Schema- oder Originalhash wird dafür geändert.
+
+## Eigene Plattformprüfung des veröffentlichten XML-Bankstands
+
+Development 42864815919 an 4f67bf8 besteht alle 20 Gruppen. Damit sind
+auch der tatsächliche Windowsbau mit XML-Parser und Schema, die neuen
+PostgreSQL-/MFA-/Restorefälle sowie der neue Browser-Bankablauf im eigenen
+veröffentlichten Gesamtstand bestätigt. Windows-Komplettpaket: Artefakt
+13788890572, 40.629.752 Bytes, SHA256
+4eb01d0fe4d42e01e292d80abe33ab50ad0ec1436146de6d9ae05d8a3fc6d729.
+Windows-Onlinepaket: Artefakt 13788027574, 22.255.008 Bytes, SHA256
+e3805783925bb4577965f91b3e0472a67465c44bec582e26b4ebfaaa68e4864b.
+Der getrennte manuelle iPhone-Lauf 42864950880 ist noch aktiv; daraus wird
+noch kein signiertes Paket abgeleitet. Upload bleibt false. Neue
+Personal-Kontenauswahl wird getrennt geprüft und ist noch nicht veröffentlicht.

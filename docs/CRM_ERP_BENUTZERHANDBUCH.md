@@ -208,6 +208,23 @@ zweite Zahlung. Ein unvollständiger oder veralteter Bankbericht bleibt als
 solcher erkennbar; eingerichtete Bankkonten benötigen für einen neuen EÜR-
 Periodenabschluss einen aktuellen vollständigen Nachweis.
 
+Der neue Serverstand unterstützt zusätzlich einen begrenzten XML-Import:
+**Finanzen → Bankabgleich → Kontoauszüge und Abgleich öffnen → Originalen
+XML-Auszug prüfen**. In Browser und App das unveränderte XML auswählen,
+die gelesene Periode und Salden mit dem Original vergleichen und anschließend
+die Vollständigkeit ausdrücklich bestätigen. Danach die Übernahmevorschau
+prüfen und getrennt bestätigen. Beide Bestätigungen sind zunächst abgewählt.
+Der Import erzeugt keine Zahlung. Im gespeicherten Auszug lässt sich das
+unveränderte XML-Original herunterladen. Eine unbestätigte Antwort wird mit
+dem vorhandenen Auftrag erneut abgefragt; keinen zweiten Import anlegen.
+
+Dieser Import nimmt ausschließlich camt.053.001.08 mit genau einem vollständigen
+EUR-Kontoauszug an. Eine abgewiesene Datei unverändert erhalten und ihren
+Formatumfang klären; Inhalte oder Salden nicht passend abändern. Die direkte
+Verbindung zur Bank ist ein gesonderter Einrichtungsschritt. Der neue Knopf
+erscheint erst nach Server- und gegebenenfalls Appaktualisierung.
+Details: [XML-Format und geprüfte Grenzen](CRM_ERP_BANK_CAMT_2026-11-10.md).
+
 Geschlossene Perioden werden vor einer erforderlichen Änderung ausdrücklich
 wieder geöffnet. Jahresprüfpakete und historische Exporte besitzen gebundene
 Quellen. Ein internes Prüfpaket ist keine bereits eingereichte Steuererklärung.

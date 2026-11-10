@@ -31,22 +31,26 @@ Schema, unabhängige Vorschauprüfung, beide Bestätigungen und exakte Wiederhol
 sind implementiert. 49 gemeinsame Fach-/Paketfälle, drei wirkliche PostgreSQL-/
 MFA-/Restorefälle, alle 1.095 Browsermodule, der tatsächliche Browserablauf,
 22 gemeinsame Appfälle und ein zusätzlicher tatsächlicher nativer HTTP-Ablauf
-bestehen. Appanalyse ohne Probleme; vollständige neue Appprüfung läuft.
+bestehen. Appanalyse ohne Probleme; vollständige neue Appprüfung mit 1.997 Fällen erfolgreich.
 Die reale Bankdatei und direkte Bankzugänge sind damit nicht ersetzt.
 
 Der zuvor veröffentlichte Offline-Konfliktstand abcc351 hat inzwischen alle
 20 eigenen Developmentgruppen sowie seinen unsignierten iPhone-Release 206
 bestanden. Der manuelle V15-Release 205 ist tatsächlich signiert; Upload false.
 Die Rohmetadaten und der jeweilige genaue Quellumfang bleiben getrennt.
-Nach Abschluss der lokalen Gesamtprüfung wird ausschließlich der autorisierte
-Testbranch aktualisiert und sein eigener Auslieferungsnachlauf geprüft.
+Der neue Stand 4f67bf8 ist ausschließlich auf dem autorisierten Testbranch
+veröffentlicht. Seine eigene Development-Prüfung 42864815919 und manuelle
+signierte Vorbereitung 42864818725 laufen; TestFlight-Upload false. Der echte
+Start des eingefrorenen Codearchivs c52d207 besteht mit MFA, sieben Browser-
+Assets und dem lokalen XML-Schema. Der tatsächliche Windowsbau bleibt ein
+separater Nachweis. Die laufende lokale Gesamtprüfung wird nicht vorweggenommen.
 
 ## Quellcode, Prüfstand und Installation sind getrennt
 
 | Stand | Tatsächlich bestätigt |
 |---|---|
-| Aktuell veröffentlichter Quell- und Testbranch | `abcc3510f4d913b1d4e57c30fd2e5283bce2156b`, Remote-Zeiger bestätigt. V15, Qonto und die native Offline-Konfliktklärung sind enthalten. Der neue XML-Bankimport liegt lokal geprüft vor. |
-| Eigene aktuelle Workflowprüfung | abcc351: Development 42850956041 alle 20 Gruppen erfolgreich, eigener unsignierter iPhone-Release 206 aus 42850955774 erfolgreich. V15 an 1fa0bcc besitzt zusätzlich den tatsächlich [signierten iPhone-Release 205](CRM_ERP_IPHONE_SIGNIERTES_PAKET_205_2026-11-10.md) aus 42843099650; TestFlight-Upload false. Neue XML-Bankquellen werden separat geprüft. |
+| Aktuell veröffentlichter Quell- und Testbranch | `4f67bf8ba68c09c2ed77651b76d3487b85b32465`, ausschließlich auf dem autorisierten Testbranch veröffentlicht und Remote-Zeiger bestätigt. V15, Qonto, native Offline-Konfliktklärung und XML-Bankoriginalimport sind enthalten. |
+| Eigene aktuelle Workflowprüfung | 4f67bf8: Development 42864815919 alle 20 Gruppen erfolgreich, tatsächliche Windows-Komplett-/Onlinepakete und lokaler vollständiger Appnachlauf mit 1.997 Fällen erfolgreich. Automatischer unsignierter iPhone-Lauf 42864818725 aktiv. Tatsächlicher manueller Vorbereitungslauf 42864950880: unsignierter Client erfolgreich, Signierjob 130015860048 aktiv, Upload false. Der ältere V15-Stand besitzt zusätzlich den tatsächlich signierten Release 205. |
 | Vollständige CI zum Installationsprodukt c4a2d8f | Development42790149143:alle20 Gruppen erfolgreich. Die anHTTP403 vor Testbeginn gescheiterte Gruppe wurde allein wiederholt; alle13 wirklichen Browserabläufe bestehen, Erstfehler erhalten. Unsignierter iPhone42790149399 erfolgreich, signierter Upload übersprungen. Mailbot-Verträge42790149124 auf Linux/Windows erfolgreich; kein echter Versand. |
 | Aktueller geprüfter veröffentlichter Reparaturstand | `40d8fcf5571e8edc898e2e20b1cf7fe36e52149e`: alle20 Development-Gruppen42806104268 erfolgreich. Eigener manueller iPhone42806142665: vollständiger unsignierter Client, endgültiges signiertes IPA, strenge Keychain-/Teamprüfung und Schlüsselbereinigung erfolgreich. Signiertes Artefakt198 vorhanden; TestFlight-Uploadskipped. V14 ist davon getrennt. |
 | Letzter vom Nutzer bestätigter Server | `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5` vom05.11.; drei Dienste/Sicherungstimer und kontrollierter Updateabschluss bestätigt. Der10.11.-GET auf/ready liefert403 durchEnvoy; die tatsächliche Cloud-Zulassungsliste enthält die Domain nicht. Kein neuer bestätigter Ursprungstand und kein Update. |
@@ -452,3 +456,29 @@ seine manuelle signierte Vorbereitung42843099650 bleibt separat aktiv,
 Uploadfalse. Nächste technische Bestandsprüfung: standardisierter Bankauszugs-
 Originalimport gegen die offiziellen Formatquellen; noch kein CAMT-Vertrag
 freigeschaltet und keine reale Bank-/Lieferantenkommunikation.
+
+## 10.11.2026 – vollständiger lokaler Appnachlauf zum XML-Bankstand
+
+Der veröffentlichte Stand 4f67bf8 besitzt jetzt einen vollständig beendeten
+lokalen Appnachlauf: 1.997 Fälle, keine Fehler oder Auslassungen, gemeldete
+Dauer 20:49. Der Code während dieses Laufs ist unverändert zum eingefrorenen
+XML-Bankstand; neue Personal-Kontenauswahl wird getrennt in der Arbeitskopie
+/workspace/smartplan-employee-account-selection-20261110 bearbeitet. Die eigene
+Development-Prüfung 42864815919 und manuelle signierte Vorbereitung
+42864950880 werden separat weiter verfolgt; Upload false. Kein Abschluss
+eines noch laufenden Pakets, kein neues Liveupdate und keine Gesamtabnahme
+wird aus dem lokalen Testerfolg abgeleitet.
+
+## Eigene Plattformprüfung des veröffentlichten XML-Bankstands
+
+Development 42864815919 an 4f67bf8 besteht alle 20 Gruppen. Damit sind
+auch der tatsächliche Windowsbau mit XML-Parser und Schema, die neuen
+PostgreSQL-/MFA-/Restorefälle sowie der neue Browser-Bankablauf im eigenen
+veröffentlichten Gesamtstand bestätigt. Windows-Komplettpaket: Artefakt
+13788890572, 40.629.752 Bytes, SHA256
+4eb01d0fe4d42e01e292d80abe33ab50ad0ec1436146de6d9ae05d8a3fc6d729.
+Windows-Onlinepaket: Artefakt 13788027574, 22.255.008 Bytes, SHA256
+e3805783925bb4577965f91b3e0472a67465c44bec582e26b4ebfaaa68e4864b.
+Der getrennte manuelle iPhone-Lauf 42864950880 ist noch aktiv; daraus wird
+noch kein signiertes Paket abgeleitet. Upload bleibt false. Neue
+Personal-Kontenauswahl wird getrennt geprüft und ist noch nicht veröffentlicht.

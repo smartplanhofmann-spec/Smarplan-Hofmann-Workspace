@@ -1076,3 +1076,15 @@ Artefakt 13780314712; TestFlight-Upload bleibt false. Neuere Änderungen werden
 nicht in diesen älteren Signiernachweis hineingelesen. Keine neue tatsächliche
 Windows-/iPhone-, Fach-/Sicherheits- oder Gesamtfreigabe. R08.03, R11.06 und A–G
 bleiben mit ihren konkreten Restpunkten offen. Gesamtziel unverändert erhalten.
+
+## 10.11.2026 – vollständiger lokaler Appnachlauf zum XML-Bankstand
+
+Der veröffentlichte Stand 4f67bf8 besitzt jetzt einen vollständig beendeten
+lokalen Appnachlauf: 1.997 Fälle, keine Fehler oder Auslassungen, gemeldete
+Dauer 20:49. Der Code während dieses Laufs ist unverändert zum eingefrorenen
+XML-Bankstand; neue Personal-Kontenauswahl wird getrennt in der Arbeitskopie
+/workspace/smartplan-employee-account-selection-20261110 bearbeitet. Die eigene
+Development-Prüfung 42864815919 und manuelle signierte Vorbereitung
+42864950880 werden separat weiter verfolgt; Upload false. Kein Abschluss
+eines noch laufenden Pakets, kein neues Liveupdate und keine Gesamtabnahme
+wird aus dem lokalen Testerfolg abgeleitet.

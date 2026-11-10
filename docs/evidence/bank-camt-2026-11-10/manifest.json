@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "local_checks_passed_full_native_running_not_published",
+  "status": "published_own_all20_and_full_local_native_passed_signed_preparation_running",
   "base_commit": "ff78dbb",
   "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
   "contract": "smartplan_bank_camt053_08_v1",
@@ -50,7 +50,23 @@
       "tests": 9,
       "seconds": 3.238
     },
-    "historical_payroll_modules_unchanged": 61
+    "historical_payroll_modules_unchanged": 61,
+    "full_native": {
+      "tests": 1997,
+      "failures": 0,
+      "skipped": 0,
+      "elapsed_report": "20:49",
+      "source_commit": "4f67bf8ba68c09c2ed77651b76d3487b85b32465"
+    },
+    "own_remote": {
+      "development_run_id": 42864815919,
+      "signed_preparation_run_id": 42864950880,
+      "upload_to_testflight": false,
+      "status": "in_progress",
+      "development_status": "all_20_passed",
+      "signed_preparation_status": "in_progress",
+      "unsigned_push_run_id": 42864818725
+    }
   },
   "raw_files": [
     {
@@ -519,7 +535,34 @@
       "sha256": "adb5c8a597b507c03efc2d4937aeaf3979043685c65949941aa930c43761f4d5",
       "uncompressed_bytes": 6769,
       "uncompressed_sha256": "b2366c313c88b13be9811ac05745b82a30e9fe4b7ae0c38bd72e0b7cfbe592ff"
+    },
+    {
+      "path": "camt-full-native-20261110.txt.gz",
+      "bytes": 32615,
+      "sha256": "588a878544c84f1953aed393def29c5662cacd18a6ce517f86def9af3ff59343",
+      "uncompressed_bytes": 389447,
+      "uncompressed_sha256": "09552a853098f159c6c671d84ca0b0582da9db7f4e0544e7c7fe5dec46042f28"
+    },
+    {
+      "path": "camt-own-backend-job-20261110.json.gz",
+      "bytes": 92633,
+      "sha256": "e6f52894261cb9b360e16cecab24df51e93dfb13989ea815c1346c5ea66f1a40",
+      "uncompressed_bytes": 532448,
+      "uncompressed_sha256": "e7719ca7242750ba50c0c085e1b5136241686a1ec0812bb18619c4e8dae8f554"
+    },
+    {
+      "path": "own-development-complete-20261110.json",
+      "bytes": 67252,
+      "sha256": "27e98543d63dbb760951d6f6b9dde58c7fdac07e7908e90139fd105641dbd796"
+    },
+    {
+      "path": "camt-iphone-events-20261110.json.gz",
+      "bytes": 419,
+      "sha256": "bb60fe579f8d7c6ef4651d2f01d52628e29f14e66b7c7346a3c37aed8d0a6751",
+      "uncompressed_bytes": 1425,
+      "uncompressed_sha256": "6d55ebe793ff2f5fd0ad4a1bb11c07e7f5f3d3fbe5885bf7eff3923a9605cfbe"
     }
   ],
-  "source_commit": "c52d2072db09b4d1b4b31ce1477c4ad7100955b1"
+  "source_commit": "c52d2072db09b4d1b4b31ce1477c4ad7100955b1",
+  "published_source_commit": "4f67bf8ba68c09c2ed77651b76d3487b85b32465"
 }

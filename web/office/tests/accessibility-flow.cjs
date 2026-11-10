@@ -9,6 +9,7 @@ async function audit(page,name){
   const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa','wcag22aa']).analyze();
   reports.push({name,engine:result.testEngine,violations:result.violations.map(v=>({id:v.id,impact:v.impact,help:v.help,helpUrl:v.helpUrl,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))})),
     manual_review:result.incomplete.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)})),passed_rules:result.passes.length});
+  return reports.at(-1);
 }
 exports.audit=audit;
 exports.accessibilityFlow=async function({page,navigate,ready,screenshots}){

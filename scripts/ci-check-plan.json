@@ -944,6 +944,11 @@
     {
       "id": "accounting-year-values-profile-void",
       "script": "tests/accounting-year-values-profile-void-e2e.cjs"
+    },
+    {
+      "id": "accessibility-forms",
+      "script": "tests/e2e.cjs",
+      "workflow": "accessibility-forms"
     }
   ]
 }

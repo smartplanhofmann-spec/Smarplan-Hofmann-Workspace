@@ -1319,9 +1319,10 @@ function dialog(title, content, description = '') {
       else if(!event.shiftKey&&document.activeElement===targets.at(-1)) { event.preventDefault(); targets[0].focus(); }
     }
   });
+  modal.backgroundWasInert=root?.inert===true; if(root)root.inert=true;
   document.body.append(modal); box.focus(); return box;
 }
-function closeModal({keepYearValues=false,keepWageInterruptions=false,keepAnnualBasis=false,keepOneOffCases=false,keepMultipleCases=false,keepCompanyEvents=false,keepOpenItems=false}={}) { dialogGeneration++; if(!keepYearValues)yearValuesWorkspace.clear(); if(modal) { if(modal.querySelector('.communication-history'))communicationHistory.clear(modal); if(modal.querySelector('[data-year-package]'))yearPackageWorkspace.clear();if(!keepOpenItems&&modal.querySelector('[data-open-items]'))openItemWorkspace.clear();if(!keepCompanyEvents&&modal.querySelector('[data-company-events]'))companyEvents.clear(); if(modal.querySelector('[data-historical-assets]'))historicalWorkspace.clear();if(modal.querySelector('[data-accounting-openings]'))openingWorkspace.clear();if(modal.querySelector('[data-payroll]'))payrollWorkspace.clear({keepWageInterruptions,keepAnnualBasis,keepOneOffCases,keepMultipleCases});const previous=modal.previous;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;previous?.focus(); } }
+function closeModal({keepYearValues=false,keepWageInterruptions=false,keepAnnualBasis=false,keepOneOffCases=false,keepMultipleCases=false,keepCompanyEvents=false,keepOpenItems=false}={}) { dialogGeneration++; if(!keepYearValues)yearValuesWorkspace.clear(); if(modal) { if(modal.querySelector('.communication-history'))communicationHistory.clear(modal); if(modal.querySelector('[data-year-package]'))yearPackageWorkspace.clear();if(!keepOpenItems&&modal.querySelector('[data-open-items]'))openItemWorkspace.clear();if(!keepCompanyEvents&&modal.querySelector('[data-company-events]'))companyEvents.clear(); if(modal.querySelector('[data-historical-assets]'))historicalWorkspace.clear();if(modal.querySelector('[data-accounting-openings]'))openingWorkspace.clear();if(modal.querySelector('[data-payroll]'))payrollWorkspace.clear({keepWageInterruptions,keepAnnualBasis,keepOneOffCases,keepMultipleCases});const previous=modal.previous,backgroundWasInert=modal.backgroundWasInert;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;if(root)root.inert=backgroundWasInert===true;previous?.focus(); } }
 async function download(path,filename) { const blob=await api.binary(path),url=objectUrl(blob),link=el('a',{href:url,download:filename,rel:'noopener'}); document.body.append(link); link.click(); link.remove(); }
 function jsonDownload(value,filename) { const link=el('a',{href:objectUrl(new Blob([JSON.stringify(value,null,2)],{type:'application/json'})),download:filename}); document.body.append(link); link.click(); link.remove(); }
 function mutation(key,path,data,options) {
@@ -1784,7 +1785,7 @@ async function planningContent(projectId='') {
   const calendarGrid=el('div',{class:'calendar'+(mode==='month'?' calendar-month':'')},days);
   if(mode==='month')days[0].style.gridColumnStart=String((calendarDay(range.from).getUTCDay()+6)%7+1);
   const board=panel(mode==='month'?'Monatskalender':'Wochenkalender',el('div',{class:'actions'},canWrite('planning.write','planning')?button('Termin planen',()=>appointmentDialog(null,collection(employees),collection(resources)),'primary'):null),
-    el('p',{class:'caption'},'Kalenderzeiten werden in Ihrer Gerätezeitzone angezeigt. Termine lassen sich auch ohne Ziehen per Formular ändern.'),el('div',{class:'table-scroll'},calendarGrid));
+    el('p',{class:'caption'},'Kalenderzeiten werden in Ihrer Gerätezeitzone angezeigt. Termine lassen sich auch ohne Ziehen per Formular ändern.'),el('div',{class:'table-scroll',tabIndex:0,role:'region','aria-label':'Kalender horizontal durchblättern'},calendarGrid));
   return el('div',{class:'stack'},controls,board,enhanced?projectTimeline(timeline,range,mode):null,panel('Abwesenheiten & Belegungen',rows(calendar.absences||[],item=>row(item.employee_name||'Abwesenheit',`${formatDate(item.start_date)} – ${formatDate(item.end_date)}`,[badge(item.status||'Geplant')]),'Keine Abwesenheiten für diesen Zeitraum gemeldet.')));
 }
 function appointmentDialog(item,employees,resources) {
@@ -1977,7 +1978,7 @@ function confirmDialog(title,message,confirm) {
   const error=el('div',{}),submit=button('Verbindlich bestätigen',()=>action(async()=>{submit.disabled=true;try{await confirm();closeModal();}finally{submit.disabled=false;}},error),'primary');
   dialog(title,el('div',{},el('p',{},message),el('div',{class:'actions'},button('Abbrechen',()=>closeModal()),submit),error));
 }
-function table(headers,body) { return el('div',{class:'table-scroll'},el('table',{},el('thead',{},el('tr',{},headers.map(header=>el('th',{},header)))),el('tbody',{},body.map(values=>el('tr',{},values.map(value=>el('td',{},value))))))); }
+function table(headers,body) { const label=headers.map(header=>typeof header==='string'?header:header?.textContent||'').filter(Boolean).join(', '); return el('div',{class:'table-scroll',tabIndex:0,role:'region','aria-label':label?'Tabelle: '+label:'Tabelle'},el('table',{},el('thead',{},el('tr',{},headers.map(header=>el('th',{},header)))),el('tbody',{},body.map(values=>el('tr',{},values.map(value=>el('td',{},value))))))); }
 function accountingTab(label,active,onClick) { return el('button',{type:'button',class:'tab','aria-pressed':active,onClick},label); }
 async function financeView() {
   if(!has('finance.read')&&accountingRights().read)state.financeTab='accounting';

@@ -4,7 +4,28 @@ Gebaut und signiert wird ausschließlich auf GitHub Actions (`macos-latest`) mit
 `.github/workflows/ios-testflight.yml`. Der Flutter-Client wird gemeinsam mit Windows entwickelt.
 Die iPhone-App verbindet sich nur mit `https://office.smartplan-hofmann.de` (API v1, HTTPS; keine ATS-Ausnahme nötig).
 
-## Testupdate 0.7.0: Projektpläne und Offline-Speicherung
+## Aktuelle Auslieferung ab10.11.2026
+
+Der aktuelle Quellclient ist0.13.0+130. Versionsnummer, erfolgreiche Buildprüfung,
+signiertes Paket, TestFlight-Upload und Installation auf einem echten Gerät sind
+getrennte Nachweise. Den aktuellen Gesamtstand nennt
+[CRM_ERP_ARBEITSSTAND.md](docs/CRM_ERP_ARBEITSSTAND.md).
+
+Auf dem autorisierten Branch `codex/testupdate-0.7-projects-20261104` kann ein
+manueller Lauf mit `prepare_signed_ipa=true` und `upload_to_testflight=false`
+ein signiertes IPA samt Quellmanifest und Prüfsumme vorbereiten. Der Upload-
+Schritt wird dabei übersprungen. Ohne beide Auswahlen läuft nur die unsignierte
+Prüfung. Erst die ausdrücklich aktivierte Auswahl `upload_to_testflight=true`
+erlaubt zusätzlich den TestFlight-Upload. Der bisherige Releasebranch bleibt
+technisch kompatibel; dieser Auftrag veröffentlicht ausschließlich auf dem
+autorisierten Testbranch.
+
+Die neuen Auswahlen gelten erst für den veröffentlichten Workflow-Quellstand.
+Die [technische Vorbereitung mit tatsächlichen Prüfungen und Grenzen](docs/CRM_ERP_IPHONE_SIGNIERTE_VORBEREITUNG_2026-11-10.md)
+belegt für sich weder ein bereits signiertes IPA noch einen neuen Upload.
+Bestehendes Apple-Konto, App-ID und vier Secrets werden weiterverwendet.
+
+## Historisches Testupdate 0.7.0: Projektpläne und Offline-Speicherung
 
 Für das nächste Update ist die App als `0.7.0+9` gekennzeichnet; der TestFlight-
 Workflow ersetzt die Buildnummer weiter durch seine aufsteigende Laufnummer.
@@ -13,9 +34,9 @@ Artefakte und Flugmodusprüfung. Der neue Client benötigt das freigegebene
 Serverupdate mit Datenbankschema 2, bevor die Plan-/Offline-Anmeldung funktioniert.
 Bestehende App-ID, Apple-Mitgliedschaft und Secrets werden weiterverwendet.
 
-Ein separater `codex/testupdate-0.7-*`-Branch löst nur die unsignierte
-Geräteprüfung aus. Der signierte Upload bleibt auf den manuellen Start des
-bisherigen Releasebranchs beschränkt.
+Ein Push auf einen separaten `codex/testupdate-0.7-*`-Branch löst weiterhin nur
+die unsignierte Geräteprüfung aus. Für den exakten autorisierten Testbranch
+gelten nun zusätzlich die oben beschriebenen manuellen Auswahlen.
 
 Die CI prüft jetzt im erzeugten Paket iPhone- **und** iPad-Unterstützung,
 Face-ID-Beschreibung, Version, Buildnummer, API-Ziel und Bundle-ID. Beim
@@ -115,16 +136,18 @@ Die Schritte 2–6 dokumentieren die Ersteinrichtung; sie sind nicht erneut ausz
    - `APP_STORE_CONNECT_PRIVATE_KEY` – kompletter Inhalt der .p8 (mit Editor öffnen, inkl. `-----BEGIN PRIVATE KEY-----`/`-----END…`)
    - `APPLE_TEAM_ID` – Team-ID
 7. **Workflow starten:** Actions → „iPhone TestFlight“ → „Run workflow“ → Branch
-   `codex/smartplan-office-0.2` wählen. Dieser Branch ist zugleich der Standardbranch;
-   der manuelle Start ist verfügbar, sobald die Workflow-Datei dort liegt.
+   `codex/testupdate-0.7-projects-20261104` wählen. Maßgeblich ist dessen neuer
+   Workflow; der Standardbranch wird für dieses Update nicht verändert.
    Build-Nummer leer lassen (automatisch Laufnummer + 100, mindestens Quell-Buildnummer) oder eine
    höhere Zahl als die letzte hochgeladene eingeben; mindestens die Quell-Buildnummer aus `pubspec.yaml`.
    Änderungen lösen zunächst einen unsignierten Prüflauf aus. Dieser führt Analyse,
    App-Tests einschließlich echtem lokalem Python-Backend und einen Online-Release-Build
    aus. Apple-Schlüssel werden diesem Job nicht bereitgestellt.
-   Erst nach Apples Freischaltung und Einrichtung der vier Secrets bei einem
-   **manuellen** Start `upload_to_testflight` aktivieren. Nur dann läuft der separate
-   Signier-/Upload-Job; fehlende Secrets führen dort zu einer klaren Fehlermeldung.
+   Für ein signiertes Paket bei einem **manuellen** Start ausschließlich
+   `prepare_signed_ipa` aktivieren und `upload_to_testflight` ausgeschaltet lassen.
+   Die bestehende Apple-Einrichtung wird verwendet. Erst ein zusätzlich gewähltes
+   `upload_to_testflight` führt den Upload aus; fehlende Secrets führen im
+   signierten Job zu einer klaren Fehlermeldung.
    Das signierte IPA wird nach erfolgreichem Export als Artefakt bereitgestellt.
    Ein unsignierter Prüflauf erzeugt noch keine installierbare iPhone-App.
 8. **Exportkonformität:** Der bestehende Flag `ITSAppUsesNonExemptEncryption = false` bleibt erhalten.
@@ -146,8 +169,10 @@ Die Schritte 2–6 dokumentieren die Ersteinrichtung; sie sind nicht erneut ausz
 5. Lokale Windows-App starten: bisherige Daten, Unterschriften und PDFs unverändert vorhanden.
 
 ## Fehlerbehebung
-- **„Fehlende GitHub Secrets“** – beim ausdrücklich angeforderten Upload die vier
-  Namen exakt wie oben anlegen. Der unsignierte Prüflauf benötigt diese Secrets nicht.
+- **„Fehlende GitHub Secrets“** – nur wenn der tatsächlich gestartete signierte
+  Job fehlende Namen meldet, die bestehende Einrichtung dieser vier Namen prüfen.
+  Ein verweigerter Metadatenzugriff beweist keine fehlenden Secrets.
+  Der unsignierte Prüflauf benötigt diese Secrets nicht.
 - **„No profiles / Cloud signing permission error“** – API-Key hat nicht die Rolle Admin, oder Bundle-ID nicht registriert.
 - **„No suitable application records were found“** beim Upload – App in App Store Connect fehlt oder Bundle-ID abweichend.
 - **„The bundle version must be higher…“** – Workflow mit höherer Build-Nummer erneut starten.

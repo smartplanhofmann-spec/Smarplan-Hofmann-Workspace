@@ -1,6 +1,6 @@
 name: iPhone TestFlight
 # Pushes und normale manuelle Starts pruefen nur den unsignierten Online-Build.
-# Signierung/Upload erst nach Apple-Freischaltung ausdruecklich auswaehlen.
+# Signierung und TestFlight-Upload sind getrennte ausdrueckliche Auswahlen.
 on:
   push:
     branches: [codex/smartplan-office-0.2, 'codex/testupdate-0.7-*']
@@ -11,14 +11,21 @@ on:
       - 'backend/**'
       - 'scripts/native-release.py'
       - 'scripts/test_native_release.py'
+      - 'scripts/ios-delivery-policy.py'
+      - 'scripts/test_ios_delivery_policy.py'
   workflow_dispatch:
     inputs:
       build_number:
         description: 'Build-Nummer (leer = automatisch, Quellbuild + Laufnummer)'
         required: false
         default: ''
+      prepare_signed_ipa:
+        description: 'Signiertes IPA mit bestehendem Apple-Zugang vorbereiten, ohne TestFlight-Upload'
+        type: boolean
+        required: false
+        default: false
       upload_to_testflight:
-        description: 'Nach Apple-Freischaltung signieren und zu TestFlight hochladen'
+        description: 'Signiertes IPA vorbereiten und ausdruecklich zu TestFlight hochladen'
         type: boolean
         required: false
         default: false
@@ -58,6 +65,7 @@ jobs:
         run: |
           python ../scripts/native-release.py source
           python -m unittest discover -s ../scripts -p test_native_release.py -v
+          python -m unittest discover -s ../scripts -p test_ios_delivery_policy.py -v
       - name: Build-Nummer bestimmen
         id: build
         env:
@@ -157,9 +165,9 @@ jobs:
           retention-days: 14
 
   testflight:
-    name: Ausdruecklich angeforderten TestFlight-Upload ausfuehren
+    name: Signiertes iPhone-Paket vorbereiten (Upload nur nach Auswahl)
     needs: unsigned
-    if: github.event_name == 'workflow_dispatch' && inputs.upload_to_testflight && github.ref == 'refs/heads/codex/smartplan-office-0.2'
+    if: github.event_name == 'workflow_dispatch' && (inputs.prepare_signed_ipa || inputs.upload_to_testflight) && (github.ref == 'refs/heads/codex/smartplan-office-0.2' || github.ref == 'refs/heads/codex/testupdate-0.7-projects-20261104')
     runs-on: macos-latest
     timeout-minutes: 60
     defaults:
@@ -171,9 +179,21 @@ jobs:
       ASC_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
     steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Auslieferungsauswahl vor Apple-Zugriff pruefen
+        env:
+          SMARTPLAN_PREPARE_IPA: ${{ inputs.prepare_signed_ipa }}
+          SMARTPLAN_UPLOAD_TESTFLIGHT: ${{ inputs.upload_to_testflight }}
+        run: >-
+          python ../scripts/ios-delivery-policy.py
+          --event "$GITHUB_EVENT_NAME" --ref "$GITHUB_REF" --commit "$GITHUB_SHA"
+          --prepare-signed "$SMARTPLAN_PREPARE_IPA" --upload "$SMARTPLAN_UPLOAD_TESTFLIGHT"
+          > "$RUNNER_TEMP/IOS_DELIVERY_DECISION.json"
       - name: Apple-Secrets pruefen
         working-directory: .
         run: |
@@ -198,9 +218,6 @@ jobs:
           except ValueError:
               raise SystemExit('ASC_ISSUER_ID muss eine gueltige Issuer-UUID sein')
           PY
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.47.7'
@@ -269,9 +286,11 @@ jobs:
             app/build/ipa/*.ipa
             app/build/ipa/RELEASE_MANIFEST.json
             app/build/ipa/SHA256SUMS.txt
+            ${{ runner.temp }}/IOS_DELIVERY_DECISION.json
           if-no-files-found: error
           retention-days: 14
       - name: Zu TestFlight hochladen
+        if: inputs.upload_to_testflight
         run: |
           shopt -s nullglob
           files=("$GITHUB_WORKSPACE"/app/build/ipa/*.ipa)

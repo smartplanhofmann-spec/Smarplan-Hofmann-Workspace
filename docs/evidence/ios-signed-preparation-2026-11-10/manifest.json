@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "status": "local_policy_and_existing_package_contracts_passed_not_yet_published",
+  "base_commit": "e5ce894473ff86e0932a05778983354e38ac5adc",
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "raw_files": [
+    {
+      "path": "ios-signed-preparation-gates-before-20261110.txt.gz",
+      "bytes": 2280,
+      "sha256": "1872d1e490e44c139f76ee797eb4a6102a7451fd2cd3d842781d7738f0bfcb66"
+    },
+    {
+      "path": "ios-signed-preparation-gates-first-after-20261110.txt.gz",
+      "bytes": 522,
+      "sha256": "41e7a4895eb86bb61b1dbf3f27d508e20036828cee6b59f9235ed854018d6a2e"
+    },
+    {
+      "path": "ios-signed-preparation-policy-native-ci-first-20261110.txt.gz",
+      "bytes": 8958,
+      "sha256": "ddebb6e2ad7bd8b37d49886160b4448352749ae583392575870478ed7565ad57"
+    },
+    {
+      "path": "ios-signed-preparation-policy-native-ci-final-20261110.txt.gz",
+      "bytes": 7470,
+      "sha256": "eeaf22aad116bc6105343f906595091e22a5a6b8867d88099bb24ed132a2ff33"
+    },
+    {
+      "path": "ios-signed-preparation-yaml-shell-check-20261110.txt.gz",
+      "bytes": 114,
+      "sha256": "2c2fb9e23756ffce255268ffdda85482523611a3afee7ed08edfb34d2c01a5d7"
+    },
+    {
+      "path": "installation-context-apple-secret-metadata-error-20261110.txt.gz",
+      "bytes": 181,
+      "sha256": "cc960a1631737aae1fb4fa40c2d5db1ffad32c7dbb047363d9ac65a30121575a"
+    }
+  ],
+  "results": {
+    "joint_tests_passed": 33,
+    "joint_seconds": 26.174,
+    "delivery_tests": 6,
+    "native_package_tests": 19,
+    "ci_contract_tests": 8,
+    "actual_gate_combinations": 48,
+    "application_backend_browser_runtime_byte_unchanged": true,
+    "yaml_and_all_shell_blocks_parsed": true,
+    "initial_red_gates_retained": true,
+    "first_joint_test_setup_failures_retained": 2
+  },
+  "external": {
+    "apple_secret_metadata_read": "HTTP403 from GitHub integration; no absence inferred; no values requested",
+    "new_actual_signing": false,
+    "new_testflight_upload": false,
+    "new_device_acceptance": false
+  }
+}

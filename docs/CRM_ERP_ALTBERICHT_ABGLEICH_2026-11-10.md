@@ -76,10 +76,29 @@ noch abzuarbeiten. Dieser Abgleich überträgt keine alten ungebundenen Aufträg
   verifiziert und entfernt; fremde Container blieben unverändert.
 - Alle32 historischen Lohnkerne und das Gesamtziel mit23863 Bytes/SHA
   a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5
-  bleiben bytegleich. Der vollständige native Schlusslauf ist noch aktiv.
+  bleiben bytegleich. Der vollständige native Schlusslauf besteht mit1.915
+  Fällen ohne Fehler oder Skip in771.908ms; tatsächliche Schlussmeldung
+  success:true. Auch der inzwischen veröffentlichte V12-Kern bleibt bytegleich.
 
 R11.03 wird durch diesen lesenden Teilumfang nicht insgesamt geschlossen:
 niemals angenommene alte ungebundene Erfassungen, andere Dokumentarten,
 fachliche Konfliktklärung und echte Geräte-/Betriebsabnahme bleiben gesondert.
 Eine passende Archivbestätigung belegt die Aufnahme im aktuell angemeldeten
 Unternehmen und ersetzt keine zuvor fehlende Herkunftsbindung des alten Caches.
+
+
+## Technischer Abschluss dieses Teilumfangs
+
+Produktcode aa2ab3651ddc5cadc3c9c75f9df7fd477eee0226 auf799c144.
+1.199 Python-/Dart-/JS-/CJS-Dateien sind vor und nach der Zusammenführung
+bytegleich. Die [27 rohen Prüfdateien und das Manifest](evidence/legacy-service-recovery-2026-11-10/manifest.json)
+enthalten den vollständigen App-Lauf und die fehlgeschlagenen Vorversuche.
+Der [tatsächliche Vorgänger-CI-Abruf](evidence/legacy-service-recovery-2026-11-10/predecessor-ci.json)
+zeigt sechs erfolgreiche Development-Jobs, zwei noch laufende sowie den noch
+laufenden unsignierten iPhone-Auftrag. Daraus wird kein vollständig grüner
+aktueller Gesamtstand oder neuer Server-/Gerätestand abgeleitet.
+
+Der Gesamtauftrag läuft nach diesem Teilumfang weiter. Nächste technische
+Arbeit: die langen bisherigen Gesamtprüfungen vollständig auf unabhängige
+Prüfgruppen verteilen, ohne Fachfälle zu entfernen, damit ein gemeinsamer
+Quellstand samt Artefakten zeitnah fertig geprüft werden kann.

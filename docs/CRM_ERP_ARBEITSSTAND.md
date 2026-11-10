@@ -4,6 +4,24 @@ Stand: 10.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
+**Aktueller geprüfter Codeabschnitt (10.11.):** Der lesende Abgleich alter
+Offline-Serviceprotokolle ist als aa2ab36 auf799c144 integriert:1.915 vollständige
+Appfälle ohne Fehler/Skip,58 gemeinsame Backend-,29 native Altbestands-, ein
+echter nativer MFA-/TCP-/PDF-/Zweifirmenfall, drei neue plus sechs bestehende
+PostgreSQL-/Restorefälle und21 Paketfälle bestehen. Analyse sauber8,3s.
+[Umfang und offene Grenzen](CRM_ERP_ALTBERICHT_ABGLEICH_2026-11-10.md),
+[27 rohe Prüfdateien](evidence/legacy-service-recovery-2026-11-10/manifest.json).
+Keine Wiederübertragung alter Inhalte oder automatische Freigabe ungebundener
+Altbestände. Dieser Abschnitt ist noch nicht veröffentlicht; Testbranch799c144
+ist bestätigt, eigene CI hat im letzten Abruf sechs erfolgreiche und zwei
+laufende Development-Jobs. Kein neuer Live-/Gerätestand. Die folgenden älteren
+Momentaufnahmen bleiben als Verlauf erhalten.
+
+**Unmittelbare Folgearbeit:** Vollständige automatische Gesamtprüfungen auf
+unabhängige Gruppen verteilen und alle bisherigen Fälle nachweisbar erhalten;
+anschließend die verbleibenden Code-/Gesamtabnahmepunkte weiter abarbeiten.
+Der Gesamtauftrag endet ausdrücklich nicht mit diesem Teilabschluss.
+
 **Aktueller Codeabschnitt:** Faktor-/Anspruchsvertrag V12 ist in beiden Clients
 und Backend integriert. 55 Backend-,1041 Browser-, neun neue native und21
 Paketfälle sowie echte PG-/MFA-/Konkurrenz-/EÜR-/Jahres-/CRLF-/Restoreprüfung

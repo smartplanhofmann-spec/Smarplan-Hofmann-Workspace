@@ -1,0 +1,398 @@
+{
+  "created_at": "2026-11-10T06:08:54.786176+00:00",
+  "product_commit": "aa2ab3651ddc5cadc3c9c75f9df7fd477eee0226",
+  "base": "799c144df8b4d42c62373699fff313cabf1cebfd",
+  "scope": "R11.03/B/F/G: hash-only company-bound read-only original lookup for retained V1 native service captures; never replay old text/signature",
+  "tests": {
+    "backend_combined": {
+      "cases": 58,
+      "seconds": 37.969
+    },
+    "backend_new_local_mfa_tcp": {
+      "cases": 11,
+      "seconds": 7.411
+    },
+    "native_focused_with_previous": {
+      "cases": 29,
+      "seconds": 5
+    },
+    "native_actual_mfa_tcp_pdf_two_companies": {
+      "cases": 1,
+      "seconds": 2
+    },
+    "native_entire": {
+      "cases": 1915,
+      "failed": 0,
+      "skipped": 0,
+      "success": true,
+      "duration_ms": 771908
+    },
+    "postgres_new": {
+      "cases": 3,
+      "seconds": 23.643
+    },
+    "postgres_previous_originals": {
+      "cases": 6,
+      "seconds": 67.602
+    },
+    "package": {
+      "cases": 21,
+      "seconds": 18.889
+    },
+    "analysis": {
+      "issues": 0,
+      "seconds": 8.3
+    }
+  },
+  "earlier_attempts": [
+    "First actual HTTP endpoint reproduced404 before implementation.",
+    "Initial new test import/API setup failed; complete fixture module path corrected.",
+    "First native widget attempt interrupted exact owned process because real file I/O ran under fake clock; no completed success claimed.",
+    "Second focused native run failed because lazy list card not rendered; actual scroll and real I/O now explicit, final29 pass.",
+    "First combined backend and original PG groups each had one pre-existing test import path error; complete existing module search path supplied and full groups rerun, no product guard weakened."
+  ],
+  "unchanged_kernels": [
+    {
+      "path": "backend/payroll_annual_basis_2026.py",
+      "sha256": "5b17e71d13ed596a2f4a18ec49f12970e95329ac17dd69ef17709978191ad431"
+    },
+    {
+      "path": "backend/payroll_calculations_2026.py",
+      "sha256": "5133cc7b0a52471bcfd08c76960461799bd92e335ac7e5d141368dc69f14b553"
+    },
+    {
+      "path": "backend/payroll_claims_composition_2026.py",
+      "sha256": "e8a08c7402ae06803045cf5a4421cee1bca0a50183e43677788194c9242e342d"
+    },
+    {
+      "path": "backend/payroll_de_2026.py",
+      "sha256": "c1365355ab501f194f37ede7c4bb0ab2c2347a1252dfda97ae360708593a9789"
+    },
+    {
+      "path": "backend/payroll_entitlements_2026.py",
+      "sha256": "c495a10a871f68dcc13d656a303d5d671855a7b5ea522b454ad141829cb457e7"
+    },
+    {
+      "path": "backend/payroll_factor_2026.py",
+      "sha256": "c55d017120f56b0e2539c793018839820d17aef54611c3ede636e1ee20d1df25"
+    },
+    {
+      "path": "backend/payroll_factor_periods_2026.py",
+      "sha256": "f18b0254d6c96b981433d519adb4895de7e97fcb7e4e9d951105cf95773c63c0"
+    },
+    {
+      "path": "backend/payroll_holidays_2026.py",
+      "sha256": "d8ed5b71ce2f334d5670e707e421212e71abfad953121271efb81ea0eac99280"
+    },
+    {
+      "path": "backend/payroll_multiple_oneoff_2026.py",
+      "sha256": "c6ea0b98dab3528055c7e0b190b93e062dc1469466f670513bd75c8d856f33c7"
+    },
+    {
+      "path": "backend/payroll_oneoff_2026.py",
+      "sha256": "a52973b0f88f0658906db61b610762959b84f1cefe2ded866a663d718f9f1ce8"
+    },
+    {
+      "path": "backend/payroll_oneoff_composition_2026.py",
+      "sha256": "9b48ef4898b043c647b1c238a6f37d8b05bf8f78dcf9967fb691b9803454d0d7"
+    },
+    {
+      "path": "backend/payroll_pap_2026.py",
+      "sha256": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071"
+    },
+    {
+      "path": "backend/payroll_pap_factor_2026.py",
+      "sha256": "92c6dee2d41b5c8985b52d9d8e86831919c05b16bbb504f4bdfc7176be7d088c"
+    },
+    {
+      "path": "backend/payroll_pap_oneoff_2026.py",
+      "sha256": "f2fc8ced86ab844e5c7b4ea592fab2ba5870a7843f47b78bc379b9f874b2f456"
+    },
+    {
+      "path": "backend/payroll_pap_periods_2026.py",
+      "sha256": "9307e599d25512db069bc42b8662ff0aa84b5436808745916bc97018b2675444"
+    },
+    {
+      "path": "backend/payroll_periods_2026.py",
+      "sha256": "c3df3ae3ee93c756010290f382bf17050676a7bbc6a327082ea07b83e7b96890"
+    },
+    {
+      "path": "backend/payroll_segments_2026.py",
+      "sha256": "819894663d24ae4a74e15d4f22c2b421ec34fbf4fc1d8a10a868a62b6270c83d"
+    },
+    {
+      "path": "backend/payroll_sickness_2026.py",
+      "sha256": "05dc76065032993b9ec59035cf17bc99c388b1b119ac30feb4540d937cb45e33"
+    },
+    {
+      "path": "backend/payroll_sickness_phases_2026.py",
+      "sha256": "3a9f7bcc4262d2594e94c6f87bb6f5035901411e64a73f91586fc5b7b9d19c0b"
+    },
+    {
+      "path": "backend/payroll_sickness_start_2026.py",
+      "sha256": "dc69e48b0ef255893b962d6d20ba8dadc478c17a53ccb438b7f12565c1a979c7"
+    },
+    {
+      "path": "backend/payroll_transition_2026.py",
+      "sha256": "b3b649e5179990ed54058ee4daee497a8744277cfe64c98750a5b333963d1897"
+    },
+    {
+      "path": "backend/payroll_travel_2026.py",
+      "sha256": "7c4be0176679fd9d6dcfe1b1049c223e33a1a8b75804f2864df7b0ccd65935fb"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v1.py",
+      "sha256": "03cbcb42b4a5c0eedfc11536c5997a53509c1ab5304a89e2c69c8fbc775164cb"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v2.py",
+      "sha256": "83b2673315b2e828abbf72fef26841bd80e8e8bbd70da45f587a01a5037527e5"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v3.py",
+      "sha256": "6c8496f63c3f44ea56054d7eafa17aa75dbba71bc131306fcf59925d93faf45e"
+    },
+    {
+      "path": "backend/payroll_travel_expenses_2026.py",
+      "sha256": "2d96af39ded426f9868f3011ad3b47cdfc74c25c29f49ade56b6b178f67587d1"
+    },
+    {
+      "path": "backend/payroll_travel_ground_2026.py",
+      "sha256": "9fbc82efc589654ed2eb1425ce50fb4fe6a59b30bcde5ae29d27ec5f595deebc"
+    },
+    {
+      "path": "backend/payroll_travel_mixed_2026.py",
+      "sha256": "0e640106f0d70e3a0f0c54e3154f22e3576d5120dabb9117dbfcf3bde0f6dced"
+    },
+    {
+      "path": "backend/payroll_travel_rates_2026.py",
+      "sha256": "b327e00ea0624b6e41b45843077984af077917eb83400b341a3f88842192b7c0"
+    },
+    {
+      "path": "backend/payroll_travel_tax_2026.py",
+      "sha256": "8b28d2a38923fe64e7e640a1e3487834dea38ab701f07e010bb62dda81495f21"
+    },
+    {
+      "path": "backend/payroll_travel_transport_2026.py",
+      "sha256": "60cc47920cd49bd6daf6ca8a8bba94b49c46b5963d940b655ad100461d2be7d5"
+    },
+    {
+      "path": "backend/payroll_wage_interruptions_2026.py",
+      "sha256": "3039dc435c9c689fbc5a50b005581393e4093c8703a9ae9b74e52d559a236aa9"
+    },
+    {
+      "path": "backend/payroll_factor_claims_2026.py",
+      "sha256": "30a62329a33f2ac4b67c571d5940093189fcbe2929c96507b83216170e57606d"
+    }
+  ],
+  "goal": {
+    "bytes": 23863,
+    "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "source_hashes": {
+    ".github/workflows/checks.yml": "dcf1c224f8093fd0d5d2534e91c4c903b2dd553cd99c07bc937033d0e997e732",
+    "app/lib/legacy_offline_recovery.dart": "7c2635e5eb71cf48a8ddc5a65525bbec85249b3b7b44395ecf6072a50b90a1b1",
+    "app/lib/legacy_offline_recovery_page.dart": "5fe569c06e93db760928f487406c3386c6f9682637c6a5b27c6248f24bb5bda0",
+    "app/lib/offline_report_recovery.dart": "2f6e9e938d607d00b350ffcb710cc277cac7f05d463924ebf56b7521b0ede542",
+    "app/test/fixtures/legacy_report_recovery.json": "6e4ad7e1d26aed7c3e9f7d8dd832e0820e8552f046aa3370865fd1b2d2973768",
+    "app/test/legacy_report_recovery_http_test.dart": "300912c964cbb2da75c85539b114b4e9bf2792f593d0a771d25f5ebd4237860d",
+    "app/test/legacy_report_recovery_test.dart": "9205fbebef126fa194d3f1f7856a617081f586a8be012a007d1f42f2bdc0ef76",
+    "backend/business_api.py": "45c770c86e8062332d8eb620e197d0f86c461d50bce44fce1bf03c6767637bf3",
+    "backend/business_offline_binding.py": "08051454fb6d12ac3c0b53e16ee0afda76c7b5ca1cfb02f29efef19b8bb26e45",
+    "backend/offline_report_recovery.py": "8261742d515e7e0d804e8fed59254ae21744cdd563ff7974ba26a8288a3c7438",
+    "backend/online/test_legacy_service_report_recovery.py": "e30e496462ecfc31cefc3a75eba8a7f3a0b7269104b043a3c095f897da3da30d",
+    "backend/online/test_legacy_service_report_recovery_pg.py": "9ee56b2ef9a6944ad9880e5db0fb1ac8f28ceb6b686cb2fb1e6374f0efd7d8f9",
+    "backend/online/web.py": "9803d4d814a6876fc5211138bcef5323d0ff1bb5cc96efdf5f58f8acd203a835",
+    "backend/server.py": "18a44db1a79ad9a422438a33f2152d2da8a3476eef6c162b755e56455bb01d16",
+    "scripts/generate-legacy-report-recovery-fixture.py": "e9dde2225f05fef9dc11d35a64fc207bce7b675387d62db584032f7465cba4b9",
+    "scripts/native-release.py": "b650a7e87935fa1745a7142fe069ffe16fd18b0315007e12050c399e226621bc"
+  },
+  "rebase": {
+    "before": "403564727a4e0867c5cdb551bb7fe2f9da02cbd5",
+    "after": "aa2ab3651ddc5cadc3c9c75f9df7fd477eee0226",
+    "identical_source_files": 1199,
+    "extensions": [
+      ".py",
+      ".dart",
+      ".js",
+      ".cjs"
+    ]
+  },
+  "raw_logs": [
+    {
+      "file": "legacy-service-recovery-backend-combined-first-20261110.txt.gz",
+      "bytes": 11240,
+      "sha256": "65b4c6bbda1129980473a9c4a70b763a7fb63005fefe86bce2774f2efa42d164",
+      "gzip_sha256": "48c99bf3d176a92c39c12d21c1bdc5bc849a43c203e3861433cf79c73f68e050"
+    },
+    {
+      "file": "legacy-service-recovery-backend-combined-paths-20261110.txt.gz",
+      "bytes": 12772,
+      "sha256": "10b5ac1c4f2eea393ebfa91f8746eec068381a65d2c9aba93928219ed6442488",
+      "gzip_sha256": "59ac94e274499583b8d604a7bafb00fb82d9e9a2bfc9eab84e78c76fad768f0c"
+    },
+    {
+      "file": "legacy-service-recovery-before-20261110.txt.gz",
+      "bytes": 1235,
+      "sha256": "394cc529ee1b0dd95c36fb90f4983542f9e43713025b8544d4f56a4d76880768",
+      "gzip_sha256": "7ff69e71e2e7fbecbb369800db3d4bce1e6f4b25a87e3905db6782862b774f12"
+    },
+    {
+      "file": "legacy-service-recovery-fixture-20261110.txt.gz",
+      "bytes": 109,
+      "sha256": "0a2e99e710e65dfab5ea3d198443a5363b28ebd2dee8806ce9f4a7a40f805b75",
+      "gzip_sha256": "c2aacb98de51612693eef9eecf48279f10dabcdf2af9b2af871b87fa75a750b3"
+    },
+    {
+      "file": "legacy-service-recovery-http-before-20261110.txt.gz",
+      "bytes": 1780,
+      "sha256": "83a7cad5877ce73fd06cadac18032505bad7dacabf1c963c408d75b396afee55",
+      "gzip_sha256": "4e5c7a9136515ae732b447c8f2d67d993c652399b4ff6cae66c6e725b2ab3e8d"
+    },
+    {
+      "file": "legacy-service-recovery-http-first-20261110.txt.gz",
+      "bytes": 1076,
+      "sha256": "4509cfce7a88f47e8c73dfa1bdd69cf8f76274ad3859f956842a6defd5b96bbf",
+      "gzip_sha256": "610796964d7cdb051b221422a3680bc44ed2d55bc70851cb33b9a15eb91a0a81"
+    },
+    {
+      "file": "legacy-service-recovery-http-guards-20261110.txt.gz",
+      "bytes": 4003,
+      "sha256": "0d8bcc235aa99b2b2e0155eadbe3bd63d7cfc12fbc9b779d45a10d6c4ce2a92f",
+      "gzip_sha256": "c500640b2b64afde1774c8caa3ddb847c396c305015ff90633dbf7e348c80861"
+    },
+    {
+      "file": "legacy-service-recovery-http-native-format-20261110.txt.gz",
+      "bytes": 99,
+      "sha256": "4244d979bd24c5b0cf27cb310c731676ccc9212fa39c2854364e9fa933d4f82e",
+      "gzip_sha256": "fc9f335534be2d6ab913315d56dc98840ac7e2b76b86e96655bdd952f050ccdd"
+    },
+    {
+      "file": "legacy-service-recovery-local-and-mfa-20261110.txt.gz",
+      "bytes": 2722,
+      "sha256": "8098ec08cd618b8ae7fc2964f805ddf0ee4cf7980fa9c7611b0d99835f9eb5c4",
+      "gzip_sha256": "5dde007d9a88ce510b222f01f40d06ea0bd0ac94056aec37f86d86c8aaeb94a2"
+    },
+    {
+      "file": "legacy-service-recovery-native-analyze-final-20261110.txt.gz",
+      "bytes": 96,
+      "sha256": "e104e5631bb43f34d29d027c761bd649aee3827b2b0a66e51383248353f0b15b",
+      "gzip_sha256": "dc1bcc07ae65140d0ddcca8512f81c6fb72e8d2eb31055275e9eab3c7c4eaa84"
+    },
+    {
+      "file": "legacy-service-recovery-native-analyze-first-20261110.txt.gz",
+      "bytes": 97,
+      "sha256": "8b1583b090e0d8c734e001bddd3e615747ca56e9dc603eecb91bc027aea92e64",
+      "gzip_sha256": "4d6d55375b28c2de2c186967f9786b23bf49cd9f4ef2b3ada7d8790d83f1000d"
+    },
+    {
+      "file": "legacy-service-recovery-native-entire-20261110.jsonl.gz",
+      "bytes": 1139064,
+      "sha256": "e30158ba1a5636132ae48e038a721c0eb900f57ebafd9349f389bf3bf06e00bd",
+      "gzip_sha256": "71a0847c9a6c3ead49775594c623b8bbe7fb5f7537af3a084aeaddc7e74d440f"
+    },
+    {
+      "file": "legacy-service-recovery-native-entire-20261110.stderr.txt.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "file": "legacy-service-recovery-native-first-20261110.txt.gz",
+      "bytes": 1791,
+      "sha256": "8cce8b31637eaf5be1b5852118a575d7e9d224ff95f5d9bff8fd2ae103e6ea4a",
+      "gzip_sha256": "67239ab974bb0ce9cdc39b62c679b0ec1ea30c080e2121e4ecefd264be3762a6"
+    },
+    {
+      "file": "legacy-service-recovery-native-format-20261110.txt.gz",
+      "bytes": 181,
+      "sha256": "54ca4ab65e23bf4e50aa794a80de5c7636780508ff865ae892224d0d50ab8f95",
+      "gzip_sha256": "f388fdabbcfb6d7eaba3e199ad4a7b4c43ca1651198398a4aaedf520bffd63f8"
+    },
+    {
+      "file": "legacy-service-recovery-native-io-20261110.txt.gz",
+      "bytes": 8707,
+      "sha256": "ebc0a021feca6b49535d20924937b3fddc19da852d582957707034f6c22d8d3f",
+      "gzip_sha256": "7b753842320af26753bf7c5ab7af8e172fcce7dd5d8d6db8aa9334acb045240b"
+    },
+    {
+      "file": "legacy-service-recovery-native-io-format-20261110.txt.gz",
+      "bytes": 94,
+      "sha256": "6247307c29173a12d2a89b3fa3a879936d275b796ab1503f8c787dd2d48f24dc",
+      "gzip_sha256": "034eaa6f4e7617a2a3780df7bd465f8bd58398931c55783cb78f82c9996ebda3"
+    },
+    {
+      "file": "legacy-service-recovery-native-pubget-20261110.txt.gz",
+      "bytes": 68,
+      "sha256": "d4cb7a3c68b4133b4f6e58c67ff5bfd13725d8021e930388cdc98da8a575919d",
+      "gzip_sha256": "33e704fc20f0db5a9a37ee8f146d3084685cdb8c352aaa2fd21f09a54fab7cf4"
+    },
+    {
+      "file": "legacy-service-recovery-native-real-http-first-20261110.txt.gz",
+      "bytes": 285,
+      "sha256": "14bfa462e05dfb8fc330c9ed449b06cc8406d6ad73419c4f6713057b1bf3022e",
+      "gzip_sha256": "ff53966cb96c41af22e03cbb80d838204fefe94f8d7a719148585b5b39ec0518"
+    },
+    {
+      "file": "legacy-service-recovery-native-scroll-20261110.txt.gz",
+      "bytes": 6400,
+      "sha256": "dab87eeecd3d8cb7100c6116e6f7b2cd86133f22162f8c9f668692b3b79fc295",
+      "gzip_sha256": "b938f7d13de4186aecd4d65f87de4e905b884580acf10b876c25961b120e69e1"
+    },
+    {
+      "file": "legacy-service-recovery-native-test-format-20261110.txt.gz",
+      "bytes": 138,
+      "sha256": "76494ac2e3a36063e816052e5325b3e029b8aeaa3aa0e56e9fdcf17091eb015a",
+      "gzip_sha256": "abeb778145a8a35fecc512b3b2f5f86c31e3fea469ff6839278571a7ee0f6ea9"
+    },
+    {
+      "file": "legacy-service-recovery-package-first-20261110.txt.gz",
+      "bytes": 4564,
+      "sha256": "9ed325aa81ad9a0c601fa2c0487730cdc0829c5f35a8bd9c357cc1a4ac407bb9",
+      "gzip_sha256": "337a8f24cdf41a37cee79f01ea28bb6b117cf15fd3189d93f12b691f43de6e83"
+    },
+    {
+      "file": "legacy-service-recovery-postgres-first-20261110.txt.gz",
+      "bytes": 827,
+      "sha256": "f153c91a831f69c0e22b7909c6a413167189ed9f6af6291b813ceae08fa6fed9",
+      "gzip_sha256": "ae603f68334efd5c1736f0602f222da6fadc61f38a6753e2a218945b1062862b"
+    },
+    {
+      "file": "legacy-service-recovery-postgres-originals-20261110.txt.gz",
+      "bytes": 2612,
+      "sha256": "729e72527dce2a90cde1dc9213dd39466ebbbbef96aa1750832dfebddf0b3302",
+      "gzip_sha256": "fabe74477c87104de991247c973ab8686ac3497659441e199a44e498f82cd4c5"
+    },
+    {
+      "file": "legacy-service-recovery-postgres-originals-paths-20261110.txt.gz",
+      "bytes": 1450,
+      "sha256": "d52a565cbce5bac6483909513993400ff873c12e7e3173dabfe87471c485a162",
+      "gzip_sha256": "1f4d52385f6aaf32f92aac9d42801251a2eec0d7a4f5123936748635e50ee0fe"
+    },
+    {
+      "file": "legacy-service-recovery-rebase-20261110.txt.gz",
+      "bytes": 765,
+      "sha256": "9fd3db500dc050fc813a1327ebe652d1843eee5fbc3677a2dae05156834ffce5",
+      "gzip_sha256": "1c98063a9851beed6fc4d2f94c467dd5e8e58461e473017d96fe9e7471756287"
+    },
+    {
+      "file": "legacy-service-recovery-unimplemented-20261110.txt.gz",
+      "bytes": 703,
+      "sha256": "9aa5f5f23b3984f9c2c25ccf551f98fb1056d4b1d1b5d7fb64c829b9470bee35",
+      "gzip_sha256": "455f60b3b70e73fd376d8f43b5a234bba53bb682ddefd4b42fbd8bab551dcd46"
+    }
+  ],
+  "own_postgres_container": {
+    "id": "6bcd888c3520bdd614933e49c6bab87b5c17c5addd69219393b99a70fed28fea",
+    "label": "smartplan.task=legacy-service-recovery-20261110",
+    "loopback_port": 32796,
+    "removed_after_success": true,
+    "foreign_containers_untouched": true
+  },
+  "limits": [
+    "Read-only exact-original evidence; no migration or provenance inference for never accepted unbound data.",
+    "Other legacy document kinds and business conflict resolution remain open.",
+    "No fresh whole Node run: browser source unchanged from799c144 and its1041 cases are predecessor evidence.",
+    "Remote CI, live installation, actual device acceptance and whole A-G acceptance are distinct and not claimed complete."
+  ]
+}

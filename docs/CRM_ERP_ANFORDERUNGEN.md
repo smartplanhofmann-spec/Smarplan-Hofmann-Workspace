@@ -290,3 +290,26 @@ veröffentlicht, seine eigene Development42762857917 und iPhone42762857879
 laufen; keine neue Serverinstallation oder Geräteabnahme. Der Gesamtauftrag
 geht nach dieser Etappe weiter, insbesondere andere Offline-Dokumentarten,
 weitere vereinbarte Regel-/Lohn-/EÜR-Fälle und technische Gesamtintegration.
+
+
+## 10.11.2026 – Altprotokollabgleich gemeinsam technisch abgeschlossen
+
+Der tatsächliche vollständige App-Lauf besteht mit1.915 Fällen ohne Fehler
+oder Skip in771.908ms, success:true. 58 gemeinsame Backend-,29 native
+Altbestands-, ein zusätzlicher tatsächlicher nativer MFA-/TCP-/Zweifirmen-/
+PDF-/Dateifall, drei neue plus sechs bisherige echte PostgreSQL-/Restorefälle,
+21 Paketfälle und saubere Analyse8,3s bestehen. Alle33 bisherigen Lohnkerne
+(einschließlich V12) und das unveränderte Gesamtziel bleiben bytegleich.
+1.199 Laufzeit-/Testquelldateien vor und nach Rebase identisch. Eigene
+PostgreSQL-Instanz nach ID-/Label-/Portprüfung entfernt; fremde unverändert.
+[27 rohe Prüfdateien samt Vorfehlern](evidence/legacy-service-recovery-2026-11-10/manifest.json),
+[genauer Vertrag und Grenzen](CRM_ERP_ALTBERICHT_ABGLEICH_2026-11-10.md).
+
+Produktcode aa2ab3651ddc5cadc3c9c75f9df7fd477eee0226 auf veröffentlichtem799c144.
+Noch kein neuer Push oder Server-/Geräteabnahme. Der tatsächliche Vorgänger-
+CI-Abruf zeigt sechs erfolgreiche und zwei noch laufende Development-Jobs;
+unsignierter iPhone-Auftrag ebenfalls noch aktiv. Ganze A–G-Abnahmen bleiben
+offen. Als nächste technische Folge werden die langen automatischen
+Gesamtprüfungen auf unabhängige Gruppen verteilt, mit vollständiger Erhaltung
+aller bisherigen Prüfaufrufe und getrennten Artefakten. Kein Teilabschluss
+beendet den Auftrag; weitere Offline-/Fachfälle bleiben im Gesamtplan.

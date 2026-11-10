@@ -345,7 +345,7 @@ class Payroll:
         _shape(data,fields,input_fields+('request_id','preview_hash','accepted_scope','confirmed','revision'))
         if data['confirmed'] is not True or not isinstance(data['preview_hash'],str) or not re.fullmatch(r'[a-f0-9]{64}',data['preview_hash']):
             raise Problem(400,'Geprüfte Berechnungsvorschau und ausdrückliche Bestätigung erforderlich.')
-        if data['accepted_scope'] not in ('commercial_minijob_flat_tax','social_contributions_only','regular_standard_monthly', 'regular_standard_factor_monthly',FACTOR_PERIOD_SCOPE,'regular_standard_factor_taxfree_travel_month','regular_transition_monthly',INDIVIDUAL_MINIJOB_SCOPE)+PERIOD_SCOPES+CALCULATION_SCOPES+('regular_standard_oneoff','regular_standard_multiple_oneoff'):
+        if data['accepted_scope'] not in ('commercial_minijob_flat_tax','social_contributions_only','regular_standard_monthly', 'regular_standard_factor_monthly',FACTOR_PERIOD_SCOPE,'regular_standard_factor_taxfree_travel_month','regular_standard_factor_claims_month','regular_transition_monthly',INDIVIDUAL_MINIJOB_SCOPE)+PERIOD_SCOPES+CALCULATION_SCOPES+('regular_standard_oneoff','regular_standard_multiple_oneoff'):
             raise Problem(400,'Den tatsächlich verfügbaren Berechnungsumfang ausdrücklich bestätigen.')
         if 'id' in data:
             identifier(data['id'])
@@ -533,6 +533,9 @@ def _calculate_source(source,*,rule_version=None):
         if fact['rule_version']==INDIVIDUAL_MINIJOB_RULE:
             from payroll_individual_minijob_2026 import build_plan as minijob_plan,calculate_source as minijob_calculate
             builder,calculator=minijob_plan,minijob_calculate
+        from payroll_factor_claims_2026 import RULE_VERSION as FACTOR_CLAIMS_RULE,build_plan as factor_claims_plan,calculate_source as factor_claims_calculate
+        if fact['rule_version']==FACTOR_CLAIMS_RULE:
+            builder,calculator=factor_claims_plan,factor_claims_calculate
         plan=builder(snapshot,rule_version=fact['rule_version'],source_contract_version=fact['source_contract_version'])
         selected=next(value for value in snapshot['profiles'] if {key:value[key] for key in ('id','revision','content_hash')}==plan['selected_profile_ref'])
         if (type(source['source_schema_version']) is not int or type(source['input']['source_schema_version']) is not int
@@ -611,6 +614,7 @@ def _render(prepared):
         'regular_standard_factor_monthly':'Lohnberechnungsbeleg mit Faktor',
         'regular_standard_factor_period':'Lohnberechnungsbeleg mit Faktor und Zeitnachweis',
         'regular_standard_factor_taxfree_travel_month':'Faktorlohn mit bereits erstatteter steuerfreier Reise',
+        'regular_standard_factor_claims_month':'Faktorlohn mit belegten Lohnansprüchen',
         'regular_transition_monthly':'Midijob-Lohnberechnungsbeleg',
         'regular_standard_period':'Lohnberechnungsbeleg mit Zeitnachweis',
         'regular_standard_oneoff':'Lohnberechnungsbeleg mit sonstigem Bezug',
@@ -713,7 +717,7 @@ def _render(prepared):
 
 def _delta(current,previous):
     keys=('gross_minor','employee_social_total_minor','employer_social_total_minor','employer_flat_tax_minor','net_minor')
-    regular=('regular_standard_monthly', 'regular_standard_factor_monthly','regular_standard_factor_period','regular_standard_factor_taxfree_travel_month','regular_transition_monthly','regular_standard_period','regular_transition_period','regular_standard_segments','regular_transition_segments','regular_standard_oneoff','regular_standard_multiple_oneoff')
+    regular=('regular_standard_monthly', 'regular_standard_factor_monthly','regular_standard_factor_period','regular_standard_factor_taxfree_travel_month','regular_standard_factor_claims_month','regular_transition_monthly','regular_standard_period','regular_transition_period','regular_standard_segments','regular_transition_segments','regular_standard_oneoff','regular_standard_multiple_oneoff')
     if current['scope'] in regular or previous['scope'] in regular:
         keys+=('individual_wage_tax_minor','solidarity_minor','church_tax_minor','employee_tax_minor','payout_minor')
     result={key:current[key]-previous[key] if current[key] is not None and previous[key] is not None else None for key in keys}
@@ -848,6 +852,7 @@ def dispatch(office,actor,path,method,data):
         with transaction(office):
             require_permission(office,actor,'personnel.read')
             from payroll_factor_taxfree_travel_2026 import RULES as FACTOR_TRAVEL_RULES,RULES_SHA256 as FACTOR_TRAVEL_HASH
+            from payroll_factor_claims_2026 import RULES as FACTOR_CLAIMS_RULES,RULES_SHA256 as FACTOR_CLAIMS_HASH
             from payroll_individual_minijob_2026 import RULES as MINIJOB_RULES,RULES_SHA256 as MINIJOB_HASH
             result=dict(rules=RULES,rules_sha256=RULES_SHA256,regular_standard_rules=FULL_RULES,
                 regular_standard_rules_sha256=FULL_RULES_SHA256,pap_provenance=PAP_PROVENANCE,
@@ -855,6 +860,7 @@ def dispatch(office,actor,path,method,data):
                 factor_period_rules=FACTOR_PERIOD_RULES,factor_period_rules_sha256=FACTOR_PERIOD_RULES_SHA256,
                 factor_pap_provenance=FACTOR_PAP_PROVENANCE,
                 factor_taxfree_travel_rules=FACTOR_TRAVEL_RULES,factor_taxfree_travel_rules_sha256=FACTOR_TRAVEL_HASH,
+                factor_claims_rules=FACTOR_CLAIMS_RULES,factor_claims_rules_sha256=FACTOR_CLAIMS_HASH,
                 individual_minijob_rules=MINIJOB_RULES,individual_minijob_rules_sha256=MINIJOB_HASH,
                 regular_transition_rules=TRANSITION_RULES,regular_transition_rules_sha256=TRANSITION_RULES_SHA256,
                 period_rules=PERIOD_RULES,period_rules_sha256=PERIOD_RULES_SHA256,

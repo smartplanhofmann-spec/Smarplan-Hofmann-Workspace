@@ -235,6 +235,7 @@ jobs:
             SMARTPLAN_BROWSER_WORKFLOW=payroll-transition node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-factor node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-factor-travel node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-factor-claims node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-individual-minijob node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-periods node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-factor-periods node tests/e2e.cjs &&

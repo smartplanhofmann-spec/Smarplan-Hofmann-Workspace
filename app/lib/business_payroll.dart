@@ -54,6 +54,8 @@ const payrollScopes = {
   'regular_transition_monthly':
       'Belegter Übergangsbereich · Vollmonat und PAP 2026',
   'regular_standard_monthly': 'Reguläre Standard-Monatsberechnung · PAP 2026',
+  'regular_standard_factor_claims_month':
+      'Faktor-Monat mit belegten Lohnansprüchen',
   'regular_standard_factor_monthly':
       'Reguläre Steuerklasse IV mit Faktor · Vollmonat und PAP 2026',
   'commercial_minijob_flat_tax':
@@ -451,6 +453,8 @@ Map<String, dynamic> payrollPreview(dynamic raw, Map<String, dynamic> input) {
   }
   if (input['source_schema_version'] == 3) {
     final value = payrollCompositeSource(raw, input);
+    if (value['calculation']['rule_version'] == payrollFactorClaimsRule)
+      payrollFactorClaimsRunHashes(value);
     if (!RegExp(r'^[a-f0-9]{64}$').hasMatch('${value['preview_hash']}'))
       throw const ApiException(0, 'Die Vorschauprüfsumme fehlt.');
     return value;
@@ -528,6 +532,8 @@ void Function(dynamic) payrollReceiptValidator(
               key: file?[key],
           });
     } else {
+      if (v['calculation']?['rule_version'] == payrollFactorClaimsRule)
+        payrollFactorClaimsRunHashes(v);
       bad =
           bad ||
           !payrollSame(v['source'], proof['source']) ||
@@ -578,6 +584,7 @@ void Function(dynamic) payrollReceiptValidator(
                     'regular_standard_oneoff',
                     'regular_standard_multiple_oneoff',
                     'regular_standard_segments',
+                    'regular_standard_factor_claims_month',
                     'regular_transition_segments',
                   ].contains(scope),
                 )) ...[
@@ -2662,6 +2669,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
             [
                   payrollCalculationCaseRule,
                   payrollFactorTaxfreeTravelRule,
+                  payrollFactorClaimsRule,
                   individualMinijobRule,
                   payrollOneOffRule,
                   payrollMultipleRule,
@@ -2673,6 +2681,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
       if ([
         payrollCalculationCaseRule,
         payrollFactorTaxfreeTravelRule,
+        payrollFactorClaimsRule,
         individualMinijobRule,
         payrollOneOffRule,
         payrollMultipleRule,
@@ -2762,6 +2771,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         [
               payrollCalculationCaseRule,
               payrollFactorTaxfreeTravelRule,
+              payrollFactorClaimsRule,
               individualMinijobRule,
               payrollOneOffRule,
               payrollMultipleRule,

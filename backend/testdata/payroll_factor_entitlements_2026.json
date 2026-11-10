@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "reference": "pinned_2026_xml_java_decimal_expressions",
+  "xml_sha256": "63d8981646d139eba2f4dd990c13b43c4fb3883b402a5a40cddf253aa7aa96b4",
+  "official_xml": "https://www.bmf-steuerrechner.de/javax.faces.resource/daten/xmls/Lohnsteuer2026.xml.xhtml",
+  "downloaded_pinned_mirror": "https://raw.githubusercontent.com/manuelbusch/paprun/cdf564daec7f617d54181eb8b14232e48a59dd7a/tests/data/Lohnsteuer2026.xml",
+  "cases": [
+    {
+      "input": {
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0,
+        "gross_minor": 419355
+      },
+      "expected": {
+        "BK": 0,
+        "BKS": 0,
+        "LSTLZZ": 43091,
+        "SOLZLZZ": 0,
+        "SOLZS": 0,
+        "STS": 0,
+        "VFRB": 123000,
+        "VFRBS1": 0,
+        "VFRBS2": 0,
+        "WVFRB": 2656860,
+        "WVFRBO": 0,
+        "WVFRBM": 0
+      }
+    },
+    {
+      "input": {
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0,
+        "gross_minor": 419354
+      },
+      "expected": {
+        "BK": 0,
+        "BKS": 0,
+        "LSTLZZ": 43091,
+        "SOLZLZZ": 0,
+        "SOLZS": 0,
+        "STS": 0,
+        "VFRB": 123000,
+        "VFRBS1": 0,
+        "VFRBS2": 0,
+        "WVFRB": 2656848,
+        "WVFRBO": 0,
+        "WVFRBM": 0
+      }
+    },
+    {
+      "input": {
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0,
+        "gross_minor": 419356
+      },
+      "expected": {
+        "BK": 0,
+        "BKS": 0,
+        "LSTLZZ": 43091,
+        "SOLZLZZ": 0,
+        "SOLZS": 0,
+        "STS": 0,
+        "VFRB": 123000,
+        "VFRBS1": 0,
+        "VFRBS2": 0,
+        "WVFRB": 2656772,
+        "WVFRBO": 0,
+        "WVFRBM": 0
+      }
+    },
+    {
+      "input": {
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0,
+        "gross_minor": 451613
+      },
+      "expected": {
+        "BK": 0,
+        "BKS": 0,
+        "LSTLZZ": 49258,
+        "SOLZLZZ": 0,
+        "SOLZS": 0,
+        "STS": 0,
+        "VFRB": 123000,
+        "VFRBS1": 0,
+        "VFRBS2": 0,
+        "WVFRB": 2965956,
+        "WVFRBO": 0,
+        "WVFRBM": 0
+      }
+    },
+    {
+      "input": {
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0,
+        "gross_minor": 500000
+      },
+      "expected": {
+        "BK": 0,
+        "BKS": 0,
+        "LSTLZZ": 58908,
+        "SOLZLZZ": 0,
+        "SOLZS": 0,
+        "STS": 0,
+        "VFRB": 123000,
+        "VFRBS1": 0,
+        "VFRBS2": 0,
+        "WVFRB": 3429600,
+        "WVFRBO": 0,
+        "WVFRBM": 0
+      }
+    },
+    {
+      "input": {
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0,
+        "gross_minor": 320000
+      },
+      "expected": {
+        "BK": 0,
+        "BKS": 0,
+        "LSTLZZ": 25391,
+        "SOLZLZZ": 0,
+        "SOLZS": 0,
+        "STS": 0,
+        "VFRB": 123000,
+        "VFRBS1": 0,
+        "VFRBS2": 0,
+        "WVFRB": 1704800,
+        "WVFRBO": 0,
+        "WVFRBM": 0
+      }
+    },
+    {
+      "input": {
+        "period": 2,
+        "tax_class": 4,
+        "factor": "0.753",
+        "children_half_units": 0,
+        "additional_health_percent": "2.90",
+        "saxony": false,
+        "childless_surcharge": true,
+        "care_child_discounts": 0,
+        "church_member": false,
+        "allowance_minor": 0,
+        "addition_minor": 0,
+        "gross_minor": 220000
+      },
+      "expected": {
+        "BK": 0,
+        "BKS": 0,
+        "LSTLZZ": 9558,
+        "SOLZLZZ": 0,
+        "SOLZS": 0,
+        "STS": 0,
+        "VFRB": 123000,
+        "VFRBS1": 0,
+        "VFRBS2": 0,
+        "WVFRB": 746600,
+        "WVFRBO": 0,
+        "WVFRBM": 0
+      }
+    }
+  ]
+}

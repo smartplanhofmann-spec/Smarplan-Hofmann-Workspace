@@ -464,3 +464,21 @@ Altbelegen und Mobilansicht.
 [Fehler und tatsächlicher Nachweis](evidence/capacity-login-response-2026-11-10/manifest.json).
 Eigene Folge-CI bleibt erforderlich; keine Serverinstallation. Der Gesamtauftrag
 läuft weiter, der Faktor-/Anspruchsvertrag V12 wird separat weiterentwickelt.
+
+
+## 10.11.2026 – belegte Lohnansprüche im vollständigen Faktor-Monat
+
+R09.03/D: Der neue additive [Faktor-/Anspruchsvertrag V12](CRM_ERP_FAKTOR_ANSPRUECHE_V12_2026-11-10.md)
+ist in Backend, Browser und App integriert. Tatsächliche unbezahlte Kalenderzeit
+und belegter Stundenlohn-Feiertag erreichen die Lohnberechnung ohne erfundene
+Projektarbeit. 55 gemeinsame Backend-,1041 ganze Browser-, neun neue native und
+21 Paketfälle, saubere Analyse sowie echter PG-/MFA-/Konkurrenz-/EÜR-/Jahres-/
+CRLF-/Restorenachweis bestehen. Der vollständige App-Lauf wird nach einem
+lokalen Testpfadfehler eigenständig wiederholt. Alte Fehler bleiben erhalten.
+Weitere Faktor-/Teilperioden-/Reise-/Einmalbezugs-/Gruppenfälle und A–G bleiben
+offen. Veröffentlichung und tatsächlicher Server-/Gerätestand werden getrennt
+geführt. Auf dem autorisierten Testbranch ist inzwischen die separat geprüfte
+Anmeldeantwort-Korrektur cb7ff63199757da72959a8b52161b6eff62e0117 veröffentlicht;
+ihre eigene Development-CI42758607318 läuft. Keine neue Liveinstallation.
+Nach Fertigstellung des aktuellen Nachweises wird das Gesamtziel weiter
+abgearbeitet; eine abgeschlossene Einzeletappe beendet den Auftrag nicht.

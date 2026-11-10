@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'business_payroll_factor_claims.dart';
+export 'business_payroll_factor_claims.dart';
+
 import 'api.dart';
 import 'business_payroll_facts.dart';
 import 'business_payroll_entitlement_contract.dart';
@@ -16,7 +19,8 @@ bool payrollCalculationCaseRuleKnown(dynamic rule, dynamic contract) =>
     contract is int &&
     (rule == payrollCalculationCaseRule && contract == 1 ||
         rule == payrollFactorTaxfreeTravelRule && contract == 2 ||
-        rule == individualMinijobRule && contract == 3);
+        rule == individualMinijobRule && contract == 3 ||
+        rule == payrollFactorClaimsRule && contract == 4);
 bool payrollFactorTravelBaseEligible(dynamic raw) {
   final value = businessMap(raw), plan = businessMap(value['plan']);
   final tax = plan['tax_periods'], social = plan['social_periods'];
@@ -166,6 +170,7 @@ Map<String, dynamic> payrollCalculationCasePlan(
       'Der Gesamtplan ist nicht an einen bekannten vollständigen Quellen- und Regelstand gebunden.',
     );
   if (v['gross_minor'] != null) _integer(v['gross_minor']);
+  if (v['rule_version'] == payrollFactorClaimsRule) payrollFactorClaimsPlan(v);
   if (v['rule_version'] == payrollFactorTaxfreeTravelRule) {
     _factorTravelMetadata(v, required: v['can_calculate'] == true);
     _factorTravelBounds(v, month, v['can_calculate'] == true);
@@ -217,6 +222,8 @@ Map<String, dynamic> payrollCalculationCaseRecord(
       p['source_snapshot_hash'] != v['source_hash'])
     _fail('Gesamtfall und eingefrorener Quellenstand widersprechen sich.');
   _bindings(s, d, v['source_file_ids'], employeeId, p);
+  if (v['rule_version'] == payrollFactorClaimsRule)
+    payrollFactorClaimsCaseHashes(v);
   if (v['rule_version'] == payrollFactorTaxfreeTravelRule &&
       p['factor_parameters'] != null &&
       !payrollFactsSame(
@@ -264,6 +271,8 @@ void _bindings(
         d['travel_settlement_refs'],
       ))
     _fail('Die Reiseabrechnungsquellen passen nicht zur Person und zum Monat.');
+  if (s['rule_version'] == payrollFactorClaimsRule)
+    payrollFactorClaimsBindings(s, d, plan);
   if (s['rule_version'] == payrollFactorTaxfreeTravelRule) {
     if (s['period_case']['plan']['rule_version'] != payrollFactorPeriodRule ||
         [
@@ -492,6 +501,13 @@ Map<String, dynamic> payrollCalculationCaseInput(
       values['rule_version'] ??
       previous?['rule_version'] ??
       payrollCalculationCaseRule;
+  if (rule == payrollFactorClaimsRule)
+    return payrollFactorClaimsInput(
+      employeeId,
+      sources,
+      values,
+      previous: previous,
+    );
   if (rule == individualMinijobRule)
     return individualMinijobInput(
       employeeId,
@@ -878,6 +894,8 @@ Map<String, dynamic> payrollCalculationCasePreview(
       'Die Gesamtfallvorschau gehört nicht zum ausdrücklich geprüften Quellenauftrag.',
     );
   _bindings(s, d, body['source_file_ids'], body['employee_id'], p);
+  if (body['rule_version'] == payrollFactorClaimsRule)
+    payrollFactorClaimsCaseHashes(v);
   if (body['rule_version'] == payrollFactorTaxfreeTravelRule &&
       p['factor_parameters'] != null &&
       !payrollFactsSame(
@@ -982,6 +1000,23 @@ Map<String, dynamic> payrollCompositeCalculation(dynamic raw) {
   if (v['rule_version'] == payrollCalculationCaseRule &&
       v['scope'] == payrollFactorTaxfreeTravelScope)
     _fail('Der neue Faktor-Reisefall benötigt seinen eigenen Regelstand.');
+  if (v['rule_version'] == payrollFactorClaimsRule) {
+    payrollFactorClaimsPlan({
+      ...d,
+      'rule_version': v['rule_version'],
+      'source_contract_version': 4,
+      'month': v['month'],
+      'gross_minor': v['gross_minor'],
+      'can_calculate': v['payroll_calculation_complete'],
+    });
+    if (v['scope'] != 'unsupported' &&
+        (v['scope'] != payrollFactorClaimsScope ||
+            d['factor_parameters']?['tax_factor'] !=
+                v['tax_parameters']?['tax_factor'] ||
+            v['travel_expenses_included_in_net'] != false ||
+            v['net_deductions_minor'] != 0))
+      _fail('Faktor und Anspruchsrechnung widersprechen sich.');
+  }
   if (v['rule_version'] == payrollFactorTaxfreeTravelRule) {
     _factorTravelMetadata(d, required: v['scope'] != 'unsupported');
     _factorTravelBounds(d, v['month'], v['scope'] != 'unsupported');
@@ -1065,6 +1100,8 @@ Map<String, dynamic> payrollCompositeCalculation(dynamic raw) {
         'regular_transition_segments',
         'commercial_minijob_segments_flat_tax',
         payrollFactorTaxfreeTravelScope,
+        if (v['rule_version'] == payrollFactorClaimsRule)
+          payrollFactorClaimsScope,
       ].contains(v['scope']) ||
       v['social_contributions_available'] != true ||
       v['payroll_calculation_complete'] != true ||
@@ -1170,7 +1207,10 @@ Map<String, dynamic> payrollCompositeCalculation(dynamic raw) {
         'Der Minijob-Gesamtfall enthält widersprüchliche Individualsteuern.',
       );
   } else {
-    if (v['rule_version'] == payrollFactorTaxfreeTravelRule &&
+    if ([
+          payrollFactorTaxfreeTravelRule,
+          payrollFactorClaimsRule,
+        ].contains(v['rule_version']) &&
         taxes.any(
           (tax) =>
               tax['calculation']?['factor'] !=
@@ -1260,6 +1300,10 @@ Map<String, dynamic> payrollCompositeSource(
     'travel',
     'flat_travel_tax',
     'travel_source_hashes',
+    if (fact['rule_version'] == payrollFactorClaimsRule) ...[
+      'factor_parameters',
+      'care_contribution_method',
+    ],
     if (fact['rule_version'] == payrollFactorTaxfreeTravelRule) ...[
       'factor_parameters',
       'travel_payment_refs',

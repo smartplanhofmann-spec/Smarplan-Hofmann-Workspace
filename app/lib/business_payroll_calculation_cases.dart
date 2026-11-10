@@ -495,6 +495,9 @@ class _BusinessPayrollCalculationCasesPageState
     if (body['rule_version'] == individualMinijobRule &&
         !session.hasFeature(individualMinijobFeature))
       _fail('Die Freigabe für den individuellen Minijob fehlt.', 403);
+    if (body['rule_version'] == payrollFactorClaimsRule &&
+        !session.hasFeature(payrollFactorClaimsFeature))
+      _fail('Die aktuelle Freigabe für den Faktor-Anspruchsfall fehlt.', 403);
     if (body['rule_version'] == payrollFactorTaxfreeTravelRule &&
         !session.hasFeature('payroll_factor_taxfree_travel'))
       _fail('Die aktuelle Freigabe für den Faktor-Reisefall fehlt.', 403);
@@ -625,6 +628,10 @@ class _BusinessPayrollCalculationCasesPageState
   Future<void> edit([Map<String, dynamic>? previous]) async {
     if (previous?['rule_version'] == individualMinijobRule) {
       await editIndividualMinijob(previous);
+      return;
+    }
+    if (previous?['rule_version'] == payrollFactorClaimsRule) {
+      await editFactorClaims(previous);
       return;
     }
     if (previous?['rule_version'] == payrollFactorTaxfreeTravelRule) {
@@ -1029,6 +1036,185 @@ class _BusinessPayrollCalculationCasesPageState
         });
         showBeginning();
       }
+    } catch (e) {
+      if (mounted && readable && opening == epoch) failed(e);
+    }
+  }
+
+  Future<void> editFactorClaims([Map<String, dynamic>? previous]) async {
+    if (busy ||
+        pending != null ||
+        !session.hasFeature(payrollFactorClaimsFeature))
+      return;
+    final opening = epoch;
+    try {
+      final page = await fresh(write: true);
+      if (!mounted ||
+          !readable ||
+          opening != epoch ||
+          !session.hasFeature(payrollFactorClaimsFeature))
+        return;
+      final d = businessMap(previous?['details']);
+      final values = await choose(
+        previous == null
+            ? 'Faktor-Monat mit belegten Lohnansprüchen'
+            : 'Faktor-Anspruchsfall berichtigen',
+        [
+          BusinessField(
+            'period_case_id',
+            'Bestätigter voller Faktor-Monat',
+            type: BusinessInput.choice,
+            required: true,
+            initial: d['period_case_ref']?['id'],
+            choices: choices(
+              businessItems(page['factor_period_facts'])
+                  .where(
+                    (v) =>
+                        payrollFactorClaimsBaseEligible(v, month) &&
+                        v['details']['month'] == month,
+                  )
+                  .toList(),
+              (v) => '${v['details']['month']} · Fassung ${v['revision']}',
+            ),
+          ),
+          BusinessField(
+            'employment_terms_ids',
+            'Eine bestätigte Beschäftigungsepisode',
+            type: BusinessInput.multiple,
+            required: true,
+            initial: ids(d['employment_terms_refs']),
+            choices: choices(
+              businessItems(page['facts'])
+                  .where(
+                    (v) =>
+                        v['kind'] == 'employment_terms' &&
+                        v['status'] == 'active',
+                  )
+                  .toList(),
+              (v) =>
+                  '${businessDate(v['effective_from'])} – ${businessDate(v['effective_to'])} · Fassung ${v['revision']}',
+              empty: false,
+            ),
+          ),
+          BusinessField(
+            'profile_ids',
+            'Ein bestätigtes Faktor-/SV-Profil',
+            type: BusinessInput.multiple,
+            required: true,
+            initial: ids(d['profile_refs']),
+            choices: choices(
+              page['profiles'],
+              (v) =>
+                  '${businessDate(v['profile']?['effective_from'])} · Fassung ${v['revision']}',
+              empty: false,
+            ),
+          ),
+          BusinessField(
+            'identity_ids',
+            'Ein zugehöriger Identitäts-/Steuernachweis',
+            type: BusinessInput.multiple,
+            required: true,
+            initial: ids(d['identity_refs']),
+            choices: choices(
+              page['identities'],
+              (v) =>
+                  '${businessDate(v['details']?['valid_from'])} – ${businessDate(v['details']?['valid_to'])} · Fassung ${v['revision']}',
+              empty: false,
+            ),
+          ),
+          BusinessField(
+            'entitlement_case_ids',
+            'Alle aktiven Anspruchsnachweise im Monat',
+            type: BusinessInput.multiple,
+            required: true,
+            initial: businessItems(page['entitlements'])
+                .where(
+                  (v) =>
+                      v['status'] == 'active' &&
+                      v['effective_from'].compareTo(
+                            payrollFactDates(month).last,
+                          ) <=
+                          0 &&
+                      v['effective_to'].compareTo(
+                            payrollFactDates(month).first,
+                          ) >=
+                          0,
+                )
+                .map((v) => v['id'])
+                .toList(),
+            choices: choices(
+              businessItems(page['entitlements'])
+                  .where((v) => v['status'] == 'active')
+                  .toList(),
+              (v) =>
+                  '${businessDate(v['effective_from'])} – ${businessDate(v['effective_to'])} · Fassung ${v['revision']}',
+              empty: false,
+            ),
+          ),
+          files(
+            page,
+            'source_file_ids',
+            'Geschützte Originale für diesen Gesamtfall',
+            initial: previous?['source_file_ids'],
+          ),
+          BusinessField(
+            'verification_note',
+            'Belegte Prüfung der gesamten Zuordnung',
+            required: true,
+            initial: d['verification_note'],
+          ),
+          if (previous != null)
+            const BusinessField(
+              'correction_reason',
+              'Belegter Berichtigungsgrund',
+              required: true,
+            ),
+          const BusinessField(
+            'confirmed',
+            'Ich bestätige den vollständigen Faktor-Monat und sämtliche belegten Lohnansprüche aus den ausgewählten Originalen.',
+            type: BusinessInput.toggle,
+          ),
+        ],
+        saveLabel: 'Faktor-Anspruchsfall unverbindlich prüfen',
+      );
+      if (values == null || opening != epoch) return;
+      if (values['confirmed'] != true)
+        _fail(
+          'Den vollständigen Faktor-Monat und seine belegten Lohnansprüche ausdrücklich bestätigen.',
+        );
+      await fresh(write: true);
+      if (!mounted ||
+          !readable ||
+          opening != epoch ||
+          !session.hasFeature(payrollFactorClaimsFeature))
+        return;
+      final body = payrollCalculationCaseInput(employeeId, page, {
+        ...values,
+        'month': month,
+        'rule_version': payrollFactorClaimsRule,
+        'segment_events': <Map<String, dynamic>>[],
+        'travel_settlement_ids': <String>[],
+        'thirty_day_rule': null,
+        'policy_id': null,
+      }, previous: previous);
+      final result = payrollCalculationCasePreview(
+        await session.api.call(
+          session.path('/payroll/calculation-cases/preview'),
+          payrollCalculationCasePreviewInput(body),
+        ),
+        body,
+      );
+      if (!mounted || !readable || opening != epoch) return;
+      setState(() {
+        sources = page;
+        generation = session.generation;
+        previewBody = {...body, 'preview_hash': result['preview_hash']};
+        preview = result;
+        correction = previous == null ? null : _copy(previous);
+        selected = null;
+        history = [];
+      });
+      showBeginning();
     } catch (e) {
       if (mounted && readable && opening == epoch) failed(e);
     }
@@ -1737,6 +1923,16 @@ class _BusinessPayrollCalculationCasesPageState
                     icon: const Icon(Icons.add),
                     label: const Text(
                       'Belegten Abrechnungsfall zusammenstellen',
+                    ),
+                  ),
+                if (writable &&
+                    pending == null &&
+                    session.hasFeature(payrollFactorClaimsFeature))
+                  FilledButton.icon(
+                    onPressed: busy ? null : () => editFactorClaims(),
+                    icon: const Icon(Icons.fact_check),
+                    label: const Text(
+                      'Faktor-Monat mit belegten Lohnansprüchen',
                     ),
                   ),
                 if (writable &&

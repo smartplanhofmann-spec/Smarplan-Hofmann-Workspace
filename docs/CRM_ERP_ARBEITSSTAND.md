@@ -4,6 +4,15 @@ Stand: 10.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
+**Aktueller Codeabschnitt:** Faktor-/Anspruchsvertrag V12 ist in beiden Clients
+und Backend integriert. 55 Backend-,1041 Browser-, neun neue native und21
+Paketfälle sowie echte PG-/MFA-/Konkurrenz-/EÜR-/Jahres-/CRLF-/Restoreprüfung
+bestehen. Die gesamte Appprüfung läuft nach korrigiertem lokalen Pythonpfad
+neu; erster Lauf bleibt fehlgeschlagen. [Stand und genaue Grenzen](CRM_ERP_FAKTOR_ANSPRUECHE_V12_2026-11-10.md).
+Aktuell veröffentlichter Testbranch: cb7ff63199757da72959a8b52161b6eff62e0117
+(echte Anmeldeantwort im Belegrestbetragsbrowser); eigene CI42758607318 läuft.
+V12 noch nicht veröffentlicht; kein neuer Server-/Gerätestand.
+
 **Gesamtauftrag am 10.11. ausdrücklich fortgesetzt:** Keine Einzeletappe beendet
  den Auftrag. Die verbleibende Codearbeit und technische Gesamtabnahme werden
  weiter abgearbeitet; echte externe Freigaben bleiben als solche benannt.

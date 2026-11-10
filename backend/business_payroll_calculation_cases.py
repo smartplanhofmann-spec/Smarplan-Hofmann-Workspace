@@ -17,7 +17,7 @@ from business_payroll_facts import PayrollFacts,ref,references,reference,file_id
 from payroll_calculations_2026 import CALCULATION_RULE_VERSION,SOURCE_CONTRACT_VERSION,build_calculation_plan,EVENT_FIELDS
 from payroll_travel_tax_2026 import calculate_flat_travel_tax,SIMPLIFIED_RATES,_filing_period
 
-FEATURES=('payroll_calculation_cases','payroll_factor_taxfree_travel','payroll_individual_minijob')
+FEATURES=('payroll_calculation_cases','payroll_factor_taxfree_travel','payroll_individual_minijob','payroll_factor_claims')
 TABLES=('business_payroll_calculation_case_events','business_payroll_calculation_case_requests')
 KINDS=('calculation_case','travel_tax_policy')
 POLICY_RULE_VERSION='de_2026_travel_tax_policy_v1'
@@ -242,9 +242,11 @@ class PayrollCalculationCases(PayrollFacts):
             from payroll_individual_minijob_sources import snapshot
             return snapshot(self,employee,details,ids,fresh=fresh,actor=actor)
         from payroll_factor_taxfree_travel_2026 import RULE_VERSION as FACTOR_TRAVEL_RULE
+        from payroll_factor_claims_2026 import RULE_VERSION as FACTOR_CLAIMS_RULE
         factor_travel=rule_version==FACTOR_TRAVEL_RULE
+        factor_claims=rule_version==FACTOR_CLAIMS_RULE
         employee_id=employee['id'];base=self.facts._fact_ref(employee_id,details['period_case_ref'],'period_case',fresh=fresh)
-        expected_base='de_2026_standard_factor_period_v9' if factor_travel else 'de_2026_periods_pap_v4'
+        expected_base='de_2026_standard_factor_period_v9' if factor_travel or factor_claims else 'de_2026_periods_pap_v4'
         if base['plan']['rule_version']!=expected_base:
             raise Problem(400,'Dieser Faktor-Monatsfall wird direkt als belegter Periodenlohn abgerechnet. Ansprüche, Reisen und Einmalbezüge benötigen ihren eigenen Faktor-Regelzweig.')
         if base['details']['month']!=details['month']:raise Problem(400,'P2-Basisfall gehört zu einem anderen Monat.')
@@ -371,11 +373,13 @@ class PayrollCalculationCases(PayrollFacts):
     def _versions(data):
         if not isinstance(data.get('details'),dict):raise Problem(400,'Strukturierte Gesamtfalldetails erforderlich.')
         from payroll_factor_taxfree_travel_2026 import RULE_VERSION as FACTOR_TRAVEL_RULE
+        from payroll_factor_claims_2026 import RULE_VERSION as FACTOR_CLAIMS_RULE
         from payroll_individual_minijob_2026 import RULE_VERSION as INDIVIDUAL_MINIJOB_RULE
         is_new=data['kind']=='calculation_case' and data['rule_version']==FACTOR_TRAVEL_RULE
+        factor_claims=data['kind']=='calculation_case' and data['rule_version']==FACTOR_CLAIMS_RULE
         individual=data['kind']=='calculation_case' and data['rule_version']==INDIVIDUAL_MINIJOB_RULE
-        expected=INDIVIDUAL_MINIJOB_RULE if individual else FACTOR_TRAVEL_RULE if is_new else CALCULATION_RULE_VERSION if data['kind']=='calculation_case' else POLICY_RULE_VERSION
-        contract=3 if individual else 2 if is_new else SOURCE_CONTRACT_VERSION
+        expected=FACTOR_CLAIMS_RULE if factor_claims else INDIVIDUAL_MINIJOB_RULE if individual else FACTOR_TRAVEL_RULE if is_new else CALCULATION_RULE_VERSION if data['kind']=='calculation_case' else POLICY_RULE_VERSION
+        contract=4 if factor_claims else 3 if individual else 2 if is_new else SOURCE_CONTRACT_VERSION
         if data['kind']=='calculation_case' and ('travel_payment_refs' in data['details'])!=is_new:raise Problem(400,'Reisezahlungsnachweise gehören ausschließlich zum neuen Faktorvertrag.')
         if ('individual_minijob_assessment' in data['details'])!=individual:raise Problem(400,'Die individuelle Minijobprüfung gehört ausschließlich zum ausdrücklichen v11-Vertrag.')
         if data['rule_version']!=expected or type(data['source_contract_version']) is not int or data['source_contract_version']!=contract:
@@ -386,6 +390,9 @@ class PayrollCalculationCases(PayrollFacts):
     @staticmethod
     def _plan(kind,snapshot):
         if kind=='travel_tax_policy':return None
+        from payroll_factor_claims_2026 import RULE_VERSION as FACTOR_CLAIMS_RULE,build_plan as factor_claims_plan
+        if snapshot['rule_version']==FACTOR_CLAIMS_RULE:
+            return factor_claims_plan(snapshot,rule_version=snapshot['rule_version'],source_contract_version=snapshot['source_contract_version'])
         from payroll_individual_minijob_2026 import RULE_VERSION as INDIVIDUAL_MINIJOB_RULE,build_plan as minijob_plan
         if snapshot['rule_version']==INDIVIDUAL_MINIJOB_RULE:
             return minijob_plan(snapshot,rule_version=snapshot['rule_version'],source_contract_version=snapshot['source_contract_version'])

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "local_checks_passed_not_yet_published",
+  "status": "published_local_checks_passed_own_remote_checks_running",
   "base_commit": "1fa0bcceb28a822bed9600ad18e33ba54d2c227f",
   "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
   "historical_payroll_modules_unchanged": 61,
@@ -40,6 +40,11 @@
     "company_binding_time_photo_regression": {
       "tests": 32,
       "seconds": 7
+    },
+    "actual_committed_archive_runtime": {
+      "tests": 1,
+      "seconds": 4.655,
+      "source_commit": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
     }
   },
   "raw_files": [
@@ -258,6 +263,12 @@
       "bytes": 1271,
       "sha256": "ca21f52251c2b110b4e763c065780bf98df98bc4d9ac7d410fb7010c83f1bbbe",
       "uncompressed_sha256": "0a8f3de3f6e9acd63cf2e6756d25766cd572baa277af258a565990785c98c618"
+    },
+    {
+      "path": "offline-conflicts-committed-archive-runtime-20261110.txt.gz",
+      "bytes": 165,
+      "sha256": "1ba5f3aafd2f0f70f425873ad8c05ae62def7882171ec0a3f2e20ec036ac9e18",
+      "uncompressed_sha256": "6ac7b1ee777fdba939d3670d8212175b10578618e416f5dc8c33bdf678b42341"
     }
   ],
   "limitations": [
@@ -265,5 +276,11 @@
     "Successor linkage and rejected original stay encrypted on the device; only a newly signed report becomes a new server original",
     "Other document/conflict types, real devices and complete A-G acceptance remain open"
   ],
-  "hash_scope": "bytes/sha256 describe stored files; uncompressed_sha256 separately records gzip source content"
+  "hash_scope": "bytes/sha256 describe stored files; uncompressed_sha256 separately records gzip source content",
+  "product_commit": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b",
+  "publication_branch": "codex/testupdate-0.7-projects-20261104",
+  "remote_hash_verified": true,
+  "own_development_run": 42850956041,
+  "own_unsigned_ios_run": 42850955774,
+  "previous_source_all20_passed": "1fa0bcceb28a822bed9600ad18e33ba54d2c227f"
 }

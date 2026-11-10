@@ -67,3 +67,11 @@ Rohdaten und genaue Grenzen: [Manifest](evidence/offline-report-conflicts-2026-1
 Diese Folge ist noch nicht veröffentlicht; eigene Remoteprüfungen folgen erst
 nach dem Push. Nicht geschlossen: andere Dokument-/Konfliktarten, Geräte-,
 Fach-, Betriebs- und vollständige A–G-Abnahme. Der Gesamtauftrag bleibt offen.
+
+
+## Veröffentlichung
+
+Produktabcc3510f4d913b1d4e57c30fd2e5283bce2156b ist auf dem autorisierten
+Testbranch veröffentlicht und per Remote-Hash bestätigt. Sein eigener wirklicher
+Archiv-/MFA-Start besteht1/4,655s. Development42850956041 und unsignierter iPhone-
+Lauf42850955774 sind noch aktiv. Kein Liveupdate oder Geräteabschluss.

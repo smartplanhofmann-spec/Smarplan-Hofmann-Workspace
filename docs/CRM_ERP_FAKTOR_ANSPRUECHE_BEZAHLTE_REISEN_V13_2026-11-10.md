@@ -151,3 +151,32 @@ mit beiden ursprünglichen Fallquittungen. Eigener Container bfb13f6e am
 Loopback-Port32803 wurde nach geprüftem Abschluss entfernt. Die vorherige
 84,476s-Kette bleibt ein eigener Nachweis. Vollständige App-Suite weiterhin
 aktiv; alle bisherigen Fälle ohne Fehler/Skip. V13 noch nicht veröffentlicht.
+
+
+## 10.11.2026 – V13 lokal vollständig geprüft und als Teststand veröffentlicht
+
+Produktcode **b02c84ab24cbe3331a92df950e74134138865e52** ist auf dem autorisierten
+Testbranch veröffentlicht und per Remote-Zeiger bestätigt. Die komplette aktuelle
+Appprüfung besteht mit **1934 tatsächlichen Fällen**, ohne Fehler oder Skip:
+1344,294s Runnerzeit, maschinenlesbarer Abschluss success:true bei1339826ms.
+257 verborgene Ladeeinträge sind nicht in1934 enthalten. Die zuvor berichteten
+Zwischenzähler des Testwerkzeugs enthielten auch Ladeeinträge; ausschließlich
+dieser endgültige Fachfallzähler ist der vollständige App-Nachweis.
+
+1056 vollständige Browsermodule,48 gemeinsame Backend-/CRLF-/CI-Fälle,21
+Paket-/Inventarfälle, drei echte MFA-/Chromiumabläufe und der neue tatsächliche
+PostgreSQL-/Altfall-/Parallelitäts-/Geld-/EÜR-/Jahres-/vollständige Restorefall
+bestehen. [Manifest mit vollständigen Rohdaten](evidence/factor-claims-paid-travel-2026-11-10/manifest.json).
+Der erste rote Analyse-/Formular-/Testeinrichtungsstand bleibt erhalten. Alle
+37 anhand des Dateimusters erfassten bisherigen2025-/2026-Lohnquelldateien und
+das unveränderte Gesamtziel sind gegen798cc61 bytegleich.
+
+Eigene Development42783465222:16 Jobs erfolgreich, vier noch aktiv. iPhone
+42783465231 unsigniert noch aktiv; beide Mailbot-Vertragsprüfungen42783465489
+auf Linux/Windows erfolgreich. Kein tatsächlicher Mailversand. Neue signierte
+Verteilung, Liveinstallation und echte Geräte-/Fach-/Gesamtabnahme fehlen weiter.
+Verwendete V10-/V12-Fälle, weitere fachliche Lohn-/Steuerkombinationen und die
+übrigen Gesamtanforderungen bleiben offen. Der Auftrag läuft weiter. Separat
+begonnen ist die ausschließlich lesende Installationskennung mit festem
+Paketnachweis; fünf echte MFA-/Datei-/Rechtefälle bestehen im isolierten
+Arbeitsverzeichnis /workspace/smartplan-installation-context-20261110.

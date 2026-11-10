@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "client_and_pg_proofs_complete_whole_native_active",
+  "status": "local_technical_scope_complete_published_independent_ci_running",
   "base_commit": "798cc61c91c132ddb1d889996cd06dd8ab816d23",
   "core_commit": "7abba321f7c544fe295af15c2e8d0eada88335a2",
   "rule_version": "de_2026_factor_claims_paid_travel_month_v13",
@@ -330,6 +330,61 @@
       "path": "factor-claims-paid-travel-pg-final-result-20261110.json.gz",
       "bytes": 266,
       "sha256": "828991f7da2c3f7c0cbffc58d52f528991e6f5533964a501a8418fd10694d0d3"
+    },
+    {
+      "path": "factor-claims-paid-travel-whole-native-first-20261110.jsonl.gz",
+      "bytes": 1170827,
+      "sha256": "1798a4268a2d64ae60eb3212ac1bcbc905a98ce8e97535cf0e85870fc665dcec"
+    },
+    {
+      "path": "factor-claims-paid-travel-whole-native-final-counts-20261110.json.gz",
+      "bytes": 253,
+      "sha256": "3b2b825cd6d82e603d4e8015f50bc5a0645396c99a80c9770ea123fedf8df2c2"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-full-status-20261110.json.gz",
+      "bytes": 572,
+      "sha256": "348795a56bb530548dae26675a58acbff8f5336ced7a20e8d8466732e907d9e9"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-full-status-first-20261110.json.gz",
+      "bytes": 278,
+      "sha256": "cdc1c3df1bcd8733fd0ff0afad756582d9785f583ba9f08b8fe2cb0995aaced7"
+    },
+    {
+      "path": "factor-claims-paid-travel-main-integration-20261110.txt.gz",
+      "bytes": 16589,
+      "sha256": "510f23f45decc6c3fe13e5c949d56c470d7fe9d2dcdc25670fda42e2f14ae6fb"
+    },
+    {
+      "path": "factor-claims-paid-travel-publication-first-20261110.txt.gz",
+      "bytes": 143,
+      "sha256": "2b66ebd5f50487abba1c920d10fb8e9e0c5844beda63faf5d6206fb15bf8cb95"
+    },
+    {
+      "path": "factor-claims-paid-travel-remote-after-20261110.txt.gz",
+      "bytes": 91,
+      "sha256": "79442c6e333a61b3ed17ac5981485b1150967590e68a02baf4e13eef9ca5f414"
+    },
+    {
+      "path": "factor-claims-paid-travel-new-ci-first-20261110.json.gz",
+      "bytes": 760,
+      "sha256": "8fadd677e92d5bf3f56dc31607b2c7c75c68497cd2bb6febb8fa72bb37148430"
+    },
+    {
+      "path": "factor-claims-paid-travel-published-mail-first-20261110.json.gz",
+      "bytes": 2512,
+      "sha256": "6eaec2c08c0978c0828fd0ae8c81f4dd4fa473bd5d225e58f2a3711fbd8faad9"
+    },
+    {
+      "path": "factor-claims-paid-travel-published-iphone-first-20261110.json.gz",
+      "bytes": 1949,
+      "sha256": "235e95bf82cf50bd7b9ba3e3ce342a9d7998c1fe5bd753dc69dc8d34e3f2429b"
+    },
+    {
+      "path": "factor-claims-paid-travel-published-development-first-20261110.json.gz",
+      "bytes": 28771,
+      "sha256": "e8963523d9684737d7356706944c8d095fe0235f62f1ced974c8bc5705406d41"
     }
   ],
   "historical_kernels_unchanged": [
@@ -495,7 +550,7 @@
     "crlf_and_ci_contracts": 9,
     "actual_pg_restore_seconds": 84.476,
     "real_browser": true,
-    "whole_native": "running",
+    "whole_native": 1934,
     "live_deployment": false,
     "real_device_acceptance": false,
     "signed_iphone_distribution": false,
@@ -504,6 +559,20 @@
     "actual_pg_upgrade_restore_seconds": 63.034,
     "actual_pg_upgrade_restore_removed": true,
     "previous_real_browser_regressions": 2,
-    "missing_dependency_history_guard": true
-  }
+    "missing_dependency_history_guard": true,
+    "whole_native_failed": 0,
+    "whole_native_skipped": 0,
+    "whole_native_runner_seconds": 1344.2936004700023,
+    "whole_native_machine_completion_ms": 1339826,
+    "whole_native_hidden_loading_entries_not_counted": 257,
+    "development_success_so_far": 16,
+    "development_running": 4,
+    "development_run": 42783465222,
+    "unsigned_iphone_run": 42783465231,
+    "unsigned_iphone_status": "in_progress",
+    "mail_bot_contracts_both_os": true
+  },
+  "product_commit": "b02c84ab24cbe3331a92df950e74134138865e52",
+  "published_commit": "b02c84ab24cbe3331a92df950e74134138865e52",
+  "published_branch": "codex/testupdate-0.7-projects-20261104"
 }

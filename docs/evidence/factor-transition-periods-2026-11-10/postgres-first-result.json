@@ -1,0 +1,9 @@
+{
+  "container": "e28ebc667c263aecfe55ebf9dd8a44a774b2d7954d08bcaace5c98ae719d7653",
+  "port": "32820",
+  "task": "factor-transition-period-first-20261110",
+  "worktree": "/workspace/Smarplan-Hofmann-Workspace",
+  "exit_code": 0,
+  "seconds": 59.14408752901363,
+  "removed_after_verified_exact_id_label_loopback": true
+}

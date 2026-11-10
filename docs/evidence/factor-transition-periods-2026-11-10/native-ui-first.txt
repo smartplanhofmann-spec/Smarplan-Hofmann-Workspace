@@ -1,0 +1,28 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart: actual factor/Midijob originals, partial plan and financial component bind independently
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart: native source choice refuses omitted evidence, other requested movements and foreign period
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart: independent full hashes refuse replaced factor, forecast or financial projection
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart: new case requires its own fresh feature before any write
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart: original case survives lost reply and refuses revoked feature or approval
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart: new run requires its own fresh feature before any write
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart: original run survives lost reply and refuses revoked feature or approval
+00:00 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart: real native form submits the actual chosen originals and explicit partial-period prognosis
+00:01 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart: real native form submits the actual chosen originals and explicit partial-period prognosis
+00:01 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart: real native form submits the actual chosen originals and explicit partial-period prognosis
+00:01 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart: real native form submits the actual chosen originals and explicit partial-period prognosis
+00:01 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart: real native form submits the actual chosen originals and explicit partial-period prognosis
+00:01 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart: real native form submits the actual chosen originals and explicit partial-period prognosis
+00:01 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart: real native form submits the actual chosen originals and explicit partial-period prognosis
+00:01 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_period_test.dart: real native form submits the actual chosen originals and explicit partial-period prognosis
+00:08 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: real native form submits the actual chosen originals and explicit full prognosis
+00:09 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/payroll_factor_transition_period_contract_test.dart: generic native case, original acknowledgements and full run readers use the explicit v16 contract
+00:10 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/payroll_factor_transition_period_contract_test.dart: untrusted preview hashes are checked before either new or historical factor case acceptance
+00:10 +18: /workspace/Smarplan-Hofmann-Workspace/app/test/payroll_factor_transition_period_contract_test.dart: actual own statements accept only the new exact rule/scope pair and retain the private source boundary
+00:10 +19: /workspace/Smarplan-Hofmann-Workspace/app/test/payroll_factor_transition_period_contract_test.dart: two actual private API originals and positive factor tax reproduce native complete hashes and exact input
+00:10 +20: /workspace/Smarplan-Hofmann-Workspace/app/test/payroll_factor_transition_period_contract_test.dart: self-consistent changed tax and replaced run proof cannot override the separately accepted complete case component
+00:10 +21: /workspace/Smarplan-Hofmann-Workspace/app/test/payroll_factor_transition_period_contract_test.dart: foreign private evidence is rejected after recomputing the reported case hashes
+00:11 +22: /workspace/Smarplan-Hofmann-Workspace/app/test/payroll_factor_transition_period_contract_test.dart: full months and old labels cannot be promoted into the new actual partial period
+00:11 +23: /workspace/Smarplan-Hofmann-Workspace/app/test/payroll_factor_transition_period_contract_test.dart: the native constructor never selects the first original or drops extra sources
+00:11 +24: /workspace/Smarplan-Hofmann-Workspace/app/test/payroll_factor_transition_period_contract_test.dart: review types, unknown fields and unpaired Unicode are closed while multiline notes remain valid
+00:11 +25: /workspace/Smarplan-Hofmann-Workspace/app/test/payroll_factor_transition_period_contract_test.dart: a blocked calculation never carries apparently complete money or an altered daily remainder
+00:11 +26: All tests passed!

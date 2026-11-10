@@ -1,0 +1,6 @@
+Formatted app/lib/business_payroll_factor_transition_periods.dart
+Formatted app/lib/business_payroll_calculation_case_contract.dart
+Formatted app/lib/business_payroll.dart
+Formatted app/lib/business_session.dart
+Formatted app/test/payroll_factor_transition_period_contract_test.dart
+Formatted 6 files (5 changed) in 0.85 seconds.

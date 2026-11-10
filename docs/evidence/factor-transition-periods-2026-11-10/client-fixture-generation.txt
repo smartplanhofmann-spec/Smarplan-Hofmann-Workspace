@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/generate-payroll-factor-transition-period-fixture.py", line 48, in <module>
+    main()
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/generate-payroll-factor-transition-period-fixture.py", line 30, in main
+    pdf = statements.export(f.technician, run['id'], 'pdf')[0]
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_statements.py", line 270, in export
+    _shape(query, ('revision', 'statement_hash'), ('revision', 'statement_hash'))
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_personnel_workflow.py", line 96, in _shape
+    raise Problem(400, 'Unvollständige oder unbekannte Felder im Personalvorgang.')
+core.Problem: (400, 'Unvollständige oder unbekannte Felder im Personalvorgang.')

@@ -1,5 +1,13 @@
 # Source5 V4: belegte tatsächliche Netto-Rückzahlung
 
+**Aktueller Folgeabgleich:** Der unten historisch offene weitere positive,
+negative oder betragsgleiche Abschluss ist inzwischen als
+[V5-Nettoausgleich](CRM_ERP_SOURCE5_NETTOAUSGLEICHE_V5_2026-11-10.md) implementiert
+und in Backend, Browser, App sowie tatsächlichem PostgreSQL/Restore geprüft.
+V5 ist im geprüften Produktstand 29b02c8 samt eigenen erfolgreichen
+20 Developmentgruppen und signiertem iPhone-Paket 210 enthalten.
+Der historische Restabsatz wird dadurch zeitlich eingeordnet, nicht gelöscht.
+
 Der abgegrenzte neue Fall ist in Backend, Browser und App implementiert und
 getestet. Er wird getrennt von der produktiven Gesamt-/Fachfreigabe geführt.
 Er ergänzt eine tatsächliche Beschäftigtenrückzahlung zu einem bereits

@@ -1,0 +1,20 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/payroll_factor_transition_period_contract_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/payroll_factor_transition_period_contract_test.dart: generic native case, original acknowledgements and full run readers use the explicit v16 contract
+00:02 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/payroll_factor_transition_period_contract_test.dart: untrusted preview hashes are checked before either new or historical factor case acceptance
+00:02 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: actual factor/Midijob originals, full plan and financial component bind independently
+00:03 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: actual factor/Midijob originals, full plan and financial component bind independently
+00:03 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: actual factor/Midijob originals, full plan and financial component bind independently
+00:03 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: actual factor/Midijob originals, full plan and financial component bind independently
+00:03 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: actual factor/Midijob originals, full plan and financial component bind independently
+00:03 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: actual factor/Midijob originals, full plan and financial component bind independently
+00:03 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/payroll_factor_transition_period_contract_test.dart: the native constructor never selects the first original or drops extra sources
+00:03 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: native source choice refuses omitted evidence, other requested movements and partial period
+00:03 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: native source choice refuses omitted evidence, other requested movements and partial period
+00:03 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: native source choice refuses omitted evidence, other requested movements and partial period
+00:03 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: independent full hashes refuse replaced factor, forecast or financial projection
+00:03 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: new case requires its own fresh feature before any write
+00:04 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: original case survives lost reply and refuses revoked feature or approval
+00:04 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: new run requires its own fresh feature before any write
+00:04 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: original run survives lost reply and refuses revoked feature or approval
+00:04 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_factor_transition_test.dart: real native form submits the actual chosen originals and explicit full prognosis
+00:19 +18: All tests passed!

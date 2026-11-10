@@ -56,6 +56,8 @@ const payrollScopes = {
   'commercial_minijob_period_flat_tax':
       'Gewerblicher Minijob · belegter Teilmonat',
   payrollFactorTransitionScope: 'Belegter Midijob mit ELStAM-Faktor',
+  payrollFactorTransitionPeriodScope:
+      'Midijob-Teilmonat mit belegtem ELStAM-Faktor',
   'regular_transition_monthly':
       'Belegter Übergangsbereich · Vollmonat und PAP 2026',
   'regular_standard_monthly': 'Reguläre Standard-Monatsberechnung · PAP 2026',
@@ -462,6 +464,9 @@ Map<String, dynamic> payrollPreview(dynamic raw, Map<String, dynamic> input) {
       payrollFactorClaimsRunHashes(value);
     if (value['calculation']['rule_version'] == payrollFactorClaimTravelRule)
       payrollFactorClaimTravelRunHashes(value);
+    if (value['calculation']['rule_version'] ==
+        payrollFactorTransitionPeriodRule)
+      payrollFactorTransitionPeriodRunHashes(value);
     if (value['calculation']['rule_version'] == payrollFactorTransitionRule)
       payrollFactorTransitionRunHashes(value);
     if (!RegExp(r'^[a-f0-9]{64}$').hasMatch('${value['preview_hash']}'))
@@ -547,6 +552,9 @@ void Function(dynamic) payrollReceiptValidator(
         payrollFactorClaimsRunHashes(v);
       if (v['calculation']?['rule_version'] == payrollFactorClaimTravelRule)
         payrollFactorClaimTravelRunHashes(v);
+      if (v['calculation']?['rule_version'] ==
+          payrollFactorTransitionPeriodRule)
+        payrollFactorTransitionPeriodRunHashes(v);
       if (v['calculation']?['rule_version'] == payrollFactorTransitionRule)
         payrollFactorTransitionRunHashes(v);
       bad =
@@ -1512,6 +1520,12 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         throw const ApiException(
           403,
           'Die aktuelle Freigabe für den Faktor-Einmalbezug fehlt.',
+        );
+      if (fact['rule_version'] == payrollFactorTransitionPeriodRule &&
+          !session.hasFeature(payrollFactorTransitionPeriodFeature))
+        throw const ApiException(
+          403,
+          'Die aktuelle Freigabe für den Faktor-/Midijob-Teilmonat fehlt.',
         );
       if (fact['rule_version'] == payrollFactorTransitionRule &&
           !session.hasFeature(payrollFactorTransitionFeature))
@@ -2714,6 +2728,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
                   payrollFactorClaimsRule,
                   payrollFactorClaimTravelRule,
                   payrollFactorTransitionRule,
+                  payrollFactorTransitionPeriodRule,
                   individualMinijobRule,
                   payrollOneOffRule,
                   payrollFactorOneOffRule,
@@ -2729,6 +2744,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         payrollFactorClaimsRule,
         payrollFactorClaimTravelRule,
         payrollFactorTransitionRule,
+        payrollFactorTransitionPeriodRule,
         individualMinijobRule,
         payrollOneOffRule,
         payrollFactorOneOffRule,
@@ -2754,6 +2770,12 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
                 ? calc['running_calculation']['gross_minor']
                 : calc['gross_minor'],
             'blockers': calc['blockers'],
+            if (calc['rule_version'] == payrollFactorTransitionPeriodRule) ...{
+              'can_calculate': calc['payroll_calculation_complete'],
+              'factor_transition_period_component': Map<String, dynamic>.from(
+                calc,
+              )..remove('period_details'),
+            },
             if (calc['rule_version'] == individualMinijobRule) ...{
               'actual_health_insurance':
                   calc['tax_parameters']?['actual_health_insurance'],
@@ -2826,6 +2848,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
               payrollFactorClaimsRule,
               payrollFactorClaimTravelRule,
               payrollFactorTransitionRule,
+              payrollFactorTransitionPeriodRule,
               individualMinijobRule,
               payrollOneOffRule,
               payrollFactorOneOffRule,

@@ -1,0 +1,17 @@
+test_actual_exit_rebinds_employee_identity_preparation_and_period_without_rewriting_entry (test_business_payroll_factor_transition_periods.FactorTransitionPeriodWorkflow.test_actual_exit_rebinds_employee_identity_preparation_and_period_without_rewriting_entry) ... ERROR
+
+======================================================================
+ERROR: test_actual_exit_rebinds_employee_identity_preparation_and_period_without_rewriting_entry (test_business_payroll_factor_transition_periods.FactorTransitionPeriodWorkflow.test_actual_exit_rebinds_employee_identity_preparation_and_period_without_rewriting_entry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_factor_transition_periods.py", line 101, in test_actual_exit_rebinds_employee_identity_preparation_and_period_without_rewriting_entry
+    self.terms = f.api.save(f.owner, f.body('employment_terms', self.terms['details'] | dict(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_facts.py", line 437, in save
+    raise Problem(400, 'Faktenart und ursprünglichen Beginn oder Monat nicht wechseln.')
+core.Problem: (400, 'Faktenart und ursprünglichen Beginn oder Monat nicht wechseln.')
+
+----------------------------------------------------------------------
+Ran 1 test in 0.767s
+
+FAILED (errors=1)

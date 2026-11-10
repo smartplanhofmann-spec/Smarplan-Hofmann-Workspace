@@ -1,0 +1,62 @@
+import json, os, re, subprocess, time
+from pathlib import Path
+
+root=Path('/workspace/Smarplan-Hofmann-Workspace')
+env=os.environ.copy()
+for name in ('DOCKER_HOST','DOCKER_CONTEXT','DOCKER_TLS','DOCKER_TLS_VERIFY','DOCKER_CERT_PATH'):
+    env.pop(name,None)
+docker=['docker','--host=unix:///var/run/docker.sock']
+attempt=env.get('SMARTPLAN_FACTOR_PG_ATTEMPT','first')
+assert re.fullmatch('[a-z]+',attempt)
+task='factor-transition-period-'+attempt+'-20261110'
+password='Synthetic-only-factor-transition-period-20261110'
+cid=subprocess.check_output(docker+['run','-d','--tmpfs','/var/lib/postgresql/data:rw,size=256m','--label','smartplan.task='+task,
+    '--publish','127.0.0.1::5432','-e','POSTGRES_USER=postgres',
+    '-e','POSTGRES_PASSWORD='+password,'-e','POSTGRES_DB=smartplan_check',
+    'postgres:16-bookworm'],env=env,text=True).strip()
+assert re.fullmatch('[a-f0-9]{64}',cid)
+info=json.loads(subprocess.check_output(docker+['inspect',cid],env=env,text=True))[0]
+port=info['NetworkSettings']['Ports']['5432/tcp'][0]
+assert port['HostIp']=='127.0.0.1'
+record=dict(container=cid,port=port['HostPort'],task=task,worktree=str(root))
+Path('/tmp/factor-transition-period-own-pg-'+attempt+'-20261110.json').write_text(json.dumps(record,indent=2)+'\n')
+try:
+    for _ in range(25):
+        check=subprocess.run(docker+['exec',cid,'pg_isready','-U','postgres','-d','smartplan_check'],env=env,capture_output=True)
+        if check.returncode==0:break
+        time.sleep(1)
+    else:raise RuntimeError('Own disposable database not ready')
+    folder=Path('/tmp/factor-transition-period-pg-tools-20261110');folder.mkdir(exist_ok=True)
+    wrapper='''#!/workspace/Smarplan-Hofmann-Workspace/.venv/bin/python
+import os,sys
+from psycopg.conninfo import conninfo_to_dict,make_conninfo
+args=sys.argv[1:]
+index=args.index('--dbname')+1
+params=conninfo_to_dict(args[index])
+assert params.get('host')=='127.0.0.1' and params.get('port')==PORT
+assert params['dbname'] in ('smartplan_check','smartplan_release_check','smartplan_restore_check')
+args[index]=make_conninfo(args[index],port=5432)
+for name in ('DOCKER_HOST','DOCKER_CONTEXT','DOCKER_TLS','DOCKER_TLS_VERIFY','DOCKER_CERT_PATH'):os.environ.pop(name,None)
+os.execvp('docker',['docker','--host=unix:///var/run/docker.sock','exec','-i',CID,os.path.basename(sys.argv[0]),*args])
+'''.replace('PORT',repr(record['port'])).replace('CID',repr(cid))
+    for name in ('pg_dump','pg_restore'):
+        path=folder/name;path.write_text(wrapper);path.chmod(0o700)
+    env.update(PYTHONPATH='.:backend:backend/business_tests:backend/online:scripts',
+        PATH=str(folder)+':'+env['PATH'],
+        SMARTPLAN_TEST_DSN='host=127.0.0.1 port='+record['port']+' dbname=smartplan_check user=postgres password='+password,
+        SMARTPLAN_PG_DUMP=str(folder/'pg_dump'),SMARTPLAN_PG_RESTORE=str(folder/'pg_restore'))
+    start=time.monotonic()
+    with Path('/tmp/factor-transition-period-pg-'+attempt+'-20261110.txt').open('w')as log:
+        result=subprocess.run(['/workspace/Smarplan-Hofmann-Workspace/.venv/bin/python','-m','unittest','-v',
+            'online.test_business_payroll_factor_transition_period_pg.FactorTransitionPeriodPostgres'],
+            cwd=root,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=600)
+    record.update(exit_code=result.returncode,seconds=time.monotonic()-start)
+finally:
+    info=json.loads(subprocess.check_output(docker+['inspect',cid],env=env,text=True))[0]
+    assert info['Id']==cid and info['Config']['Labels']['smartplan.task']==task
+    assert info['NetworkSettings']['Ports']['5432/tcp']==[{'HostIp':'127.0.0.1','HostPort':record['port']}]
+    subprocess.run(docker+['rm','-f','-v',cid],env=env,check=True,capture_output=True,text=True)
+    record['removed_after_verified_exact_id_label_loopback']=True
+    Path('/tmp/factor-transition-period-pg-'+attempt+'-result-20261110.json').write_text(json.dumps(record,indent=2)+'\n')
+    print(json.dumps(record))
+raise SystemExit(record.get('exit_code',1))

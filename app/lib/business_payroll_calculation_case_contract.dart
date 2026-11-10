@@ -1,3 +1,5 @@
+import 'business_payroll_factor_transition_periods.dart';
+export 'business_payroll_factor_transition_periods.dart';
 import 'business_payroll_factor_transition.dart';
 export 'business_payroll_factor_transition.dart';
 import 'business_payroll_factor_claim_travel.dart';
@@ -27,7 +29,8 @@ bool payrollCalculationCaseRuleKnown(dynamic rule, dynamic contract) =>
         rule == individualMinijobRule && contract == 3 ||
         rule == payrollFactorClaimsRule && contract == 4 ||
         rule == payrollFactorClaimTravelRule && contract == 5 ||
-        rule == payrollFactorTransitionRule && contract == 6);
+        rule == payrollFactorTransitionRule && contract == 6 ||
+        rule == payrollFactorTransitionPeriodRule && contract == 7);
 bool payrollFactorTravelBaseEligible(dynamic raw) {
   final value = businessMap(raw), plan = businessMap(value['plan']);
   final tax = plan['tax_periods'], social = plan['social_periods'];
@@ -180,6 +183,8 @@ Map<String, dynamic> payrollCalculationCasePlan(
   if (v['rule_version'] == payrollFactorClaimsRule) payrollFactorClaimsPlan(v);
   if (v['rule_version'] == payrollFactorClaimTravelRule)
     payrollFactorClaimTravelPlan(v);
+  if (v['rule_version'] == payrollFactorTransitionPeriodRule)
+    payrollFactorTransitionPeriodPlan(v);
   if (v['rule_version'] == payrollFactorTransitionRule)
     payrollFactorTransitionPlan(v);
   if (v['rule_version'] == payrollFactorTaxfreeTravelRule) {
@@ -237,6 +242,8 @@ Map<String, dynamic> payrollCalculationCaseRecord(
     payrollFactorClaimsCaseHashes(v);
   if (v['rule_version'] == payrollFactorClaimTravelRule)
     payrollFactorClaimTravelCaseHashes(v);
+  if (v['rule_version'] == payrollFactorTransitionPeriodRule)
+    payrollFactorTransitionPeriodCaseHashes(v);
   if (v['rule_version'] == payrollFactorTransitionRule)
     payrollFactorTransitionCaseHashes(v);
   if (v['rule_version'] == payrollFactorTaxfreeTravelRule &&
@@ -290,6 +297,8 @@ void _bindings(
     payrollFactorClaimsBindings(s, d, plan);
   if (s['rule_version'] == payrollFactorClaimTravelRule)
     payrollFactorClaimTravelBindings(s, d, plan);
+  if (s['rule_version'] == payrollFactorTransitionPeriodRule)
+    payrollFactorTransitionPeriodBindings(s, d, plan);
   if (s['rule_version'] == payrollFactorTransitionRule)
     payrollFactorTransitionBindings(s, d, plan);
   if (s['rule_version'] == payrollFactorTaxfreeTravelRule) {
@@ -520,6 +529,13 @@ Map<String, dynamic> payrollCalculationCaseInput(
       values['rule_version'] ??
       previous?['rule_version'] ??
       payrollCalculationCaseRule;
+  if (rule == payrollFactorTransitionPeriodRule)
+    return payrollFactorTransitionPeriodInput(
+      employeeId,
+      sources,
+      values,
+      previous: previous,
+    );
   if (rule == payrollFactorTransitionRule)
     return payrollFactorTransitionInput(
       employeeId,
@@ -931,7 +947,9 @@ Map<String, dynamic> payrollCalculationCasePreview(
     payrollFactorClaimsCaseHashes(v);
   if (body['rule_version'] == payrollFactorClaimTravelRule)
     payrollFactorClaimTravelCaseHashes(v);
-  if (v['rule_version'] == payrollFactorTransitionRule)
+  if (body['rule_version'] == payrollFactorTransitionPeriodRule)
+    payrollFactorTransitionPeriodCaseHashes(v);
+  if (body['rule_version'] == payrollFactorTransitionRule)
     payrollFactorTransitionCaseHashes(v);
   if (body['rule_version'] == payrollFactorTaxfreeTravelRule &&
       p['factor_parameters'] != null &&
@@ -1056,6 +1074,8 @@ Map<String, dynamic> payrollCompositeCalculation(dynamic raw) {
   }
   if (v['rule_version'] == payrollFactorClaimTravelRule)
     payrollFactorClaimTravelCalculation(v);
+  if (v['rule_version'] == payrollFactorTransitionPeriodRule)
+    payrollFactorTransitionPeriodCalculation(v);
   if (v['rule_version'] == payrollFactorTransitionRule)
     payrollFactorTransitionCalculation(v);
   if (v['rule_version'] == payrollFactorTaxfreeTravelRule) {
@@ -1143,6 +1163,8 @@ Map<String, dynamic> payrollCompositeCalculation(dynamic raw) {
         payrollFactorTaxfreeTravelScope,
         if (v['rule_version'] == payrollFactorClaimsRule)
           payrollFactorClaimsScope,
+        if (v['rule_version'] == payrollFactorTransitionPeriodRule)
+          payrollFactorTransitionPeriodScope,
         if (v['rule_version'] == payrollFactorTransitionRule)
           payrollFactorTransitionScope,
         if (v['rule_version'] == payrollFactorClaimTravelRule)
@@ -1345,6 +1367,10 @@ Map<String, dynamic> payrollCompositeSource(
     'travel',
     'flat_travel_tax',
     'travel_source_hashes',
+    if (fact['rule_version'] == payrollFactorTransitionPeriodRule) ...[
+      'factor_parameters',
+      'factor_transition_period_assessment',
+    ],
     if (fact['rule_version'] == payrollFactorTransitionRule) ...[
       'factor_parameters',
       'factor_transition_assessment',

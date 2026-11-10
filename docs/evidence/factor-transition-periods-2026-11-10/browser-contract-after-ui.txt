@@ -1,0 +1,16 @@
+✔ two actual accepted API case/run graphs reproduce independent browser hashes and exact inputs (285.156154ms)
+✔ a self-consistently rehashed changed tax cannot replace the separately accepted complete case component (23.100302ms)
+✔ actual generic preview, accepted-command and full run dispatchers use the v16 contract (207.218312ms)
+✔ foreign private evidence is rejected even after recomputing all reported case and plan hashes (4.577826ms)
+✔ complete full-month or old-labelled cases cannot become new partial cases (0.822044ms)
+✔ no first-option selection or hidden extra wage sources are inferred (0.614347ms)
+✔ review shape rejects boolean counts, hidden fields and malformed Unicode while retaining meaningful multiline notes (0.639554ms)
+✔ a blocked status cannot carry seemingly complete money or a changed daily gross remainder (0.892747ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 702.981972

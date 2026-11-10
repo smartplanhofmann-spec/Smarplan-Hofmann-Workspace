@@ -23,6 +23,22 @@ Etappe verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
   Die frühere Reihenfolge zuerst Projektbetrieb hat Buchhaltung/Lohn nicht
   aus dem Gesamtziel gestrichen.
 
+## Aktive Integration: Faktor-/Midijob-Teilmonat V16
+
+Arbeitsbranch `codex/factor-transition-periods-20261110`, Basis13c6663.
+Der additive [V16-Vertrag](CRM_ERP_FAKTOR_MIDIJOB_TEILMONAT_V16_2026-11-10.md)
+ist in Backend, Browser und App integriert. 300 unabhängige XML-/Beitragswerte,
+24 gemeinsame Backendfälle, tatsächlicher Austritts-API-Fall, beide Client-
+abläufe, verlorene Antworten, Rechteentzug und tatsächliche PostgreSQL-/
+MFA-/Konkurrenz-/Geld-/Jahres-/CRLF-/Restorefolge bestehen lokal. Analyse und
+30 Paket-/CI-/Archivfälle bestehen. Vollständige neue App-/Backendläufe sind
+aktiv; eigene neue Veröffentlichung, CI und Gerätepakete folgen. Der bisherige
+Produktstand29b02c8, signiertes Paket210 und sein Verteilungsstatus bleiben
+separate bestätigte Zustände. Kein Gesamtabschluss wird daraus abgeleitet.
+
+Der zuvor genannte Nettoausgleich nach V4 ist schon als V5 implementiert und
+geprüft. Veraltete Restvermerke sind mit seinem wirklichen Nachweis verbunden.
+
 ## Aktueller geprüfter Produktstand: Bankimport und Personalpflege
 
 Produktquelle `29b02c82a12d4aa1dfc97eaa84638d840882612d` ist auf dem

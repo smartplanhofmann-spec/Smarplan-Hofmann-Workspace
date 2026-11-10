@@ -9,6 +9,7 @@ const COMPOSITE_V2=new Map([
  ['de_2026_factor_claims_month_v12',['regular_standard_factor_claims_month']],
  ['de_2026_factor_claims_paid_travel_month_v13',['regular_standard_factor_claims_paid_travel_month']],
  ['de_2026_factor_transition_month_v14',['regular_transition_factor_month']],
+ ['de_2026_factor_transition_period_v16',['regular_transition_factor_period']],
 ]);
 const COMPOSITE_V2_SCOPES=new Set([...COMPOSITE_V2.values()].flat());
 const SCOPES=new Set([...COMPOSITE_V2_SCOPES,'regular_standard_factor_claims_oneoff','regular_standard_multiple_oneoff','regular_standard_oneoff','commercial_minijob_flat_tax','commercial_minijob_period_flat_tax','regular_standard_monthly','regular_standard_factor_monthly','regular_standard_factor_period','regular_standard_period','regular_transition_monthly','regular_transition_period','social_contributions_only']);

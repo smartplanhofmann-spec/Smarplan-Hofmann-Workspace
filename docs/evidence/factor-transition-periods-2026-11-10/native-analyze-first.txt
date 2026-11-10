@@ -1,0 +1,5 @@
+Analyzing app...                                                
+
+   info • The import of 'package:smartplan_office/business_payroll_factor_transition_periods.dart' is unnecessary because all of the used elements are also provided by the import of 'package:smartplan_office/business_payroll_calculation_case_contract.dart'. Try removing the import directive • test/payroll_factor_transition_period_contract_test.dart:8:8 • unnecessary_import
+
+1 issue found. (ran in 19.1s)

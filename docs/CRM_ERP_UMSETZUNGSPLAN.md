@@ -1161,3 +1161,45 @@ Nutzerwunsch später einzurichten. Die abschließenden Änderungen dieses
 Prüfzyklus sind ausschließlich Dokumentation und Rohbelege; Produktcode bleibt
 identisch zum tatsächlich geprüften Stand 29b02c8. Ein reiner Belegcommit mit
 [skip ci] ersetzt keine neue Produktprüfung und erzeugt keinen neuen Produktbau.
+
+## 10.11.2026 – tatsächlichen Restpunkt abgeglichen, V16 begonnen
+
+Die Paketbelege und Übergabe sind als reiner Dokumentationscommit 13c6663
+auf dem einzigen autorisierten Testbranch veröffentlicht. Produktcode bleibt
+29b02c8. Die mögliche TestFlight-Verteilung und der fehlende Cloud-SSH-Zugang
+sind separat beim Nutzer angefragt; keine Antwort oder Freigabe wird angenommen.
+
+Der zunächst genannte weitere Source5-Nettoausgleich ist im Code schon als V5
+vorhanden (7b7b3b0, Vorfahr von 29b02c8) und mit beiden Clients sowie PG/Restore
+geprüft. Der ältere V4-Restvermerk ist entsprechend eingeordnet. Die nächste
+wirkliche Lücke ist unabhängig reproduziert: Faktor/Midijob beim Eintritt am
+15.10. wird unter V14 wegen fehlendem Vollmonat abgewiesen; der eigene neue
+Vertrag 7 wird noch nicht angenommen. Arbeitsbranch
+codex/factor-transition-periods-20261110, geplanter Regelstand V16 für genau
+einen belegten 30-Tage-Vertrags-Teilmonat, getrennte Prognose und unverändertes
+Faktorprofil. Drei einschlägige amtliche DRV-Fundstellen sind direkt geöffnet
+und gelesen, einschließlich der ausdrücklichen Unterscheidung anderer
+Teilentgeltmethoden. Unabhängige Referenzen, API, beide Clients und tatsächliche
+PG-/Restorefolge folgen vor einer neuen Veröffentlichung. Kein fertiger
+Rechen-/Produktivstand wird aus dieser Planung abgeleitet.
+
+
+## 10.11.2026 – V16 lokal integriert, Gesamtläufe aktiv
+
+Der neue belegte Faktor-/Midijob-Teilmonat ist in Backend, Browser, App und
+Windows-Quelleninventar verbunden. 300 unabhängige XML-/Beitragsgegenwerte,
+24 gemeinsame Backendfälle plus tatsächlicher Austritts-API-Fall, neuer und
+alter wirklicher Browserablauf, verlorene Antworten, Rechteentzug, eigener
+Mitarbeiterbeleg und tatsächliche PG-/MFA-/Konkurrenz-/Cash-/EÜR-/Jahres-/CRLF-/
+Komplettrestorefolge bestehen. 26 gemeinsame Appfälle sowie19 aktuelle Fälle
+mit390-/1.100-Pixel-Formular und Analyse ohne Befund sind belegt. 30 Paket-/
+CI-/Archivfälle bestehen; neuer eingefrorener Commitarchiv-Nachlauf folgt.
+
+Eine native V14-Vorschau-Hashlücke ist zuerst mit verändertem Hash reproduziert
+und anschließend gemeinsam für V14/V16 behoben. Gescheiterte erste Fixtures,
+ein Sandbox-EPERM im erweiterten Node-Nachlauf und ältere fehlgeschlagene
+Ausführungen bleiben als Rohbelege erhalten. Die vollständigen neuen App-/
+Backendläufe sind aktiv. Originalziel und61historische Lohnmodule sind gegen
+13c6663 bytegleich geprüft. Die [V16-Beschreibung](CRM_ERP_FAKTOR_MIDIJOB_TEILMONAT_V16_2026-11-10.md)
+enthält Umfang und Grenzen; keine neue Serverinstallation, TestFlight-
+Veröffentlichung, Geräte-/Fachfreigabe oder A–G-Gesamtabnahme wird behauptet.

@@ -40,8 +40,9 @@ Zusätzlicher geprüfter Teilumfang 10.11.: Die [V4-Netto-Rückzahlung](CRM_ERP_
 erhält frühere positive Zahlungen und führt den wirklichen Rückfluss über
 Lohnkonto, EÜR und Jahresbasis. Browser, App, MFA/PostgreSQL und Restore sind
 geprüft; betragstreue Originalwiederholung und aktuelle Fachrechte bleiben nötig.
-Weitere Ausgleiche auf einem bereits gemischten Rückzahlungspräfix sind noch
-Codearbeit. R09/D werden dadurch nicht pauschal abgeschlossen. Der veröffentlichte
+Weitere Ausgleiche auf gemischtem Zahlungspräfix sind inzwischen im
+[V5-Nachweis](CRM_ERP_SOURCE5_NETTOAUSGLEICHE_V5_2026-11-10.md) mit tatsächlichem
+Code, beiden Clients und PostgreSQL/Restore belegt. R09/D werden dadurch nicht pauschal abgeschlossen. Der veröffentlichte
 V3-Vorgänger 17978f6 ist inzwischen in sämtlichen acht eigenen Development-Jobs
 und im unsignierten iPhone-Build erfolgreich; signierte Verteilung, Livebetrieb
 und reale Geräte-/Fachabnahme bleiben eigene Nachweise.
@@ -49,6 +50,13 @@ und reale Geräte-/Fachabnahme bleiben eigene Nachweise.
 Zusätzlicher Teilumfang10.11.: Der [Faktor-Einmalbezug mit eigenem Jahresvertrag](CRM_ERP_FAKTOR_EINMALBEZUG_V15_PLAN_2026-11-10.md) verbindet tatsächliche Faktor-/P4-Monatsoriginale mit dem belegten Anspruch, Jahresbasis und Steuerprognose. Die vollständige PostgreSQL-/MFA-/Konkurrenz-/Geld-/EÜR-/Jahres-/Restorekette und beide Clientabläufe sind kontrolliert geprüft. Historische Regeln, Originale und Zahlungen bleiben erhalten; die vollständige lokale Appprüfung besteht mit1.971 Fällen. R09.03/D und A–G werden dadurch nicht pauschal geschlossen.
 
 Die ergänzende Nutzerentscheidung für die Bankanbindungen lautet Kreissparkasse Rottweil und Amex Business-Karte; Loxones Cloud-Hostfreigabe ist ausdrücklich auf später verschoben. [Verträge, tatsächlicher Stand und die Bedeutung der Abschlussprüfung](CRM_ERP_BANK_LIEFERANTEN_ANBINDUNGEN_2026-11-10.md) sind dokumentiert. Keine Providerzugänge oder Fach-/Geräteabnahme werden daraus abgeleitet.
+
+Zusätzliche aktive Integration10.11.: Der [belegte Faktor-/Midijob-Teilmonat V16](CRM_ERP_FAKTOR_MIDIJOB_TEILMONAT_V16_2026-11-10.md)
+ergänzt genau einen tatsächlichen Eintritts-/Austrittsmonat mit ausdrücklich
+belegter 30-Tage-Vertragsmethode und separater Zwölfmonatsprognose. Eigene
+XML-/Beitragsreferenzen, beide Clients und vollständiger PG-/Restoreweg sind
+lokal geprüft. Die gemeinsamen Gesamtläufe laufen; R09.03/D und A–G bleiben
+offen. Fehlende weitere Rechenfälle werden damit nicht als extern blockiert erklärt.
 
 ## Status und Nachweise
 

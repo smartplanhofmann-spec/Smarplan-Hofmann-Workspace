@@ -36,6 +36,7 @@ const _scopes = {
   'regular_standard_factor_claims_month',
   'regular_standard_factor_claims_paid_travel_month',
   'regular_transition_factor_month',
+  'regular_transition_factor_period',
   'regular_standard_multiple_oneoff',
   'regular_standard_oneoff',
   'regular_standard_factor_claims_oneoff',
@@ -69,6 +70,7 @@ const _compositeV2 = {
     'regular_standard_factor_claims_paid_travel_month',
   },
   'de_2026_factor_transition_month_v14': {'regular_transition_factor_month'},
+  'de_2026_factor_transition_period_v16': {'regular_transition_factor_period'},
 };
 final _id = RegExp(r'^[a-f0-9]{32}$'), _hash = RegExp(r'^[a-f0-9]{64}$');
 Never _fail(String message, [int status = 0]) =>

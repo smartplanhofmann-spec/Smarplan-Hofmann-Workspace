@@ -1,0 +1,6 @@
+test_actual_factor_midijob_concurrent_mfa_cash_annual_crlf_and_full_restore (online.test_business_payroll_factor_transition_period_pg.FactorTransitionPeriodPostgres.test_actual_factor_midijob_concurrent_mfa_cash_annual_crlf_and_full_restore) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 57.818s
+
+OK

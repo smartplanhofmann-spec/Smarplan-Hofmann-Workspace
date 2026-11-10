@@ -1,5 +1,12 @@
 # Weitere tatsächliche Nettoausgleiche nach einer Rückzahlung
 
+**Aktueller Lieferabgleich:** Code 7b7b3b0 ist nachweislich Vorfahr des geprüften
+Produktstands 29b02c8. Der eigene Development-Lauf 42872855464 besteht alle
+20 Gruppen; seine tatsächlichen Backend-/Browser-/App-/PostgreSQLgruppen
+enthalten V5. Windows-Pakete und signierte iPhone-Vorbereitung 210 liegen
+vor. [Aktuelle Lieferung und tatsächliche Grenzen](CRM_ERP_LIEFERSTAND_AKTUELL.md).
+Die nachstehenden früheren Zwischenstände bleiben ihrer Quelle zugeordnet.
+
 Stand 10.11.2026. Code und beide Clients gemeinsam lokal geprüft, einschließlich
 tatsächlicher PostgreSQL-/Wiederherstellungskette. Neue Veröffentlichung/CI und
 fachliche Gesamtabnahme sind gesonderte Zustände.

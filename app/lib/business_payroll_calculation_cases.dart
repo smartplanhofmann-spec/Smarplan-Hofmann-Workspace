@@ -39,14 +39,41 @@ class PayrollCalculationCasePlanView extends StatelessWidget {
       ListTile(dense: true, title: Text(title), subtitle: Text(value));
   @override
   Widget build(BuildContext context) {
-    if (plan['rule_version'] == payrollFactorTransitionRule) {
-      final review = businessMap(plan['factor_transition_assessment']);
+    if (plan['rule_version'] == payrollFactorTransitionRule ||
+        plan['rule_version'] == payrollFactorTransitionPeriodRule) {
+      final partial = plan['rule_version'] == payrollFactorTransitionPeriodRule;
+      final review = businessMap(
+        plan[partial
+            ? 'factor_transition_period_assessment'
+            : 'factor_transition_assessment'],
+      );
       final forecast = businessMap(review['transition_assessment']);
-      final component = businessMap(plan['factor_transition_component']);
+      final component = businessMap(
+        plan[partial
+            ? 'factor_transition_period_component'
+            : 'factor_transition_component'],
+      );
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          line('Midijob mit belegtem ELStAM-Faktor', '${plan['month']}'),
+          line(
+            partial
+                ? 'Midijob-Teilmonat mit belegtem ELStAM-Faktor'
+                : 'Midijob mit belegtem ELStAM-Faktor',
+            '${plan['month']}',
+          ),
+          if (partial) ...[
+            for (final period in businessItems(plan['employment_intervals']))
+              line(
+                'Tatsächliche Beschäftigung',
+                '${businessDate(period['start'])} – ${businessDate(period['end'])}',
+              ),
+            for (final period in businessItems(plan['tax_periods']))
+              line('Steuertage', '${period['tax_days']}'),
+            for (final period in businessItems(plan['social_periods']))
+              line('SV-Tage', '${period['days']}'),
+            line('Tatsächliches Teilbrutto', _money(plan['gross_minor'])),
+          ],
           line(
             'Eingetragener ELStAM-Faktor',
             '${plan['factor_parameters']['tax_factor']}'.replaceAll('.', ','),
@@ -71,7 +98,9 @@ class PayrollCalculationCasePlanView extends StatelessWidget {
             Notice('${blocker['message']}', error: true),
           Notice(
             plan['can_calculate'] == true
-                ? 'Der vollständig belegte Faktor-Midijob ist im angezeigten Umfang berechenbar. Lohnabschluss und tatsächliche Zahlungen erfolgen gesondert.'
+                ? partial
+                      ? 'Der belegte Eintritts-/Austrittsteilmonat ist im angezeigten Umfang berechenbar. Lohnabschluss und tatsächliche Zahlung bleiben gesondert.'
+                      : 'Der vollständig belegte Faktor-Midijob ist im angezeigten Umfang berechenbar. Lohnabschluss und tatsächliche Zahlungen erfolgen gesondert.'
                 : 'Die offenen fachlichen Punkte sperren den Lohnabschluss.',
           ),
         ],
@@ -530,6 +559,12 @@ class _BusinessPayrollCalculationCasesPageState
   }) async {
     final opening = epoch;
     await fresh(write: true, forMonth: body['details']['month']);
+    if (body['rule_version'] == payrollFactorTransitionPeriodRule &&
+        !session.hasFeature(payrollFactorTransitionPeriodFeature))
+      _fail(
+        'Die aktuelle Freigabe für den Faktor-/Midijob-Teilmonat fehlt.',
+        403,
+      );
     if (body['rule_version'] == payrollFactorTransitionRule &&
         !session.hasFeature(payrollFactorTransitionFeature))
       _fail('Die aktuelle Freigabe für den Faktor-Midijob fehlt.', 403);
@@ -673,6 +708,10 @@ class _BusinessPayrollCalculationCasesPageState
     if (mounted && readable) await load();
   });
   Future<void> edit([Map<String, dynamic>? previous]) async {
+    if (previous?['rule_version'] == payrollFactorTransitionPeriodRule) {
+      await editFactorTransition(previous, true);
+      return;
+    }
     if (previous?['rule_version'] == payrollFactorTransitionRule) {
       await editFactorTransition(previous);
       return;
@@ -1328,34 +1367,45 @@ class _BusinessPayrollCalculationCasesPageState
     }
   }
 
-  Future<void> editFactorTransition([Map<String, dynamic>? previous]) async {
-    if (busy ||
-        pending != null ||
-        !session.hasFeature(payrollFactorTransitionFeature))
-      return;
+  Future<void> editFactorTransition([
+    Map<String, dynamic>? previous,
+    bool partial = false,
+  ]) async {
+    final feature = partial
+        ? payrollFactorTransitionPeriodFeature
+        : payrollFactorTransitionFeature;
+    if (busy || pending != null || !session.hasFeature(feature)) return;
     final opening = epoch;
     try {
       final page = await fresh(write: true);
       if (!mounted ||
           !readable ||
           opening != epoch ||
-          !session.hasFeature(payrollFactorTransitionFeature))
+          !session.hasFeature(feature))
         return;
       final d = businessMap(previous?['details']),
           review = businessMap(
-            previous?['details']?['factor_transition_assessment'],
+            previous?['details']?[partial
+                ? 'factor_transition_period_assessment'
+                : 'factor_transition_assessment'],
           );
       final forecast = businessMap(review['transition_assessment']);
       final fields = <BusinessField>[
         BusinessField(
           'period_case_id',
-          'Bestätigter vollständiger Faktor-Monat',
+          partial
+              ? 'Bestätigter Faktor-Teilmonat mit 30-Tage-Vertrag'
+              : 'Bestätigter vollständiger Faktor-Monat',
           type: BusinessInput.choice,
           required: true,
           initial: d['period_case_ref']?['id'],
           choices: choices(
             businessItems(page['factor_period_facts'])
-                .where((v) => payrollFactorClaimsBaseEligible(v, month))
+                .where(
+                  (v) => partial
+                      ? payrollFactorTransitionPeriodSelectable(v, month)
+                      : payrollFactorClaimsBaseEligible(v, month),
+                )
                 .toList(),
             (v) => '${v['details']['month']} · Fassung ${v['revision']}',
           ),
@@ -1468,11 +1518,19 @@ class _BusinessPayrollCalculationCasesPageState
           'Alleinige Beschäftigung und tatsächlichen Übergangsbereich geprüft',
           type: BusinessInput.toggle,
         ),
-        const BusinessField(
-          'full_fixed_monthly_pay_confirmed',
-          'Unveränderten festen Monatslohn für diesen vollständigen Monat geprüft',
+        BusinessField(
+          partial
+              ? 'fixed_monthly_contract_confirmed'
+              : 'full_fixed_monthly_pay_confirmed',
+          partial ? 'Unveränderten festen Monatsvertrag geprüft' : 'Unveränderten festen Monatslohn für diesen vollständigen Monat geprüft',
           type: BusinessInput.toggle,
         ),
+        if (partial)
+          const BusinessField(
+            'contractual_30_days_confirmed',
+            'Belegte Teilentgeltmethode: tatsächliche Anspruchstage, höchstens 30, geteilt durch 30',
+            type: BusinessInput.toggle,
+          ),
         const BusinessField(
           'no_foreseeable_one_off_confirmed',
           'Keine vorhersehbaren Einmalbezüge in dieser Prognose',
@@ -1505,15 +1563,24 @@ class _BusinessPayrollCalculationCasesPageState
       ];
       final values = await choose(
         previous == null
-            ? 'Midijob mit belegtem ELStAM-Faktor'
+            ? partial
+                  ? 'Midijob-Teilmonat mit belegtem ELStAM-Faktor'
+                  : 'Midijob mit belegtem ELStAM-Faktor'
+            : partial
+            ? 'Faktor-Midijob-Teilmonat berichtigen'
             : 'Faktor-Midijob berichtigen',
         fields,
-        saveLabel: 'Faktor-Midijob unverbindlich prüfen',
+        saveLabel: partial
+            ? 'Faktor-Midijob-Teilmonat unverbindlich prüfen'
+            : 'Faktor-Midijob unverbindlich prüfen',
       );
       if (values == null || opening != epoch) return;
       for (final key in [
         'sole_employment_confirmed',
-        'full_fixed_monthly_pay_confirmed',
+        partial
+            ? 'fixed_monthly_contract_confirmed'
+            : 'full_fixed_monthly_pay_confirmed',
+        if (partial) 'contractual_30_days_confirmed',
         'no_foreseeable_one_off_confirmed',
       ])
         if (values[key] != true)
@@ -1524,7 +1591,7 @@ class _BusinessPayrollCalculationCasesPageState
       if (!mounted ||
           !readable ||
           opening != epoch ||
-          !session.hasFeature(payrollFactorTransitionFeature))
+          !session.hasFeature(feature))
         return;
       final raw = '${values['regular_monthly_gross']}'.trim().replaceAll(
         ',',
@@ -1562,15 +1629,27 @@ class _BusinessPayrollCalculationCasesPageState
           'content_hash': original['content_hash'],
         },
         'sole_employment_confirmed': values['sole_employment_confirmed'],
-        'full_fixed_monthly_pay_confirmed':
-            values['full_fixed_monthly_pay_confirmed'],
+        if (!partial)
+          'full_fixed_monthly_pay_confirmed':
+              values['full_fixed_monthly_pay_confirmed'],
+        if (partial)
+          'fixed_monthly_contract_confirmed':
+              values['fixed_monthly_contract_confirmed'],
+        if (partial)
+          'contractual_30_days_confirmed':
+              values['contractual_30_days_confirmed'],
         'verification_note': values['assessment_note'],
       };
       final body = payrollCalculationCaseInput(employeeId, page, {
         ...values,
         'month': month,
-        'rule_version': payrollFactorTransitionRule,
-        'factor_transition_assessment': assessment,
+        'rule_version': partial
+            ? payrollFactorTransitionPeriodRule
+            : payrollFactorTransitionRule,
+        (partial
+                ? 'factor_transition_period_assessment'
+                : 'factor_transition_assessment'):
+            assessment,
       }, previous: previous);
       final result = payrollCalculationCasePreview(
         await session.api.call(
@@ -2304,6 +2383,18 @@ class _BusinessPayrollCalculationCasesPageState
                     onPressed: busy ? null : () => editFactorTransition(),
                     icon: const Icon(Icons.fact_check_outlined),
                     label: const Text('Midijob mit belegtem ELStAM-Faktor'),
+                  ),
+                if (writable &&
+                    pending == null &&
+                    session.hasFeature(payrollFactorTransitionPeriodFeature))
+                  FilledButton.icon(
+                    onPressed: busy
+                        ? null
+                        : () => editFactorTransition(null, true),
+                    icon: const Icon(Icons.fact_check_outlined),
+                    label: const Text(
+                      'Midijob-Teilmonat mit belegtem ELStAM-Faktor',
+                    ),
                   ),
                 if (writable &&
                     pending == null &&

@@ -479,3 +479,26 @@ Unterbereich **Mitarbeiter** wählen und **Neu anlegen** bzw. das vorhandene
 Profil öffnen. Reine Personal-Leser können bestehende Profile ansehen.
 Der neue Auswahlweg benötigt den entsprechend aktualisierten Server.
 Bei einer unbestätigten Antwort denselben geöffneten Vorgang erneut senden.
+
+
+## Belegter Faktor-/Midijob-Teilmonat
+
+Der neue Quellstand bietet unter Personal → Personalakte → Lohnberechnung2026
+→ Abrechnungsfälle die Funktion **Midijob-Teilmonat mit belegtem ELStAM-Faktor**.
+Sie benötigt den bereits bestätigten Eintritts-/Austrittsperiodenfall, seinen
+festen 30-Tage-Monatsvertrag, das ursprüngliche Faktorprofil, die passende
+ELStAM-Identität und ein eigenes privates Prognoseoriginal. Alle Quellen
+bewusst auswählen und alle vier Prüfbestätigungen nach tatsächlicher Prüfung
+setzen. Die Vorschau zeigt tatsächliche Beschäftigung, Steuer-/SV-Tage,
+Teilbrutto, Beitragsbasen und Netto. Erst danach den Gesamtfall und anschließend
+den ausdrücklich benannten Berechnungsumfang bestätigen. Ein gespeicherter
+Lauf erzeugt keine Zahlung oder Meldung.
+
+Ein vollständiger Monat bleibt im bisherigen Vollmonatsvertrag. Andere
+Teilentgeltmethoden, mehrere Profile, zusätzliche Ansprüche, Reisen oder
+Einmalbezüge werden durch diese neue Funktion nicht berechenbar. Ein Fall mit
+offenen Grundlagen zeigt keine abschließenden Geldbeträge. Mitarbeiter erhalten
+nur ihren eigenen beschränkten JSON-/PDF-Beleg. Bei verlorener Antwort den
+ursprünglichen offenen Auftrag unverändert wiederholen; aktuelle Rechte und
+Serverfähigkeit müssen weiter bestehen. Eine Serverinstallation dieser neuen
+Funktion ist erst durch einen eigenen Installationsnachweis bestätigt.

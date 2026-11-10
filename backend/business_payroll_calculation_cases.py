@@ -17,7 +17,7 @@ from business_payroll_facts import PayrollFacts,ref,references,reference,file_id
 from payroll_calculations_2026 import CALCULATION_RULE_VERSION,SOURCE_CONTRACT_VERSION,build_calculation_plan,EVENT_FIELDS
 from payroll_travel_tax_2026 import calculate_flat_travel_tax,SIMPLIFIED_RATES,_filing_period
 
-FEATURES=('payroll_calculation_cases','payroll_factor_taxfree_travel','payroll_individual_minijob','payroll_factor_claims','payroll_factor_claims_paid_travel','payroll_factor_transition')
+FEATURES=('payroll_calculation_cases','payroll_factor_taxfree_travel','payroll_individual_minijob','payroll_factor_claims','payroll_factor_claims_paid_travel','payroll_factor_transition','payroll_factor_transition_periods')
 TABLES=('business_payroll_calculation_case_events','business_payroll_calculation_case_requests')
 KINDS=('calculation_case','travel_tax_policy')
 POLICY_RULE_VERSION='de_2026_travel_tax_policy_v1'
@@ -55,6 +55,10 @@ def guard_statements(dialect):
 
 def normalize_details(kind,value):
     if not isinstance(value,dict):raise Problem(400,'Strukturierte Gesamtfalldetails erforderlich.')
+    if kind=='calculation_case' and 'factor_transition_period_assessment' in value:
+        from payroll_factor_transition_periods_2026 import normalize_case_assessment
+        base=normalize_details(kind,{key:item for key,item in value.items() if key!='factor_transition_period_assessment'})
+        return dict(base,factor_transition_period_assessment=normalize_case_assessment(value['factor_transition_period_assessment']))
     if kind=='travel_tax_policy':
         fields=('filing_period_from','filing_period_to','federal_state','church_method','church_rate_region',
             'church_method_applies_to_all','employer_bears_tax','verification_note')
@@ -241,6 +245,10 @@ class PayrollCalculationCases(PayrollFacts):
         if kind=='travel_tax_policy':
             if fresh:self._policy_uniform(details)
             return dict(schema_version=1,policy=details,source_files=self._files(None,ids,fresh=fresh))
+        from payroll_factor_transition_periods_2026 import RULE_VERSION as FACTOR_TRANSITION_PERIOD_RULE
+        if rule_version==FACTOR_TRANSITION_PERIOD_RULE:
+            from payroll_factor_transition_period_sources import snapshot
+            return snapshot(self,employee,details,ids,fresh=fresh,actor=actor)
         from payroll_factor_transition_2026 import RULE_VERSION as FACTOR_TRANSITION_RULE
         if rule_version==FACTOR_TRANSITION_RULE:
             from payroll_factor_transition_sources import snapshot
@@ -381,6 +389,8 @@ class PayrollCalculationCases(PayrollFacts):
     @staticmethod
     def _versions(data):
         if not isinstance(data.get('details'),dict):raise Problem(400,'Strukturierte Gesamtfalldetails erforderlich.')
+        from payroll_factor_transition_periods_2026 import RULE_VERSION as FACTOR_TRANSITION_PERIOD_RULE
+        factor_transition_period=data['kind']=='calculation_case' and data['rule_version']==FACTOR_TRANSITION_PERIOD_RULE
         from payroll_factor_transition_2026 import RULE_VERSION as FACTOR_TRANSITION_RULE
         factor_transition=data['kind']=='calculation_case' and data['rule_version']==FACTOR_TRANSITION_RULE
         from payroll_factor_taxfree_travel_2026 import RULE_VERSION as FACTOR_TRAVEL_RULE
@@ -393,6 +403,8 @@ class PayrollCalculationCases(PayrollFacts):
         individual=data['kind']=='calculation_case' and data['rule_version']==INDIVIDUAL_MINIJOB_RULE
         expected=FACTOR_TRANSITION_RULE if factor_transition else FACTOR_CLAIM_TRAVEL_RULE if combined else FACTOR_CLAIMS_RULE if factor_claims else INDIVIDUAL_MINIJOB_RULE if individual else FACTOR_TRAVEL_RULE if is_new else CALCULATION_RULE_VERSION if data['kind']=='calculation_case' else POLICY_RULE_VERSION
         contract=6 if factor_transition else 5 if combined else 4 if factor_claims else 3 if individual else 2 if is_new else SOURCE_CONTRACT_VERSION
+        if factor_transition_period:expected,contract=FACTOR_TRANSITION_PERIOD_RULE,7
+        if ('factor_transition_period_assessment' in data['details'])!=factor_transition_period:raise Problem(400,'Die eigene Faktor-/Midijob-Teilmonatsprognose gehört ausschließlich zum ausdrücklichen v16-Vertrag.')
         if ('factor_transition_assessment' in data['details'])!=factor_transition:raise Problem(400,'Die Faktor-Midijob-Prognose gehört ausschließlich zum ausdrücklichen v14-Vertrag.')
         if data['kind']=='calculation_case' and ('travel_payment_refs' in data['details'])!=(is_new or combined):raise Problem(400,'Reisezahlungsnachweise gehören ausschließlich zum neuen Faktorvertrag.')
         if ('individual_minijob_assessment' in data['details'])!=individual:raise Problem(400,'Die individuelle Minijobprüfung gehört ausschließlich zum ausdrücklichen v11-Vertrag.')
@@ -404,6 +416,9 @@ class PayrollCalculationCases(PayrollFacts):
     @staticmethod
     def _plan(kind,snapshot):
         if kind=='travel_tax_policy':return None
+        from payroll_factor_transition_periods_2026 import RULE_VERSION as FACTOR_TRANSITION_PERIOD_RULE,build_plan as factor_transition_period_plan
+        if snapshot['rule_version']==FACTOR_TRANSITION_PERIOD_RULE:
+            return factor_transition_period_plan(snapshot,rule_version=snapshot['rule_version'],source_contract_version=snapshot['source_contract_version'])
         from payroll_factor_transition_2026 import RULE_VERSION as FACTOR_TRANSITION_RULE,build_plan as factor_transition_plan
         if snapshot['rule_version']==FACTOR_TRANSITION_RULE:
             return factor_transition_plan(snapshot,rule_version=snapshot['rule_version'],source_contract_version=snapshot['source_contract_version'])
@@ -547,6 +562,9 @@ def validate_case_sources(office,value):
             if (value['rule_version']=='de_2026_factor_transition_month_v14'
                     and details['factor_transition_assessment']['declaration_date']>value['created_at'][:10]):
                 raise ValueError('Factor transition assessment did not exist at original acceptance')
+            if (value['rule_version']=='de_2026_factor_transition_period_v16'
+                    and details['factor_transition_period_assessment']['declaration_date']>value['created_at'][:10]):
+                raise ValueError('Factor transition period assessment did not exist at original acceptance')
             if source['flat_travel_tax'] is not None:planned=source['flat_travel_tax']['recording_context']['planned_recording_on']
         expected=api._snapshot(employee,value['kind'],details,value['source_file_ids'],fresh=False,planned_on=planned,rule_version=value['rule_version'],source_contract_version=value['source_contract_version'])
         plan=api._plan(value['kind'],expected)

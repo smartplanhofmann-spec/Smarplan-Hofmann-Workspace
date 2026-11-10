@@ -5,6 +5,7 @@
   "online": [
     ["online.test_business_payroll_factor_annual_pg", "-v"],
     ["online.test_business_payroll_factor_oneoff_pg", "-v"],
+    ["online.test_business_payroll_factor_transition_period_pg", "-v"],
     ["online.test_business_payroll_factor_transition_pg", "-v"],
     ["scripts.test_online_archive_runtime", "-v"],
     ["scripts.test_online_source_archive", "-v"],
@@ -709,6 +710,11 @@
       "id": "installation-context",
       "script": "tests/e2e.cjs",
       "workflow": "installation-context"
+    },
+    {
+      "id": "payroll-factor-transition-period",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-factor-transition-period"
     },
     {
       "id": "payroll-factor-transition",

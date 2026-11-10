@@ -2356,6 +2356,10 @@ class BusinessSession extends ChangeNotifier {
                     operation?.body['source_contract_version'] == 5 &&
                     hasFeature('payroll_factor_claims_paid_travel')) ||
                 (operation?.body['rule_version'] ==
+                        'de_2026_factor_transition_period_v16' &&
+                    operation?.body['source_contract_version'] == 7 &&
+                    hasFeature('payroll_factor_transition_periods')) ||
+                (operation?.body['rule_version'] ==
                         'de_2026_factor_transition_month_v14' &&
                     operation?.body['source_contract_version'] == 6 &&
                     hasFeature('payroll_factor_transition')) ||
@@ -2721,6 +2725,13 @@ class BusinessSession extends ChangeNotifier {
           throw const ApiException(
             403,
             'Die aktuelle Freigabe für den individuellen Minijob fehlt.',
+          );
+        if (_pending[key]?.body['accepted_scope'] ==
+                'regular_transition_factor_period' &&
+            !hasFeature('payroll_factor_transition_periods'))
+          throw const ApiException(
+            403,
+            'Die aktuelle Freigabe für den ursprünglichen Faktor-/Midijob-Teilmonat fehlt.',
           );
         if (_pending[key]?.body['accepted_scope'] ==
                 'regular_transition_factor_month' &&
@@ -3452,6 +3463,17 @@ class BusinessSession extends ChangeNotifier {
       throw const ApiException(
         403,
         'Die aktuelle Freigabe für den Faktor-Einmalbezug fehlt.',
+      );
+    if ((path == '/payroll/calculation-cases' &&
+                values['rule_version'] ==
+                    'de_2026_factor_transition_period_v16' ||
+            path == '/payroll/runs' &&
+                values['accepted_scope'] ==
+                    'regular_transition_factor_period') &&
+        !hasFeature('payroll_factor_transition_periods'))
+      throw const ApiException(
+        403,
+        'Die aktuelle Freigabe für den Faktor-/Midijob-Teilmonat fehlt.',
       );
     if ((path == '/payroll/calculation-cases' &&
                 values['rule_version'] ==

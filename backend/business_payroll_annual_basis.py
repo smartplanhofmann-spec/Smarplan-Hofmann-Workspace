@@ -262,8 +262,8 @@ class PayrollAnnualBasis:
             if source.get('source_schema_version')==5 and payment:
                 bonus_payments=[payment['details']['payments'][item['payment_index']] for item in payment['details']['settlement_allocations'] if item['one_off_allocations']]
             actual_adjustment=(source.get('source_schema_version')==5 and payment
-                and payment['details'].get('payment_source_schema_version') in (3,4))
-            # V3/V4 already resolve every immutable predecessor and the same
+                and payment['details'].get('payment_source_schema_version') in (3,4,5))
+            # V3/V4/V5 already resolve every immutable predecessor and the same
             # original gross event above. A later pure net adjustment is not
             # a new gross receipt. Retain the actual original bonus-day proof
             # and require all later money facts by the requested cutoff.

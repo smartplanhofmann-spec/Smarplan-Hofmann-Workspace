@@ -1,3 +1,5 @@
+import 'business_payroll_source5_adjustment.dart';
+
 import 'dart:convert';
 
 import 'api.dart';
@@ -12,11 +14,15 @@ const payrollRepaymentReviewContract = 'source5_actual_net_repayment_review_v1';
 const payrollRepaymentTransitionContract = 'source5_net_repayment_v1';
 const payrollRepaymentPaymentContract = 'source5_actual_net_repayment_v4';
 Map<String, dynamic> payrollSettlementReview(dynamic value) =>
-    value is Map && value['schema_version'] == 2
+    value is Map && value['schema_version'] == 3
+    ? payrollAdjustmentReview(value)
+    : value is Map && value['schema_version'] == 2
     ? payrollRepaymentReview(value)
     : payrollPositiveSettlementReview(value);
 Map<String, dynamic> payrollSettlementTransition(Map<String, dynamic> run) =>
-    run['settlement_transition']?['schema_version'] == 2
+    run['settlement_transition']?['schema_version'] == 3
+    ? payrollAdjustmentTransition(run)
+    : run['settlement_transition']?['schema_version'] == 2
     ? payrollRepaymentTransition(run)
     : payrollPositiveTransition(run);
 Never _bad() => throw const ApiException(

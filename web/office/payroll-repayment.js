@@ -1,3 +1,4 @@
+import {adjustmentReview,adjustmentTransition,verifyAdjustmentTransition,verifyAdjustmentPreview,verifyAdjustmentPaymentRecord} from './payroll-adjustment.js';
 import {positiveCorrectionHash,source5Calculation,source5UnchangedSubject,positiveCorrectionReview,positiveCorrectionTransition,verifyPositiveCorrectionTransition,verifyPositiveCorrectionPreview,verifyPositiveCorrectionPaymentRecord} from './payroll-positive-correction.js';
 
 export const REPAYMENT_FEATURE='payroll_source5_net_repayments';
@@ -115,8 +116,8 @@ export async function verifyRepaymentPaymentRecord(value){
   const plan=value.sources.single_payment_plan;need(await positiveCorrectionHash(value.sources.run.calculation)===plan.composition_hash&&await positiveCorrectionHash(omit(plan,'plan_hash'))===plan.plan_hash);return value;
 }
 
-export const source5SettlementReview=value=>value?.schema_version===2?repaymentReview(value):positiveCorrectionReview(value);
-export const source5SettlementTransition=(value,run,options={})=>value?.schema_version===2?repaymentTransition(value,run,options):positiveCorrectionTransition(value,run,options);
-export const verifySource5SettlementTransition=(value,run,options={})=>value?.schema_version===2?verifyRepaymentTransition(value,run,options):verifyPositiveCorrectionTransition(value,run,options);
-export const verifySource5SettlementPreview=(value,input,options={})=>value?.settlement_transition?.schema_version===2?verifyRepaymentPreview(value,input,options):verifyPositiveCorrectionPreview(value,input,options);
-export const verifySource5PaymentRecord=value=>value?.details?.payment_source_schema_version===4?verifyRepaymentPaymentRecord(value):verifyPositiveCorrectionPaymentRecord(value);
+export const source5SettlementReview=value=>value?.schema_version===3?adjustmentReview(value):value?.schema_version===2?repaymentReview(value):positiveCorrectionReview(value);
+export const source5SettlementTransition=(value,run,options={})=>value?.schema_version===3?adjustmentTransition(value,run,options):value?.schema_version===2?repaymentTransition(value,run,options):positiveCorrectionTransition(value,run,options);
+export const verifySource5SettlementTransition=(value,run,options={})=>value?.schema_version===3?verifyAdjustmentTransition(value,run,options):value?.schema_version===2?verifyRepaymentTransition(value,run,options):verifyPositiveCorrectionTransition(value,run,options);
+export const verifySource5SettlementPreview=(value,input,options={})=>value?.settlement_transition?.schema_version===3?verifyAdjustmentPreview(value,input,options):value?.settlement_transition?.schema_version===2?verifyRepaymentPreview(value,input,options):verifyPositiveCorrectionPreview(value,input,options);
+export const verifySource5PaymentRecord=value=>value?.details?.payment_source_schema_version===5?verifyAdjustmentPaymentRecord(value):value?.details?.payment_source_schema_version===4?verifyRepaymentPaymentRecord(value):verifyPositiveCorrectionPaymentRecord(value);

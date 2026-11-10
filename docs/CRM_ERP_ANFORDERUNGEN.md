@@ -189,3 +189,12 @@ Echte Zahlungen, Nachrichten, Bestellungen, Meldungen, produktive Migrationen un
 Entwicklungstests verwenden kontrollierte synthetische Daten. Die vorhandene
 Finanzsperre und der dokumentierte Ausstellerwechsel bleiben bis zur
 ausdrücklich autorisierten Betriebsumstellung erhalten.
+
+
+## 10.11.2026 – weitere Nettoausgleiche nach Rückzahlungen
+
+R09.03/D: [V5-Folgekorrekturen](CRM_ERP_SOURCE5_NETTOAUSGLEICHE_V5_2026-11-10.md)
+werden auf dem veröffentlichten Stand936f40f entwickelt. V4 ist abgeschlossen
+und veröffentlicht, seine eigene CI läuft; V5 und die Gesamtabnahme bleiben
+offen. Wiederholte positive/negative/null Differenz bei vollständigem gemischtem
+Präfix, tatsächliche Geld-/EÜR-/Jahresketten, beide Clients und Nachweise abarbeiten.

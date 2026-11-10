@@ -1,3 +1,5 @@
+import 'business_payroll_source5_adjustment.dart';
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -462,6 +464,17 @@ Map<String, dynamic> _multipleSettlement(
   Map<String, dynamic>? prior,
   Map<String, dynamic>? archived,
 }) {
+  if (details['payment_source_schema_version'] == 5) {
+    final plan = payrollAdjustmentPaymentPlan(
+      details,
+      run,
+      prior: prior,
+      archived: archived,
+    );
+    return {...plan}
+      ..remove('composition_hash')
+      ..remove('plan_hash');
+  }
   if (details['payment_source_schema_version'] == 4) {
     final plan = payrollRepaymentPaymentPlan(
       details,
@@ -515,7 +528,12 @@ void _multiplePaymentRecord(Map<String, dynamic> value) {
     _multipleFail(
       'Der Zahlungsplan widerspricht seinen tatsächlichen Originalteilen, Tagen oder Erfüllungsbeträgen.',
     );
-  if ([2, 3, 4].contains(value['details']['payment_source_schema_version']) &&
+  if ([
+        2,
+        3,
+        4,
+        5,
+      ].contains(value['details']['payment_source_schema_version']) &&
       (plan['composition_hash'] != payrollPositiveHash(run['calculation']) ||
           plan['plan_hash'] !=
               payrollPositiveHash({...plan}..remove('plan_hash'))))
@@ -787,6 +805,7 @@ Map<String, dynamic> payrollAccountDetails(
   int count = 0,
   bool paymentDates = false,
   bool repayments = false,
+  bool adjustments = false,
 }) {
   if (!payrollAccountKinds.containsKey(kind))
     throw const FormatException('Unbekannte Lohnkontonachweisart.');
@@ -899,12 +918,20 @@ Map<String, dynamic> payrollAccountDetails(
       final event =
           run!['calculation']['multiple_one_off_details']['receipt_events'][0];
       final repayment = run['settlement_transition']?['schema_version'] == 2;
+      final adjustment = run['settlement_transition']?['schema_version'] == 3;
+      if (adjustment && !adjustments)
+        throw const ApiException(
+          403,
+          'Die aktuelle Freigabe für weitere Nettoausgleiche fehlt.',
+        );
       if (repayment && !repayments)
         throw const ApiException(
           403,
           'Die aktuelle Freigabe für belegte Netto-Rückzahlungen fehlt.',
         );
-      details['payment_source_schema_version'] = repayment
+      details['payment_source_schema_version'] = adjustment
+          ? 5
+          : repayment
           ? 4
           : run.containsKey('settlement_transition')
           ? (paymentDates ? 3 : 2)
@@ -918,14 +945,18 @@ Map<String, dynamic> payrollAccountDetails(
             'payment_index': i,
             'running_minor': payrollAccountMinor(values['running_$i']),
             'one_off_allocations':
-                payrollAccountMinor(values['bonus_$i'], signed: repayment) == 0
+                payrollAccountMinor(
+                      values['bonus_$i'],
+                      signed: repayment || adjustment,
+                    ) ==
+                    0
                 ? []
                 : [
                     {
                       'event_key': event['event_key'],
                       'net_minor': payrollAccountMinor(
                         values['bonus_$i'],
-                        signed: repayment,
+                        signed: repayment || adjustment,
                       ),
                     },
                   ],
@@ -933,7 +964,8 @@ Map<String, dynamic> payrollAccountDetails(
       ];
       if (run.containsKey('settlement_transition') &&
           paymentDates &&
-          !repayment) {
+          !repayment &&
+          !adjustment) {
         final allocations = details['settlement_allocations'] as List;
         final parts = details['payments'] as List;
         final requiresDates =
@@ -1352,9 +1384,12 @@ class _BusinessPayrollAccountsPageState
           selectedRun?.containsKey('settlement_transition') == true;
       final repayment =
           selectedRun?['settlement_transition']?['schema_version'] == 2;
+      final adjustment =
+          selectedRun?['settlement_transition']?['schema_version'] == 3;
       final positivePaymentDates =
           positiveCorrection &&
           !repayment &&
+          !adjustment &&
           (previous != null
               ? previous['details']['payment_source_schema_version'] == 3
               : session.hasFeature(payrollPositivePaymentDatesFeature));
@@ -1364,6 +1399,7 @@ class _BusinessPayrollAccountsPageState
       if (positiveCorrection &&
           (!session.hasFeature(payrollPositiveCorrectionFeature) ||
               repayment && !session.hasFeature(payrollRepaymentFeature) ||
+              adjustment && !session.hasFeature(payrollAdjustmentFeature) ||
               positivePaymentDates &&
                   !session.hasFeature(payrollPositivePaymentDatesFeature) ||
               !session.hasModule('payroll_multiple_cases')))
@@ -1448,8 +1484,9 @@ class _BusinessPayrollAccountsPageState
           : (prior['details']['payments'] as List).length;
       final zeroDue =
           selectedRun != null && payrollAccountNoPaymentDue(selectedRun);
-      int count = 0;
-      if (kind != 'identity' && !zeroDue) {
+      final noAdjustment = adjustment && transition!['net_delta_minor'] == 0;
+      int count = noAdjustment ? preserved : 0;
+      if (kind != 'identity' && !zeroDue && !noAdjustment) {
         int? selected;
         await privateEditor(
           context: context,
@@ -1657,7 +1694,11 @@ class _BusinessPayrollAccountsPageState
                 type: BusinessInput.choice,
                 required: true,
                 choices: {
-                  'review': repayment
+                  'review': adjustment
+                      ? (noAdjustment
+                            ? 'Keine Nettodifferenz. Frühere Zahlungen und Rückzahlungen bleiben unverändert; keine neuen Zahlungsteile und kein neuer Geldfluss.'
+                            : '${_money(transition!['net_delta_minor'])} weiterer tatsächlicher Nettoausgleich 2026; neue Teile mit genau diesem Vorzeichen belegen; frühere Zahlungen und Rückzahlungen bleiben unverändert; kein automatischer Geldtransfer')
+                      : repayment
                       ? '${_money(transition!['repayment_minor'])} tatsächliche Rückzahlung 2026; neue Zahlbeträge und Bonusanteile negativ eingeben; frühere Zahlungen bleiben unverändert; kein automatischer Geldeinzug'
                       : positivePaymentDates
                       ? '${_money(transition!['additional_net_minor'])} mit tatsächlichem Zahlungstag 2026; ursprünglicher Bruttozufluss unverändert; kein automatischer Geldtransfer'
@@ -1922,6 +1963,7 @@ class _BusinessPayrollAccountsPageState
                 count: count,
                 paymentDates: positivePaymentDates,
                 repayments: repayment,
+                adjustments: adjustment,
               ),
               'source_file_id': file['id'],
               'confirmed': true,
@@ -1960,6 +2002,8 @@ class _BusinessPayrollAccountsPageState
                           !session.hasFeature(
                             payrollPositivePaymentDatesFeature,
                           ) ||
+                      body['details']['payment_source_schema_version'] == 5 &&
+                          !session.hasFeature(payrollAdjustmentFeature) ||
                       body['details']['payment_source_schema_version'] == 4 &&
                           !session.hasFeature(payrollRepaymentFeature) ||
                       !session.hasModule('payroll_multiple_cases')))
@@ -2019,6 +2063,7 @@ class _BusinessPayrollAccountsPageState
             2,
             3,
             4,
+            5,
           ].contains(value['details']['payment_source_schema_version'])) ...[
             const Text('Belegte Nettozuordnung'),
             for (final a in businessItems(
@@ -2035,10 +2080,10 @@ class _BusinessPayrollAccountsPageState
             Notice(
               value['details']['prior_payment_ref'] == null
                   ? 'Keine frühere Zahlung übernommen.'
-                  : [2, 3, 4].contains(
+                  : [2, 3, 4, 5].contains(
                       value['details']['payment_source_schema_version'],
                     )
-                  ? 'Alle früheren Zahlungsteile und ihre Nettozuordnungen bleiben unverändert. Nur zusätzlich belegte positive Beträge werden ergänzt.'
+                  ? 'Alle früheren Zahlungen, Rückzahlungen und ihre Nettozuordnungen bleiben unverändert. Neue Teile belegen ausschließlich die zusätzliche tatsächliche Nettodifferenz.'
                   : 'Frühere laufende Zahlungsoriginale bleiben unverändert erhalten.',
             ),
             if (value['details']['payment_source_schema_version'] == 3)
@@ -2046,6 +2091,13 @@ class _BusinessPayrollAccountsPageState
                 'Die ursprünglichen Bruttozuflüsse bleiben unverändert. Zusätzliche Nettozahlungen sind an ihren tatsächlichen belegten Zahlungstagen erfasst.',
               ),
           ],
+          if (value['kind'] == 'payment' &&
+              value['details']['payment_source_schema_version'] == 5)
+            Notice(
+              value['sources']['single_payment_plan']['net_delta_minor'] == 0
+                  ? 'Keine Nettodifferenz. Ausschließlich der unveränderte bisherige Zahlungspräfix ist bestätigt; kein neuer Geldfluss.'
+                  : 'Der weitere Nettoausgleich ist mit seinen tatsächlichen Zahlungsteilen belegt. Frühere Zahlungen, Rückzahlungen und der ursprüngliche Bruttozufluss bleiben unverändert.',
+            ),
           if (value['kind'] == 'payment' &&
               value['details']['payment_source_schema_version'] == 4)
             const Notice(

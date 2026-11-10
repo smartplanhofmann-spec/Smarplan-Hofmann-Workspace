@@ -16,32 +16,33 @@ Schema- und Archivschutz bleiben aktiv. 77 gemeinsame Fälle und echter
 Bestell-/Teil-/Restlieferungsbrowser bestehen. Noch nicht veröffentlicht;
 Remoteprüfung und Gesamtziel laufen weiter. V5 wird unabhängig fortgesetzt.
 
-**Aktuelle Veröffentlichung:** Source5-Zahlungstage V3 und die beiden konkreten
-CI-Prüfkorrekturen sind als 17978f6697a02f131fc1a4d319cc279dbe642d50 veröffentlicht.
-Der [abschließende tatsächliche Abruf](evidence/source5-payment-dates-2026-11-10/publication-completed-17978-20261110.json)
-bestätigt alle acht Development-Jobs einschließlich Windows, Browser und
-PostgreSQL sowie den unsignierten iPhone-Build. Signierter Upload übersprungen.
-Der unterbrochene lokale App-Vorlauf bleibt getrennt; sein vollständiger
-Neustart besteht mit 1.872 Fällen ohne Skip. Keine neue Liveinstallation.
+**Aktuelle Veröffentlichung:** V3-Folgeketten und tatsächliche Rückzahlung V4
+sind als `936f40f57c769dce515099b4fecc616d05b35280` auf dem autorisierten
+Testbranch veröffentlicht; Remote-SHA bestätigt. Eigene Development42750261490 besitzt erfolgreiche Backend-, Windows-, Mac-, App-,
+HTTPS- und Updatejobs, aber einen echten Fehler im Einkaufsbrowser.
+Der Fehler ist als SQLite-Leserennen reproduziert und lokal18b7031 korrigiert.
+Online-API läuft noch; iPhone42750261604 besteht unsigniert, signierter Upload
+ist übersprungen.
+17978f6 bleibt der letzte vollständig grüne Stand mit allen acht Development-
+Jobs und unsigniertem iPhone-Build; signierter Upload übersprungen.
+Keine neue Serverinstallation oder Geräteabnahme.
 
-**Aktuelle lokale Folgekorrektur:** b437f2c30ba3fd7de34a0f1c270e693df9210dd8
-ist im Hauptbranch vorgezogen, noch nicht separat veröffentlicht. Die
-[V3-Folgeketten](CRM_ERP_SOURCE5_ZAHLUNGSTAGE_V3_FOLGEKETTEN_2026-11-10.md)
-erhalten validierte spätere Bonuspräfixe bei Reisekosten und schreiben genau
-einen ursprünglichen Bruttozufluss in die Jahresbasis fort. Neuer tatsächlicher
-PG-/MFA-/Jahresfall, 32 Backend-, 15 alte Jahres- und acht App-Bedienfälle bestehen.
+**Abgeschlossener Codeabschnitt:** [Tatsächliche Netto-Rückzahlung V4](CRM_ERP_SOURCE5_NETTORUECKZAHLUNG_V4_2026-11-10.md)
+mit 50 Backend-, 1.026 Browser-, 1.878 vollständigen App- und 21 Paketfällen,
+echtem Browser sowie PG/MFA/EÜR/Jahresbasis/Restore. Zusätzliche tatsächliche
+Konkurrenz-/Sperrprüfung besteht nach gezielter 423-Korrektur; alte Fehler bleiben
+in den [Rohnachweisen](evidence/source5-repayment-2026-11-10/manifest.json) erhalten.
+V3-Folgeketten b437f2c sind enthalten; Code749a19d und Nachweise936f40f.
 
-**Aktueller Codeabschnitt:** [Tatsächliche Netto-Rückzahlung V4](CRM_ERP_SOURCE5_NETTORUECKZAHLUNG_V4_2026-11-10.md)
-in `/workspace/smartplan-source5-repayment-20261110`. Backend, Browser, App und
-Paketierung sind integriert. 50 Backend-, 1.026 Browser-, 1.878 vollständige
-App- und 21 Paket-/Inventarfälle sowie echter Browser und PG/EÜR/Jahresbasis/
-Restore bestehen. Die zusätzliche echte Konkurrenzprüfung deckte einen
-Sperrzeitfehler auf; die gezielte 423-Behandlung mit unverändertem Original und
-bestehendem Rollback ist jetzt mit tatsächlichem HTTP und Konkurrenz nachgeprüft.
-Konkurrenz-/Sperrnachlauf: zwei Fälle in 83,502 Sekunden; beide Annahmen gleich,
-genau ein gespeicherter Auftrag. Alte Fehlversuche bleiben erhalten.
-Code-/Nachweiscommits, Einordnung auf b437f2c und eigene neue CI werden fertiggestellt.
-Danach folgen weitere Nettoausgleiche nach V4 und die übrigen Gesamtzielpunkte.
+**Aktueller Codeabschnitt:** [Weitere Nettoausgleiche V5](CRM_ERP_SOURCE5_NETTOAUSGLEICHE_V5_2026-11-10.md)
+in `/workspace/smartplan-source5-adjustments-20261110`. Wiederholte positive,
+negative und betragsgleiche Korrekturen nach einem vollständig belegten
+V4-/V5-Präfix sind in Backend und beiden Clients in Arbeit. Erste unveränderte
+Reproduktion rot; jetzt 48 gemeinsame Backend-, 1.035 Node-, 1.896 vollständige
+App- und 21 Paketfälle, neun neue App-Bedienfälle und echter MFA-/Browserablauf
+bestehen. Analyse sauber10,2s. Tatsächlicher PG-/Restorenachlauf läuft.
+Die separat geprüfte SQLite-Korrektur18b7031 wird zusammengeführt. Noch keine V5-Abnahme oder
+Veröffentlichung. Danach werden die übrigen offenen Gesamtzielpunkte fortgesetzt.
 Ein abgeschlossener Abschnitt beendet ausdrücklich nicht den Gesamtauftrag.
 
 Der frühere Zeitabgleich 75d88a3 ist veröffentlicht. Vier eigene Development-

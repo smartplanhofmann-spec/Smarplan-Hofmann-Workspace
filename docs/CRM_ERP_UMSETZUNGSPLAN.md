@@ -431,3 +431,12 @@ Status423-Behandlung ohne Erhöhung der Zeitgrenzen oder falschen Annahmestatus.
 Nach Code-/Nachweissicherung und eigener Veröffentlichung werden wiederholte
 positive, negative und betragsgleiche Ausgleiche auf einem gemischten V4-Präfix
 additiv geschlossen. Weitere Gesamtanforderungen und Abnahmen bleiben erhalten.
+
+
+## 10.11.2026 – weitere Nettoausgleiche nach Rückzahlungen
+
+Nächster Codeabschnitt: [V5-Folgekorrekturen](CRM_ERP_SOURCE5_NETTOAUSGLEICHE_V5_2026-11-10.md)
+werden auf dem veröffentlichten Stand936f40f entwickelt. V4 ist abgeschlossen
+und veröffentlicht, seine eigene CI läuft; V5 und die Gesamtabnahme bleiben
+offen. Wiederholte positive/negative/null Differenz bei vollständigem gemischtem
+Präfix, tatsächliche Geld-/EÜR-/Jahresketten, beide Clients und Nachweise abarbeiten.

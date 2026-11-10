@@ -5,6 +5,7 @@ of the v1 settlement is performed here. V2 retains its actual same-day contract;
 V3 binds later actual positive transfers to the unchanged original gross event.
 Both require a separately corrected complete source.
 """
+from payroll_verification import within_original_graph
 from copy import deepcopy
 import json
 
@@ -37,6 +38,9 @@ def due(calculation):return calculation['net_minor']-calculation['net_deductions
 
 
 def normalize_review(value):
+    if isinstance(value,dict) and value.get('schema_version')==3:
+        from payroll_multiple_adjustments import normalize_review as adjustment_review
+        return adjustment_review(value)
     if isinstance(value,dict) and value.get('schema_version')==2:
         from payroll_multiple_repayments import normalize_review as repayment_review
         return repayment_review(value)
@@ -157,6 +161,7 @@ def _transition(previous,current,prior,observation):
     return dict(value,transition_hash=_sha(value))
 
 
+@within_original_graph
 def prepare_transition(payroll,previous,current):
     """Fresh write/preview guard inside the shared serialized transaction."""
     from business_payroll_accounts import PayrollAccounts
@@ -173,6 +178,9 @@ def prepare_transition(payroll,previous,current):
     if review is None:_error('Tatsächliche Zahlungen und Abführungen zuerst vollständig mit privatem Originalbeleg prüfen.')
     _review_evidence(payroll,review,current['source']['employee_id'],fresh=True)
     observation=current_observation(payroll.office,current['source']['employee_id'],current['source']['month'],current['calculation'])
+    if review['schema_version']==3:
+        from payroll_multiple_adjustments import build_transition
+        return build_transition(previous,current,prior,observation)
     if review['schema_version']==2:
         from payroll_multiple_repayments import build_transition
         return build_transition(previous,current,prior,observation)
@@ -197,6 +205,9 @@ def validate_transition_shape(value):
 
 
 def verify_transition(payroll,run):
+    if run['settlement_transition'].get('schema_version')==3:
+        from payroll_multiple_adjustments import verify_transition as verify_adjustment
+        return verify_adjustment(payroll,run)
     if run['settlement_transition'].get('schema_version')==2:
         from payroll_multiple_repayments import verify_transition as verify_repayment
         return verify_repayment(payroll,run)
@@ -218,6 +229,7 @@ def verify_transition(payroll,run):
     return True
 
 
+@within_original_graph
 def build_positive_payment_plan(run,*,payments,allocations,as_of,prior_settlement,payment_source_schema_version=2):
     """V2 retains its original same-day contract; V3 records actual later days.
 

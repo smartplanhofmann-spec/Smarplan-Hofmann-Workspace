@@ -5,7 +5,9 @@ from copy import deepcopy
 from core import Problem,canonical
 from business_personnel_workflow import _shape
 from business_payroll_facts import reference
-from payroll_multiple_oneoff_2026 import calculate_multiple_source,MULTIPLE_RULE_VERSION
+from payroll_multiple_oneoff_2026 import MULTIPLE_RULE_VERSION
+from payroll_verification import calculate_multiple_source,within_original_graph
+from payroll_verification import once_per_original_graph
 
 INPUT_FIELDS=('source_schema_version','employee_id','multiple_one_off_case_ref')
 OPTIONAL_INPUT_FIELDS=INPUT_FIELDS+('settlement_review',)
@@ -34,6 +36,7 @@ def calculate_run_source(source,*,rule_version=None):
     return deepcopy(fact['plan'])
 
 
+@within_original_graph
 def prepare(payroll,actor,data):
     from business_payroll_multiple_cases import PayrollMultipleCases
     from business_personnel_workflow import _sha
@@ -58,6 +61,7 @@ def prepare(payroll,actor,data):
     return dict(value,preview_hash=_sha(value),can_finalize=calculation['payroll_calculation_complete'])
 
 
+@once_per_original_graph
 def verify_record(payroll,record):
     from business_payroll_multiple_cases import PayrollMultipleCases,validate_case_sources,validate_run_consumption
     from payroll_travel_recording import validate_tax_recording

@@ -3717,3 +3717,32 @@ Schema-/Inventar-/Bestell-/Zählfälle/25,842s und echter Browser für Teil-/Res
 lieferung, verlorene Bestätigung, genau eine Buchung und Mobilansicht bestehen.
 Schema-Schutzprüfungen werden nicht gelockert. Lokale Korrektur, eigene neue
 Remoteprüfung noch offen; übrige Arbeiten und V5 laufen weiter.
+
+
+## 10.11.2026 – V4 veröffentlicht, weitere Nettoausgleiche V5 in Arbeit
+
+V4 und die V3-Folgeketten sind gemeinsam als
+936f40f57c769dce515099b4fecc616d05b35280 auf dem autorisierten Testbranch
+veröffentlicht; Remote-SHA tatsächlich bestätigt. Eigene neue Läufe:
+Development42750261490 und iPhone42750261604, beim ersten Abruf noch laufend.
+17978f6 bleibt bis zum abgeschlossenen Nachlauf letzter vollständig grüner Stand.
+
+[Weitere Nettoausgleiche V5](CRM_ERP_SOURCE5_NETTOAUSGLEICHE_V5_2026-11-10.md)
+werden anschließend in `/workspace/smartplan-source5-adjustments-20261110`
+entwickelt: positive, negative und null Nettodifferenz nach vollständigem
+gemischtem V4-/V5-Präfix. Die erste tatsächliche Reproduktion scheitert ohne den
+neuen Vertrag erwartungsgemäß; alle drei alten Rückzahlungsfälle bestehen im
+gleichen ursprünglichen Lauf. Rohläufe bleiben erhalten. Keine neue Liveänderung.
+
+
+### V5 – gemeinsamer Prüfstand vor Zusammenführung
+
+48 Backendfälle/396,223s, 1.035 Nodefälle/16,321s, 1.896 vollständige native
+Fälle ohne Skip/806.952ms, neun neue App-Bedienfälle/19s, Analyse sauber10,2s
+und 21 Paketfälle/20,821s bestehen. Echter V5-Browser mit MFA, tatsächlichem
+V4-Präfix, verlorenen Lauf-/Zahlungsantworten, exaktem Wiederholen und mobiler
+Ansicht besteht. Vollständiger tatsächlicher PG-/Restorenachlauf läuft noch;
+alle vier neuen Differenzschritte sind angenommen. Ursprüngliche App-,
+Test-/Fixture-, Sandbox- und statischen Registrierungsfehler bleiben erhalten.
+Die separat tatsächlich geprüfte SQLite-Korrektur18b7031 wird vor der neuen
+Veröffentlichung zusammengeführt; Gesamtauftrag bleibt aktiv.

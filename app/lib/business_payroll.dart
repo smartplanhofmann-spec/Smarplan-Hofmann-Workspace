@@ -1,3 +1,4 @@
+import 'business_payroll_source5_adjustment.dart';
 import 'business_payroll_source5_repayment.dart';
 
 import 'dart:async';
@@ -1559,6 +1560,14 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
           input['settlement_review'] = review;
         }
       }
+      if (input['settlement_review']?['schema_version'] == 3) {
+        await fresh(permission: 'personnel.approve');
+        if (!session.hasFeature(payrollAdjustmentFeature))
+          throw const ApiException(
+            403,
+            'Die aktuelle Freigabe für weitere Nettoausgleiche fehlt.',
+          );
+      }
       if (input['settlement_review']?['schema_version'] == 2) {
         await fresh(permission: 'personnel.approve');
         if (!session.hasFeature(payrollRepaymentFeature))
@@ -1736,14 +1745,19 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
             reviewRoute.isActive &&
             mayContinue?.call() != false,
         fields: [
-          if (session.hasFeature(payrollRepaymentFeature))
-            const BusinessField(
+          if (session.hasFeature(payrollRepaymentFeature) ||
+              session.hasFeature(payrollAdjustmentFeature))
+            BusinessField(
               'settlement_kind',
               'Belegte Richtung des Nettoausgleichs',
               type: BusinessInput.choice,
               choices: {
                 'positive': 'Zusätzliche positive Nettozahlung',
-                'repayment': 'Tatsächliche Rückzahlung des Beschäftigten',
+                if (session.hasFeature(payrollRepaymentFeature))
+                  'repayment': 'Tatsächliche Rückzahlung des Beschäftigten',
+                if (session.hasFeature(payrollAdjustmentFeature))
+                  'adjustment':
+                      'Weiterer Nettoausgleich nach belegter Rückzahlung',
               },
             ),
           const BusinessField(
@@ -1815,13 +1829,24 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
               'Ein zugängliches geschütztes Original für diesen Mitarbeiter auswählen.',
             );
           final repayment = values['settlement_kind'] == 'repayment';
+          final adjustment = values['settlement_kind'] == 'adjustment';
+          if (adjustment && !session.hasFeature(payrollAdjustmentFeature))
+            throw const ApiException(
+              403,
+              'Die aktuelle Freigabe für weitere Nettoausgleiche fehlt.',
+            );
           if (repayment && !session.hasFeature(payrollRepaymentFeature))
             throw const ApiException(
               403,
               'Die aktuelle Freigabe für belegte Netto-Rückzahlungen fehlt.',
             );
           acceptedReview = payrollSettlementReview({
-            'schema_version': repayment ? 2 : 1,
+            'schema_version': adjustment
+                ? 3
+                : repayment
+                ? 2
+                : 1,
+            if (adjustment) 'contract': payrollAdjustmentReviewContract,
             if (repayment) 'contract': payrollRepaymentReviewContract,
             'payments_complete': values['payments_complete'],
             'remittances_complete': values['remittances_complete'],
@@ -2071,6 +2096,8 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         );
       if (proof.containsKey('settlement_transition') &&
           (!session.hasFeature(payrollPositiveCorrectionFeature) ||
+              proof['settlement_transition']['schema_version'] == 3 &&
+                  !session.hasFeature(payrollAdjustmentFeature) ||
               proof['settlement_transition']['schema_version'] == 2 &&
                   !session.hasFeature(payrollRepaymentFeature) ||
               !session.hasModule('payroll_multiple_cases')))
@@ -2549,6 +2576,10 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
 
   Widget positiveCorrectionNotice(Map<String, dynamic> value) {
     final transition = payrollSettlementTransition(value);
+    if (transition['schema_version'] == 3)
+      return Notice(
+        'Weiterer belegter Nettoausgleich: ${payrollMoney(transition['net_delta_minor'])}. Bisher erfüllt: ${payrollMoney(transition['prior_total_net_minor'])}; korrigierte Nettoschuld: ${payrollMoney(transition['total_net_minor'])}. ${transition['net_delta_minor'] == 0 ? 'Keine neuen Zahlungsteile und kein neuer Geldfluss.' : 'Tatsächlichen weiteren Nettoausgleich mit eigenem Tag und Original separat belegen.'} Frühere Zahlungen und Rückzahlungen bleiben unverändert.',
+      );
     if (transition['schema_version'] == 2)
       return Notice(
         'Belegte Rückzahlungsverpflichtung des Beschäftigten: ${payrollMoney(transition['repayment_minor'])}. '

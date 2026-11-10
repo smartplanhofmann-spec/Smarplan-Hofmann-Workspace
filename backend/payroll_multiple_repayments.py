@@ -3,6 +3,7 @@
 This records a separately evidenced cash return. It never withdraws a payment,
 changes an old gross receipt, releases tax remittances or executes a transfer.
 """
+from payroll_verification import within_original_graph
 from copy import deepcopy
 
 from core import Problem
@@ -103,6 +104,7 @@ def verify_transition(payroll,run):
     return True
 
 
+@within_original_graph
 def build_payment_plan(run,*,payments,allocations,as_of,prior_settlement):
     from payroll_multiple_corrections import _same_subject,due
     from payroll_oneoff_2026 import _date

@@ -6,10 +6,8 @@ import 'business_payroll_calculation_case_contract.dart';
 import 'business_payroll_annual_basis_contract.dart';
 import 'business_payroll_oneoff_case_contract.dart';
 import 'business_session.dart' show businessMap, businessItems;
-import 'business_payroll_source5_transition.dart'
-    show payrollPositiveTransition;
 import 'business_payroll_source5_repayment.dart'
-    show payrollRepaymentTransition;
+    show payrollSettlementTransition;
 
 const payrollMultipleRule = 'de_2026_multiple_oneoff_v7';
 Map<String, dynamic> payrollMultipleCaseRunInput(Map<String, dynamic> fact) {
@@ -70,11 +68,7 @@ Map<String, dynamic> payrollMultipleSource(
     'can_finalize': c['running_calculation']['payroll_calculation_complete'],
   }, runningInput);
   if (v.containsKey('settlement_transition')) {
-    if (v['settlement_transition']['schema_version'] == 2) {
-      payrollRepaymentTransition(v);
-    } else {
-      payrollPositiveTransition(v);
-    }
+    payrollSettlementTransition(v);
   } else if (s['input'] is Map &&
       (s['input'] as Map).containsKey('settlement_review')) {
     _fail(

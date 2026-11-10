@@ -10,7 +10,8 @@ from business_payroll_facts import PayrollFacts,ref,reference,file_ids,employee_
 from business_payroll_annual_basis import PayrollAnnualBasis
 from business_payroll_calculation_cases import PayrollCalculationCases
 from payroll_de_2026 import day,month_range
-from payroll_multiple_oneoff_2026 import MULTIPLE_RULE_VERSION as RULE_VERSION,SOURCE_CONTRACT_VERSION,calculate_multiple_source
+from payroll_multiple_oneoff_2026 import MULTIPLE_RULE_VERSION as RULE_VERSION,SOURCE_CONTRACT_VERSION
+from payroll_verification import calculate_multiple_source
 
 FEATURES=('payroll_multiple_cases',)
 TABLES=('business_payroll_multiple_case_events','business_payroll_multiple_case_requests','business_payroll_multiple_consumptions')

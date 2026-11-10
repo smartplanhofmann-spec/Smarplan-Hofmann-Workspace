@@ -22,6 +22,7 @@ import {payrollFactsPendingAuthorize} from './payroll-facts.js';
 import {payrollEntitlementsPendingAuthorize} from './payroll-entitlements.js';
 import {payrollTravelTaxPoliciesPendingAuthorize} from './payroll-travel-tax-policies.js';
 import {payrollCalculationCasesPendingAuthorize} from './payroll-calculation-cases.js';
+import {payrollRvPendingAuthorize} from './payroll-rv-lifecycle.js';
 import {payrollWageInterruptionsPendingAuthorize} from './payroll-wage-interruptions.js';
 import {payrollAnnualPendingAuthorize} from './payroll-annual-basis.js';
 import {payrollOneOffCasesPendingAuthorize} from './payroll-oneoff-cases.js';
@@ -1020,11 +1021,12 @@ export class OfficeApi {
       if(old&&path==='/business/payroll/entitlements'&&await payrollEntitlementsPendingAuthorize(this,{key,path})!==true)throw new ApiError('Die offene Lohnanfrage konnte nicht eindeutig autorisiert werden.',403);
       if(old&&path==='/business/payroll/travel-tax-policies'&&await payrollTravelTaxPoliciesPendingAuthorize(this,{key,path})!==true)throw new ApiError('Die offene Lohnanfrage konnte nicht eindeutig autorisiert werden.',403);
       if(old&&path==='/business/payroll/calculation-cases'&&await payrollCalculationCasesPendingAuthorize(this,{key,path})!==true)throw new ApiError('Die offene Lohnanfrage konnte nicht eindeutig autorisiert werden.',403);
+      if(old&&path==='/business/payroll/rv-lifecycle'&&await payrollRvPendingAuthorize(this,{key,path})!==true)throw new ApiError('Die offene RV-Anfrage konnte nicht eindeutig autorisiert werden.',403);
       if(old&&path==='/business/payroll/wage-interruptions'&&await payrollWageInterruptionsPendingAuthorize(this,{key,path})!==true)throw new ApiError('Die offene Lohnanfrage konnte nicht eindeutig autorisiert werden.',403);
       if(old&&['/business/payroll/annual-facts','/business/payroll/annual-facts/factor-v2'].includes(path)&&await payrollAnnualPendingAuthorize(this,{key,path})!==true)throw new ApiError('Die offene Lohnanfrage konnte nicht eindeutig autorisiert werden.',403);
       if(old&&path==='/business/payroll/multiple-one-off-cases'&&await payrollMultipleCasesPendingAuthorize(this,{key,path})!==true)throw new ApiError('Die offene Monatsgruppenanfrage konnte nicht eindeutig autorisiert werden.',403);
       if(old&&['/business/payroll/one-off-cases','/business/payroll/one-off-cases/factor-v15'].includes(path)&&await payrollOneOffCasesPendingAuthorize(this,{key,path})!==true)throw new ApiError('Die offene Einmalbezugsanfrage konnte nicht eindeutig autorisiert werden.',403);
-      if(old&&path.startsWith('/business/payroll/')&&!path.startsWith('/business/payroll/cash/')&&!['/business/payroll/facts','/business/payroll/entitlements','/business/payroll/travel-tax-policies','/business/payroll/calculation-cases','/business/payroll/wage-interruptions','/business/payroll/annual-facts','/business/payroll/annual-facts/factor-v2','/business/payroll/one-off-cases','/business/payroll/one-off-cases/factor-v15','/business/payroll/multiple-one-off-cases'].includes(path))await payrollPendingAuthorize(this,{key,path});
+      if(old&&path.startsWith('/business/payroll/')&&!path.startsWith('/business/payroll/cash/')&&!['/business/payroll/rv-lifecycle','/business/payroll/facts','/business/payroll/entitlements','/business/payroll/travel-tax-policies','/business/payroll/calculation-cases','/business/payroll/wage-interruptions','/business/payroll/annual-facts','/business/payroll/annual-facts/factor-v2','/business/payroll/one-off-cases','/business/payroll/one-off-cases/factor-v15','/business/payroll/multiple-one-off-cases'].includes(path))await payrollPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/sales/'))await salesPendingAuthorize(this,{key,path});
       if(old&&/^\/projects\/[a-f0-9]{32}\/tasks(?:\/[a-f0-9]{32})?$/.test(path))await taskPendingAuthorize(this,{key,path});
       if(old&&milestoneCommandPath(path))await milestonePendingAuthorize(this,{key,path});
@@ -1306,7 +1308,7 @@ function form(title, fields, save, {description, submit='Speichern', after=()=>r
   section.controls=controls; return section;
 }
 function dialog(title, content, description = '') {
-  closeModal({keepYearValues:content?.matches?.('[data-year-values]')===true,keepOpenItems:content?.matches?.('[data-open-items]')===true,keepWageInterruptions:content?.matches?.('[data-wage-interruptions]')===true,keepAnnualBasis:content?.matches?.('[data-payroll-annual-basis]')===true,keepOneOffCases:content?.matches?.('[data-payroll-oneoff-cases]')===true,keepMultipleCases:content?.matches?.('[data-payroll-multiple-cases]')===true,keepCompanyEvents:content?.matches?.('[data-company-events]')===true}); const previous=document.activeElement;
+  closeModal({keepYearValues:content?.matches?.('[data-year-values]')===true,keepOpenItems:content?.matches?.('[data-open-items]')===true,keepRvLifecycle:content?.matches?.('[data-rv-lifecycle]')===true,keepWageInterruptions:content?.matches?.('[data-wage-interruptions]')===true,keepAnnualBasis:content?.matches?.('[data-payroll-annual-basis]')===true,keepOneOffCases:content?.matches?.('[data-payroll-oneoff-cases]')===true,keepMultipleCases:content?.matches?.('[data-payroll-multiple-cases]')===true,keepCompanyEvents:content?.matches?.('[data-company-events]')===true}); const previous=document.activeElement;
   const close=button('×',()=>closeModal(),'icon'); close.className='modal-close'; close.setAttribute('aria-label','Dialog schließen');
   const box=el('section',{class:'modal',role:'dialog','aria-modal':'true','aria-label':title,tabIndex:-1},el('div',{class:'modal-head'},el('div',{},el('h2',{},title),description?el('p',{class:'muted'},description):null),close),content);
   modal=el('div',{class:'modal-backdrop'},box); modal.previous=previous;
@@ -1323,7 +1325,7 @@ function dialog(title, content, description = '') {
   modal.backgroundWasInert=root?.inert===true; if(root)root.inert=true;
   document.body.append(modal); box.focus(); return box;
 }
-function closeModal({keepYearValues=false,keepWageInterruptions=false,keepAnnualBasis=false,keepOneOffCases=false,keepMultipleCases=false,keepCompanyEvents=false,keepOpenItems=false}={}) { dialogGeneration++; if(!keepYearValues)yearValuesWorkspace.clear(); if(modal) { if(modal.querySelector('.communication-history'))communicationHistory.clear(modal); if(modal.querySelector('[data-year-package]'))yearPackageWorkspace.clear();if(!keepOpenItems&&modal.querySelector('[data-open-items]'))openItemWorkspace.clear();if(!keepCompanyEvents&&modal.querySelector('[data-company-events]'))companyEvents.clear(); if(modal.querySelector('[data-historical-assets]'))historicalWorkspace.clear();if(modal.querySelector('[data-accounting-openings]'))openingWorkspace.clear();if(modal.querySelector('[data-payroll]'))payrollWorkspace.clear({keepWageInterruptions,keepAnnualBasis,keepOneOffCases,keepMultipleCases});const previous=modal.previous,backgroundWasInert=modal.backgroundWasInert;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;if(root)root.inert=backgroundWasInert===true;previous?.focus(); } }
+function closeModal({keepYearValues=false,keepRvLifecycle=false,keepWageInterruptions=false,keepAnnualBasis=false,keepOneOffCases=false,keepMultipleCases=false,keepCompanyEvents=false,keepOpenItems=false}={}) { dialogGeneration++; if(!keepYearValues)yearValuesWorkspace.clear(); if(modal) { if(modal.querySelector('.communication-history'))communicationHistory.clear(modal); if(modal.querySelector('[data-year-package]'))yearPackageWorkspace.clear();if(!keepOpenItems&&modal.querySelector('[data-open-items]'))openItemWorkspace.clear();if(!keepCompanyEvents&&modal.querySelector('[data-company-events]'))companyEvents.clear(); if(modal.querySelector('[data-historical-assets]'))historicalWorkspace.clear();if(modal.querySelector('[data-accounting-openings]'))openingWorkspace.clear();if(modal.querySelector('[data-payroll]'))payrollWorkspace.clear({keepRvLifecycle,keepWageInterruptions,keepAnnualBasis,keepOneOffCases,keepMultipleCases});const previous=modal.previous,backgroundWasInert=modal.backgroundWasInert;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;if(root)root.inert=backgroundWasInert===true;previous?.focus(); } }
 async function download(path,filename) { const blob=await api.binary(path),url=objectUrl(blob),link=el('a',{href:url,download:filename,rel:'noopener'}); document.body.append(link); link.click(); link.remove(); }
 function jsonDownload(value,filename) { const link=el('a',{href:objectUrl(new Blob([JSON.stringify(value,null,2)],{type:'application/json'})),download:filename}); document.body.append(link); link.click(); link.remove(); }
 function mutation(key,path,data,options) {
@@ -1527,6 +1529,7 @@ async function refresh() {
     }
     if(modal?.querySelector('[data-personnel-workflow]'))closeModal();
     if(modal?.querySelector('[data-payroll-facts]'))closeModal();
+    if(modal?.querySelector('[data-rv-lifecycle]')){payrollWorkspace.clear();closeModal();}
     if(modal?.querySelector('[data-wage-interruptions]')){payrollWorkspace.clear();closeModal();}
     if(modal?.querySelector('[data-payroll-annual-basis]')){payrollWorkspace.clear();closeModal();}
     if(modal?.querySelector('[data-payroll-oneoff-cases],[data-payroll-multiple-cases]')){payrollWorkspace.clear();closeModal();}

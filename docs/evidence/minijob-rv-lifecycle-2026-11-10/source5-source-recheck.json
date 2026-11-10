@@ -1,0 +1,18 @@
+{
+  "date_utc": "2026-11-10",
+  "purpose": "Read-only source lookup for separate unimplemented simultaneous Source5 groups",
+  "observations": [
+    {
+      "url": "https://lsth.bundesfinanzministerium.de/lsth/2026/A-Einkommensteuergesetz/VI-Steuererhebung-36-47/2-Steuerabzug-vom-Arbeitslohn-Lohnsteuer-38-42g/Paragraf-39b/inhalt.html",
+      "http_status": 503,
+      "full_content_read": false
+    },
+    {
+      "url": "https://lsth.bundesfinanzministerium.de/lsth/2026/B-Anhaenge/Anhang-27/II/inhalt.html",
+      "http_status": 503,
+      "full_content_read": false
+    }
+  ],
+  "new_group_rule_enabled": false,
+  "financial_math_changed": false
+}

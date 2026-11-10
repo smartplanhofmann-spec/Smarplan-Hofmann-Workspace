@@ -1,0 +1,442 @@
+{
+  "schema_version": 1,
+  "status": "integrated_local_targeted_pass_full_regressions_running_not_published",
+  "base_commit": "4aa0abd6d313fcc5d693606dbef1c7193afb0729",
+  "actual_worktree": "/tmp/smartplan-minijob-rv-20261110",
+  "compatibility_path": "/workspace/smartplan-minijob-rv-20261110",
+  "logs": [
+    {
+      "original_name": "backend-final-targeted.txt",
+      "stored_name": "integration-backend-final-targeted.txt.gz",
+      "raw_bytes": 12443,
+      "raw_sha256": "292e905acf717530a74a92df657e842c703fbcb49d7f12f26ea313360a33ebf2"
+    },
+    {
+      "original_name": "binding-first.txt",
+      "stored_name": "integration-binding-first.txt.gz",
+      "raw_bytes": 5660,
+      "raw_sha256": "f531648b8dd9b27eafb985d3f9363ed71da51a8d6a2ee604c0075640ef6528c9"
+    },
+    {
+      "original_name": "binding-regression-second.txt",
+      "stored_name": "integration-binding-regression-second.txt.gz",
+      "raw_bytes": 10070,
+      "raw_sha256": "f2933556a349c23dc0f4611ad4f41b0985ab6072e86c6ea6e4423a62fe609ce4"
+    },
+    {
+      "original_name": "browser-all-first.txt",
+      "stored_name": "integration-browser-all-first.txt.gz",
+      "raw_bytes": 111619,
+      "raw_sha256": "ab12cd4a58ed19fb61bf860b3dc5087d4f57e9450bfc1b281e392aa963d629cc"
+    },
+    {
+      "original_name": "browser-all-second.txt",
+      "stored_name": "integration-browser-all-second.txt.gz",
+      "raw_bytes": 114766,
+      "raw_sha256": "439acd1130504083fd0c48fa608d809f7f033cca17343b8ebdc0d90ee1a51c54"
+    },
+    {
+      "original_name": "browser-all-third.txt",
+      "stored_name": "integration-browser-all-third.txt.gz",
+      "raw_bytes": 114267,
+      "raw_sha256": "ffd93162701e454fc1e1ba9463e891da47dd7b2c7b3126dded0439a06a700000"
+    },
+    {
+      "original_name": "browser-contract-first.txt",
+      "stored_name": "integration-browser-contract-first.txt.gz",
+      "raw_bytes": 749,
+      "raw_sha256": "81241693bd58b94906d2cf1654beeed6353fe3f98bc6147e64088c33e649b590"
+    },
+    {
+      "original_name": "browser-flow-first.txt",
+      "stored_name": "integration-browser-flow-first.txt.gz",
+      "raw_bytes": 2828,
+      "raw_sha256": "6a8b8d226419fe79b398ff17d3a80556890fbb2614c72cedc3ce235cfe2a128e"
+    },
+    {
+      "original_name": "browser-flow-fourth.txt",
+      "stored_name": "integration-browser-flow-fourth.txt.gz",
+      "raw_bytes": 265,
+      "raw_sha256": "e488362b6000e5e91ced85a050ccbd07d0b697ecb6d3c5fc658a5e8b008aa93f"
+    },
+    {
+      "original_name": "browser-flow-second.txt",
+      "stored_name": "integration-browser-flow-second.txt.gz",
+      "raw_bytes": 2661,
+      "raw_sha256": "994f6caeb35f5e08f46cd0f7fa5eb8b7a50f438d0dcd811bb3281766a13c308d"
+    },
+    {
+      "original_name": "browser-flow-third.txt",
+      "stored_name": "integration-browser-flow-third.txt.gz",
+      "raw_bytes": 3512,
+      "raw_sha256": "eebec8452ad0ba5d4f701415b65ddb65f4132e2f0f1abb1acbe6b0a08a687dbb"
+    },
+    {
+      "original_name": "crlf-tamper-final.txt",
+      "stored_name": "integration-crlf-tamper-final.txt.gz",
+      "raw_bytes": 5506,
+      "raw_sha256": "b61efc33523d5e6d6d867ea2bf291a66e8533566efaf14f6d813c5f8e8c59edc"
+    },
+    {
+      "original_name": "domain-first.txt",
+      "stored_name": "integration-domain-first.txt.gz",
+      "raw_bytes": 14455,
+      "raw_sha256": "f7998c1c07ac3a4217c442f592b63e30a9e4192670d37a6e86cd894a5d09a15f"
+    },
+    {
+      "original_name": "domain-fourth.txt",
+      "stored_name": "integration-domain-fourth.txt.gz",
+      "raw_bytes": 3412,
+      "raw_sha256": "3ce2a382100197d89902f5852f3385df6ca2ee9a1bc2ef8c20fe3a57f27fc168"
+    },
+    {
+      "original_name": "domain-second.txt",
+      "stored_name": "integration-domain-second.txt.gz",
+      "raw_bytes": 14445,
+      "raw_sha256": "d8aad365de90a5536bc017fc8887c8495efcb387a988fa225b9d0994c65f39a9"
+    },
+    {
+      "original_name": "domain-third.txt",
+      "stored_name": "integration-domain-third.txt.gz",
+      "raw_bytes": 15879,
+      "raw_sha256": "430c578577ffdea2a7d4b3da1280f158635d784646bfcb9f386771ddb6548015"
+    },
+    {
+      "original_name": "early-full-backend-followup.txt",
+      "stored_name": "integration-early-full-backend-followup.txt.gz",
+      "raw_bytes": 363,
+      "raw_sha256": "63ec5c6cbf96d89b6817e7a3f548fa9bc7e63ab0ccac0b3ad67ba11199ffc57d"
+    },
+    {
+      "original_name": "financial-third.txt",
+      "stored_name": "integration-financial-third.txt.gz",
+      "raw_bytes": 1340,
+      "raw_sha256": "25ed5ead8e285ec18738bda1ab3e6cbae0238bdef420a2453e73d4e963738534"
+    },
+    {
+      "original_name": "minijob_rv_lifecycle_2026.py",
+      "stored_name": "integration-minijob_rv_lifecycle_2026.py.gz",
+      "raw_bytes": 11861,
+      "raw_sha256": "fe069eee2afd4745febc3871505fb13c275e05a8406fd17e49606d1db85613ff"
+    },
+    {
+      "original_name": "native-analyze-first.txt",
+      "stored_name": "integration-native-analyze-first.txt.gz",
+      "raw_bytes": 11531381,
+      "raw_sha256": "d2bd755aadbecaece5bf1e3b0890e2cdc002b8db3a104cbb88b2f59b355dc9e6"
+    },
+    {
+      "original_name": "native-analyze-second.txt",
+      "stored_name": "integration-native-analyze-second.txt.gz",
+      "raw_bytes": 97,
+      "raw_sha256": "238f7aae84fc270cd3167f7d935f575b3618a82187ef4efad7f8a6c3e793de82"
+    },
+    {
+      "original_name": "native-first.txt",
+      "stored_name": "integration-native-first.txt.gz",
+      "raw_bytes": 5263,
+      "raw_sha256": "ff32055adb61b3053aac4a2da5bdefa5e08fdee472a4fde9685ef2bc635c6deb"
+    },
+    {
+      "original_name": "native-format-third.txt",
+      "stored_name": "integration-native-format-third.txt.gz",
+      "raw_bytes": 95,
+      "raw_sha256": "54b845595fc741b9bb61fa53e3eadd9c0f4676ad9455f72f17e688812677f58d"
+    },
+    {
+      "original_name": "native-pub-offline-second.txt",
+      "stored_name": "integration-native-pub-offline-second.txt.gz",
+      "raw_bytes": 68,
+      "raw_sha256": "d4cb7a3c68b4133b4f6e58c67ff5bfd13725d8021e930388cdc98da8a575919d"
+    },
+    {
+      "original_name": "native-pub-offline.txt",
+      "stored_name": "integration-native-pub-offline.txt.gz",
+      "raw_bytes": 180,
+      "raw_sha256": "1bc1d8a91b18402539f3b5f25a550078ea356bc753663a4669034f066eb0664c"
+    },
+    {
+      "original_name": "native-second.txt",
+      "stored_name": "integration-native-second.txt.gz",
+      "raw_bytes": 9084,
+      "raw_sha256": "ecffa793da047ae459bb1ec93a1ea893e4e1491ef8be5a354c4be7e78be85434"
+    },
+    {
+      "original_name": "native-third.txt",
+      "stored_name": "integration-native-third.txt.gz",
+      "raw_bytes": 6425,
+      "raw_sha256": "10cf053237530085c3750d851197eaa1de69a6ba9309440bccdbf45ae0e3e6b0"
+    },
+    {
+      "original_name": "package-files-followup.txt",
+      "stored_name": "integration-package-files-followup.txt.gz",
+      "raw_bytes": 5248,
+      "raw_sha256": "6f024fec5923f45e422ec5e228777c21156a432290384b6e71582f716ec54762"
+    },
+    {
+      "original_name": "package-final-targeted.txt",
+      "stored_name": "integration-package-final-targeted.txt.gz",
+      "raw_bytes": 4987,
+      "raw_sha256": "31de60bd314c3b1c36e6d09f62f8c0973adf4e524033a6d7f94190656b78baea"
+    },
+    {
+      "original_name": "package-import-followup.txt",
+      "stored_name": "integration-package-import-followup.txt.gz",
+      "raw_bytes": 358,
+      "raw_sha256": "046dfd0a3b9fbf90033f6bb6d7979f63a8d32a17bce26bffefcc29d00b138511"
+    },
+    {
+      "original_name": "postgres-first-environment.json",
+      "stored_name": "integration-postgres-first-environment.json.gz",
+      "raw_bytes": 237,
+      "raw_sha256": "ac7a7873f81c9c6291610fc4e8ee5d52b77f69c87c7febd5c9dd45196aa966f5"
+    },
+    {
+      "original_name": "postgres-first.txt",
+      "stored_name": "integration-postgres-first.txt.gz",
+      "raw_bytes": 1488,
+      "raw_sha256": "bda12d4578138177ed26d8ac9ca9442c24f13d781b2bf1dc0f5264899a49bd77"
+    },
+    {
+      "original_name": "postgres-fourth-environment.json",
+      "stored_name": "integration-postgres-fourth-environment.json.gz",
+      "raw_bytes": 237,
+      "raw_sha256": "caa317c5482390e047f938f758fe3a382eb456961ae7a4258d2b3387db309390"
+    },
+    {
+      "original_name": "postgres-fourth.txt",
+      "stored_name": "integration-postgres-fourth.txt.gz",
+      "raw_bytes": 336,
+      "raw_sha256": "daf7485cba0b86c0b7867a2c8d41d2a85fef0f86628cfa532f8fb096d24faecb"
+    },
+    {
+      "original_name": "postgres-second-environment.json",
+      "stored_name": "integration-postgres-second-environment.json.gz",
+      "raw_bytes": 237,
+      "raw_sha256": "0f9fe68a8f202dcab5983c9154f947ad75ab2cadc56ab40382d32d5971a2b450"
+    },
+    {
+      "original_name": "postgres-second.txt",
+      "stored_name": "integration-postgres-second.txt.gz",
+      "raw_bytes": 2497,
+      "raw_sha256": "7cee2c112df2a6a701eab982d925f689ba52458d08ffb8511c81820962b76e72"
+    },
+    {
+      "original_name": "postgres-third-environment.json",
+      "stored_name": "integration-postgres-third-environment.json.gz",
+      "raw_bytes": 237,
+      "raw_sha256": "d08b057e27fa78c897997b84cade115fc42fb6c9308c3568041a73f5e39a86da"
+    },
+    {
+      "original_name": "postgres-third.txt",
+      "stored_name": "integration-postgres-third.txt.gz",
+      "raw_bytes": 336,
+      "raw_sha256": "c2707d42b159dc7ffa0724d905de443be916e9396c1e68a467d66a2492fc1d8a"
+    },
+    {
+      "original_name": "pure-first.txt",
+      "stored_name": "integration-pure-first.txt.gz",
+      "raw_bytes": 2029,
+      "raw_sha256": "245831b95981d0de927211e410810d49752ecd70a03b2b4315f78e8ed729ee01"
+    },
+    {
+      "original_name": "relocate-own-worktree.py",
+      "stored_name": "integration-relocate-own-worktree.py.gz",
+      "raw_bytes": 2118,
+      "raw_sha256": "2d46d6e737be486cb065e10679cffe295459158ac18155ac82853f05ab11c093"
+    },
+    {
+      "original_name": "relocation-verified.json",
+      "stored_name": "integration-relocation-verified.json.gz",
+      "raw_bytes": 300,
+      "raw_sha256": "95179641c139a9eec112a1f187e4f485fc9036160fe5ac82f1e8b41bb6628fa0"
+    },
+    {
+      "original_name": "run-own-postgres.py",
+      "stored_name": "integration-run-own-postgres.py.gz",
+      "raw_bytes": 3770,
+      "raw_sha256": "007660f3bcdca93e95367041a3ff85ddcc8463c2a8632dcd8ad58a934da435b0"
+    },
+    {
+      "original_name": "storage-export-package-first.txt",
+      "stored_name": "integration-storage-export-package-first.txt.gz",
+      "raw_bytes": 31807,
+      "raw_sha256": "1008ac7281086ab2e54913b224e6c2feaebd2f7f037254d653b48a71c2d8836e"
+    },
+    {
+      "original_name": "test_minijob_rv_lifecycle_2026.py",
+      "stored_name": "integration-test_minijob_rv_lifecycle_2026.py.gz",
+      "raw_bytes": 7431,
+      "raw_sha256": "54694bdcef93bb4154920236d98b1831bf182e77503fb157d7bf30f06eeec4ae"
+    },
+    {
+      "original_name": "worktree-pure-first.txt",
+      "stored_name": "integration-worktree-pure-first.txt.gz",
+      "raw_bytes": 2101,
+      "raw_sha256": "149e9014e8e19421cb6c1d48db70b2b31bcf9dbc78df3bc947ef5d4862e43bfd"
+    }
+  ],
+  "code_inventory": [
+    {
+      "path": "app/lib/business_payroll.dart",
+      "sha256": "61bbeba763f745aa394b0fc39ec9fdf0e58a062e8d46ab5b11ef45e7004ecb85"
+    },
+    {
+      "path": "app/lib/business_payroll_rv_contract.dart",
+      "sha256": "9d19f139981d87d79ad7c3ba3883eb48570051f2902304d3ea6361b29abcf8a5"
+    },
+    {
+      "path": "app/lib/business_payroll_rv_lifecycle.dart",
+      "sha256": "32f349108a92c6c7f1e65d1f5144f69130adaf04319230524d88263bd38c250d"
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "sha256": "2d22151f9134b2bc7eef7de9301a5994d0b3e3960e649b83f6951fa233ab19d5"
+    },
+    {
+      "path": "app/test/business_payroll_rv_lifecycle_test.dart",
+      "sha256": "c5588b4018cc0bd01fe761fbf3935465e2f26a939f234daaf6f36cbba50b263d"
+    },
+    {
+      "path": "app/test/fixtures/payroll_rv_lifecycle.json",
+      "sha256": "27e111ed46b99e5174ebfb5ff58b931619b1dec393b14bcc09c2c9a508aa92d0"
+    },
+    {
+      "path": "backend/business_api.py",
+      "sha256": "34a1896a66c5580c89749033629bb23697611c8f40484597399073a0043a859c"
+    },
+    {
+      "path": "backend/business_payroll.py",
+      "sha256": "d451e25393efb8222e383e2d78a20ba5c3a1d16d4f6d38b602074b96d4c1a4eb"
+    },
+    {
+      "path": "backend/business_payroll_rv_lifecycle.py",
+      "sha256": "8b674258ac0474bb9373ea50b8902e7d4097e06f1255662ce25c5ec75fed4a4f"
+    },
+    {
+      "path": "backend/business_schema.py",
+      "sha256": "9112941a6b49aca9f64055255681a3e3648929a64ca747171722bb4ee2ce4630"
+    },
+    {
+      "path": "backend/company_export_catalog.py",
+      "sha256": "09c8bb360ce408692e0217a8abd266fd66f87406ba2405dd26d518682632f314"
+    },
+    {
+      "path": "backend/online/test_business_payroll_rv_lifecycle_pg.py",
+      "sha256": "76abbf15a99d90d082b43efff15389540adb2dc5d22077fedbb2fc07f628493e"
+    },
+    {
+      "path": "backend/online/web.py",
+      "sha256": "d0bc799f89966b121f34b4d438defe1e59c02ba5bd8e048024b5b487d4d3cae1"
+    },
+    {
+      "path": "backend/payroll_minijob_rv_lifecycle_2026.py",
+      "sha256": "9378bdcb2b24d34273676edc70e84be7caefef3b3361c17bcdf05423739601b7"
+    },
+    {
+      "path": "backend/test_business_payroll_rv_binding.py",
+      "sha256": "e6ebbbc21ae81f728a8d63f1418c112799dafdf25793847e82cec73b50745280"
+    },
+    {
+      "path": "backend/test_business_payroll_rv_lifecycle.py",
+      "sha256": "97e0e1fd0f52fd1342a8e95fb9192d9cba0fa4e399bcfb27962cafcd729818e0"
+    },
+    {
+      "path": "backend/test_payroll_minijob_rv_lifecycle_2026.py",
+      "sha256": "e749c05f87f8120d43ae74e2f6737964ce7fd786909595e940e88f1356961953"
+    },
+    {
+      "path": "scripts/ci-check-plan.json",
+      "sha256": "c62b5e3be9a12f1f641736361ef0cd5019be3d09f388a9838fff940f54b1bbcb"
+    },
+    {
+      "path": "scripts/generate-payroll-rv-lifecycle-fixture.py",
+      "sha256": "a67253528d4e4dc9da89f9eb4f8c9b1b90dcfa6357c868bc73a2b05ed7a3095d"
+    },
+    {
+      "path": "scripts/native-release.py",
+      "sha256": "e0be48fb3eafcd8b2aa22445605b0b4b1f8dd8920e0b00b59e17bc88f0230300"
+    },
+    {
+      "path": "web/office/office.js",
+      "sha256": "2cc5a869e68d877e169b2f20e3c00f1670e536f106fc541154e39edbad1bfea0"
+    },
+    {
+      "path": "web/office/payroll-rv-lifecycle.js",
+      "sha256": "f4b04fd935962a224392036f778be6102906747ca5fa85b392dde5958eb16b64"
+    },
+    {
+      "path": "web/office/payroll.js",
+      "sha256": "33cbd85077628c05f8264ea7603ffe4171e9719a212ac161cbf8210d40f19c59"
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "sha256": "bd6c5918b76869ca96ad0afa836a117e3ebcb8f78bab7596c8881672086cddd3"
+    },
+    {
+      "path": "web/office/tests/payroll-rv-lifecycle-flow.cjs",
+      "sha256": "c5acf95f4c5ae45b477067b2a5bc9a23cad41b72938f76567e228c21f8895f3e"
+    },
+    {
+      "path": "web/office/tests/payroll-rv-lifecycle.test.mjs",
+      "sha256": "c16f8a88b7c0d14e67d0d45c7f9f1842559617ca28aaec97ad9b8c0aa7fc7ff3"
+    }
+  ],
+  "original_goal_unchanged": true,
+  "historical_payroll_modules_unchanged": 63,
+  "actual_passes": {
+    "new_backend": 25,
+    "joint_backend_and_ci_contracts": 58,
+    "joint_native": 37,
+    "browser_modules": 1116,
+    "actual_browser_flow": true,
+    "postgres_fourth": {
+      "tests": 1,
+      "seconds": 42.624,
+      "environment": {
+        "container_id": "074316c4211cb1405af060f15d99dc4d5deda07e8642f8603069ea30c48ab43a",
+        "name": "smartplan-rv-lifecycle-pg-20261110",
+        "synthetic": true,
+        "cleanup_verified": true,
+        "loopback_port": "32824",
+        "test_exit_code": 0
+      }
+    },
+    "packages": 22,
+    "analysis": "no_issues"
+  },
+  "running": {
+    "backend_full": {
+      "complete": false,
+      "observed_error_marker": true,
+      "current_discovered_cases": 2224,
+      "current_discovery_import_errors": 0,
+      "historical_asset_targeted_followup_pass": true,
+      "first_full_error_cause_pending_final_trace": true
+    },
+    "native_full": {
+      "complete": false
+    }
+  },
+  "preserved_first_failures": {
+    "binding_first": "Owner-rights test setup attempted to deny management read permission; rejected by existing guard.",
+    "native_first": "Invalid accepted response discarded nonce; initial view passed null to list adapter. Both fixed and independently rechecked.",
+    "native_second": "Two widget tests left a fixture metadata timer alive; explicit fixture disposal fixed.",
+    "browser_flow_first": "RV retry was also routed to the generic payroll retry; excluded from that second gate.",
+    "browser_flow_second_and_third": "Test inspected optional labels before asynchronous profile dialog existed. Awaiting actual dialog fixed test input.",
+    "postgres_first": "Test attempted to change identity to another profile; existing guard rejected. New identity created explicitly.",
+    "postgres_second": "Local pg_dump absent; own container-bound tools added, no production connection.",
+    "browser_all_first": "26 modules lacked original tracked documents in sparse worktree.",
+    "browser_all_second": "One original tracked evidence input still absent.",
+    "native_pub_first": "Workspace full; no package configuration. Own worktree copied with all bytes/links verified to temporary filesystem.",
+    "native_analyze_first": "No package configuration after disk failure; 50109 diagnostics are not a valid product analysis."
+  },
+  "frozen_archive_proof_source": "4aa0abd6d313fcc5d693606dbef1c7193afb0729",
+  "new_candidate_frozen_archive_verified": false,
+  "remote_ci_complete": false,
+  "server_updated": false,
+  "testflight_uploaded": false,
+  "real_device_acceptance": false,
+  "independent_professional_acceptance": false,
+  "overall_acceptances_closed": 0
+}

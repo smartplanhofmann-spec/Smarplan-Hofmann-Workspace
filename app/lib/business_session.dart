@@ -2580,6 +2580,58 @@ class BusinessSession extends ChangeNotifier {
     );
   }
 
+  Future<dynamic> repeatPayrollRvCommand(String employeeId) {
+    final key = 'payroll-rv-lifecycle-$employeeId';
+    final operation = _pending[key];
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => path == '/payroll/rv-lifecycle',
+      readPath: '/payroll/rv-lifecycle/sources?employee_id=$employeeId',
+      requireRights: () {
+        final assessment = operation?.body['details']?['assessment'];
+        if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(employeeId) ||
+            projectId != null ||
+            !hasFeature('payroll_rv_lifecycle') ||
+            !hasModule('payroll_rv_lifecycle') ||
+            !can('personnel.read') ||
+            !canWrite('personnel.approve') ||
+            operation?.body['employee_id'] != employeeId ||
+            operation?.body['kind'] != 'rv_lifecycle_assessment' ||
+            operation?.body['rule_version'] !=
+                'de_2026_minijob_rv_revocation_v1' ||
+            operation?.body['source_contract_version'] is! int ||
+            operation?.body['source_contract_version'] != 1 ||
+            assessment is! Map ||
+            assessment['schema_version'] is! int ||
+            assessment['schema_version'] != 1 ||
+            assessment['employee_id'] != employeeId ||
+            assessment['episode_id'] != employeeId) {
+          throw const ApiException(
+            403,
+            'Aktuelle globale Personalrechte und die unveränderte ursprüngliche RV-Anfrage fehlen.',
+          );
+        }
+      },
+      verifyState: (state) {
+        if (state['employee_id'] != employeeId ||
+            state['employee']?['id'] != employeeId ||
+            state['episode_id'] != employeeId ||
+            state['history'] is! List ||
+            state['prior_assessment_refs'] is! List ||
+            state['file_references'] is! List)
+          throw const ApiException(
+            502,
+            'Die privaten RV-Quellen gehören nicht eindeutig zur gewählten Person.',
+          );
+        if (state['can_approve'] != true)
+          throw const ApiException(
+            403,
+            'Die aktuelle Freigabe für den RV-Nachweis fehlt.',
+          );
+      },
+    );
+  }
+
   Future<dynamic> repeatPayrollWageInterruptionsCommand(String employeeId) {
     final key = 'payroll-wage-interruptions-$employeeId';
     final operation = _pending[key];

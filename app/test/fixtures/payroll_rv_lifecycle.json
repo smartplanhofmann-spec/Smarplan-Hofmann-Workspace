@@ -1,0 +1,3069 @@
+{
+  "cases": [
+    {
+      "command": {
+        "confirmed": true,
+        "details": {
+          "assessment": {
+            "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+            "employment_from": "2026-01-01",
+            "employment_to": null,
+            "episode_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+            "established_exemption": {
+              "effective_from": "2026-01-01",
+              "established_status_confirmed": true,
+              "evidence_ref": {
+                "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+                "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+                "revision": 1
+              },
+              "profile_ref": {
+                "content_hash": "e244ac951ca8d1706fe0e3636dd4531fe351d930c358095948c8fda2258e50b2",
+                "id": "bd469060cac748478eb917b46ee25dd3",
+                "revision": 1
+              }
+            },
+            "no_old_age_or_other_exclusion_confirmed": true,
+            "review_note": "Synthetic actual established exemption and complete employment episode",
+            "reviewed_as_of": "2026-10-31",
+            "revocation": null,
+            "schema_version": 1,
+            "sole_continuous_commercial_minijob_confirmed": true,
+            "target_month": "2026-10"
+          },
+          "prior_assessment_refs": []
+        },
+        "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+        "employee_revision": 2,
+        "kind": "rv_lifecycle_assessment",
+        "preview_hash": "f15f5737358bb74c2cb8d5881f5cbdb238a7ca052f8780ad1b5abc3b50ce5eae",
+        "request_id": "aaf943cf060e4b9b8262ec2f01ebb7e3",
+        "revision": 0,
+        "rule_version": "de_2026_minijob_rv_revocation_v1",
+        "source_contract_version": 1,
+        "source_file_ids": [
+          "02f5a64d27374ee5a1b7dc3b9c49061b"
+        ],
+        "status": "active"
+      },
+      "employee": {
+        "active": true,
+        "employment_from": "2026-01-01",
+        "employment_to": null,
+        "hourly_cost_minor": 3500,
+        "id": "5614ba9c97ee4788bdbc53b32e7701aa",
+        "name": "Synthetic technician",
+        "revision": 2,
+        "updated_at": "2026-10-31T20:00:00+00:00",
+        "user_id": "20a76db197f44d4a80a704a42e2d84e5",
+        "weekly_minutes": 2400
+      },
+      "input": {
+        "details": {
+          "assessment": {
+            "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+            "employment_from": "2026-01-01",
+            "employment_to": null,
+            "episode_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+            "established_exemption": {
+              "effective_from": "2026-01-01",
+              "established_status_confirmed": true,
+              "evidence_ref": {
+                "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+                "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+                "revision": 1
+              },
+              "profile_ref": {
+                "content_hash": "e244ac951ca8d1706fe0e3636dd4531fe351d930c358095948c8fda2258e50b2",
+                "id": "bd469060cac748478eb917b46ee25dd3",
+                "revision": 1
+              }
+            },
+            "no_old_age_or_other_exclusion_confirmed": true,
+            "review_note": "Synthetic actual established exemption and complete employment episode",
+            "reviewed_as_of": "2026-10-31",
+            "revocation": null,
+            "schema_version": 1,
+            "sole_continuous_commercial_minijob_confirmed": true,
+            "target_month": "2026-10"
+          },
+          "prior_assessment_refs": []
+        },
+        "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+        "employee_revision": 2,
+        "kind": "rv_lifecycle_assessment",
+        "rule_version": "de_2026_minijob_rv_revocation_v1",
+        "source_contract_version": 1,
+        "source_file_ids": [
+          "02f5a64d27374ee5a1b7dc3b9c49061b"
+        ]
+      },
+      "name": "established",
+      "preview": {
+        "can_approve": true,
+        "can_confirm": true,
+        "can_determine": true,
+        "can_write": true,
+        "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+        "kind": "rv_lifecycle_assessment",
+        "plan": {
+          "blockers": [],
+          "can_bind_payroll": true,
+          "can_determine": true,
+          "candidate_effective_from": null,
+          "creates_profile": false,
+          "deadline_method": "EXPLICIT_REVIEWED_ORIGINAL_NOT_AUTOMATIC_HOLIDAY_CALCULATION",
+          "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+          "episode_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+          "external_transmission": false,
+          "minijob_rv_exempt": true,
+          "month": "2026-10",
+          "official_system_approval": false,
+          "payment_created": false,
+          "rule_version": "de_2026_minijob_rv_revocation_v1",
+          "rules_sha256": "0d63413c7af9c81ebcb99244d98945060198a28c72ac0631b5e605a7304a93e8",
+          "source_hash": "1029197bd6d8cde26da80770844961f9444d5dd4754ec1ccd1441c51daa9f2ee",
+          "source_snapshot_hash": "fdfd478f7418c235b314c3ad1bd6c7c1dd64fe9c4a84ae81c362b15cb44b9467",
+          "status": "exempt"
+        },
+        "preview_hash": "f15f5737358bb74c2cb8d5881f5cbdb238a7ca052f8780ad1b5abc3b50ce5eae",
+        "source_hash": "fdfd478f7418c235b314c3ad1bd6c7c1dd64fe9c4a84ae81c362b15cb44b9467",
+        "source_snapshot": {
+          "details": {
+            "assessment": {
+              "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+              "employment_from": "2026-01-01",
+              "employment_to": null,
+              "episode_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+              "established_exemption": {
+                "effective_from": "2026-01-01",
+                "established_status_confirmed": true,
+                "evidence_ref": {
+                  "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+                  "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+                  "revision": 1
+                },
+                "profile_ref": {
+                  "content_hash": "e244ac951ca8d1706fe0e3636dd4531fe351d930c358095948c8fda2258e50b2",
+                  "id": "bd469060cac748478eb917b46ee25dd3",
+                  "revision": 1
+                }
+              },
+              "no_old_age_or_other_exclusion_confirmed": true,
+              "review_note": "Synthetic actual established exemption and complete employment episode",
+              "reviewed_as_of": "2026-10-31",
+              "revocation": null,
+              "schema_version": 1,
+              "sole_continuous_commercial_minijob_confirmed": true,
+              "target_month": "2026-10"
+            },
+            "prior_assessment_refs": []
+          },
+          "employee": {
+            "employment_from": "2026-01-01",
+            "employment_to": null,
+            "id": "5614ba9c97ee4788bdbc53b32e7701aa",
+            "name": "Synthetic technician",
+            "revision": 2,
+            "user_id": "20a76db197f44d4a80a704a42e2d84e5"
+          },
+          "original_profile": {
+            "confirmed": true,
+            "content_hash": "e244ac951ca8d1706fe0e3636dd4531fe351d930c358095948c8fda2258e50b2",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "6aac084ade7a4f8ea005f0001698d431",
+            "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+            "id": "bd469060cac748478eb917b46ee25dd3",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": true,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+              "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+              "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          },
+          "prior_assessments": [],
+          "rule_version": "de_2026_minijob_rv_revocation_v1",
+          "schema_version": 1,
+          "source_files": [
+            {
+              "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+              "created_at": "2026-10-31T20:00:00+00:00",
+              "created_by": "6aac084ade7a4f8ea005f0001698d431",
+              "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+              "filename": "verified-payroll-profile.pdf",
+              "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+              "media_type": "application/pdf",
+              "owner_visible": 0,
+              "purpose": "personnel",
+              "revision": 1,
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+              "size": 50,
+              "supersedes": null
+            }
+          ]
+        },
+        "writes_enabled": true
+      },
+      "record": {
+        "content_hash": "96beb773c53b2f97d57c2e62386cc2b8506dfce7f308f28b098e664b37a6eac8",
+        "correction_reason": "",
+        "created_at": "2026-10-31T20:00:00+00:00",
+        "created_by": "6aac084ade7a4f8ea005f0001698d431",
+        "details": {
+          "assessment": {
+            "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+            "employment_from": "2026-01-01",
+            "employment_to": null,
+            "episode_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+            "established_exemption": {
+              "effective_from": "2026-01-01",
+              "established_status_confirmed": true,
+              "evidence_ref": {
+                "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+                "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+                "revision": 1
+              },
+              "profile_ref": {
+                "content_hash": "e244ac951ca8d1706fe0e3636dd4531fe351d930c358095948c8fda2258e50b2",
+                "id": "bd469060cac748478eb917b46ee25dd3",
+                "revision": 1
+              }
+            },
+            "no_old_age_or_other_exclusion_confirmed": true,
+            "review_note": "Synthetic actual established exemption and complete employment episode",
+            "reviewed_as_of": "2026-10-31",
+            "revocation": null,
+            "schema_version": 1,
+            "sole_continuous_commercial_minijob_confirmed": true,
+            "target_month": "2026-10"
+          },
+          "prior_assessment_refs": []
+        },
+        "effective_from": "2026-01-01",
+        "effective_to": null,
+        "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+        "id": "88429a71248f49f6831c993e710d7a6e",
+        "kind": "rv_lifecycle_assessment",
+        "plan": {
+          "blockers": [],
+          "can_bind_payroll": true,
+          "can_determine": true,
+          "candidate_effective_from": null,
+          "creates_profile": false,
+          "deadline_method": "EXPLICIT_REVIEWED_ORIGINAL_NOT_AUTOMATIC_HOLIDAY_CALCULATION",
+          "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+          "episode_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+          "external_transmission": false,
+          "minijob_rv_exempt": true,
+          "month": "2026-10",
+          "official_system_approval": false,
+          "payment_created": false,
+          "rule_version": "de_2026_minijob_rv_revocation_v1",
+          "rules_sha256": "0d63413c7af9c81ebcb99244d98945060198a28c72ac0631b5e605a7304a93e8",
+          "source_hash": "1029197bd6d8cde26da80770844961f9444d5dd4754ec1ccd1441c51daa9f2ee",
+          "source_snapshot_hash": "fdfd478f7418c235b314c3ad1bd6c7c1dd64fe9c4a84ae81c362b15cb44b9467",
+          "status": "exempt"
+        },
+        "preview_hash": "f15f5737358bb74c2cb8d5881f5cbdb238a7ca052f8780ad1b5abc3b50ce5eae",
+        "previous_hash": null,
+        "revision": 1,
+        "rule_version": "de_2026_minijob_rv_revocation_v1",
+        "source_contract_version": 1,
+        "source_file_ids": [
+          "02f5a64d27374ee5a1b7dc3b9c49061b"
+        ],
+        "source_hash": "fdfd478f7418c235b314c3ad1bd6c7c1dd64fe9c4a84ae81c362b15cb44b9467",
+        "sources": {
+          "details": {
+            "assessment": {
+              "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+              "employment_from": "2026-01-01",
+              "employment_to": null,
+              "episode_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+              "established_exemption": {
+                "effective_from": "2026-01-01",
+                "established_status_confirmed": true,
+                "evidence_ref": {
+                  "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+                  "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+                  "revision": 1
+                },
+                "profile_ref": {
+                  "content_hash": "e244ac951ca8d1706fe0e3636dd4531fe351d930c358095948c8fda2258e50b2",
+                  "id": "bd469060cac748478eb917b46ee25dd3",
+                  "revision": 1
+                }
+              },
+              "no_old_age_or_other_exclusion_confirmed": true,
+              "review_note": "Synthetic actual established exemption and complete employment episode",
+              "reviewed_as_of": "2026-10-31",
+              "revocation": null,
+              "schema_version": 1,
+              "sole_continuous_commercial_minijob_confirmed": true,
+              "target_month": "2026-10"
+            },
+            "prior_assessment_refs": []
+          },
+          "employee": {
+            "employment_from": "2026-01-01",
+            "employment_to": null,
+            "id": "5614ba9c97ee4788bdbc53b32e7701aa",
+            "name": "Synthetic technician",
+            "revision": 2,
+            "user_id": "20a76db197f44d4a80a704a42e2d84e5"
+          },
+          "original_profile": {
+            "confirmed": true,
+            "content_hash": "e244ac951ca8d1706fe0e3636dd4531fe351d930c358095948c8fda2258e50b2",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "6aac084ade7a4f8ea005f0001698d431",
+            "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+            "id": "bd469060cac748478eb917b46ee25dd3",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": true,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+              "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+              "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          },
+          "prior_assessments": [],
+          "rule_version": "de_2026_minijob_rv_revocation_v1",
+          "schema_version": 1,
+          "source_files": [
+            {
+              "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+              "created_at": "2026-10-31T20:00:00+00:00",
+              "created_by": "6aac084ade7a4f8ea005f0001698d431",
+              "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+              "filename": "verified-payroll-profile.pdf",
+              "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+              "media_type": "application/pdf",
+              "owner_visible": 0,
+              "purpose": "personnel",
+              "revision": 1,
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+              "size": 50,
+              "supersedes": null
+            }
+          ]
+        },
+        "status": "active"
+      },
+      "sources": {
+        "can_approve": true,
+        "can_write": true,
+        "employee": {
+          "employment_from": "2026-01-01",
+          "employment_to": null,
+          "id": "5614ba9c97ee4788bdbc53b32e7701aa",
+          "name": "Synthetic technician",
+          "revision": 2,
+          "user_id": "20a76db197f44d4a80a704a42e2d84e5"
+        },
+        "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+        "episode_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+        "file_references": [
+          {
+            "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+            "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+            "revision": 1
+          }
+        ],
+        "files": [
+          {
+            "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "6aac084ade7a4f8ea005f0001698d431",
+            "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+            "filename": "verified-payroll-profile.pdf",
+            "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+            "media_type": "application/pdf",
+            "owner_visible": 0,
+            "purpose": "personnel",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+            "size": 50,
+            "supersedes": null
+          }
+        ],
+        "history": [
+          {
+            "content_hash": "96beb773c53b2f97d57c2e62386cc2b8506dfce7f308f28b098e664b37a6eac8",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "6aac084ade7a4f8ea005f0001698d431",
+            "details": {
+              "assessment": {
+                "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+                "employment_from": "2026-01-01",
+                "employment_to": null,
+                "episode_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+                "established_exemption": {
+                  "effective_from": "2026-01-01",
+                  "established_status_confirmed": true,
+                  "evidence_ref": {
+                    "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+                    "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+                    "revision": 1
+                  },
+                  "profile_ref": {
+                    "content_hash": "e244ac951ca8d1706fe0e3636dd4531fe351d930c358095948c8fda2258e50b2",
+                    "id": "bd469060cac748478eb917b46ee25dd3",
+                    "revision": 1
+                  }
+                },
+                "no_old_age_or_other_exclusion_confirmed": true,
+                "review_note": "Synthetic actual established exemption and complete employment episode",
+                "reviewed_as_of": "2026-10-31",
+                "revocation": null,
+                "schema_version": 1,
+                "sole_continuous_commercial_minijob_confirmed": true,
+                "target_month": "2026-10"
+              },
+              "prior_assessment_refs": []
+            },
+            "effective_from": "2026-01-01",
+            "effective_to": null,
+            "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+            "id": "88429a71248f49f6831c993e710d7a6e",
+            "kind": "rv_lifecycle_assessment",
+            "plan": {
+              "blockers": [],
+              "can_bind_payroll": true,
+              "can_determine": true,
+              "candidate_effective_from": null,
+              "creates_profile": false,
+              "deadline_method": "EXPLICIT_REVIEWED_ORIGINAL_NOT_AUTOMATIC_HOLIDAY_CALCULATION",
+              "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+              "episode_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+              "external_transmission": false,
+              "minijob_rv_exempt": true,
+              "month": "2026-10",
+              "official_system_approval": false,
+              "payment_created": false,
+              "rule_version": "de_2026_minijob_rv_revocation_v1",
+              "rules_sha256": "0d63413c7af9c81ebcb99244d98945060198a28c72ac0631b5e605a7304a93e8",
+              "source_hash": "1029197bd6d8cde26da80770844961f9444d5dd4754ec1ccd1441c51daa9f2ee",
+              "source_snapshot_hash": "fdfd478f7418c235b314c3ad1bd6c7c1dd64fe9c4a84ae81c362b15cb44b9467",
+              "status": "exempt"
+            },
+            "preview_hash": "f15f5737358bb74c2cb8d5881f5cbdb238a7ca052f8780ad1b5abc3b50ce5eae",
+            "previous_hash": null,
+            "revision": 1,
+            "rule_version": "de_2026_minijob_rv_revocation_v1",
+            "source_contract_version": 1,
+            "source_file_ids": [
+              "02f5a64d27374ee5a1b7dc3b9c49061b"
+            ],
+            "source_hash": "fdfd478f7418c235b314c3ad1bd6c7c1dd64fe9c4a84ae81c362b15cb44b9467",
+            "sources": {
+              "details": {
+                "assessment": {
+                  "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+                  "employment_from": "2026-01-01",
+                  "employment_to": null,
+                  "episode_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+                  "established_exemption": {
+                    "effective_from": "2026-01-01",
+                    "established_status_confirmed": true,
+                    "evidence_ref": {
+                      "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+                      "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+                      "revision": 1
+                    },
+                    "profile_ref": {
+                      "content_hash": "e244ac951ca8d1706fe0e3636dd4531fe351d930c358095948c8fda2258e50b2",
+                      "id": "bd469060cac748478eb917b46ee25dd3",
+                      "revision": 1
+                    }
+                  },
+                  "no_old_age_or_other_exclusion_confirmed": true,
+                  "review_note": "Synthetic actual established exemption and complete employment episode",
+                  "reviewed_as_of": "2026-10-31",
+                  "revocation": null,
+                  "schema_version": 1,
+                  "sole_continuous_commercial_minijob_confirmed": true,
+                  "target_month": "2026-10"
+                },
+                "prior_assessment_refs": []
+              },
+              "employee": {
+                "employment_from": "2026-01-01",
+                "employment_to": null,
+                "id": "5614ba9c97ee4788bdbc53b32e7701aa",
+                "name": "Synthetic technician",
+                "revision": 2,
+                "user_id": "20a76db197f44d4a80a704a42e2d84e5"
+              },
+              "original_profile": {
+                "confirmed": true,
+                "content_hash": "e244ac951ca8d1706fe0e3636dd4531fe351d930c358095948c8fda2258e50b2",
+                "correction_reason": "",
+                "created_at": "2026-10-31T20:00:00+00:00",
+                "created_by": "6aac084ade7a4f8ea005f0001698d431",
+                "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+                "id": "bd469060cac748478eb917b46ee25dd3",
+                "kind": "profile",
+                "pdf_sha256": null,
+                "previous_hash": null,
+                "profile": {
+                  "church_tax": "none",
+                  "date_of_birth": "1990-02-01",
+                  "effective_from": "2026-01-01",
+                  "employment_kind": "minijob",
+                  "federal_state": "HE",
+                  "has_children": false,
+                  "health_additional_percent": "2.690",
+                  "health_fund": "Synthetic documented fund",
+                  "health_insurance": "statutory_mandatory",
+                  "minijob_rv_exempt": true,
+                  "minijob_tax": "flat_2_employer",
+                  "pension_other_compulsory": false,
+                  "pv_children_under_25": 0,
+                  "regular_annual_gross_minor": 723600,
+                  "special_cases": [],
+                  "tax_children_half_units": 0,
+                  "tax_class": 1,
+                  "u1_percent": "0.800",
+                  "u1_required": true,
+                  "u2_percent": "0.220",
+                  "verification_note": "Synthetic verified source values for reference tests"
+                },
+                "revision": 1,
+                "source_file": {
+                  "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+                  "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+                  "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+                  "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+                }
+              },
+              "prior_assessments": [],
+              "rule_version": "de_2026_minijob_rv_revocation_v1",
+              "schema_version": 1,
+              "source_files": [
+                {
+                  "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+                  "created_at": "2026-10-31T20:00:00+00:00",
+                  "created_by": "6aac084ade7a4f8ea005f0001698d431",
+                  "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+                  "filename": "verified-payroll-profile.pdf",
+                  "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+                  "media_type": "application/pdf",
+                  "owner_visible": 0,
+                  "purpose": "personnel",
+                  "revision": 1,
+                  "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                  "size": 50,
+                  "supersedes": null
+                }
+              ]
+            },
+            "status": "active"
+          }
+        ],
+        "prior_assessment_refs": [
+          {
+            "content_hash": "96beb773c53b2f97d57c2e62386cc2b8506dfce7f308f28b098e664b37a6eac8",
+            "id": "88429a71248f49f6831c993e710d7a6e",
+            "revision": 1
+          }
+        ],
+        "profiles": [
+          {
+            "confirmed": true,
+            "content_hash": "e244ac951ca8d1706fe0e3636dd4531fe351d930c358095948c8fda2258e50b2",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "6aac084ade7a4f8ea005f0001698d431",
+            "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+            "id": "bd469060cac748478eb917b46ee25dd3",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": true,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+              "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+              "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          }
+        ],
+        "writes_enabled": true
+      },
+      "sources_before": {
+        "can_approve": true,
+        "can_write": true,
+        "employee": {
+          "employment_from": "2026-01-01",
+          "employment_to": null,
+          "id": "5614ba9c97ee4788bdbc53b32e7701aa",
+          "name": "Synthetic technician",
+          "revision": 2,
+          "user_id": "20a76db197f44d4a80a704a42e2d84e5"
+        },
+        "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+        "episode_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+        "file_references": [
+          {
+            "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+            "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+            "revision": 1
+          }
+        ],
+        "files": [
+          {
+            "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "6aac084ade7a4f8ea005f0001698d431",
+            "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+            "filename": "verified-payroll-profile.pdf",
+            "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+            "media_type": "application/pdf",
+            "owner_visible": 0,
+            "purpose": "personnel",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+            "size": 50,
+            "supersedes": null
+          }
+        ],
+        "history": [],
+        "prior_assessment_refs": [],
+        "profiles": [
+          {
+            "confirmed": true,
+            "content_hash": "e244ac951ca8d1706fe0e3636dd4531fe351d930c358095948c8fda2258e50b2",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "6aac084ade7a4f8ea005f0001698d431",
+            "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+            "id": "bd469060cac748478eb917b46ee25dd3",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": true,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "4a92327011a1728d36eebc74281eca51558f21ef86aa90207647b20837f5a337",
+              "employee_id": "5614ba9c97ee4788bdbc53b32e7701aa",
+              "id": "02f5a64d27374ee5a1b7dc3b9c49061b",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          }
+        ],
+        "writes_enabled": true
+      }
+    },
+    {
+      "command": {
+        "confirmed": true,
+        "details": {
+          "assessment": {
+            "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+            "employment_from": "2026-01-01",
+            "employment_to": null,
+            "episode_id": "01a1bd2022fd47e19b0edbaee33b8807",
+            "established_exemption": {
+              "effective_from": "2026-01-01",
+              "established_status_confirmed": true,
+              "evidence_ref": {
+                "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                "id": "9f027966b90941018e74b3577bd639f9",
+                "revision": 1
+              },
+              "profile_ref": {
+                "content_hash": "6bc60556f4f4a02c89a6349659435d253eb36abe6f037a65f261dae3a0665773",
+                "id": "4b4994ccb3b44683b6a831611e311fcf",
+                "revision": 1
+              }
+            },
+            "no_old_age_or_other_exclusion_confirmed": true,
+            "review_note": "Synthetic actual established exemption and complete employment episode",
+            "reviewed_as_of": "2026-10-31",
+            "revocation": {
+              "authority_evidence_ref": null,
+              "authority_status": "not_notified",
+              "authority_status_on": null,
+              "deadline_ref": null,
+              "deadline_review_confirmed": false,
+              "notification_received_on": null,
+              "notification_ref": null,
+              "objection_deadline_on": null,
+              "received_on": "2026-07-17",
+              "request_format": "electronic",
+              "request_ref": {
+                "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                "id": "9f027966b90941018e74b3577bd639f9",
+                "revision": 1
+              },
+              "review_note": "Synthetic actual original received request"
+            },
+            "schema_version": 1,
+            "sole_continuous_commercial_minijob_confirmed": true,
+            "target_month": "2026-10"
+          },
+          "prior_assessment_refs": []
+        },
+        "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+        "employee_revision": 2,
+        "kind": "rv_lifecycle_assessment",
+        "preview_hash": "a2da619e77b4e6cfc91fcf5745cf793675e732202bf937233f58e29132a47b95",
+        "request_id": "c06d445a0b8341aa8e2192317ced0f13",
+        "revision": 0,
+        "rule_version": "de_2026_minijob_rv_revocation_v1",
+        "source_contract_version": 1,
+        "source_file_ids": [
+          "9f027966b90941018e74b3577bd639f9"
+        ],
+        "status": "active"
+      },
+      "employee": {
+        "active": true,
+        "employment_from": "2026-01-01",
+        "employment_to": null,
+        "hourly_cost_minor": 3500,
+        "id": "01a1bd2022fd47e19b0edbaee33b8807",
+        "name": "Synthetic technician",
+        "revision": 2,
+        "updated_at": "2026-10-31T20:00:00+00:00",
+        "user_id": "5a92f9446d5341dcb8e241c3d363334e",
+        "weekly_minutes": 2400
+      },
+      "input": {
+        "details": {
+          "assessment": {
+            "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+            "employment_from": "2026-01-01",
+            "employment_to": null,
+            "episode_id": "01a1bd2022fd47e19b0edbaee33b8807",
+            "established_exemption": {
+              "effective_from": "2026-01-01",
+              "established_status_confirmed": true,
+              "evidence_ref": {
+                "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                "id": "9f027966b90941018e74b3577bd639f9",
+                "revision": 1
+              },
+              "profile_ref": {
+                "content_hash": "6bc60556f4f4a02c89a6349659435d253eb36abe6f037a65f261dae3a0665773",
+                "id": "4b4994ccb3b44683b6a831611e311fcf",
+                "revision": 1
+              }
+            },
+            "no_old_age_or_other_exclusion_confirmed": true,
+            "review_note": "Synthetic actual established exemption and complete employment episode",
+            "reviewed_as_of": "2026-10-31",
+            "revocation": {
+              "authority_evidence_ref": null,
+              "authority_status": "not_notified",
+              "authority_status_on": null,
+              "deadline_ref": null,
+              "deadline_review_confirmed": false,
+              "notification_received_on": null,
+              "notification_ref": null,
+              "objection_deadline_on": null,
+              "received_on": "2026-07-17",
+              "request_format": "electronic",
+              "request_ref": {
+                "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                "id": "9f027966b90941018e74b3577bd639f9",
+                "revision": 1
+              },
+              "review_note": "Synthetic actual original received request"
+            },
+            "schema_version": 1,
+            "sole_continuous_commercial_minijob_confirmed": true,
+            "target_month": "2026-10"
+          },
+          "prior_assessment_refs": []
+        },
+        "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+        "employee_revision": 2,
+        "kind": "rv_lifecycle_assessment",
+        "rule_version": "de_2026_minijob_rv_revocation_v1",
+        "source_contract_version": 1,
+        "source_file_ids": [
+          "9f027966b90941018e74b3577bd639f9"
+        ]
+      },
+      "name": "pending",
+      "preview": {
+        "can_approve": true,
+        "can_confirm": true,
+        "can_determine": false,
+        "can_write": true,
+        "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+        "kind": "rv_lifecycle_assessment",
+        "plan": {
+          "blockers": [
+            "revocation_procedure_not_settled"
+          ],
+          "can_bind_payroll": false,
+          "can_determine": false,
+          "candidate_effective_from": "2026-08-01",
+          "creates_profile": false,
+          "deadline_method": "EXPLICIT_REVIEWED_ORIGINAL_NOT_AUTOMATIC_HOLIDAY_CALCULATION",
+          "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+          "episode_id": "01a1bd2022fd47e19b0edbaee33b8807",
+          "external_transmission": false,
+          "minijob_rv_exempt": null,
+          "month": "2026-10",
+          "official_system_approval": false,
+          "payment_created": false,
+          "rule_version": "de_2026_minijob_rv_revocation_v1",
+          "rules_sha256": "0d63413c7af9c81ebcb99244d98945060198a28c72ac0631b5e605a7304a93e8",
+          "source_hash": "1a8db02def9648a62d8a8797b05626a0f0261b2af4bcfb0788f7cd3b5e45a65a",
+          "source_snapshot_hash": "37246b30e017d2e4688a499e94a5e54b09c524195066a0dd1da830ef7c2f9017",
+          "status": "unresolved"
+        },
+        "preview_hash": "a2da619e77b4e6cfc91fcf5745cf793675e732202bf937233f58e29132a47b95",
+        "source_hash": "37246b30e017d2e4688a499e94a5e54b09c524195066a0dd1da830ef7c2f9017",
+        "source_snapshot": {
+          "details": {
+            "assessment": {
+              "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+              "employment_from": "2026-01-01",
+              "employment_to": null,
+              "episode_id": "01a1bd2022fd47e19b0edbaee33b8807",
+              "established_exemption": {
+                "effective_from": "2026-01-01",
+                "established_status_confirmed": true,
+                "evidence_ref": {
+                  "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                  "id": "9f027966b90941018e74b3577bd639f9",
+                  "revision": 1
+                },
+                "profile_ref": {
+                  "content_hash": "6bc60556f4f4a02c89a6349659435d253eb36abe6f037a65f261dae3a0665773",
+                  "id": "4b4994ccb3b44683b6a831611e311fcf",
+                  "revision": 1
+                }
+              },
+              "no_old_age_or_other_exclusion_confirmed": true,
+              "review_note": "Synthetic actual established exemption and complete employment episode",
+              "reviewed_as_of": "2026-10-31",
+              "revocation": {
+                "authority_evidence_ref": null,
+                "authority_status": "not_notified",
+                "authority_status_on": null,
+                "deadline_ref": null,
+                "deadline_review_confirmed": false,
+                "notification_received_on": null,
+                "notification_ref": null,
+                "objection_deadline_on": null,
+                "received_on": "2026-07-17",
+                "request_format": "electronic",
+                "request_ref": {
+                  "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                  "id": "9f027966b90941018e74b3577bd639f9",
+                  "revision": 1
+                },
+                "review_note": "Synthetic actual original received request"
+              },
+              "schema_version": 1,
+              "sole_continuous_commercial_minijob_confirmed": true,
+              "target_month": "2026-10"
+            },
+            "prior_assessment_refs": []
+          },
+          "employee": {
+            "employment_from": "2026-01-01",
+            "employment_to": null,
+            "id": "01a1bd2022fd47e19b0edbaee33b8807",
+            "name": "Synthetic technician",
+            "revision": 2,
+            "user_id": "5a92f9446d5341dcb8e241c3d363334e"
+          },
+          "original_profile": {
+            "confirmed": true,
+            "content_hash": "6bc60556f4f4a02c89a6349659435d253eb36abe6f037a65f261dae3a0665773",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "10d40c58d9554655838d779ec740223c",
+            "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+            "id": "4b4994ccb3b44683b6a831611e311fcf",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": true,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+              "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+              "id": "9f027966b90941018e74b3577bd639f9",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          },
+          "prior_assessments": [],
+          "rule_version": "de_2026_minijob_rv_revocation_v1",
+          "schema_version": 1,
+          "source_files": [
+            {
+              "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+              "created_at": "2026-10-31T20:00:00+00:00",
+              "created_by": "10d40c58d9554655838d779ec740223c",
+              "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+              "filename": "verified-payroll-profile.pdf",
+              "id": "9f027966b90941018e74b3577bd639f9",
+              "media_type": "application/pdf",
+              "owner_visible": 0,
+              "purpose": "personnel",
+              "revision": 1,
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+              "size": 50,
+              "supersedes": null
+            }
+          ]
+        },
+        "writes_enabled": true
+      },
+      "record": {
+        "content_hash": "48197e7cc1c7d7a04ccb5aae9d342515d5149f70e9d0cd7aceb57f1d406ec5c7",
+        "correction_reason": "",
+        "created_at": "2026-10-31T20:00:00+00:00",
+        "created_by": "10d40c58d9554655838d779ec740223c",
+        "details": {
+          "assessment": {
+            "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+            "employment_from": "2026-01-01",
+            "employment_to": null,
+            "episode_id": "01a1bd2022fd47e19b0edbaee33b8807",
+            "established_exemption": {
+              "effective_from": "2026-01-01",
+              "established_status_confirmed": true,
+              "evidence_ref": {
+                "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                "id": "9f027966b90941018e74b3577bd639f9",
+                "revision": 1
+              },
+              "profile_ref": {
+                "content_hash": "6bc60556f4f4a02c89a6349659435d253eb36abe6f037a65f261dae3a0665773",
+                "id": "4b4994ccb3b44683b6a831611e311fcf",
+                "revision": 1
+              }
+            },
+            "no_old_age_or_other_exclusion_confirmed": true,
+            "review_note": "Synthetic actual established exemption and complete employment episode",
+            "reviewed_as_of": "2026-10-31",
+            "revocation": {
+              "authority_evidence_ref": null,
+              "authority_status": "not_notified",
+              "authority_status_on": null,
+              "deadline_ref": null,
+              "deadline_review_confirmed": false,
+              "notification_received_on": null,
+              "notification_ref": null,
+              "objection_deadline_on": null,
+              "received_on": "2026-07-17",
+              "request_format": "electronic",
+              "request_ref": {
+                "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                "id": "9f027966b90941018e74b3577bd639f9",
+                "revision": 1
+              },
+              "review_note": "Synthetic actual original received request"
+            },
+            "schema_version": 1,
+            "sole_continuous_commercial_minijob_confirmed": true,
+            "target_month": "2026-10"
+          },
+          "prior_assessment_refs": []
+        },
+        "effective_from": "2026-01-01",
+        "effective_to": null,
+        "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+        "id": "9926ff6d419948abae97e18b4fa834fa",
+        "kind": "rv_lifecycle_assessment",
+        "plan": {
+          "blockers": [
+            "revocation_procedure_not_settled"
+          ],
+          "can_bind_payroll": false,
+          "can_determine": false,
+          "candidate_effective_from": "2026-08-01",
+          "creates_profile": false,
+          "deadline_method": "EXPLICIT_REVIEWED_ORIGINAL_NOT_AUTOMATIC_HOLIDAY_CALCULATION",
+          "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+          "episode_id": "01a1bd2022fd47e19b0edbaee33b8807",
+          "external_transmission": false,
+          "minijob_rv_exempt": null,
+          "month": "2026-10",
+          "official_system_approval": false,
+          "payment_created": false,
+          "rule_version": "de_2026_minijob_rv_revocation_v1",
+          "rules_sha256": "0d63413c7af9c81ebcb99244d98945060198a28c72ac0631b5e605a7304a93e8",
+          "source_hash": "1a8db02def9648a62d8a8797b05626a0f0261b2af4bcfb0788f7cd3b5e45a65a",
+          "source_snapshot_hash": "37246b30e017d2e4688a499e94a5e54b09c524195066a0dd1da830ef7c2f9017",
+          "status": "unresolved"
+        },
+        "preview_hash": "a2da619e77b4e6cfc91fcf5745cf793675e732202bf937233f58e29132a47b95",
+        "previous_hash": null,
+        "revision": 1,
+        "rule_version": "de_2026_minijob_rv_revocation_v1",
+        "source_contract_version": 1,
+        "source_file_ids": [
+          "9f027966b90941018e74b3577bd639f9"
+        ],
+        "source_hash": "37246b30e017d2e4688a499e94a5e54b09c524195066a0dd1da830ef7c2f9017",
+        "sources": {
+          "details": {
+            "assessment": {
+              "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+              "employment_from": "2026-01-01",
+              "employment_to": null,
+              "episode_id": "01a1bd2022fd47e19b0edbaee33b8807",
+              "established_exemption": {
+                "effective_from": "2026-01-01",
+                "established_status_confirmed": true,
+                "evidence_ref": {
+                  "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                  "id": "9f027966b90941018e74b3577bd639f9",
+                  "revision": 1
+                },
+                "profile_ref": {
+                  "content_hash": "6bc60556f4f4a02c89a6349659435d253eb36abe6f037a65f261dae3a0665773",
+                  "id": "4b4994ccb3b44683b6a831611e311fcf",
+                  "revision": 1
+                }
+              },
+              "no_old_age_or_other_exclusion_confirmed": true,
+              "review_note": "Synthetic actual established exemption and complete employment episode",
+              "reviewed_as_of": "2026-10-31",
+              "revocation": {
+                "authority_evidence_ref": null,
+                "authority_status": "not_notified",
+                "authority_status_on": null,
+                "deadline_ref": null,
+                "deadline_review_confirmed": false,
+                "notification_received_on": null,
+                "notification_ref": null,
+                "objection_deadline_on": null,
+                "received_on": "2026-07-17",
+                "request_format": "electronic",
+                "request_ref": {
+                  "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                  "id": "9f027966b90941018e74b3577bd639f9",
+                  "revision": 1
+                },
+                "review_note": "Synthetic actual original received request"
+              },
+              "schema_version": 1,
+              "sole_continuous_commercial_minijob_confirmed": true,
+              "target_month": "2026-10"
+            },
+            "prior_assessment_refs": []
+          },
+          "employee": {
+            "employment_from": "2026-01-01",
+            "employment_to": null,
+            "id": "01a1bd2022fd47e19b0edbaee33b8807",
+            "name": "Synthetic technician",
+            "revision": 2,
+            "user_id": "5a92f9446d5341dcb8e241c3d363334e"
+          },
+          "original_profile": {
+            "confirmed": true,
+            "content_hash": "6bc60556f4f4a02c89a6349659435d253eb36abe6f037a65f261dae3a0665773",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "10d40c58d9554655838d779ec740223c",
+            "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+            "id": "4b4994ccb3b44683b6a831611e311fcf",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": true,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+              "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+              "id": "9f027966b90941018e74b3577bd639f9",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          },
+          "prior_assessments": [],
+          "rule_version": "de_2026_minijob_rv_revocation_v1",
+          "schema_version": 1,
+          "source_files": [
+            {
+              "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+              "created_at": "2026-10-31T20:00:00+00:00",
+              "created_by": "10d40c58d9554655838d779ec740223c",
+              "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+              "filename": "verified-payroll-profile.pdf",
+              "id": "9f027966b90941018e74b3577bd639f9",
+              "media_type": "application/pdf",
+              "owner_visible": 0,
+              "purpose": "personnel",
+              "revision": 1,
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+              "size": 50,
+              "supersedes": null
+            }
+          ]
+        },
+        "status": "active"
+      },
+      "sources": {
+        "can_approve": true,
+        "can_write": true,
+        "employee": {
+          "employment_from": "2026-01-01",
+          "employment_to": null,
+          "id": "01a1bd2022fd47e19b0edbaee33b8807",
+          "name": "Synthetic technician",
+          "revision": 2,
+          "user_id": "5a92f9446d5341dcb8e241c3d363334e"
+        },
+        "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+        "episode_id": "01a1bd2022fd47e19b0edbaee33b8807",
+        "file_references": [
+          {
+            "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+            "id": "9f027966b90941018e74b3577bd639f9",
+            "revision": 1
+          }
+        ],
+        "files": [
+          {
+            "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "10d40c58d9554655838d779ec740223c",
+            "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+            "filename": "verified-payroll-profile.pdf",
+            "id": "9f027966b90941018e74b3577bd639f9",
+            "media_type": "application/pdf",
+            "owner_visible": 0,
+            "purpose": "personnel",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+            "size": 50,
+            "supersedes": null
+          }
+        ],
+        "history": [
+          {
+            "content_hash": "48197e7cc1c7d7a04ccb5aae9d342515d5149f70e9d0cd7aceb57f1d406ec5c7",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "10d40c58d9554655838d779ec740223c",
+            "details": {
+              "assessment": {
+                "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+                "employment_from": "2026-01-01",
+                "employment_to": null,
+                "episode_id": "01a1bd2022fd47e19b0edbaee33b8807",
+                "established_exemption": {
+                  "effective_from": "2026-01-01",
+                  "established_status_confirmed": true,
+                  "evidence_ref": {
+                    "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                    "id": "9f027966b90941018e74b3577bd639f9",
+                    "revision": 1
+                  },
+                  "profile_ref": {
+                    "content_hash": "6bc60556f4f4a02c89a6349659435d253eb36abe6f037a65f261dae3a0665773",
+                    "id": "4b4994ccb3b44683b6a831611e311fcf",
+                    "revision": 1
+                  }
+                },
+                "no_old_age_or_other_exclusion_confirmed": true,
+                "review_note": "Synthetic actual established exemption and complete employment episode",
+                "reviewed_as_of": "2026-10-31",
+                "revocation": {
+                  "authority_evidence_ref": null,
+                  "authority_status": "not_notified",
+                  "authority_status_on": null,
+                  "deadline_ref": null,
+                  "deadline_review_confirmed": false,
+                  "notification_received_on": null,
+                  "notification_ref": null,
+                  "objection_deadline_on": null,
+                  "received_on": "2026-07-17",
+                  "request_format": "electronic",
+                  "request_ref": {
+                    "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                    "id": "9f027966b90941018e74b3577bd639f9",
+                    "revision": 1
+                  },
+                  "review_note": "Synthetic actual original received request"
+                },
+                "schema_version": 1,
+                "sole_continuous_commercial_minijob_confirmed": true,
+                "target_month": "2026-10"
+              },
+              "prior_assessment_refs": []
+            },
+            "effective_from": "2026-01-01",
+            "effective_to": null,
+            "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+            "id": "9926ff6d419948abae97e18b4fa834fa",
+            "kind": "rv_lifecycle_assessment",
+            "plan": {
+              "blockers": [
+                "revocation_procedure_not_settled"
+              ],
+              "can_bind_payroll": false,
+              "can_determine": false,
+              "candidate_effective_from": "2026-08-01",
+              "creates_profile": false,
+              "deadline_method": "EXPLICIT_REVIEWED_ORIGINAL_NOT_AUTOMATIC_HOLIDAY_CALCULATION",
+              "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+              "episode_id": "01a1bd2022fd47e19b0edbaee33b8807",
+              "external_transmission": false,
+              "minijob_rv_exempt": null,
+              "month": "2026-10",
+              "official_system_approval": false,
+              "payment_created": false,
+              "rule_version": "de_2026_minijob_rv_revocation_v1",
+              "rules_sha256": "0d63413c7af9c81ebcb99244d98945060198a28c72ac0631b5e605a7304a93e8",
+              "source_hash": "1a8db02def9648a62d8a8797b05626a0f0261b2af4bcfb0788f7cd3b5e45a65a",
+              "source_snapshot_hash": "37246b30e017d2e4688a499e94a5e54b09c524195066a0dd1da830ef7c2f9017",
+              "status": "unresolved"
+            },
+            "preview_hash": "a2da619e77b4e6cfc91fcf5745cf793675e732202bf937233f58e29132a47b95",
+            "previous_hash": null,
+            "revision": 1,
+            "rule_version": "de_2026_minijob_rv_revocation_v1",
+            "source_contract_version": 1,
+            "source_file_ids": [
+              "9f027966b90941018e74b3577bd639f9"
+            ],
+            "source_hash": "37246b30e017d2e4688a499e94a5e54b09c524195066a0dd1da830ef7c2f9017",
+            "sources": {
+              "details": {
+                "assessment": {
+                  "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+                  "employment_from": "2026-01-01",
+                  "employment_to": null,
+                  "episode_id": "01a1bd2022fd47e19b0edbaee33b8807",
+                  "established_exemption": {
+                    "effective_from": "2026-01-01",
+                    "established_status_confirmed": true,
+                    "evidence_ref": {
+                      "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                      "id": "9f027966b90941018e74b3577bd639f9",
+                      "revision": 1
+                    },
+                    "profile_ref": {
+                      "content_hash": "6bc60556f4f4a02c89a6349659435d253eb36abe6f037a65f261dae3a0665773",
+                      "id": "4b4994ccb3b44683b6a831611e311fcf",
+                      "revision": 1
+                    }
+                  },
+                  "no_old_age_or_other_exclusion_confirmed": true,
+                  "review_note": "Synthetic actual established exemption and complete employment episode",
+                  "reviewed_as_of": "2026-10-31",
+                  "revocation": {
+                    "authority_evidence_ref": null,
+                    "authority_status": "not_notified",
+                    "authority_status_on": null,
+                    "deadline_ref": null,
+                    "deadline_review_confirmed": false,
+                    "notification_received_on": null,
+                    "notification_ref": null,
+                    "objection_deadline_on": null,
+                    "received_on": "2026-07-17",
+                    "request_format": "electronic",
+                    "request_ref": {
+                      "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                      "id": "9f027966b90941018e74b3577bd639f9",
+                      "revision": 1
+                    },
+                    "review_note": "Synthetic actual original received request"
+                  },
+                  "schema_version": 1,
+                  "sole_continuous_commercial_minijob_confirmed": true,
+                  "target_month": "2026-10"
+                },
+                "prior_assessment_refs": []
+              },
+              "employee": {
+                "employment_from": "2026-01-01",
+                "employment_to": null,
+                "id": "01a1bd2022fd47e19b0edbaee33b8807",
+                "name": "Synthetic technician",
+                "revision": 2,
+                "user_id": "5a92f9446d5341dcb8e241c3d363334e"
+              },
+              "original_profile": {
+                "confirmed": true,
+                "content_hash": "6bc60556f4f4a02c89a6349659435d253eb36abe6f037a65f261dae3a0665773",
+                "correction_reason": "",
+                "created_at": "2026-10-31T20:00:00+00:00",
+                "created_by": "10d40c58d9554655838d779ec740223c",
+                "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+                "id": "4b4994ccb3b44683b6a831611e311fcf",
+                "kind": "profile",
+                "pdf_sha256": null,
+                "previous_hash": null,
+                "profile": {
+                  "church_tax": "none",
+                  "date_of_birth": "1990-02-01",
+                  "effective_from": "2026-01-01",
+                  "employment_kind": "minijob",
+                  "federal_state": "HE",
+                  "has_children": false,
+                  "health_additional_percent": "2.690",
+                  "health_fund": "Synthetic documented fund",
+                  "health_insurance": "statutory_mandatory",
+                  "minijob_rv_exempt": true,
+                  "minijob_tax": "flat_2_employer",
+                  "pension_other_compulsory": false,
+                  "pv_children_under_25": 0,
+                  "regular_annual_gross_minor": 723600,
+                  "special_cases": [],
+                  "tax_children_half_units": 0,
+                  "tax_class": 1,
+                  "u1_percent": "0.800",
+                  "u1_required": true,
+                  "u2_percent": "0.220",
+                  "verification_note": "Synthetic verified source values for reference tests"
+                },
+                "revision": 1,
+                "source_file": {
+                  "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                  "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+                  "id": "9f027966b90941018e74b3577bd639f9",
+                  "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+                }
+              },
+              "prior_assessments": [],
+              "rule_version": "de_2026_minijob_rv_revocation_v1",
+              "schema_version": 1,
+              "source_files": [
+                {
+                  "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+                  "created_at": "2026-10-31T20:00:00+00:00",
+                  "created_by": "10d40c58d9554655838d779ec740223c",
+                  "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+                  "filename": "verified-payroll-profile.pdf",
+                  "id": "9f027966b90941018e74b3577bd639f9",
+                  "media_type": "application/pdf",
+                  "owner_visible": 0,
+                  "purpose": "personnel",
+                  "revision": 1,
+                  "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                  "size": 50,
+                  "supersedes": null
+                }
+              ]
+            },
+            "status": "active"
+          }
+        ],
+        "prior_assessment_refs": [
+          {
+            "content_hash": "48197e7cc1c7d7a04ccb5aae9d342515d5149f70e9d0cd7aceb57f1d406ec5c7",
+            "id": "9926ff6d419948abae97e18b4fa834fa",
+            "revision": 1
+          }
+        ],
+        "profiles": [
+          {
+            "confirmed": true,
+            "content_hash": "6bc60556f4f4a02c89a6349659435d253eb36abe6f037a65f261dae3a0665773",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "10d40c58d9554655838d779ec740223c",
+            "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+            "id": "4b4994ccb3b44683b6a831611e311fcf",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": true,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+              "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+              "id": "9f027966b90941018e74b3577bd639f9",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          }
+        ],
+        "writes_enabled": true
+      },
+      "sources_before": {
+        "can_approve": true,
+        "can_write": true,
+        "employee": {
+          "employment_from": "2026-01-01",
+          "employment_to": null,
+          "id": "01a1bd2022fd47e19b0edbaee33b8807",
+          "name": "Synthetic technician",
+          "revision": 2,
+          "user_id": "5a92f9446d5341dcb8e241c3d363334e"
+        },
+        "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+        "episode_id": "01a1bd2022fd47e19b0edbaee33b8807",
+        "file_references": [
+          {
+            "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+            "id": "9f027966b90941018e74b3577bd639f9",
+            "revision": 1
+          }
+        ],
+        "files": [
+          {
+            "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "10d40c58d9554655838d779ec740223c",
+            "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+            "filename": "verified-payroll-profile.pdf",
+            "id": "9f027966b90941018e74b3577bd639f9",
+            "media_type": "application/pdf",
+            "owner_visible": 0,
+            "purpose": "personnel",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+            "size": 50,
+            "supersedes": null
+          }
+        ],
+        "history": [],
+        "prior_assessment_refs": [],
+        "profiles": [
+          {
+            "confirmed": true,
+            "content_hash": "6bc60556f4f4a02c89a6349659435d253eb36abe6f037a65f261dae3a0665773",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "10d40c58d9554655838d779ec740223c",
+            "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+            "id": "4b4994ccb3b44683b6a831611e311fcf",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": true,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "8e2200c28f3903b0459301678de7534cf94232a53e277f07f05a9fe527bfad2b",
+              "employee_id": "01a1bd2022fd47e19b0edbaee33b8807",
+              "id": "9f027966b90941018e74b3577bd639f9",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          }
+        ],
+        "writes_enabled": true
+      }
+    },
+    {
+      "command": {
+        "confirmed": true,
+        "details": {
+          "assessment": {
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "employment_from": "2026-01-01",
+            "employment_to": null,
+            "episode_id": "d04a39ce367843418052a3d46ca3faf1",
+            "established_exemption": {
+              "effective_from": "2026-01-01",
+              "established_status_confirmed": true,
+              "evidence_ref": {
+                "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                "id": "ac61ef574bcd402889a84976da54022b",
+                "revision": 1
+              },
+              "profile_ref": {
+                "content_hash": "a38ce0a526fd4b7a022c706fa856dbbbc19b0b178d8ba1aaa2d145ada2f281e2",
+                "id": "7c2efcc7c0c340c8877d7bcd1d7c8981",
+                "revision": 1
+              }
+            },
+            "no_old_age_or_other_exclusion_confirmed": true,
+            "review_note": "Synthetic actual established exemption and complete employment episode",
+            "reviewed_as_of": "2026-10-31",
+            "revocation": {
+              "authority_evidence_ref": {
+                "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                "id": "ac61ef574bcd402889a84976da54022b",
+                "revision": 1
+              },
+              "authority_status": "non_objection_verified",
+              "authority_status_on": "2026-08-22",
+              "deadline_ref": {
+                "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                "id": "ac61ef574bcd402889a84976da54022b",
+                "revision": 1
+              },
+              "deadline_review_confirmed": true,
+              "notification_received_on": "2026-07-21",
+              "notification_ref": {
+                "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                "id": "ac61ef574bcd402889a84976da54022b",
+                "revision": 1
+              },
+              "objection_deadline_on": "2026-08-21",
+              "received_on": "2026-07-17",
+              "request_format": "electronic",
+              "request_ref": {
+                "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                "id": "ac61ef574bcd402889a84976da54022b",
+                "revision": 1
+              },
+              "review_note": "Synthetic actual original received request"
+            },
+            "schema_version": 1,
+            "sole_continuous_commercial_minijob_confirmed": true,
+            "target_month": "2026-10"
+          },
+          "prior_assessment_refs": []
+        },
+        "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+        "employee_revision": 2,
+        "kind": "rv_lifecycle_assessment",
+        "preview_hash": "8f6f6a5f32f2f46e5cc00519f1d9428770639a0cdf8c7e1d955a3c2bf7f2de2d",
+        "request_id": "8c59b6e08bd6402fb48ec3a0f4301ef7",
+        "revision": 0,
+        "rule_version": "de_2026_minijob_rv_revocation_v1",
+        "source_contract_version": 1,
+        "source_file_ids": [
+          "ac61ef574bcd402889a84976da54022b"
+        ],
+        "status": "active"
+      },
+      "employee": {
+        "active": true,
+        "employment_from": "2026-01-01",
+        "employment_to": null,
+        "hourly_cost_minor": 3500,
+        "id": "d04a39ce367843418052a3d46ca3faf1",
+        "name": "Synthetic technician",
+        "revision": 2,
+        "updated_at": "2026-10-31T20:00:00+00:00",
+        "user_id": "b1977ab2e00248618348e3b3f284189a",
+        "weekly_minutes": 2400
+      },
+      "input": {
+        "details": {
+          "assessment": {
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "employment_from": "2026-01-01",
+            "employment_to": null,
+            "episode_id": "d04a39ce367843418052a3d46ca3faf1",
+            "established_exemption": {
+              "effective_from": "2026-01-01",
+              "established_status_confirmed": true,
+              "evidence_ref": {
+                "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                "id": "ac61ef574bcd402889a84976da54022b",
+                "revision": 1
+              },
+              "profile_ref": {
+                "content_hash": "a38ce0a526fd4b7a022c706fa856dbbbc19b0b178d8ba1aaa2d145ada2f281e2",
+                "id": "7c2efcc7c0c340c8877d7bcd1d7c8981",
+                "revision": 1
+              }
+            },
+            "no_old_age_or_other_exclusion_confirmed": true,
+            "review_note": "Synthetic actual established exemption and complete employment episode",
+            "reviewed_as_of": "2026-10-31",
+            "revocation": {
+              "authority_evidence_ref": {
+                "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                "id": "ac61ef574bcd402889a84976da54022b",
+                "revision": 1
+              },
+              "authority_status": "non_objection_verified",
+              "authority_status_on": "2026-08-22",
+              "deadline_ref": {
+                "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                "id": "ac61ef574bcd402889a84976da54022b",
+                "revision": 1
+              },
+              "deadline_review_confirmed": true,
+              "notification_received_on": "2026-07-21",
+              "notification_ref": {
+                "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                "id": "ac61ef574bcd402889a84976da54022b",
+                "revision": 1
+              },
+              "objection_deadline_on": "2026-08-21",
+              "received_on": "2026-07-17",
+              "request_format": "electronic",
+              "request_ref": {
+                "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                "id": "ac61ef574bcd402889a84976da54022b",
+                "revision": 1
+              },
+              "review_note": "Synthetic actual original received request"
+            },
+            "schema_version": 1,
+            "sole_continuous_commercial_minijob_confirmed": true,
+            "target_month": "2026-10"
+          },
+          "prior_assessment_refs": []
+        },
+        "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+        "employee_revision": 2,
+        "kind": "rv_lifecycle_assessment",
+        "rule_version": "de_2026_minijob_rv_revocation_v1",
+        "source_contract_version": 1,
+        "source_file_ids": [
+          "ac61ef574bcd402889a84976da54022b"
+        ]
+      },
+      "name": "settled",
+      "payroll_command": {
+        "accepted_scope": "commercial_minijob_flat_tax",
+        "confirmed": true,
+        "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+        "full_month_confirmed": true,
+        "gross_minor": 60300,
+        "preparation_id": "6af155a4af554d82b60c3e537994dbb5",
+        "preparation_revision": 1,
+        "preview_hash": "c6cbd454fdc7f17528fe7f139fef88ae6f2f84fa32815c7d4ea19bbed6ff2922",
+        "profile_id": "e9cd17f3b64845bcbd9e328288d6d74b",
+        "profile_revision": 1,
+        "request_id": "4e612cba8df046049d3a681267ea0dab",
+        "revision": 0
+      },
+      "payroll_preview": {
+        "calculation": {
+          "accident_insurance_included": false,
+          "blockers": [],
+          "church_tax_minor": null,
+          "currency": "EUR",
+          "employee_additional_payment_minor": 0,
+          "employee_contributions": {
+            "care": 0,
+            "health_additional": 0,
+            "health_general": 0,
+            "pension": 2171,
+            "unemployment": 0
+          },
+          "employee_social_total_minor": 2171,
+          "employee_tax_minor": 0,
+          "employer_contributions": {
+            "care": 0,
+            "health_additional": 0,
+            "health_general": 7839,
+            "pension": 9045,
+            "unemployment": 0
+          },
+          "employer_flat_tax_minor": 1206,
+          "employer_levies": {
+            "insolvency": 90,
+            "u1": 482,
+            "u2": 133
+          },
+          "employer_social_total_minor": 16884,
+          "employer_total_excluding_accident_insurance_minor": 79095,
+          "gross_minor": 60300,
+          "individual_wage_tax_minor": null,
+          "month": "2026-10",
+          "net_minor": 58129,
+          "official_system_approval": false,
+          "payout_minor": 58129,
+          "payroll_calculation_complete": true,
+          "rule_version": "de_2026_standard_contributions_v1",
+          "rules_sha256": "31c469d27fdaff390f067cdb0f278e5f96e8e7a9749c8b97453ad84439a222e8",
+          "scope": "commercial_minijob_flat_tax",
+          "social_contributions_available": true,
+          "solidarity_minor": null,
+          "statutory_report_status": "not_transmitted",
+          "tax_method": "flat_2_percent_employer_including_church_and_solidarity",
+          "tax_parameters": {
+            "children_half_units": 0,
+            "church_tax_percent": "0",
+            "tax_class": 1
+          },
+          "travel_expenses_included_in_net": false
+        },
+        "can_finalize": true,
+        "preview_hash": "c6cbd454fdc7f17528fe7f139fef88ae6f2f84fa32815c7d4ea19bbed6ff2922",
+        "source": {
+          "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+          "input": {
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "full_month_confirmed": true,
+            "gross_minor": 60300,
+            "preparation_id": "6af155a4af554d82b60c3e537994dbb5",
+            "preparation_revision": 1,
+            "profile_id": "e9cd17f3b64845bcbd9e328288d6d74b",
+            "profile_revision": 1
+          },
+          "month": "2026-10",
+          "preparation": {
+            "completeness_confirmed": true,
+            "content_hash": "a68add93ab1decf02a9ed05f02c96ef86a1250b296ab9c94d8bb988e7f8e476b",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "0544e5527946463cb84b556db140ba57",
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "id": "6af155a4af554d82b60c3e537994dbb5",
+            "kind": "preparation",
+            "month": "2026-10",
+            "payroll_calculated": false,
+            "pdf_sha256": "d1fb59411e6a20e53179b1bf8472533691bffca2db21423b2bd721bc2718ad1a",
+            "previous_hash": null,
+            "revision": 1,
+            "snapshot": {
+              "agreements": [
+                {
+                  "amount_minor": 60300,
+                  "content_hash": "b75a39a628f49004cfedaa9fa0ef03fe79adbfe2269aed93c3a13eab7fa9a51d",
+                  "correction_reason": "",
+                  "created_at": "2026-10-31T20:00:00+00:00",
+                  "created_by": "0544e5527946463cb84b556db140ba57",
+                  "currency": "EUR",
+                  "effective_from": "2026-01-01",
+                  "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+                  "employment_kind": "minijob",
+                  "id": "1c154ce043334406946b99f51d8893e3",
+                  "kind": "agreement",
+                  "notes": "",
+                  "pay_basis": "monthly",
+                  "pdf_sha256": null,
+                  "previous_hash": null,
+                  "reference_file_id": "ac61ef574bcd402889a84976da54022b",
+                  "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                  "revision": 1
+                }
+              ],
+              "allowance_calculation": false,
+              "approved_absences": [],
+              "approved_days": [],
+              "corrections": [],
+              "currency": "EUR",
+              "employee": {
+                "employment_from": "2026-01-01",
+                "employment_to": null,
+                "id": "d04a39ce367843418052a3d46ca3faf1",
+                "name": "Synthetic technician",
+                "revision": 2,
+                "user_id": "b1977ab2e00248618348e3b3f284189a"
+              },
+              "expenses": [],
+              "month": "2026-10",
+              "net_work_seconds": 0,
+              "payroll_calculated": false,
+              "recorded_expenses_minor": 0,
+              "schema_version": 1,
+              "scope": "recorded_and_approved_sources",
+              "tax_treatment": "not_determined"
+            },
+            "source_hash": "db18a849b21ec7925846fa4484e877b3536c7a2c1aa1cf5fff3880efabbd1b27",
+            "status": "preparation_closed",
+            "transmission_status": "not_transmitted"
+          },
+          "profile": {
+            "confirmed": true,
+            "content_hash": "516e90fb4caeae9a0f8fb5536febbda85e2c179f9ac2f02abe8743a4775e0100",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "0544e5527946463cb84b556db140ba57",
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "id": "e9cd17f3b64845bcbd9e328288d6d74b",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-08-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": false,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "rv_lifecycle_ref": {
+              "content_hash": "8c26c7c67b0691f20a038cd30541601957abeaa2a2a672b0318e582db6b041c4",
+              "id": "65650d4861e74d58854ccc03e25cc026",
+              "revision": 1
+            },
+            "rv_lifecycle_source_contract_version": 1,
+            "source_file": {
+              "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+              "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+              "id": "ac61ef574bcd402889a84976da54022b",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          },
+          "profiles_in_month": []
+        }
+      },
+      "preview": {
+        "can_approve": true,
+        "can_confirm": true,
+        "can_determine": true,
+        "can_write": true,
+        "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+        "kind": "rv_lifecycle_assessment",
+        "plan": {
+          "blockers": [],
+          "can_bind_payroll": true,
+          "can_determine": true,
+          "candidate_effective_from": "2026-08-01",
+          "creates_profile": false,
+          "deadline_method": "EXPLICIT_REVIEWED_ORIGINAL_NOT_AUTOMATIC_HOLIDAY_CALCULATION",
+          "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+          "episode_id": "d04a39ce367843418052a3d46ca3faf1",
+          "external_transmission": false,
+          "minijob_rv_exempt": false,
+          "month": "2026-10",
+          "official_system_approval": false,
+          "payment_created": false,
+          "rule_version": "de_2026_minijob_rv_revocation_v1",
+          "rules_sha256": "0d63413c7af9c81ebcb99244d98945060198a28c72ac0631b5e605a7304a93e8",
+          "source_hash": "31a007f4739ae92b78a367016b625649c94fd72fd65f470c35d9386c9df5bfa7",
+          "source_snapshot_hash": "21086a4a3d7afacf5962de9dec7f6b7058e108f08390159efc12c6e19f04d0c6",
+          "status": "compulsory_after_revocation"
+        },
+        "preview_hash": "8f6f6a5f32f2f46e5cc00519f1d9428770639a0cdf8c7e1d955a3c2bf7f2de2d",
+        "source_hash": "21086a4a3d7afacf5962de9dec7f6b7058e108f08390159efc12c6e19f04d0c6",
+        "source_snapshot": {
+          "details": {
+            "assessment": {
+              "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+              "employment_from": "2026-01-01",
+              "employment_to": null,
+              "episode_id": "d04a39ce367843418052a3d46ca3faf1",
+              "established_exemption": {
+                "effective_from": "2026-01-01",
+                "established_status_confirmed": true,
+                "evidence_ref": {
+                  "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                  "id": "ac61ef574bcd402889a84976da54022b",
+                  "revision": 1
+                },
+                "profile_ref": {
+                  "content_hash": "a38ce0a526fd4b7a022c706fa856dbbbc19b0b178d8ba1aaa2d145ada2f281e2",
+                  "id": "7c2efcc7c0c340c8877d7bcd1d7c8981",
+                  "revision": 1
+                }
+              },
+              "no_old_age_or_other_exclusion_confirmed": true,
+              "review_note": "Synthetic actual established exemption and complete employment episode",
+              "reviewed_as_of": "2026-10-31",
+              "revocation": {
+                "authority_evidence_ref": {
+                  "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                  "id": "ac61ef574bcd402889a84976da54022b",
+                  "revision": 1
+                },
+                "authority_status": "non_objection_verified",
+                "authority_status_on": "2026-08-22",
+                "deadline_ref": {
+                  "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                  "id": "ac61ef574bcd402889a84976da54022b",
+                  "revision": 1
+                },
+                "deadline_review_confirmed": true,
+                "notification_received_on": "2026-07-21",
+                "notification_ref": {
+                  "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                  "id": "ac61ef574bcd402889a84976da54022b",
+                  "revision": 1
+                },
+                "objection_deadline_on": "2026-08-21",
+                "received_on": "2026-07-17",
+                "request_format": "electronic",
+                "request_ref": {
+                  "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                  "id": "ac61ef574bcd402889a84976da54022b",
+                  "revision": 1
+                },
+                "review_note": "Synthetic actual original received request"
+              },
+              "schema_version": 1,
+              "sole_continuous_commercial_minijob_confirmed": true,
+              "target_month": "2026-10"
+            },
+            "prior_assessment_refs": []
+          },
+          "employee": {
+            "employment_from": "2026-01-01",
+            "employment_to": null,
+            "id": "d04a39ce367843418052a3d46ca3faf1",
+            "name": "Synthetic technician",
+            "revision": 2,
+            "user_id": "b1977ab2e00248618348e3b3f284189a"
+          },
+          "original_profile": {
+            "confirmed": true,
+            "content_hash": "a38ce0a526fd4b7a022c706fa856dbbbc19b0b178d8ba1aaa2d145ada2f281e2",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "0544e5527946463cb84b556db140ba57",
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "id": "7c2efcc7c0c340c8877d7bcd1d7c8981",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": true,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+              "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+              "id": "ac61ef574bcd402889a84976da54022b",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          },
+          "prior_assessments": [],
+          "rule_version": "de_2026_minijob_rv_revocation_v1",
+          "schema_version": 1,
+          "source_files": [
+            {
+              "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+              "created_at": "2026-10-31T20:00:00+00:00",
+              "created_by": "0544e5527946463cb84b556db140ba57",
+              "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+              "filename": "verified-payroll-profile.pdf",
+              "id": "ac61ef574bcd402889a84976da54022b",
+              "media_type": "application/pdf",
+              "owner_visible": 0,
+              "purpose": "personnel",
+              "revision": 1,
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+              "size": 50,
+              "supersedes": null
+            }
+          ]
+        },
+        "writes_enabled": true
+      },
+      "profile": {
+        "confirmed": true,
+        "content_hash": "516e90fb4caeae9a0f8fb5536febbda85e2c179f9ac2f02abe8743a4775e0100",
+        "correction_reason": "",
+        "created_at": "2026-10-31T20:00:00+00:00",
+        "created_by": "0544e5527946463cb84b556db140ba57",
+        "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+        "id": "e9cd17f3b64845bcbd9e328288d6d74b",
+        "kind": "profile",
+        "pdf_sha256": null,
+        "previous_hash": null,
+        "profile": {
+          "church_tax": "none",
+          "date_of_birth": "1990-02-01",
+          "effective_from": "2026-08-01",
+          "employment_kind": "minijob",
+          "federal_state": "HE",
+          "has_children": false,
+          "health_additional_percent": "2.690",
+          "health_fund": "Synthetic documented fund",
+          "health_insurance": "statutory_mandatory",
+          "minijob_rv_exempt": false,
+          "minijob_tax": "flat_2_employer",
+          "pension_other_compulsory": false,
+          "pv_children_under_25": 0,
+          "regular_annual_gross_minor": 723600,
+          "special_cases": [],
+          "tax_children_half_units": 0,
+          "tax_class": 1,
+          "u1_percent": "0.800",
+          "u1_required": true,
+          "u2_percent": "0.220",
+          "verification_note": "Synthetic verified source values for reference tests"
+        },
+        "revision": 1,
+        "rv_lifecycle_ref": {
+          "content_hash": "8c26c7c67b0691f20a038cd30541601957abeaa2a2a672b0318e582db6b041c4",
+          "id": "65650d4861e74d58854ccc03e25cc026",
+          "revision": 1
+        },
+        "rv_lifecycle_source_contract_version": 1,
+        "source_file": {
+          "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+          "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+          "id": "ac61ef574bcd402889a84976da54022b",
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+        }
+      },
+      "profile_command": {
+        "confirmed": true,
+        "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+        "profile": {
+          "church_tax": "none",
+          "date_of_birth": "1990-02-01",
+          "effective_from": "2026-08-01",
+          "employment_kind": "minijob",
+          "federal_state": "HE",
+          "has_children": false,
+          "health_additional_percent": "2.690",
+          "health_fund": "Synthetic documented fund",
+          "health_insurance": "statutory_mandatory",
+          "minijob_rv_exempt": false,
+          "minijob_tax": "flat_2_employer",
+          "pension_other_compulsory": false,
+          "pv_children_under_25": 0,
+          "regular_annual_gross_minor": 723600,
+          "special_cases": [],
+          "tax_children_half_units": 0,
+          "tax_class": 1,
+          "u1_percent": "0.800",
+          "u1_required": true,
+          "u2_percent": "0.220",
+          "verification_note": "Synthetic verified source values for reference tests"
+        },
+        "request_id": "4309968c09644a2fbf5b0861144e9dc5",
+        "revision": 0,
+        "rv_lifecycle_ref": {
+          "content_hash": "8c26c7c67b0691f20a038cd30541601957abeaa2a2a672b0318e582db6b041c4",
+          "id": "65650d4861e74d58854ccc03e25cc026",
+          "revision": 1
+        },
+        "rv_lifecycle_source_contract_version": 1,
+        "source_file_id": "ac61ef574bcd402889a84976da54022b"
+      },
+      "record": {
+        "content_hash": "8c26c7c67b0691f20a038cd30541601957abeaa2a2a672b0318e582db6b041c4",
+        "correction_reason": "",
+        "created_at": "2026-10-31T20:00:00+00:00",
+        "created_by": "0544e5527946463cb84b556db140ba57",
+        "details": {
+          "assessment": {
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "employment_from": "2026-01-01",
+            "employment_to": null,
+            "episode_id": "d04a39ce367843418052a3d46ca3faf1",
+            "established_exemption": {
+              "effective_from": "2026-01-01",
+              "established_status_confirmed": true,
+              "evidence_ref": {
+                "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                "id": "ac61ef574bcd402889a84976da54022b",
+                "revision": 1
+              },
+              "profile_ref": {
+                "content_hash": "a38ce0a526fd4b7a022c706fa856dbbbc19b0b178d8ba1aaa2d145ada2f281e2",
+                "id": "7c2efcc7c0c340c8877d7bcd1d7c8981",
+                "revision": 1
+              }
+            },
+            "no_old_age_or_other_exclusion_confirmed": true,
+            "review_note": "Synthetic actual established exemption and complete employment episode",
+            "reviewed_as_of": "2026-10-31",
+            "revocation": {
+              "authority_evidence_ref": {
+                "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                "id": "ac61ef574bcd402889a84976da54022b",
+                "revision": 1
+              },
+              "authority_status": "non_objection_verified",
+              "authority_status_on": "2026-08-22",
+              "deadline_ref": {
+                "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                "id": "ac61ef574bcd402889a84976da54022b",
+                "revision": 1
+              },
+              "deadline_review_confirmed": true,
+              "notification_received_on": "2026-07-21",
+              "notification_ref": {
+                "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                "id": "ac61ef574bcd402889a84976da54022b",
+                "revision": 1
+              },
+              "objection_deadline_on": "2026-08-21",
+              "received_on": "2026-07-17",
+              "request_format": "electronic",
+              "request_ref": {
+                "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                "id": "ac61ef574bcd402889a84976da54022b",
+                "revision": 1
+              },
+              "review_note": "Synthetic actual original received request"
+            },
+            "schema_version": 1,
+            "sole_continuous_commercial_minijob_confirmed": true,
+            "target_month": "2026-10"
+          },
+          "prior_assessment_refs": []
+        },
+        "effective_from": "2026-01-01",
+        "effective_to": null,
+        "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+        "id": "65650d4861e74d58854ccc03e25cc026",
+        "kind": "rv_lifecycle_assessment",
+        "plan": {
+          "blockers": [],
+          "can_bind_payroll": true,
+          "can_determine": true,
+          "candidate_effective_from": "2026-08-01",
+          "creates_profile": false,
+          "deadline_method": "EXPLICIT_REVIEWED_ORIGINAL_NOT_AUTOMATIC_HOLIDAY_CALCULATION",
+          "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+          "episode_id": "d04a39ce367843418052a3d46ca3faf1",
+          "external_transmission": false,
+          "minijob_rv_exempt": false,
+          "month": "2026-10",
+          "official_system_approval": false,
+          "payment_created": false,
+          "rule_version": "de_2026_minijob_rv_revocation_v1",
+          "rules_sha256": "0d63413c7af9c81ebcb99244d98945060198a28c72ac0631b5e605a7304a93e8",
+          "source_hash": "31a007f4739ae92b78a367016b625649c94fd72fd65f470c35d9386c9df5bfa7",
+          "source_snapshot_hash": "21086a4a3d7afacf5962de9dec7f6b7058e108f08390159efc12c6e19f04d0c6",
+          "status": "compulsory_after_revocation"
+        },
+        "preview_hash": "8f6f6a5f32f2f46e5cc00519f1d9428770639a0cdf8c7e1d955a3c2bf7f2de2d",
+        "previous_hash": null,
+        "revision": 1,
+        "rule_version": "de_2026_minijob_rv_revocation_v1",
+        "source_contract_version": 1,
+        "source_file_ids": [
+          "ac61ef574bcd402889a84976da54022b"
+        ],
+        "source_hash": "21086a4a3d7afacf5962de9dec7f6b7058e108f08390159efc12c6e19f04d0c6",
+        "sources": {
+          "details": {
+            "assessment": {
+              "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+              "employment_from": "2026-01-01",
+              "employment_to": null,
+              "episode_id": "d04a39ce367843418052a3d46ca3faf1",
+              "established_exemption": {
+                "effective_from": "2026-01-01",
+                "established_status_confirmed": true,
+                "evidence_ref": {
+                  "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                  "id": "ac61ef574bcd402889a84976da54022b",
+                  "revision": 1
+                },
+                "profile_ref": {
+                  "content_hash": "a38ce0a526fd4b7a022c706fa856dbbbc19b0b178d8ba1aaa2d145ada2f281e2",
+                  "id": "7c2efcc7c0c340c8877d7bcd1d7c8981",
+                  "revision": 1
+                }
+              },
+              "no_old_age_or_other_exclusion_confirmed": true,
+              "review_note": "Synthetic actual established exemption and complete employment episode",
+              "reviewed_as_of": "2026-10-31",
+              "revocation": {
+                "authority_evidence_ref": {
+                  "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                  "id": "ac61ef574bcd402889a84976da54022b",
+                  "revision": 1
+                },
+                "authority_status": "non_objection_verified",
+                "authority_status_on": "2026-08-22",
+                "deadline_ref": {
+                  "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                  "id": "ac61ef574bcd402889a84976da54022b",
+                  "revision": 1
+                },
+                "deadline_review_confirmed": true,
+                "notification_received_on": "2026-07-21",
+                "notification_ref": {
+                  "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                  "id": "ac61ef574bcd402889a84976da54022b",
+                  "revision": 1
+                },
+                "objection_deadline_on": "2026-08-21",
+                "received_on": "2026-07-17",
+                "request_format": "electronic",
+                "request_ref": {
+                  "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                  "id": "ac61ef574bcd402889a84976da54022b",
+                  "revision": 1
+                },
+                "review_note": "Synthetic actual original received request"
+              },
+              "schema_version": 1,
+              "sole_continuous_commercial_minijob_confirmed": true,
+              "target_month": "2026-10"
+            },
+            "prior_assessment_refs": []
+          },
+          "employee": {
+            "employment_from": "2026-01-01",
+            "employment_to": null,
+            "id": "d04a39ce367843418052a3d46ca3faf1",
+            "name": "Synthetic technician",
+            "revision": 2,
+            "user_id": "b1977ab2e00248618348e3b3f284189a"
+          },
+          "original_profile": {
+            "confirmed": true,
+            "content_hash": "a38ce0a526fd4b7a022c706fa856dbbbc19b0b178d8ba1aaa2d145ada2f281e2",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "0544e5527946463cb84b556db140ba57",
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "id": "7c2efcc7c0c340c8877d7bcd1d7c8981",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": true,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+              "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+              "id": "ac61ef574bcd402889a84976da54022b",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          },
+          "prior_assessments": [],
+          "rule_version": "de_2026_minijob_rv_revocation_v1",
+          "schema_version": 1,
+          "source_files": [
+            {
+              "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+              "created_at": "2026-10-31T20:00:00+00:00",
+              "created_by": "0544e5527946463cb84b556db140ba57",
+              "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+              "filename": "verified-payroll-profile.pdf",
+              "id": "ac61ef574bcd402889a84976da54022b",
+              "media_type": "application/pdf",
+              "owner_visible": 0,
+              "purpose": "personnel",
+              "revision": 1,
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+              "size": 50,
+              "supersedes": null
+            }
+          ]
+        },
+        "status": "active"
+      },
+      "run": {
+        "accepted_scope": "commercial_minijob_flat_tax",
+        "calculation": {
+          "accident_insurance_included": false,
+          "blockers": [],
+          "church_tax_minor": null,
+          "currency": "EUR",
+          "employee_additional_payment_minor": 0,
+          "employee_contributions": {
+            "care": 0,
+            "health_additional": 0,
+            "health_general": 0,
+            "pension": 2171,
+            "unemployment": 0
+          },
+          "employee_social_total_minor": 2171,
+          "employee_tax_minor": 0,
+          "employer_contributions": {
+            "care": 0,
+            "health_additional": 0,
+            "health_general": 7839,
+            "pension": 9045,
+            "unemployment": 0
+          },
+          "employer_flat_tax_minor": 1206,
+          "employer_levies": {
+            "insolvency": 90,
+            "u1": 482,
+            "u2": 133
+          },
+          "employer_social_total_minor": 16884,
+          "employer_total_excluding_accident_insurance_minor": 79095,
+          "gross_minor": 60300,
+          "individual_wage_tax_minor": null,
+          "month": "2026-10",
+          "net_minor": 58129,
+          "official_system_approval": false,
+          "payout_minor": 58129,
+          "payroll_calculation_complete": true,
+          "rule_version": "de_2026_standard_contributions_v1",
+          "rules_sha256": "31c469d27fdaff390f067cdb0f278e5f96e8e7a9749c8b97453ad84439a222e8",
+          "scope": "commercial_minijob_flat_tax",
+          "social_contributions_available": true,
+          "solidarity_minor": null,
+          "statutory_report_status": "not_transmitted",
+          "tax_method": "flat_2_percent_employer_including_church_and_solidarity",
+          "tax_parameters": {
+            "children_half_units": 0,
+            "church_tax_percent": "0",
+            "tax_class": 1
+          },
+          "travel_expenses_included_in_net": false
+        },
+        "confirmed": true,
+        "content_hash": "414304cf18841b4629c156563a5c54f2d05b5c220d0baf619dde3a5b22097575",
+        "correction_reason": "",
+        "created_at": "2026-10-31T20:00:00+00:00",
+        "created_by": "0544e5527946463cb84b556db140ba57",
+        "delta": null,
+        "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+        "id": "9ecf5f509c174d159d10326ede6aec81",
+        "kind": "run",
+        "pdf_sha256": "1b6f3189ef87f513ba4372a81e9d16434bb6452f83d38a6857976a40f12047f7",
+        "preview_hash": "c6cbd454fdc7f17528fe7f139fef88ae6f2f84fa32815c7d4ea19bbed6ff2922",
+        "previous_hash": null,
+        "revision": 1,
+        "source": {
+          "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+          "input": {
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "full_month_confirmed": true,
+            "gross_minor": 60300,
+            "preparation_id": "6af155a4af554d82b60c3e537994dbb5",
+            "preparation_revision": 1,
+            "profile_id": "e9cd17f3b64845bcbd9e328288d6d74b",
+            "profile_revision": 1
+          },
+          "month": "2026-10",
+          "preparation": {
+            "completeness_confirmed": true,
+            "content_hash": "a68add93ab1decf02a9ed05f02c96ef86a1250b296ab9c94d8bb988e7f8e476b",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "0544e5527946463cb84b556db140ba57",
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "id": "6af155a4af554d82b60c3e537994dbb5",
+            "kind": "preparation",
+            "month": "2026-10",
+            "payroll_calculated": false,
+            "pdf_sha256": "d1fb59411e6a20e53179b1bf8472533691bffca2db21423b2bd721bc2718ad1a",
+            "previous_hash": null,
+            "revision": 1,
+            "snapshot": {
+              "agreements": [
+                {
+                  "amount_minor": 60300,
+                  "content_hash": "b75a39a628f49004cfedaa9fa0ef03fe79adbfe2269aed93c3a13eab7fa9a51d",
+                  "correction_reason": "",
+                  "created_at": "2026-10-31T20:00:00+00:00",
+                  "created_by": "0544e5527946463cb84b556db140ba57",
+                  "currency": "EUR",
+                  "effective_from": "2026-01-01",
+                  "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+                  "employment_kind": "minijob",
+                  "id": "1c154ce043334406946b99f51d8893e3",
+                  "kind": "agreement",
+                  "notes": "",
+                  "pay_basis": "monthly",
+                  "pdf_sha256": null,
+                  "previous_hash": null,
+                  "reference_file_id": "ac61ef574bcd402889a84976da54022b",
+                  "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                  "revision": 1
+                }
+              ],
+              "allowance_calculation": false,
+              "approved_absences": [],
+              "approved_days": [],
+              "corrections": [],
+              "currency": "EUR",
+              "employee": {
+                "employment_from": "2026-01-01",
+                "employment_to": null,
+                "id": "d04a39ce367843418052a3d46ca3faf1",
+                "name": "Synthetic technician",
+                "revision": 2,
+                "user_id": "b1977ab2e00248618348e3b3f284189a"
+              },
+              "expenses": [],
+              "month": "2026-10",
+              "net_work_seconds": 0,
+              "payroll_calculated": false,
+              "recorded_expenses_minor": 0,
+              "schema_version": 1,
+              "scope": "recorded_and_approved_sources",
+              "tax_treatment": "not_determined"
+            },
+            "source_hash": "db18a849b21ec7925846fa4484e877b3536c7a2c1aa1cf5fff3880efabbd1b27",
+            "status": "preparation_closed",
+            "transmission_status": "not_transmitted"
+          },
+          "profile": {
+            "confirmed": true,
+            "content_hash": "516e90fb4caeae9a0f8fb5536febbda85e2c179f9ac2f02abe8743a4775e0100",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "0544e5527946463cb84b556db140ba57",
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "id": "e9cd17f3b64845bcbd9e328288d6d74b",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-08-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": false,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "rv_lifecycle_ref": {
+              "content_hash": "8c26c7c67b0691f20a038cd30541601957abeaa2a2a672b0318e582db6b041c4",
+              "id": "65650d4861e74d58854ccc03e25cc026",
+              "revision": 1
+            },
+            "rv_lifecycle_source_contract_version": 1,
+            "source_file": {
+              "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+              "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+              "id": "ac61ef574bcd402889a84976da54022b",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          },
+          "profiles_in_month": []
+        },
+        "status": "calculation_recorded",
+        "transmission_status": "not_transmitted"
+      },
+      "sources": {
+        "can_approve": true,
+        "can_write": true,
+        "employee": {
+          "employment_from": "2026-01-01",
+          "employment_to": null,
+          "id": "d04a39ce367843418052a3d46ca3faf1",
+          "name": "Synthetic technician",
+          "revision": 2,
+          "user_id": "b1977ab2e00248618348e3b3f284189a"
+        },
+        "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+        "episode_id": "d04a39ce367843418052a3d46ca3faf1",
+        "file_references": [
+          {
+            "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+            "id": "ac61ef574bcd402889a84976da54022b",
+            "revision": 1
+          }
+        ],
+        "files": [
+          {
+            "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "0544e5527946463cb84b556db140ba57",
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "filename": "verified-payroll-profile.pdf",
+            "id": "ac61ef574bcd402889a84976da54022b",
+            "media_type": "application/pdf",
+            "owner_visible": 0,
+            "purpose": "personnel",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+            "size": 50,
+            "supersedes": null
+          }
+        ],
+        "history": [
+          {
+            "content_hash": "8c26c7c67b0691f20a038cd30541601957abeaa2a2a672b0318e582db6b041c4",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "0544e5527946463cb84b556db140ba57",
+            "details": {
+              "assessment": {
+                "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+                "employment_from": "2026-01-01",
+                "employment_to": null,
+                "episode_id": "d04a39ce367843418052a3d46ca3faf1",
+                "established_exemption": {
+                  "effective_from": "2026-01-01",
+                  "established_status_confirmed": true,
+                  "evidence_ref": {
+                    "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                    "id": "ac61ef574bcd402889a84976da54022b",
+                    "revision": 1
+                  },
+                  "profile_ref": {
+                    "content_hash": "a38ce0a526fd4b7a022c706fa856dbbbc19b0b178d8ba1aaa2d145ada2f281e2",
+                    "id": "7c2efcc7c0c340c8877d7bcd1d7c8981",
+                    "revision": 1
+                  }
+                },
+                "no_old_age_or_other_exclusion_confirmed": true,
+                "review_note": "Synthetic actual established exemption and complete employment episode",
+                "reviewed_as_of": "2026-10-31",
+                "revocation": {
+                  "authority_evidence_ref": {
+                    "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                    "id": "ac61ef574bcd402889a84976da54022b",
+                    "revision": 1
+                  },
+                  "authority_status": "non_objection_verified",
+                  "authority_status_on": "2026-08-22",
+                  "deadline_ref": {
+                    "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                    "id": "ac61ef574bcd402889a84976da54022b",
+                    "revision": 1
+                  },
+                  "deadline_review_confirmed": true,
+                  "notification_received_on": "2026-07-21",
+                  "notification_ref": {
+                    "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                    "id": "ac61ef574bcd402889a84976da54022b",
+                    "revision": 1
+                  },
+                  "objection_deadline_on": "2026-08-21",
+                  "received_on": "2026-07-17",
+                  "request_format": "electronic",
+                  "request_ref": {
+                    "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                    "id": "ac61ef574bcd402889a84976da54022b",
+                    "revision": 1
+                  },
+                  "review_note": "Synthetic actual original received request"
+                },
+                "schema_version": 1,
+                "sole_continuous_commercial_minijob_confirmed": true,
+                "target_month": "2026-10"
+              },
+              "prior_assessment_refs": []
+            },
+            "effective_from": "2026-01-01",
+            "effective_to": null,
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "id": "65650d4861e74d58854ccc03e25cc026",
+            "kind": "rv_lifecycle_assessment",
+            "plan": {
+              "blockers": [],
+              "can_bind_payroll": true,
+              "can_determine": true,
+              "candidate_effective_from": "2026-08-01",
+              "creates_profile": false,
+              "deadline_method": "EXPLICIT_REVIEWED_ORIGINAL_NOT_AUTOMATIC_HOLIDAY_CALCULATION",
+              "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+              "episode_id": "d04a39ce367843418052a3d46ca3faf1",
+              "external_transmission": false,
+              "minijob_rv_exempt": false,
+              "month": "2026-10",
+              "official_system_approval": false,
+              "payment_created": false,
+              "rule_version": "de_2026_minijob_rv_revocation_v1",
+              "rules_sha256": "0d63413c7af9c81ebcb99244d98945060198a28c72ac0631b5e605a7304a93e8",
+              "source_hash": "31a007f4739ae92b78a367016b625649c94fd72fd65f470c35d9386c9df5bfa7",
+              "source_snapshot_hash": "21086a4a3d7afacf5962de9dec7f6b7058e108f08390159efc12c6e19f04d0c6",
+              "status": "compulsory_after_revocation"
+            },
+            "preview_hash": "8f6f6a5f32f2f46e5cc00519f1d9428770639a0cdf8c7e1d955a3c2bf7f2de2d",
+            "previous_hash": null,
+            "revision": 1,
+            "rule_version": "de_2026_minijob_rv_revocation_v1",
+            "source_contract_version": 1,
+            "source_file_ids": [
+              "ac61ef574bcd402889a84976da54022b"
+            ],
+            "source_hash": "21086a4a3d7afacf5962de9dec7f6b7058e108f08390159efc12c6e19f04d0c6",
+            "sources": {
+              "details": {
+                "assessment": {
+                  "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+                  "employment_from": "2026-01-01",
+                  "employment_to": null,
+                  "episode_id": "d04a39ce367843418052a3d46ca3faf1",
+                  "established_exemption": {
+                    "effective_from": "2026-01-01",
+                    "established_status_confirmed": true,
+                    "evidence_ref": {
+                      "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                      "id": "ac61ef574bcd402889a84976da54022b",
+                      "revision": 1
+                    },
+                    "profile_ref": {
+                      "content_hash": "a38ce0a526fd4b7a022c706fa856dbbbc19b0b178d8ba1aaa2d145ada2f281e2",
+                      "id": "7c2efcc7c0c340c8877d7bcd1d7c8981",
+                      "revision": 1
+                    }
+                  },
+                  "no_old_age_or_other_exclusion_confirmed": true,
+                  "review_note": "Synthetic actual established exemption and complete employment episode",
+                  "reviewed_as_of": "2026-10-31",
+                  "revocation": {
+                    "authority_evidence_ref": {
+                      "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                      "id": "ac61ef574bcd402889a84976da54022b",
+                      "revision": 1
+                    },
+                    "authority_status": "non_objection_verified",
+                    "authority_status_on": "2026-08-22",
+                    "deadline_ref": {
+                      "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                      "id": "ac61ef574bcd402889a84976da54022b",
+                      "revision": 1
+                    },
+                    "deadline_review_confirmed": true,
+                    "notification_received_on": "2026-07-21",
+                    "notification_ref": {
+                      "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                      "id": "ac61ef574bcd402889a84976da54022b",
+                      "revision": 1
+                    },
+                    "objection_deadline_on": "2026-08-21",
+                    "received_on": "2026-07-17",
+                    "request_format": "electronic",
+                    "request_ref": {
+                      "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                      "id": "ac61ef574bcd402889a84976da54022b",
+                      "revision": 1
+                    },
+                    "review_note": "Synthetic actual original received request"
+                  },
+                  "schema_version": 1,
+                  "sole_continuous_commercial_minijob_confirmed": true,
+                  "target_month": "2026-10"
+                },
+                "prior_assessment_refs": []
+              },
+              "employee": {
+                "employment_from": "2026-01-01",
+                "employment_to": null,
+                "id": "d04a39ce367843418052a3d46ca3faf1",
+                "name": "Synthetic technician",
+                "revision": 2,
+                "user_id": "b1977ab2e00248618348e3b3f284189a"
+              },
+              "original_profile": {
+                "confirmed": true,
+                "content_hash": "a38ce0a526fd4b7a022c706fa856dbbbc19b0b178d8ba1aaa2d145ada2f281e2",
+                "correction_reason": "",
+                "created_at": "2026-10-31T20:00:00+00:00",
+                "created_by": "0544e5527946463cb84b556db140ba57",
+                "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+                "id": "7c2efcc7c0c340c8877d7bcd1d7c8981",
+                "kind": "profile",
+                "pdf_sha256": null,
+                "previous_hash": null,
+                "profile": {
+                  "church_tax": "none",
+                  "date_of_birth": "1990-02-01",
+                  "effective_from": "2026-01-01",
+                  "employment_kind": "minijob",
+                  "federal_state": "HE",
+                  "has_children": false,
+                  "health_additional_percent": "2.690",
+                  "health_fund": "Synthetic documented fund",
+                  "health_insurance": "statutory_mandatory",
+                  "minijob_rv_exempt": true,
+                  "minijob_tax": "flat_2_employer",
+                  "pension_other_compulsory": false,
+                  "pv_children_under_25": 0,
+                  "regular_annual_gross_minor": 723600,
+                  "special_cases": [],
+                  "tax_children_half_units": 0,
+                  "tax_class": 1,
+                  "u1_percent": "0.800",
+                  "u1_required": true,
+                  "u2_percent": "0.220",
+                  "verification_note": "Synthetic verified source values for reference tests"
+                },
+                "revision": 1,
+                "source_file": {
+                  "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                  "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+                  "id": "ac61ef574bcd402889a84976da54022b",
+                  "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+                }
+              },
+              "prior_assessments": [],
+              "rule_version": "de_2026_minijob_rv_revocation_v1",
+              "schema_version": 1,
+              "source_files": [
+                {
+                  "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+                  "created_at": "2026-10-31T20:00:00+00:00",
+                  "created_by": "0544e5527946463cb84b556db140ba57",
+                  "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+                  "filename": "verified-payroll-profile.pdf",
+                  "id": "ac61ef574bcd402889a84976da54022b",
+                  "media_type": "application/pdf",
+                  "owner_visible": 0,
+                  "purpose": "personnel",
+                  "revision": 1,
+                  "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                  "size": 50,
+                  "supersedes": null
+                }
+              ]
+            },
+            "status": "active"
+          }
+        ],
+        "prior_assessment_refs": [
+          {
+            "content_hash": "8c26c7c67b0691f20a038cd30541601957abeaa2a2a672b0318e582db6b041c4",
+            "id": "65650d4861e74d58854ccc03e25cc026",
+            "revision": 1
+          }
+        ],
+        "profiles": [
+          {
+            "confirmed": true,
+            "content_hash": "a38ce0a526fd4b7a022c706fa856dbbbc19b0b178d8ba1aaa2d145ada2f281e2",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "0544e5527946463cb84b556db140ba57",
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "id": "7c2efcc7c0c340c8877d7bcd1d7c8981",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": true,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+              "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+              "id": "ac61ef574bcd402889a84976da54022b",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          }
+        ],
+        "writes_enabled": true
+      },
+      "sources_before": {
+        "can_approve": true,
+        "can_write": true,
+        "employee": {
+          "employment_from": "2026-01-01",
+          "employment_to": null,
+          "id": "d04a39ce367843418052a3d46ca3faf1",
+          "name": "Synthetic technician",
+          "revision": 2,
+          "user_id": "b1977ab2e00248618348e3b3f284189a"
+        },
+        "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+        "episode_id": "d04a39ce367843418052a3d46ca3faf1",
+        "file_references": [
+          {
+            "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+            "id": "ac61ef574bcd402889a84976da54022b",
+            "revision": 1
+          }
+        ],
+        "files": [
+          {
+            "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "0544e5527946463cb84b556db140ba57",
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "filename": "verified-payroll-profile.pdf",
+            "id": "ac61ef574bcd402889a84976da54022b",
+            "media_type": "application/pdf",
+            "owner_visible": 0,
+            "purpose": "personnel",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+            "size": 50,
+            "supersedes": null
+          }
+        ],
+        "history": [],
+        "prior_assessment_refs": [],
+        "profiles": [
+          {
+            "confirmed": true,
+            "content_hash": "a38ce0a526fd4b7a022c706fa856dbbbc19b0b178d8ba1aaa2d145ada2f281e2",
+            "correction_reason": "",
+            "created_at": "2026-10-31T20:00:00+00:00",
+            "created_by": "0544e5527946463cb84b556db140ba57",
+            "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+            "id": "7c2efcc7c0c340c8877d7bcd1d7c8981",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": true,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "b6e6e0d0b3615d296c3f701b349ee8932f03a92743df824d85ea0df34621bac5",
+              "employee_id": "d04a39ce367843418052a3d46ca3faf1",
+              "id": "ac61ef574bcd402889a84976da54022b",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          }
+        ],
+        "writes_enabled": true
+      }
+    }
+  ],
+  "external_transmission": false,
+  "schema_version": 1,
+  "synthetic": true
+}

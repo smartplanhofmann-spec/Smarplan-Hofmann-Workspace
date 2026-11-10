@@ -31,5 +31,5 @@ docs/evidence/completion-followup-2026-11-09/flutter-analyze.txt whitespace=-bla
 docs/evidence/completion-followup-2026-11-09/flutter-travel-socket-denied.txt whitespace=-blank-at-eol
 
 # Preserve the pinned ISO schema mirror byte-for-byte, including its CRLF.
-backend/bank_formats/camt053_v08/*.xsd -text
-backend/bank_formats/camt053_v08/LICENSE -text
+backend/bank_formats/camt053_v08/*.xsd -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+backend/bank_formats/camt053_v08/LICENSE -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol

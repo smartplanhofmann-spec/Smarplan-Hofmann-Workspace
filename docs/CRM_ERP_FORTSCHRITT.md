@@ -4598,3 +4598,14 @@ Artefakt 13780314712; TestFlight-Upload bleibt false. Neuere Änderungen werden
 nicht in diesen älteren Signiernachweis hineingelesen. Keine neue tatsächliche
 Windows-/iPhone-, Fach-/Sicherheits- oder Gesamtfreigabe. R08.03, R11.06 und A–G
 bleiben mit ihren konkreten Restpunkten offen. Gesamtziel unverändert erhalten.
+
+## Eingefrorener Quellstand und Paketressourcen
+
+Der Codecommit c52d2072db09b4d1b4b31ce1477c4ad7100955b1 startet tatsächlich
+aus seinem eigenen vollständigen Backend-/Browserarchiv: MFA, sieben echte
+Browserdateien einschließlich beider XML-Module und das lokale festgelegte XSD
+bestehen in 3,496s. Das tatsächlich entpackte Windows-Quellpaket lädt den
+Parser und genau sein beigefügtes Schema; neun gemeinsame Paket-/CI-Fälle
+bestehen in 3,238s. Die native Gesamtprüfung läuft noch. Die unveränderten
+CRLF-/Lizenzbytes erhalten eine auf diese Fremdquellen begrenzte Git-
+Whitespaceausnahme; kein Schema- oder Originalhash wird dafür geändert.

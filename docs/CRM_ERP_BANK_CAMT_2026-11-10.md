@@ -117,3 +117,14 @@ ein Fall besteht in 0,979s. Die verschärfte Paketprüfung lädt das lokale XSD
 aus dem tatsächlich entpackten Windows-Quellpaket. Ihr erster Versuch deckt die
 noch fehlende neue Abhängigkeit in der zweiten lokalen Testvenv auf; diese
 ist nun gemäß demselben festen Lock eingerichtet. Das ist kein Windowsbau.
+
+## Eingefrorener Quellstand und Paketressourcen
+
+Der Codecommit c52d2072db09b4d1b4b31ce1477c4ad7100955b1 startet tatsächlich
+aus seinem eigenen vollständigen Backend-/Browserarchiv: MFA, sieben echte
+Browserdateien einschließlich beider XML-Module und das lokale festgelegte XSD
+bestehen in 3,496s. Das tatsächlich entpackte Windows-Quellpaket lädt den
+Parser und genau sein beigefügtes Schema; neun gemeinsame Paket-/CI-Fälle
+bestehen in 3,238s. Die native Gesamtprüfung läuft noch. Die unveränderten
+CRLF-/Lizenzbytes erhalten eine auf diese Fremdquellen begrenzte Git-
+Whitespaceausnahme; kein Schema- oder Originalhash wird dafür geändert.

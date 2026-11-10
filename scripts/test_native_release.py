@@ -26,6 +26,48 @@ support = load('windows_support', 'package-windows-support.py')
 
 
 class NativePackageTests(unittest.TestCase):
+    def test_actual_cli_stages_required_sources_without_copying_unlisted_data(self):
+        bundle = Path(tempfile.mkdtemp(dir=self.directory, prefix='actual-source-stage-'))
+        missing = bundle / 'backend/business_country_rules.py'
+        result = subprocess.run([sys.executable, str(release.ROOT / 'scripts/native-release.py'),
+            'stage-local-sources', '--bundle', str(bundle)], check=True,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=30)
+        self.assertEqual(json.loads(result.stdout)['schema_version'], 1)
+        self.assertEqual(missing.read_bytes(), (release.ROOT / 'backend/business_country_rules.py').read_bytes())
+        expected = {'backend/' + name for name in release.BACKEND_FILES} | set(release.OPERATOR_FILES)
+        self.assertEqual({p.relative_to(bundle).as_posix() for p in bundle.rglob('*') if p.is_file()}, expected)
+        self.assertEqual(set(support.BACKEND_FILES), set(release.BACKEND_FILES))
+        self.assertEqual(set(support.OPERATOR_FILES), set(release.OPERATOR_FILES))
+        release.local_backend(bundle)
+        missing.unlink()
+        with self.assertRaisesRegex(ValueError, 'business_country_rules'):
+            release.local_backend(bundle)
+
+    @unittest.skipIf(sys.platform == 'win32', 'Symlink creation needs separate Windows operator privileges')
+    def test_source_staging_refuses_external_link_before_modifying_any_destination(self):
+        bundle = self.directory / 'linked-bundle'
+        bundle.mkdir()
+        foreign = self.directory / 'external-private-files'
+        foreign.mkdir()
+        (bundle / 'backend').symlink_to(foreign, target_is_directory=True)
+        sentinel = foreign / 'business_country_rules.py'
+        sentinel.write_bytes(b'Unrelated external file')
+        with self.assertRaisesRegex(ValueError, 'Dateiverweis'):
+            release.stage_local_sources(bundle)
+        self.assertEqual(sentinel.read_bytes(), b'Unrelated external file')
+        self.assertEqual(list(bundle.iterdir()), [bundle / 'backend'])
+
+    def test_invalid_late_operator_directory_preserves_existing_backend_files(self):
+        bundle = self.directory / 'invalid-operator-path'
+        (bundle / 'backend').mkdir(parents=True)
+        existing = bundle / 'backend/business_country_rules.py'
+        existing.write_bytes(b'Existing staged version')
+        (bundle / 'docs').write_bytes(b'An unrelated regular file')
+        with self.assertRaisesRegex(ValueError, 'Unpassender Dateityp'):
+            release.stage_local_sources(bundle)
+        self.assertEqual(existing.read_bytes(), b'Existing staged version')
+        self.assertEqual(list((bundle / 'backend').iterdir()), [existing])
+
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory(prefix='smartplan-package-check-')
         self.addCleanup(self.temporary.cleanup)

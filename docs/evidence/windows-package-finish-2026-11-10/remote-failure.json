@@ -1,0 +1,27 @@
+{
+  "source": "282d439c05977be546f3475b549e83e501872be8",
+  "run_id": 42724283758,
+  "job_id": 129525907131,
+  "job_status": "failure",
+  "step": "Prepare portable Windows package",
+  "log_line_count": 2812,
+  "decoded_log_characters": 536426,
+  "excerpt": [
+    "2026-11-10T00:14:36.1317109Z Traceback (most recent call last):",
+    "2026-11-10T00:14:36.1328002Z   File \"D:\\a\\Smarplan-Hofmann-Workspace\\Smarplan-Hofmann-Workspace\\scripts\\native-release.py\", line 232, in <module>",
+    "2026-11-10T00:14:36.1329461Z     main()",
+    "2026-11-10T00:14:36.1330411Z   File \"D:\\a\\Smarplan-Hofmann-Workspace\\Smarplan-Hofmann-Workspace\\scripts\\native-release.py\", line 220, in main",
+    "2026-11-10T00:14:36.1331957Z     checked = check_windows(args.bundle, args.config, args.flavor)",
+    "2026-11-10T00:14:36.1332680Z               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "2026-11-10T00:14:36.1333879Z   File \"D:\\a\\Smarplan-Hofmann-Workspace\\Smarplan-Hofmann-Workspace\\scripts\\native-release.py\", line 126, in check_windows",
+    "2026-11-10T00:14:36.1334724Z     local_backend(bundle, root)",
+    "2026-11-10T00:14:36.1335492Z   File \"D:\\a\\Smarplan-Hofmann-Workspace\\Smarplan-Hofmann-Workspace\\scripts\\native-release.py\", line 102, in local_backend",
+    "2026-11-10T00:14:36.1336472Z     require(packaged.is_file() and packaged.read_bytes() == source.read_bytes(),",
+    "2026-11-10T00:14:36.1337412Z   File \"D:\\a\\Smarplan-Hofmann-Workspace\\Smarplan-Hofmann-Workspace\\scripts\\native-release.py\", line 26, in require",
+    "2026-11-10T00:14:36.1338197Z     raise ValueError(message)",
+    "2026-11-10T00:14:36.1339156Z ValueError: Backend-Datei fehlt oder stimmt nicht mit der Quelle �berein: business_country_rules.py",
+    "2026-11-10T00:14:36.2040162Z ##[error]Process completed with exit code 1.",
+    "2026-11-10T00:14:36.2221856Z ##[group]Run '### Windows bundle files' | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8"
+  ],
+  "note": "Verbatim decoded connector excerpt; upstream Windows text contains replacement characters. Full log was inspected but only the relevant failure excerpt is retained."
+}

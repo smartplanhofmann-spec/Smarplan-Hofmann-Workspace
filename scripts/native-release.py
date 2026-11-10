@@ -5,9 +5,12 @@ import base64
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import plistlib
 import re
+import shutil
+import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 API_URL = 'https://office.smartplan-hofmann.de'
@@ -89,6 +92,49 @@ def write_wheel_manifest(directory, root=ROOT):
     manifest = installer.wheel_manifest(directory, root / 'backend/requirements.lock')
     (Path(directory) / installer.MANIFEST).write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n', encoding='utf-8')
     return manifest
+
+
+def stage_local_sources(bundle, root=ROOT):
+    """Copy the same explicit sources the final package checker requires.
+
+    CI and the support archive must not keep independent backend/operator
+    lists. Preflight the entire destination before changing any file; replace
+    individual files atomically instead of writing through existing links.
+    """
+    source_checks(root)
+    bundle = Path(bundle)
+    require(bundle.is_dir() and not bundle.is_symlink(), 'Vorhandenen echten Paketordner angeben.')
+    require(bundle.resolve() != root.resolve(), 'Quellverzeichnis ist kein Paketordner.')
+    files = [('backend/' + name, root / 'backend' / name) for name in BACKEND_FILES]
+    files.extend((name, root / name) for name in OPERATOR_FILES)
+    require(len({name for name, _ in files}) == len(files), 'Doppelte Paketquelle.')
+    for name, source in files:
+        parts = Path(name).parts
+        require(not Path(name).is_absolute() and '..' not in parts and source.is_file()
+                and not source.is_symlink(), 'Ungültige Paketquelle: ' + name)
+        current = bundle
+        for index, part in enumerate(parts):
+            current = current / part
+            require(not current.is_symlink(), 'Dateiverweis im Paketpfad: ' + name)
+            if current.exists():
+                require(current.is_dir() if index < len(parts) - 1 else current.is_file(),
+                        'Unpassender Dateityp im Paketpfad: ' + name)
+    for name, source in files:
+        target = bundle / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        pending = None
+        try:
+            with tempfile.NamedTemporaryFile(dir=target.parent, prefix='.smartplan-stage-', delete=False) as stream:
+                pending = Path(stream.name)
+                with source.open('rb') as original:
+                    shutil.copyfileobj(original, stream)
+            os.replace(pending, target)
+        finally:
+            if pending is not None:
+                pending.unlink(missing_ok=True)
+    local_backend(bundle, root)
+    return dict(schema_version=1, backend_files=len(BACKEND_FILES),
+                operator_files=len(OPERATOR_FILES), staged_files=len(files))
 
 
 def local_backend(bundle, root=ROOT):
@@ -194,6 +240,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='action', required=True)
     sub.add_parser('source')
+    stage = sub.add_parser('stage-local-sources', help='Stage and verify the exact canonical local backend/operator files')
+    stage.add_argument('--bundle', type=Path, required=True)
     wheels = sub.add_parser('wheels', help='Validate complete CPython3.12/Windows-x64 locked wheels and record checksums')
     wheels.add_argument('--directory', required=True, type=Path)
     windows = sub.add_parser('windows')
@@ -213,6 +261,8 @@ def main():
     source_checks()
     if args.action == 'source':
         print(json.dumps(source_checks(), ensure_ascii=False))
+    elif args.action == 'stage-local-sources':
+        print(json.dumps(stage_local_sources(args.bundle)))
     elif args.action == 'wheels':
         checked = write_wheel_manifest(args.directory)
         print('Windows-x64/Python-3.12 Offline-Wheels geprueft: ' + str(len(checked['versions'])))

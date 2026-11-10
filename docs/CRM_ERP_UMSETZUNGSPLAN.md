@@ -115,6 +115,19 @@ Die native Kataloghistorie und Originalübernahme sind nach dem gemeinsamen
 Anfangssaldo-/Browserstand fertig integriert: 1.163 Fluttertests und Analyse
 ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
 
+## Fortlaufende Abschlussarbeit ab 10.11.2026
+
+1. Tatsächliche Windows-Auslieferung mit gemeinsamem Quellenstaging korrigieren;
+   lokale 21 Paket-/Inventarfälle bestehen, eigene neue Remoteprüfung folgt.
+2. Spätere tatsächliche positive Source5-Nettozahlungen mit unverändertem
+   Bruttoereignis, eigenem versioniertem Zahlungsplan und beiden Clients
+   schließen; alte Originale und Geldflüsse unverändert erhalten.
+3. Weitere belegte Lohnkorrektur-/Gruppenfälle und geschützte Offline-Übernahme
+   anhand ihrer konkreten noch offenen Verträge weiter vervollständigen.
+4. Durchgängige technische A–G-Nachweise und konkrete Lieferartefakte am letzten
+   gemeinsamen Quellstand fertigstellen. Fach-/Geräte-/Betriebsfreigaben bleiben
+   echte getrennte Nachweise; keine fehlende Codearbeit als extern blockiert zählen.
+
 ## Aktive Arbeitspakete ab dem gemeinsamen Kilometerstand
 
 1. Der gemeinsam geprüfte Stand 19ec4e9 ist auf dem autorisierten Testbranch

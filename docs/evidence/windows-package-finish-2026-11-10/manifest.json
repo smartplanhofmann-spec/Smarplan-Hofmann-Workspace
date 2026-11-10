@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-10",
+  "base_commit": "282d439c05977be546f3475b549e83e501872be8",
+  "scope": "Actual Windows packaging source staging and shared support/checker lists; no business data or rule change",
+  "passed": 21,
+  "failed": 0,
+  "skipped": 0,
+  "seconds": 13.362,
+  "unique_package_tests": 19,
+  "source_inventory_tests": 2,
+  "canonical_backend_files": 163,
+  "canonical_operator_files": 213,
+  "actual_cli_and_unpacked_import": true,
+  "reproduction": "Existing backend/.venv: <project-venv-python> -m unittest -v scripts.test_native_release scripts.test_product_inventory",
+  "source_sha256": {
+    ".github/workflows/checks.yml": "ae7710025a8e84580e2413bd5fe9e778a35ccd6b0451e65d6919894d127f032b",
+    "scripts/native-release.py": "e64551f6b05c21f6ac47d6dcd659a5deab266886b61f062033842445755ba418",
+    "scripts/package-windows-support.py": "74f7cbdac9612819d53c9a5ad1dbcfc4365b8ce7a321a147c2cbd9b27e408491",
+    "scripts/test_native_release.py": "8a07ec3ec42288c7d7416f96f17dbbab7fa49e1a99270016d9364ce22c0cb9f1"
+  },
+  "historical_2026_kernels_unchanged": 32,
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "live_server_changed": false,
+  "actual_new_windows_build": "pending new own remote run",
+  "evidence_sha256": {
+    "remote-failure.json": "b4a5e4021be926b53a5e4f9edca09727079036182196a7969872cb6ef607646b",
+    "windows-package-canonical-final-20261110.txt.gz": "f796be595006ab5007feca47237de9a038d2acf1e203ee720f16e3c3c1826c6f",
+    "windows-package-canonical-sources-20261110.txt.gz": "7004d8f764dbd987fba2a69d9f5a0b4b5b729949c9d99e1c18f3f3f0a861ddd6"
+  }
+}

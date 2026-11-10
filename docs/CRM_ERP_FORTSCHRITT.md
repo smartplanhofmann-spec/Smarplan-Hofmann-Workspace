@@ -3586,3 +3586,22 @@ Widget-Aufräumfehler bleiben neben der echten roten Gegenprobe erhalten.
 
 Die Veröffentlichung folgt separat. Gesamte Länder-/Lohn-/Meldelogik sowie
 Abnahmen A–G werden dadurch nicht als fertig erklärt; keine Liveinstallation.
+
+## 10.11.2026 – Gesamtauftrag fortgesetzt, tatsächliche Windows-Auslieferung korrigiert
+
+Der Nutzer verlangt ausdrücklich die Fortsetzung bis zum Endziel ohne Abbruch
+nach Einzeletappen. Der veröffentlichte Stand 282d439 ist lesend auf dem
+autorisierten Testbranch bestätigt. Seine abgeschlossenen Remoteprüfungen
+bestehen sieben Development-Jobs und den unsignierten iPhone-Build; der
+Windows-Packschritt scheitert nach erfolgreich gebauter EXE an der fehlenden
+neuen Regeldatei. Der vorherige Stand 75d88a3 hat vier erfolgreiche eigene
+Development-Jobs; die übrigen Jobs und beide iPhone-Jobs wurden beim Nachfolger
+abgebrochen. Diese Abbrüche werden nicht als Erfolg umgedeutet.
+
+Der wirkliche Windows-Kopierablauf verwendet jetzt die gemeinsamen geprüften
+Paketquellen. Supportarchiv und Prüfer verwenden dieselben Listen; die dritte
+manuelle PowerShell-Liste entfällt. 21 Paket-/Inventarfälle einschließlich
+tatsächlicher CLI, entpacktem Backend und Schutz fremder Zielpfade bestehen.
+[Befund und Korrektur](CRM_ERP_WINDOWS_PAKETQUELLEN_2026-11-10.md).
+Neue Remoteprüfung, Lieferartefakt und echte Geräteabnahme werden gesondert
+nachgewiesen. Die unabhängige Entwicklung der restlichen Funktionen läuft weiter.

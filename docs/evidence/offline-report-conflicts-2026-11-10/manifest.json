@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "published_local_checks_passed_own_remote_checks_running",
+  "status": "published_own_all20_and_unsigned206_passed",
   "base_commit": "1fa0bcceb28a822bed9600ad18e33ba54d2c227f",
   "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
   "historical_payroll_modules_unchanged": 61,
@@ -45,6 +45,12 @@
       "tests": 1,
       "seconds": 4.655,
       "source_commit": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+    },
+    "own_remote_complete": {
+      "development_run_id": 42850956041,
+      "successful_groups": 20,
+      "unsigned_ios_run_id": 42850955774,
+      "unsigned_build": 206
     }
   },
   "raw_files": [
@@ -269,6 +275,11 @@
       "bytes": 165,
       "sha256": "1ba5f3aafd2f0f70f425873ad8c05ae62def7882171ec0a3f2e20ec036ac9e18",
       "uncompressed_sha256": "6ac7b1ee777fdba939d3670d8212175b10578618e416f5dc8c33bdf678b42341"
+    },
+    {
+      "path": "own-remote-complete-20261110.json",
+      "bytes": 72264,
+      "sha256": "be3a4b0877d87e1cbd068c401054a7e6bcdf6247d32cbc24e1bfb610493bd2c9"
     }
   ],
   "limitations": [

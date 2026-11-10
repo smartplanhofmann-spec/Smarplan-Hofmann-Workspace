@@ -1,0 +1,309 @@
+{
+  "source_commit": "1fa0bcceb28a822bed9600ad18e33ba54d2c227f",
+  "run_id": 42843099650,
+  "upload_to_testflight": false,
+  "jobs": [
+    {
+      "id": 129923255189,
+      "name": "Online-Release ohne Apple-Zugang pruefen",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 42843099650,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Echtes Backend fuer Client-Integrationstest installieren",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run subosito/flutter-action@v2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Native Offline-Voraussetzungen pruefen",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Build-Nummer bestimmen",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Run flutter pub get --enforce-lockfile",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Run flutter analyze",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Echtes natives PDF mit begrenztem Raster pruefen",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "App-Tests mit Fehlerdetails ausfuehren",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Flutter iOS Release bauen (Online-Server, ohne Signierung)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12
+        },
+        {
+          "name": "iPhone-/iPad-Konfiguration und Buildmanifest pruefen",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13
+        },
+        {
+          "name": "Unsigniertes Pruefartefakt packen",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        },
+        {
+          "name": "Post Run subosito/flutter-action@v2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 28
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 29
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 30
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 31
+        }
+      ]
+    },
+    {
+      "id": 129953336253,
+      "name": "Signiertes iPhone-Paket vorbereiten (Upload nur nach Auswahl)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 42843099650,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Auslieferungsauswahl vor Apple-Zugriff pruefen",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Apple-Secrets pruefen",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run subosito/flutter-action@v2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Run flutter pub get --enforce-lockfile",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "API-Schluessel und Exportoptionen bereitstellen",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Flutter Release fuer Archivierung vorbereiten",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Archivieren (unsigniert, Signierung erst beim Export)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Distributionsidentitaet aus temporaerem Apple-Export ermitteln",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Eigene Keychain-Berechtigung vor finaler Distributionssignierung erhalten",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12
+        },
+        {
+          "name": "IPA mit erhaltener Keychain-Berechtigung final exportieren",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13
+        },
+        {
+          "name": "Signiertes iPhone-/iPad-Paket pruefen",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        },
+        {
+          "name": "Zu TestFlight hochladen",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 16
+        },
+        {
+          "name": "API-Schluessel loeschen",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        },
+        {
+          "name": "Post Run subosito/flutter-action@v2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 32
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 33
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 34
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 35
+        }
+      ]
+    }
+  ],
+  "artifacts": {
+    "artifacts": [
+      {
+        "id": 13781540824,
+        "name": "Smartplan-Office-iOS-UNSIGNED-205",
+        "size_in_bytes": 15037519,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781540824",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781540824/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:08:28Z",
+        "expires_at": "2026-11-24T16:08:22Z",
+        "updated_at": "2026-11-10T16:08:28Z",
+        "digest": "sha256:5a1634bdc0865dd0aaae3cc3248bf7c48e8ec2384b9c31ba2f86be7ae5a03f0b",
+        "workflow_run": {
+          "id": 42843099650,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "1fa0bcceb28a822bed9600ad18e33ba54d2c227f"
+        }
+      },
+      {
+        "id": 13780314712,
+        "name": "Smartplan-Office-iOS-205",
+        "size_in_bytes": 29912158,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13780314712",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13780314712/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:20:14Z",
+        "expires_at": "2026-11-24T16:20:12Z",
+        "updated_at": "2026-11-10T16:20:14Z",
+        "digest": "sha256:3c588807c9b0fdede6458828cdbb0420dbee931d63749aaee5610b6a66e3166e",
+        "workflow_run": {
+          "id": 42843099650,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "1fa0bcceb28a822bed9600ad18e33ba54d2c227f"
+        }
+      }
+    ]
+  }
+}

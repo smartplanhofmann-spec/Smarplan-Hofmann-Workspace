@@ -1,0 +1,491 @@
+{
+  "schema_version": 1,
+  "status": "local_checks_passed_full_native_running_not_published",
+  "base_commit": "ff78dbb",
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "contract": "smartplan_bank_camt053_08_v1",
+  "checks": {
+    "domain_and_packages": {
+      "tests": 49,
+      "seconds": 47.806
+    },
+    "browser_modules": {
+      "tests": 1095,
+      "seconds": 19.711520933
+    },
+    "native_joint": {
+      "tests": 22,
+      "seconds": 6
+    },
+    "actual_native_http": {
+      "tests": 1,
+      "seconds": 3
+    },
+    "postgres_restore": {
+      "tests": 3,
+      "seconds": 81.839,
+      "container_removed": true
+    },
+    "actual_browser_mfa_flow": true,
+    "company_portable_archive": {
+      "tests": 1,
+      "seconds": 0.979
+    },
+    "analysis": {
+      "issues": 0,
+      "seconds": 27.3
+    },
+    "real_bank_file": false,
+    "live_bank_access": false,
+    "testflight_upload": false,
+    "real_device_acceptance": false
+  },
+  "raw_files": [
+    {
+      "path": "camt-all-browser-contracts-20261110.txt.gz",
+      "bytes": 34135,
+      "sha256": "0bd0071fb58df40aaf219b5815c04966ee389340bff944f1616b67af7f4b4be3",
+      "uncompressed_bytes": 113934,
+      "uncompressed_sha256": "17a5df4cbff8f4e1e42ef5ba9a4b805adc1a46381245dc112b9032e3a0560a4a"
+    },
+    {
+      "path": "camt-all-browser-contracts-second-20261110.txt.gz",
+      "bytes": 33473,
+      "sha256": "fd023a78d44d5e683145e0ead4fc238cf50f549f5f65aaeb843883dc1aa625ed",
+      "uncompressed_bytes": 112277,
+      "uncompressed_sha256": "d6305da1e6dc434ec38ad646ee889a7b55329d7f7ddfe71b52a11738f529d7df"
+    },
+    {
+      "path": "camt-analyze-final-20261110.txt.gz",
+      "bytes": 72,
+      "sha256": "8d84719dbd3208c630127fa49f3d46f39f87c73c604266bf6116e0e1abfbfd7d",
+      "uncompressed_bytes": 97,
+      "uncompressed_sha256": "1311ef63e1a5cce79256c59a70cc9563bc5d18b5816a4c6255df75bcd346c000"
+    },
+    {
+      "path": "camt-analyze-first-20261110.txt.gz",
+      "bytes": 567,
+      "sha256": "fef47442228c597f91c05d5f5dd71139050d05abe86fdb1d1cef176fa2aaa92f",
+      "uncompressed_bytes": 3820,
+      "uncompressed_sha256": "9f07a452349906278571cf625f349ded233f9152f3680fdf2b9189c874da6265"
+    },
+    {
+      "path": "camt-analyze-second-20261110.txt.gz",
+      "bytes": 72,
+      "sha256": "2183e36c815c5c2436a5a4260934e20f9070ee60a4e6753f088c5a5e2944dd1c",
+      "uncompressed_bytes": 97,
+      "uncompressed_sha256": "544c3baced77a1f61c98797e13bbd4ba7075a0ef686705a9ec545a5949ca03ea"
+    },
+    {
+      "path": "camt-backend-venv-lxml-20261110.txt.gz",
+      "bytes": 229,
+      "sha256": "0357451736d86844960b30c8e0661ab0aeb3549eef203ede72942764fb0db0d4",
+      "uncompressed_bytes": 474,
+      "uncompressed_sha256": "9877efd8652e68884f47bb9e31414c4c6ace63e308c25c7c30a1d25deb8df3f6"
+    },
+    {
+      "path": "camt-bank-node-first-20261110.txt.gz",
+      "bytes": 1027,
+      "sha256": "75f356b8b784cc57c324a346887b907fcb5530d1879d628f6564ad78ee7f2a9a",
+      "uncompressed_bytes": 1979,
+      "uncompressed_sha256": "b5baffda73f7ad8a4d696dc69f2a9585a307a4be5648fe28613897cf2fb4baf9"
+    },
+    {
+      "path": "camt-bank-node-second-20261110.txt.gz",
+      "bytes": 1029,
+      "sha256": "e374f97527bc85377149c372ed6aea9a4975a0e89f8df6f8f3f2c30563ea3e3e",
+      "uncompressed_bytes": 1981,
+      "uncompressed_sha256": "29e740fe68426d4060308e97f50680c7d4c5e59746ff3de3a61af792d1edef2a"
+    },
+    {
+      "path": "camt-bank-node-third-20261110.txt.gz",
+      "bytes": 1070,
+      "sha256": "3c0c895143efb17c2d834d657c9b014922e30622292118df8e6d6eb566965d59",
+      "uncompressed_bytes": 2077,
+      "uncompressed_sha256": "7ff962fbb581b7bb2af7f27b657607ccf9ddbdbee785f0d85347a7d78a35f198"
+    },
+    {
+      "path": "camt-browser-final-20261110.txt.gz",
+      "bytes": 227,
+      "sha256": "83f7668fbe76c1c939a6225c81549a3cca97e427d8f70e5fb5c38e41bdb3e1aa",
+      "uncompressed_bytes": 287,
+      "uncompressed_sha256": "1e0d664362aef6518df22e97f88cc8cb20913761e9f102aea5d0629eff815ee6"
+    },
+    {
+      "path": "camt-browser-first-20261110.txt.gz",
+      "bytes": 808,
+      "sha256": "a10a7b5460844a889280560e300ed09bd84e60f5976c9576bae69c1bdf9d115b",
+      "uncompressed_bytes": 2504,
+      "uncompressed_sha256": "fc893749bf4053293704dcbc549ddf36a9bc63970146ab29bece0b849f927073"
+    },
+    {
+      "path": "camt-browser-second-20261110.txt.gz",
+      "bytes": 835,
+      "sha256": "e8ac6c37e6161f7e9459e567f561bfda4516ab2256739ee2b56f45fc71f410fc",
+      "uncompressed_bytes": 2606,
+      "uncompressed_sha256": "1d6ba4b1863e0dd1ddf8d167e46a02619ff7b6e469a45dcca0d3be265633ca6a"
+    },
+    {
+      "path": "camt-browser-third-20261110.txt.gz",
+      "bytes": 227,
+      "sha256": "83f7668fbe76c1c939a6225c81549a3cca97e427d8f70e5fb5c38e41bdb3e1aa",
+      "uncompressed_bytes": 287,
+      "uncompressed_sha256": "1e0d664362aef6518df22e97f88cc8cb20913761e9f102aea5d0629eff815ee6"
+    },
+    {
+      "path": "camt-company-archive-20261110.txt.gz",
+      "bytes": 153,
+      "sha256": "11fcbc195c07d3a0d4ed53c3d42ae9a9ccfcb76db876e7e79d0b039de408e09f",
+      "uncompressed_bytes": 296,
+      "uncompressed_sha256": "4c9ea2ff94bd2d7ce179647bf6f9424d9db5fc17c3bfc5813df44d7f55a86980"
+    },
+    {
+      "path": "camt-domain-first-20261110.txt.gz",
+      "bytes": 1486,
+      "sha256": "4c09ecfd47194b8a89d3049d89812b4f015b1ce5402a5de4c4618b3842c37fd6",
+      "uncompressed_bytes": 7222,
+      "uncompressed_sha256": "19ddda1c87703a13c1cce4b0bf3cad56d7fde59c17a704a1aae89a04d7d6f234"
+    },
+    {
+      "path": "camt-domain-package-20261110.txt.gz",
+      "bytes": 2249,
+      "sha256": "c06167031598c85c73f09d6ffbcc128d1633c92421d1535b8186a60ca43568c1",
+      "uncompressed_bytes": 10544,
+      "uncompressed_sha256": "a1dd8682e91c49de1fb67a15bb6eacb534696fce4e9a1d45a6f8f6538a57449d"
+    },
+    {
+      "path": "camt-format-20261110.txt.gz",
+      "bytes": 113,
+      "sha256": "6eaf531e4b20d52f2a5ebe27c592df7d5282cf538f27ebedc7c9822def4f6425",
+      "uncompressed_bytes": 148,
+      "uncompressed_sha256": "0192a59868bf2b73c6ff430752615c1c913ea6e891c6e3d1f221b318a06c8a9f"
+    },
+    {
+      "path": "camt-license-20261110.txt.gz",
+      "bytes": 651,
+      "sha256": "f1d92ec0ac5587c618920c43317eecab148a4b86d53849bdb5992bc787a10f03",
+      "uncompressed_bytes": 1074,
+      "uncompressed_sha256": "634495f3a8b4dab2d8449a861be92dede16c70352afe68db743e15e9bd9e746e"
+    },
+    {
+      "path": "camt-lxml-install-20261110.txt.gz",
+      "bytes": 282,
+      "sha256": "12047c91e3a179e73ef5479a08deae6d74d4af88460e3ccdd8a3b55125e2ed82",
+      "uncompressed_bytes": 565,
+      "uncompressed_sha256": "aca3c151037a2c1265b4450cf29d910e57bf61b1054bf21654f01409700a578a"
+    },
+    {
+      "path": "camt-lxml-pypi-targets-20261110.json.gz",
+      "bytes": 1276,
+      "sha256": "850c53de4d4c726560c82c151e23fc1f65a5acbdff825db0e69f2b25557c452d",
+      "uncompressed_bytes": 3775,
+      "uncompressed_sha256": "d17f3208eb79dcbad49f71ce69f4d055e09745ea081573f96c1cef8c212b14a8"
+    },
+    {
+      "path": "camt-native-contract-first-20261110.txt.gz",
+      "bytes": 1239,
+      "sha256": "57a519194c14c9ce2e9287e552f1dcb51c53c5dcb0c934346111fd63ba195097",
+      "uncompressed_bytes": 4235,
+      "uncompressed_sha256": "e938bd9563940d9e656b5fe86ebf5a0d81fdd6ff417522a35ea5598a5492399b"
+    },
+    {
+      "path": "camt-native-contract-second-20261110.txt.gz",
+      "bytes": 1637,
+      "sha256": "b693115e208c355448eb0cb87b2977ba45970a3cddca4ace9688cd2639803359",
+      "uncompressed_bytes": 5841,
+      "uncompressed_sha256": "a8e56cc7495adc03b9827fbf4fcf69258bea336963680383da652fbc3b9d1c0e"
+    },
+    {
+      "path": "camt-native-forms-final-20261110.txt.gz",
+      "bytes": 766,
+      "sha256": "362afc7a44ff49a2b5644e8d1d44245dfebeb35fabfbef11a4080ec00d0fe7f7",
+      "uncompressed_bytes": 4572,
+      "uncompressed_sha256": "ee8b97e12fc659781f58c28fb850a9671c09c6af25ede4c648772bb522bb54ed"
+    },
+    {
+      "path": "camt-native-forms-first-20261110.txt.gz",
+      "bytes": 1352,
+      "sha256": "0a2fd31938c7f9b6aaffcc50831a37a65d42533617faaaff5a4c2ee7a0c7ea8a",
+      "uncompressed_bytes": 9349,
+      "uncompressed_sha256": "f5a07fa59030b4d93ebb828c179956daa11a734a7baf37a775c69998b36081df"
+    },
+    {
+      "path": "camt-native-forms-fourth-20261110.txt.gz",
+      "bytes": 1024,
+      "sha256": "e32cf6ac833b73b464f51befac476e1811b3b6623ff923ae8fc28c34604ec685",
+      "uncompressed_bytes": 6834,
+      "uncompressed_sha256": "8255e377f427a4e5deb3545b4ee8ad5fa6944f8af3ed9d8d5933c013b894123d"
+    },
+    {
+      "path": "camt-native-forms-second-20261110.txt.gz",
+      "bytes": 1100,
+      "sha256": "488b90c0fe9b714e82386d48957619941d56180ad8c28a045a9864688aa31d30",
+      "uncompressed_bytes": 5859,
+      "uncompressed_sha256": "179566d9bf49afc4589159dcbbe12fba92bfc3cf27fc62b6dec32e26b0e7c42a"
+    },
+    {
+      "path": "camt-native-forms-third-20261110.txt.gz",
+      "bytes": 939,
+      "sha256": "13ae8bb6b5488ff2be9886522c64094e5c21d5f5717b209e0faa4a10ac4aef0b",
+      "uncompressed_bytes": 5387,
+      "uncompressed_sha256": "a8649350c1f8330f766a856b913b745f84bcf7185baf5a2cdc1b8a9d17f8e609"
+    },
+    {
+      "path": "camt-native-http-first-20261110.txt.gz",
+      "bytes": 319,
+      "sha256": "c8edbb9ac4e709cc99a192716fd8a2af0170836315927bb1e597a204e6d2fad6",
+      "uncompressed_bytes": 1079,
+      "uncompressed_sha256": "5d301ca2802fcef8392ca93173961c41b3a56653f41470e36ddb0a0d54470883"
+    },
+    {
+      "path": "camt-native-http-second-20261110.txt.gz",
+      "bytes": 178,
+      "sha256": "0f4070410d15e4d02dfa4ca693ddd44b5ba3c1d8dd37991e5adb52189a6ca5c8",
+      "uncompressed_bytes": 213,
+      "uncompressed_sha256": "58a8bd130a256979d963e81942f79912f134117af65fbf27640ffdaa7cfe5c9a"
+    },
+    {
+      "path": "camt-node-contract-first-20261110.txt.gz",
+      "bytes": 484,
+      "sha256": "ea28c233e428c0661a2cf6ab99a0cbfd027cb8b71e06fec8030244df9c370792",
+      "uncompressed_bytes": 823,
+      "uncompressed_sha256": "63d8cb0189ab67a4a4244a7f0ef2441581dc8f4eb4e5c2911ab4cbbd37629eb8"
+    },
+    {
+      "path": "camt-own-pg-first-20261110.json.gz",
+      "bytes": 212,
+      "sha256": "b42d5a3a52d36f010f9e67fe9d3e663eb572d46e7e380f97127b4f995843b897",
+      "uncompressed_bytes": 259,
+      "uncompressed_sha256": "4a691ec83cb8a697dd5474a1902fdd427be81486591d6dcdaa3c3c61998d6915"
+    },
+    {
+      "path": "camt-own-pg-second-20261110.json.gz",
+      "bytes": 212,
+      "sha256": "f968d5ce360645d71d26c9ce75acbaafa193b476ea054014afa5f06225a0d662",
+      "uncompressed_bytes": 260,
+      "uncompressed_sha256": "40a0469f4330246e15ce6d0e1717ffe979c6c5866c24328b35f626b5a0cc06c5"
+    },
+    {
+      "path": "camt-own-pg-third-20261110.json.gz",
+      "bytes": 211,
+      "sha256": "f351b2ed6300ad487a7e4690fc06247ccd085b5fed151a8b76e3efdff7432014",
+      "uncompressed_bytes": 259,
+      "uncompressed_sha256": "61a73e35ebd5b76050c79053c55ac014b7f2b4be73d46ff8a778d5ec031db9fd"
+    },
+    {
+      "path": "camt-packaged-schema-20261110.txt.gz",
+      "bytes": 1240,
+      "sha256": "86d67258bb74f0d679e0c03d736da8e87d78f2f724ef6dd197cac8b40be7387c",
+      "uncompressed_bytes": 3899,
+      "uncompressed_sha256": "c77a52881f11021fe9b9a912d5430a816ffa99f1325d934dabdae34a4a361025"
+    },
+    {
+      "path": "camt-packaged-schema-second-20261110.txt.gz",
+      "bytes": 689,
+      "sha256": "c3c2fc5a3201f3bd04952b213932944be9beb152c1aa3a5b8c17909ce5112d00",
+      "uncompressed_bytes": 2298,
+      "uncompressed_sha256": "4113fb72d36203f64c3978384d0a9e35cfbe3f49b63be4b885ef6fefb5f6b031"
+    },
+    {
+      "path": "camt-pg-first-20261110.txt.gz",
+      "bytes": 555,
+      "sha256": "28bbfaa4b3b15abf81d9faeec759c08c83e596d633bfed98b333681bc7d6aaca",
+      "uncompressed_bytes": 1762,
+      "uncompressed_sha256": "c5ab99a6c98a6ad623a395f108ef8a3836d51eb4aa30ee31303f5fc4d97be80c"
+    },
+    {
+      "path": "camt-pg-first-result-20261110.json.gz",
+      "bytes": 276,
+      "sha256": "bd654260b8d3f02243f35038c34b95a0df26ce353711954aea76331af9ed3246",
+      "uncompressed_bytes": 367,
+      "uncompressed_sha256": "48895df419dbdc7befee3b7550064ad0cefac33985f3de395f617df98a55e2c1"
+    },
+    {
+      "path": "camt-pg-runner-20261110.py.gz",
+      "bytes": 1710,
+      "sha256": "96555e6c6264941651270f94da1e5f80c21997160e7cc42418e301c538606c95",
+      "uncompressed_bytes": 4046,
+      "uncompressed_sha256": "866193968a8122bb9bb7b1e4a6816caec913dd8639f184f0e9738a6549b630c6"
+    },
+    {
+      "path": "camt-pg-runner-first-20261110.txt.gz",
+      "bytes": 270,
+      "sha256": "1fc8fa24d1a159bde2d015e24c3433516b6e54f8c570bc8df64a69f7dcda4399",
+      "uncompressed_bytes": 349,
+      "uncompressed_sha256": "c5ebfe12c0d6a2220bc3cd3956884421241c4194efbacda583be8d9bc3f0eecf"
+    },
+    {
+      "path": "camt-pg-runner-second-20261110.txt.gz",
+      "bytes": 268,
+      "sha256": "9537420623469cbe6743967e545689e7b72cf6c2fddc43c1f9811f0021fe2439",
+      "uncompressed_bytes": 350,
+      "uncompressed_sha256": "868d32196d6e8ccc41bc373e9177477df8fed1459dc3aaceac13c19c5e33c69f"
+    },
+    {
+      "path": "camt-pg-runner-third-20261110.txt.gz",
+      "bytes": 270,
+      "sha256": "33a67a112818803ef653f3d4d2f873e03fdb94fe8b69afc25997d640e49ece84",
+      "uncompressed_bytes": 349,
+      "uncompressed_sha256": "172cbe4e894571e483f0c81f6569cdf823da7496cc0bcb1d3dcf863460470bd1"
+    },
+    {
+      "path": "camt-pg-second-20261110.txt.gz",
+      "bytes": 258,
+      "sha256": "4a9572741657210206d9de741c540eb532a8e75ce7c7532a6a38e6ae4216f585",
+      "uncompressed_bytes": 733,
+      "uncompressed_sha256": "71c4075e510bd84877f89dfc58af729180548394af364baac941d8f0a57b6409"
+    },
+    {
+      "path": "camt-pg-second-result-20261110.json.gz",
+      "bytes": 273,
+      "sha256": "1a04fa0d859cb936d473dafbcfddb140c5266ad138855a19817ad8855bb6cda5",
+      "uncompressed_bytes": 368,
+      "uncompressed_sha256": "a6abc181f45dce6a1e1d9d3273c1ac68963903717aac349ec14bac91ec3b48cf"
+    },
+    {
+      "path": "camt-pg-third-20261110.txt.gz",
+      "bytes": 257,
+      "sha256": "bbd9b1f8952ec9c6ea595a621911f283f095eab3433a05733cde7102dbfcb53c",
+      "uncompressed_bytes": 733,
+      "uncompressed_sha256": "2df1ce6533f84116fb260c868fd08c340d1d10a5dd8cb3c502a66563318e5143"
+    },
+    {
+      "path": "camt-pg-third-result-20261110.json.gz",
+      "bytes": 275,
+      "sha256": "6235f14adf5b30812a145b7e05d77e254585ac8f700f2346f4952ee9cd06bb5a",
+      "uncompressed_bytes": 367,
+      "uncompressed_sha256": "9a9ca697eab49e99ec16adfc3f36aeabcb891eeffd796df99b5f1507f59f7eef"
+    },
+    {
+      "path": "camt-pure-csv-hooks-first-20261110.txt.gz",
+      "bytes": 1193,
+      "sha256": "089e9d8242825af2ab69a11397a41b1e72ee1ac0016c3792da478a3403d1c81c",
+      "uncompressed_bytes": 5642,
+      "uncompressed_sha256": "2b9bc3d92cf75492271fc86a9a5fee367e6fef00042fb9b020142fa7ee9bf064"
+    },
+    {
+      "path": "camt-pure-first-20261110.txt.gz",
+      "bytes": 550,
+      "sha256": "ccdc279df8562855bdb191d4bd05802af9d590051d0e60711343aa9df2338480",
+      "uncompressed_bytes": 2198,
+      "uncompressed_sha256": "8cfc9420d4f2a6f73947903c269dbd20806f590dbfaa08501a5d9e882199f8b9"
+    },
+    {
+      "path": "camt-source-bom-20261110.json.gz",
+      "bytes": 10006,
+      "sha256": "0c536a545c8f9193e0d09d6b857e108ac1fa0f731d1a74f17b0ef9f4bdd17c57",
+      "uncompressed_bytes": 90868,
+      "uncompressed_sha256": "52d073fd70b8b29d984155364869318dc3eaf5d6ada9051cd6e105cb06c2c4c3"
+    },
+    {
+      "path": "camt-source-guards-20261110.json.gz",
+      "bytes": 20,
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "uncompressed_bytes": 0,
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "camt-source-guards-20261110.py.gz",
+      "bytes": 658,
+      "sha256": "77e6e2a7afb5c190531ee71a10107fb5761ac0f66a921b287aad42905d8308d5",
+      "uncompressed_bytes": 1136,
+      "uncompressed_sha256": "e2c1cfae6448296d2ecec50b530d7cdd037a9e0feb7c2042ce54a72bba8ed40c"
+    },
+    {
+      "path": "camt-source-guards-final-20261110.json.gz",
+      "bytes": 193,
+      "sha256": "9021a75b8eecda8afb0e8800aeb92c4fa78b14336d351052be03dca528041ec8",
+      "uncompressed_bytes": 226,
+      "uncompressed_sha256": "073c082e8b3076c852fb3bbb5f427120081ac70ade8e9ba4200b6b9ab6e746eb"
+    },
+    {
+      "path": "camt-source-guards-second-20261110.json.gz",
+      "bytes": 293,
+      "sha256": "422a5d38b95f3172cb06fa9593f87cd68b9443056d9a5a3bbf792e6847e0c1c0",
+      "uncompressed_bytes": 463,
+      "uncompressed_sha256": "2f580b7a07c02057dfe6c8be2beba520320170e49ed3d5e12c1c89d40dc1ea81"
+    },
+    {
+      "path": "camt-status-20261110.py.gz",
+      "bytes": 2878,
+      "sha256": "adb5c8a597b507c03efc2d4937aeaf3979043685c65949941aa930c43761f4d5",
+      "uncompressed_bytes": 6769,
+      "uncompressed_sha256": "b2366c313c88b13be9811ac05745b82a30e9fe4b7ae0c38bd72e0b7cfbe592ff"
+    },
+    {
+      "path": "browser-second-browser-failure.png",
+      "bytes": 195130,
+      "sha256": "c5e1fadc37999c28fea65203970abb669a72fa52cac97abe6463d542d94bd931"
+    },
+    {
+      "path": "browser-second-camt-preview-desktop.png",
+      "bytes": 466493,
+      "sha256": "12eb67fd121c7316cc7f2495217992bba3bc66e02613d00c590b5aebf48cd44b"
+    },
+    {
+      "path": "browser-second-camt-synthetic-commands.json",
+      "bytes": 39277,
+      "sha256": "320163284dd72a4ada91a1b6b538508ba3ce2acaafce6bd85c10f3252608f73b"
+    },
+    {
+      "path": "browser-third-camt-original-mobile.png",
+      "bytes": 380906,
+      "sha256": "71d073303f07b20f952a629ef58df46598e2478fd991dc4d4885c70d67519ba5"
+    },
+    {
+      "path": "browser-third-camt-preview-desktop.png",
+      "bytes": 466293,
+      "sha256": "9fff34eada3262681d0eed976d80bb302e73692eff46d1234d9cc54fa0ba4c3b"
+    },
+    {
+      "path": "browser-third-camt-synthetic-commands.json",
+      "bytes": 64995,
+      "sha256": "f9ff48e3f885b8f33d27da562461d6e5ca4517a6e923e524e5f6246a32715ac3"
+    },
+    {
+      "path": "browser-final-camt-original-mobile.png",
+      "bytes": 76818,
+      "sha256": "351eb4b70856331ffa6adbfc3da62e0192049502702d5a25bfbc4c879db39dfc"
+    },
+    {
+      "path": "browser-final-camt-preview-desktop.png",
+      "bytes": 187942,
+      "sha256": "c455566589466a4dbda529de3b96f55de06941963e3b738eef31ce346ba8ae8a"
+    },
+    {
+      "path": "browser-final-camt-synthetic-commands.json",
+      "bytes": 64995,
+      "sha256": "613d6004c2bd63f027f3ec91bf3773e9c5b88c40101889d73b8c7d7bfe228435"
+    },
+    {
+      "path": "camt-accepted-original-390-iOS.png",
+      "bytes": 84395,
+      "sha256": "0cfa1138d89394d6a00f5a6887b9efce88e569495070747d142c5ea118a14be0"
+    },
+    {
+      "path": "camt-accepted-original-390-windows.png",
+      "bytes": 84126,
+      "sha256": "1de7d54f7cd32ecdc821b6eacfd8f8fa66a4a1d2fdef6c748c304c760123cc07"
+    },
+    {
+      "path": "camt-original-review-390-iOS.png",
+      "bytes": 84489,
+      "sha256": "0151607c8bf889d0808418bc39b44b57fe5a92ccc7ae47f93a97b98462d2800a"
+    },
+    {
+      "path": "camt-original-review-390-windows.png",
+      "bytes": 84466,
+      "sha256": "5d2e0869f10fdad8bdea48f87375a8bc5568f460bc5439ffef7b746f0a45ee3a"
+    },
+    {
+      "path": "camt-proposed-import-390-iOS.png",
+      "bytes": 74556,
+      "sha256": "9f34fc35451b54b157eaa0f37dcd2d451207e1b12b7cfb3a98a620de70bf2b45"
+    },
+    {
+      "path": "camt-proposed-import-390-windows.png",
+      "bytes": 74488,
+      "sha256": "a665b52e51c79b5dd5bfe8a28ae6c07edab56d1410e89e8c71f81e60154218e8"
+    }
+  ]
+}

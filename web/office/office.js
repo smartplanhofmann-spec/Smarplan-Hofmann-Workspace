@@ -1434,6 +1434,7 @@ function operationLabel(path) {
   if(path===biz('/accounting/opening-balances/originals'))return 'Anfangsbestandsoriginal speichern';
   if(path===biz('/accounting/opening-balances/confirm'))return 'Anfangsbestandsfassung bestätigen';
   if(path==='/business/bank/accounts')return 'Bankkontozuordnung speichern';
+  if(path==='/business/bank/camt/statements')return 'XML-Kontoauszug übernehmen';
   if(path==='/business/bank/statements')return 'Kontoauszug übernehmen';
   if(path.startsWith('/business/bank/transactions/'))return 'Bankbuchung abgleichen';
   if(path==='/business/bank/reconciliations')return 'Bankprüfstand dokumentieren';

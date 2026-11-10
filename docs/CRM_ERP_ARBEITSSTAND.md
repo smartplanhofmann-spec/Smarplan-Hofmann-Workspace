@@ -23,12 +23,30 @@ Etappe verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
   Die frühere Reihenfolge zuerst Projektbetrieb hat Buchhaltung/Lohn nicht
   aus dem Gesamtziel gestrichen.
 
+## Aktive Fertigstellung: XML-Bankoriginal und neuer Gesamtprüfstand
+
+Der [CAMT.053.001.08-Import](CRM_ERP_BANK_CAMT_2026-11-10.md) ergänzt CSV
+additiv in Backend, Browser und App. Unverändertes XML, lokales festgelegtes
+Schema, unabhängige Vorschauprüfung, beide Bestätigungen und exakte Wiederholung
+sind implementiert. 49 gemeinsame Fach-/Paketfälle, drei wirkliche PostgreSQL-/
+MFA-/Restorefälle, alle 1.095 Browsermodule, der tatsächliche Browserablauf,
+22 gemeinsame Appfälle und ein zusätzlicher tatsächlicher nativer HTTP-Ablauf
+bestehen. Appanalyse ohne Probleme; vollständige neue Appprüfung läuft.
+Die reale Bankdatei und direkte Bankzugänge sind damit nicht ersetzt.
+
+Der zuvor veröffentlichte Offline-Konfliktstand abcc351 hat inzwischen alle
+20 eigenen Developmentgruppen sowie seinen unsignierten iPhone-Release 206
+bestanden. Der manuelle V15-Release 205 ist tatsächlich signiert; Upload false.
+Die Rohmetadaten und der jeweilige genaue Quellumfang bleiben getrennt.
+Nach Abschluss der lokalen Gesamtprüfung wird ausschließlich der autorisierte
+Testbranch aktualisiert und sein eigener Auslieferungsnachlauf geprüft.
+
 ## Quellcode, Prüfstand und Installation sind getrennt
 
 | Stand | Tatsächlich bestätigt |
 |---|---|
-| Aktuell veröffentlichter Quell- und Testbranch | `ca14af3822aac0706c2acf80bdb568cc5f29afbb`, veröffentlicht und Remote-Zeiger bestätigt. V14 und Qonto-Leseansicht mit beiden Clients enthalten. Eigenkonto-Key67b99d3 liegt geprüft lokal für die nächste Integration vor. |
-| Eigene aktuelle Workflowprüfung | An91fa18b: Development42814265700 alle20 Gruppen erfolgreich, unsignierter iPhone42814265712 erfolgreich. Mailbot42814265743 erfolgreich, kein echter Versand. Manueller signierter Vorbereitungslauf42816832390 an91fa: unsigniert erfolgreich; erster Apple-Export scheitert am Netzwerk und fehlendem Profil nach diesem Abbruch. Rohfehler erhalten; genau der gescheiterte Job wurde mit identischem Quellstand wiederholt, neuer Signierjob129852986325 läuft, Uploadfalse. Neue ca14-Prüfung42821768166 läuft separat, Mailbot42821768083 erfolgreich. Vorläuferfehler bleiben historisch erhalten. |
+| Aktuell veröffentlichter Quell- und Testbranch | `abcc3510f4d913b1d4e57c30fd2e5283bce2156b`, Remote-Zeiger bestätigt. V15, Qonto und die native Offline-Konfliktklärung sind enthalten. Der neue XML-Bankimport liegt lokal geprüft vor. |
+| Eigene aktuelle Workflowprüfung | abcc351: Development 42850956041 alle 20 Gruppen erfolgreich, eigener unsignierter iPhone-Release 206 aus 42850955774 erfolgreich. V15 an 1fa0bcc besitzt zusätzlich den tatsächlich [signierten iPhone-Release 205](CRM_ERP_IPHONE_SIGNIERTES_PAKET_205_2026-11-10.md) aus 42843099650; TestFlight-Upload false. Neue XML-Bankquellen werden separat geprüft. |
 | Vollständige CI zum Installationsprodukt c4a2d8f | Development42790149143:alle20 Gruppen erfolgreich. Die anHTTP403 vor Testbeginn gescheiterte Gruppe wurde allein wiederholt; alle13 wirklichen Browserabläufe bestehen, Erstfehler erhalten. Unsignierter iPhone42790149399 erfolgreich, signierter Upload übersprungen. Mailbot-Verträge42790149124 auf Linux/Windows erfolgreich; kein echter Versand. |
 | Aktueller geprüfter veröffentlichter Reparaturstand | `40d8fcf5571e8edc898e2e20b1cf7fe36e52149e`: alle20 Development-Gruppen42806104268 erfolgreich. Eigener manueller iPhone42806142665: vollständiger unsignierter Client, endgültiges signiertes IPA, strenge Keychain-/Teamprüfung und Schlüsselbereinigung erfolgreich. Signiertes Artefakt198 vorhanden; TestFlight-Uploadskipped. V14 ist davon getrennt. |
 | Letzter vom Nutzer bestätigter Server | `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5` vom05.11.; drei Dienste/Sicherungstimer und kontrollierter Updateabschluss bestätigt. Der10.11.-GET auf/ready liefert403 durchEnvoy; die tatsächliche Cloud-Zulassungsliste enthält die Domain nicht. Kein neuer bestätigter Ursprungstand und kein Update. |
@@ -39,7 +57,7 @@ ist gebaut (22183211Bytes). Ein unsignierter iPhone-Build ist keine installierba
 signierte Verteilung. Die Backendkennung0.12.0-online-pilot ist eine API-
 Kompatibilitätskennung, keine App-/Paketversion.
 
-## Aktive Arbeit: signiertes iPhone-Paket getrennt vom Upload
+## Historischer Vorbereitungsabschnitt: signiertes iPhone-Paket getrennt vom Upload
 
 Arbeitskopie `/workspace/smartplan-ios-signed-preparation-20261110`, Branch
 `codex/ios-signed-preparation-20261110`. Produkt12798fb, veröffentlicht in deebe20. Der geprüfte neue

@@ -1,0 +1,639 @@
+{
+  "request": {
+    "account_id": "a813615dc45549449f1bb908875332d1",
+    "account_revision": 1,
+    "bank_revision": 1,
+    "filename": "synthetic.xml",
+    "content_base64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPERvY3VtZW50IHhtbG5zPSJ1cm46aXNvOnN0ZDppc286MjAwMjI6dGVjaDp4c2Q6Y2FtdC4wNTMuMDAxLjA4Ij48QmtUb0NzdG1yU3RtdD4KPEdycEhkcj48TXNnSWQ+c3ludGhldGljLW1lc3NhZ2U8L01zZ0lkPjxDcmVEdFRtPjIwMjYtMTEtMDFUMDg6MDA6MDArMDE6MDA8L0NyZUR0VG0+PC9HcnBIZHI+CjxTdG10PjxJZD5zeW50aGV0aWMtc3RhdGVtZW50PC9JZD48RnJUb0R0PjxGckR0VG0+MjAyNi0xMC0wMVQwMDowMDowMCswMjowMDwvRnJEdFRtPjxUb0R0VG0+MjAyNi0xMC0zMVQyMzo1OTo1OSswMTowMDwvVG9EdFRtPjwvRnJUb0R0Pgo8QWNjdD48SWQ+PElCQU4+REU4OTM3MDQwMDQ0MDUzMjAxMzAwMDwvSUJBTj48L0lkPjxDY3k+RVVSPC9DY3k+PC9BY2N0Pgo8QmFsPjxUcD48Q2RPclBydHJ5PjxDZD5PUEJEPC9DZD48L0NkT3JQcnRyeT48L1RwPjxBbXQgQ2N5PSJFVVIiPjEwMC4wMDwvQW10PjxDZHREYnRJbmQ+Q1JEVDwvQ2R0RGJ0SW5kPjxEdD48RHQ+MjAyNi0xMC0wMTwvRHQ+PC9EdD48L0JhbD4KPEJhbD48VHA+PENkT3JQcnRyeT48Q2Q+Q0xCRDwvQ2Q+PC9DZE9yUHJ0cnk+PC9UcD48QW10IENjeT0iRVVSIj4yMDAuMDA8L0FtdD48Q2R0RGJ0SW5kPkNSRFQ8L0NkdERidEluZD48RHQ+PER0PjIwMjYtMTAtMzE8L0R0PjwvRHQ+PC9CYWw+Cgo8TnRyeT48TnRyeVJlZj5yZWZlcmVuY2UtY3JlZGl0PC9OdHJ5UmVmPjxBbXQgQ2N5PSJFVVIiPjEyNS4wMDwvQW10PjxDZHREYnRJbmQ+Q1JEVDwvQ2R0RGJ0SW5kPjxTdHM+PENkPkJPT0s8L0NkPjwvU3RzPjxCb29rZ0R0PjxEdD4yMDI2LTEwLTA1PC9EdD48L0Jvb2tnRHQ+PFZhbER0PjxEdD4yMDI2LTEwLTA1PC9EdD48L1ZhbER0PjxBY2N0U3ZjclJlZj5iYW5rLWNyZWRpdC0wMTwvQWNjdFN2Y3JSZWY+PEJrVHhDZD48UHJ0cnk+PENkPnN5bnRoZXRpYy1jcmVkaXQ8L0NkPjwvUHJ0cnk+PC9Ca1R4Q2Q+PE50cnlEdGxzPjxUeER0bHM+PFJsdGRQdGllcz48RGJ0cj48UHR5PjxObT5TeW50aGV0aXNjaGUgTcO8bGxlciBHbWJIPC9ObT48L1B0eT48L0RidHI+PC9SbHRkUHRpZXM+PFJtdEluZj48VXN0cmQ+UmVjaG51bmcgUi0xMDA8L1VzdHJkPjwvUm10SW5mPjwvVHhEdGxzPjwvTnRyeUR0bHM+PC9OdHJ5Pgo8TnRyeT48TnRyeVJlZj5yZWZlcmVuY2UtZGViaXQ8L050cnlSZWY+PEFtdCBDY3k9IkVVUiI+MjUuMDA8L0FtdD48Q2R0RGJ0SW5kPkRCSVQ8L0NkdERidEluZD48U3RzPjxDZD5CT09LPC9DZD48L1N0cz48Qm9va2dEdD48RHQ+MjAyNi0xMC0wNjwvRHQ+PC9Cb29rZ0R0PjxWYWxEdD48RHQ+MjAyNi0xMC0wNzwvRHQ+PC9WYWxEdD48QWNjdFN2Y3JSZWY+YmFuay1kZWJpdC0wMjwvQWNjdFN2Y3JSZWY+PEJrVHhDZD48UHJ0cnk+PENkPnN5bnRoZXRpYy1kZWJpdDwvQ2Q+PC9QcnRyeT48L0JrVHhDZD48TnRyeUR0bHM+PFR4RHRscz48Umx0ZFB0aWVzPjxDZHRyPjxQdHk+PE5tPlN5bnRoZXRpc2NoZXIgTGllZmVyYW50PC9ObT48L1B0eT48L0NkdHI+PC9SbHRkUHRpZXM+PFJtdEluZj48VXN0cmQ+RWlua2F1ZiBFLTIwMDwvVXN0cmQ+PC9SbXRJbmY+PC9UeER0bHM+PC9OdHJ5RHRscz48L050cnk+PC9TdG10PjwvQmtUb0NzdG1yU3RtdD48L0RvY3VtZW50Pg=="
+  },
+  "inspection": {
+    "schema_version": 1,
+    "contract": "smartplan_bank_camt053_08_v1",
+    "original_sha256": "3590917fa5ea7386368dce11f68db18251a6daf91a8e40f4a59bebc576305524",
+    "suggested_body": {
+      "account_id": "a813615dc45549449f1bb908875332d1",
+      "account_revision": 1,
+      "bank_revision": 1,
+      "filename": "synthetic.xml",
+      "delimiter": "camt.053.001.08",
+      "statement_reference": "synthetic-statement",
+      "period_from": "2026-10-01",
+      "period_to": "2026-10-31",
+      "opening_balance": "100.00",
+      "closing_balance": "200.00"
+    },
+    "camt": {
+      "schema_sha256": "c3cfac080dc31476bde7444b05d00e1b23558d5e44529e58d0ad562e6013873d",
+      "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
+      "file_sha256": "3590917fa5ea7386368dce11f68db18251a6daf91a8e40f4a59bebc576305524",
+      "message_id": "synthetic-message",
+      "original_period_from": "2026-10-01T00:00:00+02:00",
+      "original_period_to": "2026-10-31T23:59:59+01:00",
+      "entry_sources": [
+        {
+          "line_number": 1,
+          "xml_line": 9,
+          "bank_reference": "bank-credit-01",
+          "entry_reference": "reference-credit",
+          "transaction_details": 1,
+          "reversal": false
+        },
+        {
+          "line_number": 2,
+          "xml_line": 10,
+          "bank_reference": "bank-debit-02",
+          "entry_reference": "reference-debit",
+          "transaction_details": 1,
+          "reversal": false
+        }
+      ]
+    },
+    "preview": {
+      "metadata": {
+        "contract": "smartplan_bank_camt053_08_v1",
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+          "currency": "EUR",
+          "id": "a813615dc45549449f1bb908875332d1",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "bank": {
+          "account_id": "a813615dc45549449f1bb908875332d1",
+          "revision": 1,
+          "previous_hash": null,
+          "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+              "currency": "EUR",
+              "id": "a813615dc45549449f1bb908875332d1",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-01-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic bank",
+            "reason": ""
+          },
+          "content_hash": "a9ebeda94aaff84226788f07841702e2082270a11229f2cd1847663f29aa6966"
+        },
+        "statement_reference": "synthetic-statement",
+        "period_from": "2026-10-01",
+        "period_to": "2026-10-31",
+        "opening_balance": "100.00",
+        "closing_balance": "200.00",
+        "filename": "synthetic.xml",
+        "delimiter": "camt.053.001.08",
+        "file_sha256": "3590917fa5ea7386368dce11f68db18251a6daf91a8e40f4a59bebc576305524",
+        "rows": [
+          {
+            "line_number": 1,
+            "transaction_id": "camt08:bank-credit-01",
+            "booking_date": "2026-10-05",
+            "value_date": "2026-10-05",
+            "amount": "125.00",
+            "currency": "EUR",
+            "counterparty": "Synthetische Müller GmbH",
+            "reference": "Rechnung R-100"
+          },
+          {
+            "line_number": 2,
+            "transaction_id": "camt08:bank-debit-02",
+            "booking_date": "2026-10-06",
+            "value_date": "2026-10-07",
+            "amount": "-25.00",
+            "currency": "EUR",
+            "counterparty": "Synthetischer Lieferant",
+            "reference": "Einkauf E-200"
+          }
+        ],
+        "complete_statement_confirmed": true,
+        "distinct_transaction_confirmations": {},
+        "camt": {
+          "schema_sha256": "c3cfac080dc31476bde7444b05d00e1b23558d5e44529e58d0ad562e6013873d",
+          "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
+          "file_sha256": "3590917fa5ea7386368dce11f68db18251a6daf91a8e40f4a59bebc576305524",
+          "message_id": "synthetic-message",
+          "original_period_from": "2026-10-01T00:00:00+02:00",
+          "original_period_to": "2026-10-31T23:59:59+01:00",
+          "entry_sources": [
+            {
+              "line_number": 1,
+              "xml_line": 9,
+              "bank_reference": "bank-credit-01",
+              "entry_reference": "reference-credit",
+              "transaction_details": 1,
+              "reversal": false
+            },
+            {
+              "line_number": 2,
+              "xml_line": 10,
+              "bank_reference": "bank-debit-02",
+              "entry_reference": "reference-debit",
+              "transaction_details": 1,
+              "reversal": false
+            }
+          ]
+        }
+      },
+      "errors": [],
+      "duplicates": [],
+      "identity_checks": [],
+      "duplicate_statement_id": null,
+      "can_import": true,
+      "total": "100.00",
+      "preview_hash": "e8f43851fe78927f165326cc82a2f30ac458cbd7860f5b9113e4b59a74692088"
+    },
+    "confirmation_required": true,
+    "financial_changes": false
+  },
+  "body": {
+    "account_id": "a813615dc45549449f1bb908875332d1",
+    "account_revision": 1,
+    "bank_revision": 1,
+    "filename": "synthetic.xml",
+    "delimiter": "camt.053.001.08",
+    "statement_reference": "synthetic-statement",
+    "period_from": "2026-10-01",
+    "period_to": "2026-10-31",
+    "opening_balance": "100.00",
+    "closing_balance": "200.00",
+    "content_base64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPERvY3VtZW50IHhtbG5zPSJ1cm46aXNvOnN0ZDppc286MjAwMjI6dGVjaDp4c2Q6Y2FtdC4wNTMuMDAxLjA4Ij48QmtUb0NzdG1yU3RtdD4KPEdycEhkcj48TXNnSWQ+c3ludGhldGljLW1lc3NhZ2U8L01zZ0lkPjxDcmVEdFRtPjIwMjYtMTEtMDFUMDg6MDA6MDArMDE6MDA8L0NyZUR0VG0+PC9HcnBIZHI+CjxTdG10PjxJZD5zeW50aGV0aWMtc3RhdGVtZW50PC9JZD48RnJUb0R0PjxGckR0VG0+MjAyNi0xMC0wMVQwMDowMDowMCswMjowMDwvRnJEdFRtPjxUb0R0VG0+MjAyNi0xMC0zMVQyMzo1OTo1OSswMTowMDwvVG9EdFRtPjwvRnJUb0R0Pgo8QWNjdD48SWQ+PElCQU4+REU4OTM3MDQwMDQ0MDUzMjAxMzAwMDwvSUJBTj48L0lkPjxDY3k+RVVSPC9DY3k+PC9BY2N0Pgo8QmFsPjxUcD48Q2RPclBydHJ5PjxDZD5PUEJEPC9DZD48L0NkT3JQcnRyeT48L1RwPjxBbXQgQ2N5PSJFVVIiPjEwMC4wMDwvQW10PjxDZHREYnRJbmQ+Q1JEVDwvQ2R0RGJ0SW5kPjxEdD48RHQ+MjAyNi0xMC0wMTwvRHQ+PC9EdD48L0JhbD4KPEJhbD48VHA+PENkT3JQcnRyeT48Q2Q+Q0xCRDwvQ2Q+PC9DZE9yUHJ0cnk+PC9UcD48QW10IENjeT0iRVVSIj4yMDAuMDA8L0FtdD48Q2R0RGJ0SW5kPkNSRFQ8L0NkdERidEluZD48RHQ+PER0PjIwMjYtMTAtMzE8L0R0PjwvRHQ+PC9CYWw+Cgo8TnRyeT48TnRyeVJlZj5yZWZlcmVuY2UtY3JlZGl0PC9OdHJ5UmVmPjxBbXQgQ2N5PSJFVVIiPjEyNS4wMDwvQW10PjxDZHREYnRJbmQ+Q1JEVDwvQ2R0RGJ0SW5kPjxTdHM+PENkPkJPT0s8L0NkPjwvU3RzPjxCb29rZ0R0PjxEdD4yMDI2LTEwLTA1PC9EdD48L0Jvb2tnRHQ+PFZhbER0PjxEdD4yMDI2LTEwLTA1PC9EdD48L1ZhbER0PjxBY2N0U3ZjclJlZj5iYW5rLWNyZWRpdC0wMTwvQWNjdFN2Y3JSZWY+PEJrVHhDZD48UHJ0cnk+PENkPnN5bnRoZXRpYy1jcmVkaXQ8L0NkPjwvUHJ0cnk+PC9Ca1R4Q2Q+PE50cnlEdGxzPjxUeER0bHM+PFJsdGRQdGllcz48RGJ0cj48UHR5PjxObT5TeW50aGV0aXNjaGUgTcO8bGxlciBHbWJIPC9ObT48L1B0eT48L0RidHI+PC9SbHRkUHRpZXM+PFJtdEluZj48VXN0cmQ+UmVjaG51bmcgUi0xMDA8L1VzdHJkPjwvUm10SW5mPjwvVHhEdGxzPjwvTnRyeUR0bHM+PC9OdHJ5Pgo8TnRyeT48TnRyeVJlZj5yZWZlcmVuY2UtZGViaXQ8L050cnlSZWY+PEFtdCBDY3k9IkVVUiI+MjUuMDA8L0FtdD48Q2R0RGJ0SW5kPkRCSVQ8L0NkdERidEluZD48U3RzPjxDZD5CT09LPC9DZD48L1N0cz48Qm9va2dEdD48RHQ+MjAyNi0xMC0wNjwvRHQ+PC9Cb29rZ0R0PjxWYWxEdD48RHQ+MjAyNi0xMC0wNzwvRHQ+PC9WYWxEdD48QWNjdFN2Y3JSZWY+YmFuay1kZWJpdC0wMjwvQWNjdFN2Y3JSZWY+PEJrVHhDZD48UHJ0cnk+PENkPnN5bnRoZXRpYy1kZWJpdDwvQ2Q+PC9QcnRyeT48L0JrVHhDZD48TnRyeUR0bHM+PFR4RHRscz48Umx0ZFB0aWVzPjxDZHRyPjxQdHk+PE5tPlN5bnRoZXRpc2NoZXIgTGllZmVyYW50PC9ObT48L1B0eT48L0NkdHI+PC9SbHRkUHRpZXM+PFJtdEluZj48VXN0cmQ+RWlua2F1ZiBFLTIwMDwvVXN0cmQ+PC9SbXRJbmY+PC9UeER0bHM+PC9OdHJ5RHRscz48L050cnk+PC9TdG10PjwvQmtUb0NzdG1yU3RtdD48L0RvY3VtZW50Pg==",
+    "complete_statement_confirmed": true
+  },
+  "preview": {
+    "metadata": {
+      "contract": "smartplan_bank_camt053_08_v1",
+      "account": {
+        "active": true,
+        "code": "BANK",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+        "currency": "EUR",
+        "id": "a813615dc45549449f1bb908875332d1",
+        "kind": "bank",
+        "name": "Synthetic bank account",
+        "revision": 1
+      },
+      "bank": {
+        "account_id": "a813615dc45549449f1bb908875332d1",
+        "revision": 1,
+        "previous_hash": null,
+        "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "payload": {
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+            "currency": "EUR",
+            "id": "a813615dc45549449f1bb908875332d1",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "active": true,
+          "coverage_from": "2026-01-01",
+          "coverage_to": null,
+          "iban": "DE89370400440532013000",
+          "label": "Synthetic bank",
+          "reason": ""
+        },
+        "content_hash": "a9ebeda94aaff84226788f07841702e2082270a11229f2cd1847663f29aa6966"
+      },
+      "statement_reference": "synthetic-statement",
+      "period_from": "2026-10-01",
+      "period_to": "2026-10-31",
+      "opening_balance": "100.00",
+      "closing_balance": "200.00",
+      "filename": "synthetic.xml",
+      "delimiter": "camt.053.001.08",
+      "file_sha256": "3590917fa5ea7386368dce11f68db18251a6daf91a8e40f4a59bebc576305524",
+      "rows": [
+        {
+          "line_number": 1,
+          "transaction_id": "camt08:bank-credit-01",
+          "booking_date": "2026-10-05",
+          "value_date": "2026-10-05",
+          "amount": "125.00",
+          "currency": "EUR",
+          "counterparty": "Synthetische Müller GmbH",
+          "reference": "Rechnung R-100"
+        },
+        {
+          "line_number": 2,
+          "transaction_id": "camt08:bank-debit-02",
+          "booking_date": "2026-10-06",
+          "value_date": "2026-10-07",
+          "amount": "-25.00",
+          "currency": "EUR",
+          "counterparty": "Synthetischer Lieferant",
+          "reference": "Einkauf E-200"
+        }
+      ],
+      "complete_statement_confirmed": true,
+      "distinct_transaction_confirmations": {},
+      "camt": {
+        "schema_sha256": "c3cfac080dc31476bde7444b05d00e1b23558d5e44529e58d0ad562e6013873d",
+        "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
+        "file_sha256": "3590917fa5ea7386368dce11f68db18251a6daf91a8e40f4a59bebc576305524",
+        "message_id": "synthetic-message",
+        "original_period_from": "2026-10-01T00:00:00+02:00",
+        "original_period_to": "2026-10-31T23:59:59+01:00",
+        "entry_sources": [
+          {
+            "line_number": 1,
+            "xml_line": 9,
+            "bank_reference": "bank-credit-01",
+            "entry_reference": "reference-credit",
+            "transaction_details": 1,
+            "reversal": false
+          },
+          {
+            "line_number": 2,
+            "xml_line": 10,
+            "bank_reference": "bank-debit-02",
+            "entry_reference": "reference-debit",
+            "transaction_details": 1,
+            "reversal": false
+          }
+        ]
+      }
+    },
+    "errors": [],
+    "duplicates": [],
+    "identity_checks": [],
+    "duplicate_statement_id": null,
+    "can_import": true,
+    "total": "100.00",
+    "preview_hash": "e8f43851fe78927f165326cc82a2f30ac458cbd7860f5b9113e4b59a74692088"
+  },
+  "command": {
+    "request_id": "d11496e5be7f4a359a716032059f1672",
+    "account_id": "a813615dc45549449f1bb908875332d1",
+    "account_revision": 1,
+    "bank_revision": 1,
+    "filename": "synthetic.xml",
+    "delimiter": "camt.053.001.08",
+    "statement_reference": "synthetic-statement",
+    "period_from": "2026-10-01",
+    "period_to": "2026-10-31",
+    "opening_balance": "100.00",
+    "closing_balance": "200.00",
+    "content_base64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPERvY3VtZW50IHhtbG5zPSJ1cm46aXNvOnN0ZDppc286MjAwMjI6dGVjaDp4c2Q6Y2FtdC4wNTMuMDAxLjA4Ij48QmtUb0NzdG1yU3RtdD4KPEdycEhkcj48TXNnSWQ+c3ludGhldGljLW1lc3NhZ2U8L01zZ0lkPjxDcmVEdFRtPjIwMjYtMTEtMDFUMDg6MDA6MDArMDE6MDA8L0NyZUR0VG0+PC9HcnBIZHI+CjxTdG10PjxJZD5zeW50aGV0aWMtc3RhdGVtZW50PC9JZD48RnJUb0R0PjxGckR0VG0+MjAyNi0xMC0wMVQwMDowMDowMCswMjowMDwvRnJEdFRtPjxUb0R0VG0+MjAyNi0xMC0zMVQyMzo1OTo1OSswMTowMDwvVG9EdFRtPjwvRnJUb0R0Pgo8QWNjdD48SWQ+PElCQU4+REU4OTM3MDQwMDQ0MDUzMjAxMzAwMDwvSUJBTj48L0lkPjxDY3k+RVVSPC9DY3k+PC9BY2N0Pgo8QmFsPjxUcD48Q2RPclBydHJ5PjxDZD5PUEJEPC9DZD48L0NkT3JQcnRyeT48L1RwPjxBbXQgQ2N5PSJFVVIiPjEwMC4wMDwvQW10PjxDZHREYnRJbmQ+Q1JEVDwvQ2R0RGJ0SW5kPjxEdD48RHQ+MjAyNi0xMC0wMTwvRHQ+PC9EdD48L0JhbD4KPEJhbD48VHA+PENkT3JQcnRyeT48Q2Q+Q0xCRDwvQ2Q+PC9DZE9yUHJ0cnk+PC9UcD48QW10IENjeT0iRVVSIj4yMDAuMDA8L0FtdD48Q2R0RGJ0SW5kPkNSRFQ8L0NkdERidEluZD48RHQ+PER0PjIwMjYtMTAtMzE8L0R0PjwvRHQ+PC9CYWw+Cgo8TnRyeT48TnRyeVJlZj5yZWZlcmVuY2UtY3JlZGl0PC9OdHJ5UmVmPjxBbXQgQ2N5PSJFVVIiPjEyNS4wMDwvQW10PjxDZHREYnRJbmQ+Q1JEVDwvQ2R0RGJ0SW5kPjxTdHM+PENkPkJPT0s8L0NkPjwvU3RzPjxCb29rZ0R0PjxEdD4yMDI2LTEwLTA1PC9EdD48L0Jvb2tnRHQ+PFZhbER0PjxEdD4yMDI2LTEwLTA1PC9EdD48L1ZhbER0PjxBY2N0U3ZjclJlZj5iYW5rLWNyZWRpdC0wMTwvQWNjdFN2Y3JSZWY+PEJrVHhDZD48UHJ0cnk+PENkPnN5bnRoZXRpYy1jcmVkaXQ8L0NkPjwvUHJ0cnk+PC9Ca1R4Q2Q+PE50cnlEdGxzPjxUeER0bHM+PFJsdGRQdGllcz48RGJ0cj48UHR5PjxObT5TeW50aGV0aXNjaGUgTcO8bGxlciBHbWJIPC9ObT48L1B0eT48L0RidHI+PC9SbHRkUHRpZXM+PFJtdEluZj48VXN0cmQ+UmVjaG51bmcgUi0xMDA8L1VzdHJkPjwvUm10SW5mPjwvVHhEdGxzPjwvTnRyeUR0bHM+PC9OdHJ5Pgo8TnRyeT48TnRyeVJlZj5yZWZlcmVuY2UtZGViaXQ8L050cnlSZWY+PEFtdCBDY3k9IkVVUiI+MjUuMDA8L0FtdD48Q2R0RGJ0SW5kPkRCSVQ8L0NkdERidEluZD48U3RzPjxDZD5CT09LPC9DZD48L1N0cz48Qm9va2dEdD48RHQ+MjAyNi0xMC0wNjwvRHQ+PC9Cb29rZ0R0PjxWYWxEdD48RHQ+MjAyNi0xMC0wNzwvRHQ+PC9WYWxEdD48QWNjdFN2Y3JSZWY+YmFuay1kZWJpdC0wMjwvQWNjdFN2Y3JSZWY+PEJrVHhDZD48UHJ0cnk+PENkPnN5bnRoZXRpYy1kZWJpdDwvQ2Q+PC9QcnRyeT48L0JrVHhDZD48TnRyeUR0bHM+PFR4RHRscz48Umx0ZFB0aWVzPjxDZHRyPjxQdHk+PE5tPlN5bnRoZXRpc2NoZXIgTGllZmVyYW50PC9ObT48L1B0eT48L0NkdHI+PC9SbHRkUHRpZXM+PFJtdEluZj48VXN0cmQ+RWlua2F1ZiBFLTIwMDwvVXN0cmQ+PC9SbXRJbmY+PC9UeER0bHM+PC9OdHJ5RHRscz48L050cnk+PC9TdG10PjwvQmtUb0NzdG1yU3RtdD48L0RvY3VtZW50Pg==",
+    "complete_statement_confirmed": true,
+    "preview_hash": "e8f43851fe78927f165326cc82a2f30ac458cbd7860f5b9113e4b59a74692088",
+    "confirmation": true
+  },
+  "receipt": {
+    "statement": {
+      "id": "e15bf5efee564bdaa5b68cf77f68549a",
+      "account_id": "a813615dc45549449f1bb908875332d1",
+      "reference_key": "synthetic-statement",
+      "file_sha256": "3590917fa5ea7386368dce11f68db18251a6daf91a8e40f4a59bebc576305524",
+      "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "payload": {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+          "currency": "EUR",
+          "id": "a813615dc45549449f1bb908875332d1",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "bank": {
+          "account_id": "a813615dc45549449f1bb908875332d1",
+          "content_hash": "a9ebeda94aaff84226788f07841702e2082270a11229f2cd1847663f29aa6966",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+              "currency": "EUR",
+              "id": "a813615dc45549449f1bb908875332d1",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-01-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic bank",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        },
+        "camt": {
+          "entry_sources": [
+            {
+              "bank_reference": "bank-credit-01",
+              "entry_reference": "reference-credit",
+              "line_number": 1,
+              "reversal": false,
+              "transaction_details": 1,
+              "xml_line": 9
+            },
+            {
+              "bank_reference": "bank-debit-02",
+              "entry_reference": "reference-debit",
+              "line_number": 2,
+              "reversal": false,
+              "transaction_details": 1,
+              "xml_line": 10
+            }
+          ],
+          "file_sha256": "3590917fa5ea7386368dce11f68db18251a6daf91a8e40f4a59bebc576305524",
+          "message_id": "synthetic-message",
+          "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
+          "original_period_from": "2026-10-01T00:00:00+02:00",
+          "original_period_to": "2026-10-31T23:59:59+01:00",
+          "schema_sha256": "c3cfac080dc31476bde7444b05d00e1b23558d5e44529e58d0ad562e6013873d"
+        },
+        "closing_balance": "200.00",
+        "complete_statement_confirmed": true,
+        "contract": "smartplan_bank_camt053_08_v1",
+        "delimiter": "camt.053.001.08",
+        "distinct_transaction_confirmations": {},
+        "file_sha256": "3590917fa5ea7386368dce11f68db18251a6daf91a8e40f4a59bebc576305524",
+        "filename": "synthetic.xml",
+        "opening_balance": "100.00",
+        "period_from": "2026-10-01",
+        "period_to": "2026-10-31",
+        "rows": [
+          {
+            "amount": "125.00",
+            "booking_date": "2026-10-05",
+            "counterparty": "Synthetische Müller GmbH",
+            "currency": "EUR",
+            "line_number": 1,
+            "reference": "Rechnung R-100",
+            "transaction_id": "camt08:bank-credit-01",
+            "value_date": "2026-10-05"
+          },
+          {
+            "amount": "-25.00",
+            "booking_date": "2026-10-06",
+            "counterparty": "Synthetischer Lieferant",
+            "currency": "EUR",
+            "line_number": 2,
+            "reference": "Einkauf E-200",
+            "transaction_id": "camt08:bank-debit-02",
+            "value_date": "2026-10-07"
+          }
+        ],
+        "statement_reference": "synthetic-statement"
+      },
+      "content_hash": "ced8edd34782e2db51ed4d6610e30f644c91ae85f4e840280180adfac56c7500"
+    },
+    "lines": [
+      {
+        "line_number": 1,
+        "transaction_id": "dfad9cf40fb441cb9bff259aa3ff1480",
+        "transaction": {
+          "id": "dfad9cf40fb441cb9bff259aa3ff1480",
+          "account_id": "a813615dc45549449f1bb908875332d1",
+          "external_id": "camt08:bank-credit-01",
+          "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "payload": {
+            "amount": "125.00",
+            "booking_date": "2026-10-05",
+            "counterparty": "Synthetische Müller GmbH",
+            "currency": "EUR",
+            "reference": "Rechnung R-100",
+            "transaction_id": "camt08:bank-credit-01",
+            "value_date": "2026-10-05"
+          },
+          "content_hash": "f2c2a0ae6b9eb84287da97182c0cff235b908a450c49b3f412ef18605da87248"
+        }
+      },
+      {
+        "line_number": 2,
+        "transaction_id": "7d5cc1a6d7a6412f8123f5b9707c4d09",
+        "transaction": {
+          "id": "7d5cc1a6d7a6412f8123f5b9707c4d09",
+          "account_id": "a813615dc45549449f1bb908875332d1",
+          "external_id": "camt08:bank-debit-02",
+          "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "payload": {
+            "amount": "-25.00",
+            "booking_date": "2026-10-06",
+            "counterparty": "Synthetischer Lieferant",
+            "currency": "EUR",
+            "reference": "Einkauf E-200",
+            "transaction_id": "camt08:bank-debit-02",
+            "value_date": "2026-10-07"
+          },
+          "content_hash": "36419ceb1dba9a0cdeb4dfe52af8519a34588d77a1887ce114442606aa1fd094"
+        }
+      }
+    ],
+    "original": {
+      "filename": "synthetic.xml",
+      "sha256": "3590917fa5ea7386368dce11f68db18251a6daf91a8e40f4a59bebc576305524",
+      "path": "/bank/statements/e15bf5efee564bdaa5b68cf77f68549a/original"
+    }
+  },
+  "statement": {
+    "statement": {
+      "id": "e15bf5efee564bdaa5b68cf77f68549a",
+      "account_id": "a813615dc45549449f1bb908875332d1",
+      "reference_key": "synthetic-statement",
+      "file_sha256": "3590917fa5ea7386368dce11f68db18251a6daf91a8e40f4a59bebc576305524",
+      "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "payload": {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+          "currency": "EUR",
+          "id": "a813615dc45549449f1bb908875332d1",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "bank": {
+          "account_id": "a813615dc45549449f1bb908875332d1",
+          "content_hash": "a9ebeda94aaff84226788f07841702e2082270a11229f2cd1847663f29aa6966",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+              "currency": "EUR",
+              "id": "a813615dc45549449f1bb908875332d1",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-01-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic bank",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        },
+        "camt": {
+          "entry_sources": [
+            {
+              "bank_reference": "bank-credit-01",
+              "entry_reference": "reference-credit",
+              "line_number": 1,
+              "reversal": false,
+              "transaction_details": 1,
+              "xml_line": 9
+            },
+            {
+              "bank_reference": "bank-debit-02",
+              "entry_reference": "reference-debit",
+              "line_number": 2,
+              "reversal": false,
+              "transaction_details": 1,
+              "xml_line": 10
+            }
+          ],
+          "file_sha256": "3590917fa5ea7386368dce11f68db18251a6daf91a8e40f4a59bebc576305524",
+          "message_id": "synthetic-message",
+          "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
+          "original_period_from": "2026-10-01T00:00:00+02:00",
+          "original_period_to": "2026-10-31T23:59:59+01:00",
+          "schema_sha256": "c3cfac080dc31476bde7444b05d00e1b23558d5e44529e58d0ad562e6013873d"
+        },
+        "closing_balance": "200.00",
+        "complete_statement_confirmed": true,
+        "contract": "smartplan_bank_camt053_08_v1",
+        "delimiter": "camt.053.001.08",
+        "distinct_transaction_confirmations": {},
+        "file_sha256": "3590917fa5ea7386368dce11f68db18251a6daf91a8e40f4a59bebc576305524",
+        "filename": "synthetic.xml",
+        "opening_balance": "100.00",
+        "period_from": "2026-10-01",
+        "period_to": "2026-10-31",
+        "rows": [
+          {
+            "amount": "125.00",
+            "booking_date": "2026-10-05",
+            "counterparty": "Synthetische Müller GmbH",
+            "currency": "EUR",
+            "line_number": 1,
+            "reference": "Rechnung R-100",
+            "transaction_id": "camt08:bank-credit-01",
+            "value_date": "2026-10-05"
+          },
+          {
+            "amount": "-25.00",
+            "booking_date": "2026-10-06",
+            "counterparty": "Synthetischer Lieferant",
+            "currency": "EUR",
+            "line_number": 2,
+            "reference": "Einkauf E-200",
+            "transaction_id": "camt08:bank-debit-02",
+            "value_date": "2026-10-07"
+          }
+        ],
+        "statement_reference": "synthetic-statement"
+      },
+      "content_hash": "ced8edd34782e2db51ed4d6610e30f644c91ae85f4e840280180adfac56c7500"
+    },
+    "lines": [
+      {
+        "line_number": 1,
+        "transaction_id": "dfad9cf40fb441cb9bff259aa3ff1480",
+        "transaction": {
+          "id": "dfad9cf40fb441cb9bff259aa3ff1480",
+          "account_id": "a813615dc45549449f1bb908875332d1",
+          "external_id": "camt08:bank-credit-01",
+          "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "payload": {
+            "amount": "125.00",
+            "booking_date": "2026-10-05",
+            "counterparty": "Synthetische Müller GmbH",
+            "currency": "EUR",
+            "reference": "Rechnung R-100",
+            "transaction_id": "camt08:bank-credit-01",
+            "value_date": "2026-10-05"
+          },
+          "content_hash": "f2c2a0ae6b9eb84287da97182c0cff235b908a450c49b3f412ef18605da87248"
+        },
+        "current": {
+          "transaction_id": "dfad9cf40fb441cb9bff259aa3ff1480",
+          "revision": 0,
+          "content_hash": null,
+          "previous_hash": null,
+          "payload": {
+            "links": [],
+            "reason": ""
+          }
+        }
+      },
+      {
+        "line_number": 2,
+        "transaction_id": "7d5cc1a6d7a6412f8123f5b9707c4d09",
+        "transaction": {
+          "id": "7d5cc1a6d7a6412f8123f5b9707c4d09",
+          "account_id": "a813615dc45549449f1bb908875332d1",
+          "external_id": "camt08:bank-debit-02",
+          "created_by": "8fa895d935f64810bc9694fb83cefb6b",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "payload": {
+            "amount": "-25.00",
+            "booking_date": "2026-10-06",
+            "counterparty": "Synthetischer Lieferant",
+            "currency": "EUR",
+            "reference": "Einkauf E-200",
+            "transaction_id": "camt08:bank-debit-02",
+            "value_date": "2026-10-07"
+          },
+          "content_hash": "36419ceb1dba9a0cdeb4dfe52af8519a34588d77a1887ce114442606aa1fd094"
+        },
+        "current": {
+          "transaction_id": "7d5cc1a6d7a6412f8123f5b9707c4d09",
+          "revision": 0,
+          "content_hash": null,
+          "previous_hash": null,
+          "payload": {
+            "links": [],
+            "reason": ""
+          }
+        }
+      }
+    ],
+    "original": {
+      "filename": "synthetic.xml",
+      "sha256": "3590917fa5ea7386368dce11f68db18251a6daf91a8e40f4a59bebc576305524",
+      "path": "/bank/statements/e15bf5efee564bdaa5b68cf77f68549a/original"
+    }
+  }
+}

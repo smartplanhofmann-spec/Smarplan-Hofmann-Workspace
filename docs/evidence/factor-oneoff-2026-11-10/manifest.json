@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "published_own_development_all20_and_unsigned204_passed_manual_signing_still_running",
+  "status": "published_own_all20_and_unsigned204_and_manual_signed_preparation_passed",
   "base_commit": "5c779b92d2e3269c4fc799a02879c83b943ff129",
   "raw_files": [
     {
@@ -346,6 +346,11 @@
       "path": "own-unsigned-iphone-complete-20261110.json",
       "bytes": 4746,
       "sha256": "4200534739c3a45a7b6e10d84c59339fff14bc01229aad395ae50eebe253f753"
+    },
+    {
+      "path": "own-signed-iphone-complete-20261110.json",
+      "bytes": 9274,
+      "sha256": "4687795180a764d9f3681d879e027218bc1b3c1ec5bb0d201fde6c0e3f9a6000"
     }
   ],
   "independent_xml_vectors": 344,
@@ -460,5 +465,12 @@
     "signed": false,
     "real_device_acceptance": false
   },
-  "hash_scope": "bytes/sha256 refer to decompressed raw content for .gz files and file content otherwise; added stored_* fields explicitly describe compression"
+  "hash_scope": "bytes/sha256 refer to decompressed raw content for .gz files and file content otherwise; added stored_* fields explicitly describe compression",
+  "manual_signed_preparation_result": {
+    "run_id": 42843099650,
+    "source_commit": "1fa0bcceb28a822bed9600ad18e33ba54d2c227f",
+    "all_jobs": "success",
+    "upload_to_testflight": false,
+    "real_device_acceptance": false
+  }
 }

@@ -1,0 +1,997 @@
+[
+  {
+    "path": "/api/v1/business/bank/accounts",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "available_accounts": [
+        {
+          "active": true,
+          "code": "CAMT-SYN",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "currency": "EUR",
+          "id": "27c0395f4d8948819972d025120abfbf",
+          "kind": "bank",
+          "name": "Synthetic XML bank",
+          "revision": 1
+        }
+      ],
+      "csv_contract": {
+        "columns": [
+          "transaction_id",
+          "booking_date",
+          "value_date",
+          "amount",
+          "currency",
+          "counterparty",
+          "reference"
+        ],
+        "max_bytes": 5242880,
+        "max_rows": 10000,
+        "version": "smartplan_bank_csv_v1"
+      },
+      "external_connection": false,
+      "items": [
+        {
+          "account_id": "27c0395f4d8948819972d025120abfbf",
+          "content_hash": "87453d3a28933ffa96103f926d0b0d9a41eadaea5ef458f9ee4d6f2af33cce21",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "CAMT-SYN",
+              "created_at": "2026-11-10T17:10:22+00:00",
+              "created_by": "d051f72be5f64e05b427b395474e4195",
+              "currency": "EUR",
+              "id": "27c0395f4d8948819972d025120abfbf",
+              "kind": "bank",
+              "name": "Synthetic XML bank",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-11-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic CAMT bank",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/business/bank/accounts",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "available_accounts": [
+        {
+          "active": true,
+          "code": "CAMT-SYN",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "currency": "EUR",
+          "id": "27c0395f4d8948819972d025120abfbf",
+          "kind": "bank",
+          "name": "Synthetic XML bank",
+          "revision": 1
+        }
+      ],
+      "csv_contract": {
+        "columns": [
+          "transaction_id",
+          "booking_date",
+          "value_date",
+          "amount",
+          "currency",
+          "counterparty",
+          "reference"
+        ],
+        "max_bytes": 5242880,
+        "max_rows": 10000,
+        "version": "smartplan_bank_csv_v1"
+      },
+      "external_connection": false,
+      "items": [
+        {
+          "account_id": "27c0395f4d8948819972d025120abfbf",
+          "content_hash": "87453d3a28933ffa96103f926d0b0d9a41eadaea5ef458f9ee4d6f2af33cce21",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "CAMT-SYN",
+              "created_at": "2026-11-10T17:10:22+00:00",
+              "created_by": "d051f72be5f64e05b427b395474e4195",
+              "currency": "EUR",
+              "id": "27c0395f4d8948819972d025120abfbf",
+              "kind": "bank",
+              "name": "Synthetic XML bank",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-11-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic CAMT bank",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/business/bank/statements",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "items": [],
+      "next_offset": null
+    }
+  },
+  {
+    "path": "/api/v1/business/bank/reconciliations",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "items": [],
+      "next_offset": null
+    }
+  },
+  {
+    "path": "/api/v1/business/bank/accounts",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "available_accounts": [
+        {
+          "active": true,
+          "code": "CAMT-SYN",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "currency": "EUR",
+          "id": "27c0395f4d8948819972d025120abfbf",
+          "kind": "bank",
+          "name": "Synthetic XML bank",
+          "revision": 1
+        }
+      ],
+      "csv_contract": {
+        "columns": [
+          "transaction_id",
+          "booking_date",
+          "value_date",
+          "amount",
+          "currency",
+          "counterparty",
+          "reference"
+        ],
+        "max_bytes": 5242880,
+        "max_rows": 10000,
+        "version": "smartplan_bank_csv_v1"
+      },
+      "external_connection": false,
+      "items": [
+        {
+          "account_id": "27c0395f4d8948819972d025120abfbf",
+          "content_hash": "87453d3a28933ffa96103f926d0b0d9a41eadaea5ef458f9ee4d6f2af33cce21",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "CAMT-SYN",
+              "created_at": "2026-11-10T17:10:22+00:00",
+              "created_by": "d051f72be5f64e05b427b395474e4195",
+              "currency": "EUR",
+              "id": "27c0395f4d8948819972d025120abfbf",
+              "kind": "bank",
+              "name": "Synthetic XML bank",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-11-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic CAMT bank",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/business/bank/accounts",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "available_accounts": [
+        {
+          "active": true,
+          "code": "CAMT-SYN",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "currency": "EUR",
+          "id": "27c0395f4d8948819972d025120abfbf",
+          "kind": "bank",
+          "name": "Synthetic XML bank",
+          "revision": 1
+        }
+      ],
+      "csv_contract": {
+        "columns": [
+          "transaction_id",
+          "booking_date",
+          "value_date",
+          "amount",
+          "currency",
+          "counterparty",
+          "reference"
+        ],
+        "max_bytes": 5242880,
+        "max_rows": 10000,
+        "version": "smartplan_bank_csv_v1"
+      },
+      "external_connection": false,
+      "items": [
+        {
+          "account_id": "27c0395f4d8948819972d025120abfbf",
+          "content_hash": "87453d3a28933ffa96103f926d0b0d9a41eadaea5ef458f9ee4d6f2af33cce21",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "CAMT-SYN",
+              "created_at": "2026-11-10T17:10:22+00:00",
+              "created_by": "d051f72be5f64e05b427b395474e4195",
+              "currency": "EUR",
+              "id": "27c0395f4d8948819972d025120abfbf",
+              "kind": "bank",
+              "name": "Synthetic XML bank",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-11-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic CAMT bank",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/business/bank/camt/inspect",
+    "method": "POST",
+    "body": {
+      "account_id": "27c0395f4d8948819972d025120abfbf",
+      "account_revision": 1,
+      "bank_revision": 1,
+      "filename": "synthetic-bank.xml",
+      "content_base64": "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz4KPG5zMDpEb2N1bWVudCB4bWxuczpuczA9InVybjppc286c3RkOmlzbzoyMDAyMjp0ZWNoOnhzZDpjYW10LjA1My4wMDEuMDgiPjxuczA6QmtUb0NzdG1yU3RtdD4KPG5zMDpHcnBIZHI+PG5zMDpNc2dJZD5zeW50aGV0aWMtbWVzc2FnZTwvbnMwOk1zZ0lkPjxuczA6Q3JlRHRUbT4yMDI2LTExLTAxVDA4OjAwOjAwKzAxOjAwPC9uczA6Q3JlRHRUbT48L25zMDpHcnBIZHI+CjxuczA6U3RtdD48bnMwOklkPnN5bnRoZXRpYy1jYW10LWVhM2EwZjE0NDc2ZTRkNWM8L25zMDpJZD48bnMwOkZyVG9EdD48bnMwOkZyRHRUbT4yMDI2LTExLTAxVDAwOjAwOjAwKzAxOjAwPC9uczA6RnJEdFRtPjxuczA6VG9EdFRtPjIwMjYtMTEtMzBUMjM6NTk6NTkrMDE6MDA8L25zMDpUb0R0VG0+PC9uczA6RnJUb0R0Pgo8bnMwOkFjY3Q+PG5zMDpJZD48bnMwOklCQU4+REU4OTM3MDQwMDQ0MDUzMjAxMzAwMDwvbnMwOklCQU4+PC9uczA6SWQ+PG5zMDpDY3k+RVVSPC9uczA6Q2N5PjwvbnMwOkFjY3Q+CjxuczA6QmFsPjxuczA6VHA+PG5zMDpDZE9yUHJ0cnk+PG5zMDpDZD5PUEJEPC9uczA6Q2Q+PC9uczA6Q2RPclBydHJ5PjwvbnMwOlRwPjxuczA6QW10IENjeT0iRVVSIj4wLjAwPC9uczA6QW10PjxuczA6Q2R0RGJ0SW5kPkNSRFQ8L25zMDpDZHREYnRJbmQ+PG5zMDpEdD48bnMwOkR0PjIwMjYtMTEtMDE8L25zMDpEdD48L25zMDpEdD48L25zMDpCYWw+CjxuczA6QmFsPjxuczA6VHA+PG5zMDpDZE9yUHJ0cnk+PG5zMDpDZD5DTEJEPC9uczA6Q2Q+PC9uczA6Q2RPclBydHJ5PjwvbnMwOlRwPjxuczA6QW10IENjeT0iRVVSIj4xMTkuMDA8L25zMDpBbXQ+PG5zMDpDZHREYnRJbmQ+Q1JEVDwvbnMwOkNkdERidEluZD48bnMwOkR0PjxuczA6RHQ+MjAyNi0xMS0zMDwvbnMwOkR0PjwvbnMwOkR0PjwvbnMwOkJhbD4KCjxuczA6TnRyeT48bnMwOk50cnlSZWY+cmVmZXJlbmNlLWNyZWRpdDwvbnMwOk50cnlSZWY+PG5zMDpBbXQgQ2N5PSJFVVIiPjExOS4wMDwvbnMwOkFtdD48bnMwOkNkdERidEluZD5DUkRUPC9uczA6Q2R0RGJ0SW5kPjxuczA6U3RzPjxuczA6Q2Q+Qk9PSzwvbnMwOkNkPjwvbnMwOlN0cz48bnMwOkJvb2tnRHQ+PG5zMDpEdD4yMDI2LTExLTAyPC9uczA6RHQ+PC9uczA6Qm9va2dEdD48bnMwOlZhbER0PjxuczA6RHQ+MjAyNi0xMS0wMjwvbnMwOkR0PjwvbnMwOlZhbER0PjxuczA6QWNjdFN2Y3JSZWY+YmFuay1jcmVkaXQtMDE8L25zMDpBY2N0U3ZjclJlZj48bnMwOkJrVHhDZD48bnMwOlBydHJ5PjxuczA6Q2Q+c3ludGhldGljLWNyZWRpdDwvbnMwOkNkPjwvbnMwOlBydHJ5PjwvbnMwOkJrVHhDZD48bnMwOk50cnlEdGxzPjxuczA6VHhEdGxzPjxuczA6Umx0ZFB0aWVzPjxuczA6RGJ0cj48bnMwOlB0eT48bnMwOk5tPlN5bnRoZXRpc2NoZSBNw7xsbGVyIEdtYkg8L25zMDpObT48L25zMDpQdHk+PC9uczA6RGJ0cj48L25zMDpSbHRkUHRpZXM+PG5zMDpSbXRJbmY+PG5zMDpVc3RyZD5SZWNobnVuZyBSLTEwMDwvbnMwOlVzdHJkPjwvbnMwOlJtdEluZj48L25zMDpUeER0bHM+PC9uczA6TnRyeUR0bHM+PC9uczA6TnRyeT4KPC9uczA6U3RtdD48L25zMDpCa1RvQ3N0bXJTdG10PjwvbnMwOkRvY3VtZW50Pg=="
+    },
+    "status": 200,
+    "value": {
+      "camt": {
+        "entry_sources": [
+          {
+            "bank_reference": "bank-credit-01",
+            "entry_reference": "reference-credit",
+            "line_number": 1,
+            "reversal": false,
+            "transaction_details": 1,
+            "xml_line": 9
+          }
+        ],
+        "file_sha256": "2ba85fd1c8e0e778bba639a9f88badbbd7aff1e4405f088f0edb8f969537b92b",
+        "message_id": "synthetic-message",
+        "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
+        "original_period_from": "2026-11-01T00:00:00+01:00",
+        "original_period_to": "2026-11-30T23:59:59+01:00",
+        "schema_sha256": "c3cfac080dc31476bde7444b05d00e1b23558d5e44529e58d0ad562e6013873d"
+      },
+      "confirmation_required": true,
+      "contract": "smartplan_bank_camt053_08_v1",
+      "financial_changes": false,
+      "original_sha256": "2ba85fd1c8e0e778bba639a9f88badbbd7aff1e4405f088f0edb8f969537b92b",
+      "preview": {
+        "can_import": true,
+        "duplicate_statement_id": null,
+        "duplicates": [],
+        "errors": [],
+        "identity_checks": [],
+        "metadata": {
+          "account": {
+            "active": true,
+            "code": "CAMT-SYN",
+            "created_at": "2026-11-10T17:10:22+00:00",
+            "created_by": "d051f72be5f64e05b427b395474e4195",
+            "currency": "EUR",
+            "id": "27c0395f4d8948819972d025120abfbf",
+            "kind": "bank",
+            "name": "Synthetic XML bank",
+            "revision": 1
+          },
+          "bank": {
+            "account_id": "27c0395f4d8948819972d025120abfbf",
+            "content_hash": "87453d3a28933ffa96103f926d0b0d9a41eadaea5ef458f9ee4d6f2af33cce21",
+            "created_at": "2026-11-10T17:10:22+00:00",
+            "created_by": "d051f72be5f64e05b427b395474e4195",
+            "payload": {
+              "account": {
+                "active": true,
+                "code": "CAMT-SYN",
+                "created_at": "2026-11-10T17:10:22+00:00",
+                "created_by": "d051f72be5f64e05b427b395474e4195",
+                "currency": "EUR",
+                "id": "27c0395f4d8948819972d025120abfbf",
+                "kind": "bank",
+                "name": "Synthetic XML bank",
+                "revision": 1
+              },
+              "active": true,
+              "coverage_from": "2026-11-01",
+              "coverage_to": null,
+              "iban": "DE89370400440532013000",
+              "label": "Synthetic CAMT bank",
+              "reason": ""
+            },
+            "previous_hash": null,
+            "revision": 1
+          },
+          "camt": {
+            "entry_sources": [
+              {
+                "bank_reference": "bank-credit-01",
+                "entry_reference": "reference-credit",
+                "line_number": 1,
+                "reversal": false,
+                "transaction_details": 1,
+                "xml_line": 9
+              }
+            ],
+            "file_sha256": "2ba85fd1c8e0e778bba639a9f88badbbd7aff1e4405f088f0edb8f969537b92b",
+            "message_id": "synthetic-message",
+            "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
+            "original_period_from": "2026-11-01T00:00:00+01:00",
+            "original_period_to": "2026-11-30T23:59:59+01:00",
+            "schema_sha256": "c3cfac080dc31476bde7444b05d00e1b23558d5e44529e58d0ad562e6013873d"
+          },
+          "closing_balance": "119.00",
+          "complete_statement_confirmed": true,
+          "contract": "smartplan_bank_camt053_08_v1",
+          "delimiter": "camt.053.001.08",
+          "distinct_transaction_confirmations": {},
+          "file_sha256": "2ba85fd1c8e0e778bba639a9f88badbbd7aff1e4405f088f0edb8f969537b92b",
+          "filename": "synthetic-bank.xml",
+          "opening_balance": "0.00",
+          "period_from": "2026-11-01",
+          "period_to": "2026-11-30",
+          "rows": [
+            {
+              "amount": "119.00",
+              "booking_date": "2026-11-02",
+              "counterparty": "Synthetische Müller GmbH",
+              "currency": "EUR",
+              "line_number": 1,
+              "reference": "Rechnung R-100",
+              "transaction_id": "camt08:bank-credit-01",
+              "value_date": "2026-11-02"
+            }
+          ],
+          "statement_reference": "synthetic-camt-ea3a0f14476e4d5c"
+        },
+        "preview_hash": "0fe453d861058a35c9befa3d5f35d4ac6023e0c914c923d8e38e7efc6e0015b9",
+        "total": "119.00"
+      },
+      "schema_version": 1,
+      "suggested_body": {
+        "account_id": "27c0395f4d8948819972d025120abfbf",
+        "account_revision": 1,
+        "bank_revision": 1,
+        "closing_balance": "119.00",
+        "delimiter": "camt.053.001.08",
+        "filename": "synthetic-bank.xml",
+        "opening_balance": "0.00",
+        "period_from": "2026-11-01",
+        "period_to": "2026-11-30",
+        "statement_reference": "synthetic-camt-ea3a0f14476e4d5c"
+      }
+    }
+  },
+  {
+    "path": "/api/v1/business/bank/accounts",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "available_accounts": [
+        {
+          "active": true,
+          "code": "CAMT-SYN",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "currency": "EUR",
+          "id": "27c0395f4d8948819972d025120abfbf",
+          "kind": "bank",
+          "name": "Synthetic XML bank",
+          "revision": 1
+        }
+      ],
+      "csv_contract": {
+        "columns": [
+          "transaction_id",
+          "booking_date",
+          "value_date",
+          "amount",
+          "currency",
+          "counterparty",
+          "reference"
+        ],
+        "max_bytes": 5242880,
+        "max_rows": 10000,
+        "version": "smartplan_bank_csv_v1"
+      },
+      "external_connection": false,
+      "items": [
+        {
+          "account_id": "27c0395f4d8948819972d025120abfbf",
+          "content_hash": "87453d3a28933ffa96103f926d0b0d9a41eadaea5ef458f9ee4d6f2af33cce21",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "CAMT-SYN",
+              "created_at": "2026-11-10T17:10:22+00:00",
+              "created_by": "d051f72be5f64e05b427b395474e4195",
+              "currency": "EUR",
+              "id": "27c0395f4d8948819972d025120abfbf",
+              "kind": "bank",
+              "name": "Synthetic XML bank",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-11-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic CAMT bank",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/business/bank/accounts",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "available_accounts": [
+        {
+          "active": true,
+          "code": "CAMT-SYN",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "currency": "EUR",
+          "id": "27c0395f4d8948819972d025120abfbf",
+          "kind": "bank",
+          "name": "Synthetic XML bank",
+          "revision": 1
+        }
+      ],
+      "csv_contract": {
+        "columns": [
+          "transaction_id",
+          "booking_date",
+          "value_date",
+          "amount",
+          "currency",
+          "counterparty",
+          "reference"
+        ],
+        "max_bytes": 5242880,
+        "max_rows": 10000,
+        "version": "smartplan_bank_csv_v1"
+      },
+      "external_connection": false,
+      "items": [
+        {
+          "account_id": "27c0395f4d8948819972d025120abfbf",
+          "content_hash": "87453d3a28933ffa96103f926d0b0d9a41eadaea5ef458f9ee4d6f2af33cce21",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "CAMT-SYN",
+              "created_at": "2026-11-10T17:10:22+00:00",
+              "created_by": "d051f72be5f64e05b427b395474e4195",
+              "currency": "EUR",
+              "id": "27c0395f4d8948819972d025120abfbf",
+              "kind": "bank",
+              "name": "Synthetic XML bank",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-11-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic CAMT bank",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/business/bank/camt/preview",
+    "method": "POST",
+    "body": {
+      "account_id": "27c0395f4d8948819972d025120abfbf",
+      "account_revision": 1,
+      "bank_revision": 1,
+      "closing_balance": "119.00",
+      "delimiter": "camt.053.001.08",
+      "filename": "synthetic-bank.xml",
+      "opening_balance": "0.00",
+      "period_from": "2026-11-01",
+      "period_to": "2026-11-30",
+      "statement_reference": "synthetic-camt-ea3a0f14476e4d5c",
+      "content_base64": "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz4KPG5zMDpEb2N1bWVudCB4bWxuczpuczA9InVybjppc286c3RkOmlzbzoyMDAyMjp0ZWNoOnhzZDpjYW10LjA1My4wMDEuMDgiPjxuczA6QmtUb0NzdG1yU3RtdD4KPG5zMDpHcnBIZHI+PG5zMDpNc2dJZD5zeW50aGV0aWMtbWVzc2FnZTwvbnMwOk1zZ0lkPjxuczA6Q3JlRHRUbT4yMDI2LTExLTAxVDA4OjAwOjAwKzAxOjAwPC9uczA6Q3JlRHRUbT48L25zMDpHcnBIZHI+CjxuczA6U3RtdD48bnMwOklkPnN5bnRoZXRpYy1jYW10LWVhM2EwZjE0NDc2ZTRkNWM8L25zMDpJZD48bnMwOkZyVG9EdD48bnMwOkZyRHRUbT4yMDI2LTExLTAxVDAwOjAwOjAwKzAxOjAwPC9uczA6RnJEdFRtPjxuczA6VG9EdFRtPjIwMjYtMTEtMzBUMjM6NTk6NTkrMDE6MDA8L25zMDpUb0R0VG0+PC9uczA6RnJUb0R0Pgo8bnMwOkFjY3Q+PG5zMDpJZD48bnMwOklCQU4+REU4OTM3MDQwMDQ0MDUzMjAxMzAwMDwvbnMwOklCQU4+PC9uczA6SWQ+PG5zMDpDY3k+RVVSPC9uczA6Q2N5PjwvbnMwOkFjY3Q+CjxuczA6QmFsPjxuczA6VHA+PG5zMDpDZE9yUHJ0cnk+PG5zMDpDZD5PUEJEPC9uczA6Q2Q+PC9uczA6Q2RPclBydHJ5PjwvbnMwOlRwPjxuczA6QW10IENjeT0iRVVSIj4wLjAwPC9uczA6QW10PjxuczA6Q2R0RGJ0SW5kPkNSRFQ8L25zMDpDZHREYnRJbmQ+PG5zMDpEdD48bnMwOkR0PjIwMjYtMTEtMDE8L25zMDpEdD48L25zMDpEdD48L25zMDpCYWw+CjxuczA6QmFsPjxuczA6VHA+PG5zMDpDZE9yUHJ0cnk+PG5zMDpDZD5DTEJEPC9uczA6Q2Q+PC9uczA6Q2RPclBydHJ5PjwvbnMwOlRwPjxuczA6QW10IENjeT0iRVVSIj4xMTkuMDA8L25zMDpBbXQ+PG5zMDpDZHREYnRJbmQ+Q1JEVDwvbnMwOkNkdERidEluZD48bnMwOkR0PjxuczA6RHQ+MjAyNi0xMS0zMDwvbnMwOkR0PjwvbnMwOkR0PjwvbnMwOkJhbD4KCjxuczA6TnRyeT48bnMwOk50cnlSZWY+cmVmZXJlbmNlLWNyZWRpdDwvbnMwOk50cnlSZWY+PG5zMDpBbXQgQ2N5PSJFVVIiPjExOS4wMDwvbnMwOkFtdD48bnMwOkNkdERidEluZD5DUkRUPC9uczA6Q2R0RGJ0SW5kPjxuczA6U3RzPjxuczA6Q2Q+Qk9PSzwvbnMwOkNkPjwvbnMwOlN0cz48bnMwOkJvb2tnRHQ+PG5zMDpEdD4yMDI2LTExLTAyPC9uczA6RHQ+PC9uczA6Qm9va2dEdD48bnMwOlZhbER0PjxuczA6RHQ+MjAyNi0xMS0wMjwvbnMwOkR0PjwvbnMwOlZhbER0PjxuczA6QWNjdFN2Y3JSZWY+YmFuay1jcmVkaXQtMDE8L25zMDpBY2N0U3ZjclJlZj48bnMwOkJrVHhDZD48bnMwOlBydHJ5PjxuczA6Q2Q+c3ludGhldGljLWNyZWRpdDwvbnMwOkNkPjwvbnMwOlBydHJ5PjwvbnMwOkJrVHhDZD48bnMwOk50cnlEdGxzPjxuczA6VHhEdGxzPjxuczA6Umx0ZFB0aWVzPjxuczA6RGJ0cj48bnMwOlB0eT48bnMwOk5tPlN5bnRoZXRpc2NoZSBNw7xsbGVyIEdtYkg8L25zMDpObT48L25zMDpQdHk+PC9uczA6RGJ0cj48L25zMDpSbHRkUHRpZXM+PG5zMDpSbXRJbmY+PG5zMDpVc3RyZD5SZWNobnVuZyBSLTEwMDwvbnMwOlVzdHJkPjwvbnMwOlJtdEluZj48L25zMDpUeER0bHM+PC9uczA6TnRyeUR0bHM+PC9uczA6TnRyeT4KPC9uczA6U3RtdD48L25zMDpCa1RvQ3N0bXJTdG10PjwvbnMwOkRvY3VtZW50Pg==",
+      "complete_statement_confirmed": true
+    },
+    "status": 200,
+    "value": {
+      "can_import": true,
+      "duplicate_statement_id": null,
+      "duplicates": [],
+      "errors": [],
+      "identity_checks": [],
+      "metadata": {
+        "account": {
+          "active": true,
+          "code": "CAMT-SYN",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "currency": "EUR",
+          "id": "27c0395f4d8948819972d025120abfbf",
+          "kind": "bank",
+          "name": "Synthetic XML bank",
+          "revision": 1
+        },
+        "bank": {
+          "account_id": "27c0395f4d8948819972d025120abfbf",
+          "content_hash": "87453d3a28933ffa96103f926d0b0d9a41eadaea5ef458f9ee4d6f2af33cce21",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "CAMT-SYN",
+              "created_at": "2026-11-10T17:10:22+00:00",
+              "created_by": "d051f72be5f64e05b427b395474e4195",
+              "currency": "EUR",
+              "id": "27c0395f4d8948819972d025120abfbf",
+              "kind": "bank",
+              "name": "Synthetic XML bank",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-11-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic CAMT bank",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        },
+        "camt": {
+          "entry_sources": [
+            {
+              "bank_reference": "bank-credit-01",
+              "entry_reference": "reference-credit",
+              "line_number": 1,
+              "reversal": false,
+              "transaction_details": 1,
+              "xml_line": 9
+            }
+          ],
+          "file_sha256": "2ba85fd1c8e0e778bba639a9f88badbbd7aff1e4405f088f0edb8f969537b92b",
+          "message_id": "synthetic-message",
+          "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
+          "original_period_from": "2026-11-01T00:00:00+01:00",
+          "original_period_to": "2026-11-30T23:59:59+01:00",
+          "schema_sha256": "c3cfac080dc31476bde7444b05d00e1b23558d5e44529e58d0ad562e6013873d"
+        },
+        "closing_balance": "119.00",
+        "complete_statement_confirmed": true,
+        "contract": "smartplan_bank_camt053_08_v1",
+        "delimiter": "camt.053.001.08",
+        "distinct_transaction_confirmations": {},
+        "file_sha256": "2ba85fd1c8e0e778bba639a9f88badbbd7aff1e4405f088f0edb8f969537b92b",
+        "filename": "synthetic-bank.xml",
+        "opening_balance": "0.00",
+        "period_from": "2026-11-01",
+        "period_to": "2026-11-30",
+        "rows": [
+          {
+            "amount": "119.00",
+            "booking_date": "2026-11-02",
+            "counterparty": "Synthetische Müller GmbH",
+            "currency": "EUR",
+            "line_number": 1,
+            "reference": "Rechnung R-100",
+            "transaction_id": "camt08:bank-credit-01",
+            "value_date": "2026-11-02"
+          }
+        ],
+        "statement_reference": "synthetic-camt-ea3a0f14476e4d5c"
+      },
+      "preview_hash": "0fe453d861058a35c9befa3d5f35d4ac6023e0c914c923d8e38e7efc6e0015b9",
+      "total": "119.00"
+    }
+  },
+  {
+    "path": "/api/v1/business/bank/accounts",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "available_accounts": [
+        {
+          "active": true,
+          "code": "CAMT-SYN",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "currency": "EUR",
+          "id": "27c0395f4d8948819972d025120abfbf",
+          "kind": "bank",
+          "name": "Synthetic XML bank",
+          "revision": 1
+        }
+      ],
+      "csv_contract": {
+        "columns": [
+          "transaction_id",
+          "booking_date",
+          "value_date",
+          "amount",
+          "currency",
+          "counterparty",
+          "reference"
+        ],
+        "max_bytes": 5242880,
+        "max_rows": 10000,
+        "version": "smartplan_bank_csv_v1"
+      },
+      "external_connection": false,
+      "items": [
+        {
+          "account_id": "27c0395f4d8948819972d025120abfbf",
+          "content_hash": "87453d3a28933ffa96103f926d0b0d9a41eadaea5ef458f9ee4d6f2af33cce21",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "CAMT-SYN",
+              "created_at": "2026-11-10T17:10:22+00:00",
+              "created_by": "d051f72be5f64e05b427b395474e4195",
+              "currency": "EUR",
+              "id": "27c0395f4d8948819972d025120abfbf",
+              "kind": "bank",
+              "name": "Synthetic XML bank",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-11-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic CAMT bank",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/business/bank/accounts",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "available_accounts": [
+        {
+          "active": true,
+          "code": "CAMT-SYN",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "currency": "EUR",
+          "id": "27c0395f4d8948819972d025120abfbf",
+          "kind": "bank",
+          "name": "Synthetic XML bank",
+          "revision": 1
+        }
+      ],
+      "csv_contract": {
+        "columns": [
+          "transaction_id",
+          "booking_date",
+          "value_date",
+          "amount",
+          "currency",
+          "counterparty",
+          "reference"
+        ],
+        "max_bytes": 5242880,
+        "max_rows": 10000,
+        "version": "smartplan_bank_csv_v1"
+      },
+      "external_connection": false,
+      "items": [
+        {
+          "account_id": "27c0395f4d8948819972d025120abfbf",
+          "content_hash": "87453d3a28933ffa96103f926d0b0d9a41eadaea5ef458f9ee4d6f2af33cce21",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "CAMT-SYN",
+              "created_at": "2026-11-10T17:10:22+00:00",
+              "created_by": "d051f72be5f64e05b427b395474e4195",
+              "currency": "EUR",
+              "id": "27c0395f4d8948819972d025120abfbf",
+              "kind": "bank",
+              "name": "Synthetic XML bank",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-11-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic CAMT bank",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/business/bank/camt/statements",
+    "method": "POST",
+    "body": {
+      "account_id": "27c0395f4d8948819972d025120abfbf",
+      "account_revision": 1,
+      "bank_revision": 1,
+      "closing_balance": "119.00",
+      "delimiter": "camt.053.001.08",
+      "filename": "synthetic-bank.xml",
+      "opening_balance": "0.00",
+      "period_from": "2026-11-01",
+      "period_to": "2026-11-30",
+      "statement_reference": "synthetic-camt-ea3a0f14476e4d5c",
+      "content_base64": "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz4KPG5zMDpEb2N1bWVudCB4bWxuczpuczA9InVybjppc286c3RkOmlzbzoyMDAyMjp0ZWNoOnhzZDpjYW10LjA1My4wMDEuMDgiPjxuczA6QmtUb0NzdG1yU3RtdD4KPG5zMDpHcnBIZHI+PG5zMDpNc2dJZD5zeW50aGV0aWMtbWVzc2FnZTwvbnMwOk1zZ0lkPjxuczA6Q3JlRHRUbT4yMDI2LTExLTAxVDA4OjAwOjAwKzAxOjAwPC9uczA6Q3JlRHRUbT48L25zMDpHcnBIZHI+CjxuczA6U3RtdD48bnMwOklkPnN5bnRoZXRpYy1jYW10LWVhM2EwZjE0NDc2ZTRkNWM8L25zMDpJZD48bnMwOkZyVG9EdD48bnMwOkZyRHRUbT4yMDI2LTExLTAxVDAwOjAwOjAwKzAxOjAwPC9uczA6RnJEdFRtPjxuczA6VG9EdFRtPjIwMjYtMTEtMzBUMjM6NTk6NTkrMDE6MDA8L25zMDpUb0R0VG0+PC9uczA6RnJUb0R0Pgo8bnMwOkFjY3Q+PG5zMDpJZD48bnMwOklCQU4+REU4OTM3MDQwMDQ0MDUzMjAxMzAwMDwvbnMwOklCQU4+PC9uczA6SWQ+PG5zMDpDY3k+RVVSPC9uczA6Q2N5PjwvbnMwOkFjY3Q+CjxuczA6QmFsPjxuczA6VHA+PG5zMDpDZE9yUHJ0cnk+PG5zMDpDZD5PUEJEPC9uczA6Q2Q+PC9uczA6Q2RPclBydHJ5PjwvbnMwOlRwPjxuczA6QW10IENjeT0iRVVSIj4wLjAwPC9uczA6QW10PjxuczA6Q2R0RGJ0SW5kPkNSRFQ8L25zMDpDZHREYnRJbmQ+PG5zMDpEdD48bnMwOkR0PjIwMjYtMTEtMDE8L25zMDpEdD48L25zMDpEdD48L25zMDpCYWw+CjxuczA6QmFsPjxuczA6VHA+PG5zMDpDZE9yUHJ0cnk+PG5zMDpDZD5DTEJEPC9uczA6Q2Q+PC9uczA6Q2RPclBydHJ5PjwvbnMwOlRwPjxuczA6QW10IENjeT0iRVVSIj4xMTkuMDA8L25zMDpBbXQ+PG5zMDpDZHREYnRJbmQ+Q1JEVDwvbnMwOkNkdERidEluZD48bnMwOkR0PjxuczA6RHQ+MjAyNi0xMS0zMDwvbnMwOkR0PjwvbnMwOkR0PjwvbnMwOkJhbD4KCjxuczA6TnRyeT48bnMwOk50cnlSZWY+cmVmZXJlbmNlLWNyZWRpdDwvbnMwOk50cnlSZWY+PG5zMDpBbXQgQ2N5PSJFVVIiPjExOS4wMDwvbnMwOkFtdD48bnMwOkNkdERidEluZD5DUkRUPC9uczA6Q2R0RGJ0SW5kPjxuczA6U3RzPjxuczA6Q2Q+Qk9PSzwvbnMwOkNkPjwvbnMwOlN0cz48bnMwOkJvb2tnRHQ+PG5zMDpEdD4yMDI2LTExLTAyPC9uczA6RHQ+PC9uczA6Qm9va2dEdD48bnMwOlZhbER0PjxuczA6RHQ+MjAyNi0xMS0wMjwvbnMwOkR0PjwvbnMwOlZhbER0PjxuczA6QWNjdFN2Y3JSZWY+YmFuay1jcmVkaXQtMDE8L25zMDpBY2N0U3ZjclJlZj48bnMwOkJrVHhDZD48bnMwOlBydHJ5PjxuczA6Q2Q+c3ludGhldGljLWNyZWRpdDwvbnMwOkNkPjwvbnMwOlBydHJ5PjwvbnMwOkJrVHhDZD48bnMwOk50cnlEdGxzPjxuczA6VHhEdGxzPjxuczA6Umx0ZFB0aWVzPjxuczA6RGJ0cj48bnMwOlB0eT48bnMwOk5tPlN5bnRoZXRpc2NoZSBNw7xsbGVyIEdtYkg8L25zMDpObT48L25zMDpQdHk+PC9uczA6RGJ0cj48L25zMDpSbHRkUHRpZXM+PG5zMDpSbXRJbmY+PG5zMDpVc3RyZD5SZWNobnVuZyBSLTEwMDwvbnMwOlVzdHJkPjwvbnMwOlJtdEluZj48L25zMDpUeER0bHM+PC9uczA6TnRyeUR0bHM+PC9uczA6TnRyeT4KPC9uczA6U3RtdD48L25zMDpCa1RvQ3N0bXJTdG10PjwvbnMwOkRvY3VtZW50Pg==",
+      "complete_statement_confirmed": true,
+      "preview_hash": "0fe453d861058a35c9befa3d5f35d4ac6023e0c914c923d8e38e7efc6e0015b9",
+      "confirmation": true,
+      "request_id": "093fd098be2d42328a22c73cc28daea5"
+    },
+    "status": 200,
+    "value": {
+      "lines": [
+        {
+          "line_number": 1,
+          "transaction": {
+            "account_id": "27c0395f4d8948819972d025120abfbf",
+            "content_hash": "eaf1ef3669485c9273ef466981c350b4a2679b1f1e694393bd48af7f792d7edf",
+            "created_at": "2026-11-10T17:10:25+00:00",
+            "created_by": "d051f72be5f64e05b427b395474e4195",
+            "external_id": "camt08:bank-credit-01",
+            "id": "02bd5f71e9e643878461d056d40bbde4",
+            "payload": {
+              "amount": "119.00",
+              "booking_date": "2026-11-02",
+              "counterparty": "Synthetische Müller GmbH",
+              "currency": "EUR",
+              "reference": "Rechnung R-100",
+              "transaction_id": "camt08:bank-credit-01",
+              "value_date": "2026-11-02"
+            }
+          },
+          "transaction_id": "02bd5f71e9e643878461d056d40bbde4"
+        }
+      ],
+      "original": {
+        "filename": "synthetic-bank.xml",
+        "path": "/bank/statements/073c5ae5da3141dcaafa6e128f5433cf/original",
+        "sha256": "2ba85fd1c8e0e778bba639a9f88badbbd7aff1e4405f088f0edb8f969537b92b"
+      },
+      "statement": {
+        "account_id": "27c0395f4d8948819972d025120abfbf",
+        "content_hash": "ddbf7e9744537c855b9ff76a0e8b38f0d9228d45d0b4fe18048bcec08f83867a",
+        "created_at": "2026-11-10T17:10:25+00:00",
+        "created_by": "d051f72be5f64e05b427b395474e4195",
+        "file_sha256": "2ba85fd1c8e0e778bba639a9f88badbbd7aff1e4405f088f0edb8f969537b92b",
+        "id": "073c5ae5da3141dcaafa6e128f5433cf",
+        "payload": {
+          "account": {
+            "active": true,
+            "code": "CAMT-SYN",
+            "created_at": "2026-11-10T17:10:22+00:00",
+            "created_by": "d051f72be5f64e05b427b395474e4195",
+            "currency": "EUR",
+            "id": "27c0395f4d8948819972d025120abfbf",
+            "kind": "bank",
+            "name": "Synthetic XML bank",
+            "revision": 1
+          },
+          "bank": {
+            "account_id": "27c0395f4d8948819972d025120abfbf",
+            "content_hash": "87453d3a28933ffa96103f926d0b0d9a41eadaea5ef458f9ee4d6f2af33cce21",
+            "created_at": "2026-11-10T17:10:22+00:00",
+            "created_by": "d051f72be5f64e05b427b395474e4195",
+            "payload": {
+              "account": {
+                "active": true,
+                "code": "CAMT-SYN",
+                "created_at": "2026-11-10T17:10:22+00:00",
+                "created_by": "d051f72be5f64e05b427b395474e4195",
+                "currency": "EUR",
+                "id": "27c0395f4d8948819972d025120abfbf",
+                "kind": "bank",
+                "name": "Synthetic XML bank",
+                "revision": 1
+              },
+              "active": true,
+              "coverage_from": "2026-11-01",
+              "coverage_to": null,
+              "iban": "DE89370400440532013000",
+              "label": "Synthetic CAMT bank",
+              "reason": ""
+            },
+            "previous_hash": null,
+            "revision": 1
+          },
+          "camt": {
+            "entry_sources": [
+              {
+                "bank_reference": "bank-credit-01",
+                "entry_reference": "reference-credit",
+                "line_number": 1,
+                "reversal": false,
+                "transaction_details": 1,
+                "xml_line": 9
+              }
+            ],
+            "file_sha256": "2ba85fd1c8e0e778bba639a9f88badbbd7aff1e4405f088f0edb8f969537b92b",
+            "message_id": "synthetic-message",
+            "namespace": "urn:iso:std:iso:20022:tech:xsd:camt.053.001.08",
+            "original_period_from": "2026-11-01T00:00:00+01:00",
+            "original_period_to": "2026-11-30T23:59:59+01:00",
+            "schema_sha256": "c3cfac080dc31476bde7444b05d00e1b23558d5e44529e58d0ad562e6013873d"
+          },
+          "closing_balance": "119.00",
+          "complete_statement_confirmed": true,
+          "contract": "smartplan_bank_camt053_08_v1",
+          "delimiter": "camt.053.001.08",
+          "distinct_transaction_confirmations": {},
+          "file_sha256": "2ba85fd1c8e0e778bba639a9f88badbbd7aff1e4405f088f0edb8f969537b92b",
+          "filename": "synthetic-bank.xml",
+          "opening_balance": "0.00",
+          "period_from": "2026-11-01",
+          "period_to": "2026-11-30",
+          "rows": [
+            {
+              "amount": "119.00",
+              "booking_date": "2026-11-02",
+              "counterparty": "Synthetische Müller GmbH",
+              "currency": "EUR",
+              "line_number": 1,
+              "reference": "Rechnung R-100",
+              "transaction_id": "camt08:bank-credit-01",
+              "value_date": "2026-11-02"
+            }
+          ],
+          "statement_reference": "synthetic-camt-ea3a0f14476e4d5c"
+        },
+        "reference_key": "synthetic-camt-ea3a0f14476e4d5c"
+      }
+    }
+  },
+  {
+    "path": "/api/v1/business/bank/accounts",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "available_accounts": [
+        {
+          "active": true,
+          "code": "CAMT-SYN",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "currency": "EUR",
+          "id": "27c0395f4d8948819972d025120abfbf",
+          "kind": "bank",
+          "name": "Synthetic XML bank",
+          "revision": 1
+        }
+      ],
+      "csv_contract": {
+        "columns": [
+          "transaction_id",
+          "booking_date",
+          "value_date",
+          "amount",
+          "currency",
+          "counterparty",
+          "reference"
+        ],
+        "max_bytes": 5242880,
+        "max_rows": 10000,
+        "version": "smartplan_bank_csv_v1"
+      },
+      "external_connection": false,
+      "items": [
+        {
+          "account_id": "27c0395f4d8948819972d025120abfbf",
+          "content_hash": "87453d3a28933ffa96103f926d0b0d9a41eadaea5ef458f9ee4d6f2af33cce21",
+          "created_at": "2026-11-10T17:10:22+00:00",
+          "created_by": "d051f72be5f64e05b427b395474e4195",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "CAMT-SYN",
+              "created_at": "2026-11-10T17:10:22+00:00",
+              "created_by": "d051f72be5f64e05b427b395474e4195",
+              "currency": "EUR",
+              "id": "27c0395f4d8948819972d025120abfbf",
+              "kind": "bank",
+              "name": "Synthetic XML bank",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-11-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic CAMT bank",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        }
+      ]
+    }
+  }
+]

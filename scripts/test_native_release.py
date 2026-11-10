@@ -87,6 +87,7 @@ class NativePackageTests(unittest.TestCase):
             backend = bundle / 'backend'
             backend.mkdir()
             for name in release.BACKEND_FILES:
+                (backend / name).parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(release.ROOT / 'backend' / name, backend / name)
             for name in release.OPERATOR_FILES:
                 (bundle / name).parent.mkdir(parents=True, exist_ok=True)
@@ -389,7 +390,7 @@ class NativePackageTests(unittest.TestCase):
             stream.extractall(self.directory / 'unpacked')
         python = release.ROOT / 'backend/.venv' / ('Scripts/python.exe' if sys.platform == 'win32' else 'bin/python')
         self.assertTrue(python.exists(), 'Backend virtualenv is required for the real package import check')
-        subprocess.run([str(python), '-E', '-c', 'import server, plan_access, plans, plan_deletions\n'
+        imported = subprocess.run([str(python), '-E', '-c', 'import server, plan_access, plans, plan_deletions\n'
                         'import project_workspace, inquiries, inbound_connectors, workspace_api\n'
                         'import inquiry_attachments, external_integrations, integration_bridge\n'
                         'import business_api, business_schema, business_foundation, business_delivery\n'
@@ -397,11 +398,14 @@ class NativePackageTests(unittest.TestCase):
                         'import business_planning, business_time, business_operations\n'
                         'import business_inventory, business_maintenance, business_adapters\n'
                         'import business_travel_mileage, payroll_travel_mileage_2026\n'
+                        'from bank_camt_2026_v1 import _schema\n'
+                        '_schema()\n'
                         'from core import Office\n'
                         'office = Office("synthetic-package.db")\n'
                         'office.db.close()'],
                        cwd=self.directory / 'unpacked/Smartplan_Windows_Start_und_Sicherung/backend',
-                       check=True, timeout=15, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                       check=False, timeout=15, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        self.assertEqual(imported.returncode, 0, imported.stderr.decode(errors='replace'))
         subprocess.run([str(python), '-E', 'scripts/reconcile-accounting-restore.py', '--help'],
                        cwd=self.directory / 'unpacked/Smartplan_Windows_Start_und_Sicherung',
                        check=True, timeout=15, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

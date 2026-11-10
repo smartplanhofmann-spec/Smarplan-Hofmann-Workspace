@@ -2,3 +2,4 @@ reportlab>=4.0,<5
 cryptography>=50,<51
 pillow>=13,<14
 tzdata==2026.5
+lxml==6.1.3

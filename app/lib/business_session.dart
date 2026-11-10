@@ -1565,6 +1565,7 @@ class BusinessSession extends ChangeNotifier {
           key.startsWith('bank-') &&
           (accountCommand ||
               route == '/bank/statements' ||
+              route == '/bank/camt/statements' ||
               route == '/bank/reconciliations' ||
               match != null),
       readPath: match == null
@@ -1573,6 +1574,7 @@ class BusinessSession extends ChangeNotifier {
       requireRights: () {
         if (projectId != null ||
             !hasFeature('bank_reconciliation') ||
+            route == '/bank/camt/statements' && !hasFeature('bank_camt_v1') ||
             !hasModule('bank_reconciliation') ||
             !can('bank.read') ||
             !can('accounting.read') ||

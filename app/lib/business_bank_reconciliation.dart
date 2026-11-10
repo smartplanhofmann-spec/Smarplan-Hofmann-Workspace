@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'api.dart';
 import 'business_session.dart';
 import 'business_qonto_readonly.dart';
+import 'business_bank_camt_contract.dart';
 import 'business_travel_cash.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -65,6 +66,12 @@ Map<String, dynamic> bankEvent(dynamic raw) {
       value['created_at'] is! String)
     _fail('Der gespeicherte Banknachweis ist unvollständig.');
   _checkTravelSources(businessMap(value['payload']));
+  if (value['payload']['contract'] == camtContract) {
+    bankCamtMetadata(value['payload']);
+  } else if (value['payload']['contract'] != null &&
+      value['payload']['contract'] != 'smartplan_bank_csv_v1') {
+    _fail('Unbekannter Bankauszugsvertrag.');
+  }
   return value;
 }
 
@@ -103,6 +110,12 @@ Map<String, dynamic> bankImportPreview(
     _fail(
       'Die Importvorschau bestätigt nicht das gewählte Original und seine Angaben.',
     );
+  if (body['delimiter'] == camtFormat) {
+    bankCamtMetadata(meta);
+  } else if (meta['contract'] != 'smartplan_bank_csv_v1' ||
+      ![';', ','].contains(body['delimiter'])) {
+    _fail('Unbekannter Bankauszugsvertrag.');
+  }
   return value;
 }
 
@@ -642,6 +655,8 @@ class _BusinessBankReconciliationPageState
       account: body['account_id'],
       transaction: kind == 'match' ? proof!['transaction']['id'] : null,
     );
+    if (body['delimiter'] == camtFormat && !session.hasFeature('bank_camt_v1'))
+      _fail('Die aktuelle XML-Bankfreigabe fehlt.', 403);
     final result = session.pending(key)
         ? await session.repeatBankCommand(key)
         : await session.command(
@@ -785,28 +800,81 @@ class _BusinessBankReconciliationPageState
     });
   }
 
-  Future<void> importFile(Map<String, dynamic> binding) async {
+  Future<void> importFile(
+    Map<String, dynamic> binding, {
+    bool xml = false,
+  }) async {
     await fresh(write: true, account: binding['account_id']);
+    if (xml && !session.hasFeature('bank_camt_v1'))
+      _fail('Die aktuelle XML-Bankfreigabe fehlt.', 403);
     final opening = session.generation,
         file =
             await (widget.pickFile?.call() ??
                 openFile(
                   acceptedTypeGroups: [
-                    const XTypeGroup(
-                      label: 'CSV-Kontoauszug',
-                      extensions: ['csv'],
+                    XTypeGroup(
+                      label: xml ? 'XML-Kontoauszug' : 'CSV-Kontoauszug',
+                      extensions: [xml ? 'xml' : 'csv'],
                     ),
                   ],
                 ));
     if (file == null) return;
     final size = await file.length();
     if (size < 1 || size > 5 * 1024 * 1024)
-      _fail('Eine originale CSV-Datei mit 1 Byte bis 5 MiB auswählen.');
+      _fail(
+        'Eine originale ${xml ? 'XML' : 'CSV'}-Datei mit 1 Byte bis 5 MiB auswählen.',
+      );
     final bytes = await file.readAsBytes(), digest = await bankDigest(bytes);
     await fresh(write: true, account: binding['account_id']);
     if (opening != session.generation || bytes.length != size)
       _fail('Datei oder Sitzung wurde während der Auswahl geändert.');
     final importKey = 'bank-import-${offlineId()}';
+    if (xml) {
+      final page = await fresh(write: true, account: binding['account_id']);
+      if (!session.hasFeature('bank_camt_v1') ||
+          !file.name.toLowerCase().endsWith('.xml'))
+        _fail('Aktuellen XML-Import und eine originale XML-Datei wählen.');
+      final account = businessItems(page['available_accounts'])
+          .firstWhere((a) => a['id'] == binding['account_id']);
+      final bank = businessItems(page['items'])
+          .firstWhere((a) => a['account_id'] == binding['account_id']);
+      final request = <String, dynamic>{
+        'account_id': binding['account_id'],
+        'account_revision': account['revision'],
+        'bank_revision': bank['revision'],
+        'filename': file.name,
+        'content_base64': base64Encode(bytes),
+      };
+      final inspection = await bankCamtInspection(
+        await session.api.call(session.path('/bank/camt/inspect'), request),
+        request,
+        digest,
+      );
+      final after = await fresh(write: true, account: binding['account_id']);
+      if (opening != session.generation ||
+          !session.hasFeature('bank_camt_v1') ||
+          businessItems(after['available_accounts']).firstWhere(
+                (a) => a['id'] == binding['account_id'],
+              )['revision'] !=
+              request['account_revision'] ||
+          businessItems(after['items']).firstWhere(
+                (a) => a['account_id'] == binding['account_id'],
+              )['revision'] !=
+              request['bank_revision'])
+        _fail(
+          'Konto oder Sitzung wurde geändert. Bitte Original erneut auswählen.',
+        );
+      display('camt-review', 'XML-Kontoauszug prüfen', {
+        'body': {
+          ...businessMap(inspection['suggested_body']),
+          'content_base64': request['content_base64'],
+        },
+        'inspection': inspection,
+        'digest': digest,
+        'key': importKey,
+      });
+      return;
+    }
     await editor(
       'Originalen Kontoauszug prüfen',
       [
@@ -890,13 +958,43 @@ class _BusinessBankReconciliationPageState
     String pendingKey,
   ) async {
     await fresh(write: true, account: body['account_id']);
+    final xml = body['delimiter'] == camtFormat,
+        opening = session.generation,
+        current = data;
+    if (xml && !session.hasFeature('bank_camt_v1'))
+      _fail('Die aktuelle XML-Bankfreigabe fehlt.', 403);
     final proof = bankImportPreview(
-      await session.api.call(session.path('/bank/import/preview'), body),
+      await session.api.call(
+        session.path(xml ? '/bank/camt/preview' : '/bank/import/preview'),
+        body,
+      ),
       body,
       digest,
     );
+    if (xml) {
+      await bankCamtPreviewHash(proof);
+      final after = await fresh(write: true, account: body['account_id']);
+      if (!session.hasFeature('bank_camt_v1') ||
+          businessItems(
+                after['available_accounts'],
+              ).firstWhere((a) => a['id'] == body['account_id'])['revision'] !=
+              body['account_revision'] ||
+          businessItems(after['items']).firstWhere(
+                (a) => a['account_id'] == body['account_id'],
+              )['revision'] !=
+              body['bank_revision'])
+        _fail('Die ursprüngliche XML-Bankfreigabe wurde geändert.', 409);
+    }
+    if (!mounted || opening != session.generation || !identical(current, data))
+      _fail('Die ursprüngliche Bankansicht wurde geschlossen.', 409);
     if (proof['can_import'] == true) {
-      prepare('import', pendingKey, '/bank/statements', body, proof);
+      prepare(
+        'import',
+        pendingKey,
+        xml ? '/bank/camt/statements' : '/bank/statements',
+        body,
+        proof,
+      );
     } else {
       display('import-errors', 'Kontoauszug prüfen', {
         'body': body,
@@ -947,10 +1045,13 @@ class _BusinessBankReconciliationPageState
     final id = '${value['statement']['id']}',
         account = '${value['statement']['account_id']}';
     await fresh(account: account);
+    final media = value['statement']['payload']['contract'] == camtContract
+        ? 'application/xml'
+        : 'text/csv';
     final opening = session.generation,
         bytes = await session.api.bytes(
           session.path('/bank/statements/$id/original'),
-          mediaType: 'text/csv',
+          mediaType: media,
           maxBytes: 5 * 1024 * 1024,
         );
     await bankVerifyBytes(bytes, businessMap(value['original']));
@@ -958,7 +1059,7 @@ class _BusinessBankReconciliationPageState
     await save(
       bytes,
       '${value['original']['filename']}',
-      'text/csv',
+      media,
       '${value['original']['sha256']}',
       opening,
     );
@@ -1322,11 +1423,64 @@ class _BusinessBankReconciliationPageState
           action('Erneut lesen', qontoRead),
           action('Alle Bankkonten', load),
         ];
+      case 'camt-review':
+        final body = businessMap(v['body']),
+            inspection = businessMap(v['inspection']);
+        final parsed = businessMap(inspection['preview']['metadata']);
+        final xmlWritable = writable && session.hasFeature('bank_camt_v1');
+        return [
+          const Notice(
+            'Aus dem unveränderten XML gelesen. Ein Import erzeugt keine Zahlung und keine EÜR-Buchung.',
+          ),
+          Text('Originaldatei: ${body['filename']}'),
+          Text('Bankkonto: ${parsed['bank']['payload']['iban']}'),
+          Text('Auszugsreferenz: ${body['statement_reference']}'),
+          Text('Auszugsbeginn: ${businessDate(body['period_from'])}'),
+          Text('Auszugsende: ${businessDate(body['period_to'])}'),
+          Text(
+            'Gebuchter Anfangssaldo: ${businessMoney(body['opening_balance'])}',
+          ),
+          Text('Gebuchter Endsaldo: ${businessMoney(body['closing_balance'])}'),
+          Text('Gebuchte Kontobewegungen: ${(parsed['rows'] as List).length}'),
+          if (!session.hasFeature('bank_camt_v1'))
+            const Notice(
+              'Die aktuelle XML-Bankfreigabe fehlt. Das Original wurde nicht übernommen.',
+            ),
+          CheckboxListTile(
+            value: accepted,
+            onChanged: xmlWritable && !busy
+                ? (value) => setState(() => accepted = value == true)
+                : null,
+            title: const Text(
+              'Ich habe das XML-Original und seinen vollständigen Auszugszeitraum geprüft.',
+            ),
+          ),
+          FilledButton(
+            onPressed: accepted && xmlWritable && !busy
+                ? () => act(
+                    () => importPreview(
+                      {...body, 'complete_statement_confirmed': true},
+                      v['digest'],
+                      v['key'],
+                    ),
+                  )
+                : null,
+            child: const Text('Auszug unverbindlich prüfen'),
+          ),
+          action('Zurück zum Bankkonto', () => openAccount(body['account_id'])),
+        ];
       case 'account':
         final b = businessMap(v['binding']);
         return [
           if (writable && b['payload']['active'] == true)
             action('Originalen CSV-Auszug prüfen', () => importFile(b)),
+          if (writable &&
+              b['payload']['active'] == true &&
+              session.hasFeature('bank_camt_v1'))
+            action(
+              'Originalen XML-Auszug prüfen',
+              () => importFile(b, xml: true),
+            ),
           if (writable)
             action('Monatsabgleich vorbereiten', () => reportEditor(b)),
           card('Kontoauszüge', [
@@ -1382,7 +1536,12 @@ class _BusinessBankReconciliationPageState
           Text(
             '${v['statement']['payload']['statement_reference']} · ${v['statement']['payload']['period_from']} bis ${v['statement']['payload']['period_to']}',
           ),
-          action('Unverändertes CSV-Original herunterladen', () => original(v)),
+          action(
+            v['statement']['payload']['contract'] == camtContract
+                ? 'Unverändertes XML-Original herunterladen'
+                : 'Unverändertes CSV-Original herunterladen',
+            () => original(v),
+          ),
           for (final line in lines.take(100))
             card(
               '${line['transaction']['external_id']} · ${businessMoney(line['transaction']['payload']['amount'])}',

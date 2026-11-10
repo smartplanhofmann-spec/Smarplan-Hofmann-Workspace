@@ -3220,6 +3220,31 @@
       "version": "3.1.6"
     },
     {
+      "bom-ref": "pkg:pypi/lxml@6.1.3",
+      "name": "lxml",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/requirements.lock",
+          "value": "application"
+        },
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/lxml@6.1.3",
+      "type": "library",
+      "version": "6.1.3"
+    },
+    {
       "bom-ref": "pkg:pypi/markupsafe@3.0.4",
       "name": "markupsafe",
       "properties": [
@@ -3476,7 +3501,7 @@
       },
       {
         "name": "smartplan:locks",
-        "value": "[{\"path\":\"backend/requirements.lock\",\"sha256\":\"5ef54fa8511977eb03a92a2ed7909e920f0acb9ff4d3ebba6f9582c648e13930\"},{\"path\":\"backend/online/requirements.lock\",\"sha256\":\"0353701a40adb9703c8961b8f16d1f72a741a7cf3199043025103bf5385d0021\"},{\"path\":\"backend/plan_import/requirements.lock\",\"sha256\":\"5a9847c1da22279f79b7c55ce4920c9037c0c7b7878cc684cd4fde212d2e4967\"},{\"path\":\"app/pubspec.lock\",\"sha256\":\"abad959ff01e9b03eb345bee3f08c8b5c8189aefb78c88b4ac5be0bddcb682ad\"},{\"path\":\"web/office/package-lock.json\",\"sha256\":\"0dbc7a0378910fe9d75f07d731833b330068b6bd179cb773cc728f8612339f8e\"}]"
+        "value": "[{\"path\":\"backend/requirements.lock\",\"sha256\":\"23d0e2ec7411db17d0743dd0c55ec3364a8277d48a948ef9b2db38041827d54c\"},{\"path\":\"backend/online/requirements.lock\",\"sha256\":\"97f80fcbac1d36193a7224825fb0fb0e9f3192cfe80f5f6af0b56f834c1b37d0\"},{\"path\":\"backend/plan_import/requirements.lock\",\"sha256\":\"5a9847c1da22279f79b7c55ce4920c9037c0c7b7878cc684cd4fde212d2e4967\"},{\"path\":\"app/pubspec.lock\",\"sha256\":\"abad959ff01e9b03eb345bee3f08c8b5c8189aefb78c88b4ac5be0bddcb682ad\"},{\"path\":\"web/office/package-lock.json\",\"sha256\":\"0dbc7a0378910fe9d75f07d731833b330068b6bd179cb773cc728f8612339f8e\"}]"
       },
       {
         "name": "smartplan:advisory_scan",

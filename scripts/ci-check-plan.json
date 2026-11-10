@@ -1000,6 +1000,11 @@
       "id": "qonto-own-account",
       "script": "tests/e2e.cjs",
       "workflow": "qonto-own-account"
+    },
+    {
+      "id": "bank-camt",
+      "script": "tests/e2e.cjs",
+      "workflow": "bank-camt"
     }
   ]
 }

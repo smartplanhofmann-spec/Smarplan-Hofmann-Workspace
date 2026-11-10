@@ -4575,3 +4575,26 @@ seine manuelle signierte Vorbereitung42843099650 bleibt separat aktiv,
 Uploadfalse. Nächste technische Bestandsprüfung: standardisierter Bankauszugs-
 Originalimport gegen die offiziellen Formatquellen; noch kein CAMT-Vertrag
 freigeschaltet und keine reale Bank-/Lieferantenkommunikation.
+
+## 10.11.2026 – XML-Bankoriginal in beiden Clients und abgeschlossene ältere Pakete
+
+Der neue additive CAMT.053.001.08-Vertrag bindet das vollständige Original,
+Bankkonto, belegte Periode, Salden und Bankidentitäten. Beide Clients verlangen
+zwei ausdrückliche Bestätigungen, prüfen den vollständigen Vorschauhash und
+erhalten bei verlorener Antwort die identische Vorgangs-ID. Originaldownload,
+frische Rechte-/Fähigkeitsprüfung und vollständiger PostgreSQL-Restore bestehen.
+49 gemeinsame Fach-/Paketfälle, drei tatsächliche PG-/MFA-/Restorefälle zuletzt
+in 81,839s, alle 1.095 Browsermodule, der tatsächliche Browser-Bankablauf,
+22 gemeinsame Appfälle und ein zusätzlicher nativer HTTP-Ablauf sind grün.
+Appanalyse ohne Probleme in 27,3s. Vollständige App-/Remoteprüfung folgt separat;
+keine reale Bankanbindung oder neue Liveinstallation daraus ableiten.
+Vertrag, erhaltene Erstfehler und Nachweise: CRM_ERP_BANK_CAMT_2026-11-10.md.
+
+Der veröffentlichte Offline-Konfliktstand abcc351 besteht inzwischen alle 20
+Developmentgruppen aus 42850956041 und den eigenen unsignierten iPhone-Release
+206 aus 42850955774. Die separate manuelle V15-Vorbereitung 42843099650 an
+1fa0bcc besteht tatsächlich einschließlich signiertem iPhone-/iPad-Paket 205,
+Artefakt 13780314712; TestFlight-Upload bleibt false. Neuere Änderungen werden
+nicht in diesen älteren Signiernachweis hineingelesen. Keine neue tatsächliche
+Windows-/iPhone-, Fach-/Sicherheits- oder Gesamtfreigabe. R08.03, R11.06 und A–G
+bleiben mit ihren konkreten Restpunkten offen. Gesamtziel unverändert erhalten.

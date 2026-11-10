@@ -31,11 +31,13 @@ try:
  value=f.call(f.a,'/business/installation').json
  assert value['source_commit']==sys.argv[2] and value['status']=='recorded'
  app=f.a['client'];origin='https://'+f.a['host']
- for name in ('','office.js','office.css','installation-context.js','payroll-factor-claim-travel.js'):
+ for name in ('','office.js','office.css','installation-context.js','payroll-factor-claim-travel.js','bank-camt-contract.js','bank-camt-ui.js'):
   response=app.get('/office/'+name,base_url=origin)
   assert response.status_code==200,(name,response.status_code)
  assert 'API-Kompatibilität' in (Path(sys.argv[1]).parent/'web/office/office.js').read_text()
- print(json.dumps(dict(source_commit=value['source_commit'],mfa=True,browser_assets=5)))
+ from bank_camt_2026_v1 import _schema
+ _schema()
+ print(json.dumps(dict(source_commit=value['source_commit'],mfa=True,browser_assets=7,bank_xml_schema=True)))
 finally:f.doCleanups()
 '''
             result=subprocess.run([sys.executable,'-I','-B','-c',code,str(app/'backend'),commit],
@@ -43,7 +45,7 @@ finally:f.doCleanups()
                 capture_output=True,text=True,timeout=120)
             self.assertEqual(result.returncode,0,result.stderr[-4000:])
             proof=json.loads(result.stdout)
-            self.assertEqual(proof,dict(source_commit=commit,mfa=True,browser_assets=5))
+            self.assertEqual(proof,dict(source_commit=commit,mfa=True,browser_assets=7,bank_xml_schema=True))
 
 
 if __name__=='__main__':unittest.main()

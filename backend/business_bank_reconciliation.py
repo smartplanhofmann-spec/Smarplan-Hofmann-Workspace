@@ -20,7 +20,7 @@ from business_accounting_euer import EuerAccounting
 from business_foundation import require_permission
 from business_operations import identifier,iso_date,text,transaction
 
-FEATURES=('bank_reconciliation',)
+FEATURES=('bank_reconciliation','bank_camt_v1')
 TABLES=tuple('business_bank_'+name for name in ('account_versions','statements','transactions','statement_lines','match_events','reconciliations','requests'))
 ID=r'[a-f0-9]{32}'
 HASH=r'[a-f0-9]{64}'
@@ -115,6 +115,17 @@ def parse_statement(original,delimiter,start,end):
 
 
 class BankReconciliation:
+    statement_contract = 'smartplan_bank_csv_v1'
+
+    def _import_filename(self, filename):
+        if '/' in filename or '\\' in filename or not filename.lower().endswith('.csv'):
+            raise Problem(400,'Einfachen CSV-Dateinamen angeben.')
+
+    def _import_rows(self, original, data, start, end, binding):
+        return parse_statement(original,data['delimiter'],start,end)
+
+    def _import_metadata(self, metadata, original):
+        return metadata
     def __init__(self,office,*,clock=None):self.office=office;self.db=office.db;self.clock=clock or (lambda:datetime.now(timezone.utc))
     def now(self):return self.clock().astimezone(timezone.utc).isoformat(timespec='seconds')
     def _lock(self):
@@ -187,12 +198,12 @@ class BankReconciliation:
         if start<binding['payload']['coverage_from'] or binding['payload']['coverage_to'] is not None and end>binding['payload']['coverage_to']:raise Problem(400,'Auszug liegt außerhalb der ausdrücklich nachgewiesenen Kontoführung.')
         if data['complete_statement_confirmed'] is not True:raise Problem(400,'Vollständigkeit des erklärten Auszugs ausdrücklich bestätigen.')
         opening=_cents(data['opening_balance']);closing=_cents(data['closing_balance']);filename=_line(data['filename'],'Dateiname',200)
-        if '/' in filename or '\\' in filename or not filename.lower().endswith('.csv'):raise Problem(400,'Einfachen CSV-Dateinamen angeben.')
+        self._import_filename(filename)
         reference=_line(data['statement_reference'],'Auszugsreferenz',200)
         if not isinstance(data['content_base64'],str) or len(data['content_base64'])>((MAX_FILE+2)//3)*4:raise Problem(400,'Bankdatei ist zu groß.')
         try:original=base64.b64decode(data['content_base64'],validate=True)
         except (ValueError,binascii.Error):raise Problem(400,'Gültige Base64-Originaldatei erforderlich.') from None
-        rows,errors=parse_statement(original,data['delimiter'],start,end)
+        rows,errors=self._import_rows(original,data,start,end,binding)
         total=sum(_cents(row['amount']) for row in rows)
         if not errors and opening+total!=closing:errors.append(dict(line_number=None,message='Anfangssaldo plus Buchungen stimmt nicht mit Endsaldo überein.'))
         duplicates=[];identity_checks=[];confirmations=data.get('distinct_transaction_confirmations',{})
@@ -219,7 +230,7 @@ class BankReconciliation:
             for external_id,reason in confirmations.items():_line(reason,'Prüfgrund eigenständiger Zahlung',1000,True)
             original_receipt=self.db.execute('SELECT payload_json FROM business_bank_statements WHERE account_id=? AND file_sha256=?',(data['account_id'],_sha(original))).fetchone()
             if not original_receipt or json.loads(original_receipt['payload_json']).get('distinct_transaction_confirmations')!=confirmations:raise Problem(400,'Identitätsprüfungen dürfen nur die ausdrücklich auffälligen Dateizeilen betreffen.')
-        metadata=dict(contract='smartplan_bank_csv_v1',account=account,bank=binding,statement_reference=reference,period_from=start,period_to=end,opening_balance=data['opening_balance'],closing_balance=data['closing_balance'],filename=filename,delimiter=data['delimiter'],file_sha256=_sha(original),rows=rows,complete_statement_confirmed=True,distinct_transaction_confirmations=confirmations)
+        metadata=self._import_metadata(dict(contract=self.statement_contract,account=account,bank=binding,statement_reference=reference,period_from=start,period_to=end,opening_balance=data['opening_balance'],closing_balance=data['closing_balance'],filename=filename,delimiter=data['delimiter'],file_sha256=_sha(original),rows=rows,complete_statement_confirmed=True,distinct_transaction_confirmations=confirmations),original)
         repeated=self.db.execute('SELECT * FROM business_bank_statements WHERE account_id=? AND (reference_key=? OR file_sha256=?)',(data['account_id'],_key(reference),_sha(original))).fetchall()
         duplicate_statement=None
         for row in repeated:
@@ -283,7 +294,12 @@ class BankReconciliation:
         with transaction(self.office):
             self._access(actor);identifier(statement_id);row=self.db.execute('SELECT * FROM business_bank_statements WHERE id=?',(statement_id,)).fetchone();event=self._event(row,'statement');content=bytes(row['original'])
             if _sha(content)!=event['file_sha256']:raise Problem(409,'Originalprüfsumme stimmt nicht.')
-            self._access(actor);return content,'text/csv; charset=utf-8'
+            self._access(actor)
+            if event['payload']['contract']=='smartplan_bank_camt053_08_v1':
+                from business_bank_camt import verify_projection
+                verify_projection(event['payload'],content)
+                return content,'application/xml; charset=utf-8'
+            return content,'text/csv; charset=utf-8'
     def _sources(self,actor):
         catalog=EuerAccounting(self.office).sources(actor);sources={}
         ledger=EuerAccounting(self.office)._ledger()
@@ -539,17 +555,22 @@ def validate_integrity(office):
             _line(payload['counterparty'],'Gegenpartei',500,False);_line(payload['reference'],'Verwendungszweck',2000,False);transactions[event['id']]=event
         linked=set();originals={}
         for row in office.db.execute('SELECT * FROM business_bank_statements ORDER BY id'):
-            event=api._event(row,'statement');metadata=event['payload'];original=bytes(row['original']);rows,errors=parse_statement(original,metadata['delimiter'],metadata['period_from'],metadata['period_to'])
-            _shape(metadata,('contract','account','bank','statement_reference','period_from','period_to','opening_balance','closing_balance','filename','delimiter','file_sha256','rows','complete_statement_confirmed','distinct_transaction_confirmations'))
+            event=api._event(row,'statement');metadata=event['payload'];original=bytes(row['original'])
+            camt=metadata.get('contract')=='smartplan_bank_camt053_08_v1'
+            _shape(metadata,('contract','account','bank','statement_reference','period_from','period_to','opening_balance','closing_balance','filename','delimiter','file_sha256','rows','complete_statement_confirmed','distinct_transaction_confirmations')+(('camt',) if camt else ()))
+            if camt:
+                from business_bank_camt import verify_projection
+                rows,errors=verify_projection(metadata,original)
+            else:rows,errors=parse_statement(original,metadata['delimiter'],metadata['period_from'],metadata['period_to'])
             start=iso_date(metadata['period_from']);end=iso_date(metadata['period_to']);binding=metadata['bank']['payload']
             if start>end or (date.fromisoformat(end)-date.fromisoformat(start)).days>366 or start<binding['coverage_from'] or binding['coverage_to'] is not None and end>binding['coverage_to'] or not binding['active'] or not metadata['account']['active']:raise ValueError('Invalid bank statement period or coverage')
             filename=_line(metadata['filename'],'Dateiname',200)
-            if '/' in filename or '\\' in filename or not filename.lower().endswith('.csv'):raise ValueError('Invalid original filename')
+            if '/' in filename or '\\' in filename or not filename.lower().endswith('.xml' if camt else '.csv'):raise ValueError('Invalid original filename')
             _line(metadata['statement_reference'],'Auszugsreferenz',200)
             confirmations=metadata['distinct_transaction_confirmations']
             if not isinstance(confirmations,dict) or set(confirmations)-{value['transaction_id'] for value in rows}:raise ValueError('Invalid distinct bank transaction proof')
             for reason in confirmations.values():_line(reason,'Prüfgrund eigenständiger Zahlung',1000,True)
-            if errors or metadata['rows']!=rows or _sha(original)!=event['file_sha256'] or metadata['file_sha256']!=event['file_sha256'] or metadata['contract']!='smartplan_bank_csv_v1' or _key(metadata['statement_reference'])!=event['reference_key'] or metadata['complete_statement_confirmed'] is not True:raise ValueError('Changed bank original or parsed statement')
+            if errors or metadata['rows']!=rows or _sha(original)!=event['file_sha256'] or metadata['file_sha256']!=event['file_sha256'] or metadata['contract']!=('smartplan_bank_camt053_08_v1' if camt else 'smartplan_bank_csv_v1') or _key(metadata['statement_reference'])!=event['reference_key'] or metadata['complete_statement_confirmed'] is not True:raise ValueError('Changed bank original or parsed statement')
             if _cents(metadata['opening_balance'])+sum(_cents(item['amount']) for item in rows)!=_cents(metadata['closing_balance']):raise ValueError('Invalid bank balances')
             if api._account(event['account_id'],metadata['bank']['revision'])!=metadata['bank'] or Accounting(office)._account(event['account_id'],metadata['account']['revision'])!=metadata['account']:raise ValueError('Invalid captured bank account')
             key=(event['account_id'],event['file_sha256'])
@@ -630,6 +651,7 @@ def restore_horizon(office):
 
 
 def methods(path):
+    if path in ('/bank/camt/inspect','/bank/camt/preview','/bank/camt/statements'):return 'POST'
     if path in ('/bank/accounts','/bank/statements','/bank/reconciliations'):return 'GET, POST'
     if path in ('/bank/import/preview','/bank/reconciliations/preview'):return 'POST'
     if re.fullmatch('/bank/statements/'+ID+'(?:/original)?',path):return 'GET'
@@ -644,6 +666,9 @@ def dispatch(office,actor,path,method,data):
     if allowed is None:return None
     if method not in allowed.split(', '):raise Problem(405,'HTTP-Methode nicht erlaubt.')
     api=BankReconciliation(office);parts=path.split('/');result=None
+    if path.startswith('/bank/camt/'):
+        from business_bank_camt import CamtBankReconciliation
+        api=CamtBankReconciliation(office)
     if method=='GET':
         _shape(data,('_query',),());query=data.get('_query',{})
         if path in ('/bank/statements','/bank/reconciliations'):result=getattr(api,'statements' if path.endswith('statements') else 'reconciliations')(actor,query)
@@ -659,6 +684,9 @@ def dispatch(office,actor,path,method,data):
             elif len(parts)==5:
                 content,mime=api.export(actor,parts[3],parts[4]);return content,200,mime
             else:result=api.reconciliation(actor,parts[3])
+    elif path=='/bank/camt/inspect':result=api.inspect(actor,data)
+    elif path=='/bank/camt/preview':result=api.preview_import(actor,data)
+    elif path=='/bank/camt/statements':result=api.import_statement(actor,data)
     elif path=='/bank/accounts':result=api.save_account(actor,data)
     elif path=='/bank/import/preview':result=api.preview_import(actor,data)
     elif path=='/bank/statements':result=api.import_statement(actor,data)

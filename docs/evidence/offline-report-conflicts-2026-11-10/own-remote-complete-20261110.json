@@ -1,0 +1,2291 @@
+{
+  "source_commit": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b",
+  "development_run_id": 42850956041,
+  "development": {
+    "jobs": [
+      {
+        "id": 129951164712,
+        "name": "online-api (0)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run python -m pip install -r backend/online/requirements.lock",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run python -m pip check",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Require complete CI selection and failure contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "PostgreSQL, storage and API group",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Retain exact selected commands and raw results",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          }
+        ]
+      },
+      {
+        "id": 129951164764,
+        "name": "backend",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run python -m pip install -r backend/online/requirements.lock",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run python -m pip check",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run python -m unittest discover -s backend -v",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Verify the deterministic source component inventory",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Require synthetic Gmail bridge retry and scope contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          }
+        ]
+      },
+      {
+        "id": 129951164876,
+        "name": "https-setup",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Check isolated HTTPS setup with real Caddy and verified TLS",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          }
+        ]
+      },
+      {
+        "id": 129951164966,
+        "name": "online-runtime",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run python -m pip install -r backend/online/requirements.lock",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run python -m pip check",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Check online units, scripts and real HTTPS runtime",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          }
+        ]
+      },
+      {
+        "id": 129951164993,
+        "name": "update-flow",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Check update and recovery in an isolated container",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          }
+        ]
+      },
+      {
+        "id": 129951165002,
+        "name": "online-api (3)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run python -m pip install -r backend/online/requirements.lock",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run python -m pip check",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Require complete CI selection and failure contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "PostgreSQL, storage and API group",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Retain exact selected commands and raw results",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          }
+        ]
+      },
+      {
+        "id": 129951165047,
+        "name": "online-api (1)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run python -m pip install -r backend/online/requirements.lock",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run python -m pip check",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Require complete CI selection and failure contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "PostgreSQL, storage and API group",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Retain exact selected commands and raw results",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          }
+        ]
+      },
+      {
+        "id": 129951165166,
+        "name": "flutter",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Install real backend for client integration test",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Check private Linux pilot launcher and backup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run subosito/flutter-action@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Run flutter pub get --enforce-lockfile",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Check native release configuration and package contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Run flutter analyze",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Require bounded rendering with the real native PDF engine",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Test app and retain bounded failure diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Upload real widget previews",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Post Run subosito/flutter-action@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 24
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 25
+          }
+        ]
+      },
+      {
+        "id": 129951165237,
+        "name": "business-services",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Install backend and actual local invoice validators",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Require all commercial, SMTP and official e-invoice tests",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Require complete browser module and CI group contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          }
+        ]
+      },
+      {
+        "id": 129951165272,
+        "name": "browser-journeys (3)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Install backend and actual local invoice validators",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Install pinned browser client test dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Require responsive browser group with actual auth and API",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Retain actual browser group evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          }
+        ]
+      },
+      {
+        "id": 129951165284,
+        "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Check native release configuration",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Check Visual C++ ATL for protected device storage",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 5
+          },
+          {
+            "name": "Install Windows backend for client integration test",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 6
+          },
+          {
+            "name": "Build and test complete offline Windows Python dependencies",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 7
+          },
+          {
+            "name": "Upload complete offline Windows support package",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 8
+          },
+          {
+            "name": "Run subosito/flutter-action@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Run flutter pub get --enforce-lockfile",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Require bounded rendering with the real Windows PDF engine",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 11
+          },
+          {
+            "name": "Test Windows client and portable local backend",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 12
+          },
+          {
+            "name": "Test Windows backup, restore and launcher lifecycle",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 13
+          },
+          {
+            "name": "Build Windows release with compiler diagnostics",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 14
+          },
+          {
+            "name": "Build iOS simulator",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Prepare portable Windows package",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 16
+          },
+          {
+            "name": "Report Windows package diagnostics",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 17
+          },
+          {
+            "name": "Upload Windows package",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 18
+          },
+          {
+            "name": "Build separate online Windows pilot",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 19
+          },
+          {
+            "name": "Upload separate online Windows pilot",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 20
+          },
+          {
+            "name": "Post Run subosito/flutter-action@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 38
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 39
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 40
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 41
+          }
+        ]
+      },
+      {
+        "id": 129951165296,
+        "name": "browser-journeys (1)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Install backend and actual local invoice validators",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Install pinned browser client test dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Require responsive browser group with actual auth and API",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Retain actual browser group evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          }
+        ]
+      },
+      {
+        "id": 129951165331,
+        "name": "online-api (2)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run python -m pip install -r backend/online/requirements.lock",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run python -m pip check",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Require complete CI selection and failure contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "PostgreSQL, storage and API group",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Retain exact selected commands and raw results",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          }
+        ]
+      },
+      {
+        "id": 129951165378,
+        "name": "browser-journeys (4)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Install backend and actual local invoice validators",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Install pinned browser client test dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Require responsive browser group with actual auth and API",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Retain actual browser group evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          }
+        ]
+      },
+      {
+        "id": 129951165391,
+        "name": "native-build (windows-latest, flutter build windows --release)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Check native release configuration",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Check Visual C++ ATL for protected device storage",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Install Windows backend for client integration test",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Build and test complete offline Windows Python dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Upload complete offline Windows support package",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Run subosito/flutter-action@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Run flutter pub get --enforce-lockfile",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Require bounded rendering with the real Windows PDF engine",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Test Windows client and portable local backend",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Test Windows backup, restore and launcher lifecycle",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Build Windows release with compiler diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Build iOS simulator",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 15
+          },
+          {
+            "name": "Prepare portable Windows package",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Report Windows package diagnostics",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 17
+          },
+          {
+            "name": "Upload Windows package",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Build separate online Windows pilot",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          },
+          {
+            "name": "Upload separate online Windows pilot",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20
+          },
+          {
+            "name": "Post Run subosito/flutter-action@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 38
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 39
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 40
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 41
+          }
+        ]
+      },
+      {
+        "id": 129951165438,
+        "name": "online-api (4)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run python -m pip install -r backend/online/requirements.lock",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run python -m pip check",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Require complete CI selection and failure contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "PostgreSQL, storage and API group",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Retain exact selected commands and raw results",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          }
+        ]
+      },
+      {
+        "id": 129951165459,
+        "name": "online-api (5)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run python -m pip install -r backend/online/requirements.lock",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run python -m pip check",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Require complete CI selection and failure contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "PostgreSQL, storage and API group",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Retain exact selected commands and raw results",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          }
+        ]
+      },
+      {
+        "id": 129951165814,
+        "name": "browser-journeys (0)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Install backend and actual local invoice validators",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Install pinned browser client test dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Require responsive browser group with actual auth and API",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Retain actual browser group evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          }
+        ]
+      },
+      {
+        "id": 129951166116,
+        "name": "browser-journeys (2)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Install backend and actual local invoice validators",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Install pinned browser client test dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Require responsive browser group with actual auth and API",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Retain actual browser group evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          }
+        ]
+      },
+      {
+        "id": 129951166177,
+        "name": "browser-journeys (5)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850956041,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Install backend and actual local invoice validators",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Install pinned browser client test dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Require responsive browser group with actual auth and API",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Retain actual browser group evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          }
+        ]
+      }
+    ]
+  },
+  "development_artifacts": {
+    "artifacts": [
+      {
+        "id": 13782120852,
+        "name": "Smartplan-Online-Checks-2",
+        "size_in_bytes": 16704,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13782120852",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13782120852/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:18:32Z",
+        "expires_at": "2026-11-24T16:18:30Z",
+        "updated_at": "2026-11-10T16:18:32Z",
+        "digest": "sha256:9a185365410dc100eef81ef5a1b7c38597d631566f2f05a76659e03c972a3bb6",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      },
+      {
+        "id": 13782090347,
+        "name": "Smartplan-Browser-Checks-3",
+        "size_in_bytes": 9379966,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13782090347",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13782090347/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:14:28Z",
+        "expires_at": "2026-11-24T16:14:27Z",
+        "updated_at": "2026-11-10T16:14:28Z",
+        "digest": "sha256:0ee3cd28d32dc32d917b51c6a09739be90b9ddd7e0b7c1d1eb0c1ede4a3d4b5f",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      },
+      {
+        "id": 13782005061,
+        "name": "Smartplan-Browser-Checks-5",
+        "size_in_bytes": 4644745,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13782005061",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13782005061/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:12:52Z",
+        "expires_at": "2026-11-24T16:12:50Z",
+        "updated_at": "2026-11-10T16:12:52Z",
+        "digest": "sha256:4531df099914b20c19b6c2d9d14091350c62582cf7156e4b3b2587ad461ec43d",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      },
+      {
+        "id": 13781942510,
+        "name": "Smartplan-Browser-Checks-1",
+        "size_in_bytes": 12322235,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781942510",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781942510/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:28:54Z",
+        "expires_at": "2026-11-24T16:28:53Z",
+        "updated_at": "2026-11-10T16:28:54Z",
+        "digest": "sha256:967f8b5aac3cb30b74caeeef0234010dcd5f4697cd8a78718aeba07305283f18",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      },
+      {
+        "id": 13781921908,
+        "name": "Smartplan-Online-Checks-0",
+        "size_in_bytes": 17601,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781921908",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781921908/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:23:59Z",
+        "expires_at": "2026-11-24T16:23:59Z",
+        "updated_at": "2026-11-10T16:23:59Z",
+        "digest": "sha256:dc4e88d7e3d30d47a90e1070d9122b4222f617f43ba617d997cb4cdbf46ab228",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      },
+      {
+        "id": 13781870527,
+        "name": "Smartplan-Browser-Checks-2",
+        "size_in_bytes": 7430939,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781870527",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781870527/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:14:11Z",
+        "expires_at": "2026-11-24T16:14:08Z",
+        "updated_at": "2026-11-10T16:14:11Z",
+        "digest": "sha256:11d38ad1abb528192d00f5e386172618609e145124f09709f89244aee8043eeb",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      },
+      {
+        "id": 13781801636,
+        "name": "Smartplan-Office-Windows-Online-Pilot",
+        "size_in_bytes": 22242610,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781801636",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781801636/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:19:52Z",
+        "expires_at": "2026-11-24T16:19:49Z",
+        "updated_at": "2026-11-10T16:19:52Z",
+        "digest": "sha256:bb4262980505122bd67099d75dadcf75689a58d09edff53cecbb6c80477b535d",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      },
+      {
+        "id": 13781496964,
+        "name": "Smartplan-Browser-Checks-0",
+        "size_in_bytes": 10932460,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781496964",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781496964/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:16:10Z",
+        "expires_at": "2026-11-24T16:16:08Z",
+        "updated_at": "2026-11-10T16:16:10Z",
+        "digest": "sha256:81e2e81f4ab1edd5acc25f47091905b44870afdd7417f32bbc16b147ade17283",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      },
+      {
+        "id": 13781406802,
+        "name": "Smartplan-Online-Checks-4",
+        "size_in_bytes": 15679,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781406802",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781406802/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:13:45Z",
+        "expires_at": "2026-11-24T16:13:44Z",
+        "updated_at": "2026-11-10T16:13:45Z",
+        "digest": "sha256:2a27d7379ab112f49a8def99a6066b6560224bfaaf3b9ab860a7d9ed4c70f070",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      },
+      {
+        "id": 13781122419,
+        "name": "Smartplan-UI-Previews",
+        "size_in_bytes": 1051106,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781122419",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781122419/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:14:07Z",
+        "expires_at": "2026-11-24T16:14:06Z",
+        "updated_at": "2026-11-10T16:14:07Z",
+        "digest": "sha256:4db5f31893d85abdcc41ede92176b1e896b244b0cbb881f2870a94ffbfffde44",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      },
+      {
+        "id": 13781098237,
+        "name": "Smartplan-Office-Windows",
+        "size_in_bytes": 36606185,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781098237",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13781098237/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:18:51Z",
+        "expires_at": "2026-11-24T16:18:48Z",
+        "updated_at": "2026-11-10T16:18:51Z",
+        "digest": "sha256:e7963cbaa4cd3ed72f7f8f217962256cfe01a1f13ff3eede84342e0030340052",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      },
+      {
+        "id": 13780947472,
+        "name": "Smartplan-Online-Checks-3",
+        "size_in_bytes": 17023,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13780947472",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13780947472/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:13:15Z",
+        "expires_at": "2026-11-24T16:13:14Z",
+        "updated_at": "2026-11-10T16:13:15Z",
+        "digest": "sha256:6d47a880ed81232fd5195c6434908c0c8e9a8ad0fc9408929e37db550b668f5f",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      },
+      {
+        "id": 13780662904,
+        "name": "Smartplan-Online-Checks-1",
+        "size_in_bytes": 17243,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13780662904",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13780662904/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:13:35Z",
+        "expires_at": "2026-11-24T16:13:34Z",
+        "updated_at": "2026-11-10T16:13:35Z",
+        "digest": "sha256:a4221caa4b002feacaf857c39bde5d4d6bc76c5872b180661ab1417c6a9be6dc",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      },
+      {
+        "id": 13780617147,
+        "name": "Smartplan-Windows-Start-und-Sicherung",
+        "size_in_bytes": 15593159,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13780617147",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13780617147/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:05:39Z",
+        "expires_at": "2026-11-24T16:05:37Z",
+        "updated_at": "2026-11-10T16:05:39Z",
+        "digest": "sha256:4e2394263bcd6d4fed76a6b5a1f00a8a549a2706701b5cf491c2b1b00601ce11",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      },
+      {
+        "id": 13780219382,
+        "name": "Smartplan-Browser-Checks-4",
+        "size_in_bytes": 4331766,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13780219382",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13780219382/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:14:03Z",
+        "expires_at": "2026-11-24T16:14:01Z",
+        "updated_at": "2026-11-10T16:14:03Z",
+        "digest": "sha256:5245cf7b710f363a7871ebb408244c1ef60ca20352cc0f940d33653283e9fadb",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      },
+      {
+        "id": 13779634613,
+        "name": "Smartplan-Online-Checks-5",
+        "size_in_bytes": 18304,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13779634613",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13779634613/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:10:56Z",
+        "expires_at": "2026-11-24T16:10:55Z",
+        "updated_at": "2026-11-10T16:10:56Z",
+        "digest": "sha256:736e07a8c30b84bba74389e0e65018d51d18af5630185499b352f0d3d0fb87da",
+        "workflow_run": {
+          "id": 42850956041,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      }
+    ]
+  },
+  "unsigned_ios_run_id": 42850955774,
+  "unsigned_ios": {
+    "jobs": [
+      {
+        "id": 129951162407,
+        "name": "Online-Release ohne Apple-Zugang pruefen",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 42850955774,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Echtes Backend fuer Client-Integrationstest installieren",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run subosito/flutter-action@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Native Offline-Voraussetzungen pruefen",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Build-Nummer bestimmen",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Run flutter pub get --enforce-lockfile",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Run flutter analyze",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Echtes natives PDF mit begrenztem Raster pruefen",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "App-Tests mit Fehlerdetails ausfuehren",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Flutter iOS Release bauen (Online-Server, ohne Signierung)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "iPhone-/iPad-Konfiguration und Buildmanifest pruefen",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Unsigniertes Pruefartefakt packen",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Post Run subosito/flutter-action@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 28
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 29
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 30
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 31
+          }
+        ]
+      },
+      {
+        "id": 129972182615,
+        "name": "Signiertes iPhone-Paket vorbereiten (Upload nur nach Auswahl)",
+        "status": "completed",
+        "conclusion": "skipped",
+        "run_id": 42850955774,
+        "logs_url": null,
+        "steps": null
+      }
+    ]
+  },
+  "unsigned_ios_artifacts": {
+    "artifacts": [
+      {
+        "id": 13782558198,
+        "name": "Smartplan-Office-iOS-UNSIGNED-206",
+        "size_in_bytes": 15058204,
+        "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13782558198",
+        "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13782558198/zip",
+        "expired": false,
+        "created_at": "2026-11-10T16:40:12Z",
+        "expires_at": "2026-11-24T16:40:10Z",
+        "updated_at": "2026-11-10T16:40:12Z",
+        "digest": "sha256:02aa3d6bea0d3cc8d0dc8b41bee69061389dda292ba70fe5010d67bf3f15da74",
+        "workflow_run": {
+          "id": 42850955774,
+          "repository_id": 1418615874,
+          "head_repository_id": 1418615874,
+          "head_branch": "codex/testupdate-0.7-projects-20261104",
+          "head_sha": "abcc3510f4d913b1d4e57c30fd2e5283bce2156b"
+        }
+      }
+    ]
+  }
+}

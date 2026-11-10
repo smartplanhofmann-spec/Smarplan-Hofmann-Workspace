@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:Document xmlns:ns0="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08"><ns0:BkToCstmrStmt>
+<ns0:GrpHdr><ns0:MsgId>synthetic-message</ns0:MsgId><ns0:CreDtTm>2026-11-01T08:00:00+01:00</ns0:CreDtTm></ns0:GrpHdr>
+<ns0:Stmt><ns0:Id>synthetic-camt-ea3a0f14476e4d5c</ns0:Id><ns0:FrToDt><ns0:FrDtTm>2026-11-01T00:00:00+01:00</ns0:FrDtTm><ns0:ToDtTm>2026-11-30T23:59:59+01:00</ns0:ToDtTm></ns0:FrToDt>
+<ns0:Acct><ns0:Id><ns0:IBAN>DE89370400440532013000</ns0:IBAN></ns0:Id><ns0:Ccy>EUR</ns0:Ccy></ns0:Acct>
+<ns0:Bal><ns0:Tp><ns0:CdOrPrtry><ns0:Cd>OPBD</ns0:Cd></ns0:CdOrPrtry></ns0:Tp><ns0:Amt Ccy="EUR">0.00</ns0:Amt><ns0:CdtDbtInd>CRDT</ns0:CdtDbtInd><ns0:Dt><ns0:Dt>2026-11-01</ns0:Dt></ns0:Dt></ns0:Bal>
+<ns0:Bal><ns0:Tp><ns0:CdOrPrtry><ns0:Cd>CLBD</ns0:Cd></ns0:CdOrPrtry></ns0:Tp><ns0:Amt Ccy="EUR">119.00</ns0:Amt><ns0:CdtDbtInd>CRDT</ns0:CdtDbtInd><ns0:Dt><ns0:Dt>2026-11-30</ns0:Dt></ns0:Dt></ns0:Bal>
+
+<ns0:Ntry><ns0:NtryRef>reference-credit</ns0:NtryRef><ns0:Amt Ccy="EUR">119.00</ns0:Amt><ns0:CdtDbtInd>CRDT</ns0:CdtDbtInd><ns0:Sts><ns0:Cd>BOOK</ns0:Cd></ns0:Sts><ns0:BookgDt><ns0:Dt>2026-11-02</ns0:Dt></ns0:BookgDt><ns0:ValDt><ns0:Dt>2026-11-02</ns0:Dt></ns0:ValDt><ns0:AcctSvcrRef>bank-credit-01</ns0:AcctSvcrRef><ns0:BkTxCd><ns0:Prtry><ns0:Cd>synthetic-credit</ns0:Cd></ns0:Prtry></ns0:BkTxCd><ns0:NtryDtls><ns0:TxDtls><ns0:RltdPties><ns0:Dbtr><ns0:Pty><ns0:Nm>Synthetische Müller GmbH</ns0:Nm></ns0:Pty></ns0:Dbtr></ns0:RltdPties><ns0:RmtInf><ns0:Ustrd>Rechnung R-100</ns0:Ustrd></ns0:RmtInf></ns0:TxDtls></ns0:NtryDtls></ns0:Ntry>
+</ns0:Stmt></ns0:BkToCstmrStmt></ns0:Document>

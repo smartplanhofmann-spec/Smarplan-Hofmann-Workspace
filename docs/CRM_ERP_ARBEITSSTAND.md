@@ -27,8 +27,8 @@ Etappe verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
 
 | Stand | Tatsächlich bestätigt |
 |---|---|
-| Aktuell veröffentlichter Quell- und Testbranch | `91fa18bf5290ef7f411c7c7d9f722bb78e3dd954`, veröffentlicht und Remote-Zeiger bestätigt. V14, Mitarbeiterbeleg-Leser, Datumsanzeige und getrennte iPhone-Prüfläufe enthalten. |
-| Eigene aktuelle Workflowprüfung | An91fa18b: Development42814265700 alle20 Gruppen erfolgreich, unsignierter iPhone42814265712 erfolgreich. Mailbot42814265743 erfolgreich, kein echter Versand. Manueller signierter Vorbereitungslauf42816832390 läuft mit Uploadfalse; er ersetzt den unabhängigen Pushlauf nicht. Vorläuferfehler bleiben historisch erhalten. |
+| Aktuell veröffentlichter Quell- und Testbranch | `ca14af3822aac0706c2acf80bdb568cc5f29afbb`, veröffentlicht und Remote-Zeiger bestätigt. V14 und Qonto-Leseansicht mit beiden Clients enthalten. Eigenkonto-Key67b99d3 liegt geprüft lokal für die nächste Integration vor. |
+| Eigene aktuelle Workflowprüfung | An91fa18b: Development42814265700 alle20 Gruppen erfolgreich, unsignierter iPhone42814265712 erfolgreich. Mailbot42814265743 erfolgreich, kein echter Versand. Manueller signierter Vorbereitungslauf42816832390 an91fa: unsigniert erfolgreich; erster Apple-Export scheitert am Netzwerk und fehlendem Profil nach diesem Abbruch. Rohfehler erhalten; genau der gescheiterte Job wurde mit identischem Quellstand wiederholt, neuer Signierjob129852986325 läuft, Uploadfalse. Neue ca14-Prüfung42821768166 läuft separat, Mailbot42821768083 erfolgreich. Vorläuferfehler bleiben historisch erhalten. |
 | Vollständige CI zum Installationsprodukt c4a2d8f | Development42790149143:alle20 Gruppen erfolgreich. Die anHTTP403 vor Testbeginn gescheiterte Gruppe wurde allein wiederholt; alle13 wirklichen Browserabläufe bestehen, Erstfehler erhalten. Unsignierter iPhone42790149399 erfolgreich, signierter Upload übersprungen. Mailbot-Verträge42790149124 auf Linux/Windows erfolgreich; kein echter Versand. |
 | Aktueller geprüfter veröffentlichter Reparaturstand | `40d8fcf5571e8edc898e2e20b1cf7fe36e52149e`: alle20 Development-Gruppen42806104268 erfolgreich. Eigener manueller iPhone42806142665: vollständiger unsignierter Client, endgültiges signiertes IPA, strenge Keychain-/Teamprüfung und Schlüsselbereinigung erfolgreich. Signiertes Artefakt198 vorhanden; TestFlight-Uploadskipped. V14 ist davon getrennt. |
 | Letzter vom Nutzer bestätigter Server | `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5` vom05.11.; drei Dienste/Sicherungstimer und kontrollierter Updateabschluss bestätigt. Der10.11.-GET auf/ready liefert403 durchEnvoy; die tatsächliche Cloud-Zulassungsliste enthält die Domain nicht. Kein neuer bestätigter Ursprungstand und kein Update. |
@@ -235,7 +235,7 @@ ID/Markierung geprüft entfernt; Wiederholung mit begrenztem512MiB-Tmpfs besteht
 Keine fremden Container bereinigt.57 Lohnmodule und Originalziel bleiben bytegleich.
 
 Qonto-Zugang ist in diesem Abschnitt nur ein geschütztes Betreiber-OAuth-Token.
-Einwilligung/automatische Erneuerung, tatsächlicher Zugang, Feed-Originalarchiv
+OAuth-Einwilligung/automatische Erneuerung, tatsächlicher Zugang, Feed-Originalarchiv
 und Einbindung als geprüfter Auszug bleiben offen. Keine Bankgeheimnisse und
 neuen Provider-Zielhosts in dieser Cloud vorhanden. Für Loxone sind offizielle
 EUR-/CHF-CSV und DATANORM4/5 recherchiert; die CSV-Weiterleitung ist über das
@@ -243,3 +243,28 @@ Recherchewerkzeug nicht lesbar, DATANORM erfordert Shopanmeldung. Kein
 Dateischema geraten. Granzow-/AB-Protokollangebote und Voltus-IDS2.5 sind
 recherchiert; Vertrags-/Partnerzugänge und echte Anbieterabnahme fehlen.
 Eigener neuer Push/CI und reale Server-/Geräteinstallation werden separat geführt.
+
+## Lokal abgeschlossen: Qonto-Eigenkonto-Key nach verifiziertem Vertrag
+
+Produkt67b99d3 ergänzt ausdrücklich den offiziellen Eigenkonto-Key-Modus,
+Header exakt Sign-in:Secret-Key ohne Basic/Bearer/Base64. Der vorherige
+OAuth-Modus bleibt erhalten. Organisations-UUID/IBAN und frische Rechte
+werden in beiden Modi weiter geprüft. Geheimnisse und Sign-in gelangen nicht
+in öffentliche Statusansichten oder Objekt-Repräsentationen. Kein Key-Zugang
+für fremde Kunden anstelle des dafür erforderlichen OAuth behauptet.
+
+43 gemeinsame Anmelde-/Transport-/MFA-/Frischerechte-/CI-Fälle10,469s,
+beide tatsächlichen PG-/MFA-/Cash-/Original-/Dump-/Restorefälle41,810s
+und wirklicher Eigenkonto-Key-/Browser-/390px-/Abmeldeablauf bestehen.
+Clientruntime bleibt bytegleich zu ca14; ein zusätzlicher tatsächlicher
+Quellarchivfall besteht.16 Rohdateien samt ursprünglichem roten Vertrag,
+Primärquelle und tatsächlichem Apple-Netzwerkfehler sind archiviert.
+Dieser Zusatz wird lokal gehalten, während die eigene ca14-CI läuft; keine
+unnötige Verdrängung der aktiven vollständigen Prüfung. Keine Liveverbindung.
+
+Loxone-Direktabruf: nach Proxy-Verbindungsfehler im normalen Sandboxaufruf
+antwortet derselbe öffentliche HTTPS-Abruf mit regulärer Genehmigung403 von
+Envoy. Aktuelle erzwungene Hostfreigabe enthält pim.loxone.com nicht. Der Nutzer
+ist um genau diese zusätzliche Freigabe in den Einstellungen gebeten; kein
+Konfigurationswerkzeug verfügbar, kein Umgehen der Netzrichtlinie. Andere
+Arbeiten laufen weiter. Quellen und bestehende Freigaben bleiben erhalten.

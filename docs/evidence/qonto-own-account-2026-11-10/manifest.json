@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "status": "own_company_key_additive_tested_local_not_published",
+  "product_commit": "67b99d3d45b6461d9306a78f9502aa851b46d761",
+  "base_published_commit": "ca14af3822aac0706c2acf80bdb568cc5f29afbb",
+  "raw_files": [
+    {
+      "path": "qonto-own-account-before-20261110.txt.gz",
+      "bytes": 11838,
+      "sha256": "86a4d18295a7d01ec495b52107f50d6b65f39640473e1f0403115578945ec983"
+    },
+    {
+      "path": "qonto-own-account-joint-first-20261110.txt.gz",
+      "bytes": 7176,
+      "sha256": "dce89dc5b758eff7e6f78b2acd1fa37ec0aac43a686072f1e350b735c07a8085"
+    },
+    {
+      "path": "qonto-own-account-joint-final-20261110.txt.gz",
+      "bytes": 9087,
+      "sha256": "4cb7955956e347efc76cc600bdb4d697b12060f8a082672cb0d58675f3db4836"
+    },
+    {
+      "path": "qonto-own-account-guard-final-20261110.txt.gz",
+      "bytes": 9088,
+      "sha256": "ebc3dd6894837ae36ae92df0fbe7bb2a4c060c138680d5990577b2a01153153b"
+    },
+    {
+      "path": "qonto-own-account-pg-runner-20261110.py.gz",
+      "bytes": 4064,
+      "sha256": "6d2094700db6cbd4780c339c3130a19a47cd4a0673414a880384e3135cb702d8"
+    },
+    {
+      "path": "qonto-own-account-pg-first-20261110.txt.gz",
+      "bytes": 545,
+      "sha256": "65d17a96b2d74a87f6ba632fe4688ec330a63ba04c12d13273bb9e813fc8faed"
+    },
+    {
+      "path": "qonto-own-account-pg-first-result-20261110.json.gz",
+      "bytes": 377,
+      "sha256": "0f209610ea8ff04a9bc53e99769ae7463b60b168a22999dccefcfae80ce35c62"
+    },
+    {
+      "path": "qonto-own-account-pg-runner-first-20261110.txt.gz",
+      "bytes": 359,
+      "sha256": "cbb3bf751b4fcb5c74e123cd648626555e02fe578ec690c7dc03128ec0230910"
+    },
+    {
+      "path": "qonto-own-account-real-browser-first-20261110.txt.gz",
+      "bytes": 276,
+      "sha256": "306d7de2f2c1afaec045523ffffb893f8cc858230c32101cb8a5cc5efbe23711"
+    },
+    {
+      "path": "qonto-own-account-official-auth-contract-20261110.json.gz",
+      "bytes": 11665,
+      "sha256": "8522ecf97be2056d4fe283d2cd351e7f7b182a9d70ac183de4b2fa96ee4870a1"
+    },
+    {
+      "path": "qonto-own-account-source-archive-20261110.txt.gz",
+      "bytes": 322,
+      "sha256": "e62da5b0f33a43ab30738b66a31cbdc1409af3742c5390d5956ad4fc57ae82d4"
+    },
+    {
+      "path": "qonto-own-account-base-ci-observed-20261110.json.gz",
+      "bytes": 45506,
+      "sha256": "d5ecada7dec088a4a9f5c9b6d57cf5b8bd7fdfd32b190acc3deb3d4b0ceca117"
+    },
+    {
+      "path": "qonto-readonly-own-runs-first-20261110.json.gz",
+      "bytes": 996,
+      "sha256": "5a7cad6bdd8931dceb7c62d63c3cc769106ec79657defc91ce3fa211eae1b4bd"
+    },
+    {
+      "path": "v14-actual-signed-network-failure-20261110.log.gz",
+      "bytes": 1441238,
+      "sha256": "13ebe95da570fd8f39f281a58338a5f4422dfdc59f7ab1fedcd58be54699c5ba"
+    },
+    {
+      "path": "qonto-readonly-mobile.png",
+      "bytes": 67198,
+      "sha256": "cf240d24d6c9af519c1059da0433a60c535d4815887b66a457f893442fa0cde7"
+    },
+    {
+      "path": "loxone-catalogue-direct-escalated-attempt-20261110.headers.gz",
+      "bytes": 143,
+      "sha256": "79c8e1f47c6a1e5ca06a38f21f774b8a150c9b5ea92b1bf9f6a663dc89eced9a"
+    }
+  ],
+  "results": {
+    "joint_cases": 43,
+    "seconds": 10.469,
+    "actual_pg_cases": 2,
+    "actual_pg_seconds": 41.81,
+    "actual_pg_runner_seconds": 43.12222828200902,
+    "actual_pg_removed": true,
+    "actual_browser": "real MFA/HTTP, exact key header through pinned transport, four statuses,390px and logout",
+    "committed_source_archive_cases": 1,
+    "client_runtime_byte_unchanged": true
+  },
+  "auth": {
+    "primary": "https://docs.qonto.com/guides/authentication/api-key",
+    "header": "sign-in:secret-key, no Bearer, no Basic, no Base64",
+    "scope": "own company only; not a replacement for customer OAuth",
+    "secret_source": "existing protected operator file; never browser/request data",
+    "live_access": false
+  },
+  "predecessor_publication": {
+    "source_commit": "ca14af3822aac0706c2acf80bdb568cc5f29afbb",
+    "remote_pointer_verified": true,
+    "development_run": 42821768166,
+    "unsigned_iphone_run": 42821768001,
+    "mailbot_run": 42821768083,
+    "mailbot_success": true,
+    "development_conclusion": "running"
+  },
+  "signed_delivery": {
+    "source_commit": "91fa18bf5290ef7f411c7c7d9f722bb78e3dd954",
+    "run": 42816832390,
+    "unsigned_conclusion": "success",
+    "signed_job": 129847153231,
+    "signed_conclusion": "failure",
+    "failed_step": "temporary Apple export: network connection lost; subsequent no-profile message",
+    "failure_raw_preserved": true,
+    "same_source_failed_job_rerun_accepted": true,
+    "upload_to_testflight": false,
+    "older_successful_198_not_invalidated": true,
+    "rerun_signed_job": 129852986325,
+    "rerun_status": "in_progress"
+  },
+  "boundaries": {
+    "new_own_key_not_published": true,
+    "live_installation": false,
+    "new_device_acceptance": false,
+    "real_provider_credentials_received": false
+  },
+  "network": {
+    "host": "pim.loxone.com",
+    "public_official_path": "/api/exportList/prices?store=2",
+    "default_attempt": "proxy unreachable exit7",
+    "approved_same_destination_retry": "HTTP403 Envoy exit22",
+    "observed_enforced_policy_contains_host": false,
+    "user_setup_question_pending": true,
+    "configuration_tool_available": false
+  }
+}

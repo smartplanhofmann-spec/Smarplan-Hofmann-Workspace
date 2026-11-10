@@ -4354,3 +4354,36 @@ konkrete Sparkasse/Amex-Produkt und Lieferantenverträge bleiben offen. Loxone
 bietet offizielle CSV/DATANORM-Dateien, deren tatsächliches Schema noch nicht
 gelesen werden konnte. Alle Gesamtziel-Abnahmen und übrigen Lohn-/Buchhaltungs-
 Restarbeiten bleiben bestehen; keine neue Liveinstallation oder Geräteabnahme.
+
+
+## 10.11.2026 – Eigenkonto-Key abgeschlossen, ca14 veröffentlicht, Apple-Netzwerkfehler erhalten
+
+Qonto-Kandidatca14af3822aac0706c2acf80bdb568cc5f29afbb ist auf dem autorisierten
+Testbranch veröffentlicht und Remote-Zeiger bestätigt. Eigene Development-
+Prüfung42821768166 und unsignierter iPhone42821768001 laufen; Mailbot
+42821768083 erfolgreich, kein echter Versand.
+
+Additiv lokal67b99d3: offizieller Qonto-Eigenkonto-Key-Vertrag, ausdrücklicher
+Modus und Betreiberdatei; Header exakt Sign-in:Secret-Key. Fünf neue Fälle
+sind zuerst tatsächlich rot, danach43 gemeinsame Fälle10,469s erfolgreich.
+Beide tatsächlichen getrennten PG-Runtime-/MFA-/Cash-/Bankoriginal-/Dump-/
+Restorefälle bestehen41,810s. Neuer realer Browserablauf mit exaktem Key-Header,
+vier Status,390px und Abmeldung besteht. App- und Browserproduktcode bleiben
+bytegleich zu ca14. Eigener Quellarchivfall besteht; keine echte Bankverbindung.
+Zusatz bleibt lokal, bis die aktuelle vollständige ca14-Prüfung abgeschlossen ist.
+
+Manuelle signierte V14-Vorbereitung42816832390: unsignierter Client erfolgreich;
+Job129847153231 scheitert im temporären Apple-Export mit tatsächlichem
+Netzwerkabbruch und anschließend fehlendem Profil. Vollständiger Erstfehler
+erhalten; vorhandene frühere Apple-Signierung198 bleibt eigener positiver
+Nachweis. Genau der fehlgeschlagene Job ist mit unveränderten Quellen erneut
+ausgelöst und angenommen; neuer Signierjob129852986325 läuft. Uploadfalse.
+
+Loxones offizielle CSV-Weiterleitung kann nun als tatsächlicher HTTPS-Abruf
+geprüft werden: normaler Sandboxaufruf ohne Proxyverbindung, gleiche öffentliche
+URL mit regulärer Ausführungsfreigabe403 von Envoy. Der aktuelle erzwungene
+Netzplan erlaubt pim.loxone.com nicht. Der Nutzer ist um diese Hostergänzung
+in den Einstellungen gebeten; keine Geheimnisse angefragt, keine Netzsperre
+umgangen. Alle16 neuen Rohdateien sind im Eigenkonto-Manifest erhalten.
+Gesamtziel, fehlende Fach-/Geräte-/Betriebsabnahmen und übrige Codearbeit
+bleiben ausdrücklich bestehen.

@@ -31,6 +31,11 @@ const statementBranches = {
   'care': 'Pflegeversicherung',
 };
 const _scopes = {
+  'regular_standard_factor_taxfree_travel_month',
+  'commercial_minijob_individual_month',
+  'regular_standard_factor_claims_month',
+  'regular_standard_factor_claims_paid_travel_month',
+  'regular_transition_factor_month',
   'regular_standard_multiple_oneoff',
   'regular_standard_oneoff',
   'regular_standard_segments',
@@ -45,6 +50,24 @@ const _scopes = {
   'regular_transition_monthly',
   'regular_transition_period',
   'social_contributions_only',
+};
+const _compositeV2 = {
+  'de_2026_segments_entitlements_v5': {
+    'regular_standard_segments',
+    'regular_transition_segments',
+    'commercial_minijob_segments_flat_tax',
+  },
+  'de_2026_factor_taxfree_travel_month_v10': {
+    'regular_standard_factor_taxfree_travel_month',
+  },
+  'de_2026_individual_minijob_month_v11': {
+    'commercial_minijob_individual_month',
+  },
+  'de_2026_factor_claims_month_v12': {'regular_standard_factor_claims_month'},
+  'de_2026_factor_claims_paid_travel_month_v13': {
+    'regular_standard_factor_claims_paid_travel_month',
+  },
+  'de_2026_factor_transition_month_v14': {'regular_transition_factor_month'},
 };
 final _id = RegExp(r'^[a-f0-9]{32}$'), _hash = RegExp(r'^[a-f0-9]{64}$');
 Never _fail(String message, [int status = 0]) =>
@@ -141,13 +164,11 @@ Future<Map<String, dynamic>> payrollStatement(
     'employee_contributions',
   ]);
   if ((v['schema_version'] == 2) !=
-          (c['rule_version'] == 'de_2026_segments_entitlements_v5') ||
+          _compositeV2.containsKey(c['rule_version']) ||
       (v['schema_version'] == 2) !=
-          [
-            'regular_standard_segments',
-            'regular_transition_segments',
-            'commercial_minijob_segments_flat_tax',
-          ].contains(c['scope']) ||
+          _compositeV2.values.any((scopes) => scopes.contains(c['scope'])) ||
+      v['schema_version'] == 2 &&
+          !(_compositeV2[c['rule_version']]?.contains(c['scope']) ?? false) ||
       (v['schema_version'] == 3) !=
           (c['rule_version'] == 'de_2026_oneoff_composition_v6') ||
       (v['schema_version'] == 3) != (c['scope'] == 'regular_standard_oneoff') ||

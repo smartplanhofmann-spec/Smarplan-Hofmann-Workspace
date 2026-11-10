@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "status": "implemented_focused_client_browser_and_full_PG_restore_passed_whole_app_and_package_pending",
+  "base_commit": "a40fc569ff34bae26a832b7267fbe6eb9d1bf083",
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "raw_files": [
+    {
+      "path": "factor-transition-actual-api-and-predecessors-second-20261110.txt.gz",
+      "bytes": 6196,
+      "sha256": "8587ef8b0397f7f494e914a08117684c31f3549ae549404d6c7c71be8689cb18"
+    },
+    {
+      "path": "factor-transition-actual-api-before-20261110.txt.gz",
+      "bytes": 1726,
+      "sha256": "50477f9dc275cc3a8ea4f975f51f40464b259023d6c09138c24fb3c464f35f45"
+    },
+    {
+      "path": "factor-transition-actual-api-blocker-review-20261110.txt.gz",
+      "bytes": 1306,
+      "sha256": "50dd0190a8738c2282b821a8a6a113d5ffd7db8b989fed454a72d14ac540b486"
+    },
+    {
+      "path": "factor-transition-actual-api-first-20261110.txt.gz",
+      "bytes": 3281,
+      "sha256": "6d43f34f58b95a908f1372c9159f4f749cd4e097666d35afc459ad9b5bf298fc"
+    },
+    {
+      "path": "factor-transition-actual-api-original-gap-20261110.txt.gz",
+      "bytes": 4939,
+      "sha256": "bdd73382c95abfee07f3f5ce16683735fad40f440181b9cec6aab57365f2185b"
+    },
+    {
+      "path": "factor-transition-actual-client-fixture-20261110.txt.gz",
+      "bytes": 197,
+      "sha256": "a7a4a0b8668f0f36eb6bc464b87b723a1854c202b796a0774c9d1116c79765b7"
+    },
+    {
+      "path": "factor-transition-all-browser-modules-first-20261110.txt.gz",
+      "bytes": 112249,
+      "sha256": "378527bb1e8a0cce6ef03476442836d7ccfeaefe52057fb6b0bfc0851e0269eb"
+    },
+    {
+      "path": "factor-transition-all-browser-modules-second-20261110.txt.gz",
+      "bytes": 110517,
+      "sha256": "b2aefad0778d672e584237d3021d62eb62c883e09364f2dce956fe278d8faca7"
+    },
+    {
+      "path": "factor-transition-browser-contract-first-20261110.txt.gz",
+      "bytes": 744,
+      "sha256": "a245b0f9e212d9706d4950e9ee875d12bd881774fda3c171821865a24bc9be4f"
+    },
+    {
+      "path": "payroll-factor-transition-own-mobile.png",
+      "bytes": 51323,
+      "sha256": "6a7f22f39bffe431831a0788c1e0660ec810f26465a6b0a1d54fda00511e1ac1"
+    },
+    {
+      "path": "payroll-factor-transition-synthetic-commands.json.gz",
+      "bytes": 1632596,
+      "sha256": "5bf940938237b08ce6d2e4b66d9b0567bf72b5f93d72e2905edf139996bd529f"
+    },
+    {
+      "path": "factor-transition-client-fixture-final-contract-20261110.txt.gz",
+      "bytes": 210,
+      "sha256": "e4e425780f90cf0dc97f90c9e52499fde293b73223c0e9a891b8f1ef7d397bd1"
+    },
+    {
+      "path": "factor-transition-correction-first-20261110.txt.gz",
+      "bytes": 315,
+      "sha256": "90eba51d58d4947ce997054ad5cd367f59fe6fd70edb79aaf7f37b19147ff72e"
+    },
+    {
+      "path": "factor-transition-existing-unsupported-20261110.txt.gz",
+      "bytes": 286,
+      "sha256": "5502aab8a24ee866474c7e6e9930c6903cc6e9af0960963aca021bd8b2eb9936"
+    },
+    {
+      "path": "factor-transition-independent-xml-20261110.txt.gz",
+      "bytes": 133,
+      "sha256": "f51f99c9e52661eb309c3da7d0d16480074f105bea47bef9ebb8baec960efb0d"
+    },
+    {
+      "path": "factor-transition-kernel-before-20261110.txt.gz",
+      "bytes": 1093,
+      "sha256": "966ec3dddc53ca980e97ecf4cc9ed150724cca7ee5335da59dec1799dac0614b"
+    },
+    {
+      "path": "factor-transition-kernel-with-frozen-components-first-20261110.txt.gz",
+      "bytes": 4755,
+      "sha256": "9d58d11b1e5f7d6ecd079a21dbc58a7909e075f56765f862d14bd1225d9ca733"
+    },
+    {
+      "path": "factor-transition-native-analyze-current-20261110.txt.gz",
+      "bytes": 97,
+      "sha256": "8dd5f28db3f203dcdd14e3d0052f8bbb49bff7c4e86b112a4059694deb670cc4"
+    },
+    {
+      "path": "factor-transition-native-analyze-first-20261110.txt.gz",
+      "bytes": 97,
+      "sha256": "96325d9d27918636db04c811a9f587170c28b988ac74e06b794d9a77a8fa3f16"
+    },
+    {
+      "path": "factor-transition-native-first-20261110.txt.gz",
+      "bytes": 3208,
+      "sha256": "1f04b61e24326f8ee2aa4a74a64f12d5d81869abfdf5aa3fe82ee38215668b86"
+    },
+    {
+      "path": "factor-transition-native-format-first-20261110.txt.gz",
+      "bytes": 235,
+      "sha256": "d8c678338c8d394dcf41538b3425ef2391fd06b3fbc6987333229c8ecdc2f1e1"
+    },
+    {
+      "path": "factor-transition-native-pub-offline-20261110.txt.gz",
+      "bytes": 68,
+      "sha256": "d4cb7a3c68b4133b4f6e58c67ff5bfd13725d8021e930388cdc98da8a575919d"
+    },
+    {
+      "path": "factor-transition-native-second-20261110.txt.gz",
+      "bytes": 3091,
+      "sha256": "9b81fa8a1418f2a668787ee0940062c14bc098ff12549bf8a7a1e9b4efef4f45"
+    },
+    {
+      "path": "factor-transition-native-test-format-20261110.txt.gz",
+      "bytes": 106,
+      "sha256": "61f80987f29c2202c718d54cd2a12632e4f3a712c9a1f1f2986c95bda3363f29"
+    },
+    {
+      "path": "factor-transition-native-test-format-second-20261110.txt.gz",
+      "bytes": 46,
+      "sha256": "201363ae23832375357c5580f6a07ce89f48c2a27211bd100d74e34f26295c71"
+    },
+    {
+      "path": "factor-transition-native-third-20261110.txt.gz",
+      "bytes": 828,
+      "sha256": "6961fbb87913e43963d31853c7b0570602e080949e1d215806890db150e41b1d"
+    },
+    {
+      "path": "factor-transition-native-ui-format-first-20261110.txt.gz",
+      "bytes": 100,
+      "sha256": "162f016f9c87f9f36a8a3cf320c8975d97d20ac9e46ef829149046ea0ac73659"
+    },
+    {
+      "path": "factor-transition-own-pg-20261110.json.gz",
+      "bytes": 216,
+      "sha256": "1e549057da177582f7a14f269e016abf42e353c5e6e1b2424d01d18191ce618f"
+    },
+    {
+      "path": "factor-transition-own-pg-second-20261110.json.gz",
+      "bytes": 217,
+      "sha256": "097ea41acc4e3587a79cd415d9ee17a4721ca2fb311a8331197f3e1d40c3f9e5"
+    },
+    {
+      "path": "factor-transition-pg-first-20261110.txt.gz",
+      "bytes": 1454,
+      "sha256": "4c30d8ab911dc22a9154f3fe25e99259fa3873e5cdf867fbe662cfb55e18681d"
+    },
+    {
+      "path": "factor-transition-pg-first-fixture-review-20261110.txt.gz",
+      "bytes": 208,
+      "sha256": "672f2ed93febdcd6f1467085d47a434c6db1d521f2290f8eff6b224b78da8983"
+    },
+    {
+      "path": "factor-transition-pg-first-result-20261110.json.gz",
+      "bytes": 324,
+      "sha256": "013614b9f82d8889ba785dc38e737e5df548dc2c143b4af39327d71b067d1bcc"
+    },
+    {
+      "path": "factor-transition-pg-runner-20261110.py.gz",
+      "bytes": 3886,
+      "sha256": "aa7b5dc9c6c9bc592741cb0c5e3f4fac10aaf53a76ac9a040e9a6c2b3adc73db"
+    },
+    {
+      "path": "factor-transition-pg-second-20261110.txt.gz",
+      "bytes": 334,
+      "sha256": "0f383189cbd0cb7fc9c3a4c14125b22359bf45e5afca4728e1f6c3117a53334f"
+    },
+    {
+      "path": "factor-transition-pg-second-result-20261110.json.gz",
+      "bytes": 325,
+      "sha256": "2a0a1c699665d071ed45577591f57ed5d3abdede54c4f8cd834a67024309c4a4"
+    },
+    {
+      "path": "factor-transition-projections-ci-first-20261110.txt.gz",
+      "bytes": 2206,
+      "sha256": "ef6e0bf6f2b6e9a1ed606e72edcf6239530dca63faf9364ec6237371af1518a8"
+    },
+    {
+      "path": "factor-transition-real-browser-first-20261110.txt.gz",
+      "bytes": 419,
+      "sha256": "dc1a7abe99934957384c8b0171d0380951574b89163aa246534e41c8ca8194eb"
+    },
+    {
+      "path": "factor-transition-reduced-cash-private-annual-first-20261110.txt.gz",
+      "bytes": 319,
+      "sha256": "64137bcbe6732c6b37c0033b8f7d55773c0420190b3ae0bfb787ec9e389ec55f"
+    },
+    {
+      "path": "payroll-statement-composites-browser-before-20261110.txt.gz",
+      "bytes": 12510,
+      "sha256": "9c995af5e658f1057eff4839b871ed5b4872d26bea09d030d5bb21e78c2cfd7a"
+    },
+    {
+      "path": "payroll-statement-composites-browser-first-after-20261110.txt.gz",
+      "bytes": 1765,
+      "sha256": "0cc875bc02d2193517282261c587159eaf0d1bfe7174377b3e174e433de640cb"
+    },
+    {
+      "path": "payroll-statement-composites-generated-20261110.txt.gz",
+      "bytes": 1714,
+      "sha256": "b402ae001c659d59553bd4c99c284a570f90591a80d4b9321c21a5d8c1ea136a"
+    },
+    {
+      "path": "payroll-statement-composites-native-first-after-20261110.txt.gz",
+      "bytes": 3561,
+      "sha256": "8cb71d9d547af9f8f2f8c62933e45efc838e21d4a0e89dd3fa992d47b978c44e"
+    },
+    {
+      "path": "factor-transition-joint-backend-package-first-20261110.txt.gz",
+      "bytes": 12822,
+      "sha256": "2540040932089e265e2e00b25e166aae666ab38890737968bc23055833aaa178"
+    }
+  ],
+  "code_sha256": {
+    "backend/payroll_factor_transition_2026.py": "59e68f30560e8923b152be589d4c3ddfb4c8407b7b6867988f121e1aab1a869f",
+    "backend/payroll_factor_transition_sources.py": "52c9e1fb5c285bf9a0ff32110dd04aab798f10d6e9eb37edef296f0dc3232358",
+    "web/office/payroll-factor-transition.js": "73dc1b9132e10735f269f1e4ddf85e495c6e8cdab1f8f751d2645190ccef15ad",
+    "app/lib/business_payroll_factor_transition.dart": "e51a904d4194887c971cf04172a8279a5ce58713b5f17284ac3194b2145b67b1",
+    "backend/business_payroll_statements.py": "9b99aa65698b1cac3d67f455fa1daebb00bf7389a4cf45499ad76561c4ad6190"
+  },
+  "old_payroll_kernels_byte_unchanged": 55,
+  "results": {
+    "independent_xml_vectors": 32,
+    "independent_drv_bases": 9,
+    "all_browser_module_tests": 1077,
+    "all_browser_module_failure": 0,
+    "all_browser_module_skip": 0,
+    "all_browser_module_ms": 25776.993632,
+    "new_native_factor_cases": 8,
+    "employee_statement_client_browser_cases": 17,
+    "employee_statement_client_native_cases": 18,
+    "native_analyze": "No issues found;12.4s",
+    "actual_browser_workflow": "passed MFA/HTTP, original factor, separate prognosis, lost-ACK case/run, employee own PDF/JSON and fresh rights",
+    "actual_pg_case": "passed full MFA/concurrent case/run/cash/EUR/annual/CRLF/dump restore/old401/new MFA",
+    "actual_pg_test_seconds": 54.205,
+    "actual_pg_runner_seconds": 55.35725592399831,
+    "original_pdf_note_correction_seconds": 1.847,
+    "projection_and_ci_cases": 9,
+    "joint_backend_package_cases": 58,
+    "joint_backend_package_seconds": 61.686
+  },
+  "preserved_failures": [
+    "missing initial API contract",
+    "unnecessarily restricted identity version",
+    "first two widget timer fixture errors",
+    "mismatching PG fixture annual profile and prognosis rejected400",
+    "whole Node first timezone child EPERM"
+  ],
+  "external": {
+    "published": false,
+    "live_installation": false,
+    "device_acceptance": false,
+    "expert_approval": false
+  }
+}

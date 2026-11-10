@@ -2354,6 +2354,10 @@ class BusinessSession extends ChangeNotifier {
                     operation?.body['source_contract_version'] == 5 &&
                     hasFeature('payroll_factor_claims_paid_travel')) ||
                 (operation?.body['rule_version'] ==
+                        'de_2026_factor_transition_month_v14' &&
+                    operation?.body['source_contract_version'] == 6 &&
+                    hasFeature('payroll_factor_transition')) ||
+                (operation?.body['rule_version'] ==
                         'de_2026_individual_minijob_month_v11' &&
                     operation?.body['source_contract_version'] == 3 &&
                     hasFeature('payroll_individual_minijob'))) ||
@@ -2689,6 +2693,13 @@ class BusinessSession extends ChangeNotifier {
           throw const ApiException(
             403,
             'Die aktuelle Freigabe für den individuellen Minijob fehlt.',
+          );
+        if (_pending[key]?.body['accepted_scope'] ==
+                'regular_transition_factor_month' &&
+            !hasFeature('payroll_factor_transition'))
+          throw const ApiException(
+            403,
+            'Die aktuelle Freigabe für den ursprünglichen Faktor-Midijob fehlt.',
           );
         if (_pending[key]?.body['accepted_scope'] ==
                 'regular_standard_factor_claims_paid_travel_month' &&
@@ -3404,6 +3415,17 @@ class BusinessSession extends ChangeNotifier {
     }
     final epoch = _epoch;
     _guard(epoch);
+    if ((path == '/payroll/calculation-cases' &&
+                values['rule_version'] ==
+                    'de_2026_factor_transition_month_v14' ||
+            path == '/payroll/runs' &&
+                values['accepted_scope'] ==
+                    'regular_transition_factor_month') &&
+        !hasFeature('payroll_factor_transition'))
+      throw const ApiException(
+        403,
+        'Die aktuelle Freigabe für den Faktor-Midijob fehlt.',
+      );
     if ((path == '/payroll/calculation-cases' &&
                 values['rule_version'] ==
                     'de_2026_factor_claims_paid_travel_month_v13' ||

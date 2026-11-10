@@ -53,6 +53,7 @@ const payrollScopes = {
       'Belegter Übergangsbereich · Teilmonat und PAP 2026',
   'commercial_minijob_period_flat_tax':
       'Gewerblicher Minijob · belegter Teilmonat',
+  payrollFactorTransitionScope: 'Belegter Midijob mit ELStAM-Faktor',
   'regular_transition_monthly':
       'Belegter Übergangsbereich · Vollmonat und PAP 2026',
   'regular_standard_monthly': 'Reguläre Standard-Monatsberechnung · PAP 2026',
@@ -459,6 +460,8 @@ Map<String, dynamic> payrollPreview(dynamic raw, Map<String, dynamic> input) {
       payrollFactorClaimsRunHashes(value);
     if (value['calculation']['rule_version'] == payrollFactorClaimTravelRule)
       payrollFactorClaimTravelRunHashes(value);
+    if (value['calculation']['rule_version'] == payrollFactorTransitionRule)
+      payrollFactorTransitionRunHashes(value);
     if (!RegExp(r'^[a-f0-9]{64}$').hasMatch('${value['preview_hash']}'))
       throw const ApiException(0, 'Die Vorschauprüfsumme fehlt.');
     return value;
@@ -540,6 +543,8 @@ void Function(dynamic) payrollReceiptValidator(
         payrollFactorClaimsRunHashes(v);
       if (v['calculation']?['rule_version'] == payrollFactorClaimTravelRule)
         payrollFactorClaimTravelRunHashes(v);
+      if (v['calculation']?['rule_version'] == payrollFactorTransitionRule)
+        payrollFactorTransitionRunHashes(v);
       bad =
           bad ||
           !payrollSame(v['source'], proof['source']) ||
@@ -584,6 +589,7 @@ void Function(dynamic) payrollReceiptValidator(
                     'regular_standard_monthly',
                     'regular_standard_factor_monthly',
                     'regular_standard_factor_period',
+                    'regular_transition_factor_month',
                     'regular_transition_monthly',
                     'regular_standard_period',
                     'regular_transition_period',
@@ -1496,6 +1502,12 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
     try {
       await fresh();
       if (!currentContext(owner, person, ticket)) return;
+      if (fact['rule_version'] == payrollFactorTransitionRule &&
+          !session.hasFeature(payrollFactorTransitionFeature))
+        throw const ApiException(
+          403,
+          'Die aktuelle Freigabe für den Faktor-Midijob fehlt.',
+        );
       if (fact['rule_version'] == payrollFactorClaimTravelRule &&
           !session.hasFeature(payrollFactorClaimTravelFeature))
         throw const ApiException(
@@ -2683,6 +2695,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
                   payrollFactorTaxfreeTravelRule,
                   payrollFactorClaimsRule,
                   payrollFactorClaimTravelRule,
+                  payrollFactorTransitionRule,
                   individualMinijobRule,
                   payrollOneOffRule,
                   payrollMultipleRule,
@@ -2696,6 +2709,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         payrollFactorTaxfreeTravelRule,
         payrollFactorClaimsRule,
         payrollFactorClaimTravelRule,
+        payrollFactorTransitionRule,
         individualMinijobRule,
         payrollOneOffRule,
         payrollMultipleRule,
@@ -2787,6 +2801,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
               payrollFactorTaxfreeTravelRule,
               payrollFactorClaimsRule,
               payrollFactorClaimTravelRule,
+              payrollFactorTransitionRule,
               individualMinijobRule,
               payrollOneOffRule,
               payrollMultipleRule,

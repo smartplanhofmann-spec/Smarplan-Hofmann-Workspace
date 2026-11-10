@@ -1,0 +1,1113 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "producer": "unchanged business_payroll_statements.project/package/render_pdf",
+  "cases": [
+    {
+      "source_fixture": "payroll_factor_travel.json",
+      "kind": "original",
+      "source_fixture_sha256": "2cefdf221d9e1ad7e223478574c256e91ee97f2e5293be9979c5966d08195bf2",
+      "original_run_sha256": "519c167cc2da7a81d9d19808d64456184ba497abdcee1a28debdcb7d215476d4",
+      "employee_id": "0a85623d29b04bd8916101f9af4a49cb",
+      "statement": {
+        "schema_version": 2,
+        "employee_id": "0a85623d29b04bd8916101f9af4a49cb",
+        "employee_name": "Synthetic technician",
+        "run_ref": {
+          "id": "f3c0dc6e43c640d9bd3fb0357f16dfa3",
+          "revision": 1,
+          "content_hash": "27c6dacad5f89bc7766ec5e061a6adffcd4776959582fa14d3d8875e1834afea"
+        },
+        "month": "2026-10",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "calculation": {
+          "gross_minor": 500000,
+          "employee_social_total_minor": 108750,
+          "individual_wage_tax_minor": 58908,
+          "solidarity_minor": 0,
+          "church_tax_minor": 0,
+          "employee_tax_minor": 58908,
+          "net_minor": 332342,
+          "payout_minor": 332342,
+          "employee_additional_payment_minor": 0,
+          "employer_flat_tax_minor": 0,
+          "rule_version": "de_2026_factor_taxfree_travel_month_v10",
+          "scope": "regular_standard_factor_taxfree_travel_month",
+          "currency": "EUR",
+          "payroll_calculation_complete": true,
+          "employee_contributions": {
+            "health_general": 36500,
+            "health_additional": 7250,
+            "pension": 46500,
+            "unemployment": 6500,
+            "care": 12000
+          },
+          "net_deductions_minor": 0
+        },
+        "period_summary": {
+          "employment_intervals": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "calendar_days": 31
+            }
+          ],
+          "tax_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "lzz": 2,
+              "tax_days": 30
+            }
+          ],
+          "social_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "days": 30,
+              "full_month": true
+            }
+          ]
+        },
+        "transmission_status": "not_transmitted",
+        "payment_status": "not_evidenced_by_calculation",
+        "earnings_summary": [
+          {
+            "kind": "ordinary_work",
+            "dates": [],
+            "gross_minor": 500000
+          }
+        ],
+        "travel_summary": {
+          "tax_free_external_minor": 1400,
+          "flat_taxable_payroll_minor": 0,
+          "individual_taxable_payroll_minor": 0,
+          "benefit_in_kind_non_cash_minor": 0,
+          "letter_m": false,
+          "employee_flat_tax_deduction_minor": 0
+        },
+        "statement_hash": "3830796e056713a7d3c241fb9b2178f06179fe395b977aae5cc373b0536339e5",
+        "pdf_sha256": "cea6db8b6d5c020f0b2fdbb372c25c54dd339b265c0fb33b14d01d5d913a9bc6",
+        "pdf_size": 5002
+      },
+      "pdf_base64": "JVBERi0xLjMKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQ29udGVudHMgOCAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yOCA4NDEuODkgXSAvUGFyZW50IDcgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL1BhZ2VNb2RlIC9Vc2VOb25lIC9QYWdlcyA3IDAgUiAvVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKNiAwIG9iago8PAovQXV0aG9yIChTbWFydHBsYW4pIC9DcmVhdGlvbkRhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvQ3JlYXRvciAoYW5vbnltb3VzKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAodW5zcGVjaWZpZWQpIC9UaXRsZSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKNyAwIG9iago8PAovQ291bnQgMSAvS2lkcyBbIDQgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9MZW5ndGggMzY0MAo+PgpzdHJlYW0KMSAwIDAgMSAwIDAgY20gIEJUIC9GMSAxMiBUZiAxNC40IFRMIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDc5MCBUbSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc2OSBUbSAoU3ludGhldGljIHRlY2huaWNpYW4pIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc1MCBUbSAoQmVyZWNobnVuZ3NmYXNzdW5nIDEpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDczMSBUbSAoRXJmYXNzdGVyIFJlY2hlbnN0YW5kOiAyMDI2LTExLTAzVDEyOjAwOjAwKzAwOjAwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA3MTIgVG0gKEJydXR0bzogNS4wMDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2OTMgVG0gKEFyYmVpdG5laG1lcmJlaXRyXDM0NGdlIGdlc2FtdDogMS4wODcsNTAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2NzQgVG0gKExvaG5zdGV1ZXI6IDU4OSwwOCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDY1NSBUbSAoU29saWRhcml0XDM0NHRzenVzY2hsYWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2MzYgVG0gKEtpcmNoZW5sb2huc3RldWVyOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjE3IFRtIChBcmJlaXRuZWhtZXJzdGV1ZXJuIGdlc2FtdDogNTg5LDA4IEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTk4IFRtIChOZXR0bzogMy4zMjMsNDIgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NzkgVG0gKEJlcmVjaG5ldGVyIEF1c3phaGx1bmdzYmV0cmFnOiAzLjMyMyw0MiBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDU2MCBUbSAoWnVzXDM0NHR6bGljaGVyIEFyYmVpdG5laG1lcmJlaXRyYWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NDEgVG0gKEFyYmVpdGdlYmVyLVBhdXNjaHN0ZXVlcjogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDUyMiBUbSAoQmVsZWd0ZSBOZXR0b2FielwzNzRnZTogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDUwMyBUbSAoRWlnZW5lIEVudGdlbHRiZXN0YW5kdGVpbGUpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQ4MiBUbSAoUmVnZWxtXDM0NFwzMzdpZ2VzIEFyYmVpdHNlbnRnZWx0OiAvIDUuMDAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDYzIFRtIChTdGV1ZXJmcmVpZSBSZWlzZWVyc3RhdHR1bmcgYXVcMzM3ZXJoYWxiIGRlcyBMb2hubmV0dG9zOiAxNCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQ0NCBUbSAoUGF1c2NoYWwgdmVyc3RldWVydGVyIFJlaXNlbG9objogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQyNSBUbSAoSW5kaXZpZHVlbGwgdmVyc3RldWVydGVyIFJlaXNlbG9objogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQwNiBUbSAoU2FjaGJlenVnIG9obmUgQmFyYXVzemFobHVuZzogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDM4NyBUbSAoQmVsZWd0ZXIgQXJiZWl0bmVobWVyLVN0ZXVlcmtvc3RlbmFienVnOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzY4IFRtIChNYWhsemVpdGVubWVya21hbCBNOiBOZWluKSBUaiBUKiBFVApCVCAvRjIgMTUgVGYgMTggVEwgRVQKQlQgMSAwIDAgMSA1MCAzNDkgVG0gKEFyYmVpdG5laG1lcmJlaXRyXDM0NGdlKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzMjggVG0gKEtyYW5rZW52ZXJzaWNoZXJ1bmc6IDM2NSwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDMwOSBUbSAoS1YtWnVzYXR6YmVpdHJhZzogNzIsNTAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyOTAgVG0gKFJlbnRlbnZlcnNpY2hlcnVuZzogNDY1LDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjcxIFRtIChBcmJlaXRzbG9zZW52ZXJzaWNoZXJ1bmc6IDY1LDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjUyIFRtIChQZmxlZ2V2ZXJzaWNoZXJ1bmc6IDEyMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDIzMyBUbSAoQmVsZWd0ZSBaZWl0clwzNDR1bWUpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDIxMiBUbSAoQmVzY2hcMzQ0ZnRpZ3VuZyAvIEthbGVuZGVydGFnZTogMjAyNi0xMC0wMSBiaXMgMjAyNi0xMC0zMSAvIDMxKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxOTMgVG0gKFN0ZXVlcnplaXRyYXVtIC8gU3RldWVydGFnZTogMjAyNi0xMC0wMSBiaXMgMjAyNi0xMC0zMSAvIDMwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxNzQgVG0gKFNvemlhbHZlcnNpY2hlcnVuZyAvIFNWLVRhZ2U6IDIwMjYtMTAtMDEgYmlzIDIwMjYtMTAtMzEgLyAzMCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTU1IFRtIChCZXJlY2huZXRlciBBdXN6YWhsdW5nc2JldHJhZyBpc3Qga2VpbiBaYWhsdW5nc25hY2h3ZWlzLiBTdGV1ZXJmcmVpZSBSZWlzZWVyc3RhdHR1bmdlbiB3ZXJkZW4gYXVcMzM3ZXJoYWxiKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxNDEgVG0gKGRpZXNlcyBMb2hubmV0dG9zIGdlemFobHQuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxMjIgVG0gKEtlaW5lIGFtdGxpY2hlIE1lbGR1bmcgb2RlciB2b2xsc3RcMzQ0bmRpZ2UgZ2VzZXR6bGljaGUgRW50Z2VsdGJlc2NoZWluaWd1bmcuIE5hY2h3ZWlzIGRlcyBhdXNnZXdpZXNlbmVuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxMDggVG0gKFJlY2hlbnVtZmFuZ3MuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA4OSBUbSAoQmVsZWctU0hBMjU2OiAzODMwNzk2ZTA1NjcxM2E3ZDNjMjQxZmI5YjIxNzhmMDYxNzlmZTM5NWI5NzdhYWU1Y2MzNzNiMDUzNjMzOWU1KSBUaiBUKiBFVAogCmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDkKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMDIgMDAwMDAgbiAKMDAwMDAwMDIwOSAwMDAwMCBuIAowMDAwMDAwMzIxIDAwMDAwIG4gCjAwMDAwMDA1MjAgMDAwMDAgbiAKMDAwMDAwMDU4OCAwMDAwMCBuIAowMDAwMDAwODYxIDAwMDAwIG4gCjAwMDAwMDA5MjAgMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8Y2FjMjcyMWU5NThjZmFhNTdjY2IwODU4ZTU4Yjc5YTc+PGNhYzI3MjFlOTU4Y2ZhYTU3Y2NiMDg1OGU1OGI3OWE3Pl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyA2IDAgUgovUm9vdCA1IDAgUgovU2l6ZSA5Cj4+CnN0YXJ0eHJlZgo0NjExCiUlRU9GCg=="
+    },
+    {
+      "source_fixture": "payroll_factor_travel.json",
+      "kind": "correction",
+      "source_fixture_sha256": "2cefdf221d9e1ad7e223478574c256e91ee97f2e5293be9979c5966d08195bf2",
+      "original_run_sha256": "5961a77ceacbb3bfd83017ea06da43f1aea3ba3726b76c1c35db33da9e61e347",
+      "employee_id": "0a85623d29b04bd8916101f9af4a49cb",
+      "statement": {
+        "schema_version": 2,
+        "employee_id": "0a85623d29b04bd8916101f9af4a49cb",
+        "employee_name": "Synthetic technician",
+        "run_ref": {
+          "id": "f3c0dc6e43c640d9bd3fb0357f16dfa3",
+          "revision": 2,
+          "content_hash": "995c23e9fbbf34378b3c54982375cda300611256b41a7a2b1fe91575e74dc795"
+        },
+        "month": "2026-10",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "calculation": {
+          "gross_minor": 500000,
+          "employee_social_total_minor": 108750,
+          "individual_wage_tax_minor": 70416,
+          "solidarity_minor": 0,
+          "church_tax_minor": 0,
+          "employee_tax_minor": 70416,
+          "net_minor": 320834,
+          "payout_minor": 320834,
+          "employee_additional_payment_minor": 0,
+          "employer_flat_tax_minor": 0,
+          "rule_version": "de_2026_factor_taxfree_travel_month_v10",
+          "scope": "regular_standard_factor_taxfree_travel_month",
+          "currency": "EUR",
+          "payroll_calculation_complete": true,
+          "employee_contributions": {
+            "health_general": 36500,
+            "health_additional": 7250,
+            "pension": 46500,
+            "unemployment": 6500,
+            "care": 12000
+          },
+          "net_deductions_minor": 0
+        },
+        "period_summary": {
+          "employment_intervals": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "calendar_days": 31
+            }
+          ],
+          "tax_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "lzz": 2,
+              "tax_days": 30
+            }
+          ],
+          "social_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "days": 30,
+              "full_month": true
+            }
+          ]
+        },
+        "transmission_status": "not_transmitted",
+        "payment_status": "not_evidenced_by_calculation",
+        "earnings_summary": [
+          {
+            "kind": "ordinary_work",
+            "dates": [],
+            "gross_minor": 500000
+          }
+        ],
+        "travel_summary": {
+          "tax_free_external_minor": 1400,
+          "flat_taxable_payroll_minor": 0,
+          "individual_taxable_payroll_minor": 0,
+          "benefit_in_kind_non_cash_minor": 0,
+          "letter_m": false,
+          "employee_flat_tax_deduction_minor": 0
+        },
+        "statement_hash": "1c1ff41cdf1ee85ef7f8bfff8092a7f199687cf71b73c1fef854e4a6653cf492",
+        "pdf_sha256": "6d2d7f9368fdb95e96f9463d6902dbb18be296c1f55c8b207d4527559d2c4dab",
+        "pdf_size": 5002
+      },
+      "pdf_base64": "JVBERi0xLjMKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQ29udGVudHMgOCAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yOCA4NDEuODkgXSAvUGFyZW50IDcgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL1BhZ2VNb2RlIC9Vc2VOb25lIC9QYWdlcyA3IDAgUiAvVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKNiAwIG9iago8PAovQXV0aG9yIChTbWFydHBsYW4pIC9DcmVhdGlvbkRhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvQ3JlYXRvciAoYW5vbnltb3VzKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAodW5zcGVjaWZpZWQpIC9UaXRsZSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKNyAwIG9iago8PAovQ291bnQgMSAvS2lkcyBbIDQgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9MZW5ndGggMzY0MAo+PgpzdHJlYW0KMSAwIDAgMSAwIDAgY20gIEJUIC9GMSAxMiBUZiAxNC40IFRMIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDc5MCBUbSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc2OSBUbSAoU3ludGhldGljIHRlY2huaWNpYW4pIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc1MCBUbSAoQmVyZWNobnVuZ3NmYXNzdW5nIDIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDczMSBUbSAoRXJmYXNzdGVyIFJlY2hlbnN0YW5kOiAyMDI2LTExLTAzVDEyOjAwOjAwKzAwOjAwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA3MTIgVG0gKEJydXR0bzogNS4wMDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2OTMgVG0gKEFyYmVpdG5laG1lcmJlaXRyXDM0NGdlIGdlc2FtdDogMS4wODcsNTAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2NzQgVG0gKExvaG5zdGV1ZXI6IDcwNCwxNiBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDY1NSBUbSAoU29saWRhcml0XDM0NHRzenVzY2hsYWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2MzYgVG0gKEtpcmNoZW5sb2huc3RldWVyOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjE3IFRtIChBcmJlaXRuZWhtZXJzdGV1ZXJuIGdlc2FtdDogNzA0LDE2IEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTk4IFRtIChOZXR0bzogMy4yMDgsMzQgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NzkgVG0gKEJlcmVjaG5ldGVyIEF1c3phaGx1bmdzYmV0cmFnOiAzLjIwOCwzNCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDU2MCBUbSAoWnVzXDM0NHR6bGljaGVyIEFyYmVpdG5laG1lcmJlaXRyYWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NDEgVG0gKEFyYmVpdGdlYmVyLVBhdXNjaHN0ZXVlcjogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDUyMiBUbSAoQmVsZWd0ZSBOZXR0b2FielwzNzRnZTogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDUwMyBUbSAoRWlnZW5lIEVudGdlbHRiZXN0YW5kdGVpbGUpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQ4MiBUbSAoUmVnZWxtXDM0NFwzMzdpZ2VzIEFyYmVpdHNlbnRnZWx0OiAvIDUuMDAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDYzIFRtIChTdGV1ZXJmcmVpZSBSZWlzZWVyc3RhdHR1bmcgYXVcMzM3ZXJoYWxiIGRlcyBMb2hubmV0dG9zOiAxNCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQ0NCBUbSAoUGF1c2NoYWwgdmVyc3RldWVydGVyIFJlaXNlbG9objogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQyNSBUbSAoSW5kaXZpZHVlbGwgdmVyc3RldWVydGVyIFJlaXNlbG9objogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQwNiBUbSAoU2FjaGJlenVnIG9obmUgQmFyYXVzemFobHVuZzogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDM4NyBUbSAoQmVsZWd0ZXIgQXJiZWl0bmVobWVyLVN0ZXVlcmtvc3RlbmFienVnOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzY4IFRtIChNYWhsemVpdGVubWVya21hbCBNOiBOZWluKSBUaiBUKiBFVApCVCAvRjIgMTUgVGYgMTggVEwgRVQKQlQgMSAwIDAgMSA1MCAzNDkgVG0gKEFyYmVpdG5laG1lcmJlaXRyXDM0NGdlKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzMjggVG0gKEtyYW5rZW52ZXJzaWNoZXJ1bmc6IDM2NSwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDMwOSBUbSAoS1YtWnVzYXR6YmVpdHJhZzogNzIsNTAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyOTAgVG0gKFJlbnRlbnZlcnNpY2hlcnVuZzogNDY1LDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjcxIFRtIChBcmJlaXRzbG9zZW52ZXJzaWNoZXJ1bmc6IDY1LDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjUyIFRtIChQZmxlZ2V2ZXJzaWNoZXJ1bmc6IDEyMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDIzMyBUbSAoQmVsZWd0ZSBaZWl0clwzNDR1bWUpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDIxMiBUbSAoQmVzY2hcMzQ0ZnRpZ3VuZyAvIEthbGVuZGVydGFnZTogMjAyNi0xMC0wMSBiaXMgMjAyNi0xMC0zMSAvIDMxKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxOTMgVG0gKFN0ZXVlcnplaXRyYXVtIC8gU3RldWVydGFnZTogMjAyNi0xMC0wMSBiaXMgMjAyNi0xMC0zMSAvIDMwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxNzQgVG0gKFNvemlhbHZlcnNpY2hlcnVuZyAvIFNWLVRhZ2U6IDIwMjYtMTAtMDEgYmlzIDIwMjYtMTAtMzEgLyAzMCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTU1IFRtIChCZXJlY2huZXRlciBBdXN6YWhsdW5nc2JldHJhZyBpc3Qga2VpbiBaYWhsdW5nc25hY2h3ZWlzLiBTdGV1ZXJmcmVpZSBSZWlzZWVyc3RhdHR1bmdlbiB3ZXJkZW4gYXVcMzM3ZXJoYWxiKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxNDEgVG0gKGRpZXNlcyBMb2hubmV0dG9zIGdlemFobHQuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxMjIgVG0gKEtlaW5lIGFtdGxpY2hlIE1lbGR1bmcgb2RlciB2b2xsc3RcMzQ0bmRpZ2UgZ2VzZXR6bGljaGUgRW50Z2VsdGJlc2NoZWluaWd1bmcuIE5hY2h3ZWlzIGRlcyBhdXNnZXdpZXNlbmVuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxMDggVG0gKFJlY2hlbnVtZmFuZ3MuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA4OSBUbSAoQmVsZWctU0hBMjU2OiAxYzFmZjQxY2RmMWVlODVlZjdmOGJmZmY4MDkyYTdmMTk5Njg3Y2Y3MWI3M2MxZmVmODU0ZTRhNjY1M2NmNDkyKSBUaiBUKiBFVAogCmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDkKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMDIgMDAwMDAgbiAKMDAwMDAwMDIwOSAwMDAwMCBuIAowMDAwMDAwMzIxIDAwMDAwIG4gCjAwMDAwMDA1MjAgMDAwMDAgbiAKMDAwMDAwMDU4OCAwMDAwMCBuIAowMDAwMDAwODYxIDAwMDAwIG4gCjAwMDAwMDA5MjAgMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8Y2FjMjcyMWU5NThjZmFhNTdjY2IwODU4ZTU4Yjc5YTc+PGNhYzI3MjFlOTU4Y2ZhYTU3Y2NiMDg1OGU1OGI3OWE3Pl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyA2IDAgUgovUm9vdCA1IDAgUgovU2l6ZSA5Cj4+CnN0YXJ0eHJlZgo0NjExCiUlRU9GCg=="
+    },
+    {
+      "source_fixture": "individual_minijob_v11.json",
+      "kind": "compulsory",
+      "source_fixture_sha256": "9ccce3483951f8dbe8d853b9ffa75abf42c356e7a7f12a281f7b74a77b6a5e40",
+      "original_run_sha256": "541536f7dca513906d0df5ab126d0a3f812d2b2f49fec3afc0a2cf07b400fda7",
+      "employee_id": "1cacd8b672484cca8089766031a32fc3",
+      "statement": {
+        "schema_version": 2,
+        "employee_id": "1cacd8b672484cca8089766031a32fc3",
+        "employee_name": "Synthetic technician",
+        "run_ref": {
+          "id": "1873514cb4934ae49994e3abc2bb4573",
+          "revision": 1,
+          "content_hash": "7e040d930d8406819065a10402d020e05425d49731fc79f9ceebda959c26ffc3"
+        },
+        "month": "2026-10",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "calculation": {
+          "gross_minor": 50000,
+          "employee_social_total_minor": 1800,
+          "individual_wage_tax_minor": 4866,
+          "solidarity_minor": 0,
+          "church_tax_minor": 0,
+          "employee_tax_minor": 4866,
+          "net_minor": 43334,
+          "payout_minor": 43334,
+          "employee_additional_payment_minor": 0,
+          "employer_flat_tax_minor": 0,
+          "rule_version": "de_2026_individual_minijob_month_v11",
+          "scope": "commercial_minijob_individual_month",
+          "currency": "EUR",
+          "payroll_calculation_complete": true,
+          "employee_contributions": {
+            "health_general": 0,
+            "health_additional": 0,
+            "pension": 1800,
+            "unemployment": 0,
+            "care": 0
+          },
+          "net_deductions_minor": 0
+        },
+        "period_summary": {
+          "employment_intervals": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "calendar_days": 31
+            }
+          ],
+          "tax_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "lzz": 2,
+              "tax_days": 30
+            }
+          ],
+          "social_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "days": 30,
+              "full_month": true
+            }
+          ]
+        },
+        "transmission_status": "not_transmitted",
+        "payment_status": "not_evidenced_by_calculation",
+        "earnings_summary": [
+          {
+            "kind": "ordinary_work",
+            "dates": [],
+            "gross_minor": 50000
+          }
+        ],
+        "travel_summary": {
+          "tax_free_external_minor": 0,
+          "flat_taxable_payroll_minor": 0,
+          "individual_taxable_payroll_minor": 0,
+          "benefit_in_kind_non_cash_minor": 0,
+          "letter_m": false,
+          "employee_flat_tax_deduction_minor": 0
+        },
+        "statement_hash": "2ba9cd693e7c3a89de2c500df899450b7d26b36dbc5ee7e52ab3ae7ad0c98493",
+        "pdf_sha256": "794dcc838c45ea8da1f30543e220887b09e3259c9539afca529428b55de76d78",
+        "pdf_size": 4981
+      },
+      "pdf_base64": "JVBERi0xLjMKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQ29udGVudHMgOCAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yOCA4NDEuODkgXSAvUGFyZW50IDcgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL1BhZ2VNb2RlIC9Vc2VOb25lIC9QYWdlcyA3IDAgUiAvVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKNiAwIG9iago8PAovQXV0aG9yIChTbWFydHBsYW4pIC9DcmVhdGlvbkRhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvQ3JlYXRvciAoYW5vbnltb3VzKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAodW5zcGVjaWZpZWQpIC9UaXRsZSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKNyAwIG9iago8PAovQ291bnQgMSAvS2lkcyBbIDQgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9MZW5ndGggMzYxOQo+PgpzdHJlYW0KMSAwIDAgMSAwIDAgY20gIEJUIC9GMSAxMiBUZiAxNC40IFRMIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDc5MCBUbSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc2OSBUbSAoU3ludGhldGljIHRlY2huaWNpYW4pIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc1MCBUbSAoQmVyZWNobnVuZ3NmYXNzdW5nIDEpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDczMSBUbSAoRXJmYXNzdGVyIFJlY2hlbnN0YW5kOiAyMDI2LTExLTAzVDEyOjAwOjAwKzAwOjAwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA3MTIgVG0gKEJydXR0bzogNTAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjkzIFRtIChBcmJlaXRuZWhtZXJiZWl0clwzNDRnZSBnZXNhbXQ6IDE4LDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjc0IFRtIChMb2huc3RldWVyOiA0OCw2NiBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDY1NSBUbSAoU29saWRhcml0XDM0NHRzenVzY2hsYWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2MzYgVG0gKEtpcmNoZW5sb2huc3RldWVyOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjE3IFRtIChBcmJlaXRuZWhtZXJzdGV1ZXJuIGdlc2FtdDogNDgsNjYgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1OTggVG0gKE5ldHRvOiA0MzMsMzQgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NzkgVG0gKEJlcmVjaG5ldGVyIEF1c3phaGx1bmdzYmV0cmFnOiA0MzMsMzQgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NjAgVG0gKFp1c1wzNDR0emxpY2hlciBBcmJlaXRuZWhtZXJiZWl0cmFnOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTQxIFRtIChBcmJlaXRnZWJlci1QYXVzY2hzdGV1ZXI6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1MjIgVG0gKEJlbGVndGUgTmV0dG9hYnpcMzc0Z2U6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjIgMTUgVGYgMTggVEwgRVQKQlQgMSAwIDAgMSA1MCA1MDMgVG0gKEVpZ2VuZSBFbnRnZWx0YmVzdGFuZHRlaWxlKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0ODIgVG0gKFJlZ2VsbVwzNDRcMzM3aWdlcyBBcmJlaXRzZW50Z2VsdDogLyA1MDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0NjMgVG0gKFN0ZXVlcmZyZWllIFJlaXNlZXJzdGF0dHVuZyBhdVwzMzdlcmhhbGIgZGVzIExvaG5uZXR0b3M6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0NDQgVG0gKFBhdXNjaGFsIHZlcnN0ZXVlcnRlciBSZWlzZWxvaG46IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0MjUgVG0gKEluZGl2aWR1ZWxsIHZlcnN0ZXVlcnRlciBSZWlzZWxvaG46IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0MDYgVG0gKFNhY2hiZXp1ZyBvaG5lIEJhcmF1c3phaGx1bmc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzODcgVG0gKEJlbGVndGVyIEFyYmVpdG5laG1lci1TdGV1ZXJrb3N0ZW5hYnp1ZzogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDM2OCBUbSAoTWFobHplaXRlbm1lcmttYWwgTTogTmVpbikgVGogVCogRVQKQlQgL0YyIDE1IFRmIDE4IFRMIEVUCkJUIDEgMCAwIDEgNTAgMzQ5IFRtIChBcmJlaXRuZWhtZXJiZWl0clwzNDRnZSkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzI4IFRtIChLcmFua2VudmVyc2ljaGVydW5nOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzA5IFRtIChLVi1adXNhdHpiZWl0cmFnOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjkwIFRtIChSZW50ZW52ZXJzaWNoZXJ1bmc6IDE4LDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjcxIFRtIChBcmJlaXRzbG9zZW52ZXJzaWNoZXJ1bmc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyNTIgVG0gKFBmbGVnZXZlcnNpY2hlcnVuZzogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDIzMyBUbSAoQmVsZWd0ZSBaZWl0clwzNDR1bWUpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDIxMiBUbSAoQmVzY2hcMzQ0ZnRpZ3VuZyAvIEthbGVuZGVydGFnZTogMjAyNi0xMC0wMSBiaXMgMjAyNi0xMC0zMSAvIDMxKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxOTMgVG0gKFN0ZXVlcnplaXRyYXVtIC8gU3RldWVydGFnZTogMjAyNi0xMC0wMSBiaXMgMjAyNi0xMC0zMSAvIDMwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxNzQgVG0gKFNvemlhbHZlcnNpY2hlcnVuZyAvIFNWLVRhZ2U6IDIwMjYtMTAtMDEgYmlzIDIwMjYtMTAtMzEgLyAzMCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTU1IFRtIChCZXJlY2huZXRlciBBdXN6YWhsdW5nc2JldHJhZyBpc3Qga2VpbiBaYWhsdW5nc25hY2h3ZWlzLiBTdGV1ZXJmcmVpZSBSZWlzZWVyc3RhdHR1bmdlbiB3ZXJkZW4gYXVcMzM3ZXJoYWxiKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxNDEgVG0gKGRpZXNlcyBMb2hubmV0dG9zIGdlemFobHQuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxMjIgVG0gKEtlaW5lIGFtdGxpY2hlIE1lbGR1bmcgb2RlciB2b2xsc3RcMzQ0bmRpZ2UgZ2VzZXR6bGljaGUgRW50Z2VsdGJlc2NoZWluaWd1bmcuIE5hY2h3ZWlzIGRlcyBhdXNnZXdpZXNlbmVuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxMDggVG0gKFJlY2hlbnVtZmFuZ3MuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA4OSBUbSAoQmVsZWctU0hBMjU2OiAyYmE5Y2Q2OTNlN2MzYTg5ZGUyYzUwMGRmODk5NDUwYjdkMjZiMzZkYmM1ZWU3ZTUyYWIzYWU3YWQwYzk4NDkzKSBUaiBUKiBFVAogCmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDkKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMDIgMDAwMDAgbiAKMDAwMDAwMDIwOSAwMDAwMCBuIAowMDAwMDAwMzIxIDAwMDAwIG4gCjAwMDAwMDA1MjAgMDAwMDAgbiAKMDAwMDAwMDU4OCAwMDAwMCBuIAowMDAwMDAwODYxIDAwMDAwIG4gCjAwMDAwMDA5MjAgMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8Y2FjMjcyMWU5NThjZmFhNTdjY2IwODU4ZTU4Yjc5YTc+PGNhYzI3MjFlOTU4Y2ZhYTU3Y2NiMDg1OGU1OGI3OWE3Pl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyA2IDAgUgovUm9vdCA1IDAgUgovU2l6ZSA5Cj4+CnN0YXJ0eHJlZgo0NTkwCiUlRU9GCg=="
+    },
+    {
+      "source_fixture": "individual_minijob_v11.json",
+      "kind": "exempt",
+      "source_fixture_sha256": "9ccce3483951f8dbe8d853b9ffa75abf42c356e7a7f12a281f7b74a77b6a5e40",
+      "original_run_sha256": "2ed502b6546952226c3c767df500540e3ec81d6e52f30ce03048cfb3418eb57f",
+      "employee_id": "6eeed23648274f2fb99da7b9f811c26d",
+      "statement": {
+        "schema_version": 2,
+        "employee_id": "6eeed23648274f2fb99da7b9f811c26d",
+        "employee_name": "Synthetic technician",
+        "run_ref": {
+          "id": "cae12bfd67464a759e8239e31bb280f3",
+          "revision": 1,
+          "content_hash": "1f363843bbfb4b21b8dfcd49fdfa046b30d722d3a4dcf49ac36d898f82ec7d1e"
+        },
+        "month": "2026-10",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "calculation": {
+          "gross_minor": 50000,
+          "employee_social_total_minor": 0,
+          "individual_wage_tax_minor": 5516,
+          "solidarity_minor": 0,
+          "church_tax_minor": 0,
+          "employee_tax_minor": 5516,
+          "net_minor": 44484,
+          "payout_minor": 44484,
+          "employee_additional_payment_minor": 0,
+          "employer_flat_tax_minor": 0,
+          "rule_version": "de_2026_individual_minijob_month_v11",
+          "scope": "commercial_minijob_individual_month",
+          "currency": "EUR",
+          "payroll_calculation_complete": true,
+          "employee_contributions": {
+            "health_general": 0,
+            "health_additional": 0,
+            "pension": 0,
+            "unemployment": 0,
+            "care": 0
+          },
+          "net_deductions_minor": 0
+        },
+        "period_summary": {
+          "employment_intervals": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "calendar_days": 31
+            }
+          ],
+          "tax_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "lzz": 2,
+              "tax_days": 30
+            }
+          ],
+          "social_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "days": 30,
+              "full_month": true
+            }
+          ]
+        },
+        "transmission_status": "not_transmitted",
+        "payment_status": "not_evidenced_by_calculation",
+        "earnings_summary": [
+          {
+            "kind": "ordinary_work",
+            "dates": [],
+            "gross_minor": 50000
+          }
+        ],
+        "travel_summary": {
+          "tax_free_external_minor": 0,
+          "flat_taxable_payroll_minor": 0,
+          "individual_taxable_payroll_minor": 0,
+          "benefit_in_kind_non_cash_minor": 0,
+          "letter_m": false,
+          "employee_flat_tax_deduction_minor": 0
+        },
+        "statement_hash": "0b264ba1ab22276cb1a406ef7dabcec383da59c3eb09dce4b64deb7dfacaeee8",
+        "pdf_sha256": "7d97d228ee8dd9e0417bf8d443550bafd53a187b5bc406ab0ce88533263ae811",
+        "pdf_size": 4979
+      },
+      "pdf_base64": "JVBERi0xLjMKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQ29udGVudHMgOCAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yOCA4NDEuODkgXSAvUGFyZW50IDcgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL1BhZ2VNb2RlIC9Vc2VOb25lIC9QYWdlcyA3IDAgUiAvVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKNiAwIG9iago8PAovQXV0aG9yIChTbWFydHBsYW4pIC9DcmVhdGlvbkRhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvQ3JlYXRvciAoYW5vbnltb3VzKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAodW5zcGVjaWZpZWQpIC9UaXRsZSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKNyAwIG9iago8PAovQ291bnQgMSAvS2lkcyBbIDQgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9MZW5ndGggMzYxNwo+PgpzdHJlYW0KMSAwIDAgMSAwIDAgY20gIEJUIC9GMSAxMiBUZiAxNC40IFRMIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDc5MCBUbSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc2OSBUbSAoU3ludGhldGljIHRlY2huaWNpYW4pIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc1MCBUbSAoQmVyZWNobnVuZ3NmYXNzdW5nIDEpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDczMSBUbSAoRXJmYXNzdGVyIFJlY2hlbnN0YW5kOiAyMDI2LTExLTAzVDEyOjAwOjAwKzAwOjAwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA3MTIgVG0gKEJydXR0bzogNTAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjkzIFRtIChBcmJlaXRuZWhtZXJiZWl0clwzNDRnZSBnZXNhbXQ6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2NzQgVG0gKExvaG5zdGV1ZXI6IDU1LDE2IEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjU1IFRtIChTb2xpZGFyaXRcMzQ0dHN6dXNjaGxhZzogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDYzNiBUbSAoS2lyY2hlbmxvaG5zdGV1ZXI6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2MTcgVG0gKEFyYmVpdG5laG1lcnN0ZXVlcm4gZ2VzYW10OiA1NSwxNiBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDU5OCBUbSAoTmV0dG86IDQ0NCw4NCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDU3OSBUbSAoQmVyZWNobmV0ZXIgQXVzemFobHVuZ3NiZXRyYWc6IDQ0NCw4NCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDU2MCBUbSAoWnVzXDM0NHR6bGljaGVyIEFyYmVpdG5laG1lcmJlaXRyYWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NDEgVG0gKEFyYmVpdGdlYmVyLVBhdXNjaHN0ZXVlcjogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDUyMiBUbSAoQmVsZWd0ZSBOZXR0b2FielwzNzRnZTogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDUwMyBUbSAoRWlnZW5lIEVudGdlbHRiZXN0YW5kdGVpbGUpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQ4MiBUbSAoUmVnZWxtXDM0NFwzMzdpZ2VzIEFyYmVpdHNlbnRnZWx0OiAvIDUwMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQ2MyBUbSAoU3RldWVyZnJlaWUgUmVpc2VlcnN0YXR0dW5nIGF1XDMzN2VyaGFsYiBkZXMgTG9obm5ldHRvczogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQ0NCBUbSAoUGF1c2NoYWwgdmVyc3RldWVydGVyIFJlaXNlbG9objogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQyNSBUbSAoSW5kaXZpZHVlbGwgdmVyc3RldWVydGVyIFJlaXNlbG9objogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQwNiBUbSAoU2FjaGJlenVnIG9obmUgQmFyYXVzemFobHVuZzogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDM4NyBUbSAoQmVsZWd0ZXIgQXJiZWl0bmVobWVyLVN0ZXVlcmtvc3RlbmFienVnOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzY4IFRtIChNYWhsemVpdGVubWVya21hbCBNOiBOZWluKSBUaiBUKiBFVApCVCAvRjIgMTUgVGYgMTggVEwgRVQKQlQgMSAwIDAgMSA1MCAzNDkgVG0gKEFyYmVpdG5laG1lcmJlaXRyXDM0NGdlKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzMjggVG0gKEtyYW5rZW52ZXJzaWNoZXJ1bmc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzMDkgVG0gKEtWLVp1c2F0emJlaXRyYWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyOTAgVG0gKFJlbnRlbnZlcnNpY2hlcnVuZzogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDI3MSBUbSAoQXJiZWl0c2xvc2VudmVyc2ljaGVydW5nOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjUyIFRtIChQZmxlZ2V2ZXJzaWNoZXJ1bmc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjIgMTUgVGYgMTggVEwgRVQKQlQgMSAwIDAgMSA1MCAyMzMgVG0gKEJlbGVndGUgWmVpdHJcMzQ0dW1lKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyMTIgVG0gKEJlc2NoXDM0NGZ0aWd1bmcgLyBLYWxlbmRlcnRhZ2U6IDIwMjYtMTAtMDEgYmlzIDIwMjYtMTAtMzEgLyAzMSkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTkzIFRtIChTdGV1ZXJ6ZWl0cmF1bSAvIFN0ZXVlcnRhZ2U6IDIwMjYtMTAtMDEgYmlzIDIwMjYtMTAtMzEgLyAzMCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTc0IFRtIChTb3ppYWx2ZXJzaWNoZXJ1bmcgLyBTVi1UYWdlOiAyMDI2LTEwLTAxIGJpcyAyMDI2LTEwLTMxIC8gMzApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDE1NSBUbSAoQmVyZWNobmV0ZXIgQXVzemFobHVuZ3NiZXRyYWcgaXN0IGtlaW4gWmFobHVuZ3NuYWNod2Vpcy4gU3RldWVyZnJlaWUgUmVpc2VlcnN0YXR0dW5nZW4gd2VyZGVuIGF1XDMzN2VyaGFsYikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTQxIFRtIChkaWVzZXMgTG9obm5ldHRvcyBnZXphaGx0LikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTIyIFRtIChLZWluZSBhbXRsaWNoZSBNZWxkdW5nIG9kZXIgdm9sbHN0XDM0NG5kaWdlIGdlc2V0emxpY2hlIEVudGdlbHRiZXNjaGVpbmlndW5nLiBOYWNod2VpcyBkZXMgYXVzZ2V3aWVzZW5lbikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTA4IFRtIChSZWNoZW51bWZhbmdzLikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgODkgVG0gKEJlbGVnLVNIQTI1NjogMGIyNjRiYTFhYjIyMjc2Y2IxYTQwNmVmN2RhYmNlYzM4M2RhNTljM2ViMDlkY2U0YjY0ZGViN2RmYWNhZWVlOCkgVGogVCogRVQKIAplbmRzdHJlYW0KZW5kb2JqCnhyZWYKMCA5CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDA2MSAwMDAwMCBuIAowMDAwMDAwMTAyIDAwMDAwIG4gCjAwMDAwMDAyMDkgMDAwMDAgbiAKMDAwMDAwMDMyMSAwMDAwMCBuIAowMDAwMDAwNTIwIDAwMDAwIG4gCjAwMDAwMDA1ODggMDAwMDAgbiAKMDAwMDAwMDg2MSAwMDAwMCBuIAowMDAwMDAwOTIwIDAwMDAwIG4gCnRyYWlsZXIKPDwKL0lEIApbPGNhYzI3MjFlOTU4Y2ZhYTU3Y2NiMDg1OGU1OGI3OWE3PjxjYWMyNzIxZTk1OGNmYWE1N2NjYjA4NThlNThiNzlhNz5dCiUgUmVwb3J0TGFiIGdlbmVyYXRlZCBQREYgZG9jdW1lbnQgLS0gZGlnZXN0IChvcGVuc291cmNlKQoKL0luZm8gNiAwIFIKL1Jvb3QgNSAwIFIKL1NpemUgOQo+PgpzdGFydHhyZWYKNDU4OAolJUVPRgo="
+    },
+    {
+      "source_fixture": "individual_minijob_v11.json",
+      "kind": "migrated",
+      "source_fixture_sha256": "9ccce3483951f8dbe8d853b9ffa75abf42c356e7a7f12a281f7b74a77b6a5e40",
+      "original_run_sha256": "23f47579ac21d891a9b4ccbd09dad265a5fc1ebefdc75aa103e1c598f1c646ef",
+      "employee_id": "36491a660fe545f7af21a561ae7ae1b0",
+      "statement": {
+        "schema_version": 2,
+        "employee_id": "36491a660fe545f7af21a561ae7ae1b0",
+        "employee_name": "Synthetic technician",
+        "run_ref": {
+          "id": "1dc8b3fb637d407ab1e02a3af6f27969",
+          "revision": 1,
+          "content_hash": "e0dc160b95588e8f0bc9a6f0b50c2916d270eac52234926259a5f314e7ef9bf9"
+        },
+        "month": "2026-10",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "calculation": {
+          "gross_minor": 50000,
+          "employee_social_total_minor": 1800,
+          "individual_wage_tax_minor": 4866,
+          "solidarity_minor": 0,
+          "church_tax_minor": 0,
+          "employee_tax_minor": 4866,
+          "net_minor": 43334,
+          "payout_minor": 43334,
+          "employee_additional_payment_minor": 0,
+          "employer_flat_tax_minor": 0,
+          "rule_version": "de_2026_individual_minijob_month_v11",
+          "scope": "commercial_minijob_individual_month",
+          "currency": "EUR",
+          "payroll_calculation_complete": true,
+          "employee_contributions": {
+            "health_general": 0,
+            "health_additional": 0,
+            "pension": 1800,
+            "unemployment": 0,
+            "care": 0
+          },
+          "net_deductions_minor": 0
+        },
+        "period_summary": {
+          "employment_intervals": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "calendar_days": 31
+            }
+          ],
+          "tax_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "lzz": 2,
+              "tax_days": 30
+            }
+          ],
+          "social_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "days": 30,
+              "full_month": true
+            }
+          ]
+        },
+        "transmission_status": "not_transmitted",
+        "payment_status": "not_evidenced_by_calculation",
+        "earnings_summary": [
+          {
+            "kind": "ordinary_work",
+            "dates": [],
+            "gross_minor": 50000
+          }
+        ],
+        "travel_summary": {
+          "tax_free_external_minor": 0,
+          "flat_taxable_payroll_minor": 0,
+          "individual_taxable_payroll_minor": 0,
+          "benefit_in_kind_non_cash_minor": 0,
+          "letter_m": false,
+          "employee_flat_tax_deduction_minor": 0
+        },
+        "statement_hash": "c48592a0e5dd1f20d41b109f1a08497b517b1409c4ea4c4830c10f57d8e16674",
+        "pdf_sha256": "8b7d844e420ed21895a22173dff2e499afe3dad07247fe0fafbc6fa82947ba00",
+        "pdf_size": 4981
+      },
+      "pdf_base64": "JVBERi0xLjMKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQ29udGVudHMgOCAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yOCA4NDEuODkgXSAvUGFyZW50IDcgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL1BhZ2VNb2RlIC9Vc2VOb25lIC9QYWdlcyA3IDAgUiAvVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKNiAwIG9iago8PAovQXV0aG9yIChTbWFydHBsYW4pIC9DcmVhdGlvbkRhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvQ3JlYXRvciAoYW5vbnltb3VzKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAodW5zcGVjaWZpZWQpIC9UaXRsZSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKNyAwIG9iago8PAovQ291bnQgMSAvS2lkcyBbIDQgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9MZW5ndGggMzYxOQo+PgpzdHJlYW0KMSAwIDAgMSAwIDAgY20gIEJUIC9GMSAxMiBUZiAxNC40IFRMIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDc5MCBUbSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc2OSBUbSAoU3ludGhldGljIHRlY2huaWNpYW4pIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc1MCBUbSAoQmVyZWNobnVuZ3NmYXNzdW5nIDEpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDczMSBUbSAoRXJmYXNzdGVyIFJlY2hlbnN0YW5kOiAyMDI2LTExLTAzVDEyOjAwOjAwKzAwOjAwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA3MTIgVG0gKEJydXR0bzogNTAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjkzIFRtIChBcmJlaXRuZWhtZXJiZWl0clwzNDRnZSBnZXNhbXQ6IDE4LDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjc0IFRtIChMb2huc3RldWVyOiA0OCw2NiBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDY1NSBUbSAoU29saWRhcml0XDM0NHRzenVzY2hsYWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2MzYgVG0gKEtpcmNoZW5sb2huc3RldWVyOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjE3IFRtIChBcmJlaXRuZWhtZXJzdGV1ZXJuIGdlc2FtdDogNDgsNjYgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1OTggVG0gKE5ldHRvOiA0MzMsMzQgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NzkgVG0gKEJlcmVjaG5ldGVyIEF1c3phaGx1bmdzYmV0cmFnOiA0MzMsMzQgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NjAgVG0gKFp1c1wzNDR0emxpY2hlciBBcmJlaXRuZWhtZXJiZWl0cmFnOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTQxIFRtIChBcmJlaXRnZWJlci1QYXVzY2hzdGV1ZXI6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1MjIgVG0gKEJlbGVndGUgTmV0dG9hYnpcMzc0Z2U6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjIgMTUgVGYgMTggVEwgRVQKQlQgMSAwIDAgMSA1MCA1MDMgVG0gKEVpZ2VuZSBFbnRnZWx0YmVzdGFuZHRlaWxlKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0ODIgVG0gKFJlZ2VsbVwzNDRcMzM3aWdlcyBBcmJlaXRzZW50Z2VsdDogLyA1MDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0NjMgVG0gKFN0ZXVlcmZyZWllIFJlaXNlZXJzdGF0dHVuZyBhdVwzMzdlcmhhbGIgZGVzIExvaG5uZXR0b3M6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0NDQgVG0gKFBhdXNjaGFsIHZlcnN0ZXVlcnRlciBSZWlzZWxvaG46IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0MjUgVG0gKEluZGl2aWR1ZWxsIHZlcnN0ZXVlcnRlciBSZWlzZWxvaG46IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0MDYgVG0gKFNhY2hiZXp1ZyBvaG5lIEJhcmF1c3phaGx1bmc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzODcgVG0gKEJlbGVndGVyIEFyYmVpdG5laG1lci1TdGV1ZXJrb3N0ZW5hYnp1ZzogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDM2OCBUbSAoTWFobHplaXRlbm1lcmttYWwgTTogTmVpbikgVGogVCogRVQKQlQgL0YyIDE1IFRmIDE4IFRMIEVUCkJUIDEgMCAwIDEgNTAgMzQ5IFRtIChBcmJlaXRuZWhtZXJiZWl0clwzNDRnZSkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzI4IFRtIChLcmFua2VudmVyc2ljaGVydW5nOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzA5IFRtIChLVi1adXNhdHpiZWl0cmFnOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjkwIFRtIChSZW50ZW52ZXJzaWNoZXJ1bmc6IDE4LDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjcxIFRtIChBcmJlaXRzbG9zZW52ZXJzaWNoZXJ1bmc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyNTIgVG0gKFBmbGVnZXZlcnNpY2hlcnVuZzogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDIzMyBUbSAoQmVsZWd0ZSBaZWl0clwzNDR1bWUpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDIxMiBUbSAoQmVzY2hcMzQ0ZnRpZ3VuZyAvIEthbGVuZGVydGFnZTogMjAyNi0xMC0wMSBiaXMgMjAyNi0xMC0zMSAvIDMxKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxOTMgVG0gKFN0ZXVlcnplaXRyYXVtIC8gU3RldWVydGFnZTogMjAyNi0xMC0wMSBiaXMgMjAyNi0xMC0zMSAvIDMwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxNzQgVG0gKFNvemlhbHZlcnNpY2hlcnVuZyAvIFNWLVRhZ2U6IDIwMjYtMTAtMDEgYmlzIDIwMjYtMTAtMzEgLyAzMCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTU1IFRtIChCZXJlY2huZXRlciBBdXN6YWhsdW5nc2JldHJhZyBpc3Qga2VpbiBaYWhsdW5nc25hY2h3ZWlzLiBTdGV1ZXJmcmVpZSBSZWlzZWVyc3RhdHR1bmdlbiB3ZXJkZW4gYXVcMzM3ZXJoYWxiKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxNDEgVG0gKGRpZXNlcyBMb2hubmV0dG9zIGdlemFobHQuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxMjIgVG0gKEtlaW5lIGFtdGxpY2hlIE1lbGR1bmcgb2RlciB2b2xsc3RcMzQ0bmRpZ2UgZ2VzZXR6bGljaGUgRW50Z2VsdGJlc2NoZWluaWd1bmcuIE5hY2h3ZWlzIGRlcyBhdXNnZXdpZXNlbmVuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxMDggVG0gKFJlY2hlbnVtZmFuZ3MuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA4OSBUbSAoQmVsZWctU0hBMjU2OiBjNDg1OTJhMGU1ZGQxZjIwZDQxYjEwOWYxYTA4NDk3YjUxN2IxNDA5YzRlYTRjNDgzMGMxMGY1N2Q4ZTE2Njc0KSBUaiBUKiBFVAogCmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDkKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMDIgMDAwMDAgbiAKMDAwMDAwMDIwOSAwMDAwMCBuIAowMDAwMDAwMzIxIDAwMDAwIG4gCjAwMDAwMDA1MjAgMDAwMDAgbiAKMDAwMDAwMDU4OCAwMDAwMCBuIAowMDAwMDAwODYxIDAwMDAwIG4gCjAwMDAwMDA5MjAgMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8Y2FjMjcyMWU5NThjZmFhNTdjY2IwODU4ZTU4Yjc5YTc+PGNhYzI3MjFlOTU4Y2ZhYTU3Y2NiMDg1OGU1OGI3OWE3Pl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyA2IDAgUgovUm9vdCA1IDAgUgovU2l6ZSA5Cj4+CnN0YXJ0eHJlZgo0NTkwCiUlRU9GCg=="
+    },
+    {
+      "source_fixture": "payroll_factor_claims.json",
+      "kind": "original",
+      "source_fixture_sha256": "5997b35a6bf53188bbd469afdcdcb7ff0b2a5de36ffcd10bd7dc7e0c8e9fa869",
+      "original_run_sha256": "df27baa6e47e9572ab39b3c2f17263569d8e8d8b49d888145236fd8ce6a5c6aa",
+      "employee_id": "0bc6dfc652bc44f2afd7ebda0f5684a5",
+      "statement": {
+        "schema_version": 2,
+        "employee_id": "0bc6dfc652bc44f2afd7ebda0f5684a5",
+        "employee_name": "Synthetic technician",
+        "run_ref": {
+          "id": "19017a05ca884a9d8b1f033f35de900a",
+          "revision": 1,
+          "content_hash": "b3532cb881b9f4aee81ff5346cdc6863a200a16da2ad87e84b94ad527c89444b"
+        },
+        "month": "2026-10",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "calculation": {
+          "gross_minor": 419355,
+          "employee_social_total_minor": 91210,
+          "individual_wage_tax_minor": 43091,
+          "solidarity_minor": 0,
+          "church_tax_minor": 0,
+          "employee_tax_minor": 43091,
+          "net_minor": 285054,
+          "payout_minor": 285054,
+          "employee_additional_payment_minor": 0,
+          "employer_flat_tax_minor": 0,
+          "rule_version": "de_2026_factor_claims_month_v12",
+          "scope": "regular_standard_factor_claims_month",
+          "currency": "EUR",
+          "payroll_calculation_complete": true,
+          "employee_contributions": {
+            "health_general": 30613,
+            "health_additional": 6081,
+            "pension": 39000,
+            "unemployment": 5452,
+            "care": 10064
+          },
+          "net_deductions_minor": 0
+        },
+        "period_summary": {
+          "employment_intervals": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "calendar_days": 31
+            }
+          ],
+          "tax_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "lzz": 2,
+              "tax_days": 30
+            }
+          ],
+          "social_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "days": 30,
+              "full_month": true
+            }
+          ]
+        },
+        "transmission_status": "not_transmitted",
+        "payment_status": "not_evidenced_by_calculation",
+        "earnings_summary": [
+          {
+            "kind": "ordinary_work",
+            "dates": [
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14",
+              "2026-10-15",
+              "2026-10-16",
+              "2026-10-17",
+              "2026-10-18",
+              "2026-10-19",
+              "2026-10-25",
+              "2026-10-26",
+              "2026-10-27",
+              "2026-10-28",
+              "2026-10-29",
+              "2026-10-30",
+              "2026-10-31"
+            ],
+            "gross_minor": 419355
+          }
+        ],
+        "travel_summary": {
+          "tax_free_external_minor": 0,
+          "flat_taxable_payroll_minor": 0,
+          "individual_taxable_payroll_minor": 0,
+          "benefit_in_kind_non_cash_minor": 0,
+          "letter_m": false,
+          "employee_flat_tax_deduction_minor": 0
+        },
+        "statement_hash": "8fc4e0e3a18a147ad2e8b1962bc042bdbb180fe2161e6d7641d401d51af91f13",
+        "pdf_sha256": "7e1172ebc44ab102100196d430c689495234b19b549839872cdcc6975b3e7224",
+        "pdf_size": 5811
+      },
+      "pdf_base64": "JVBERi0xLjMKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQ29udGVudHMgOSAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yOCA4NDEuODkgXSAvUGFyZW50IDggMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL0NvbnRlbnRzIDEwIDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI4IDg0MS44OSBdIC9QYXJlbnQgOCAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKNiAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDggMCBSIC9UeXBlIC9DYXRhbG9nCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9BdXRob3IgKFNtYXJ0cGxhbikgL0NyZWF0aW9uRGF0ZSAoRDoyMDAwMDEwMTAwMDAwMCswMCcwMCcpIC9DcmVhdG9yIChhbm9ueW1vdXMpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDAwMDEwMTAwMDAwMCswMCcwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0ICh1bnNwZWNpZmllZCkgL1RpdGxlIChMb2hubmFjaHdlaXMgMjAyNi0xMCkgL1RyYXBwZWQgL0ZhbHNlCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9Db3VudCAyIC9LaWRzIFsgNCAwIFIgNSAwIFIgXSAvVHlwZSAvUGFnZXMKPj4KZW5kb2JqCjkgMCBvYmoKPDwKL0xlbmd0aCAzOTc1Cj4+CnN0cmVhbQoxIDAgMCAxIDAgMCBjbSAgQlQgL0YxIDEyIFRmIDE0LjQgVEwgRVQKQlQgL0YyIDE1IFRmIDE4IFRMIEVUCkJUIDEgMCAwIDEgNTAgNzkwIFRtIChMb2hubmFjaHdlaXMgMjAyNi0xMCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNzY5IFRtIChTeW50aGV0aWMgdGVjaG5pY2lhbikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNzUwIFRtIChCZXJlY2hudW5nc2Zhc3N1bmcgMSkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNzMxIFRtIChFcmZhc3N0ZXIgUmVjaGVuc3RhbmQ6IDIwMjYtMTEtMDNUMTI6MDA6MDArMDA6MDApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDcxMiBUbSAoQnJ1dHRvOiA0LjE5Myw1NSBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDY5MyBUbSAoQXJiZWl0bmVobWVyYmVpdHJcMzQ0Z2UgZ2VzYW10OiA5MTIsMTAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2NzQgVG0gKExvaG5zdGV1ZXI6IDQzMCw5MSBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDY1NSBUbSAoU29saWRhcml0XDM0NHRzenVzY2hsYWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2MzYgVG0gKEtpcmNoZW5sb2huc3RldWVyOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjE3IFRtIChBcmJlaXRuZWhtZXJzdGV1ZXJuIGdlc2FtdDogNDMwLDkxIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTk4IFRtIChOZXR0bzogMi44NTAsNTQgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NzkgVG0gKEJlcmVjaG5ldGVyIEF1c3phaGx1bmdzYmV0cmFnOiAyLjg1MCw1NCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDU2MCBUbSAoWnVzXDM0NHR6bGljaGVyIEFyYmVpdG5laG1lcmJlaXRyYWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NDEgVG0gKEFyYmVpdGdlYmVyLVBhdXNjaHN0ZXVlcjogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDUyMiBUbSAoQmVsZWd0ZSBOZXR0b2FielwzNzRnZTogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDUwMyBUbSAoRWlnZW5lIEVudGdlbHRiZXN0YW5kdGVpbGUpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQ4MiBUbSAoUmVnZWxtXDM0NFwzMzdpZ2VzIEFyYmVpdHNlbnRnZWx0OiAyMDI2LTEwLTAxLCAyMDI2LTEwLTAyLCAyMDI2LTEwLTAzLCAyMDI2LTEwLTA0LCAyMDI2LTEwLTA1LCAyMDI2LTEwLTA2LCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDY4IFRtICgyMDI2LTEwLTA3LCAyMDI2LTEwLTA4LCAyMDI2LTEwLTA5LCAyMDI2LTEwLTEwLCAyMDI2LTEwLTExLCAyMDI2LTEwLTEyLCAyMDI2LTEwLTEzLCAyMDI2LTEwLTE0LCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDU0IFRtICgyMDI2LTEwLTE1LCAyMDI2LTEwLTE2LCAyMDI2LTEwLTE3LCAyMDI2LTEwLTE4LCAyMDI2LTEwLTE5LCAyMDI2LTEwLTI1LCAyMDI2LTEwLTI2LCAyMDI2LTEwLTI3LCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDQwIFRtICgyMDI2LTEwLTI4LCAyMDI2LTEwLTI5LCAyMDI2LTEwLTMwLCAyMDI2LTEwLTMxIC8gNC4xOTMsNTUgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0MjEgVG0gKFN0ZXVlcmZyZWllIFJlaXNlZXJzdGF0dHVuZyBhdVwzMzdlcmhhbGIgZGVzIExvaG5uZXR0b3M6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0MDIgVG0gKFBhdXNjaGFsIHZlcnN0ZXVlcnRlciBSZWlzZWxvaG46IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzODMgVG0gKEluZGl2aWR1ZWxsIHZlcnN0ZXVlcnRlciBSZWlzZWxvaG46IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzNjQgVG0gKFNhY2hiZXp1ZyBvaG5lIEJhcmF1c3phaGx1bmc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzNDUgVG0gKEJlbGVndGVyIEFyYmVpdG5laG1lci1TdGV1ZXJrb3N0ZW5hYnp1ZzogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDMyNiBUbSAoTWFobHplaXRlbm1lcmttYWwgTTogTmVpbikgVGogVCogRVQKQlQgL0YyIDE1IFRmIDE4IFRMIEVUCkJUIDEgMCAwIDEgNTAgMzA3IFRtIChBcmJlaXRuZWhtZXJiZWl0clwzNDRnZSkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjg2IFRtIChLcmFua2VudmVyc2ljaGVydW5nOiAzMDYsMTMgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyNjcgVG0gKEtWLVp1c2F0emJlaXRyYWc6IDYwLDgxIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjQ4IFRtIChSZW50ZW52ZXJzaWNoZXJ1bmc6IDM5MCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDIyOSBUbSAoQXJiZWl0c2xvc2VudmVyc2ljaGVydW5nOiA1NCw1MiBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDIxMCBUbSAoUGZsZWdldmVyc2ljaGVydW5nOiAxMDAsNjQgRVVSKSBUaiBUKiBFVApCVCAvRjIgMTUgVGYgMTggVEwgRVQKQlQgMSAwIDAgMSA1MCAxOTEgVG0gKEJlbGVndGUgWmVpdHJcMzQ0dW1lKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxNzAgVG0gKEJlc2NoXDM0NGZ0aWd1bmcgLyBLYWxlbmRlcnRhZ2U6IDIwMjYtMTAtMDEgYmlzIDIwMjYtMTAtMzEgLyAzMSkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTUxIFRtIChTdGV1ZXJ6ZWl0cmF1bSAvIFN0ZXVlcnRhZ2U6IDIwMjYtMTAtMDEgYmlzIDIwMjYtMTAtMzEgLyAzMCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTMyIFRtIChTb3ppYWx2ZXJzaWNoZXJ1bmcgLyBTVi1UYWdlOiAyMDI2LTEwLTAxIGJpcyAyMDI2LTEwLTMxIC8gMzApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDExMyBUbSAoQmVyZWNobmV0ZXIgQXVzemFobHVuZ3NiZXRyYWcgaXN0IGtlaW4gWmFobHVuZ3NuYWNod2Vpcy4gU3RldWVyZnJlaWUgUmVpc2VlcnN0YXR0dW5nZW4gd2VyZGVuIGF1XDMzN2VyaGFsYikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgOTkgVG0gKGRpZXNlcyBMb2hubmV0dG9zIGdlemFobHQuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA4MCBUbSAoS2VpbmUgYW10bGljaGUgTWVsZHVuZyBvZGVyIHZvbGxzdFwzNDRuZGlnZSBnZXNldHpsaWNoZSBFbnRnZWx0YmVzY2hlaW5pZ3VuZy4gTmFjaHdlaXMgZGVzIGF1c2dld2llc2VuZW4pIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDY2IFRtIChSZWNoZW51bWZhbmdzLikgVGogVCogRVQKIAplbmRzdHJlYW0KZW5kb2JqCjEwIDAgb2JqCjw8Ci9MZW5ndGggMTc1Cj4+CnN0cmVhbQoxIDAgMCAxIDAgMCBjbSAgQlQgL0YxIDEyIFRmIDE0LjQgVEwgRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNzkwIFRtIChCZWxlZy1TSEEyNTY6IDhmYzRlMGUzYTE4YTE0N2FkMmU4YjE5NjJiYzA0MmJkYmIxODBmZTIxNjFlNmQ3NjQxZDQwMWQ1MWFmOTFmMTMpIFRqIFQqIEVUCiAKZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgMTEKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMDIgMDAwMDAgbiAKMDAwMDAwMDIwOSAwMDAwMCBuIAowMDAwMDAwMzIxIDAwMDAwIG4gCjAwMDAwMDA1MjAgMDAwMDAgbiAKMDAwMDAwMDcyMCAwMDAwMCBuIAowMDAwMDAwNzg4IDAwMDAwIG4gCjAwMDAwMDEwNjEgMDAwMDAgbiAKMDAwMDAwMTEyNiAwMDAwMCBuIAowMDAwMDA1MTUyIDAwMDAwIG4gCnRyYWlsZXIKPDwKL0lEIApbPGNhYzI3MjFlOTU4Y2ZhYTU3Y2NiMDg1OGU1OGI3OWE3PjxjYWMyNzIxZTk1OGNmYWE1N2NjYjA4NThlNThiNzlhNz5dCiUgUmVwb3J0TGFiIGdlbmVyYXRlZCBQREYgZG9jdW1lbnQgLS0gZGlnZXN0IChvcGVuc291cmNlKQoKL0luZm8gNyAwIFIKL1Jvb3QgNiAwIFIKL1NpemUgMTEKPj4Kc3RhcnR4cmVmCjUzNzgKJSVFT0YK"
+    },
+    {
+      "source_fixture": "payroll_factor_claims.json",
+      "kind": "hourly",
+      "source_fixture_sha256": "5997b35a6bf53188bbd469afdcdcb7ff0b2a5de36ffcd10bd7dc7e0c8e9fa869",
+      "original_run_sha256": "515fad7e5e06172611a4984bff156a170622e4d9ab4cc603c4f6572691f22a14",
+      "employee_id": "3de02a445ba24432a77c9df64ffc2a0a",
+      "statement": {
+        "schema_version": 2,
+        "employee_id": "3de02a445ba24432a77c9df64ffc2a0a",
+        "employee_name": "Synthetic technician",
+        "run_ref": {
+          "id": "5399781eccf646ef94848947b08dcd59",
+          "revision": 1,
+          "content_hash": "d1d2d629cc6d7be4f9c8495f8984d0368882cc2d71f6e88f821a782816d396dc"
+        },
+        "month": "2026-10",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "calculation": {
+          "gross_minor": 320000,
+          "employee_social_total_minor": 69600,
+          "individual_wage_tax_minor": 25391,
+          "solidarity_minor": 0,
+          "church_tax_minor": 0,
+          "employee_tax_minor": 25391,
+          "net_minor": 225009,
+          "payout_minor": 225009,
+          "employee_additional_payment_minor": 0,
+          "employer_flat_tax_minor": 0,
+          "rule_version": "de_2026_factor_claims_month_v12",
+          "scope": "regular_standard_factor_claims_month",
+          "currency": "EUR",
+          "payroll_calculation_complete": true,
+          "employee_contributions": {
+            "health_general": 23360,
+            "health_additional": 4640,
+            "pension": 29760,
+            "unemployment": 4160,
+            "care": 7680
+          },
+          "net_deductions_minor": 0
+        },
+        "period_summary": {
+          "employment_intervals": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "calendar_days": 31
+            }
+          ],
+          "tax_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "lzz": 2,
+              "tax_days": 30
+            }
+          ],
+          "social_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "days": 30,
+              "full_month": true
+            }
+          ]
+        },
+        "transmission_status": "not_transmitted",
+        "payment_status": "not_evidenced_by_calculation",
+        "earnings_summary": [
+          {
+            "kind": "ordinary_work",
+            "dates": [],
+            "gross_minor": 0
+          },
+          {
+            "kind": "public_holiday",
+            "dates": [
+              "2026-10-03"
+            ],
+            "gross_minor": 320000
+          }
+        ],
+        "travel_summary": {
+          "tax_free_external_minor": 0,
+          "flat_taxable_payroll_minor": 0,
+          "individual_taxable_payroll_minor": 0,
+          "benefit_in_kind_non_cash_minor": 0,
+          "letter_m": false,
+          "employee_flat_tax_deduction_minor": 0
+        },
+        "statement_hash": "8ebc24d2e2ff7a30f8f8e1680739d72fb2c65dfc2073244a90f0242550253dc8",
+        "pdf_sha256": "c23092268cf9010d230b8b1d57cc97783f698794c2edc8ab1f9f9ec661f6a6e3",
+        "pdf_size": 5096
+      },
+      "pdf_base64": "JVBERi0xLjMKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQ29udGVudHMgOCAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yOCA4NDEuODkgXSAvUGFyZW50IDcgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL1BhZ2VNb2RlIC9Vc2VOb25lIC9QYWdlcyA3IDAgUiAvVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKNiAwIG9iago8PAovQXV0aG9yIChTbWFydHBsYW4pIC9DcmVhdGlvbkRhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvQ3JlYXRvciAoYW5vbnltb3VzKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAodW5zcGVjaWZpZWQpIC9UaXRsZSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKNyAwIG9iago8PAovQ291bnQgMSAvS2lkcyBbIDQgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9MZW5ndGggMzczNAo+PgpzdHJlYW0KMSAwIDAgMSAwIDAgY20gIEJUIC9GMSAxMiBUZiAxNC40IFRMIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDc5MCBUbSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc2OSBUbSAoU3ludGhldGljIHRlY2huaWNpYW4pIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc1MCBUbSAoQmVyZWNobnVuZ3NmYXNzdW5nIDEpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDczMSBUbSAoRXJmYXNzdGVyIFJlY2hlbnN0YW5kOiAyMDI2LTExLTAzVDEyOjAwOjAwKzAwOjAwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA3MTIgVG0gKEJydXR0bzogMy4yMDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2OTMgVG0gKEFyYmVpdG5laG1lcmJlaXRyXDM0NGdlIGdlc2FtdDogNjk2LDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjc0IFRtIChMb2huc3RldWVyOiAyNTMsOTEgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2NTUgVG0gKFNvbGlkYXJpdFwzNDR0c3p1c2NobGFnOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjM2IFRtIChLaXJjaGVubG9obnN0ZXVlcjogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDYxNyBUbSAoQXJiZWl0bmVobWVyc3RldWVybiBnZXNhbXQ6IDI1Myw5MSBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDU5OCBUbSAoTmV0dG86IDIuMjUwLDA5IEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTc5IFRtIChCZXJlY2huZXRlciBBdXN6YWhsdW5nc2JldHJhZzogMi4yNTAsMDkgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NjAgVG0gKFp1c1wzNDR0emxpY2hlciBBcmJlaXRuZWhtZXJiZWl0cmFnOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTQxIFRtIChBcmJlaXRnZWJlci1QYXVzY2hzdGV1ZXI6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1MjIgVG0gKEJlbGVndGUgTmV0dG9hYnpcMzc0Z2U6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjIgMTUgVGYgMTggVEwgRVQKQlQgMSAwIDAgMSA1MCA1MDMgVG0gKEVpZ2VuZSBFbnRnZWx0YmVzdGFuZHRlaWxlKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0ODIgVG0gKFJlZ2VsbVwzNDRcMzM3aWdlcyBBcmJlaXRzZW50Z2VsdDogLyAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDYzIFRtIChGZWllcnRhZ3N2ZXJnXDM3NHR1bmc6IDIwMjYtMTAtMDMgLyAzLjIwMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQ0NCBUbSAoU3RldWVyZnJlaWUgUmVpc2VlcnN0YXR0dW5nIGF1XDMzN2VyaGFsYiBkZXMgTG9obm5ldHRvczogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQyNSBUbSAoUGF1c2NoYWwgdmVyc3RldWVydGVyIFJlaXNlbG9objogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQwNiBUbSAoSW5kaXZpZHVlbGwgdmVyc3RldWVydGVyIFJlaXNlbG9objogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDM4NyBUbSAoU2FjaGJlenVnIG9obmUgQmFyYXVzemFobHVuZzogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDM2OCBUbSAoQmVsZWd0ZXIgQXJiZWl0bmVobWVyLVN0ZXVlcmtvc3RlbmFienVnOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzQ5IFRtIChNYWhsemVpdGVubWVya21hbCBNOiBOZWluKSBUaiBUKiBFVApCVCAvRjIgMTUgVGYgMTggVEwgRVQKQlQgMSAwIDAgMSA1MCAzMzAgVG0gKEFyYmVpdG5laG1lcmJlaXRyXDM0NGdlKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzMDkgVG0gKEtyYW5rZW52ZXJzaWNoZXJ1bmc6IDIzMyw2MCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDI5MCBUbSAoS1YtWnVzYXR6YmVpdHJhZzogNDYsNDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyNzEgVG0gKFJlbnRlbnZlcnNpY2hlcnVuZzogMjk3LDYwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjUyIFRtIChBcmJlaXRzbG9zZW52ZXJzaWNoZXJ1bmc6IDQxLDYwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjMzIFRtIChQZmxlZ2V2ZXJzaWNoZXJ1bmc6IDc2LDgwIEVVUikgVGogVCogRVQKQlQgL0YyIDE1IFRmIDE4IFRMIEVUCkJUIDEgMCAwIDEgNTAgMjE0IFRtIChCZWxlZ3RlIFplaXRyXDM0NHVtZSkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTkzIFRtIChCZXNjaFwzNDRmdGlndW5nIC8gS2FsZW5kZXJ0YWdlOiAyMDI2LTEwLTAxIGJpcyAyMDI2LTEwLTMxIC8gMzEpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDE3NCBUbSAoU3RldWVyemVpdHJhdW0gLyBTdGV1ZXJ0YWdlOiAyMDI2LTEwLTAxIGJpcyAyMDI2LTEwLTMxIC8gMzApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDE1NSBUbSAoU296aWFsdmVyc2ljaGVydW5nIC8gU1YtVGFnZTogMjAyNi0xMC0wMSBiaXMgMjAyNi0xMC0zMSAvIDMwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxMzYgVG0gKEJlcmVjaG5ldGVyIEF1c3phaGx1bmdzYmV0cmFnIGlzdCBrZWluIFphaGx1bmdzbmFjaHdlaXMuIFN0ZXVlcmZyZWllIFJlaXNlZXJzdGF0dHVuZ2VuIHdlcmRlbiBhdVwzMzdlcmhhbGIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDEyMiBUbSAoZGllc2VzIExvaG5uZXR0b3MgZ2V6YWhsdC4pIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDEwMyBUbSAoS2VpbmUgYW10bGljaGUgTWVsZHVuZyBvZGVyIHZvbGxzdFwzNDRuZGlnZSBnZXNldHpsaWNoZSBFbnRnZWx0YmVzY2hlaW5pZ3VuZy4gTmFjaHdlaXMgZGVzIGF1c2dld2llc2VuZW4pIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDg5IFRtIChSZWNoZW51bWZhbmdzLikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNzAgVG0gKEJlbGVnLVNIQTI1NjogOGViYzI0ZDJlMmZmN2EzMGY4ZjhlMTY4MDczOWQ3MmZiMmM2NWRmYzIwNzMyNDRhOTBmMDI0MjU1MDI1M2RjOCkgVGogVCogRVQKIAplbmRzdHJlYW0KZW5kb2JqCnhyZWYKMCA5CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDA2MSAwMDAwMCBuIAowMDAwMDAwMTAyIDAwMDAwIG4gCjAwMDAwMDAyMDkgMDAwMDAgbiAKMDAwMDAwMDMyMSAwMDAwMCBuIAowMDAwMDAwNTIwIDAwMDAwIG4gCjAwMDAwMDA1ODggMDAwMDAgbiAKMDAwMDAwMDg2MSAwMDAwMCBuIAowMDAwMDAwOTIwIDAwMDAwIG4gCnRyYWlsZXIKPDwKL0lEIApbPGNhYzI3MjFlOTU4Y2ZhYTU3Y2NiMDg1OGU1OGI3OWE3PjxjYWMyNzIxZTk1OGNmYWE1N2NjYjA4NThlNThiNzlhNz5dCiUgUmVwb3J0TGFiIGdlbmVyYXRlZCBQREYgZG9jdW1lbnQgLS0gZGlnZXN0IChvcGVuc291cmNlKQoKL0luZm8gNiAwIFIKL1Jvb3QgNSAwIFIKL1NpemUgOQo+PgpzdGFydHhyZWYKNDcwNQolJUVPRgo="
+    },
+    {
+      "source_fixture": "payroll_factor_claim_travel.json",
+      "kind": "monthly",
+      "source_fixture_sha256": "2523908cf5581e2b54a07969264e8a8ed01e239e86227d18321437b37aeb8ca6",
+      "original_run_sha256": "b5c6a2f8950010185b05171d702608a0ec4ffb4e79956a7b62a414386941c557",
+      "employee_id": "9ee16cc0843c4b2ba3f6e4a6c351591e",
+      "statement": {
+        "schema_version": 2,
+        "employee_id": "9ee16cc0843c4b2ba3f6e4a6c351591e",
+        "employee_name": "Synthetic technician",
+        "run_ref": {
+          "id": "52ef7bd61ddf408aa1ca29a87f97d4eb",
+          "revision": 1,
+          "content_hash": "5cc343a054fe7f14f2cb404935026ddeeab673c793269f7ee82957f92aafcc91"
+        },
+        "month": "2026-10",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "calculation": {
+          "gross_minor": 419355,
+          "employee_social_total_minor": 91210,
+          "individual_wage_tax_minor": 43091,
+          "solidarity_minor": 0,
+          "church_tax_minor": 0,
+          "employee_tax_minor": 43091,
+          "net_minor": 285054,
+          "payout_minor": 285054,
+          "employee_additional_payment_minor": 0,
+          "employer_flat_tax_minor": 0,
+          "rule_version": "de_2026_factor_claims_paid_travel_month_v13",
+          "scope": "regular_standard_factor_claims_paid_travel_month",
+          "currency": "EUR",
+          "payroll_calculation_complete": true,
+          "employee_contributions": {
+            "health_general": 30613,
+            "health_additional": 6081,
+            "pension": 39000,
+            "unemployment": 5452,
+            "care": 10064
+          },
+          "net_deductions_minor": 0
+        },
+        "period_summary": {
+          "employment_intervals": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "calendar_days": 31
+            }
+          ],
+          "tax_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "lzz": 2,
+              "tax_days": 30
+            }
+          ],
+          "social_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "days": 30,
+              "full_month": true
+            }
+          ]
+        },
+        "transmission_status": "not_transmitted",
+        "payment_status": "not_evidenced_by_calculation",
+        "earnings_summary": [
+          {
+            "kind": "ordinary_work",
+            "dates": [
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14",
+              "2026-10-15",
+              "2026-10-16",
+              "2026-10-17",
+              "2026-10-18",
+              "2026-10-19",
+              "2026-10-25",
+              "2026-10-26",
+              "2026-10-27",
+              "2026-10-28",
+              "2026-10-29",
+              "2026-10-30",
+              "2026-10-31"
+            ],
+            "gross_minor": 419355
+          }
+        ],
+        "travel_summary": {
+          "tax_free_external_minor": 1400,
+          "flat_taxable_payroll_minor": 0,
+          "individual_taxable_payroll_minor": 0,
+          "benefit_in_kind_non_cash_minor": 0,
+          "letter_m": false,
+          "employee_flat_tax_deduction_minor": 0
+        },
+        "statement_hash": "c2774ee15614871ef6df70b750f9844467a227d275430143c7a566a2177f30e6",
+        "pdf_sha256": "a80f9cbe9ce5c5fd2f72624fec38e9a14d6df176119bb9c5f39e4eec19451d1d",
+        "pdf_size": 5812
+      },
+      "pdf_base64": "JVBERi0xLjMKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQ29udGVudHMgOSAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yOCA4NDEuODkgXSAvUGFyZW50IDggMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL0NvbnRlbnRzIDEwIDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI4IDg0MS44OSBdIC9QYXJlbnQgOCAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKNiAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDggMCBSIC9UeXBlIC9DYXRhbG9nCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9BdXRob3IgKFNtYXJ0cGxhbikgL0NyZWF0aW9uRGF0ZSAoRDoyMDAwMDEwMTAwMDAwMCswMCcwMCcpIC9DcmVhdG9yIChhbm9ueW1vdXMpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDAwMDEwMTAwMDAwMCswMCcwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0ICh1bnNwZWNpZmllZCkgL1RpdGxlIChMb2hubmFjaHdlaXMgMjAyNi0xMCkgL1RyYXBwZWQgL0ZhbHNlCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9Db3VudCAyIC9LaWRzIFsgNCAwIFIgNSAwIFIgXSAvVHlwZSAvUGFnZXMKPj4KZW5kb2JqCjkgMCBvYmoKPDwKL0xlbmd0aCAzOTc2Cj4+CnN0cmVhbQoxIDAgMCAxIDAgMCBjbSAgQlQgL0YxIDEyIFRmIDE0LjQgVEwgRVQKQlQgL0YyIDE1IFRmIDE4IFRMIEVUCkJUIDEgMCAwIDEgNTAgNzkwIFRtIChMb2hubmFjaHdlaXMgMjAyNi0xMCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNzY5IFRtIChTeW50aGV0aWMgdGVjaG5pY2lhbikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNzUwIFRtIChCZXJlY2hudW5nc2Zhc3N1bmcgMSkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNzMxIFRtIChFcmZhc3N0ZXIgUmVjaGVuc3RhbmQ6IDIwMjYtMTEtMDNUMTI6MDA6MDArMDA6MDApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDcxMiBUbSAoQnJ1dHRvOiA0LjE5Myw1NSBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDY5MyBUbSAoQXJiZWl0bmVobWVyYmVpdHJcMzQ0Z2UgZ2VzYW10OiA5MTIsMTAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2NzQgVG0gKExvaG5zdGV1ZXI6IDQzMCw5MSBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDY1NSBUbSAoU29saWRhcml0XDM0NHRzenVzY2hsYWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2MzYgVG0gKEtpcmNoZW5sb2huc3RldWVyOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjE3IFRtIChBcmJlaXRuZWhtZXJzdGV1ZXJuIGdlc2FtdDogNDMwLDkxIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTk4IFRtIChOZXR0bzogMi44NTAsNTQgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NzkgVG0gKEJlcmVjaG5ldGVyIEF1c3phaGx1bmdzYmV0cmFnOiAyLjg1MCw1NCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDU2MCBUbSAoWnVzXDM0NHR6bGljaGVyIEFyYmVpdG5laG1lcmJlaXRyYWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NDEgVG0gKEFyYmVpdGdlYmVyLVBhdXNjaHN0ZXVlcjogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDUyMiBUbSAoQmVsZWd0ZSBOZXR0b2FielwzNzRnZTogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDUwMyBUbSAoRWlnZW5lIEVudGdlbHRiZXN0YW5kdGVpbGUpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQ4MiBUbSAoUmVnZWxtXDM0NFwzMzdpZ2VzIEFyYmVpdHNlbnRnZWx0OiAyMDI2LTEwLTAxLCAyMDI2LTEwLTAyLCAyMDI2LTEwLTAzLCAyMDI2LTEwLTA0LCAyMDI2LTEwLTA1LCAyMDI2LTEwLTA2LCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDY4IFRtICgyMDI2LTEwLTA3LCAyMDI2LTEwLTA4LCAyMDI2LTEwLTA5LCAyMDI2LTEwLTEwLCAyMDI2LTEwLTExLCAyMDI2LTEwLTEyLCAyMDI2LTEwLTEzLCAyMDI2LTEwLTE0LCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDU0IFRtICgyMDI2LTEwLTE1LCAyMDI2LTEwLTE2LCAyMDI2LTEwLTE3LCAyMDI2LTEwLTE4LCAyMDI2LTEwLTE5LCAyMDI2LTEwLTI1LCAyMDI2LTEwLTI2LCAyMDI2LTEwLTI3LCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDQwIFRtICgyMDI2LTEwLTI4LCAyMDI2LTEwLTI5LCAyMDI2LTEwLTMwLCAyMDI2LTEwLTMxIC8gNC4xOTMsNTUgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0MjEgVG0gKFN0ZXVlcmZyZWllIFJlaXNlZXJzdGF0dHVuZyBhdVwzMzdlcmhhbGIgZGVzIExvaG5uZXR0b3M6IDE0LDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDAyIFRtIChQYXVzY2hhbCB2ZXJzdGV1ZXJ0ZXIgUmVpc2Vsb2huOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzgzIFRtIChJbmRpdmlkdWVsbCB2ZXJzdGV1ZXJ0ZXIgUmVpc2Vsb2huOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzY0IFRtIChTYWNoYmV6dWcgb2huZSBCYXJhdXN6YWhsdW5nOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzQ1IFRtIChCZWxlZ3RlciBBcmJlaXRuZWhtZXItU3RldWVya29zdGVuYWJ6dWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzMjYgVG0gKE1haGx6ZWl0ZW5tZXJrbWFsIE06IE5laW4pIFRqIFQqIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDMwNyBUbSAoQXJiZWl0bmVobWVyYmVpdHJcMzQ0Z2UpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDI4NiBUbSAoS3JhbmtlbnZlcnNpY2hlcnVuZzogMzA2LDEzIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjY3IFRtIChLVi1adXNhdHpiZWl0cmFnOiA2MCw4MSBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDI0OCBUbSAoUmVudGVudmVyc2ljaGVydW5nOiAzOTAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyMjkgVG0gKEFyYmVpdHNsb3NlbnZlcnNpY2hlcnVuZzogNTQsNTIgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyMTAgVG0gKFBmbGVnZXZlcnNpY2hlcnVuZzogMTAwLDY0IEVVUikgVGogVCogRVQKQlQgL0YyIDE1IFRmIDE4IFRMIEVUCkJUIDEgMCAwIDEgNTAgMTkxIFRtIChCZWxlZ3RlIFplaXRyXDM0NHVtZSkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTcwIFRtIChCZXNjaFwzNDRmdGlndW5nIC8gS2FsZW5kZXJ0YWdlOiAyMDI2LTEwLTAxIGJpcyAyMDI2LTEwLTMxIC8gMzEpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDE1MSBUbSAoU3RldWVyemVpdHJhdW0gLyBTdGV1ZXJ0YWdlOiAyMDI2LTEwLTAxIGJpcyAyMDI2LTEwLTMxIC8gMzApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDEzMiBUbSAoU296aWFsdmVyc2ljaGVydW5nIC8gU1YtVGFnZTogMjAyNi0xMC0wMSBiaXMgMjAyNi0xMC0zMSAvIDMwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxMTMgVG0gKEJlcmVjaG5ldGVyIEF1c3phaGx1bmdzYmV0cmFnIGlzdCBrZWluIFphaGx1bmdzbmFjaHdlaXMuIFN0ZXVlcmZyZWllIFJlaXNlZXJzdGF0dHVuZ2VuIHdlcmRlbiBhdVwzMzdlcmhhbGIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDk5IFRtIChkaWVzZXMgTG9obm5ldHRvcyBnZXphaGx0LikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgODAgVG0gKEtlaW5lIGFtdGxpY2hlIE1lbGR1bmcgb2RlciB2b2xsc3RcMzQ0bmRpZ2UgZ2VzZXR6bGljaGUgRW50Z2VsdGJlc2NoZWluaWd1bmcuIE5hY2h3ZWlzIGRlcyBhdXNnZXdpZXNlbmVuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2NiBUbSAoUmVjaGVudW1mYW5ncy4pIFRqIFQqIEVUCiAKZW5kc3RyZWFtCmVuZG9iagoxMCAwIG9iago8PAovTGVuZ3RoIDE3NQo+PgpzdHJlYW0KMSAwIDAgMSAwIDAgY20gIEJUIC9GMSAxMiBUZiAxNC40IFRMIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc5MCBUbSAoQmVsZWctU0hBMjU2OiBjMjc3NGVlMTU2MTQ4NzFlZjZkZjcwYjc1MGY5ODQ0NDY3YTIyN2QyNzU0MzAxNDNjN2E1NjZhMjE3N2YzMGU2KSBUaiBUKiBFVAogCmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDExCjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDA2MSAwMDAwMCBuIAowMDAwMDAwMTAyIDAwMDAwIG4gCjAwMDAwMDAyMDkgMDAwMDAgbiAKMDAwMDAwMDMyMSAwMDAwMCBuIAowMDAwMDAwNTIwIDAwMDAwIG4gCjAwMDAwMDA3MjAgMDAwMDAgbiAKMDAwMDAwMDc4OCAwMDAwMCBuIAowMDAwMDAxMDYxIDAwMDAwIG4gCjAwMDAwMDExMjYgMDAwMDAgbiAKMDAwMDAwNTE1MyAwMDAwMCBuIAp0cmFpbGVyCjw8Ci9JRCAKWzxjYWMyNzIxZTk1OGNmYWE1N2NjYjA4NThlNThiNzlhNz48Y2FjMjcyMWU5NThjZmFhNTdjY2IwODU4ZTU4Yjc5YTc+XQolIFJlcG9ydExhYiBnZW5lcmF0ZWQgUERGIGRvY3VtZW50IC0tIGRpZ2VzdCAob3BlbnNvdXJjZSkKCi9JbmZvIDcgMCBSCi9Sb290IDYgMCBSCi9TaXplIDExCj4+CnN0YXJ0eHJlZgo1Mzc5CiUlRU9GCg=="
+    },
+    {
+      "source_fixture": "payroll_factor_claim_travel.json",
+      "kind": "hourly",
+      "source_fixture_sha256": "2523908cf5581e2b54a07969264e8a8ed01e239e86227d18321437b37aeb8ca6",
+      "original_run_sha256": "bfebe363d92dcb1354b3fd8a3b6b040d093cde0af6814ba8f768d13c6ee94c42",
+      "employee_id": "7a73f91819d043ff88ca2293e680fa18",
+      "statement": {
+        "schema_version": 2,
+        "employee_id": "7a73f91819d043ff88ca2293e680fa18",
+        "employee_name": "Synthetic technician",
+        "run_ref": {
+          "id": "d4beba4160da4a88b6ae3306d50002f1",
+          "revision": 1,
+          "content_hash": "4220b7c8038956f81e5920efb2e263735c807108edd3d2fd56b0331cd154d24d"
+        },
+        "month": "2026-10",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "calculation": {
+          "gross_minor": 320000,
+          "employee_social_total_minor": 69600,
+          "individual_wage_tax_minor": 25391,
+          "solidarity_minor": 0,
+          "church_tax_minor": 0,
+          "employee_tax_minor": 25391,
+          "net_minor": 225009,
+          "payout_minor": 225009,
+          "employee_additional_payment_minor": 0,
+          "employer_flat_tax_minor": 0,
+          "rule_version": "de_2026_factor_claims_paid_travel_month_v13",
+          "scope": "regular_standard_factor_claims_paid_travel_month",
+          "currency": "EUR",
+          "payroll_calculation_complete": true,
+          "employee_contributions": {
+            "health_general": 23360,
+            "health_additional": 4640,
+            "pension": 29760,
+            "unemployment": 4160,
+            "care": 7680
+          },
+          "net_deductions_minor": 0
+        },
+        "period_summary": {
+          "employment_intervals": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "calendar_days": 31
+            }
+          ],
+          "tax_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "lzz": 2,
+              "tax_days": 30
+            }
+          ],
+          "social_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "days": 30,
+              "full_month": true
+            }
+          ]
+        },
+        "transmission_status": "not_transmitted",
+        "payment_status": "not_evidenced_by_calculation",
+        "earnings_summary": [
+          {
+            "kind": "ordinary_work",
+            "dates": [],
+            "gross_minor": 0
+          },
+          {
+            "kind": "public_holiday",
+            "dates": [
+              "2026-10-03"
+            ],
+            "gross_minor": 320000
+          }
+        ],
+        "travel_summary": {
+          "tax_free_external_minor": 1400,
+          "flat_taxable_payroll_minor": 0,
+          "individual_taxable_payroll_minor": 0,
+          "benefit_in_kind_non_cash_minor": 0,
+          "letter_m": false,
+          "employee_flat_tax_deduction_minor": 0
+        },
+        "statement_hash": "aae49c877d3b9597289c3e773ef3b5c6e07acd62490b92fe7db2c9e2372c3b46",
+        "pdf_sha256": "7b5870332b72b2de6c67d060dfeb1c2304233d6e2e7cfd841c736b7886f84e69",
+        "pdf_size": 5097
+      },
+      "pdf_base64": "JVBERi0xLjMKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQ29udGVudHMgOCAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yOCA4NDEuODkgXSAvUGFyZW50IDcgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL1BhZ2VNb2RlIC9Vc2VOb25lIC9QYWdlcyA3IDAgUiAvVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKNiAwIG9iago8PAovQXV0aG9yIChTbWFydHBsYW4pIC9DcmVhdGlvbkRhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvQ3JlYXRvciAoYW5vbnltb3VzKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAodW5zcGVjaWZpZWQpIC9UaXRsZSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKNyAwIG9iago8PAovQ291bnQgMSAvS2lkcyBbIDQgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9MZW5ndGggMzczNQo+PgpzdHJlYW0KMSAwIDAgMSAwIDAgY20gIEJUIC9GMSAxMiBUZiAxNC40IFRMIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDc5MCBUbSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc2OSBUbSAoU3ludGhldGljIHRlY2huaWNpYW4pIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc1MCBUbSAoQmVyZWNobnVuZ3NmYXNzdW5nIDEpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDczMSBUbSAoRXJmYXNzdGVyIFJlY2hlbnN0YW5kOiAyMDI2LTExLTAzVDEyOjAwOjAwKzAwOjAwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA3MTIgVG0gKEJydXR0bzogMy4yMDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2OTMgVG0gKEFyYmVpdG5laG1lcmJlaXRyXDM0NGdlIGdlc2FtdDogNjk2LDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjc0IFRtIChMb2huc3RldWVyOiAyNTMsOTEgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2NTUgVG0gKFNvbGlkYXJpdFwzNDR0c3p1c2NobGFnOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjM2IFRtIChLaXJjaGVubG9obnN0ZXVlcjogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDYxNyBUbSAoQXJiZWl0bmVobWVyc3RldWVybiBnZXNhbXQ6IDI1Myw5MSBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDU5OCBUbSAoTmV0dG86IDIuMjUwLDA5IEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTc5IFRtIChCZXJlY2huZXRlciBBdXN6YWhsdW5nc2JldHJhZzogMi4yNTAsMDkgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NjAgVG0gKFp1c1wzNDR0emxpY2hlciBBcmJlaXRuZWhtZXJiZWl0cmFnOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTQxIFRtIChBcmJlaXRnZWJlci1QYXVzY2hzdGV1ZXI6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1MjIgVG0gKEJlbGVndGUgTmV0dG9hYnpcMzc0Z2U6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjIgMTUgVGYgMTggVEwgRVQKQlQgMSAwIDAgMSA1MCA1MDMgVG0gKEVpZ2VuZSBFbnRnZWx0YmVzdGFuZHRlaWxlKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0ODIgVG0gKFJlZ2VsbVwzNDRcMzM3aWdlcyBBcmJlaXRzZW50Z2VsdDogLyAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDYzIFRtIChGZWllcnRhZ3N2ZXJnXDM3NHR1bmc6IDIwMjYtMTAtMDMgLyAzLjIwMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQ0NCBUbSAoU3RldWVyZnJlaWUgUmVpc2VlcnN0YXR0dW5nIGF1XDMzN2VyaGFsYiBkZXMgTG9obm5ldHRvczogMTQsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0MjUgVG0gKFBhdXNjaGFsIHZlcnN0ZXVlcnRlciBSZWlzZWxvaG46IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0MDYgVG0gKEluZGl2aWR1ZWxsIHZlcnN0ZXVlcnRlciBSZWlzZWxvaG46IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzODcgVG0gKFNhY2hiZXp1ZyBvaG5lIEJhcmF1c3phaGx1bmc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzNjggVG0gKEJlbGVndGVyIEFyYmVpdG5laG1lci1TdGV1ZXJrb3N0ZW5hYnp1ZzogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDM0OSBUbSAoTWFobHplaXRlbm1lcmttYWwgTTogTmVpbikgVGogVCogRVQKQlQgL0YyIDE1IFRmIDE4IFRMIEVUCkJUIDEgMCAwIDEgNTAgMzMwIFRtIChBcmJlaXRuZWhtZXJiZWl0clwzNDRnZSkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzA5IFRtIChLcmFua2VudmVyc2ljaGVydW5nOiAyMzMsNjAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyOTAgVG0gKEtWLVp1c2F0emJlaXRyYWc6IDQ2LDQwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjcxIFRtIChSZW50ZW52ZXJzaWNoZXJ1bmc6IDI5Nyw2MCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDI1MiBUbSAoQXJiZWl0c2xvc2VudmVyc2ljaGVydW5nOiA0MSw2MCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDIzMyBUbSAoUGZsZWdldmVyc2ljaGVydW5nOiA3Niw4MCBFVVIpIFRqIFQqIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDIxNCBUbSAoQmVsZWd0ZSBaZWl0clwzNDR1bWUpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDE5MyBUbSAoQmVzY2hcMzQ0ZnRpZ3VuZyAvIEthbGVuZGVydGFnZTogMjAyNi0xMC0wMSBiaXMgMjAyNi0xMC0zMSAvIDMxKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxNzQgVG0gKFN0ZXVlcnplaXRyYXVtIC8gU3RldWVydGFnZTogMjAyNi0xMC0wMSBiaXMgMjAyNi0xMC0zMSAvIDMwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxNTUgVG0gKFNvemlhbHZlcnNpY2hlcnVuZyAvIFNWLVRhZ2U6IDIwMjYtMTAtMDEgYmlzIDIwMjYtMTAtMzEgLyAzMCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTM2IFRtIChCZXJlY2huZXRlciBBdXN6YWhsdW5nc2JldHJhZyBpc3Qga2VpbiBaYWhsdW5nc25hY2h3ZWlzLiBTdGV1ZXJmcmVpZSBSZWlzZWVyc3RhdHR1bmdlbiB3ZXJkZW4gYXVcMzM3ZXJoYWxiKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxMjIgVG0gKGRpZXNlcyBMb2hubmV0dG9zIGdlemFobHQuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxMDMgVG0gKEtlaW5lIGFtdGxpY2hlIE1lbGR1bmcgb2RlciB2b2xsc3RcMzQ0bmRpZ2UgZ2VzZXR6bGljaGUgRW50Z2VsdGJlc2NoZWluaWd1bmcuIE5hY2h3ZWlzIGRlcyBhdXNnZXdpZXNlbmVuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA4OSBUbSAoUmVjaGVudW1mYW5ncy4pIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDcwIFRtIChCZWxlZy1TSEEyNTY6IGFhZTQ5Yzg3N2QzYjk1OTcyODljM2U3NzNlZjNiNWM2ZTA3YWNkNjI0OTBiOTJmZTdkYjJjOWUyMzcyYzNiNDYpIFRqIFQqIEVUCiAKZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgOQowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwNjEgMDAwMDAgbiAKMDAwMDAwMDEwMiAwMDAwMCBuIAowMDAwMDAwMjA5IDAwMDAwIG4gCjAwMDAwMDAzMjEgMDAwMDAgbiAKMDAwMDAwMDUyMCAwMDAwMCBuIAowMDAwMDAwNTg4IDAwMDAwIG4gCjAwMDAwMDA4NjEgMDAwMDAgbiAKMDAwMDAwMDkyMCAwMDAwMCBuIAp0cmFpbGVyCjw8Ci9JRCAKWzxjYWMyNzIxZTk1OGNmYWE1N2NjYjA4NThlNThiNzlhNz48Y2FjMjcyMWU5NThjZmFhNTdjY2IwODU4ZTU4Yjc5YTc+XQolIFJlcG9ydExhYiBnZW5lcmF0ZWQgUERGIGRvY3VtZW50IC0tIGRpZ2VzdCAob3BlbnNvdXJjZSkKCi9JbmZvIDYgMCBSCi9Sb290IDUgMCBSCi9TaXplIDkKPj4Kc3RhcnR4cmVmCjQ3MDYKJSVFT0YK"
+    },
+    {
+      "source_fixture": "payroll_factor_claim_travel.json",
+      "kind": "unused_v12_upgrade",
+      "source_fixture_sha256": "2523908cf5581e2b54a07969264e8a8ed01e239e86227d18321437b37aeb8ca6",
+      "original_run_sha256": "b06259fd1539c58f8aef78578e22ccc7553643f79185366fc0ea076ccf992b9a",
+      "employee_id": "a7c9375a1708474994e015f2015acb56",
+      "statement": {
+        "schema_version": 2,
+        "employee_id": "a7c9375a1708474994e015f2015acb56",
+        "employee_name": "Synthetic technician",
+        "run_ref": {
+          "id": "7b7c089ea8ba482c891d85e7ee03c3d2",
+          "revision": 1,
+          "content_hash": "2c4dd667603c20c0133ff15332cc1b2a2ad353091f82bd6159219072f87c71bf"
+        },
+        "month": "2026-10",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "calculation": {
+          "gross_minor": 419355,
+          "employee_social_total_minor": 91210,
+          "individual_wage_tax_minor": 43091,
+          "solidarity_minor": 0,
+          "church_tax_minor": 0,
+          "employee_tax_minor": 43091,
+          "net_minor": 285054,
+          "payout_minor": 285054,
+          "employee_additional_payment_minor": 0,
+          "employer_flat_tax_minor": 0,
+          "rule_version": "de_2026_factor_claims_paid_travel_month_v13",
+          "scope": "regular_standard_factor_claims_paid_travel_month",
+          "currency": "EUR",
+          "payroll_calculation_complete": true,
+          "employee_contributions": {
+            "health_general": 30613,
+            "health_additional": 6081,
+            "pension": 39000,
+            "unemployment": 5452,
+            "care": 10064
+          },
+          "net_deductions_minor": 0
+        },
+        "period_summary": {
+          "employment_intervals": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "calendar_days": 31
+            }
+          ],
+          "tax_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "lzz": 2,
+              "tax_days": 30
+            }
+          ],
+          "social_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "days": 30,
+              "full_month": true
+            }
+          ]
+        },
+        "transmission_status": "not_transmitted",
+        "payment_status": "not_evidenced_by_calculation",
+        "earnings_summary": [
+          {
+            "kind": "ordinary_work",
+            "dates": [
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14",
+              "2026-10-15",
+              "2026-10-16",
+              "2026-10-17",
+              "2026-10-18",
+              "2026-10-19",
+              "2026-10-25",
+              "2026-10-26",
+              "2026-10-27",
+              "2026-10-28",
+              "2026-10-29",
+              "2026-10-30",
+              "2026-10-31"
+            ],
+            "gross_minor": 419355
+          }
+        ],
+        "travel_summary": {
+          "tax_free_external_minor": 1400,
+          "flat_taxable_payroll_minor": 0,
+          "individual_taxable_payroll_minor": 0,
+          "benefit_in_kind_non_cash_minor": 0,
+          "letter_m": false,
+          "employee_flat_tax_deduction_minor": 0
+        },
+        "statement_hash": "781d567d3ccfce88c268701cd013a9058f041e7fea0af75da5a1f982c50bb464",
+        "pdf_sha256": "8c5329f4b5d2b11b283c481bbf8c66436483d1ffa469eb7327c33454df62f143",
+        "pdf_size": 5812
+      },
+      "pdf_base64": "JVBERi0xLjMKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQ29udGVudHMgOSAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yOCA4NDEuODkgXSAvUGFyZW50IDggMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL0NvbnRlbnRzIDEwIDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI4IDg0MS44OSBdIC9QYXJlbnQgOCAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKNiAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDggMCBSIC9UeXBlIC9DYXRhbG9nCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9BdXRob3IgKFNtYXJ0cGxhbikgL0NyZWF0aW9uRGF0ZSAoRDoyMDAwMDEwMTAwMDAwMCswMCcwMCcpIC9DcmVhdG9yIChhbm9ueW1vdXMpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDAwMDEwMTAwMDAwMCswMCcwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0ICh1bnNwZWNpZmllZCkgL1RpdGxlIChMb2hubmFjaHdlaXMgMjAyNi0xMCkgL1RyYXBwZWQgL0ZhbHNlCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9Db3VudCAyIC9LaWRzIFsgNCAwIFIgNSAwIFIgXSAvVHlwZSAvUGFnZXMKPj4KZW5kb2JqCjkgMCBvYmoKPDwKL0xlbmd0aCAzOTc2Cj4+CnN0cmVhbQoxIDAgMCAxIDAgMCBjbSAgQlQgL0YxIDEyIFRmIDE0LjQgVEwgRVQKQlQgL0YyIDE1IFRmIDE4IFRMIEVUCkJUIDEgMCAwIDEgNTAgNzkwIFRtIChMb2hubmFjaHdlaXMgMjAyNi0xMCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNzY5IFRtIChTeW50aGV0aWMgdGVjaG5pY2lhbikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNzUwIFRtIChCZXJlY2hudW5nc2Zhc3N1bmcgMSkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNzMxIFRtIChFcmZhc3N0ZXIgUmVjaGVuc3RhbmQ6IDIwMjYtMTEtMDNUMTI6MDA6MDArMDA6MDApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDcxMiBUbSAoQnJ1dHRvOiA0LjE5Myw1NSBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDY5MyBUbSAoQXJiZWl0bmVobWVyYmVpdHJcMzQ0Z2UgZ2VzYW10OiA5MTIsMTAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2NzQgVG0gKExvaG5zdGV1ZXI6IDQzMCw5MSBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDY1NSBUbSAoU29saWRhcml0XDM0NHRzenVzY2hsYWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2MzYgVG0gKEtpcmNoZW5sb2huc3RldWVyOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjE3IFRtIChBcmJlaXRuZWhtZXJzdGV1ZXJuIGdlc2FtdDogNDMwLDkxIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTk4IFRtIChOZXR0bzogMi44NTAsNTQgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NzkgVG0gKEJlcmVjaG5ldGVyIEF1c3phaGx1bmdzYmV0cmFnOiAyLjg1MCw1NCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDU2MCBUbSAoWnVzXDM0NHR6bGljaGVyIEFyYmVpdG5laG1lcmJlaXRyYWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NDEgVG0gKEFyYmVpdGdlYmVyLVBhdXNjaHN0ZXVlcjogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDUyMiBUbSAoQmVsZWd0ZSBOZXR0b2FielwzNzRnZTogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDUwMyBUbSAoRWlnZW5lIEVudGdlbHRiZXN0YW5kdGVpbGUpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQ4MiBUbSAoUmVnZWxtXDM0NFwzMzdpZ2VzIEFyYmVpdHNlbnRnZWx0OiAyMDI2LTEwLTAxLCAyMDI2LTEwLTAyLCAyMDI2LTEwLTAzLCAyMDI2LTEwLTA0LCAyMDI2LTEwLTA1LCAyMDI2LTEwLTA2LCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDY4IFRtICgyMDI2LTEwLTA3LCAyMDI2LTEwLTA4LCAyMDI2LTEwLTA5LCAyMDI2LTEwLTEwLCAyMDI2LTEwLTExLCAyMDI2LTEwLTEyLCAyMDI2LTEwLTEzLCAyMDI2LTEwLTE0LCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDU0IFRtICgyMDI2LTEwLTE1LCAyMDI2LTEwLTE2LCAyMDI2LTEwLTE3LCAyMDI2LTEwLTE4LCAyMDI2LTEwLTE5LCAyMDI2LTEwLTI1LCAyMDI2LTEwLTI2LCAyMDI2LTEwLTI3LCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDQwIFRtICgyMDI2LTEwLTI4LCAyMDI2LTEwLTI5LCAyMDI2LTEwLTMwLCAyMDI2LTEwLTMxIC8gNC4xOTMsNTUgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0MjEgVG0gKFN0ZXVlcmZyZWllIFJlaXNlZXJzdGF0dHVuZyBhdVwzMzdlcmhhbGIgZGVzIExvaG5uZXR0b3M6IDE0LDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDAyIFRtIChQYXVzY2hhbCB2ZXJzdGV1ZXJ0ZXIgUmVpc2Vsb2huOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzgzIFRtIChJbmRpdmlkdWVsbCB2ZXJzdGV1ZXJ0ZXIgUmVpc2Vsb2huOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzY0IFRtIChTYWNoYmV6dWcgb2huZSBCYXJhdXN6YWhsdW5nOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzQ1IFRtIChCZWxlZ3RlciBBcmJlaXRuZWhtZXItU3RldWVya29zdGVuYWJ6dWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzMjYgVG0gKE1haGx6ZWl0ZW5tZXJrbWFsIE06IE5laW4pIFRqIFQqIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDMwNyBUbSAoQXJiZWl0bmVobWVyYmVpdHJcMzQ0Z2UpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDI4NiBUbSAoS3JhbmtlbnZlcnNpY2hlcnVuZzogMzA2LDEzIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjY3IFRtIChLVi1adXNhdHpiZWl0cmFnOiA2MCw4MSBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDI0OCBUbSAoUmVudGVudmVyc2ljaGVydW5nOiAzOTAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyMjkgVG0gKEFyYmVpdHNsb3NlbnZlcnNpY2hlcnVuZzogNTQsNTIgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyMTAgVG0gKFBmbGVnZXZlcnNpY2hlcnVuZzogMTAwLDY0IEVVUikgVGogVCogRVQKQlQgL0YyIDE1IFRmIDE4IFRMIEVUCkJUIDEgMCAwIDEgNTAgMTkxIFRtIChCZWxlZ3RlIFplaXRyXDM0NHVtZSkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTcwIFRtIChCZXNjaFwzNDRmdGlndW5nIC8gS2FsZW5kZXJ0YWdlOiAyMDI2LTEwLTAxIGJpcyAyMDI2LTEwLTMxIC8gMzEpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDE1MSBUbSAoU3RldWVyemVpdHJhdW0gLyBTdGV1ZXJ0YWdlOiAyMDI2LTEwLTAxIGJpcyAyMDI2LTEwLTMxIC8gMzApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDEzMiBUbSAoU296aWFsdmVyc2ljaGVydW5nIC8gU1YtVGFnZTogMjAyNi0xMC0wMSBiaXMgMjAyNi0xMC0zMSAvIDMwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxMTMgVG0gKEJlcmVjaG5ldGVyIEF1c3phaGx1bmdzYmV0cmFnIGlzdCBrZWluIFphaGx1bmdzbmFjaHdlaXMuIFN0ZXVlcmZyZWllIFJlaXNlZXJzdGF0dHVuZ2VuIHdlcmRlbiBhdVwzMzdlcmhhbGIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDk5IFRtIChkaWVzZXMgTG9obm5ldHRvcyBnZXphaGx0LikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgODAgVG0gKEtlaW5lIGFtdGxpY2hlIE1lbGR1bmcgb2RlciB2b2xsc3RcMzQ0bmRpZ2UgZ2VzZXR6bGljaGUgRW50Z2VsdGJlc2NoZWluaWd1bmcuIE5hY2h3ZWlzIGRlcyBhdXNnZXdpZXNlbmVuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2NiBUbSAoUmVjaGVudW1mYW5ncy4pIFRqIFQqIEVUCiAKZW5kc3RyZWFtCmVuZG9iagoxMCAwIG9iago8PAovTGVuZ3RoIDE3NQo+PgpzdHJlYW0KMSAwIDAgMSAwIDAgY20gIEJUIC9GMSAxMiBUZiAxNC40IFRMIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc5MCBUbSAoQmVsZWctU0hBMjU2OiA3ODFkNTY3ZDNjY2ZjZTg4YzI2ODcwMWNkMDEzYTkwNThmMDQxZTdmZWEwYWY3NWRhNWExZjk4MmM1MGJiNDY0KSBUaiBUKiBFVAogCmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDExCjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDA2MSAwMDAwMCBuIAowMDAwMDAwMTAyIDAwMDAwIG4gCjAwMDAwMDAyMDkgMDAwMDAgbiAKMDAwMDAwMDMyMSAwMDAwMCBuIAowMDAwMDAwNTIwIDAwMDAwIG4gCjAwMDAwMDA3MjAgMDAwMDAgbiAKMDAwMDAwMDc4OCAwMDAwMCBuIAowMDAwMDAxMDYxIDAwMDAwIG4gCjAwMDAwMDExMjYgMDAwMDAgbiAKMDAwMDAwNTE1MyAwMDAwMCBuIAp0cmFpbGVyCjw8Ci9JRCAKWzxjYWMyNzIxZTk1OGNmYWE1N2NjYjA4NThlNThiNzlhNz48Y2FjMjcyMWU5NThjZmFhNTdjY2IwODU4ZTU4Yjc5YTc+XQolIFJlcG9ydExhYiBnZW5lcmF0ZWQgUERGIGRvY3VtZW50IC0tIGRpZ2VzdCAob3BlbnNvdXJjZSkKCi9JbmZvIDcgMCBSCi9Sb290IDYgMCBSCi9TaXplIDExCj4+CnN0YXJ0eHJlZgo1Mzc5CiUlRU9GCg=="
+    },
+    {
+      "source_fixture": "payroll_factor_transition.json",
+      "kind": "original",
+      "source_fixture_sha256": "36c6afcba3330432dd9567f5b20dd80b70d055aee5f8de25369974a943d28fcc",
+      "original_run_sha256": "e4158732a860f0fb93f656195f9e707e44f8527212df094ea73abfb58f5f686d",
+      "employee_id": "af191b30e0e547b9bccd73860c9ca358",
+      "statement": {
+        "schema_version": 2,
+        "employee_id": "af191b30e0e547b9bccd73860c9ca358",
+        "employee_name": "Synthetic technician",
+        "run_ref": {
+          "id": "1cb3d6db1202447aa5eccd3f7c8efb76",
+          "revision": 1,
+          "content_hash": "0a3688a3f2596abce78374eebdbabc389ebdeca065dbb6fd7511906b9be56dd3"
+        },
+        "month": "2026-10",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "calculation": {
+          "gross_minor": 200000,
+          "employee_social_total_minor": 43500,
+          "individual_wage_tax_minor": 6633,
+          "solidarity_minor": 0,
+          "church_tax_minor": 0,
+          "employee_tax_minor": 6633,
+          "net_minor": 149867,
+          "payout_minor": 149867,
+          "employee_additional_payment_minor": 0,
+          "employer_flat_tax_minor": 0,
+          "rule_version": "de_2026_factor_transition_month_v14",
+          "scope": "regular_transition_factor_month",
+          "currency": "EUR",
+          "payroll_calculation_complete": true,
+          "employee_contributions": {
+            "health_general": 14600,
+            "health_additional": 2900,
+            "pension": 18600,
+            "unemployment": 2600,
+            "care": 4800
+          },
+          "net_deductions_minor": 0
+        },
+        "period_summary": {
+          "employment_intervals": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "calendar_days": 31
+            }
+          ],
+          "tax_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "lzz": 2,
+              "tax_days": 30
+            }
+          ],
+          "social_periods": [
+            {
+              "start": "2026-10-01",
+              "end": "2026-10-31",
+              "days": 30,
+              "full_month": true
+            }
+          ]
+        },
+        "transmission_status": "not_transmitted",
+        "payment_status": "not_evidenced_by_calculation",
+        "earnings_summary": [
+          {
+            "kind": "ordinary_work",
+            "dates": [
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14",
+              "2026-10-15",
+              "2026-10-16",
+              "2026-10-17",
+              "2026-10-18",
+              "2026-10-19",
+              "2026-10-20",
+              "2026-10-21",
+              "2026-10-22",
+              "2026-10-23",
+              "2026-10-24",
+              "2026-10-25",
+              "2026-10-26",
+              "2026-10-27",
+              "2026-10-28",
+              "2026-10-29",
+              "2026-10-30",
+              "2026-10-31"
+            ],
+            "gross_minor": 200000
+          }
+        ],
+        "travel_summary": {
+          "tax_free_external_minor": 0,
+          "flat_taxable_payroll_minor": 0,
+          "individual_taxable_payroll_minor": 0,
+          "benefit_in_kind_non_cash_minor": 0,
+          "letter_m": false,
+          "employee_flat_tax_deduction_minor": 0
+        },
+        "statement_hash": "e2e655b0e62b0e2b57da342da391c2a091fea39c88e61c05d0332a4753959f36",
+        "pdf_sha256": "f114449ef002308670b33c56898e97b359194bd9b42d2ce93ac9482e9a1b521e",
+        "pdf_size": 5921
+      },
+      "pdf_base64": "JVBERi0xLjMKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQ29udGVudHMgOSAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yOCA4NDEuODkgXSAvUGFyZW50IDggMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL0NvbnRlbnRzIDEwIDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI4IDg0MS44OSBdIC9QYXJlbnQgOCAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKNiAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDggMCBSIC9UeXBlIC9DYXRhbG9nCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9BdXRob3IgKFNtYXJ0cGxhbikgL0NyZWF0aW9uRGF0ZSAoRDoyMDAwMDEwMTAwMDAwMCswMCcwMCcpIC9DcmVhdG9yIChhbm9ueW1vdXMpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDAwMDEwMTAwMDAwMCswMCcwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0ICh1bnNwZWNpZmllZCkgL1RpdGxlIChMb2hubmFjaHdlaXMgMjAyNi0xMCkgL1RyYXBwZWQgL0ZhbHNlCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9Db3VudCAyIC9LaWRzIFsgNCAwIFIgNSAwIFIgXSAvVHlwZSAvUGFnZXMKPj4KZW5kb2JqCjkgMCBvYmoKPDwKL0xlbmd0aCA0MDg1Cj4+CnN0cmVhbQoxIDAgMCAxIDAgMCBjbSAgQlQgL0YxIDEyIFRmIDE0LjQgVEwgRVQKQlQgL0YyIDE1IFRmIDE4IFRMIEVUCkJUIDEgMCAwIDEgNTAgNzkwIFRtIChMb2hubmFjaHdlaXMgMjAyNi0xMCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNzY5IFRtIChTeW50aGV0aWMgdGVjaG5pY2lhbikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNzUwIFRtIChCZXJlY2hudW5nc2Zhc3N1bmcgMSkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNzMxIFRtIChFcmZhc3N0ZXIgUmVjaGVuc3RhbmQ6IDIwMjYtMTEtMDNUMTI6MDA6MDArMDA6MDApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDcxMiBUbSAoQnJ1dHRvOiAyLjAwMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDY5MyBUbSAoQXJiZWl0bmVobWVyYmVpdHJcMzQ0Z2UgZ2VzYW10OiA0MzUsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2NzQgVG0gKExvaG5zdGV1ZXI6IDY2LDMzIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjU1IFRtIChTb2xpZGFyaXRcMzQ0dHN6dXNjaGxhZzogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDYzNiBUbSAoS2lyY2hlbmxvaG5zdGV1ZXI6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2MTcgVG0gKEFyYmVpdG5laG1lcnN0ZXVlcm4gZ2VzYW10OiA2NiwzMyBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDU5OCBUbSAoTmV0dG86IDEuNDk4LDY3IEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTc5IFRtIChCZXJlY2huZXRlciBBdXN6YWhsdW5nc2JldHJhZzogMS40OTgsNjcgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1NjAgVG0gKFp1c1wzNDR0emxpY2hlciBBcmJlaXRuZWhtZXJiZWl0cmFnOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTQxIFRtIChBcmJlaXRnZWJlci1QYXVzY2hzdGV1ZXI6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA1MjIgVG0gKEJlbGVndGUgTmV0dG9hYnpcMzc0Z2U6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjIgMTUgVGYgMTggVEwgRVQKQlQgMSAwIDAgMSA1MCA1MDMgVG0gKEVpZ2VuZSBFbnRnZWx0YmVzdGFuZHRlaWxlKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0ODIgVG0gKFJlZ2VsbVwzNDRcMzM3aWdlcyBBcmJlaXRzZW50Z2VsdDogMjAyNi0xMC0wMSwgMjAyNi0xMC0wMiwgMjAyNi0xMC0wMywgMjAyNi0xMC0wNCwgMjAyNi0xMC0wNSwgMjAyNi0xMC0wNiwpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQ2OCBUbSAoMjAyNi0xMC0wNywgMjAyNi0xMC0wOCwgMjAyNi0xMC0wOSwgMjAyNi0xMC0xMCwgMjAyNi0xMC0xMSwgMjAyNi0xMC0xMiwgMjAyNi0xMC0xMywgMjAyNi0xMC0xNCwpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQ1NCBUbSAoMjAyNi0xMC0xNSwgMjAyNi0xMC0xNiwgMjAyNi0xMC0xNywgMjAyNi0xMC0xOCwgMjAyNi0xMC0xOSwgMjAyNi0xMC0yMCwgMjAyNi0xMC0yMSwgMjAyNi0xMC0yMiwpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQ0MCBUbSAoMjAyNi0xMC0yMywgMjAyNi0xMC0yNCwgMjAyNi0xMC0yNSwgMjAyNi0xMC0yNiwgMjAyNi0xMC0yNywgMjAyNi0xMC0yOCwgMjAyNi0xMC0yOSwgMjAyNi0xMC0zMCwpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDQyNiBUbSAoMjAyNi0xMC0zMSAvIDIuMDAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDA3IFRtIChTdGV1ZXJmcmVpZSBSZWlzZWVyc3RhdHR1bmcgYXVcMzM3ZXJoYWxiIGRlcyBMb2hubmV0dG9zOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzg4IFRtIChQYXVzY2hhbCB2ZXJzdGV1ZXJ0ZXIgUmVpc2Vsb2huOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzY5IFRtIChJbmRpdmlkdWVsbCB2ZXJzdGV1ZXJ0ZXIgUmVpc2Vsb2huOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzUwIFRtIChTYWNoYmV6dWcgb2huZSBCYXJhdXN6YWhsdW5nOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzMxIFRtIChCZWxlZ3RlciBBcmJlaXRuZWhtZXItU3RldWVya29zdGVuYWJ6dWc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzMTIgVG0gKE1haGx6ZWl0ZW5tZXJrbWFsIE06IE5laW4pIFRqIFQqIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDI5MyBUbSAoQXJiZWl0bmVobWVyYmVpdHJcMzQ0Z2UpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDI3MiBUbSAoS3JhbmtlbnZlcnNpY2hlcnVuZzogMTQ2LDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMjUzIFRtIChLVi1adXNhdHpiZWl0cmFnOiAyOSwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDIzNCBUbSAoUmVudGVudmVyc2ljaGVydW5nOiAxODYsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyMTUgVG0gKEFyYmVpdHNsb3NlbnZlcnNpY2hlcnVuZzogMjYsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxOTYgVG0gKFBmbGVnZXZlcnNpY2hlcnVuZzogNDgsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjIgMTUgVGYgMTggVEwgRVQKQlQgMSAwIDAgMSA1MCAxNzcgVG0gKEJlbGVndGUgWmVpdHJcMzQ0dW1lKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAxNTYgVG0gKEJlc2NoXDM0NGZ0aWd1bmcgLyBLYWxlbmRlcnRhZ2U6IDIwMjYtMTAtMDEgYmlzIDIwMjYtMTAtMzEgLyAzMSkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTM3IFRtIChTdGV1ZXJ6ZWl0cmF1bSAvIFN0ZXVlcnRhZ2U6IDIwMjYtMTAtMDEgYmlzIDIwMjYtMTAtMzEgLyAzMCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMTE4IFRtIChTb3ppYWx2ZXJzaWNoZXJ1bmcgLyBTVi1UYWdlOiAyMDI2LTEwLTAxIGJpcyAyMDI2LTEwLTMxIC8gMzApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDk5IFRtIChCZXJlY2huZXRlciBBdXN6YWhsdW5nc2JldHJhZyBpc3Qga2VpbiBaYWhsdW5nc25hY2h3ZWlzLiBTdGV1ZXJmcmVpZSBSZWlzZWVyc3RhdHR1bmdlbiB3ZXJkZW4gYXVcMzM3ZXJoYWxiKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA4NSBUbSAoZGllc2VzIExvaG5uZXR0b3MgZ2V6YWhsdC4pIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDY2IFRtIChLZWluZSBhbXRsaWNoZSBNZWxkdW5nIG9kZXIgdm9sbHN0XDM0NG5kaWdlIGdlc2V0emxpY2hlIEVudGdlbHRiZXNjaGVpbmlndW5nLiBOYWNod2VpcyBkZXMgYXVzZ2V3aWVzZW5lbikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTIgVG0gKFJlY2hlbnVtZmFuZ3MuKSBUaiBUKiBFVAogCmVuZHN0cmVhbQplbmRvYmoKMTAgMCBvYmoKPDwKL0xlbmd0aCAxNzUKPj4Kc3RyZWFtCjEgMCAwIDEgMCAwIGNtICBCVCAvRjEgMTIgVGYgMTQuNCBUTCBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA3OTAgVG0gKEJlbGVnLVNIQTI1NjogZTJlNjU1YjBlNjJiMGUyYjU3ZGEzNDJkYTM5MWMyYTA5MWZlYTM5Yzg4ZTYxYzA1ZDAzMzJhNDc1Mzk1OWYzNikgVGogVCogRVQKIAplbmRzdHJlYW0KZW5kb2JqCnhyZWYKMCAxMQowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwNjEgMDAwMDAgbiAKMDAwMDAwMDEwMiAwMDAwMCBuIAowMDAwMDAwMjA5IDAwMDAwIG4gCjAwMDAwMDAzMjEgMDAwMDAgbiAKMDAwMDAwMDUyMCAwMDAwMCBuIAowMDAwMDAwNzIwIDAwMDAwIG4gCjAwMDAwMDA3ODggMDAwMDAgbiAKMDAwMDAwMTA2MSAwMDAwMCBuIAowMDAwMDAxMTI2IDAwMDAwIG4gCjAwMDAwMDUyNjIgMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8Y2FjMjcyMWU5NThjZmFhNTdjY2IwODU4ZTU4Yjc5YTc+PGNhYzI3MjFlOTU4Y2ZhYTU3Y2NiMDg1OGU1OGI3OWE3Pl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyA3IDAgUgovUm9vdCA2IDAgUgovU2l6ZSAxMQo+PgpzdGFydHhyZWYKNTQ4OAolJUVPRgo="
+    }
+  ]
+}

@@ -3,6 +3,7 @@
   "baseline_commit": "d22dea7756b29bb5c1bef2dd5f18c15a7fa2fb0d",
   "baseline_workflow_sha256": "dcf1c224f8093fd0d5d2534e91c4c903b2dd553cd99c07bc937033d0e997e732",
   "online": [
+    ["online.test_business_payroll_factor_transition_pg", "-v"],
     ["scripts.test_online_archive_runtime", "-v"],
     ["scripts.test_online_source_archive", "-v"],
     ["online.test_installation_context_pg", "-v"],
@@ -688,6 +689,11 @@
       "id": "installation-context",
       "script": "tests/e2e.cjs",
       "workflow": "installation-context"
+    },
+    {
+      "id": "payroll-factor-transition",
+      "script": "tests/e2e.cjs",
+      "workflow": "payroll-factor-transition"
     },
     {
       "id": "payroll-factor-claims-paid-travel",

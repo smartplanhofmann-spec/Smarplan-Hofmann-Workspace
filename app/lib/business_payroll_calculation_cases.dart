@@ -39,6 +39,44 @@ class PayrollCalculationCasePlanView extends StatelessWidget {
       ListTile(dense: true, title: Text(title), subtitle: Text(value));
   @override
   Widget build(BuildContext context) {
+    if (plan['rule_version'] == payrollFactorTransitionRule) {
+      final review = businessMap(plan['factor_transition_assessment']);
+      final forecast = businessMap(review['transition_assessment']);
+      final component = businessMap(plan['factor_transition_component']);
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          line('Midijob mit belegtem ELStAM-Faktor', '${plan['month']}'),
+          line(
+            'Eingetragener ELStAM-Faktor',
+            '${plan['factor_parameters']['tax_factor']}'.replaceAll('.', ','),
+          ),
+          line(
+            'Belegter regelmäßiger Monatslohn',
+            _money(forecast['regular_monthly_gross_minor']),
+          ),
+          line('Prognosezeitraum', '${forecast['forecast_months']} Monate'),
+          line(
+            'Gesamt-Beitragsbasis',
+            _money(component['transition']?['total_assessment_minor']),
+          ),
+          line(
+            'Arbeitnehmer-Beitragsbasis',
+            _money(component['transition']?['employee_assessment_minor']),
+          ),
+          line('Lohnsteuer', _money(component['individual_wage_tax_minor'])),
+          line('Netto', _money(component['net_minor'])),
+          line('Personenbezogene Prüfung', '${review['verification_note']}'),
+          for (final blocker in businessItems(plan['blockers']))
+            Notice('${blocker['message']}', error: true),
+          Notice(
+            plan['can_calculate'] == true
+                ? 'Der vollständig belegte Faktor-Midijob ist im angezeigten Umfang berechenbar. Lohnabschluss und tatsächliche Zahlungen erfolgen gesondert.'
+                : 'Die offenen fachlichen Punkte sperren den Lohnabschluss.',
+          ),
+        ],
+      );
+    }
     if (plan['rule_version'] == individualMinijobRule) {
       final assessment = businessMap(plan['individual_minijob_assessment']);
       return Column(
@@ -492,6 +530,9 @@ class _BusinessPayrollCalculationCasesPageState
   }) async {
     final opening = epoch;
     await fresh(write: true, forMonth: body['details']['month']);
+    if (body['rule_version'] == payrollFactorTransitionRule &&
+        !session.hasFeature(payrollFactorTransitionFeature))
+      _fail('Die aktuelle Freigabe für den Faktor-Midijob fehlt.', 403);
     if (body['rule_version'] == individualMinijobRule &&
         !session.hasFeature(individualMinijobFeature))
       _fail('Die Freigabe für den individuellen Minijob fehlt.', 403);
@@ -632,6 +673,10 @@ class _BusinessPayrollCalculationCasesPageState
     if (mounted && readable) await load();
   });
   Future<void> edit([Map<String, dynamic>? previous]) async {
+    if (previous?['rule_version'] == payrollFactorTransitionRule) {
+      await editFactorTransition(previous);
+      return;
+    }
     if (previous?['rule_version'] == individualMinijobRule) {
       await editIndividualMinijob(previous);
       return;
@@ -1259,6 +1304,273 @@ class _BusinessPayrollCalculationCasesPageState
         if (!combined) 'travel_settlement_ids': <String>[],
         'thirty_day_rule': null,
         'policy_id': null,
+      }, previous: previous);
+      final result = payrollCalculationCasePreview(
+        await session.api.call(
+          session.path('/payroll/calculation-cases/preview'),
+          payrollCalculationCasePreviewInput(body),
+        ),
+        body,
+      );
+      if (!mounted || !readable || opening != epoch) return;
+      setState(() {
+        sources = page;
+        generation = session.generation;
+        previewBody = {...body, 'preview_hash': result['preview_hash']};
+        preview = result;
+        correction = previous == null ? null : _copy(previous);
+        selected = null;
+        history = [];
+      });
+      showBeginning();
+    } catch (e) {
+      if (mounted && readable && opening == epoch) failed(e);
+    }
+  }
+
+  Future<void> editFactorTransition([Map<String, dynamic>? previous]) async {
+    if (busy ||
+        pending != null ||
+        !session.hasFeature(payrollFactorTransitionFeature))
+      return;
+    final opening = epoch;
+    try {
+      final page = await fresh(write: true);
+      if (!mounted ||
+          !readable ||
+          opening != epoch ||
+          !session.hasFeature(payrollFactorTransitionFeature))
+        return;
+      final d = businessMap(previous?['details']),
+          review = businessMap(
+            previous?['details']?['factor_transition_assessment'],
+          );
+      final forecast = businessMap(review['transition_assessment']);
+      final fields = <BusinessField>[
+        BusinessField(
+          'period_case_id',
+          'Bestätigter vollständiger Faktor-Monat',
+          type: BusinessInput.choice,
+          required: true,
+          initial: d['period_case_ref']?['id'],
+          choices: choices(
+            businessItems(page['factor_period_facts'])
+                .where((v) => payrollFactorClaimsBaseEligible(v, month))
+                .toList(),
+            (v) => '${v['details']['month']} · Fassung ${v['revision']}',
+          ),
+        ),
+        BusinessField(
+          'employment_terms_ids',
+          'Eine belegte Beschäftigung',
+          type: BusinessInput.multiple,
+          required: true,
+          initial: ids(d['employment_terms_refs']),
+          choices: choices(
+            businessItems(page['facts'])
+                .where(
+                  (v) =>
+                      v['kind'] == 'employment_terms' &&
+                      v['status'] == 'active',
+                )
+                .toList(),
+            (v) =>
+                '${businessDate(v['effective_from'])} · Fassung ${v['revision']}',
+            empty: false,
+          ),
+        ),
+        BusinessField(
+          'profile_ids',
+          'Ein ursprüngliches ELStAM-Faktorprofil',
+          type: BusinessInput.multiple,
+          required: true,
+          initial: ids(d['profile_refs']),
+          choices: choices(
+            page['profiles'],
+            (v) =>
+                '${businessDate(v['profile']['effective_from'])} · Fassung ${v['revision']}',
+            empty: false,
+          ),
+        ),
+        BusinessField(
+          'identity_ids',
+          'Ein passender Identitäts- und ELStAM-Nachweis',
+          type: BusinessInput.multiple,
+          required: true,
+          initial: ids(d['identity_refs']),
+          choices: choices(
+            page['identities'],
+            (v) =>
+                '${businessDate(v['details']['valid_from'])} – ${businessDate(v['details']['valid_to'])} · Fassung ${v['revision']}',
+            empty: false,
+          ),
+        ),
+        BusinessField(
+          'valid_from',
+          'Prognose gültig ab',
+          type: BusinessInput.date,
+          required: true,
+          initial: review['valid_from'],
+        ),
+        BusinessField(
+          'valid_to',
+          'Prognose gültig bis',
+          type: BusinessInput.date,
+          required: true,
+          initial: review['valid_to'],
+        ),
+        BusinessField(
+          'declaration_date',
+          'Tatsächlicher Tag der Prüfung',
+          type: BusinessInput.date,
+          required: true,
+          initial: review['declaration_date'],
+        ),
+        BusinessField(
+          'assessed_on',
+          'Tag der ursprünglichen Statusprognose',
+          type: BusinessInput.date,
+          required: true,
+          initial: forecast['assessed_on'],
+        ),
+        BusinessField(
+          'regular_monthly_gross',
+          'Belegter fester regelmäßiger Monatslohn in EUR',
+          type: BusinessInput.decimal,
+          required: true,
+          initial: forecast['regular_monthly_gross_minor'] is int
+              ? ((forecast['regular_monthly_gross_minor'] as int) / 100)
+                    .toStringAsFixed(2)
+              : null,
+        ),
+        BusinessField(
+          'forecast_months',
+          'Belegter Prognosezeitraum in Monaten',
+          type: BusinessInput.integer,
+          required: true,
+          initial: forecast['forecast_months'],
+        ),
+        files(
+          page,
+          'forecast_file_id',
+          'Konkretes privates Prognoseoriginal',
+          multiple: false,
+          initial: review['forecast_evidence_ref']?['id'],
+        ),
+        files(
+          page,
+          'source_file_ids',
+          'Gebundene private Originale',
+          initial: previous?['source_file_ids'],
+        ),
+        const BusinessField(
+          'sole_employment_confirmed',
+          'Alleinige Beschäftigung und tatsächlichen Übergangsbereich geprüft',
+          type: BusinessInput.toggle,
+        ),
+        const BusinessField(
+          'full_fixed_monthly_pay_confirmed',
+          'Unveränderten festen Monatslohn für diesen vollständigen Monat geprüft',
+          type: BusinessInput.toggle,
+        ),
+        const BusinessField(
+          'no_foreseeable_one_off_confirmed',
+          'Keine vorhersehbaren Einmalbezüge in dieser Prognose',
+          type: BusinessInput.toggle,
+        ),
+        BusinessField(
+          'forecast_note',
+          'Belegte Grundlage der Zwölfmonatsprognose',
+          required: true,
+          initial: forecast['note'],
+        ),
+        BusinessField(
+          'assessment_note',
+          'Ergebnis der personenbezogenen Prüfung',
+          required: true,
+          initial: review['verification_note'],
+        ),
+        BusinessField(
+          'verification_note',
+          'Prüfvermerk zum gesamten Abrechnungsfall',
+          required: true,
+          initial: d['verification_note'],
+        ),
+        if (previous != null)
+          const BusinessField(
+            'correction_reason',
+            'Belegter Korrekturgrund',
+            required: true,
+          ),
+      ];
+      final values = await choose(
+        previous == null
+            ? 'Midijob mit belegtem ELStAM-Faktor'
+            : 'Faktor-Midijob berichtigen',
+        fields,
+        saveLabel: 'Faktor-Midijob unverbindlich prüfen',
+      );
+      if (values == null || opening != epoch) return;
+      for (final key in [
+        'sole_employment_confirmed',
+        'full_fixed_monthly_pay_confirmed',
+        'no_foreseeable_one_off_confirmed',
+      ])
+        if (values[key] != true)
+          _fail(
+            'Die tatsächliche vollständige Prognose ohne weitere Beschäftigung oder Einmalbezüge bestätigen.',
+          );
+      await fresh(write: true);
+      if (!mounted ||
+          !readable ||
+          opening != epoch ||
+          !session.hasFeature(payrollFactorTransitionFeature))
+        return;
+      final raw = '${values['regular_monthly_gross']}'.trim().replaceAll(
+        ',',
+        '.',
+      );
+      if (!RegExp(r'^\d{1,4}(?:\.\d{1,2})?$').hasMatch(raw))
+        _fail('Den genauen belegten Monatslohn in Euro angeben.');
+      final parts = raw.split('.'),
+          amount =
+              int.parse(parts.first) * 100 +
+              int.parse((parts.length == 1 ? '' : parts.last).padRight(2, '0'));
+      final originals = businessItems(page['files'])
+          .where((v) => v['id'] == values['forecast_file_id'])
+          .toList();
+      if (originals.length != 1)
+        _fail('Das konkrete eigene Prognoseoriginal auswählen.');
+      final original = originals.single;
+      final assessment = {
+        'schema_version': 1,
+        'employee_id': employeeId,
+        'valid_from': values['valid_from'],
+        'valid_to': values['valid_to'],
+        'declaration_date': values['declaration_date'],
+        'transition_assessment': {
+          'status': 'within_transition_area',
+          'assessed_on': values['assessed_on'],
+          'regular_monthly_gross_minor': amount,
+          'forecast_months': values['forecast_months'],
+          'foreseeable_one_off_payments': false,
+          'note': values['forecast_note'],
+        },
+        'forecast_evidence_ref': {
+          'id': original['id'],
+          'revision': 1,
+          'content_hash': original['content_hash'],
+        },
+        'sole_employment_confirmed': values['sole_employment_confirmed'],
+        'full_fixed_monthly_pay_confirmed':
+            values['full_fixed_monthly_pay_confirmed'],
+        'verification_note': values['assessment_note'],
+      };
+      final body = payrollCalculationCaseInput(employeeId, page, {
+        ...values,
+        'month': month,
+        'rule_version': payrollFactorTransitionRule,
+        'factor_transition_assessment': assessment,
       }, previous: previous);
       final result = payrollCalculationCasePreview(
         await session.api.call(
@@ -1985,6 +2297,14 @@ class _BusinessPayrollCalculationCasesPageState
                   onTap: busy ? null : () => act(() => inspect(old, old: true)),
                 ),
               if (sources != null) ...[
+                if (writable &&
+                    pending == null &&
+                    session.hasFeature(payrollFactorTransitionFeature))
+                  FilledButton.icon(
+                    onPressed: busy ? null : () => editFactorTransition(),
+                    icon: const Icon(Icons.fact_check_outlined),
+                    label: const Text('Midijob mit belegtem ELStAM-Faktor'),
+                  ),
                 if (writable &&
                     pending == null &&
                     session.hasFeature(individualMinijobFeature))

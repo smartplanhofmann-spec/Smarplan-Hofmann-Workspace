@@ -2,7 +2,16 @@
 const ID=/^[a-f0-9]{32}$/, HASH=/^[a-f0-9]{64}$/;
 export const STATEMENT_AMOUNTS={gross_minor:'Brutto',employee_social_total_minor:'Arbeitnehmerbeiträge gesamt',individual_wage_tax_minor:'Lohnsteuer',solidarity_minor:'Solidaritätszuschlag',church_tax_minor:'Kirchenlohnsteuer',employee_tax_minor:'Arbeitnehmersteuern gesamt',net_minor:'Netto',payout_minor:'Berechneter Auszahlungsbetrag',employee_additional_payment_minor:'Zusätzlicher Arbeitnehmerbeitrag',employer_flat_tax_minor:'Arbeitgeber-Pauschsteuer'};
 export const STATEMENT_BRANCHES={health_general:'Krankenversicherung',health_additional:'KV-Zusatzbeitrag',pension:'Rentenversicherung',unemployment:'Arbeitslosenversicherung',care:'Pflegeversicherung'};
-const SCOPES=new Set(['regular_standard_multiple_oneoff','regular_standard_oneoff','regular_standard_segments','regular_transition_segments','commercial_minijob_segments_flat_tax','commercial_minijob_flat_tax','commercial_minijob_period_flat_tax','regular_standard_monthly','regular_standard_factor_monthly','regular_standard_factor_period','regular_standard_period','regular_transition_monthly','regular_transition_period','social_contributions_only']);
+const COMPOSITE_V2=new Map([
+ ['de_2026_segments_entitlements_v5',['regular_standard_segments','regular_transition_segments','commercial_minijob_segments_flat_tax']],
+ ['de_2026_factor_taxfree_travel_month_v10',['regular_standard_factor_taxfree_travel_month']],
+ ['de_2026_individual_minijob_month_v11',['commercial_minijob_individual_month']],
+ ['de_2026_factor_claims_month_v12',['regular_standard_factor_claims_month']],
+ ['de_2026_factor_claims_paid_travel_month_v13',['regular_standard_factor_claims_paid_travel_month']],
+ ['de_2026_factor_transition_month_v14',['regular_transition_factor_month']],
+]);
+const COMPOSITE_V2_SCOPES=new Set([...COMPOSITE_V2.values()].flat());
+const SCOPES=new Set([...COMPOSITE_V2_SCOPES,'regular_standard_multiple_oneoff','regular_standard_oneoff','commercial_minijob_flat_tax','commercial_minijob_period_flat_tax','regular_standard_monthly','regular_standard_factor_monthly','regular_standard_factor_period','regular_standard_period','regular_transition_monthly','regular_transition_period','social_contributions_only']);
 const fail=(message,status=0)=>Object.assign(new Error(message),{status});
 const order=value=>Array.isArray(value)?value.map(order):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(k=>[k,order(value[k])])):value;
 const equal=(a,b)=>JSON.stringify(order(a))===JSON.stringify(order(b));
@@ -27,7 +36,7 @@ export async function payrollStatement(value,employeeId,ref=null){
   if(![1,2,3,4].includes(value.schema_version)||!ID.test(employeeId)||value.employee_id!==employeeId||!ID.test(value.run_ref.id)||!HASH.test(value.run_ref.content_hash)||!HASH.test(value.statement_hash)||!HASH.test(value.pdf_sha256)||typeof value.employee_name!=='string'||!value.employee_name.trim()||!/^20\d{2}-(0[1-9]|1[0-2])$/.test(value.month)||!Number.isFinite(Date.parse(value.created_at))||value.transmission_status!=='not_transmitted'||value.payment_status!=='not_evidenced_by_calculation'||ref&&!equal(ref,value.run_ref))throw fail('Der Mitarbeiterbeleg gehört nicht eindeutig zur gewählten Person und Fassung.');
   integer(value.run_ref.revision,1);integer(value.pdf_size,1,20*1024*1024);
   const c=value.calculation;shape(c,[...(composite?['net_deductions_minor']:[]),...Object.keys(STATEMENT_AMOUNTS),'rule_version','scope','currency','payroll_calculation_complete','employee_contributions']);
-  if((value.schema_version===2)!==(c.rule_version==='de_2026_segments_entitlements_v5')||(value.schema_version===2)!==['regular_standard_segments','regular_transition_segments','commercial_minijob_segments_flat_tax'].includes(c.scope)||(value.schema_version===3)!==(c.rule_version==='de_2026_oneoff_composition_v6')||(value.schema_version===3)!==(c.scope==='regular_standard_oneoff')||(value.schema_version===4)!==(c.rule_version==='de_2026_multiple_oneoff_v7')||(value.schema_version===4)!==(c.scope==='regular_standard_multiple_oneoff'))throw fail('Die Belegversion stimmt nicht mit dem Gesamtlohnregelstand überein.');
+  if((value.schema_version===2)!==COMPOSITE_V2.has(c.rule_version)||(value.schema_version===2)!==COMPOSITE_V2_SCOPES.has(c.scope)||value.schema_version===2&&!COMPOSITE_V2.get(c.rule_version)?.includes(c.scope)||(value.schema_version===3)!==(c.rule_version==='de_2026_oneoff_composition_v6')||(value.schema_version===3)!==(c.scope==='regular_standard_oneoff')||(value.schema_version===4)!==(c.rule_version==='de_2026_multiple_oneoff_v7')||(value.schema_version===4)!==(c.scope==='regular_standard_multiple_oneoff'))throw fail('Die Belegversion stimmt nicht mit dem Gesamtlohnregelstand überein.');
   const deductions=composite?integer(c.net_deductions_minor):0;
   if(c.currency!=='EUR'||typeof c.rule_version!=='string'||!SCOPES.has(c.scope)||typeof c.payroll_calculation_complete!=='boolean')throw fail('Der ausgewiesene Berechnungsumfang ist nicht bekannt.');
   for(const k of Object.keys(STATEMENT_AMOUNTS))if(c[k]!==null)integer(c[k],k==='net_minor'?-1e12:0);

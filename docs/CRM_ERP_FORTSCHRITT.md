@@ -3662,3 +3662,16 @@ Zahlungen/PDF. V4 ist noch unveröffentlicht; weitere Grenzen, beide Clients,
 EÜR-Jahresfortschreibung und tatsächliches PostgreSQL/Restore sind aktive Arbeit.
 Weitere Gesamtzielpunkte bleiben erhalten. Keine neue Liveinstallation,
 Überweisung, Meldung oder produktive Gesamtfreigabe.
+
+## 10.11.2026 – V3-Folgeketten nach tatsächlichen späteren Bonuszahlungen
+
+Die [Folgekettenkorrektur](CRM_ERP_SOURCE5_ZAHLUNGSTAGE_V3_FOLGEKETTEN_2026-11-10.md)
+erhält bereits validierte spätere reine Bonus-Nettoanteile innerhalb des
+unveränderten Zahlungspräfixes. Die Jahresbasis zählt den ursprünglichen
+Bruttozufluss einmal und verlangt die tatsächlichen Nettofakten bis zum
+Stichtag. Laufende Reisezahlungen und alte V1/V2-Verträge werden nicht geöffnet.
+Ein neuer tatsächlicher PG-/MFA-/Jahresfall, 32 Backend-, 15 historische Jahres-
+und acht bestehende native Bedienfälle bestehen. Quellhashes und Rohläufe sind
+verlinkt; historische 2026-Kerne und alte Zahlungsdatei bleiben bytegleich.
+Der veröffentlichte Vorgänger 17978f6 läuft weiterhin in seinen eigenen
+Remoteprüfungen. Die neue Korrektur und weitere V4-Codearbeit werden fortgesetzt.

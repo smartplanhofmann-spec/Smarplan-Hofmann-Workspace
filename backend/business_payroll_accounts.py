@@ -289,7 +289,8 @@ class PayrollAccounts:
             # have a later cash month. The full old transfer/allocation prefix,
             # including every original travel amount/date, is already sealed.
             # Other payroll/travel contracts retain their original date guard.
-            additional=(sources['single_payment_plan']['new_payment_indexes']
+            additional=(tuple(a['payment_index'] for a in sources['single_payment_plan']['allocations']
+                if a['running_minor']==0)
                 if source_version==5 and details['payment_source_schema_version']==3 else ())
             self._payment_fields(details,record['calculation'],record['source']['month'],verified_composite=source_version in (3,4,5),
                 receipt_date=record['calculation']['one_off_details']['receipt_date'] if source_version==4 else None,

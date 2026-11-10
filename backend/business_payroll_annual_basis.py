@@ -261,8 +261,16 @@ class PayrollAnnualBasis:
             bonus_payments=payment['details']['payments'] if payment else []
             if source.get('source_schema_version')==5 and payment:
                 bonus_payments=[payment['details']['payments'][item['payment_index']] for item in payment['details']['settlement_allocations'] if item['one_off_allocations']]
-            if not payment or not bonus_payments or any(
-                    part['paid_on']!=extra['receipt_date'] or part['paid_on']>as_of_date for part in bonus_payments):
+            actual_adjustment=(source.get('source_schema_version')==5 and payment
+                and payment['details'].get('payment_source_schema_version')==3)
+            # Every predecessor and the unchanged gross event are resolved
+            # above. Later pure V3 net transfers create no new gross receipt.
+            # The positive original bonus-day proof must remain present.
+            original_receipt=(any(part['paid_on']==extra['receipt_date'] and part['amount_minor']>0
+                for part in bonus_payments) if actual_adjustment else True)
+            if not payment or not bonus_payments or not original_receipt or any(
+                    (not actual_adjustment and part['paid_on']!=extra['receipt_date']) or part['paid_on']>as_of_date
+                    for part in bonus_payments):
                 raise Problem(409,'Ein früherer interner Einmalbezug benötigt seinen tatsächlichen vollständig gebundenen Zufluss bis zum Jahresstichtag.')
             projected_ref=run_ref if assignment['assigned_period_ref']==reference(source['calculation_case']) else assignment['assigned_period_ref']
             projection['one_off_payment']=dict(source_ref=run_ref,payment_ref=reference(payment),

@@ -2523,8 +2523,9 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
       'Belegte zusätzliche Nettozahlung: ${payrollMoney(transition['additional_net_minor'])}. '
       'Bisher erfüllt: ${payrollMoney(transition['prior_total_net_minor'])}; '
       'korrigierte Nettoschuld: ${payrollMoney(transition['total_net_minor'])}. '
-      'Die bisherigen Zahlungsteile bleiben unverändert. Der zusätzliche Betrag muss '
-      'am ursprünglichen Zuflusstag ${businessDate(transition['receipt_date'])} tatsächlich belegt sein. '
+      'Die bisherigen Zahlungsteile bleiben unverändert. Der ursprüngliche Bruttozufluss bleibt '
+      'am ${businessDate(transition['receipt_date'])}. Der zusätzliche Nettobetrag benötigt '
+      'seinen tatsächlich belegten zulässigen Zahlungstag. '
       'Das Speichern löst keine Überweisung aus.',
     );
   }

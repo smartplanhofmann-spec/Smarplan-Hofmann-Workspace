@@ -150,6 +150,36 @@ class ActualPaymentDatesPostgres(unittest.TestCase):
         self.assertEqual(self.call('POST', '/business/payroll/account-records', payment_command).json, results[0])
         self.assertTrue(business_schema.validate_integrity(self.office))
 
+    def test_second_later_bonus_date_preserves_the_already_validated_travel_prefix(self):
+        data=self.workflow()
+        _,_,command=self.correction(data)
+        first=self.call('POST','/business/payroll/runs',command).json
+        paid,_=self.pay(data,first,data['payment'],day='2026-11-01')
+        self.assertTrue(first['calculation']['travel_expenses_included_in_net'])
+        self.forecast(data,500000)
+        previous_case=self.call('GET','/business/payroll/multiple-one-off-cases/'+data['case']['id']).json
+        case=self.save_case(data,previous_case)
+        _,command=self.prepare_run(data,case,first)
+        second=self.call('POST','/business/payroll/runs',command).json
+        self.assertGreater(second['settlement_transition']['additional_net_minor'],0)
+        final,_=self.pay(data,second,paid,day='2026-11-02')
+        self.assertEqual(final['details']['payments'][:3],paid['details']['payments'])
+        self.assertEqual(final['details']['payments'][2]['paid_on'],'2026-11-01')
+        self.assertEqual(final['details']['payments'][3]['paid_on'],'2026-11-02')
+        self.assertEqual(final['sources']['single_payment_plan']['bonus_receipt_date'],'2026-10-31')
+        annual_details=deepcopy(data['annual_basis']['details'])
+        annual_details.update(as_of_date='2026-11-02',current_calculation_case_ref=None,
+            payroll_run_refs=[reference(second)],payroll_payment_refs=[reference(final)])
+        proposal=dict(employee_id=data['employee']['id'],employee_revision=data['employee']['revision'],
+            kind='annual_basis',details=annual_details,source_file_ids=[data['file']['id']])
+        annual_preview=self.call('POST','/business/payroll/annual-facts/preview',proposal).json
+        annual=self.call('POST','/business/payroll/annual-facts',prior.req(**proposal,revision=0,status='active',
+            confirmed=True,preview_hash=annual_preview['preview_hash'])).json
+        self.assertEqual(annual['plan']['earlier_other_taxable_minor'],50000)
+        self.assertEqual(len(annual['plan']['projection']['prior_one_offs']),1)
+        self.assertEqual(annual['sources']['payroll_runs'][0]['projection_format'],'source5_annual_reference_v1')
+        self.assertTrue(business_schema.validate_integrity(self.office))
+
 
 if __name__ == '__main__':
     unittest.main()

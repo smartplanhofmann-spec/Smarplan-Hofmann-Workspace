@@ -1,0 +1,141 @@
+{
+  "commit": "eb74fb52a40b8baf25eced4caf1b51a7bc1d9101",
+  "run_id": 42771773498,
+  "artifacts": [
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13743940024/zip",
+      "digest": "sha256:12fc74e5e4f238ac60359a1cdcb731cca2c7e994bf4c234f9f471c4156e847ea",
+      "expired": false,
+      "id": 13743940024,
+      "name": "Smartplan-Browser-Checks-0",
+      "size_in_bytes": 12064733
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13743126018/zip",
+      "digest": "sha256:f5a2711486e9699315d5a9eb9e1ea0164328d666979e40f7bb01cf32bf8bb992",
+      "expired": false,
+      "id": 13743126018,
+      "name": "Smartplan-Browser-Checks-4",
+      "size_in_bytes": 7652309
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13743101506/zip",
+      "digest": "sha256:5c17af34e49b5c5adc5dd7c74cf99f9be94cd3699d62924d90bf6d8f226c43a7",
+      "expired": false,
+      "id": 13743101506,
+      "name": "Smartplan-Office-Windows",
+      "size_in_bytes": 36488369
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13742981301/zip",
+      "digest": "sha256:59368e866c0cefdbc48b39c478a4bc86910142ffc103b094bd66d3d8879be94c",
+      "expired": false,
+      "id": 13742981301,
+      "name": "Smartplan-Browser-Checks-5",
+      "size_in_bytes": 9005667
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13742910471/zip",
+      "digest": "sha256:451b138e64eebf55be323e7beefdaf66b0b00a886603dacafb8d47d0978e43c6",
+      "expired": false,
+      "id": 13742910471,
+      "name": "Smartplan-Browser-Checks-1",
+      "size_in_bytes": 4118946
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13742805103/zip",
+      "digest": "sha256:5d0940c7b1eda508d7b34f5845562b75f1447e96cc0d40169db278970ee5be79",
+      "expired": false,
+      "id": 13742805103,
+      "name": "Smartplan-Online-Checks-2",
+      "size_in_bytes": 15747
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13742737891/zip",
+      "digest": "sha256:07568ed5d15bc40b48bf425fdf72de7304e4ec971d646279b31779fc70070b4e",
+      "expired": false,
+      "id": 13742737891,
+      "name": "Smartplan-Office-Windows-Online-Pilot",
+      "size_in_bytes": 22149552
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13742708971/zip",
+      "digest": "sha256:3b462bbee46862093564c243152833ed805e0afbb0c0f111ddb50f8c72ec60ef",
+      "expired": false,
+      "id": 13742708971,
+      "name": "Smartplan-Online-Checks-5",
+      "size_in_bytes": 15518
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13742705964/zip",
+      "digest": "sha256:ca4c402aff056c57ec406bbe1710aacc5d09d1455325abca1fca98f8503b5cb1",
+      "expired": false,
+      "id": 13742705964,
+      "name": "Smartplan-Online-Checks-0",
+      "size_in_bytes": 17094
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13742681164/zip",
+      "digest": "sha256:54f49bf27a483a955d1d0451f2dbe400eddfc07a687d745dd6d4791c1fd3ad76",
+      "expired": false,
+      "id": 13742681164,
+      "name": "Smartplan-Browser-Checks-3",
+      "size_in_bytes": 4495933
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13742408452/zip",
+      "digest": "sha256:273bb17f9f4d61d6174865f40db4bc341cbc83e5d271375f7a916d862dc5b3a1",
+      "expired": false,
+      "id": 13742408452,
+      "name": "Smartplan-Online-Checks-1",
+      "size_in_bytes": 16010
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13742393847/zip",
+      "digest": "sha256:a3a00254a8f64640dabee51317e23850dbcbfdde8421081f69213894c5262837",
+      "expired": false,
+      "id": 13742393847,
+      "name": "Smartplan-UI-Previews",
+      "size_in_bytes": 1051106
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13742352932/zip",
+      "digest": "sha256:96aad373ebc2f17e24860e1a228a0076f4ae04617d41f72822beb85733d4a8dc",
+      "expired": false,
+      "id": 13742352932,
+      "name": "Smartplan-Online-Checks-3",
+      "size_in_bytes": 16650
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13742239170/zip",
+      "digest": "sha256:d7bea338763a185443328ed920b13a8de973f078479da62019f429da85bccce5",
+      "expired": false,
+      "id": 13742239170,
+      "name": "Smartplan-Online-Checks-4",
+      "size_in_bytes": 14388
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13741703110/zip",
+      "digest": "sha256:be2c754039bdfb557ae671f7f596a5a29831dd40696faa3659beaeaedab2512d",
+      "expired": false,
+      "id": 13741703110,
+      "name": "Smartplan-Windows-Start-und-Sicherung",
+      "size_in_bytes": 15548927
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13741504760/zip",
+      "digest": "sha256:49fac08b83fcad2db1e4e0bb636e81e951b6fc9aae668bec39cd5541a10cf2af",
+      "expired": false,
+      "id": 13741504760,
+      "name": "Smartplan-Browser-Checks-2",
+      "size_in_bytes": 9221557
+    }
+  ],
+  "online_artifact_connector_download": {
+    "artifact_id": 13742737891,
+    "success": true,
+    "file_id": "file_00000000771881f4a1819a78398f40f3",
+    "local_bytes_verified": false,
+    "local_download": "Sandbox proxy connection failed; same inherited proxy outside sandbox returned403. No bypass attempted."
+  }
+}

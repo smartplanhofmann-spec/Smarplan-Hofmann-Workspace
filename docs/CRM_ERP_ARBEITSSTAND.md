@@ -4,6 +4,18 @@ Stand: 10.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
+**Aktueller Schlussnachweis10.11.:** Der bestätigte Testbranch eb74fb5 besteht
+sämtliche20 eigenen Development42771773498-Jobs. Alle79 lokalen Browserauswahlen
+sind tatsächlich abgeschlossen:77 im Erstlauf und zwei mit getrennt erhaltenem
+Fehler/Wiederholungsnachweis.124 gerenderte Zustände,76 Fokus-/Tastaturfälle,
+1041 Browsermodulfälle und151 rohe Prüfdateien sind gesichert.
+[Abschluss, Artefakte und genaue Grenzen](CRM_ERP_GESAMTPRUEFUNG_ABSCHLUSS_2026-11-10.md).
+Unsignierter iPhone42771773315-Lauf noch aktiv, keine Live-/Geräteabnahme. Nur
+die zusätzliche lokale Source4-Testbeobachtung und Abschlussbelege sind noch
+nicht neu veröffentlicht. Der Runtimeproduktcode ist unverändert13fa17d.
+Die Faktor-/P4-/bereits-bezahlte-Reiseverbindung wird als nächster Abschnitt
+weiterentwickelt; der ganze Auftrag bleibt aktiv. Ältere Momentaufnahmen folgen.
+
 **Aktueller gemeinsamer Produktcode13fa17d (10.11.):** Altprotokollabgleich,
 vollständige CI-Prüfgruppen und korrigierte zentrale Dialog-/Tabellenbedienung
 sind integriert.124 echte gerenderte Zustände mit76 Tastatur-/Hintergrundfällen,

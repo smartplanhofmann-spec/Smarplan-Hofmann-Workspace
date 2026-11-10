@@ -593,3 +593,20 @@ ist inzwischen tatsächlich vollständig grün: alle acht Development-Jobs von
 TestFlight-Upload übersprungen. Eigene neue Remote-CI, Serverinstallation,
 Geräte-/Fach-/Sicherheitsprüfung und ganze A–G-Abnahme bleiben eigene Nachweise.
 Der Gesamtauftrag läuft nach diesem technischen Abschnitt weiter.
+
+
+## 10.11.2026 –79 Browserauswahlen und20 aktuelle Developmentjobs abgeschlossen
+
+[Gemeinsamer Schlussnachweis](CRM_ERP_GESAMTPRUEFUNG_ABSCHLUSS_2026-11-10.md):
+Alle79 ausgewählten tatsächlichen Browserabläufe sind abgeschlossen:77 im
+Erstlauf, zwei mit ausdrücklich erhaltenem Erstfehler und wirklicher
+Wiederholung (eigene DiskFull-Fixture51,584s; reale Source4-Antwortbytes62,806s).
+151 rohe Prüfdateien,124 gerenderte Zustände,76 Fokus-/Tastaturfälle, echte
+Screenshots,1041 Browsermodulfälle sowie tatsächliche PG-/Restore-/Runtime-
+Nachweise sind gesichert. Der veröffentlichte eb74fb5 besteht alle20 eigenen
+Development42771773498-Jobs; Windowsartefakte sind anhand wirklicher IDs
+verzeichnet. Unsignierter iPhone42771773315-Lauf noch aktiv, keine neue
+Live-/Geräteabnahme. Die lokale zusätzliche Source4-Testbeobachtung und dieser
+Schlussnachweis sind noch nicht neu veröffentlicht; Runtimeprodukt unverändert.
+Der Gesamtauftrag wird unmittelbar mit der additiven Faktor-/P4-/bezahlten-
+Reiseverbindung fortgesetzt. Kein Teilabschluss beendet den Auftrag.

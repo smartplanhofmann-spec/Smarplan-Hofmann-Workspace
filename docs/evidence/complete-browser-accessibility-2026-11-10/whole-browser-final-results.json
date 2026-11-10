@@ -1,0 +1,647 @@
+{
+  "selected": 79,
+  "first_attempt_passed": 77,
+  "first_attempt_failed": 2,
+  "first_failure_ids": [
+    "document-time-billing",
+    "payroll-oneoff-cases"
+  ],
+  "final_unique_passed": 79,
+  "final_unique_failed": 0,
+  "same_runtime_product_commit": "13fa17d74b21c2a18a7c140794fec3ca8a0eed5b",
+  "one_test_observer_correction": "web/office/tests/payroll-oneoff-own-flow.cjs",
+  "all_results": [
+    {
+      "id": "default",
+      "exit_code": 0,
+      "seconds": 1231.564,
+      "log": "default.txt",
+      "group": 0,
+      "attempt": "initial"
+    },
+    {
+      "id": "travel-v3",
+      "exit_code": 0,
+      "seconds": 63.621,
+      "log": "travel-v3.txt",
+      "group": 0,
+      "attempt": "initial"
+    },
+    {
+      "id": "project-tasks",
+      "exit_code": 0,
+      "seconds": 20.968,
+      "log": "project-tasks.txt",
+      "group": 0,
+      "attempt": "initial"
+    },
+    {
+      "id": "commercial-country-scope",
+      "exit_code": 0,
+      "seconds": 14.789,
+      "log": "commercial-country-scope.txt",
+      "group": 0,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-factor-claims",
+      "exit_code": 0,
+      "seconds": 20.748,
+      "log": "payroll-factor-claims.txt",
+      "group": 0,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-calculation-cases",
+      "exit_code": 0,
+      "seconds": 21.771,
+      "log": "payroll-calculation-cases.txt",
+      "group": 0,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-positive-correction",
+      "exit_code": 0,
+      "seconds": 37.923,
+      "log": "payroll-positive-correction.txt",
+      "group": 0,
+      "attempt": "initial"
+    },
+    {
+      "id": "assistant",
+      "exit_code": 0,
+      "seconds": 36.204,
+      "log": "assistant.txt",
+      "group": 0,
+      "attempt": "initial"
+    },
+    {
+      "id": "service",
+      "exit_code": 0,
+      "seconds": 22.521,
+      "log": "service.txt",
+      "group": 0,
+      "attempt": "initial"
+    },
+    {
+      "id": "accounting-open-items",
+      "exit_code": 0,
+      "seconds": 58.118,
+      "log": "accounting-open-items.txt",
+      "group": 0,
+      "attempt": "initial"
+    },
+    {
+      "id": "accessibility",
+      "exit_code": 0,
+      "seconds": 35.247,
+      "log": "accessibility.txt",
+      "group": 0,
+      "attempt": "initial"
+    },
+    {
+      "id": "accounting-components",
+      "exit_code": 0,
+      "seconds": 147.058,
+      "log": "accounting-components.txt",
+      "group": 0,
+      "attempt": "initial"
+    },
+    {
+      "id": "purchasing-receipts",
+      "exit_code": 0,
+      "seconds": 18.642,
+      "log": "purchasing-receipts.txt",
+      "group": 0,
+      "attempt": "initial"
+    },
+    {
+      "id": "accessibility-forms",
+      "exit_code": 0,
+      "seconds": 189.249,
+      "log": "accessibility-forms.txt",
+      "group": 0,
+      "attempt": "initial"
+    },
+    {
+      "id": "accounting-openings",
+      "exit_code": 0,
+      "seconds": 61.994,
+      "log": "accounting-openings.txt",
+      "group": 1,
+      "attempt": "initial"
+    },
+    {
+      "id": "private-car-mileage",
+      "exit_code": 0,
+      "seconds": 103.847,
+      "log": "private-car-mileage.txt",
+      "group": 1,
+      "attempt": "initial"
+    },
+    {
+      "id": "project-milestones",
+      "exit_code": 0,
+      "seconds": 32.473,
+      "log": "project-milestones.txt",
+      "group": 1,
+      "attempt": "initial"
+    },
+    {
+      "id": "time-tracking",
+      "exit_code": 0,
+      "seconds": 28.61,
+      "log": "time-tracking.txt",
+      "group": 1,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-individual-minijob",
+      "exit_code": 0,
+      "seconds": 59.582,
+      "log": "payroll-individual-minijob.txt",
+      "group": 1,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-wage-interruptions",
+      "exit_code": 0,
+      "seconds": 49.266,
+      "log": "payroll-wage-interruptions.txt",
+      "group": 1,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-payment-dates",
+      "exit_code": 0,
+      "seconds": 62.121,
+      "log": "payroll-payment-dates.txt",
+      "group": 1,
+      "attempt": "initial"
+    },
+    {
+      "id": "company-events",
+      "exit_code": 0,
+      "seconds": 64.814,
+      "log": "company-events.txt",
+      "group": 1,
+      "attempt": "initial"
+    },
+    {
+      "id": "maintenance-contracts",
+      "exit_code": 0,
+      "seconds": 26.307,
+      "log": "maintenance-contracts.txt",
+      "group": 1,
+      "attempt": "initial"
+    },
+    {
+      "id": "bank-reconciliation",
+      "exit_code": 0,
+      "seconds": 65.354,
+      "log": "bank-reconciliation.txt",
+      "group": 1,
+      "attempt": "initial"
+    },
+    {
+      "id": "invoice-chain",
+      "exit_code": 0,
+      "seconds": 17.46,
+      "log": "invoice-chain.txt",
+      "group": 1,
+      "attempt": "initial"
+    },
+    {
+      "id": "accounting-profile",
+      "exit_code": 0,
+      "seconds": 99.543,
+      "log": "accounting-profile.txt",
+      "group": 1,
+      "attempt": "initial"
+    },
+    {
+      "id": "customer-workspace",
+      "exit_code": 0,
+      "seconds": 54.769,
+      "log": "customer-workspace.txt",
+      "group": 1,
+      "attempt": "initial"
+    },
+    {
+      "id": "project-economics",
+      "exit_code": 0,
+      "seconds": 42.773,
+      "log": "project-economics.txt",
+      "group": 2,
+      "attempt": "initial"
+    },
+    {
+      "id": "private-car-mileage-restart",
+      "exit_code": 0,
+      "seconds": 126.063,
+      "log": "private-car-mileage-restart.txt",
+      "group": 2,
+      "attempt": "initial"
+    },
+    {
+      "id": "project-customer",
+      "exit_code": 0,
+      "seconds": 27.808,
+      "log": "project-customer.txt",
+      "group": 2,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll",
+      "exit_code": 0,
+      "seconds": 68.868,
+      "log": "payroll.txt",
+      "group": 2,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-periods",
+      "exit_code": 0,
+      "seconds": 50.526,
+      "log": "payroll-periods.txt",
+      "group": 2,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-annual-basis",
+      "exit_code": 0,
+      "seconds": 50.027,
+      "log": "payroll-annual-basis.txt",
+      "group": 2,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-repayment",
+      "exit_code": 0,
+      "seconds": 59.961,
+      "log": "payroll-repayment.txt",
+      "group": 2,
+      "attempt": "initial"
+    },
+    {
+      "id": "speech",
+      "exit_code": 0,
+      "seconds": 28.9,
+      "log": "speech.txt",
+      "group": 2,
+      "attempt": "initial"
+    },
+    {
+      "id": "document-time-billing",
+      "exit_code": 0,
+      "seconds": 51.584,
+      "log": "document-time-billing.txt",
+      "attempt": "corrected_followup",
+      "report": "complete-accessibility-document-time-retry-20261110.json"
+    },
+    {
+      "id": "resource-custody",
+      "exit_code": 0,
+      "seconds": 34.787,
+      "log": "resource-custody.txt",
+      "group": 2,
+      "attempt": "initial"
+    },
+    {
+      "id": "inventory-counts",
+      "exit_code": 0,
+      "seconds": 36.199,
+      "log": "inventory-counts.txt",
+      "group": 2,
+      "attempt": "initial"
+    },
+    {
+      "id": "accounting-refunds",
+      "exit_code": 0,
+      "seconds": 240.13,
+      "log": "accounting-refunds.txt",
+      "group": 2,
+      "attempt": "initial"
+    },
+    {
+      "id": "accounting-euer",
+      "exit_code": 0,
+      "seconds": 58.872,
+      "log": "accounting-euer.txt",
+      "group": 2,
+      "attempt": "initial"
+    },
+    {
+      "id": "asset-provenance",
+      "exit_code": 0,
+      "seconds": 39.959,
+      "log": "asset-provenance.txt",
+      "group": 3,
+      "attempt": "initial"
+    },
+    {
+      "id": "sales",
+      "exit_code": 0,
+      "seconds": 22.041,
+      "log": "sales.txt",
+      "group": 3,
+      "attempt": "initial"
+    },
+    {
+      "id": "inventory-article-refs",
+      "exit_code": 0,
+      "seconds": 16.103,
+      "log": "inventory-article-refs.txt",
+      "group": 3,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-transition",
+      "exit_code": 0,
+      "seconds": 23.032,
+      "log": "payroll-transition.txt",
+      "group": 3,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-factor-periods",
+      "exit_code": 0,
+      "seconds": 31.81,
+      "log": "payroll-factor-periods.txt",
+      "group": 3,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-zero-account",
+      "exit_code": 0,
+      "seconds": 24.782,
+      "log": "payroll-zero-account.txt",
+      "group": 3,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-adjustment",
+      "exit_code": 0,
+      "seconds": 106.948,
+      "log": "payroll-adjustment.txt",
+      "group": 3,
+      "attempt": "initial"
+    },
+    {
+      "id": "company-handover",
+      "exit_code": 0,
+      "seconds": 37.818,
+      "log": "company-handover.txt",
+      "group": 3,
+      "attempt": "initial"
+    },
+    {
+      "id": "privacy-cases",
+      "exit_code": 0,
+      "seconds": 41.231,
+      "log": "privacy-cases.txt",
+      "group": 3,
+      "attempt": "initial"
+    },
+    {
+      "id": "purchase-changes",
+      "exit_code": 0,
+      "seconds": 27.831,
+      "log": "purchase-changes.txt",
+      "group": 3,
+      "attempt": "initial"
+    },
+    {
+      "id": "company-overview",
+      "exit_code": 0,
+      "seconds": 18.076,
+      "log": "company-overview.txt",
+      "group": 3,
+      "attempt": "initial"
+    },
+    {
+      "id": "accounting-refunds-v2",
+      "exit_code": 0,
+      "seconds": 343.585,
+      "log": "accounting-refunds-v2.txt",
+      "group": 3,
+      "attempt": "initial"
+    },
+    {
+      "id": "accounting-year-package",
+      "exit_code": 0,
+      "seconds": 40.44,
+      "log": "accounting-year-package.txt",
+      "group": 3,
+      "attempt": "initial"
+    },
+    {
+      "id": "personnel-workflow",
+      "exit_code": 0,
+      "seconds": 115.034,
+      "log": "personnel-workflow.txt",
+      "group": 4,
+      "attempt": "initial"
+    },
+    {
+      "id": "communication-history",
+      "exit_code": 0,
+      "seconds": 21.657,
+      "log": "communication-history.txt",
+      "group": 4,
+      "attempt": "initial"
+    },
+    {
+      "id": "material-return",
+      "exit_code": 0,
+      "seconds": 24.491,
+      "log": "material-return.txt",
+      "group": 4,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-factor",
+      "exit_code": 0,
+      "seconds": 32.151,
+      "log": "payroll-factor.txt",
+      "group": 4,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-entitlements",
+      "exit_code": 0,
+      "seconds": 35.225,
+      "log": "payroll-entitlements.txt",
+      "group": 4,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-oneoff-cases",
+      "exit_code": 0,
+      "seconds": 62.806,
+      "log": "payroll-oneoff-cases.txt",
+      "attempt": "corrected_followup",
+      "report": "complete-accessibility-oneoff-final-20261110.json"
+    },
+    {
+      "id": "mobile-login",
+      "exit_code": 0,
+      "seconds": 27.847,
+      "log": "mobile-login.txt",
+      "group": 4,
+      "attempt": "initial"
+    },
+    {
+      "id": "migrations",
+      "exit_code": 0,
+      "seconds": 31.312,
+      "log": "migrations.txt",
+      "group": 4,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-cash",
+      "exit_code": 0,
+      "seconds": 90.036,
+      "log": "payroll-cash.txt",
+      "group": 4,
+      "attempt": "initial"
+    },
+    {
+      "id": "catalog-imports",
+      "exit_code": 0,
+      "seconds": 58.916,
+      "log": "catalog-imports.txt",
+      "group": 4,
+      "attempt": "initial"
+    },
+    {
+      "id": "accounting-allocation",
+      "exit_code": 0,
+      "seconds": 117.611,
+      "log": "accounting-allocation.txt",
+      "group": 4,
+      "attempt": "initial"
+    },
+    {
+      "id": "planning-relogin",
+      "exit_code": 0,
+      "seconds": 103.412,
+      "log": "planning-relogin.txt",
+      "group": 4,
+      "attempt": "initial"
+    },
+    {
+      "id": "accounting-year-package-v2",
+      "exit_code": 0,
+      "seconds": 39.765,
+      "log": "accounting-year-package-v2.txt",
+      "group": 4,
+      "attempt": "initial"
+    },
+    {
+      "id": "travel-allowances",
+      "exit_code": 0,
+      "seconds": 259.119,
+      "log": "travel-allowances.txt",
+      "group": 5,
+      "attempt": "initial"
+    },
+    {
+      "id": "project-context",
+      "exit_code": 0,
+      "seconds": 37.086,
+      "log": "project-context.txt",
+      "group": 5,
+      "attempt": "initial"
+    },
+    {
+      "id": "material-return-restart",
+      "exit_code": 0,
+      "seconds": 44.622,
+      "log": "material-return-restart.txt",
+      "group": 5,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-factor-travel",
+      "exit_code": 0,
+      "seconds": 98.237,
+      "log": "payroll-factor-travel.txt",
+      "group": 5,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-travel-tax-policies",
+      "exit_code": 0,
+      "seconds": 31.728,
+      "log": "payroll-travel-tax-policies.txt",
+      "group": 5,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-multiple-cases",
+      "exit_code": 0,
+      "seconds": 103.026,
+      "log": "payroll-multiple-cases.txt",
+      "group": 5,
+      "attempt": "initial"
+    },
+    {
+      "id": "payroll-statements",
+      "exit_code": 0,
+      "seconds": 42.148,
+      "log": "payroll-statements.txt",
+      "group": 5,
+      "attempt": "initial"
+    },
+    {
+      "id": "custom-fields",
+      "exit_code": 0,
+      "seconds": 29.491,
+      "log": "custom-fields.txt",
+      "group": 5,
+      "attempt": "initial"
+    },
+    {
+      "id": "historical-assets",
+      "exit_code": 0,
+      "seconds": 46.708,
+      "log": "historical-assets.txt",
+      "group": 5,
+      "attempt": "initial"
+    },
+    {
+      "id": "catalog-prices",
+      "exit_code": 0,
+      "seconds": 30.548,
+      "log": "catalog-prices.txt",
+      "group": 5,
+      "attempt": "initial"
+    },
+    {
+      "id": "accounting-capacity",
+      "exit_code": 0,
+      "seconds": 171.209,
+      "log": "accounting-capacity.txt",
+      "group": 5,
+      "attempt": "initial"
+    },
+    {
+      "id": "purchasing-catalog",
+      "exit_code": 0,
+      "seconds": 19.63,
+      "log": "purchasing-catalog.txt",
+      "group": 5,
+      "attempt": "initial"
+    },
+    {
+      "id": "accounting-year-values-profile-void",
+      "exit_code": 0,
+      "seconds": 43.068,
+      "log": "accounting-year-values-profile-void.txt",
+      "group": 5,
+      "attempt": "initial"
+    }
+  ]
+}

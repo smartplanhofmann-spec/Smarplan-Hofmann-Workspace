@@ -51,8 +51,25 @@
     "whole_current_browser": {
       "cases_selected": 79,
       "groups": 6,
-      "status": "ACTIVELY_RUNNING_NOT_YET_COMPLETE",
-      "raw_process_state": "/tmp/complete-accessibility-group-processes-20261110.json"
+      "complete": true,
+      "first_attempt_passed": 77,
+      "first_attempt_failed": 2,
+      "corrected_followups": {
+        "document-time-billing": {
+          "passed": true,
+          "seconds": 51.584,
+          "reason": "DiskFull in synthetic fixture migration; ignored regenerable test caches removed, same guarded own PG repeated"
+        },
+        "payroll-oneoff-cases": {
+          "passed": true,
+          "seconds": 62.806,
+          "reason": "Transparent upstream JSON retention, no change to product data or assertions"
+        }
+      },
+      "final_unique_passed": 79,
+      "final_unique_failed": 0,
+      "same_runtime_product_commit": "13fa17d74b21c2a18a7c140794fec3ca8a0eed5b",
+      "result": "whole-browser-final-results.json"
     }
   },
   "last_all_green": {
@@ -85,7 +102,8 @@
     "web/office/tests/accessibility-forms-flow.cjs": "821ffe8c5c5dad94f096180028ab8ae33befc19cf7905e48ec6e7603618abe9a",
     "web/office/tests/accounting-year-package-v2-flow.cjs": "1954b7854c1910c75592bdec897fce6792e42769fd482274093c72516c71de42",
     "web/office/tests/e2e.cjs": "e33af869ebd5c680dc886572849493760086c824f6373229a9b6e0e55da06b87",
-    "web/office/tests/material-return-flow.cjs": "1405f47f34ae9e257108c423f2f3b9d44abf700946211c1e9583f503276adeb6"
+    "web/office/tests/material-return-flow.cjs": "1405f47f34ae9e257108c423f2f3b9d44abf700946211c1e9583f503276adeb6",
+    "web/office/tests/payroll-oneoff-own-flow.cjs": "e85ae19f0d7872aae8c87b99579b29ba7982967108bfc125b50e8abc7358a451"
   },
   "unchanged_kernels": [
     {
@@ -519,6 +537,618 @@
       "bytes": 211,
       "sha256": "4bd425d6c49b5a3317ae3e5c5d2a3d0791737e33a021d4f969fd7684ceffce9f",
       "gzip_sha256": "558962e28589d6a88b85a318b3bd4c8ee82e01da51c6834cad99a83c7aac6abb"
+    },
+    {
+      "file": "complete-accessibility-group0-20261110.txt.gz",
+      "bytes": 16782,
+      "sha256": "a1620f4bbb03261993d4eace146987063c6871ba3ae8ead1bc89a70b4965c93a",
+      "gzip_sha256": "3d34f16d826451863a1c60f9a0c5d6263dcad1f38b485742e81b98ef3d297e88"
+    },
+    {
+      "file": "complete-accessibility-group0-results-20261110.json.gz",
+      "bytes": 2349,
+      "sha256": "0de3dd6a53d11a116ba5758f5d745187900c59f5ef5c1cffdc02cbce70dda5ac",
+      "gzip_sha256": "6489db762f552ea985921db4f76eb2dfbc0c8fc9fcd9ada322dae82ff2a4bcb8"
+    },
+    {
+      "file": "complete-accessibility-group0-results-20261110.logs-accessibility-forms.txt.gz",
+      "bytes": 5782,
+      "sha256": "961eced1c71e7d765d92e2f030e8e5f59ad497358f640e794b2b516a447dc5bf",
+      "gzip_sha256": "06d33e712b9e6ebaba733b9af33a10915ee9e52fa2f6a5295a983c99c85de9f7"
+    },
+    {
+      "file": "complete-accessibility-group0-results-20261110.logs-purchasing-receipts.txt.gz",
+      "bytes": 329,
+      "sha256": "f1c4423d7ed53f0457f2ffb19c9f689e13733936c90ef0aa6a4af8c4792f94e5",
+      "gzip_sha256": "7af22612a797c44b64e5b881c7232c9eb63dd2306770fc6a023b2eef50664ea2"
+    },
+    {
+      "file": "complete-accessibility-group0-results-20261110.logs-accounting-components.txt.gz",
+      "bytes": 910,
+      "sha256": "1ac123f7b0f07d2cb56a986f892b6d17c60060daeee761382b601047cf9de66f",
+      "gzip_sha256": "7e8bd942025071e8e93d518d0725d8dd2f143baed2e9694faae9997661c57c60"
+    },
+    {
+      "file": "complete-accessibility-group0-results-20261110.logs-accessibility.txt.gz",
+      "bytes": 268,
+      "sha256": "1242ff389f9b1585aa0db3f51b6239534ccabca19fe26743526315620bb8eedf",
+      "gzip_sha256": "743ef22ac225657b0e9b3f1b5a5aeb1ec46ff26c118b8f4d062dabfc2b98fc02"
+    },
+    {
+      "file": "complete-accessibility-group0-results-20261110.logs-accounting-open-items.txt.gz",
+      "bytes": 650,
+      "sha256": "52eac4c1aff49de6a303052ddd8404f986a3dcf2629f9e2cd575cb1f902e8e24",
+      "gzip_sha256": "1c8bb0397858db660616206bcbe15e465eecd58d42470a1b9b904c6038c1c58a"
+    },
+    {
+      "file": "complete-accessibility-group0-results-20261110.logs-service.txt.gz",
+      "bytes": 483,
+      "sha256": "6567194f153abdbb0de373735a1373be426506ccd8652922a51c4f1d46b49ca2",
+      "gzip_sha256": "22106f6be92b80820d16ef87f7fc03690187841f2813b057205838df0d2c967d"
+    },
+    {
+      "file": "complete-accessibility-group0-results-20261110.logs-assistant.txt.gz",
+      "bytes": 447,
+      "sha256": "1fd1adefada109ffdc8d8093c618adfabc3ea18025e8cfaff27b71cf8f523d47",
+      "gzip_sha256": "dcd1af17c3368bed82d1d7921db7fcab4c3f65d8bdfa6d849940307e9552b0af"
+    },
+    {
+      "file": "complete-accessibility-group0-results-20261110.logs-payroll-positive-correction.txt.gz",
+      "bytes": 469,
+      "sha256": "192b124e7573b0ae62a1f915d8415989e1b2471d72d52704dda2d411736515e6",
+      "gzip_sha256": "893385fcd04a8b4a45db795945c8f5151fc20ef2de91321e5f6fac5bfa0d857f"
+    },
+    {
+      "file": "complete-accessibility-group0-results-20261110.logs-payroll-calculation-cases.txt.gz",
+      "bytes": 373,
+      "sha256": "3bc3e8deae01e722696ce01bb5b0d6d002f82790c16c9ce279b280cfd0262681",
+      "gzip_sha256": "dc23d8c914f70e9d2ad6b2b176234b9508e677aa3ef06d6cd5d5ac7e567809a8"
+    },
+    {
+      "file": "complete-accessibility-group0-results-20261110.logs-payroll-factor-claims.txt.gz",
+      "bytes": 351,
+      "sha256": "5c15f7777533869f0252b21d38e9f32bd82c3fe3ff66789cbb86bc395de63809",
+      "gzip_sha256": "6e6e1d80f2b7a179409366b2e23c595c0cdde4cccb7b6b30d47fedcf5646be5d"
+    },
+    {
+      "file": "complete-accessibility-group0-results-20261110.logs-commercial-country-scope.txt.gz",
+      "bytes": 214,
+      "sha256": "39fb5da5ca5f5f0828ccdb47bd17c0a182401a9c798d7f2bfbb1f54ec52cef1e",
+      "gzip_sha256": "4bb153438bdcfb60a3336f395dadd501f20a3091fb42ccfcb955f0d7e27f466e"
+    },
+    {
+      "file": "complete-accessibility-group0-results-20261110.logs-project-tasks.txt.gz",
+      "bytes": 259,
+      "sha256": "1fe96ecdd107e6a6d7d6f0f2d61948f286195fb58d509b68b85958ab9d6db6c1",
+      "gzip_sha256": "afc03d88cdfe12c2d8c43d1245fdcde54a3bafcf87847b7d31f0c42f12cbdbba"
+    },
+    {
+      "file": "complete-accessibility-group0-results-20261110.logs-travel-v3.txt.gz",
+      "bytes": 396,
+      "sha256": "b12e0f2001356aa6916e43c6174bce338fce4825ded516ccbc7116610ad1521e",
+      "gzip_sha256": "922b6c1433ab652d4c1d65023f514dfd65225a345dd96fe75c3f316b5667f2da"
+    },
+    {
+      "file": "complete-accessibility-group0-results-20261110.logs-default.txt.gz",
+      "bytes": 4667,
+      "sha256": "fb4ad0ff9b6848cfc709d87cd3a2edb7426901f2fd21cb87da20a2750fab152f",
+      "gzip_sha256": "eeb9ad649b43d0538c0e3d1af79149b0932add0480e91036524dac4cc1613952"
+    },
+    {
+      "file": "complete-accessibility-group1-20261110.txt.gz",
+      "bytes": 6728,
+      "sha256": "9ad4b682d3bcd6c8a9664b301109be1d0c9dc04d183280fc3174b75021dd13c7",
+      "gzip_sha256": "04ce438bf9191979e05bb9bec58ec0631ab6de701fd2cb9ea793438370c40346"
+    },
+    {
+      "file": "complete-accessibility-group1-results-20261110.json.gz",
+      "bytes": 2270,
+      "sha256": "c1105192d44f232e9fe42458bc2717d89acb8fadbd677adcc6d1d483670005a3",
+      "gzip_sha256": "621fe73a8d030ec7ecde44c05be1bd34eb30a30706608837b53614bd482d7d15"
+    },
+    {
+      "file": "complete-accessibility-group1-results-20261110.logs-customer-workspace.txt.gz",
+      "bytes": 306,
+      "sha256": "1ccbd55c595e2ff2b053d17301c3b0f2b87b1f744b7e6db59cb45339904fa4ca",
+      "gzip_sha256": "d1b4e63285e21838faf48e53199e08792115836404cd135d83daab8f3d684fe3"
+    },
+    {
+      "file": "complete-accessibility-group1-results-20261110.logs-accounting-profile.txt.gz",
+      "bytes": 584,
+      "sha256": "f6508dea47a2301518e60141fd1308d4586f620bd6cc8a9d9725af2aee373486",
+      "gzip_sha256": "78beeb1e470711d605d472af818c0143ec2ed62f2cb8445b9a9849ab3d791092"
+    },
+    {
+      "file": "complete-accessibility-group1-results-20261110.logs-invoice-chain.txt.gz",
+      "bytes": 354,
+      "sha256": "57dc372c3df55c48984b71c829a4401d3b75685c534d38cddd77c52dd7b69abe",
+      "gzip_sha256": "f2f8547405d03ba56ad0322788e545cc0e670b599814ff708c41fcd66e0c2c83"
+    },
+    {
+      "file": "complete-accessibility-group1-results-20261110.logs-bank-reconciliation.txt.gz",
+      "bytes": 469,
+      "sha256": "7f41713fd0b827235a638045e9b8fcbfae4fbe6832d16c4e0a48e23f9bcb071b",
+      "gzip_sha256": "2a72953f55ba54b653f92966409461251f97bcc9c50b80d143f2bd7012e298ae"
+    },
+    {
+      "file": "complete-accessibility-group1-results-20261110.logs-maintenance-contracts.txt.gz",
+      "bytes": 339,
+      "sha256": "549741dc23d391ae055ebc2ef2c1e79b011cb88c58ccf772d593ed9d168e81a6",
+      "gzip_sha256": "342042c3689bd01f129c30665134516f3a48724378dfd1f1649caadd7a98e264"
+    },
+    {
+      "file": "complete-accessibility-group1-results-20261110.logs-company-events.txt.gz",
+      "bytes": 377,
+      "sha256": "bd691f7412c8bd1fa82cd8dbff06f4b83aa3a513faec6affa173abbcd3a29a32",
+      "gzip_sha256": "46faac67b047e1bf8a852eddff4e356fedc37515d992f6fbd8bba65179bf9667"
+    },
+    {
+      "file": "complete-accessibility-group1-results-20261110.logs-payroll-payment-dates.txt.gz",
+      "bytes": 495,
+      "sha256": "47eda0a517d186ba9869b87a3c670c7b496ee055904b293b9b6e6f719e7f2f0a",
+      "gzip_sha256": "a8b77bb0abdb0f7af98c89b02062dacbe4a7d8646b6b80bd2884645d8ebeda92"
+    },
+    {
+      "file": "complete-accessibility-group1-results-20261110.logs-payroll-wage-interruptions.txt.gz",
+      "bytes": 597,
+      "sha256": "12793c08c766f47ab2f0f799bdd6923c5cfe0cecaf4764d266d2b8ae26fe90ba",
+      "gzip_sha256": "0a8b6ea976efeb295be157e358530e436d8a1661610a67794e077e1e551f3d09"
+    },
+    {
+      "file": "complete-accessibility-group1-results-20261110.logs-payroll-individual-minijob.txt.gz",
+      "bytes": 416,
+      "sha256": "0058fe6e52237dd1b8dbcd608ba745e0849d6155ca2739827e8406bb532a0894",
+      "gzip_sha256": "eaf0560586677388f970d9e443a5ec5730c552fdd567bb0b4a8ca29c4835b3a9"
+    },
+    {
+      "file": "complete-accessibility-group1-results-20261110.logs-time-tracking.txt.gz",
+      "bytes": 412,
+      "sha256": "13e01a719a9e3c95e3bcf6890f5bcebe45d19d3c6042aafccb34fcb439c5cb8b",
+      "gzip_sha256": "3586b2a9fe7fd50788dd9f2500a03bd7958780f0e23386ddf3f39b1dde324a3c"
+    },
+    {
+      "file": "complete-accessibility-group1-results-20261110.logs-project-milestones.txt.gz",
+      "bytes": 272,
+      "sha256": "710643afb2dc28dad84818d99303d1ae59ea8cb226b72c75d2eba6c52814ab72",
+      "gzip_sha256": "8c0f5268eb7681e2261ef0b9c04fd3ec0d0290e970a5d45ac496532a63266294"
+    },
+    {
+      "file": "complete-accessibility-group1-results-20261110.logs-private-car-mileage.txt.gz",
+      "bytes": 401,
+      "sha256": "1799159e81d5ea49777f7262bb89072fd4afa9f25fd7210d056eaad46e54d934",
+      "gzip_sha256": "27ac7d65bee744ce2f5bca4bd1ddf40275eed32dbb6377ac7bcd53242a5b4c20"
+    },
+    {
+      "file": "complete-accessibility-group1-results-20261110.logs-accounting-openings.txt.gz",
+      "bytes": 553,
+      "sha256": "13f37908219c0400e38c6a7c16dcfd5260fd0faf770264e1c8721758e1704a83",
+      "gzip_sha256": "1873d60610197bc1b00000a9edd6a497cf72736f74e8344c9a1b732a6ec1a30f"
+    },
+    {
+      "file": "complete-accessibility-group2-20261110.txt.gz",
+      "bytes": 13445,
+      "sha256": "f123b7302b8cbbb2d3e84b32e24f573807e0565fa0204d340941eaac36de063d",
+      "gzip_sha256": "eb80932054b8c54a229430b21197e12afff61fe0a41e42bcf1f850307c28d602"
+    },
+    {
+      "file": "complete-accessibility-group2-results-20261110.json.gz",
+      "bytes": 2167,
+      "sha256": "7ebddaf6f4ae0789e965f2a19c8b40cbe056f175175f9a1baa1a9f1c51bddadd",
+      "gzip_sha256": "345315cd4ed5044164efa743c53d88e6d9f72de702b7d307e29f7324483606f1"
+    },
+    {
+      "file": "complete-accessibility-group2-results-20261110.logs-accounting-euer.txt.gz",
+      "bytes": 290,
+      "sha256": "764987094c11d04cfc59fe6c69b29f15219d58a729d340b652b4ec1dd87eac8b",
+      "gzip_sha256": "c65b3b5f8939c143eee67ee80af5dfc67e49b4f0f0969f2b5efa69ba2a20122a"
+    },
+    {
+      "file": "complete-accessibility-group2-results-20261110.logs-accounting-refunds.txt.gz",
+      "bytes": 951,
+      "sha256": "fb833f5dd9bea353f14773eb2e53de4411b1f88198bf8cde5aa43f802235229d",
+      "gzip_sha256": "c47753370ef5ae351e32350ca47c8b9f83dd83f7bf99544ce593b85a1c385136"
+    },
+    {
+      "file": "complete-accessibility-group2-results-20261110.logs-inventory-counts.txt.gz",
+      "bytes": 359,
+      "sha256": "a4a8a24c8794b5f91a188378ebdbec3127499f1ae711ca641b8b2ba1f50f3f5d",
+      "gzip_sha256": "310a62479d5034014dd66c0ee866dcf862ef0b30cc2ea3090fcd04897976838a"
+    },
+    {
+      "file": "complete-accessibility-group2-results-20261110.logs-resource-custody.txt.gz",
+      "bytes": 475,
+      "sha256": "e9c6711b1c0d3f0d543099e3882e57b93e556961b40c472548652eab8abff22a",
+      "gzip_sha256": "f188efbdba2df3a760428db6e3fe2a56628d5369c438476c658c4fc6bf936ce7"
+    },
+    {
+      "file": "complete-accessibility-group2-results-20261110.logs-document-time-billing.txt.gz",
+      "bytes": 3128,
+      "sha256": "f1a24b376aed280284c73c3b74db16bba965c7f6b81532ced44f3589be044801",
+      "gzip_sha256": "155421f68763821e8026d716b10a0bd280c6f537c7ec279dcf2afe4b483eebd5"
+    },
+    {
+      "file": "complete-accessibility-group2-results-20261110.logs-speech.txt.gz",
+      "bytes": 437,
+      "sha256": "a59353e102156b475a45ed7b68fba34be640c11a328c3a3759867ea70c207068",
+      "gzip_sha256": "ba6a2cd51bed66950ca2746be350e0443697ed5b5b1f10422a44ae3f2baa951b"
+    },
+    {
+      "file": "complete-accessibility-group2-results-20261110.logs-payroll-repayment.txt.gz",
+      "bytes": 499,
+      "sha256": "24145e3c96b32ee020898ce193141f31384d2b5a778d661e982219c9818fb9b5",
+      "gzip_sha256": "bd1b1206988a7613de5c7d445aabdce6e244f2e5106ea760188be424cab8a976"
+    },
+    {
+      "file": "complete-accessibility-group2-results-20261110.logs-payroll-annual-basis.txt.gz",
+      "bytes": 454,
+      "sha256": "afca2630b12560303bae3d3032714c301d9197068f4945b63a104ad38576aa86",
+      "gzip_sha256": "df9fa42f12fd216c418b3adcdc5a46bce96cc93f1c050eea3f13ab8f941e1395"
+    },
+    {
+      "file": "complete-accessibility-group2-results-20261110.logs-payroll-periods.txt.gz",
+      "bytes": 495,
+      "sha256": "1749c0efa3c3da9a5f362e43ca9ca0e9100368e5e864944cd24fa685978256e6",
+      "gzip_sha256": "49387b6723b46ffc5c5f9c382d52b2cde57e0705bcabc08d2e97df43a3aed996"
+    },
+    {
+      "file": "complete-accessibility-group2-results-20261110.logs-payroll.txt.gz",
+      "bytes": 634,
+      "sha256": "6d6285af8f210fc6d5a7e2fa4137d7a24cbeb8fc3bdd25a9b3bea996d546f872",
+      "gzip_sha256": "df55880e4a0edb758f6d25ab73751223dcca940d8c3bbe23c635052839e7e7f3"
+    },
+    {
+      "file": "complete-accessibility-group2-results-20261110.logs-project-customer.txt.gz",
+      "bytes": 469,
+      "sha256": "bd380f2f498588f9af83086c9e547dc7cfacc8be916de4b22a38b5b8ea6c8597",
+      "gzip_sha256": "03f6524e5466b3420319e543895c185e58f6b8df6df1411d65d04644aead46b2"
+    },
+    {
+      "file": "complete-accessibility-group2-results-20261110.logs-private-car-mileage-restart.txt.gz",
+      "bytes": 514,
+      "sha256": "35976a0163fd5629b1ffd8c547fa5cadf02aff1fe3dcff22fd526cc9ec8df489",
+      "gzip_sha256": "341295db12f029d7ca300893a9f56d58ebec78be25600aac2fcda154ede70e65"
+    },
+    {
+      "file": "complete-accessibility-group2-results-20261110.logs-project-economics.txt.gz",
+      "bytes": 398,
+      "sha256": "74b60c5474223adac01c62cd5fa508c229b66a98304b7a6272658dd0ce657245",
+      "gzip_sha256": "7ef50ea449e0c7e4cd95a3a07ad43e53a3d6ec2e0c99ee4725454d134f01c9f1"
+    },
+    {
+      "file": "complete-accessibility-group3-20261110.txt.gz",
+      "bytes": 6651,
+      "sha256": "390e563ac4b0b930b45bdef037fc5fbaea9f2189acd9ba0cbe0a951cf9ab69d2",
+      "gzip_sha256": "8e2c6b4781be0fa41f41a3a716ebe613cb0ea895bd531c74821b5daeac059d84"
+    },
+    {
+      "file": "complete-accessibility-group3-results-20261110.json.gz",
+      "bytes": 2214,
+      "sha256": "9c4882f1fab423de7bdaf032f49eb440c89059e7de7c6b9187d6600a9e989db9",
+      "gzip_sha256": "ad059cc97361e5d39e45b1c32e28754ce66983f4ce4d98937eb1e1a40f456a44"
+    },
+    {
+      "file": "complete-accessibility-group3-results-20261110.logs-accounting-year-package.txt.gz",
+      "bytes": 501,
+      "sha256": "15aab674ceb0a169e210b8c56c3176d2de8136d04880166e61e31ab6b388f4b1",
+      "gzip_sha256": "e25d890ae8c91700c85778e289c020e1d46db68fdb9de89846a88b8bd8dc5746"
+    },
+    {
+      "file": "complete-accessibility-group3-results-20261110.logs-accounting-refunds-v2.txt.gz",
+      "bytes": 734,
+      "sha256": "b1fb6212b40271e0c10caa42abb0d2b66f3b0e6f81b99f363c58f7fcd1f721a3",
+      "gzip_sha256": "01d2de99c36a67f2b842e553cdf16feb65455b020b1e3a890c4ec2b019ea6efc"
+    },
+    {
+      "file": "complete-accessibility-group3-results-20261110.logs-company-overview.txt.gz",
+      "bytes": 168,
+      "sha256": "620f022b946e7969aec0ee1abbae1b209e5caa4b4dc7675244fd8cd9028a0502",
+      "gzip_sha256": "dcd014b01b7e88fdabfbb18b821de953cfc99bef6ad082643c64b8973984f631"
+    },
+    {
+      "file": "complete-accessibility-group3-results-20261110.logs-purchase-changes.txt.gz",
+      "bytes": 435,
+      "sha256": "56ce76ced67873fd8699139a3709bf03607f69850fdac211c4677e140703ebbd",
+      "gzip_sha256": "e9e639add07521a797a16e0210a7dad249a2d2a8f7c7a13293305745de7929f9"
+    },
+    {
+      "file": "complete-accessibility-group3-results-20261110.logs-privacy-cases.txt.gz",
+      "bytes": 365,
+      "sha256": "dfd4f559570a744253636e18302674401d22377a16e49bad8ebfe1b81b5993fc",
+      "gzip_sha256": "3ef785ebf3a8b8466d8ce93a9fdb1ade74289701b5d256c9dbf620af2a9f8996"
+    },
+    {
+      "file": "complete-accessibility-group3-results-20261110.logs-company-handover.txt.gz",
+      "bytes": 456,
+      "sha256": "3b0a766592ec7ec83951c6c07f212630fce581f4395afca26ab84790a2720257",
+      "gzip_sha256": "4466c0c07ad04151ad6931170b06a35184c1b91566af9ea89a3c0ff91bee4d8a"
+    },
+    {
+      "file": "complete-accessibility-group3-results-20261110.logs-payroll-adjustment.txt.gz",
+      "bytes": 512,
+      "sha256": "db679c0a50de131b53ee0d5318d55c8b4e08102b187593c17c6609c1e1460b6d",
+      "gzip_sha256": "9a0bca99d954cc5c857811605c9f9c79df31f50176099ab53c257134cee06b75"
+    },
+    {
+      "file": "complete-accessibility-group3-results-20261110.logs-payroll-zero-account.txt.gz",
+      "bytes": 539,
+      "sha256": "e18273a6db385937d8690db5a700b334c0c61388c436f992d96c1b4307e742c0",
+      "gzip_sha256": "777c6e743f32f34148f961a50f82dbc3a7a36700f7628d6f80b7e4a16a851f63"
+    },
+    {
+      "file": "complete-accessibility-group3-results-20261110.logs-payroll-factor-periods.txt.gz",
+      "bytes": 384,
+      "sha256": "fd5c8d99ca5f817b925e770d56c85185a070c6d7cdeb3756debd29633c3145f3",
+      "gzip_sha256": "ed9c3d0b411f7c9e17057c11b4fb5e65ee32198806de4f2a6fc9c02f87c9c554"
+    },
+    {
+      "file": "complete-accessibility-group3-results-20261110.logs-payroll-transition.txt.gz",
+      "bytes": 461,
+      "sha256": "2063e59845f51d77ca7059130fce077cbdf4589d7c5e44316e78cd67077df3be",
+      "gzip_sha256": "c9b7cd9676d93c21dccad422f1a6caee1ee90ef7866095896869e7be5d1454ad"
+    },
+    {
+      "file": "complete-accessibility-group3-results-20261110.logs-inventory-article-refs.txt.gz",
+      "bytes": 238,
+      "sha256": "a1f0e179724cb136c47ceec4bde647c18597d1ab3fa92174012759453cde9c91",
+      "gzip_sha256": "5230558ab306645fd7d8e28ce43b35fd598fbcf36f9b796007e545dd6fa9d411"
+    },
+    {
+      "file": "complete-accessibility-group3-results-20261110.logs-sales.txt.gz",
+      "bytes": 356,
+      "sha256": "142458f160af9123600c372667f96ff2a5eac670d27dc8e4b857ecd9e0834270",
+      "gzip_sha256": "a97741faee9add306cf53625b02640fc768031dd7ab1e45a76eb22d647d9519e"
+    },
+    {
+      "file": "complete-accessibility-group3-results-20261110.logs-asset-provenance.txt.gz",
+      "bytes": 387,
+      "sha256": "b309ea497596fff446b2f5df342ce3407653a2f335311b40d35261c50d18f158",
+      "gzip_sha256": "4cc6cf8ef2c134119c9cd25204def21d46bb5858cc8db9df5f1fe16bbf316252"
+    },
+    {
+      "file": "complete-accessibility-group4-20261110.txt.gz",
+      "bytes": 14483,
+      "sha256": "1d26ac02542404f120adacafd51fb4801cfbd6f9c1470936939248904abb1ac0",
+      "gzip_sha256": "c3936a74e05c3bf82bafbbfb7e321d205b34262cf53a5bd73acc5b0e590ec0c6"
+    },
+    {
+      "file": "complete-accessibility-group4-results-20261110.json.gz",
+      "bytes": 2199,
+      "sha256": "47515d95c2a175147e8ab7d3a1655f790ccf645674f3cf9f3ff2854d8f0b8d9d",
+      "gzip_sha256": "603179646ef41c1993dc195a8be0daade7e85b5a8c99c505f3aeca88f719e7b5"
+    },
+    {
+      "file": "complete-accessibility-group4-results-20261110.logs-accounting-year-package-v2.txt.gz",
+      "bytes": 1552,
+      "sha256": "b0ffc51da8b954854818e0efc122d778a03588d81f294493adc00ee945245ed1",
+      "gzip_sha256": "fe19022dafb180f30cf0e52aa5499b2660a1a7adbae16e7391176717bc573459"
+    },
+    {
+      "file": "complete-accessibility-group4-results-20261110.logs-planning-relogin.txt.gz",
+      "bytes": 724,
+      "sha256": "26d12f6f61150c26709359a2a0fcd6c16bb70f053dab263d8d68f58e0991d4bb",
+      "gzip_sha256": "131a0ed968a76dda5e632768a018e554c9fb87c5ed146227218245ff4c0c60ce"
+    },
+    {
+      "file": "complete-accessibility-group4-results-20261110.logs-accounting-allocation.txt.gz",
+      "bytes": 441,
+      "sha256": "e0e23f4b393c11df6eaa4e6b59b5f48d98717445e21057f49e2224bcdc6630ba",
+      "gzip_sha256": "ef632e1b74b08c0352d803b0f5a5ea2fd6c958f1d9d73f5423e81271e1c71071"
+    },
+    {
+      "file": "complete-accessibility-group4-results-20261110.logs-catalog-imports.txt.gz",
+      "bytes": 453,
+      "sha256": "2a063cb0b62bad0c90c3625ac1bfc69ca7ad99f6830d6b5a719ce7ee4980d328",
+      "gzip_sha256": "e2a8a7a9d339fd38f62ea02c387b06409b667c1ded490d3466f6b7a089ac204a"
+    },
+    {
+      "file": "complete-accessibility-group4-results-20261110.logs-payroll-cash.txt.gz",
+      "bytes": 911,
+      "sha256": "70079ba2abee3043a7a1dca87ad86d3363eeb88f70ec0662739eac46f3cc67f1",
+      "gzip_sha256": "820580d56569bd79cd6a6577ae35f8b06d174d9bd6a230e4dddb42ca17ba3d0a"
+    },
+    {
+      "file": "complete-accessibility-group4-results-20261110.logs-migrations.txt.gz",
+      "bytes": 500,
+      "sha256": "6d90fa52588a45e4690be35e2d402b97ec7172133dea1140b2ec05cd88b8d481",
+      "gzip_sha256": "e7d7618d1cae3d0b56a08fc9bc9dfc37e9eae5cd9b3c520ae55cf42763a80d26"
+    },
+    {
+      "file": "complete-accessibility-group4-results-20261110.logs-mobile-login.txt.gz",
+      "bytes": 231,
+      "sha256": "e7f9664d4904ae1a1a97b5fd750ecd4050ff4041c681c68c95c3904a2733a212",
+      "gzip_sha256": "eb685cd65abb937684c06adcf03785e035f45e301af653206e78d3006041a63d"
+    },
+    {
+      "file": "complete-accessibility-group4-results-20261110.logs-payroll-oneoff-cases.txt.gz",
+      "bytes": 3085,
+      "sha256": "cd9ccb625b5f03d128c54530c5a236449a3548a90359f8737f0f2345e5c04478",
+      "gzip_sha256": "84d92e6ba3d0d86cac228c392ae3362fb4226b6732b0124b74b6cceb0f992f8f"
+    },
+    {
+      "file": "complete-accessibility-group4-results-20261110.logs-payroll-entitlements.txt.gz",
+      "bytes": 534,
+      "sha256": "f767ce247fe8222196ebe8c0ee5ab84bbc72d3a9c7250d6d2a4a2547e87286bb",
+      "gzip_sha256": "cee086a293c245e8cf523dc13ac231a334e99e037e5eda6c4c1f411e3e8b8cc3"
+    },
+    {
+      "file": "complete-accessibility-group4-results-20261110.logs-payroll-factor.txt.gz",
+      "bytes": 418,
+      "sha256": "ba89d79b6380687ae7f497fd82f1370fcddc6e3e692e1917ca8cadfeb9dd2358",
+      "gzip_sha256": "88b420a8f3eaae20121c93406f9e1d8e8edc3f8ff6b514d65a3d4a1bab54ba98"
+    },
+    {
+      "file": "complete-accessibility-group4-results-20261110.logs-material-return.txt.gz",
+      "bytes": 501,
+      "sha256": "a584b134be4c03eeba89e9cd82a1ada4270d33928107d7c0471c91f2217919dc",
+      "gzip_sha256": "9cea0ae0179779211c233a60136f48a1e45a56d6561f123d8352b04cab1dac9f"
+    },
+    {
+      "file": "complete-accessibility-group4-results-20261110.logs-communication-history.txt.gz",
+      "bytes": 398,
+      "sha256": "652a480c75d9356e5a55434bac844e9f85b513253036fca7b2cc7946cf0c82b0",
+      "gzip_sha256": "877711fb3acfdc0fcfebb83b70469d4ef14d8e59463bd01455536b1103978d82"
+    },
+    {
+      "file": "complete-accessibility-group4-results-20261110.logs-personnel-workflow.txt.gz",
+      "bytes": 421,
+      "sha256": "9903d7bc2e5f6bbe7dc6cb8d5396f4ef07cffb5f683beb82eac905a228f89d98",
+      "gzip_sha256": "7b53115d8a0248e1288b1fe35b4a1b69b69fe6b315676856f5d6194331638e2c"
+    },
+    {
+      "file": "complete-accessibility-group5-20261110.txt.gz",
+      "bytes": 7937,
+      "sha256": "4b9afa471d005f73baa7b6d707045b4772f86b81c41654dccc682caed06e6cbc",
+      "gzip_sha256": "3f7c71896a9932c8ff053f637b99de110e99767593ccbe4cf48995a715d17c20"
+    },
+    {
+      "file": "complete-accessibility-group5-results-20261110.json.gz",
+      "bytes": 2315,
+      "sha256": "f2614aaa9940325b0a1c0b0e54821ebfe3d9d831b8a1453b7a24e29c0f086f44",
+      "gzip_sha256": "1a4d9827d3a25d65165d1a557d8a541682216b0dd6cbe0fae49f0a683e115258"
+    },
+    {
+      "file": "complete-accessibility-group5-results-20261110.logs-accounting-year-values-profile-void.txt.gz",
+      "bytes": 692,
+      "sha256": "88a532a68d47ab04b9c84ed598ff58970ba2abf5c8ce3df8898f7339cd7426d1",
+      "gzip_sha256": "bb5d910034ac266272e47e5fbdfb27e0e00295a79723bea266a17c4ac7d7c891"
+    },
+    {
+      "file": "complete-accessibility-group5-results-20261110.logs-purchasing-catalog.txt.gz",
+      "bytes": 340,
+      "sha256": "fa3d9ead809ab48c767f2dbf906f82ce3e6103bc3958927d89d3cba0e9b487f8",
+      "gzip_sha256": "f8f8165ef9308d5189d63a69f460b34eb143d99a961ad314a2cf1ba9c53be216"
+    },
+    {
+      "file": "complete-accessibility-group5-results-20261110.logs-accounting-capacity.txt.gz",
+      "bytes": 658,
+      "sha256": "b2f3bd1605cab0274fd675b2412ca9bf2140d57949f2858578b444e95360ddcb",
+      "gzip_sha256": "1f314789a6bc83c55db6d4ad3798754548aa785fff09cccb373111dfba13832f"
+    },
+    {
+      "file": "complete-accessibility-group5-results-20261110.logs-catalog-prices.txt.gz",
+      "bytes": 535,
+      "sha256": "c75d51d8261962c16a1805660bfc7b48cb52f0db9e006097997d37398ecffc27",
+      "gzip_sha256": "c9791597232d54e908e644ebba664e4e20f47c6a22157fdd54543fc8891a7024"
+    },
+    {
+      "file": "complete-accessibility-group5-results-20261110.logs-historical-assets.txt.gz",
+      "bytes": 418,
+      "sha256": "fbba09ed7a29c020458c1141e28c7d9c9ed147a89f249fe7626491ac2813388c",
+      "gzip_sha256": "8383a5ce830534962fb58ce57c7aabb4c773ab71a4737a8af19386c94e690a80"
+    },
+    {
+      "file": "complete-accessibility-group5-results-20261110.logs-custom-fields.txt.gz",
+      "bytes": 183,
+      "sha256": "27c1cb3825de6af74ff30b70da970fb3c8cecdebdcf1c9c2d8896c78e33d6f30",
+      "gzip_sha256": "d3cd7cebdb95019c9981253f32369726fc127417df1f0ed98ced649a0f5d3d9e"
+    },
+    {
+      "file": "complete-accessibility-group5-results-20261110.logs-payroll-statements.txt.gz",
+      "bytes": 620,
+      "sha256": "1fcf67f7246d3eea54b47f978648a5accefa67ae470dc968927441b3a90c9b08",
+      "gzip_sha256": "18d345c27f506ec0170c9765a71e43b7335bdfbc559a9ea5459d48c14f6bac8c"
+    },
+    {
+      "file": "complete-accessibility-group5-results-20261110.logs-payroll-multiple-cases.txt.gz",
+      "bytes": 728,
+      "sha256": "90f1dfa8c31e73599543ed95641e6d7baec1d19c9cb1e0b967c2a341cb1ccb81",
+      "gzip_sha256": "56e2bb106b3e1f53b7f77c918de675e6a4e325dae7bf65369826243861c74c88"
+    },
+    {
+      "file": "complete-accessibility-group5-results-20261110.logs-payroll-travel-tax-policies.txt.gz",
+      "bytes": 375,
+      "sha256": "21236ef7ba1a5a33865a84dfb8010d46e16b2c168fb1c19fc3561c27792caeff",
+      "gzip_sha256": "e2c18d7453a1ac2b536baa00b4f915b7f1b5de40c6326cc68905ea0fef60648c"
+    },
+    {
+      "file": "complete-accessibility-group5-results-20261110.logs-payroll-factor-travel.txt.gz",
+      "bytes": 352,
+      "sha256": "9becc088797d015929b9eef4e88aeafd88b5c2f57879fa2b6171d8cb676fc211",
+      "gzip_sha256": "47fe38a13b84372976209264b6becea86deecfdc0c0e8624192765b7c1c09386"
+    },
+    {
+      "file": "complete-accessibility-group5-results-20261110.logs-material-return-restart.txt.gz",
+      "bytes": 778,
+      "sha256": "be26d8eb6896be8f2ace8362ae3d9c42c9c92a5cd4c69077a76d2b6189ecb2b7",
+      "gzip_sha256": "5c9108e03440ba2ca03c06160d83a8629663bee981cef43e1778c713232111e0"
+    },
+    {
+      "file": "complete-accessibility-group5-results-20261110.logs-project-context.txt.gz",
+      "bytes": 239,
+      "sha256": "e17d7a49f89eca2763a0cc172a5fc2e1e88c80df79bc5988eb0cf6aa59fbbff1",
+      "gzip_sha256": "6bdba37af9b70a5d879e917219ba37c44e1303bdfafa420abc3b2e3040b10814"
+    },
+    {
+      "file": "complete-accessibility-group5-results-20261110.logs-travel-allowances.txt.gz",
+      "bytes": 838,
+      "sha256": "cb75db6eb342f66f7c935e0928be6fdd4e31649c36f7b87ede38662de07e36d5",
+      "gzip_sha256": "9f22e04333c22cf3334919198aa01e5e6d0f3dae1f2c58eebb898307778be4f2"
+    },
+    {
+      "file": "complete-accessibility-document-time-retry-20261110.txt.gz",
+      "bytes": 346,
+      "sha256": "4073d55308cc252bc0ee11f9f423bd70a950d5a8ac4bb4320d47389348d1f9ed",
+      "gzip_sha256": "7a8206e82eb6438887b9026e9328ca456812015dbabdecf0bba88ba914b6f6ac"
+    },
+    {
+      "file": "complete-accessibility-document-time-retry-20261110.json.gz",
+      "bytes": 351,
+      "sha256": "72beee00b5be91b8ea5198ab750be6b4940bcc92bd27fa4d5e024c2a498d2c06",
+      "gzip_sha256": "9d0020cdb21735376dc7fafde0cbcd94dc7674be43603644bcaef130e98b0399"
+    },
+    {
+      "file": "complete-accessibility-document-time-retry-20261110.logs-document-time-billing.txt.gz",
+      "bytes": 253,
+      "sha256": "4d29a75a4c29fb50d06b466700f43d24affe8cfc3532566ce1751da450c15451",
+      "gzip_sha256": "d88f5f515a30eb3bad6c5518d5c03b86ecb324bd4abef36135bd95a5ef154595"
+    },
+    {
+      "file": "complete-accessibility-oneoff-final-20261110.txt.gz",
+      "bytes": 791,
+      "sha256": "ac594c50063bd10bfaf3f71f067e89854ffbc2c834773f16d7e0c4c94a0feec5",
+      "gzip_sha256": "048f93438fc292560ebc9c4e76cc5db02f28d6c774318254d69143a9a350928f"
+    },
+    {
+      "file": "complete-accessibility-oneoff-final-20261110.json.gz",
+      "bytes": 348,
+      "sha256": "54259bba1822409df98541867b891c42fe7a3af58af1bf8d6251b3eaec3e400f",
+      "gzip_sha256": "3e362374553ade5f47fee2a4c173e0e9c1bdbf2e2e3204e3c86e66d39d109bb7"
+    },
+    {
+      "file": "complete-accessibility-oneoff-final-20261110.logs-payroll-oneoff-cases.txt.gz",
+      "bytes": 700,
+      "sha256": "e245eaf82b4cedb89c488635f76ac5f40b3aa6c2be4e5f2fbd9f2ce5970fbdf6",
+      "gzip_sha256": "792fa7c0db6f620f67800ce7d660533349eb2c678b08ae57e9654ebf8bd7b8fc"
+    },
+    {
+      "file": "complete-accessibility-final-unique-results-20261110.json.gz",
+      "bytes": 14553,
+      "sha256": "70001ef7c2dd4017ade9d49f0f48e6ff7ffe7d1e5fc43fbb8c2a17d031335fb3",
+      "gzip_sha256": "3c60cd532a2cbf5bb28e4fa5415a27fb44c12d2995a98ea2cd13a7f76fe4cb93"
+    },
+    {
+      "file": "complete-accessibility-regenerable-cache-cleanup-20261110.txt.gz",
+      "bytes": 1207,
+      "sha256": "ce5e86ee6cc655465992c9fbc58c1f03d29dc8087dc912e6c6b86cc17258cc35",
+      "gzip_sha256": "9b28750905cbf7dfdf94cb22499b401235b05ae43f5f1dee497c8292c428aa21"
+    },
+    {
+      "file": "complete-accessibility-pg-cleanup-20261110.txt.gz",
+      "bytes": 351,
+      "sha256": "3f5508889114b78f91021faaafd7cda4b1fd003376b1c3b8cd6ecdcd1842a588",
+      "gzip_sha256": "7d71238be46303dda78599fa237873fc544587816922fb82897af674bbc3c3c6"
+    },
+    {
+      "file": "complete-accessibility-ci-contracts-after-oneoff-20261110.txt.gz",
+      "bytes": 1973,
+      "sha256": "7b6568667e2793aa5b56cb7adba782c40699a576bf05c25778738d895a04e556",
+      "gzip_sha256": "183d03f0b16d3cad6fad15b859493f89f2b783a6af508ce22a283c42c328bb4c"
+    },
+    {
+      "file": "complete-accessibility-predecessor-job-durations-20261110.json.gz",
+      "bytes": 13633,
+      "sha256": "63d81fc92eab3fd601782094acc7013b9c1afc72980061b0105617c046cb40a3",
+      "gzip_sha256": "d11a1080943b14051b87479e8c6304302503adf44488f4f7af27867a5c64f28a"
     }
   ],
   "own_postgres": {
@@ -529,13 +1159,27 @@
     "current_id": "a79287a79ab3c7c167612ed1da1ae0ddf013b47821ddcccbb80690e012c08fe7",
     "current_label": "smartplan.task=complete-browser-accessibility-20261110",
     "current_loopback_port": 32800,
-    "current_removed": false,
+    "current_removed": true,
     "foreign_containers_untouched": true
   },
   "limits": [
-    "Whole79 browser and own current remoteCI still pending.",
+    "Whole79 browser complete with2 explicitly retained first failures and successful corrected follow-ups. All20 eb74 Development jobs passed; unsigned iPhone remains pending at last fetch. Only test observer differs locally from compiled runtime source.",
     "Automatic and CSS root-font tests do not replace human screenreader/full browser zoom/actual Windows/iPhone acceptance.",
     "No live deployment, signing, payments, filings or real messages.",
     "A-G whole acceptance and remaining functional goals continue."
+  ],
+  "current_development": {
+    "commit": "eb74fb52a40b8baf25eced4caf1b51a7bc1d9101",
+    "run_id": 42771773498,
+    "jobs_success": 20,
+    "conclusion": "success",
+    "evidence": "published-ci-development-complete.json",
+    "iphone_run": 42771773315,
+    "iphone_status": "in_progress at last actual fetch"
+  },
+  "test_observer_source_commit": "000f2892798e08b4d9db17c15fc26e41d13bcfc7",
+  "visual_review": [
+    "material-return-mobile.png",
+    "factor-claims-mobile.png"
   ]
 }

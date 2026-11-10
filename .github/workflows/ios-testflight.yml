@@ -13,6 +13,8 @@ on:
       - 'scripts/test_native_release.py'
       - 'scripts/ios-delivery-policy.py'
       - 'scripts/test_ios_delivery_policy.py'
+      - 'scripts/ios-archive-entitlements.py'
+      - 'scripts/test_ios_archive_entitlements.py'
   workflow_dispatch:
     inputs:
       build_number:
@@ -66,6 +68,7 @@ jobs:
           python ../scripts/native-release.py source
           python -m unittest discover -s ../scripts -p test_native_release.py -v
           python -m unittest discover -s ../scripts -p test_ios_delivery_policy.py -v
+          python -m unittest discover -s ../scripts -p test_ios_archive_entitlements.py -v
       - name: Build-Nummer bestimmen
         id: build
         env:
@@ -250,7 +253,8 @@ jobs:
       - name: Archivieren (unsigniert, Signierung erst beim Export)
         working-directory: app/ios
         # Ohne registriertes Geraet kann Xcode kein Entwicklungsprofil erzeugen.
-        # Fuer TestFlight genuegt die Distributionssignierung beim IPA-Export.
+        # Der erste Export ermittelt die wirkliche Distributionsidentitaet.
+        # Vor dem finalen Export werden die eigenen Entitlements erhalten.
         run: |
           xcodebuild -workspace Runner.xcworkspace -scheme Runner -configuration Release \
             -destination 'generic/platform=iOS' -archivePath "$RUNNER_TEMP/Runner.xcarchive" \
@@ -258,7 +262,42 @@ jobs:
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
             archive
           test -d "$RUNNER_TEMP/Runner.xcarchive/Products/Applications/Runner.app"
-      - name: IPA exportieren
+      - name: Distributionsidentitaet aus temporaerem Apple-Export ermitteln
+        run: |
+          xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/Runner.xcarchive" \
+            -exportOptionsPlist "$RUNNER_TEMP/smartplan-asc/ExportOptions.plist" \
+            -exportPath "$RUNNER_TEMP/smartplan-bootstrap-export" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$ASC_KEY_PATH" -authenticationKeyID "$ASC_KEY_ID" -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+      - name: Eigene Keychain-Berechtigung vor finaler Distributionssignierung erhalten
+        run: |
+          shopt -s nullglob
+          files=("$RUNNER_TEMP"/smartplan-bootstrap-export/*.ipa)
+          [ "${#files[@]}" -eq 1 ] || { echo 'Genau einen temporaeren Apple-Export erwartet'; exit 1; }
+          unzip -q "${files[0]}" -d "$RUNNER_TEMP/smartplan-bootstrap-app"
+          smartplan_bootstrap_app="$RUNNER_TEMP/smartplan-bootstrap-app/Payload/Runner.app"
+          codesign --verify --deep --strict "$smartplan_bootstrap_app"
+          codesign -d --entitlements :- "$smartplan_bootstrap_app" > "$RUNNER_TEMP/smartplan-bootstrap-entitlements.plist"
+          security cms -D -i "$smartplan_bootstrap_app/embedded.mobileprovision" > "$RUNNER_TEMP/smartplan-bootstrap-profile.plist"
+          python ../scripts/native-release.py ios \
+            --plist "$smartplan_bootstrap_app/Info.plist" --config ios/Flutter/Generated.xcconfig \
+            --build-number=${{ needs.unsigned.outputs.build_number }} --commit "$GITHUB_SHA" \
+            --output "$RUNNER_TEMP/smartplan-bootstrap-manifest.json"
+          python ../scripts/ios-archive-entitlements.py \
+            --source ios/Runner/Runner.entitlements \
+            --signed-entitlements "$RUNNER_TEMP/smartplan-bootstrap-entitlements.plist" \
+            --provisioning-profile "$RUNNER_TEMP/smartplan-bootstrap-profile.plist" \
+            --team "$APPLE_TEAM_ID" --output "$RUNNER_TEMP/smartplan-archive-entitlements.plist"
+          # Preserve the Apple-signed nested frameworks. Only the main bundle
+          # receives a temporary ad-hoc signature carrying the validated groups.
+          # It is never uploaded or published; the next export signs it with Apple.
+          smartplan_archive_app="$RUNNER_TEMP/Runner.xcarchive/Products/Applications/Runner.app"
+          mv "$smartplan_archive_app" "$RUNNER_TEMP/smartplan-unsigned-archive-app"
+          ditto "$smartplan_bootstrap_app" "$smartplan_archive_app"
+          codesign --force --sign - --timestamp=none \
+            --entitlements "$RUNNER_TEMP/smartplan-archive-entitlements.plist" "$smartplan_archive_app"
+          codesign --verify --deep --strict "$smartplan_archive_app"
+      - name: IPA mit erhaltener Keychain-Berechtigung final exportieren
         run: |
           xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/Runner.xcarchive" \
             -exportOptionsPlist "$RUNNER_TEMP/smartplan-asc/ExportOptions.plist" -exportPath build/ipa \
@@ -272,6 +311,18 @@ jobs:
           unzip -q "${files[0]}" -d "$RUNNER_TEMP/smartplan-signed-app"
           smartplan_app="$RUNNER_TEMP/smartplan-signed-app/Payload/Runner.app"
           codesign --verify --deep --strict "$smartplan_app"
+          codesign --display --verbose=4 "$smartplan_app" 2> "$RUNNER_TEMP/smartplan-signed-identity.txt"
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          details = (Path(os.environ['RUNNER_TEMP']) / 'smartplan-signed-identity.txt').read_text().splitlines()
+          if 'TeamIdentifier=' + os.environ['APPLE_TEAM_ID'] not in details:
+              raise SystemExit('Finale Codesign-Identitaet gehoert nicht zum erwarteten Apple-Team.')
+          if not any(line.startswith('Authority=Apple Distribution:') for line in details):
+              raise SystemExit('Finales IPA hat keine Apple-Distributionssignatur.')
+          if 'Signature=adhoc' in details:
+              raise SystemExit('Temporaere Archivsignatur ist kein auslieferbares IPA.')
+          PY
           codesign -d --entitlements :- "$smartplan_app" > "$RUNNER_TEMP/smartplan-signed-entitlements.plist"
           python ../scripts/native-release.py ios \
             --plist "$smartplan_app/Info.plist" --config ios/Flutter/Generated.xcconfig \

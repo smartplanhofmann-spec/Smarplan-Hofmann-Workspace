@@ -36,6 +36,24 @@ Boolean(vm.runInNewContext(expression,{...context,startsWith:(s,p)=>s.startsWith
 
 
 class ActualWorkflowGates(unittest.TestCase):
+    def test_temporary_archive_never_becomes_the_published_distribution_artifact(self):
+        _, job, _, _ = gates()
+        order = [job.index(text) for text in (
+            'name: Distributionsidentitaet aus temporaerem Apple-Export ermitteln',
+            'python ../scripts/ios-archive-entitlements.py',
+            'codesign --force --sign - --timestamp=none',
+            'name: IPA mit erhaltener Keychain-Berechtigung final exportieren',
+            'name: Signiertes iPhone-/iPad-Paket pruefen',
+            "line.startswith('Authority=Apple Distribution:')",
+            '--signed-entitlements "$RUNNER_TEMP/smartplan-signed-entitlements.plist"',
+            'name: Smartplan-Office-iOS-',
+            'name: Zu TestFlight hochladen')]
+        self.assertEqual(order, sorted(order))
+        artifact = job.split('name: Smartplan-Office-iOS-', 1)[1].split('      - name:', 1)[0]
+        self.assertNotIn('bootstrap', artifact)
+        self.assertNotIn('smartplan-archive-entitlements', artifact)
+        self.assertIn('app/build/ipa/*.ipa', artifact)
+
     def test_prepare_signed_package_on_exact_test_branch_never_selects_upload(self):
         workflow,job,condition,upload=gates()
         context=dict(github=dict(event_name='workflow_dispatch',ref=TEST_REF),

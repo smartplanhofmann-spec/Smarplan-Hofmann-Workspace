@@ -48,7 +48,9 @@ def source_checks(root=ROOT):
     require(bool(info.get('NSCameraUsageDescription')), 'Kamera-Beschreibung fehlt.')
     with (root / 'app/ios/Runner/Runner.entitlements').open('rb') as stream:
         entitlements = plistlib.load(stream)
-    require(isinstance(entitlements.get('keychain-access-groups'), list), 'Keychain-Entitlement fehlt.')
+    require(entitlements.get('keychain-access-groups') ==
+            ['$(AppIdentifierPrefix)$(PRODUCT_BUNDLE_IDENTIFIER)'],
+            'Keychain-Entitlement muss genau die eigene App-Gruppe anfordern.')
     project = (root / 'app/ios/Runner.xcodeproj/project.pbxproj').read_text()
     require(project.count('CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;') == 3,
             'Keychain-Entitlements müssen für Debug/Profile/Release eingerichtet sein.')
@@ -201,10 +203,13 @@ def check_ios(info_path, config, build, root=ROOT, signed_entitlements=None, tea
             entitlements = plistlib.load(stream)
         require(team and entitlements.get('com.apple.developer.team-identifier') == team,
                 'Signiertes Paket hat nicht das erwartete Apple-Team.')
-        require(entitlements.get('application-identifier', '').endswith('.' + BUNDLE_ID),
+        application_id = entitlements.get('application-identifier')
+        require(isinstance(application_id, str) and
+                re.fullmatch(r'[A-Z0-9]{10}\.' + re.escape(BUNDLE_ID), application_id),
                 'Signierte App-Kennung stimmt nicht überein.')
-        require(isinstance(entitlements.get('keychain-access-groups'), list), 'Signiertes Keychain-Entitlement fehlt.')
-        require(entitlements.get('get-task-allow') is not True, 'TestFlight-Paket enthält Debugger-Freigabe.')
+        require(entitlements.get('keychain-access-groups') == [application_id],
+                'Signiertes Keychain-Entitlement muss genau die eigene App-Gruppe enthalten.')
+        require(entitlements.get('get-task-allow') is False, 'TestFlight-Paket enthält keine explizite Debugger-Sperre.')
     return {'platform': 'ios', 'flavor': 'online', 'build_number': str(build),
             'supported_devices': ['iPhone', 'iPad'], 'signed_entitlements_checked': bool(signed_entitlements)}
 

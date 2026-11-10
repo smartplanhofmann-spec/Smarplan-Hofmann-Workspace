@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "published_manual_signed_only_preparation_and_own_development_checks_running",
+  "status": "keychain_repair_published_manual_signed_only_and_own_development_running",
   "base_commit": "e5ce894473ff86e0932a05778983354e38ac5adc",
   "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
   "raw_files": [
@@ -48,6 +48,51 @@
       "path": "payroll-current-scope-primary-fetch-observations-20261110.json.gz",
       "bytes": 1930,
       "sha256": "3b8a0d6c233570b6ce0020f8841b445daad81fb2d033c189b56926d1b5b245f1"
+    },
+    {
+      "path": "ios-signed-preparation-first-signing-20261110.log.gz",
+      "bytes": 1442110,
+      "sha256": "4a0a9d29ff7cde76d7dbefcd13c216fcc4ebc3b7c952c7a6d42fb7111cc771f7"
+    },
+    {
+      "path": "ios-signed-preparation-closed-states-20261110.json.gz",
+      "bytes": 63903,
+      "sha256": "440e45075222f75f2b8262e67edd065aab66d12ef8c4f2f5f71d752310b612e8"
+    },
+    {
+      "path": "ios-keychain-repair-first-20261110.txt.gz",
+      "bytes": 6315,
+      "sha256": "938b6e4206c40babe46cdf1f76cbc3ab6a01be31f5858471879f826cae1c0d15"
+    },
+    {
+      "path": "ios-keychain-repair-final-20261110.txt.gz",
+      "bytes": 8390,
+      "sha256": "73ee6f2b83afe33d293c86856bbb156927462813d0f7c25fb6da3dafe39eff60"
+    },
+    {
+      "path": "ios-keychain-repair-yaml-shell-20261110.txt.gz",
+      "bytes": 266,
+      "sha256": "7036d4be643b0e6ca677c79a044aae85d5e380cfd2b2d5cd9a4d3d52742a696e"
+    },
+    {
+      "path": "ios-keychain-repair-primary-observations-20261110.json.gz",
+      "bytes": 1336,
+      "sha256": "1fa9510175ebb21904e47c1d32cb4dff697bcb7c7252a9247278cdd4860e09ba"
+    },
+    {
+      "path": "ios-keychain-repair-own-runs-20261110.json.gz",
+      "bytes": 839,
+      "sha256": "a865dc3f498c97bec44cff49294a1d3072780bad460dfa81ad954f31566527cf"
+    },
+    {
+      "path": "ios-keychain-repair-own-runs-confirmed-20261110.json.gz",
+      "bytes": 853,
+      "sha256": "f9ef9dd7d34a579d85e82c8bfb6f5c4c2830d65be83e665d0cff31c644728b99"
+    },
+    {
+      "path": "ios-keychain-repair-current-jobs-20261110.json.gz",
+      "bytes": 57954,
+      "sha256": "c3e57209976177a85dec5817d5234dcbf6ff40bccfd4df0f2afcc11b4b9bb498"
     }
   ],
   "results": {
@@ -64,7 +109,7 @@
   },
   "external": {
     "apple_secret_metadata_read": "HTTP403 from GitHub integration; no absence inferred; no values requested",
-    "new_actual_signing": false,
+    "new_actual_signing": true,
     "new_testflight_upload": false,
     "new_device_acceptance": false
   },
@@ -77,11 +122,44 @@
     "event": "workflow_dispatch",
     "prepare_signed_ipa": true,
     "upload_to_testflight": false,
-    "status": "unsigned prerequisite running; actual signed export not established"
+    "status": "completed failure at final signed entitlement verification; actual Apple archive and export succeeded; no artifact or upload"
   },
   "development_run": 42796495383,
   "replaced_duplicate_push_iphone_run": {
     "run_id": 42796495426,
     "conclusion": "cancelled by existing same-branch concurrency when explicit manual preparation started"
+  },
+  "actual_first_signing": {
+    "run_id": 42796610215,
+    "unsigned_job": 129763451724,
+    "unsigned_conclusion": "success",
+    "signed_job": 129785632687,
+    "signed_conclusion": "failure",
+    "apple_archive": "success",
+    "apple_export": "success",
+    "final_verification": "missing keychain entitlement",
+    "artifact_published": false,
+    "upload_to_testflight": false
+  },
+  "development_result": {
+    "run_id": 42796495383,
+    "groups": 20,
+    "conclusion": "success"
+  },
+  "keychain_repair": {
+    "local_joint_tests": 39,
+    "local_seconds": 33.283,
+    "yaml_shell_blocks": 22,
+    "actual_macos_retry": "GitHub accepted actual manual signed-only run42806142665; unsigned full app prerequisite running; final repaired export not established",
+    "preserves_actual_app_identifier_prefix": true,
+    "final_own_group_required": true,
+    "temporary_signature_never_published": true,
+    "product_commit": "40d8fcf5571e8edc898e2e20b1cf7fe36e52149e",
+    "published_commit": "40d8fcf5571e8edc898e2e20b1cf7fe36e52149e",
+    "remote_confirmed": true,
+    "run_id": 42806142665,
+    "development_run": 42806104268,
+    "upload_to_testflight": false,
+    "replaced_duplicate_push_run": 42806103960
   }
 }

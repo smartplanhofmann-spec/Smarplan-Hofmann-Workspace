@@ -382,3 +382,33 @@ und erfolgreichen Wiederholungen sind abgeschlossen. Die zusätzliche lokale
 Source4-Testbeobachtung und Schlussbelege werden als eigener Nachweisstand auf
 dem autorisierten Testbranch veröffentlicht. Keine neue Live-/Geräteabnahme.
 Die unvollständige V13-Folgeentwicklung bleibt isoliert; Gesamtauftrag läuft weiter.
+
+
+## 10.11.2026 – Faktor-/P4-/bezahlte-Reise-Verbindung begonnen
+
+R09.02/R09.03/D: [V13-Vertragsarbeit](CRM_ERP_FAKTOR_ANSPRUECHE_BEZAHLTE_REISEN_V13_2026-11-10.md)
+schließt die tatsächliche400-Lücke beim gemeinsamen vollständigen Faktor-/P4-
+Monat und bereits erstatteter steuerfreier Reise. Vier neue Backendfälle
+bestehen mit echtem Source3-Lauf:419355 Anspruchsbrutto,285054 Netto und1400
+bereits getrennt gezahlte Reise, unveränderte ursprüngliche500000-Basis und
+alle33 historischen Kerne. Äußerer Quellhash bindet beide expliziten unveränderten
+V12-/V10-Projektionen; Reisekosten werden nicht erneut zum Lohn addiert.
+Unbenutzte Fallübergänge, beide Clients, volle tatsächliche Geld-/EÜR-/Jahres-/
+PG-/Restore-/Paketnachweise sind aktive Codearbeit. Noch nicht veröffentlicht.
+Die Gesamtintegration des veröffentlichten eb74fb5 wird unabhängig fortgesetzt;
+kein Teilabschluss beendet den Auftrag.
+
+
+## 10.11.2026 – V13:38 Backend- und je neun unabhängige Clientverträge
+
+[Vertragsstand](CRM_ERP_FAKTOR_ANSPRUECHE_BEZAHLTE_REISEN_V13_2026-11-10.md):
+38 gemeinsame tatsächliche Backendfälle bestehen in38,036s; echte getrennte
+Netto-/Reisezahlung2864,54 Euro EÜR und419355 Cent Jahresbrutto, private Belege,
+unbenutzte V10-/V12-Ergänzung und verwendeter Altfallwächter sind geprüft.
+Der echte Stundenfeiertag ohne Arbeit enthält eine ausdrückliche vollständige
+P4-/SV-Erfüllung ausschließlich der alten Nullentgeltprüfung; sämtliche anderen
+Sperren bleiben bestehen. Neun Node- und neun native Prüfungen an drei wirklich
+akzeptierten vollständigen Paketen bestehen unabhängig über kanonische Hashes.
+Beide sichtbaren Bedienoberflächen, HTTP-/PG-/Restore-/Paket-/Schlussnachweise
+bleiben in Arbeit. Nicht veröffentlicht; aktueller Testbranch798cc61-Nachlauf
+wird getrennt dokumentiert. Der ganze Auftrag bleibt aktiv.

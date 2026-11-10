@@ -17,7 +17,7 @@ from business_payroll_facts import PayrollFacts,ref,references,reference,file_id
 from payroll_calculations_2026 import CALCULATION_RULE_VERSION,SOURCE_CONTRACT_VERSION,build_calculation_plan,EVENT_FIELDS
 from payroll_travel_tax_2026 import calculate_flat_travel_tax,SIMPLIFIED_RATES,_filing_period
 
-FEATURES=('payroll_calculation_cases','payroll_factor_taxfree_travel','payroll_individual_minijob','payroll_factor_claims')
+FEATURES=('payroll_calculation_cases','payroll_factor_taxfree_travel','payroll_individual_minijob','payroll_factor_claims','payroll_factor_claims_paid_travel')
 TABLES=('business_payroll_calculation_case_events','business_payroll_calculation_case_requests')
 KINDS=('calculation_case','travel_tax_policy')
 POLICY_RULE_VERSION='de_2026_travel_tax_policy_v1'
@@ -243,8 +243,9 @@ class PayrollCalculationCases(PayrollFacts):
             return snapshot(self,employee,details,ids,fresh=fresh,actor=actor)
         from payroll_factor_taxfree_travel_2026 import RULE_VERSION as FACTOR_TRAVEL_RULE
         from payroll_factor_claims_2026 import RULE_VERSION as FACTOR_CLAIMS_RULE
-        factor_travel=rule_version==FACTOR_TRAVEL_RULE
-        factor_claims=rule_version==FACTOR_CLAIMS_RULE
+        from payroll_factor_claim_travel_2026 import RULE_VERSION as FACTOR_CLAIM_TRAVEL_RULE
+        factor_travel=rule_version in (FACTOR_TRAVEL_RULE,FACTOR_CLAIM_TRAVEL_RULE)
+        factor_claims=rule_version in (FACTOR_CLAIMS_RULE,FACTOR_CLAIM_TRAVEL_RULE)
         employee_id=employee['id'];base=self.facts._fact_ref(employee_id,details['period_case_ref'],'period_case',fresh=fresh)
         expected_base='de_2026_standard_factor_period_v9' if factor_travel or factor_claims else 'de_2026_periods_pap_v4'
         if base['plan']['rule_version']!=expected_base:
@@ -375,12 +376,14 @@ class PayrollCalculationCases(PayrollFacts):
         from payroll_factor_taxfree_travel_2026 import RULE_VERSION as FACTOR_TRAVEL_RULE
         from payroll_factor_claims_2026 import RULE_VERSION as FACTOR_CLAIMS_RULE
         from payroll_individual_minijob_2026 import RULE_VERSION as INDIVIDUAL_MINIJOB_RULE
+        from payroll_factor_claim_travel_2026 import RULE_VERSION as FACTOR_CLAIM_TRAVEL_RULE
+        combined=data['kind']=='calculation_case' and data['rule_version']==FACTOR_CLAIM_TRAVEL_RULE
         is_new=data['kind']=='calculation_case' and data['rule_version']==FACTOR_TRAVEL_RULE
         factor_claims=data['kind']=='calculation_case' and data['rule_version']==FACTOR_CLAIMS_RULE
         individual=data['kind']=='calculation_case' and data['rule_version']==INDIVIDUAL_MINIJOB_RULE
-        expected=FACTOR_CLAIMS_RULE if factor_claims else INDIVIDUAL_MINIJOB_RULE if individual else FACTOR_TRAVEL_RULE if is_new else CALCULATION_RULE_VERSION if data['kind']=='calculation_case' else POLICY_RULE_VERSION
-        contract=4 if factor_claims else 3 if individual else 2 if is_new else SOURCE_CONTRACT_VERSION
-        if data['kind']=='calculation_case' and ('travel_payment_refs' in data['details'])!=is_new:raise Problem(400,'Reisezahlungsnachweise gehören ausschließlich zum neuen Faktorvertrag.')
+        expected=FACTOR_CLAIM_TRAVEL_RULE if combined else FACTOR_CLAIMS_RULE if factor_claims else INDIVIDUAL_MINIJOB_RULE if individual else FACTOR_TRAVEL_RULE if is_new else CALCULATION_RULE_VERSION if data['kind']=='calculation_case' else POLICY_RULE_VERSION
+        contract=5 if combined else 4 if factor_claims else 3 if individual else 2 if is_new else SOURCE_CONTRACT_VERSION
+        if data['kind']=='calculation_case' and ('travel_payment_refs' in data['details'])!=(is_new or combined):raise Problem(400,'Reisezahlungsnachweise gehören ausschließlich zum neuen Faktorvertrag.')
         if ('individual_minijob_assessment' in data['details'])!=individual:raise Problem(400,'Die individuelle Minijobprüfung gehört ausschließlich zum ausdrücklichen v11-Vertrag.')
         if data['rule_version']!=expected or type(data['source_contract_version']) is not int or data['source_contract_version']!=contract:
             raise Problem(400,'Regel und Quellenvertrag ausdrücklich in ihrer bekannten Version angeben.')
@@ -390,6 +393,9 @@ class PayrollCalculationCases(PayrollFacts):
     @staticmethod
     def _plan(kind,snapshot):
         if kind=='travel_tax_policy':return None
+        from payroll_factor_claim_travel_2026 import RULE_VERSION as FACTOR_CLAIM_TRAVEL_RULE,build_plan as combined_plan
+        if snapshot['rule_version']==FACTOR_CLAIM_TRAVEL_RULE:
+            return combined_plan(snapshot,rule_version=snapshot['rule_version'],source_contract_version=snapshot['source_contract_version'])
         from payroll_factor_claims_2026 import RULE_VERSION as FACTOR_CLAIMS_RULE,build_plan as factor_claims_plan
         if snapshot['rule_version']==FACTOR_CLAIMS_RULE:
             return factor_claims_plan(snapshot,rule_version=snapshot['rule_version'],source_contract_version=snapshot['source_contract_version'])
@@ -441,9 +447,14 @@ class PayrollCalculationCases(PayrollFacts):
                     snapshot=self._snapshot(employee,data['kind'],details,ids,planned_on=self.hr.now()[:10],rule_version=data['rule_version'],source_contract_version=data['source_contract_version'],actor=fresh);plan=self._plan(data['kind'],snapshot)
                     if _sha(dict(source_snapshot=snapshot,plan=plan))!=data['preview_hash']:raise Problem(409,'Tatsächliche Quellen oder Erfassungstag seit Vorschau geändert.')
                 if changes_contract:
-                    from payroll_individual_minijob_sources import require_unused_upgrade
+                    from payroll_factor_claim_travel_2026 import RULE_VERSION as COMBINED_RULE
+                    if data['rule_version']==COMBINED_RULE:
+                        from payroll_factor_claim_travel_sources import require_unused_upgrade
+                    else:
+                        from payroll_individual_minijob_sources import require_unused_upgrade
                     require_unused_upgrade(self,previous,dict(kind=data['kind'],status=data['status'],rule_version=data['rule_version'],
-                        source_contract_version=data['source_contract_version'],plan=plan))
+                        source_contract_version=data['source_contract_version'],plan=plan,employee_id=data['employee_id'],
+                        sources=snapshot,source_file_ids=ids,details=details))
                 start,end=_effective(data['kind'],details)
                 payload=dict(rule_version=data['rule_version'],source_contract_version=data['source_contract_version'],details=details,source_file_ids=ids,
                     plan=plan,preview_hash=data['preview_hash'],correction_reason=reason,accepted_command=json.loads(canonical(data)))
@@ -546,7 +557,11 @@ def validate_integrity(office):
             if value['status']=='void' and (not prior or prior['status']!='active' or any(value[key]!=prior[key] for key in ('details','source_file_ids','sources','source_hash','plan','preview_hash'))):
                 raise ValueError('Changed void calculation case')
             if prior and (value['rule_version']!=prior['rule_version'] or value['source_contract_version']!=prior['source_contract_version']):
-                from payroll_individual_minijob_sources import is_supported_upgrade
+                from payroll_factor_claim_travel_2026 import RULE_VERSION as COMBINED_RULE
+                if value['rule_version']==COMBINED_RULE:
+                    from payroll_factor_claim_travel_sources import is_supported_upgrade
+                else:
+                    from payroll_individual_minijob_sources import is_supported_upgrade
                 if not is_supported_upgrade(prior,value):raise ValueError('Unsupported historical calculation contract transition')
             validate_case_sources(office,value);previous[value['id']]=value
         for receipt in office.db.execute('SELECT * FROM business_payroll_calculation_case_requests'):

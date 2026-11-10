@@ -4,6 +4,14 @@ Stand: 10.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
+**Aktive Folgearbeit R09/D:** Der gemeinsame Faktor-/P4-/bereits-bezahlte-
+Reisevertrag V13 wird additiv umgesetzt. Vier echte Backendfälle einschließlich
+bestätigtem Source3-Lauf bestehen, bisherige400-Lücke reproduziert. Beide Clients,
+enges unbenutztes Upgrade und volle Geld-/EÜR-/PG-/Restore-/Paketprüfung bleiben
+aktive Arbeit. [Vertrag und Stand](CRM_ERP_FAKTOR_ANSPRUECHE_BEZAHLTE_REISEN_V13_2026-11-10.md).
+Nicht veröffentlicht; der bestätigte Testbranch ist eb74fb5 mit eigenen aktiven
+Development42771773498 und iPhone42771773315. Seine gesamte79er-Browserprüfung
+wird separat bis zum tatsächlichen Abschluss fortgeführt.
 **Letzter vollständig grüner gemeinsamer Produktstand:**eb74fb52a40b8baf25eced4caf1b51a7bc1d9101
 besteht alle20 Development42771773498-Jobs und den eigenen unsignierten iPhone-
 Release42771773315; signierter Upload übersprungen.

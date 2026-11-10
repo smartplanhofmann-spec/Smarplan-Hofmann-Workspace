@@ -45,8 +45,9 @@ Korrekturfälle und 20 Gesamtfall-/Reiseregressionen. 1.023 Browsermodultests
 bestehen ohne Auslassung; 16 neue/historische App-Vertrags- und Bedienfälle
 bestehen, einschließlich unveränderter Wiederholung nach Schließen/Neuladen,
 frischem Freigabeentzug und tatsächlicher V3-Ergebnisanzeige bei 390 Pixeln.
-Die native Analyse ist ohne Befund. Die abschließende vollständige App-Suite
-wird getrennt protokolliert. 21 Paket-/Inventarfälle bestehen mit dem tatsächlichen
+Die native Analyse ist ohne Befund. Nach dem als solchen erhaltenen
+Umgebungsabbruch besteht die gesamte App-Suite mit 1.872 sichtbaren Fällen
+ohne Skip; der JSON-Endsatz bestätigt success:true nach 683.417 ms. 21 Paket-/Inventarfälle bestehen mit dem tatsächlichen
 CLI-Kopierweg und Supportarchiv. Die gemeinsame Fixture enthält zwei wirklich
 vom Fachkern angenommene aufeinanderfolgende V3-Originale; ihr Generator
 verwendet kontrollierte Fachfixtures, keine echte MFA. Die Clients berechnen
@@ -109,3 +110,5 @@ Verteilung und reale Betriebs-/Geräteabnahme werden nicht aus diesem
 Zahlungsdatumsnachweis abgeleitet. Keine Liveinstallation oder echte Überweisung.
 
 Der ausschließlich eigene PostgreSQL-Container wurde nach den Prüfungen anhand vollständiger Kennung und Aufgabenmarkierung bestätigt und entfernt. Andere Container und Dienste wurden nicht verändert.
+
+Der gemeinsame Nachweis bindet den Produktcode f1e1655992ae5491ddb2a5f2c88b6c5b90d017e1 über konkrete Quellhashes, ursprüngliche Rohläufe und den vollständigen maschinenlesbaren App-Bericht: [Manifest](evidence/source5-payment-dates-2026-11-10/manifest.json).

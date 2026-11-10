@@ -3605,3 +3605,60 @@ tatsächlicher CLI, entpacktem Backend und Schutz fremder Zielpfade bestehen.
 [Befund und Korrektur](CRM_ERP_WINDOWS_PAKETQUELLEN_2026-11-10.md).
 Neue Remoteprüfung, Lieferartefakt und echte Geräteabnahme werden gesondert
 nachgewiesen. Die unabhängige Entwicklung der restlichen Funktionen läuft weiter.
+
+## 10.11.2026 – tatsächliche Windows-Paketierung und Source5-Zahlungstage V3
+
+Der Gesamtauftrag wird ausdrücklich nach jeder Etappe fortgesetzt. Produktcode
+`f1e1655992ae5491ddb2a5f2c88b6c5b90d017e1` ist lokal gesichert und vollständig
+nativ geprüft; Veröffentlichung und eigener Remote-Nachlauf werden angeschlossen.
+
+- Windows-Vorgänger d083ed4 ist veröffentlicht. Sein tatsächlicher Windowsjob
+  besteht mit App, vollständiger lokaler Pythonumgebung, PDF, Sicherung/Restore,
+  EXE, Paketierung und Online-Pilot. Abschließende eigene CI: sechs erfolgreiche
+  Development-Jobs, zwei Fehler; unsignierter iPhone-Build erfolgreich,
+  signierter Upload übersprungen. Keine vollständige Grün-Behauptung.
+- Die zwei tatsächlichen CI-Fehler sind lokal korrigiert: Unternehmensereignisse
+  werden bytegleich im echten Support-ZIP geprüft; der Zeitkorrektur-Browserfall
+  wählt über Berlin-Mitternacht den tatsächlich längsten freigegebenen Tag.
+  Drei Registrierungsfälle und die echte MFA-/HTTP-/Browserkette bestehen.
+  [Windowsbefund und Originalausschnitte](CRM_ERP_WINDOWS_PAKETQUELLEN_2026-11-10.md).
+- [Source5-Zahlungstage V3](CRM_ERP_SOURCE5_ZAHLUNGSTAGE_V3_2026-11-10.md):
+  zusätzlicher tatsächlicher Transfer im November bei ursprünglichem
+  Bruttozufluss am 31.10.; ursprüngliche Zahlungen und Zuordnungen unverändert,
+  geordneter vollständiger Präfix auch nach zwei V3-Korrekturen. Feature und
+  Vertrag sind additiv; gleichdatierte alte V1-/V2-Fälle behalten ihre Regeln.
+- 32 Backendfälle in 233,275 Sekunden, 1.023 Browsermodultests ohne Skip,
+  16 native Vertrags-/Bedienfälle und Analyse ohne Befund bestehen.
+  Beide tatsächlichen Browserabläufe V3 und V2 bestehen mit echter MFA und
+  verlorenen angenommenen Lauf-/Zahlungsantworten; zusätzliche Ergebnisanzeige
+  bei 390 Pixeln visuell geprüft.
+- Zwei tatsächliche PostgreSQL-Fälle in 207,040 Sekunden bestehen: getrennte
+  Produktionsrollen/MFA, tatsächlicher Cash-Tag, EÜR, private Grenzen,
+  unveränderte PDF-/Zahlungsoriginale nach pg_dump/pg_restore und zwei echte
+  konkurrierende Schreiber mit anschließendem Rollenentzug. Zusätzlicher
+  Nachlauf erneuter MFA besteht in 39,149 Sekunden. Es wird auf das nächste
+  reale TOTP-Zeitfenster gewartet; Einmaligkeit bleibt unverändert.
+- Die neue PostgreSQL-Kette deckte den allgemeinen Reisemonatskonflikt auf.
+  Ausschließlich die bereits vollständig aufgelösten neuen V3-Nettoindizes
+  dürfen später fließen. Alte Reisezahlungen und andere Verträge behalten
+  ihre ursprünglichen Datumsgrenzen. 21 Paket-/Inventarfälle bestehen.
+- Der vollständige lokale App-Vorlauf wurde durch den Cloud-Neustart nach
+  1.639 beobachteten erfolgreichen Einzelfällen ohne Endergebnis unterbrochen.
+  Er bleibt als solcher erhalten; der neue vollständige Lauf besteht mit
+  1.872 sichtbaren Fällen, null Skips und success:true nach 683.417 ms.
+- [Quellhashes, ursprüngliche Fehlversuche und Rohläufe](evidence/source5-payment-dates-2026-11-10/manifest.json)
+  bleiben nachvollziehbar. Alle 32 historischen 2026-Rechenmodule, die gesamte
+  alte Datei payroll_multiple_payments.py und das Originalgesamtziel sind
+  unverändert. Eigener markierter PG-Testcontainer entfernt; andere Container
+  und Livebetrieb bleiben unverändert.
+
+Die nächste isolierte Arbeitskopie `/workspace/smartplan-source5-repayment-20261110`
+ist bereits auf f1e1655 vorgezogen. Ihr neuer tatsächlicher Rückzahlungsfall
+scheitert zunächst mit bisher unbekanntem ausdrücklichem Reviewvertrag und
+besteht nach additiver Backendimplementierung mit 85,355 Sekunden: bereits
+bezahlter positiver Unterschied, neuer korrigierter Originalnachweis,
+39 EUR tatsächliche Beschäftigtenrückzahlung am 03.11. und unveränderte alte
+Zahlungen/PDF. V4 ist noch unveröffentlicht; weitere Grenzen, beide Clients,
+EÜR-Jahresfortschreibung und tatsächliches PostgreSQL/Restore sind aktive Arbeit.
+Weitere Gesamtzielpunkte bleiben erhalten. Keine neue Liveinstallation,
+Überweisung, Meldung oder produktive Gesamtfreigabe.

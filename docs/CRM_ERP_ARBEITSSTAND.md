@@ -30,6 +30,14 @@ Arbeitskopie: `/workspace/smartplan-source5-payment-dates-20261110`, Basis d083e
 Die früheren V1-/V2-Verträge und 32 historische Rechenmodule bleiben erhalten.
 Ein abgeschlossener Abschnitt beendet ausdrücklich nicht den Gesamtauftrag.
 
+Der nach dem Cloud-Neustart erneut gestartete vollständige App-Lauf besteht
+mit 1.872 Fällen ohne Skip. Der alte Vorlauf endete bei 1.639 beobachteten
+Erfolgen ohne Endergebnis und bleibt als unterbrochen erhalten.
+Parallel wird in `/workspace/smartplan-source5-repayment-20261110` auf f1e1655
+der ausdrücklich versionierte tatsächliche Netto-Rückzahlungsfall entwickelt.
+Seine erste Backend-Geldflusskette besteht; V4 ist unveröffentlicht,
+Clients und Integrationsnachweise sind noch offen.
+
 Der frühere Zeitabgleich 75d88a3 ist veröffentlicht. Vier eigene Development-
 Jobs bestehen; vier weitere sowie beide iPhone-Jobs sind beim Nachfolger
 abgebrochen. Der damalige erste Abruf bleibt historisch erhalten und wird nicht

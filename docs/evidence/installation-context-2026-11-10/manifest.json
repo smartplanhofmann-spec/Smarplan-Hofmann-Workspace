@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "core_committed_whole_native_and_final_operator_run_pending",
+  "status": "core_and_final_operator_pg_archive_checks_complete_whole_native_running",
   "base_commit": "8e6cff5fabdd34ca58ed52e4fb2cc9b8ecfb1e7c",
   "raw_files": [
     {
@@ -177,6 +177,21 @@
       "path": "installation-source-mobile.png",
       "bytes": 76294,
       "sha256": "260f981382c3c28a4f4b9f922a20d236015edcaae69f682c1cb7a745359752f5"
+    },
+    {
+      "path": "installation-context-update-flow-second-20261110.txt.gz",
+      "bytes": 16348,
+      "sha256": "88c6ebae580980b97770bb8a367d7e4b90d98181cc703314f956c994c294d28e"
+    },
+    {
+      "path": "installation-context-actual-archive-runtime-first-20261110.txt.gz",
+      "bytes": 335,
+      "sha256": "1c1715ef9d7f0528dbd53b4422494249ec6f79839b03e571dc50ad0d00f03c01"
+    },
+    {
+      "path": "installation-context-deep-marker-checked-20261110.txt.gz",
+      "bytes": 311,
+      "sha256": "2d7d53cad923330cf0d36dcf7919a3e8ed9fb680f68e2abbcb142b1188d82850"
     }
   ],
   "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
@@ -192,10 +207,14 @@
     "all_own_pg_removed": true,
     "first_operator_run_cases": 88,
     "first_operator_run_seconds": 659.471,
-    "final_operator_run": "running",
+    "final_operator_run": 88,
     "whole_native": "running",
-    "actual_current_commit_archive_runtime": "pending_core_commit",
+    "actual_current_commit_archive_runtime": true,
     "live_deployment": false,
-    "real_device_acceptance": false
-  }
+    "real_device_acceptance": false,
+    "final_operator_seconds": 661.167,
+    "actual_archive_runtime_seconds": 4.629,
+    "archive_runtime_commit": "74490271b00a2f14f8a10a30aa69b703dd4c4d98"
+  },
+  "product_commit": "74490271b00a2f14f8a10a30aa69b703dd4c4d98"
 }

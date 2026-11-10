@@ -80,7 +80,7 @@ class InstallationMarkerTests(unittest.TestCase):
     def test_missing_unsafe_or_ambiguous_marker_never_becomes_an_installed_commit(self):
         unknown=dict(schema_version=1,status='unrecorded',source_commit=None)
         self.assertEqual(installation.read_context(self.path),unknown)
-        for raw in (b'{}',b'[]',b'null',b'\xff',b' '*1025,
+        for raw in (b'{}',b'[]',b'null',b'\xff',b' '*1025,b'['*1024,
                     b'{"schema_version":true,"source_commit":"'+b'a'*40+b'"}',
                     b'{"schema_version":1,"source_commit":"'+b'a'*40+b'","source_commit":"'+b'b'*40+b'"}',
                     json.dumps(dict(schema_version=1,source_commit='a'*40,private_path='/private/source')).encode()):

@@ -730,3 +730,31 @@ lesbar und pro Prozess eingefroren; unbekannter Stand wird nicht geraten.
 Volle Betreiber-/PG-/Restore-/Paket- und Schlussnachweise laufen; noch nicht
 veröffentlicht, keine neue Serverinstallation. V13 bleibt lokal vollständig
 geprüft und als Produkt b02c84a veröffentlicht; alle20 eigenen Development-Jobs und sein unsignierter iPhone-Build bestehen; signierter Upload übersprungen.
+
+
+## 10.11.2026 – vollständige Betreiber-/Paket-/Restoreprüfung abgeschlossen
+
+Installationskern **74490271b00a2f14f8a10a30aa69b703dd4c4d98** ist auf8e6cff5
+eingecheckt. Der gesamte endgültige unveränderte Betreiberlauf besteht mit88
+Fällen in661,167s. Zusätzlich wird genau7449027 tatsächlich als vollständiges
+Git-Quellarchiv erzeugt und in einem getrennten Python-Prozess ausgeführt:
+echte MFA, eigene unveränderte Paketkennung und fünf erforderliche Browser-
+Einstiegsdateien bestehen in4,629s. Eine unbekannte oder falsch datierte
+Arbeitskopie wird nicht als installierter Stand ausgegeben.
+
+35 gemeinsame HTTP-/CI-/Git-Tar-/Paket-/Inventarfälle,1058 Browsermodule, zehn
+native gemeinsame Einstellungsfälle, saubere Analyse25,4s, beide wirklichen
+Browserläufe und der volle PG-/MFA-/Restorefall30,201s sind abgeschlossen.
+Der alte Zugang bleibt nach Restore401; eine neue wirkliche MFA-Anmeldung ist
+geprüft. Alle eigenen PG-Container sind entfernt. Ein zusätzlicher wirklich
+geprüfter tiefer ungültiger Marker bleibt ebenfalls unrecorded; es wurde dafür
+keine Produktausnahme oder gelockerte Dateiprüfung eingeführt.
+Die komplette aktuelle App-Suite läuft mit über1000 tatsächlichen Fällen ohne
+bisherigen Fehler/Skip. [Alle Rohdaten](evidence/installation-context-2026-11-10/manifest.json).
+
+Dieser Zwischenstand wird ausschließlich auf dem autorisierten Testbranch
+veröffentlicht, damit seine eigenen unabhängigen Builds beginnen können.
+Keine neue Liveinstallation oder echte Geräte-/Fachfreigabe. Der Vorgänger
+b02c84a ist mit allen20 Development-Jobs, unsigniertem iPhone-Release und beiden
+Mailbot-Vertragsjobs vollständig grün; signierter Upload übersprungen.
+Der Gesamtauftrag läuft weiter.

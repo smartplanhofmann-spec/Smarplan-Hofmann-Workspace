@@ -4,14 +4,16 @@ Direkte Nutzerentscheidung vom10.11.2026: **Qonto, Sparkasse, Amex** sowie
 **Granzow, Alexander Bürkle, Loxone, Voltus**. Diese Entscheidung ersetzt die
 bisher offene Auswahl. Das Original `CRM_ERP_Gesamtziel.txt` bleibt unverändert.
 R07.05, R08.03 und R12.03 bleiben bis zu ihren tatsächlichen Gesamtnachweisen offen.
-Genaue Sparkasse und Amex Business/Corporate sind noch angefragt. Zugangsdaten
+Ergänzende direkte Nutzerentscheidung: **Kreissparkasse Rottweil** und
+**American Express Business-Karte**. Die Instituts-/Produktfrage ist damit
+beantwortet. Zugangsdaten
 gehören ausschließlich in geschützte Server-/Umgebungseinstellungen.
 
 | Anbieter | Tatsächlich geprüfte offizielle Quelle | Aktueller Umfang / verbleibender Schritt |
 |---|---|---|
 | Qonto | [V2-Organisation](https://docs.qonto.com/api-reference/business-api/organization-accounts/organizations/retrieve-the-authenticated-organization-and-list-bank-accounts), [Transaktionen](https://docs.qonto.com/api-reference/business-api/transactions-statements/transactions/list-transactions), [Pagination](https://docs.qonto.com/api-reference/business-api/introduction/pagination), [Migrationsfrist15.11.](https://docs.qonto.com/guides/migrations/deprecated-organization-endpoints), [API-Key-Vertrag](https://docs.qonto.com/guides/authentication/api-key) | Serverseitiger Leseabschnitt mit beiden Clients. Eigener API-Key-Zugang additiv zum Betreiber-OAuth-Token; Geheimnis nur im privaten Serverfile. Echter Zugang und Providerabnahme fehlen. |
-| Sparkasse | Sparkasseninstitut und tatsächlicher Zugangsweg noch zu bestimmen | Bank-/Institutsname abwarten; konkreten FinTS-/EBICS-/lizenzierten Kontoinformationsweg samt Vertrag prüfen. Keine gemeinsame erfundene Sparkassen-API. |
-| Amex | [Offizielles Open-Banking-Angebot](https://developer.americanexpress.com/open-banking) | Account-/Transaction-Zugang nennt regulierte AISPs, ausgewählte Produkte/Emittenten und gesonderten Spezifikationszugang. Das belegt keinen frei nutzbaren deutschen Zugang. Business/Corporate und tatsächlicher Vertrag fehlen. |
+| Kreissparkasse Rottweil | [Institutseigenes EBICS-Angebot](https://www.sparkasse-rottweil.de/fi/home/produkte/banking-und-software/freigabeverfahren/electronic-banking-mit-ebics.html) | Elektronische Kontoinformationen für ERP-Systeme und vorherige Freischaltung sind bestätigt. BLZ64250040/BIC SOLADES1RWL dienen nur als öffentliche Institutsidentität. Konkreter eigener FinTS-/EBICS-Lesevertrag, Teilnehmerfreigabe und Datenformat fehlen; keine Bankverbindung des Nutzers daraus erraten. |
+| American Express Business-Karte | [Offizielles Open-Banking-Angebot](https://developer.americanexpress.com/open-banking), [Partnerauskunft für deutsche Geschäftskarten](https://help.getmyinvoices.com/help/banking/american-express/haeufige-fragen-zur-american-express-business-karte/) | Produkt vom Nutzer bestätigt. Der dokumentierte Partnerweg benötigt Anmeldung und ausdrückliche Datenfreigabe beim Anbieter. Er beweist keine eigene Smartplan-API-Berechtigung; kein Fremdkonto angelegt, kein Tarif gekauft. Der aktuelle direkte Abruf der Amex-Entwicklerseite antwortet403; ältere Primärrecherche bleibt getrennt erhalten. |
 | Granzow | [Schnittstellenangebot](https://www.granzow.de/schnittstellenloesungen) | UGL, IDS, OCI und DatanormOnline2.0 werden angeboten. Echte Vertragsversion, Partnerendpunkt, Einwilligung und Testzugang separat prüfen. Vorhandenes begrenztes CSV-/A14-Profil ist keine vollständige IDS-/UGL-Anbindung. |
 | Alexander Bürkle | [Offizielle Integrationspartner](https://web.alexander-buerkle.com/de/ganzheitliche-loesungen/ecommerce-schnittstellen/ecommerce-schnittstellen-partner/integrationspartner) | IDS/OCI/cXML und EDI-Angebote recherchiert; tatsächliches Format und Partnerfreigabe fehlen. |
 | Loxone | [Offizielle Downloads](https://www.loxone.com/dede/support/downloads/) | EUR-/CHF-CSV-Preislisten sowie DATANORM4/5 einschließlich kundenindividueller Preise angeboten. Tatsächlichen Dateivertrag prüfen; keine Miniserver-Geräte-API als Lieferantenanbindung ausgeben. |
@@ -106,6 +108,20 @@ Die aktuelle Cloud hat keine Bankgeheimnisse und erlaubt die neuen Provider-
 Zielhosts nicht. Es wurde kein echter Bankabruf, Lieferantenversand, Kauf,
 Liveupdate oder TestFlight-Upload ausgelöst. Kontrollierte Providerantworten
 sind ausschließlich ausdrücklich ausgewählte Testfixtures.
+
+Der Nutzer hat die zusätzliche Loxone-Hostfreigabe am10.11. ausdrücklich auf
+**später** verschoben. Daher kein weiterer Direktabruf an pim.loxone.com und
+keine vorgetäuschte CSV-Schemaabnahme. Unabhängige Entwicklung läuft weiter.
+
+## Bedeutung der abschließenden Fach- und Sicherheitsprüfung
+
+Der Nutzer hat zur Prüferfrage um Erklärung gebeten; es ist noch keine Person
+benannt. Gemeint sind die Prüfung der tatsächlichen Buchungs-/Lohnergebnisse
+durch Steuerberatung oder Lohnbüro und eine vom Entwickler unabhängige
+Zugriffs-/Datenschutzprüfung. Das sind Abnahmen des Gesamtziels, keine hier
+behauptete neue gesetzliche Beauftragungspflicht und kein Entwicklungsstopp.
+Die vorbereiteten Prüfunterlagen werden weiter ergänzt; kein Prüfer wird
+ohne Nutzerauftrag kontaktiert oder beauftragt.
 
 ## Prüfnachweis und nächste Arbeit
 

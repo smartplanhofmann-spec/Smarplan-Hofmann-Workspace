@@ -1,0 +1,65 @@
+{
+  "base": "936f40f57c769dce515099b4fecc616d05b35280",
+  "scope": "Actual shared SQLite read corruption, statement reuse disabled, no weakened schema guard",
+  "ci_failure": {
+    "run": 42750261490,
+    "job": 129611954657,
+    "path": "business_schema.state via actual purchasing inventory locations HTTP500"
+  },
+  "raw_logs": [
+    {
+      "file": "sqlite-shared-read-before-20261110.log.gz",
+      "raw_sha256": "552ae109c54a2b9849fd44a4d653c7f21d968ea875dffe8f2e550935329d2db4",
+      "sha256": "be132af9a0ed952418cc2594fc5c012567ec7cdbb963065a7e573d685fc1d35b"
+    },
+    {
+      "file": "sqlite-concurrent-reads-before-20261110.log.gz",
+      "raw_sha256": "e7e21de997c26a920ac4b44d0250fddc7880b28fcce5a1341a23cf5089213a95",
+      "sha256": "9a97ea0b6630acad5e338967fbc1f70b9eaeac0fb284d0b2869dd5119f05e5b4"
+    },
+    {
+      "file": "sqlite-concurrent-reads-after-20261110.log.gz",
+      "raw_sha256": "57c4a510f3418502a0ad2fa3aa0ee06fb69da57e7c1a5228ab666282c0b69a21",
+      "sha256": "b771613b4dfef1d18546b92bb6087a0f75fe6894d92904f94b1c12527113969a"
+    },
+    {
+      "file": "sqlite-shared-read-domain-20261110.log.gz",
+      "raw_sha256": "de082a9044f272610499feb168f1971ff2a3364fde57b81a804af1eb86492724",
+      "sha256": "6c35eda89d16779a0cb1fcbe1724985393f3f39bfda146e6b6f4cbc84c4b39de"
+    },
+    {
+      "file": "sqlite-purchasing-browser-20261110.log.gz",
+      "raw_sha256": "fc17cbbaadeb3b5a261f9ad6806a3c6476547a6452aa8106fb5a827c56a0c85b",
+      "sha256": "2fc44a8bc4747803fb78c1138f446eef7adc049c4890fe7fc827ffd9272cc531"
+    }
+  ],
+  "tests": {
+    "original_concurrent_reproduction": "6 readers returned wrong unchanged table sets; no mutation",
+    "first_regression": "1 error IndexError; retained",
+    "corrected_regression": {
+      "passed": 1,
+      "seconds": 2.82,
+      "readers": 8,
+      "reads": 2400
+    },
+    "domain": {
+      "passed": 77,
+      "seconds": 25.842
+    },
+    "actual_browser": "MFA/order/partial/rest/one stock write after lost ACK/mobile passed"
+  },
+  "source_hashes": {
+    "backend/core.py": "b146ff43b6a736b964d817552571a0895536280a442247a02848dfa965cf8d81",
+    "backend/test_sqlite_concurrent_reads.py": "5269a9d275fd63675564cde20f035659977250f7eba6b24c7bc2d6d0aac2c803",
+    "web/office/tests/e2e.cjs": "857a4b73aa1160bc1b871b9c2f611a3972ee24ab2d5d4cc8605743385ec9095c"
+  },
+  "goal": {
+    "bytes": 23863,
+    "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "limits": [
+    "Own new complete CI not yet run",
+    "No live update",
+    "No overall acceptance implied"
+  ]
+}

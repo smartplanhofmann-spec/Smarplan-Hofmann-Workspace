@@ -3704,3 +3704,16 @@ Meldung/Zahlung. Die lokalen V3-Folgekorrekturen b437f2c und V4-Code werden mit
 Nachweisen zusammengeführt und erhalten eigene CI. Der nächste konkrete
 Codeabschnitt schließt weitere positive, negative und betragsgleiche Ausgleiche
 nach einer abgeschlossenen V4-Rückzahlung; das Gesamtziel bleibt aktiv.
+
+## 10.11.2026 – gleichzeitige lokale SQLite-Leser reproduziert und korrigiert
+
+[Befund, Änderung und Nachweise](CRM_ERP_SQLITE_PARALLELLES_LESEN_2026-11-10.md).
+Der eigene V4-Browserjob scheitert echt im Einkaufs-/Lagerablauf an einer
+Schemaabfrage. Acht reine gleichzeitige Leser derselben tatsächlichen
+Office-Verbindung reproduzieren fehlende/vergrößerte Tabellenmengen ohne
+Datenänderung; der neue Regressionstest scheitert zunächst mit IndexError.
+Ohne gemeinsamen Statementcache besteht derselbe Test/2,820s. 77 gemeinsame
+Schema-/Inventar-/Bestell-/Zählfälle/25,842s und echter Browser für Teil-/Rest-
+lieferung, verlorene Bestätigung, genau eine Buchung und Mobilansicht bestehen.
+Schema-Schutzprüfungen werden nicht gelockert. Lokale Korrektur, eigene neue
+Remoteprüfung noch offen; übrige Arbeiten und V5 laufen weiter.

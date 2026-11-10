@@ -8,6 +8,14 @@ Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`
  den Auftrag. Die verbleibende Codearbeit und technische Gesamtabnahme werden
  weiter abgearbeitet; echte externe Freigaben bleiben als solche benannt.
 
+**Neue geprüfte Stabilitätskorrektur:** Der tatsächlich rote Browserjob129611954657
+auf 936f40f ist durch einen isoliert reproduzierten Fehler gleichzeitiger
+SQLite-Lese-Cursor eingegrenzt. [Korrektur und Nachweise](CRM_ERP_SQLITE_PARALLELLES_LESEN_2026-11-10.md):
+keine Wiederverwendung vorbereiteter Abfragen der gemeinsamen lokalen Verbindung;
+Schema- und Archivschutz bleiben aktiv. 77 gemeinsame Fälle und echter
+Bestell-/Teil-/Restlieferungsbrowser bestehen. Noch nicht veröffentlicht;
+Remoteprüfung und Gesamtziel laufen weiter. V5 wird unabhängig fortgesetzt.
+
 **Aktuelle Veröffentlichung:** Source5-Zahlungstage V3 und die beiden konkreten
 CI-Prüfkorrekturen sind als 17978f6697a02f131fc1a4d319cc279dbe642d50 veröffentlicht.
 Der [abschließende tatsächliche Abruf](evidence/source5-payment-dates-2026-11-10/publication-completed-17978-20261110.json)

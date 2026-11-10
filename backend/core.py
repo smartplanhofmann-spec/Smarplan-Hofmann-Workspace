@@ -195,7 +195,10 @@ class Office:
     integrity_error = sqlite3.IntegrityError
     def __init__(self, path):
         self.lock = threading.RLock()
-        self.db = sqlite3.connect(path, check_same_thread=False)
+        # This connection also serves concurrent read paths. Reusing cached
+        # statements across active cursors in CPython's sqlite3 can truncate
+        # or mix their rows; an Office lock does not cover every direct read.
+        self.db = sqlite3.connect(path, check_same_thread=False, cached_statements=0)
         self.db.row_factory = sqlite3.Row
         self.db.executescript("""
         PRAGMA foreign_keys=ON;

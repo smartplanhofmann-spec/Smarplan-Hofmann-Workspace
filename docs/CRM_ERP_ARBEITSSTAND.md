@@ -27,8 +27,9 @@ Etappe verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
 
 | Stand | Tatsächlich bestätigt |
 |---|---|
-| Aktuell veröffentlichter Quell- und Testbranch | `c4a2d8f4ca969f8faab7bd15c9f7fd838e0e97ba`, veröffentlicht und Remote-Zeiger bestätigt. Installationskern7449027, Schlussnachweise/V13-CI enthalten. |
-| Eigene aktuelle CI | Development42790149143:alle20 Gruppen erfolgreich. Die anHTTP403 vor Testbeginn gescheiterte Gruppe wurde allein wiederholt; alle13 wirklichen Browserabläufe bestehen, Erstfehler erhalten. Unsignierter iPhone42790149399 erfolgreich, signierter Upload übersprungen. Mailbot-Verträge42790149124 auf Linux/Windows erfolgreich; kein echter Versand. |
+| Aktuell veröffentlichter Quell- und Testbranch | `deebe2017cc0c0a1f17f4ee6dce564658ff15654`, veröffentlicht und Remote-Zeiger bestätigt. Installationskern7449027, vollständige Nachweise und getrennte iPhone-Vorbereitung12798fb enthalten. |
+| Eigene neue Workflowprüfung | Development42796495383 und manueller iPhone-Vorbereitungslauf42796610215 an exakt deebe20 laufen. prepare_signed_ipa=true, upload_to_testflight=false. Der dadurch ersetzte doppelte Push-iPhone-Lauf42796495426 wurde durch bestehende concurrency abgebrochen; kein Produktfehler. |
+| Vollständige CI zum Installationsprodukt c4a2d8f | Development42790149143:alle20 Gruppen erfolgreich. Die anHTTP403 vor Testbeginn gescheiterte Gruppe wurde allein wiederholt; alle13 wirklichen Browserabläufe bestehen, Erstfehler erhalten. Unsignierter iPhone42790149399 erfolgreich, signierter Upload übersprungen. Mailbot-Verträge42790149124 auf Linux/Windows erfolgreich; kein echter Versand. |
 | Letzter vollständig grüner Produktstand | `c4a2d8f4ca969f8faab7bd15c9f7fd838e0e97ba`: eigene20 Development-Gruppen, eigener unsignierter iPhone-Release und beide Mailbot-Verträge abgeschlossen. Neue lokale iPhone-Workflowänderung12798fb ist davon getrennt. |
 | Letzter vom Nutzer bestätigter Server | `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5` vom05.11.; drei Dienste/Sicherungstimer und kontrollierter Updateabschluss bestätigt. Kein neuer Liveabgleich oder Update ausgeführt. |
 | Geräte-/Fach-/Gesamtabnahme | Keine neue echte Windows-/iPhone- oder externe Fach-/Sicherheitsfreigabe aus Cloudtests ableiten. |
@@ -41,7 +42,7 @@ Kompatibilitätskennung, keine App-/Paketversion.
 ## Aktive Arbeit: signiertes iPhone-Paket getrennt vom Upload
 
 Arbeitskopie `/workspace/smartplan-ios-signed-preparation-20261110`, Branch
-`codex/ios-signed-preparation-20261110`. Lokal12798fb. Der geprüfte neue
+`codex/ios-signed-preparation-20261110`. Produkt12798fb, veröffentlicht in deebe20. Der geprüfte neue
 [Vorbereitungsweg](CRM_ERP_IPHONE_SIGNIERTE_VORBEREITUNG_2026-11-10.md) erlaubt
 die signierte Paketvorbereitung auf dem exakten autorisierten Testbranch und
 verlangt eine eigene ausdrückliche Auswahl für den TestFlight-Upload.
@@ -50,7 +51,9 @@ YAML- und Bash-Syntax bestehen. App-/Backend-/Browsercode bleibt bytegleich zum
 vollständig geprüften Installationsstand. Bestehende Apple-Einrichtung wurde
 schon für Build108 verwendet; ein verweigerter Metadatenzugriff beweist keine
 fehlenden Secrets. Neuer tatsächlicher signierter Export noch nicht geprüft.
-Veröffentlichen und danach den konkreten Vorbereitungsweg ohne Upload prüfen.
+GitHub hat den wirklichen manuellen Vorbereitungslauf42796610215 angenommen;
+er prüft zunächst den Client vollständig. Die einzige gewählte Außenwirkung
+ist Paketvorbereitung; TestFlight-Upload bleibt ausdrücklichfalse.
 
 ## Abgeschlossen: Installationsstand und vollständige Serverarchive
 
@@ -106,9 +109,9 @@ Die aktuelle App-Gesamtprüfung darf nicht aus diesem Vorgängerwert abgeleitet 
 
 ## Weiterarbeiten bis zum Gesamtziel
 
-1. Den neuen lokal geprüften iPhone-Vorbereitungsweg auf dem autorisierten
-   Testbranch veröffentlichen und dessen eigenen wirklichen Paketnachweis
-   abschließen. Keinen TestFlight-Upload aus der Paketvorbereitung ableiten.
+1. Den neuen veröffentlichten iPhone-Vorbereitungsweg und dessen eigene
+   Development-/Paketprüfungen bis zum tatsächlichen Ergebnis auswerten.
+   Keinen TestFlight-Upload aus der Paketvorbereitung ableiten.
 2. Nur tatsächlich überprüfte Ergebnisse in Matrix, Plan, Fortschritt und diese
    aktuelle Zusammenfassung übernehmen. Neue Nachweispushes nicht unnötig so
    auslösen, dass noch benötigte laufende CI durch concurrency abgebrochen wird.

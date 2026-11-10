@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "local_policy_and_existing_package_contracts_passed_not_yet_published",
+  "status": "published_manual_signed_only_preparation_and_own_development_checks_running",
   "base_commit": "e5ce894473ff86e0932a05778983354e38ac5adc",
   "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
   "raw_files": [
@@ -33,6 +33,21 @@
       "path": "installation-context-apple-secret-metadata-error-20261110.txt.gz",
       "bytes": 181,
       "sha256": "cc960a1631737aae1fb4fa40c2d5db1ffad32c7dbb047363d9ac65a30121575a"
+    },
+    {
+      "path": "ios-signed-preparation-dispatch-20261110.txt.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "ios-signed-preparation-own-runs-first-20261110.json.gz",
+      "bytes": 822,
+      "sha256": "197e7b17e7831043b9ba3a51b283b1a89d17d8539af70b320936826c2cfff9ff"
+    },
+    {
+      "path": "payroll-current-scope-primary-fetch-observations-20261110.json.gz",
+      "bytes": 1930,
+      "sha256": "3b8a0d6c233570b6ce0020f8841b445daad81fb2d033c189b56926d1b5b245f1"
     }
   ],
   "results": {
@@ -52,5 +67,21 @@
     "new_actual_signing": false,
     "new_testflight_upload": false,
     "new_device_acceptance": false
+  },
+  "published_commit": "deebe2017cc0c0a1f17f4ee6dce564658ff15654",
+  "remote_confirmed": true,
+  "product_commit": "12798fb6932cca6631995459b43b93e0a5fa7716",
+  "manual_preparation": {
+    "run_id": 42796610215,
+    "dispatch_exit": 0,
+    "event": "workflow_dispatch",
+    "prepare_signed_ipa": true,
+    "upload_to_testflight": false,
+    "status": "unsigned prerequisite running; actual signed export not established"
+  },
+  "development_run": 42796495383,
+  "replaced_duplicate_push_iphone_run": {
+    "run_id": 42796495426,
+    "conclusion": "cancelled by existing same-branch concurrency when explicit manual preparation started"
   }
 }

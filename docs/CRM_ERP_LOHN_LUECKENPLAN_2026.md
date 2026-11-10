@@ -1,6 +1,49 @@
 # Lohn 2026 – verbleibende Standardfälle und konkreter Umsetzungsplan
 
-**Fortschreibung 09.11.2026:** Der reguläre volle Monat mit ausdrücklich
+## Aktueller Abgleich10.11.2026
+
+Der folgende ältere Befund bleibt als Entwicklungshistorie erhalten. Er ist
+keine aktuelle Liste sämtlicher noch fehlender Funktionen. Zusätzlich zu den
+früheren Voll-/Teilmonats-, Midijob-, P4-, Source4-/Source5- und Reisebausteinen
+sind diese begrenzten Faktorfolgen inzwischen implementiert und geprüft:
+
+| Version | Tatsächlich geprüfter Umfang |
+|---|---|
+| V8 | [Regulärer voller Faktor-Monat](CRM_ERP_LOHN_FAKTOR_2026.md), originale LF-/CRLF-Historie erhalten |
+| V9 | [Belegter Faktor-Teilmonat](CRM_ERP_LOHN_FAKTOR_TEILMONATE_2026.md), Quelle2 mit Korrektur und Geld-/Restorekette |
+| V10 | [Faktor mit bezahlter steuerfreier Reise](CRM_ERP_FAKTOR_REISE_CLIENTS_2026.md), Erstattung nicht erneut im Netto |
+| V11 | [Individuell versteuerter gewerblicher Minijob](CRM_ERP_MINIJOB_V11_CLIENTS_2026.md), enger dokumentierter Vollmonatsfall |
+| V12 | [Faktor mit belegten P4-Ansprüchen](CRM_ERP_FAKTOR_ANSPRUECHE_V12_2026-11-10.md), Monats-/Stundenentgelt ohne erfundene Arbeitszeit |
+| V13 | [Faktor, P4 und bereits bezahlte Reise](CRM_ERP_FAKTOR_ANSPRUECHE_BEZAHLTE_REISEN_V13_2026-11-10.md), vollständige Quellenbindung und belegte Ergänzung unbenutzter V10-/V12-Fälle |
+
+V13 ist mit39 gemeinsamen Backendfällen plus CRLF-/CI-Verträgen, unabhängigen
+Clientverträgen, wirklichen Browserabläufen und PostgreSQL-/MFA-/Parallelitäts-/
+EÜR-/Jahres-/vollständigen Restoreketten geprüft. Der nachfolgende gemeinsame
+Installationsstand c4a2d8f besteht1939 gesamte Appfälle und alle20 eigenen
+Development-Gruppen sowie den unsignierten iPhone-Release. Die genauen Rohdaten
+stehen im [V13-Archiv](evidence/factor-claims-paid-travel-2026-11-10/manifest.json)
+und [Installationsarchiv](evidence/installation-context-2026-11-10/manifest.json).
+Dies ist keine unabhängige Lohnfachprüfung oder Meldungsfreigabe.
+
+Offen bleiben insbesondere Faktor-Midijobs und Faktor-Einmalbezüge, zusätzliche
+Perioden-/Versicherungs-/Leistungsfälle, weitere Source5-Gruppen und Änderungen
+der Brutto-/Steuer-/SV-Zuordnung sowie der neue Korrekturvertrag zur nachträglichen
+V13-Erweiterung bereits verwendeter V10-/V12-Fälle. Die bisher vorhandene
+Korrektur unter ihrer ursprünglichen Regelversion wird dadurch nicht entfernt.
+Die bloße Ergänzung eines verwendeten Altfalles ist weiterhin ausdrücklich
+gesperrt. Sonstige unten genannte noch nicht belegte Fälle bleiben offen.
+
+Für [Source5-Gruppen](CRM_ERP_SOURCE5_MEHRFACH_GRUPPEN_RESTPLAN_2026.md)
+fehlt weiterhin die verifizierte aktuelle Gruppierungsgrundlage. Die ergänzende
+öffentliche Web-Recherche am10.11. findet amtliche2026-Verweise, erhält für die
+vollständigen R39b.6-/§39b-/Inhaltsseiten aber jeweils503. Suchauszüge oder
+ältere Jahresfassungen ersetzen diesen Nachweis nicht; es wird keine neue
+Gruppenberechnung daraus freigeschaltet. Reale Fach-/Sicherheitsabnahme und
+Meldezugänge werden getrennt von dieser verbleibenden Codearbeit geführt.
+
+## Historische Fortschreibung09.11.2026
+
+Der reguläre volle Monat mit ausdrücklich
 belegtem Faktor in Steuerklasse IV ist als additive v8-Regel integriert.
 Jetzt ist auch der [belegte reguläre Faktor-Teilmonat v9](CRM_ERP_LOHN_FAKTOR_TEILMONATE_2026.md)
 mit Quelle2, beiden Clients, Original/Korrektur, tatsächlichem PG-Restore und

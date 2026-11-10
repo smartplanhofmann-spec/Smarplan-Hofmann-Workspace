@@ -4198,3 +4198,27 @@ lesende Secret-Metadatenabfrage bleiben im
 [eigenen Nachweisarchiv](evidence/ios-signed-preparation-2026-11-10/manifest.json).
 DerAPI403 beweist keine fehlende Apple-Einrichtung. Noch kein neuer wirklicher
 signierter Export, Upload oder Geräteabschluss; Gesamtauftrag bleibt aktiv.
+
+## 10.11.2026 – veröffentlichter signierter Vorbereitungsweg und bereinigter Restplan
+
+deebe2017cc0c0a1f17f4ee6dce564658ff15654 ist ausschließlich auf dem autorisierten
+Testbranch veröffentlicht; dessen Remote-Zeiger wurde wirklich bestätigt.
+GitHub hat den konkreten manuellen Lauf42796610215 mitprepare_signed_ipa=true
+undupload_to_testflight=false angenommen. Er führt zunächst den vollständigen
+unsignierten Clientnachweis aus. Neue Development-Prüfung42796495383 läuft
+unabhängig. Der doppelte Push-iPhone-Lauf42796495426 wurde durch die bestehende
+gleichbranchige concurrency ersetzt; dies ist kein Produktfehler. Ein neuer
+wirklicher signierter Export wird erst nach seinem Ergebnis behauptet.
+
+Der aktuelle Lohn-Lückenplan und die Hauptmatrix unterscheiden jetzt die
+abgeschlossenen V12-/V13-Ansprüche von weiterhin fehlenden Faktor-/Einmalbezugs-/
+Gruppenfällen. Die älteren Einträge bleiben als ausdrücklich historische Befunde
+erhalten. R11.06 wird nicht pauschal als fehlender externer Apple-Zugang geführt:
+der tatsächliche Vorbereitungslauf ist aktiv, bestehende Einrichtung wird benutzt.
+
+Die ergänzende öffentliche Quellenrecherche über den vorhandenen Webzugang
+findet amtliche2026-Verweise, erhält für die drei vollständigen amtlichen
+R39b.6-/§39b-/Inhaltsseiten aber503. Daraus wird keine neue Steuergruppierung
+abgeleitet. [Rohe amtliche Abrufbefunde und Auslieferungsnachweise](evidence/ios-signed-preparation-2026-11-10/manifest.json)
+bleiben erhalten. Benutzerseitige Benennung von Fach-/Sicherheitsprüfern ist
+weiter offen und blockiert unabhängige Codearbeit nicht.

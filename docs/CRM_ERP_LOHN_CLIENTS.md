@@ -4,6 +4,15 @@ Stand: 03.11.2026. Diese Oberflächen verwenden den begrenzten, quellengebundene
 [Rechenumfang 2026](CRM_ERP_LOHN_RECHENWERK_2026.md). Sie ersetzen weder eine
 Systemzulassung noch tatsächlich erfolgte gesetzliche Meldungen.
 
+Aktueller Zusatzstand10.11.: Neben den historischen Abläufen dieses Dokuments
+sind [Faktor mit P4-Ansprüchen V12](CRM_ERP_FAKTOR_ANSPRUECHE_V12_2026-11-10.md)
+und [Faktor mit P4 und bereits bezahlten Reisen V13](CRM_ERP_FAKTOR_ANSPRUECHE_BEZAHLTE_REISEN_V13_2026-11-10.md)
+in Browser und App integriert und durchgängig technisch geprüft. Die aktuelle
+[Bedienfolge](CRM_ERP_BENUTZERHANDBUCH.md#faktor-monat-mit-ansprüchen-und-bereits-bezahlten-reisen)
+beschreibt Auswahl, Quellen, getrennte Bestätigungen und unveränderte
+Wiederholung. Bereits verwendete Altfall-Ergänzung und weitere Fallgruppen
+bleiben nach dem [aktuellen Lückenplan](CRM_ERP_LOHN_LUECKENPLAN_2026.md) offen.
+
 Der zusätzlich belegte Übergangsbereich mit ausdrücklicher Zwölfmonatsprognose ist
 in [CRM_ERP_LOHN_MIDIJOB_CLIENTS.md](CRM_ERP_LOHN_MIDIJOB_CLIENTS.md) einschließlich
 separater Browser-/Flutterabnahme dokumentiert. Bestehende Profile werden nicht

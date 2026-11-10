@@ -2706,7 +2706,13 @@ class BusinessSession extends ChangeNotifier {
         }
       },
       requireRights: () {
-        if (_pending[key]?.body['accepted_scope'] == 'regular_standard_factor_claims_oneoff' && !hasFeature('payroll_factor_oneoff')) throw const ApiException(403,'Die aktuelle Freigabe für den ursprünglichen Faktor-Einmalbezug fehlt.');
+        if (_pending[key]?.body['accepted_scope'] ==
+                'regular_standard_factor_claims_oneoff' &&
+            !hasFeature('payroll_factor_oneoff'))
+          throw const ApiException(
+            403,
+            'Die aktuelle Freigabe für den ursprünglichen Faktor-Einmalbezug fehlt.',
+          );
         if (_pending[key]?.body['accepted_scope'] ==
                 'commercial_minijob_individual_month' &&
             !hasFeature('payroll_individual_minijob'))
@@ -3435,7 +3441,16 @@ class BusinessSession extends ChangeNotifier {
     }
     final epoch = _epoch;
     _guard(epoch);
-    if ((path=='/payroll/one-off-cases/factor-v15' || path=='/payroll/annual-facts/factor-v2' || path=='/payroll/runs'&&values['accepted_scope']=='regular_standard_factor_claims_oneoff')&&!hasFeature('payroll_factor_oneoff')) throw const ApiException(403,'Die aktuelle Freigabe für den Faktor-Einmalbezug fehlt.');
+    if ((path == '/payroll/one-off-cases/factor-v15' ||
+            path == '/payroll/annual-facts/factor-v2' ||
+            path == '/payroll/runs' &&
+                values['accepted_scope'] ==
+                    'regular_standard_factor_claims_oneoff') &&
+        !hasFeature('payroll_factor_oneoff'))
+      throw const ApiException(
+        403,
+        'Die aktuelle Freigabe für den Faktor-Einmalbezug fehlt.',
+      );
     if ((path == '/payroll/calculation-cases' &&
                 values['rule_version'] ==
                     'de_2026_factor_transition_month_v14' ||

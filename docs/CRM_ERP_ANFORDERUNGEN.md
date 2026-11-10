@@ -46,6 +46,10 @@ V3-Vorgänger 17978f6 ist inzwischen in sämtlichen acht eigenen Development-Job
 und im unsignierten iPhone-Build erfolgreich; signierte Verteilung, Livebetrieb
 und reale Geräte-/Fachabnahme bleiben eigene Nachweise.
 
+Zusätzlicher Teilumfang10.11.: Der [Faktor-Einmalbezug mit eigenem Jahresvertrag](CRM_ERP_FAKTOR_EINMALBEZUG_V15_PLAN_2026-11-10.md) verbindet tatsächliche Faktor-/P4-Monatsoriginale mit dem belegten Anspruch, Jahresbasis und Steuerprognose. Die vollständige PostgreSQL-/MFA-/Konkurrenz-/Geld-/EÜR-/Jahres-/Restorekette und beide Clientabläufe sind kontrolliert geprüft. Historische Regeln, Originale und Zahlungen bleiben erhalten; die vollständige lokale Appprüfung besteht mit1.971 Fällen. R09.03/D und A–G werden dadurch nicht pauschal geschlossen.
+
+Die ergänzende Nutzerentscheidung für die Bankanbindungen lautet Kreissparkasse Rottweil und Amex Business-Karte; Loxones Cloud-Hostfreigabe ist ausdrücklich auf später verschoben. [Verträge, tatsächlicher Stand und die Bedeutung der Abschlussprüfung](CRM_ERP_BANK_LIEFERANTEN_ANBINDUNGEN_2026-11-10.md) sind dokumentiert. Keine Providerzugänge oder Fach-/Geräteabnahme werden daraus abgeleitet.
+
 ## Status und Nachweise
 
 Aktueller zusätzlicher Nachweis10.11.: [Installationsstand und vollständiges

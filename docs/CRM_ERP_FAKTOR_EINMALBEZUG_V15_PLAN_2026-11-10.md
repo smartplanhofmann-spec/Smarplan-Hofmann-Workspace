@@ -1,9 +1,12 @@
-# Faktor-Einmalbezug: geprüfter Steuerbaustein und aktive Integration
+# Faktor-Einmalbezug V15: Originalquellen, Bedienung und Nachweise
 
-Stand10.11.2026. Dies ist die nächste Entwicklungsarbeit für R09.03/D im
-vollständigen Gesamtziel. **Noch kein freigeschalteter Lohnfall V15**, keine
-neue Zahlung, Meldung oder Fachfreigabe. Der neue reine Steuerbaustein ist
-von einer vollständigen Quellen-/Bedien-/Zahlungsintegration getrennt.
+Stand10.11.2026. Der neue begrenzte Faktor-/P4-Einmalfall ist lokal mit eigenem
+Jahresquellenvertrag, privater Fallführung, Source4-Lauf, Lohnkonto, tatsächlicher
+Zahlung, Cash/EÜR, Jahresfortschreibung und reduziertem Mitarbeiterbeleg verbunden.
+Die tatsächlichen PostgreSQL-/MFA-/Konkurrenz-/Restore- sowie Browser-/Appabläufe
+sind geprüft. Die vollständige lokale Appprüfung besteht mit1.971 Fällen. Veröffentlichung,
+eigene neue Remote-CI, Serverinstallation, Geräte- und Fachabnahme sind getrennte
+Nachweise. Keine Bankzahlung, amtliche Meldung oder Produktivfreigabe ausgelöst.
 
 ## Bereits tatsächlich geprüft
 
@@ -37,7 +40,7 @@ vertrag. Keine Jahres-, Lohnlauf- oder Cashzeile wird erzeugt. Diese Grenze
 bleibt erhalten; ein umetikettierter oder umgerechneter V5-Schattenfall wäre
 keine gültige neue Originalquelle.
 
-## Nächste verbindliche Integrationsschritte
+## Integrationsvertrag und Prüfpunkte
 
 1. Explizit versionierte Jahresvorschau für tatsächliche Faktor-Originalfälle.
    Originale Profile, ELStAM-Identitäten, Beschäftigung, P4, Jahresperioden,
@@ -63,7 +66,7 @@ keine gültige neue Originalquelle.
    Tatsächliche PostgreSQL-/MFA-/Konkurrenz-/CRLF-/volle Restorekette sowie
    gemeinsame Schlussprüfung vor Veröffentlichung abschließen.
 
-Die reine Steuerkomponente erfüllt diese Integrationsschritte noch nicht.
+Die nachstehenden Integrationsnachweise ergänzen den reinen Steuerbaustein.
 R09.03/D und die Gesamtabnahmen werden dadurch nicht abgeschlossen.
 Gewählte Banken/Lieferanten und deren bereits abgeschlossene Codearbeit
 bleiben parallel im [aktuellen Arbeitsstand](CRM_ERP_ARBEITSSTAND.md) erhalten.
@@ -110,3 +113,50 @@ Die Nutzerpräzisierung Kreissparkasse Rottweil / Amex Business und die auf
 später verschobene Loxone-Hostfreigabe sind im Hauptprojekt unter
 [Bank-/Lieferantenverträgen](CRM_ERP_BANK_LIEFERANTEN_ANBINDUNGEN_2026-11-10.md)
 festgehalten. Sie ersetzen keine tatsächliche Bank-/Lieferantenfreischaltung.
+
+## Bedienung und aktuelle gemeinsame Prüfung
+
+Nach Aktualisierung von Server und Client unter Personal die betreffende Person,
+danach Personalakte/Lohnberechnung öffnen. **Faktor-Jahresbasis und Steuerprognose**
+öffnet ausschließlich die beiden dafür geprüften Jahresquellenarten. Der geplante
+Einmalanspruch wird weiterhin im gemeinsamen ursprünglichen Jahresquellenbereich
+angelegt. Anschließend **Faktor-Einmalbezugsfälle** öffnen, Zuflussmonat und genau
+die ursprünglichen Monats-/Anspruchs-/Jahresfassungen auswählen, Vorschau prüfen
+und ausdrücklich bestätigen. Der belegte ELStAM-Faktor bleibt sichtbar. Die
+anschließende Lohnfreigabe und der tatsächliche Zahlungsnachweis sind eigene
+Vorgänge. Keine Werte oder fehlenden Quellen werden aus einem anderen Fall ersetzt.
+
+Neue Varianten besitzen getrennte Vorgangskennungen und feste Pfade. Der echte
+Browsernachweis hat einen gemeinsamen Wiederholungsrouterfehler gefunden:
+Der neue Fall wurde nach verlorener erfolgreicher Antwort zunächst zur allgemeinen
+Lohnwiederholung geschickt. Der Router ist gezielt ergänzt; der rote Erstablauf
+bleibt erhalten. Der tatsächliche Schlussablauf besteht mit zwei unveränderten
+wiederholten Quittungen, Original-PDF, echter reduzierter Schema5-Belegnavigation,
+eigenständigem Mitarbeiter-PDF, unveränderter Historie und390px. Während der
+Mitarbeiterbelegnavigation wird kein privater Lohn-/Jahres-/Personalaktenpfad gelesen.
+
+1.086 vollständige Browserverträge28,681s ohne Fehler/Auslassungen bestehen.
+28 gemeinsame native Formular-/Original-/Belegfälle und sechs neue native
+Faktor-/Jahres-/Wiederholungsfälle bestehen; Entzug der aktuellen Freigabe räumt
+die private Ansicht, und eine pausierte Fachfunktion erlaubt nur die unveränderte
+angenommene Wiederholung. Ein tatsächlicher gespeicherter Zahlungsbeleg wird
+auch durch den gemeinsamen Browser-/App-Lohnkontoleser geprüft.
+
+Die gemeinsame Backendgruppe endet mit48 ausgeführten Fällen298,029s, davon47
+bestehend und einem wegen Sandbox-Socketrechten nicht startbaren alten HTTP-Test.
+Genau dieser Fall besteht mit regulärer Loopback-Freigabe1/6,157s. Der Erstlauf
+wird nicht nachträglich als vollständig grün bezeichnet.31 Paket-/CI-/Inventar-/
+Quellarchivfälle32,201s und der tatsächliche eingefrorene MFA-Archivstart1/4,929s
+bestehen.153 Abhängigkeitskomponenten stimmen exakt mit der bestehenden Stückliste
+überein; keine neue Laufzeitabhängigkeit. Abschließende Appanalyse: keine Probleme.
+57 historische Lohnmodule und das23863-Byte-Originalziel sind unverändert.
+
+## Abschluss der lokalen Appprüfung
+
+Die tatsächliche vollständige lokale App-Suite endet mit1.971 bestandenen Fällen
+in21:48. Der nachträglich gezielt ergänzte ursprüngliche Zahlungsbeleg-/Lohnkonto-
+leser besteht zusätzlich in drei nativen und fünf Browserfällen.62 Rohdateien
+einschließlich der ursprünglichen roten Versuche sind nach Länge und SHA geprüft.
+Veröffentlichung und eigene neue Remoteprüfungen werden nach tatsächlicher
+Ausführung separat festgehalten. Gesamtsoftware, weitere Provider-/Lohnfälle
+und reale Abnahmen bleiben offen; keine pauschale Gesamtfertigmeldung.

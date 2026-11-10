@@ -43,7 +43,7 @@ class PayrollOneoffCasePlanView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if(plan['rule_version']==payrollFactorOneOffRule)
+        if (plan['rule_version'] == payrollFactorOneOffRule)
           line('Belegter ELStAM-Faktor', '${detail['tax_factor']}'),
         line('Lohnmonat', '${plan['month']}'),
         line('Laufendes Originalbrutto', _money(running['gross_minor'])),

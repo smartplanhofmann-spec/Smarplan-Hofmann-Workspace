@@ -7,6 +7,7 @@ import 'package:smartplan_office/business_payroll_oneoff_case_contract.dart';
 import 'package:smartplan_office/business_payroll_annual_basis_contract.dart';
 import 'package:smartplan_office/business_payroll_statements.dart';
 import 'package:smartplan_office/business_payroll.dart';
+import 'package:smartplan_office/business_payroll_accounts.dart';
 
 final f = jsonDecode(
   File('test/fixtures/payroll_factor_oneoff.json').readAsStringSync(),
@@ -31,8 +32,12 @@ void main() {
     payrollOneOffCaseSources(f['case_sources'], employee, '2026-10');
     payrollOneOffCaseRecord(f['case'], employee);
     payrollOneOffSource(f['run_preview'], copy(f['run_input']));
-    payrollPreview(f['run_preview'],copy(f['run_input']));
-    payrollReceiptValidator(copy(f['run_command']),preview:copy(f['run_preview']))(f['run']);
+    payrollPreview(f['run_preview'], copy(f['run_input']));
+    payrollReceiptValidator(
+      copy(f['run_command']),
+      preview: copy(f['run_preview']),
+    )(f['run']);
+    payrollAccountRecord(f['payment'], employee, kind: 'payment');
     expect(
       f['run']['calculation']['one_off_details']['tax']['STS'],
       greaterThan(0),

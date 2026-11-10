@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "own_company_key_published_own_all20_ci_success_unsigned_202_success_signed_runner_retry_pending",
+  "status": "own_company_key_published_all20_ci_and_unsigned_202_success_two_unassigned_signing_jobs_preserved",
   "product_commit": "67b99d3d45b6461d9306a78f9502aa851b46d761",
   "base_published_commit": "ca14af3822aac0706c2acf80bdb568cc5f29afbb",
   "raw_files": [
@@ -118,6 +118,11 @@
       "path": "qonto51-full-backend-job-20261110.json.gz",
       "bytes": 520389,
       "sha256": "1bde1829db1ee7d9e11d0dac431bb31f4b20fd87b7ff5fcf9a2721e4c1b52f58"
+    },
+    {
+      "path": "qonto51-signed-second-cancelled-job-details-20261110.json.gz",
+      "bytes": 1047,
+      "sha256": "0dc8c12ab1b5f6a55b564141a1548f4b28fc4f4b35e173cbb420bde8441e07ad"
     }
   ],
   "results": {
@@ -202,7 +207,14 @@
     "steps_executed": 0,
     "log_fetch": "404_BlobNotFound",
     "one_targeted_rerun_accepted": true,
-    "upload_to_testflight": false
+    "upload_to_testflight": false,
+    "second_signed_job": 129901362390,
+    "second_conclusion": "cancelled",
+    "second_runner_id": 0,
+    "second_steps_executed": 0,
+    "rerun_pending": false,
+    "next_source_runner_label": "macos-26-intel",
+    "next_source_pin_not_yet_published": true
   },
   "own_full_app_cases": 1962,
   "own_full_backend_cases": 2133,

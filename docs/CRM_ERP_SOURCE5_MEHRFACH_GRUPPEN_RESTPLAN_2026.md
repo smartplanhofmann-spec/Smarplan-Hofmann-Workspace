@@ -71,3 +71,14 @@ Jahressteuervergleich entscheidet das bereits dokumentierte Soli-Gegenbeispiel
 für zwei gleichzeitig gezahlte Ansprüche nicht. Die fehlende einschlägige
 Gruppierungsgrundlage bleibt daher ausdrücklich offen. Kein alter Gruppenkern,
 kein historischer Geldfluss und keine Berechenbarkeitssperre wird geändert.
+
+## Ergänzende offizielle Druckansicht10.11.
+
+Die alternative offizielle BMF-Druckansicht wurde gesondert geprüft, um die
+bisherigen Abruffehler nicht mit einem ungeprüften Regelinhalt zu verwechseln.
+Die2026-Ansicht ist über das Recherchewerkzeug nicht erreichbar; die tatsächlich
+indizierte2024-Ansicht antwortet503. Der [Abrufbefund](evidence/source5-official-print-followup-20261110.json)
+ist erhalten. Keine gültige Gruppierungsregel wird aus einem Suchausschnitt,
+fehlendem Abruf oder der bloßen Gleichheit der Jahreslohnsteuer abgeleitet.
+Der neu implementierte einzelne Faktor-Einmalbezug V15 ist davon getrennt;
+er aktiviert diesen ungeklärten Source5-Mehranspruchszweig nicht.

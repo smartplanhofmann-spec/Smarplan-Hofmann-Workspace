@@ -972,3 +972,46 @@ Testbranch veröffentlicht; keine laufende notwendige Prüfung dafür verdrängt
 Eigenkonto-Code43 gemeinsame Fälle und zwei tatsächliche PG-/MFA-/Restorefälle
 plus echter Browser sind separat nachgewiesen; Clientruntime seitca14 bytegleich.
 Der neue eigene Remote-Nachlauf ist nach tatsächlichem Push getrennt zu prüfen.
+
+
+## 10.11.2026 – Faktor-Einmalbezug V15 lokal vollständig verbunden und gemeinsam geprüft
+
+Implementierung54825d9, Integration mit erhaltenen Qonto-/Apple-Nachweisenf14fe7f.
+Der eigene geplante Jahresvertrag V2 bindet unveränderte tatsächliche Faktor-/P4-
+Monatsfälle; der V15-Einmalfall und sein Source4-Lauf erhalten die gemeinsame
+Anspruchsgrenze, ursprüngliche Profile, Quellen, bezahlte Teilbeträge und historische
+Quittungen. Zahlungen, Netto-/Abgaben-Cash, EÜR und Jahresbasis sind verbunden.
+Der reduzierte Mitarbeiterbeleg erhält Schema5 mit festen Regel-/Umfangspaaren.
+Neue private Auswahl und getrennte Wiederholungskennungen in Browser und App.
+
+Tatsächliche Nachweise:1.971 vollständige lokale Appfälle21:48,1.086 vollständige
+Browserverträge28,681s,28 gemeinsame native Bedien-/Belegfälle und sechs zusätzliche
+Faktor-/Jahres-/Wiederholungsfälle. Tatsächlicher Browser mit MFA, unverändertem
+Wiederholen zweier verlorener erfolgreicher Antworten, Original-PDF, eigener
+Mitarbeiterbelegnavigation ohne private Quellaufrufe und390px besteht. Der dabei
+gefundene gemeinsame Wiederholungsrouterfehler ist korrigiert; Erstfehler erhalten.
+
+Vollständiger neuer PostgreSQL-/MFA-/Konkurrenz-/Cash-/EÜR-/Jahres-/Restorefall
+1/76,023s besteht; eigene begrenzte Datenbank nach verifizierter exakter ID entfernt.
+69 vorausgehende Jahres-/Regressions-/Paketfälle bestehen. Die gemeinsame neue/
+alte48er-Backendgruppe298,029s hat47 erfolgreiche Fälle und einen nicht startbaren
+alten HTTP-Test wegen Sandbox-Socketrechten; genau dieser besteht anschließend
+mit regulärer Loopback-Freigabe1/6,157s.31 Paket-/CI-/Inventar-/Archivfälle32,201s,
+tatsächlicher eingefrorener MFA-Archivstart1/4,929s und20 Auslieferungsrichtlinien-
+fälle2,002s bestehen. Appanalyse ohne Probleme.153 Abhängigkeitskomponenten stimmen
+mit der bestehenden Stückliste überein;57 alte Lohnmodule und das Originalziel
+bleiben bytegleich. Die Rohdateien, Fehlversuche, Bilder und Grenzen stehen im
+[V15-Manifest](evidence/factor-oneoff-2026-11-10/manifest.json).
+
+Beide zusätzlichen51c-Signieraufträge endeten ohne zugewiesenen Runner und ohne
+Schritte. Der nächste Signierjob verwendet deshalb denselben konkreten Mac-Typ
+macos-26-intel wie der erfolgreiche unsignierte Release. Das ist noch kein neuer
+Signiererfolg; Upload bleibtfalse. Tatsächlich signiertes V14-Paket200 bleibt
+vorhanden. Neuer Testbranch-/eigener CI-/Windows-/iPhone-Nachlauf folgt erst nach
+tatsächlichem Push. Kein Serverupdate, keine Geräte-/Fach-/Produktivfreigabe.
+
+Kreissparkasse Rottweil und Amex Business sind festgehalten; Loxone-Hostfreigabe
+vom Nutzer auf später verschoben. Abschlussprüfung ist verständlich erklärt,
+noch keine Prüfer benannt oder beauftragt. Weitere direkte Providerwege und
+benannte Lohnfälle, insbesondere die ungeklärte Source5-Steuergruppe, bleiben
+aktiv offen. R09.03/D und die übrigen Gesamtabnahmen werden nicht geschlossen.

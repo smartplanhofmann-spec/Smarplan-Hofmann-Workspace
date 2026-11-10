@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import {payrollOneOffCalculation,payrollOneOffCaseRecord,payrollOneOffCaseSources,payrollOneOffSource,verifyFactorOneOffCase,verifyFactorOneOffRun,payrollOneOffCaseInput,payrollOneOffCasePreview,payrollOneOffCasesPendingAuthorize} from '../payroll-oneoff-cases.js';
 import {payrollPreview,payrollRunValidator} from '../payroll.js';
 import {OfficeApi} from '../office.js';
+import {accountRecord} from '../payroll-accounts.js';
 import {payrollOneOffCaseValidator} from '../payroll-oneoff-cases.js';
 import {payrollAnnualRecord,payrollAnnualSources} from '../payroll-annual-basis.js';
 import {payrollStatement,payrollStatementBytes,payrollStatementHash} from '../payroll-statements.js';
@@ -31,6 +32,7 @@ test('explicit factor input, preview and actual finalized receipt pass the share
  assert.equal(input.rule_version,f.case.rule_version);assert.deepEqual(input.details,f.case.details);
  payrollOneOffCasePreview(f.case_preview,input);await verifyFactorOneOffCase(f.case_preview);
  await payrollPreview(f.run_preview,f.run_input);await payrollRunValidator(f.run_command,f.run_preview)(f.run);
+ accountRecord(f.payment,id,'payment');
  const calls=[],key='payroll-factor-oneoff-cases-'+id,path='/business/payroll/one-off-cases/factor-v15';let allowed=true;
  const api={pendingCommandValues:()=>f.case_command,get:async value=>{calls.push(value);return value==='/business/capabilities'?{features:['payroll_oneoff_cases',...(allowed?['payroll_factor_oneoff']:[])],capabilities:['business_payroll_oneoff_cases'],permissions:['personnel.read','personnel.approve'],readonly:false,organization:{modules:{personnel:{enabled:true}}}}:f.case_sources;}};
  assert.equal(await payrollOneOffCasesPendingAuthorize(api,{key,path}),true);assert.ok(calls.some(value=>value.startsWith(path+'/sources?')));

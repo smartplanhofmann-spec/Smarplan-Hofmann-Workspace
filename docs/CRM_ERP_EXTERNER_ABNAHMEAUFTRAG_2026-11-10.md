@@ -4,21 +4,33 @@ Dieses Paket bereitet die im Gesamtziel vorgesehenen gesonderten Nachweise vor.
 Es beauftragt niemanden, versendet keine Daten und erteilt keine Produktivfreigabe.
 Alle nachstehenden Beispiele verwenden kontrollierte synthetische Daten.
 
-## Genau zu prüfender Stand
+## Bedeutung und zu prüfender Stand
 
-- Vorgänger b02c84ab24cbe3331a92df950e74134138865e52 besteht alle 20 eigenen
-  Development-Jobs, Windows und unsignierten iPhone-Release. Signierte Verteilung
-  fehlt. [V13-Nachweise](evidence/factor-claims-paid-travel-2026-11-10/manifest.json).
-- Aktueller Testbranch c4a2d8f4ca969f8faab7bd15c9f7fd838e0e97ba ergänzt den
-  gelesenen Installationsstand und vollständige eingefrorene Serverarchive.
-  Seine eigene vollständige App-Suite besteht mit1939 Fällen, sämtliche20
-  Development-Gruppen und der eigene unsignierte iPhone-Release sind ebenfalls
-  erfolgreich. Der neue getrennte signierte Vorbereitungsweg ist als lokaler
-  Nachfolger12798fb mit33 eigenen Fällen geprüft; ein neues signiertes Paket
-  wird daraus noch nicht behauptet. [Aktueller Arbeitsstand](CRM_ERP_ARBEITSSTAND.md).
-- Letzte bestätigte Serverinstallation ist A93 vom 05.11.2026. Ein späterer
-  Quell- oder Appstand beweist keinen Serverwechsel. Ein Update ist ein eigener
-  kontrollierter Betriebsablauf; die folgende Abnahme führt es nicht aus.
+Der Nutzer hat zur Prüferfrage um Erklärung gebeten. Gemeint ist die Kontrolle
+der tatsächlichen Buchungs-/Abrechnungsergebnisse durch Steuerberatung oder
+Lohnbüro und eine vom Entwickler unabhängige Prüfung der Zugriffe und des
+Datenschutzes. Dies ist keine hier behauptete zusätzliche gesetzliche
+Beauftragungspflicht. Es werden keine Personen kontaktiert oder beauftragt.
+Noch keine Prüfer benannt; Programmierung und automatische Prüfungen laufen weiter.
+
+- Veröffentlicht51c731a453ea756bdbcb07a517762f1e48837256: alle20 eigenen
+  Development-Gruppen, tatsächlich1962 vollständige Appfälle und2133 Backendfälle
+  mit3 ausgewiesenen Auslassungen; eigener unsignierter iPhone-Release202.
+  [Qonto-Eigenkonto-Nachweise](evidence/qonto-own-account-2026-11-10/manifest.json).
+- Neue lokale Faktor-Einmalbezugsimplementierung54825d9, zusammengeführt mit dem
+  bisherigen Stand inf14fe7f: vollständige kontrollierte PostgreSQL-/MFA-/
+  Konkurrenz-/Geld-/Jahres-/Restorekette und beide Clientabläufe geprüft.
+  Die vollständige lokale Appprüfung besteht mit1.971 Fällen; noch keine neue
+  Gesamtfreigabe. [Eigener Vertrag und Grenzen](CRM_ERP_FAKTOR_EINMALBEZUG_V15_PLAN_2026-11-10.md).
+- Tatsächlich signiertes V14-Paket200 auf91fa18b liegt vor. Dieses ältere Paket
+  enthält weder Qonto noch den neuen Einmalfall. Zwei zusätzliche Signierstarts
+  auf51c731a endeten ohne zugewiesenen Runner und ohne ausgeführten Schritt;
+  ihr Erstbefund bleibt erhalten. Die neue Runnerauswahl wird auf das bereits
+  erfolgreiche konkrete Mac-Image festgelegt, ist aber noch kein Signiererfolg.
+  Kein TestFlight-Upload und keine reale Geräteabnahme.
+- Letzte vom Nutzer bestätigte Serverinstallation:
+  a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5. Kein neuer Livebetrieb behauptet.
+  Geräte-, Fach-, Sicherheits- und Betriebsfreigabe bleiben getrennte Nachweise.
 
 ## Fachliche EÜR-Prüfung
 
@@ -115,3 +127,26 @@ unabhängiges erwartetes Ergebnis, tatsächlich beobachtetes Verhalten, Datum,
 zuständige prüfende Person und Umfang/Ergebnis der Nachprüfung festzuhalten.
 Eine Freigabe nennt den tatsächlich beurteilten Einsatzumfang. Unbekannte
 Quellen oder nicht geprüfte Fälle werden nicht als bestätigt markiert.
+
+## Zusätzliches Faktor-Einmalbezugsbeispiel zur Fachprüfung
+
+Tatsächlich gespeicherte synthetische Originale, KlasseIV/Faktor0,753,
+reguläre Pflichtversicherung, keine zusätzlichen Jahresfrei-/Hinzurechnungsbeträge.
+Der Jahreslohn vor der aktuellen Einmalzahlung beträgt134.193,55Euro einschließlich
+des gesondert belegten früheren Arbeitgebers und tatsächlicher Zukunftsverträge.
+
+| Bestandteil | Euro |
+|---|---:|
+| Unveränderter laufender Monatslohn mit fünf belegten unbezahlten Tagen | 4.193,55 |
+| Eigener Einmalanspruch | 500,00 |
+| Zusätzliche Arbeitnehmer-SV | 108,75 |
+| Zusätzliche Lohnsteuer nach Faktor-PAP | 158,00 |
+| Zusätzlicher Solidaritätszuschlag | 8,69 |
+| Gesamtauszahlungsbetrag | 3.075,10 |
+
+[Die tatsächlichen Originale, Vorschauen, Quittungen und reduzierten Belege](../app/test/fixtures/payroll_factor_oneoff.json)
+enthalten die vollständigen nachvollziehbaren Eingaben; keine frei eingesetzten
+Jahressummen erreichen die produktive Lauf-API.344 unabhängige XML-Gegenwerte des
+reinen Faktorkerns und12 zusätzliche Gegenwerte für die Kompositionsprofile sind
+getrennt dokumentiert. Die Sollwerte sind technische Vergleichsnachweise und
+ersetzen keine fachliche Freigabe. Alte Zahlungen und Quellen bleiben erhalten.

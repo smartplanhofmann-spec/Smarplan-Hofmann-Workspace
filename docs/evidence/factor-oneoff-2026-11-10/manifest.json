@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "source4_v15_full_pg_money_annual_restore_and_both_clients_proven_full_regressions_active",
+  "status": "v15_full_local_app_browser_backend_money_pg_restore_package_passed_publication_preparation",
   "base_commit": "5c779b92d2e3269c4fc799a02879c83b943ff129",
   "raw_files": [
     {
@@ -272,6 +272,46 @@
       "path": "payroll-oneoff-own-mobile.png",
       "bytes": 62120,
       "sha256": "aad253f038f472d20482b1dfcf78c568e349152f927919ec1feb7f43e4e958f4"
+    },
+    {
+      "path": "factor-oneoff-full-app-first-20261110.txt.gz",
+      "bytes": 403769,
+      "sha256": "dbe52b7567d4da9760170a52c0eb07f5cc32989c49286a6ba6eb76a857d7e148"
+    },
+    {
+      "path": "factor-oneoff-http-permission-followup-20261110.txt.gz",
+      "bytes": 316,
+      "sha256": "1c4ad0a0ab37382b855e4916fbf41e7db7e18546239bc11378eb3cc3accb0291"
+    },
+    {
+      "path": "factor-oneoff-package-final-20261110.txt.gz",
+      "bytes": 7090,
+      "sha256": "d238126bb4ffc42292b225bbe3720baa620af1c8a129105b00582882b4e0a785"
+    },
+    {
+      "path": "factor-oneoff-committed-archive-runtime-20261110.txt.gz",
+      "bytes": 335,
+      "sha256": "d59bf85ce2838d2fc7e871b03cf153e78b87d1c30e1e3495a779de45832f1ded"
+    },
+    {
+      "path": "factor-oneoff-ios-runner-policy-final-20261110.txt.gz",
+      "bytes": 4461,
+      "sha256": "9da21c6913419ebeaac4aed9ef8e1173007b5c9889692dab3310bd45f35c6123"
+    },
+    {
+      "path": "factor-oneoff-analyze-final-20261110.txt.gz",
+      "bytes": 97,
+      "sha256": "7287e837f4fa8344685818c99ba56b000515fdd5a2952ab4bc9836f421421615"
+    },
+    {
+      "path": "factor-oneoff-payment-reader-final-20261110.txt.gz",
+      "bytes": 683,
+      "sha256": "2003ca85bdd2674bb43141defd9c7bc25b826f275e1e7d4de683fc1ae16b7f72"
+    },
+    {
+      "path": "factor-oneoff-native-payment-reader-final-20261110.txt.gz",
+      "bytes": 407,
+      "sha256": "b7910c45b82be115d237c8975424f77d5d52e199ff57ee45df76d0c9906c3574"
     }
   ],
   "independent_xml_vectors": 344,
@@ -286,7 +326,7 @@
   "client_flow_implemented": true,
   "published": false,
   "expert_approval": false,
-  "next_work": "Complete full app, native/package/CI checks and original HTTP permission follow-up; then integrate and publish only authorized test branch; real expert/device/server acceptance remains separate",
+  "next_work": "Publish only the authorized test branch, inspect its own CI and prepare signed IPA without TestFlight upload; preserve missing real provider/device/expert/server acceptances",
   "actual_full_postgres": {
     "tests": 1,
     "seconds": 76.023,
@@ -310,13 +350,46 @@
   },
   "actual_browser": true,
   "actual_schema5_employee_pdf_privacy_browser": true,
-  "full_app_pending": true,
+  "full_app_pending": false,
   "backend_joint": {
     "tests": 48,
     "passed": 47,
     "initial_socket_permission_errors": 1,
     "seconds": 298.029,
-    "http_followup_pending": true
+    "http_followup_pending": false,
+    "http_permission_followup": {
+      "tests": 1,
+      "seconds": 6.157,
+      "passed": true
+    }
   },
-  "independent_composition_xml_vectors": 12
+  "independent_composition_xml_vectors": 12,
+  "full_app": {
+    "tests": 1971,
+    "failures": 0,
+    "reported_duration": "21:48",
+    "actual_local_full_suite": true
+  },
+  "packages": {
+    "tests": 31,
+    "seconds": 32.201,
+    "actual_frozen_archive_runtime_tests": 1,
+    "archive_seconds": 4.929
+  },
+  "final_analysis": {
+    "issues": 0,
+    "seconds": 15.1
+  },
+  "delivery_policy": {
+    "tests": 20,
+    "seconds": 2.002,
+    "concrete_mac_runner": "macos-26-intel",
+    "signing_execution_not_yet_proven": true
+  },
+  "dependency_components": 153,
+  "existing_bom_unchanged": true,
+  "native_payment_reader_followup": {
+    "tests": 3,
+    "passed": true
+  }
 }

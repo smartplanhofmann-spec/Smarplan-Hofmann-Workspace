@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "Internal Error ()\n【turn627269view0】 [wordlim: 200] Source: open({\"ref_id\":\"https://ao.bundesfinanzministerium.de/lsth/2026/A-Einkommensteuergesetz/VI-Steuererhebung/2-Steuerabzug-vom-Arbeitslohn-Lohnsteuer/Paragraf-39b-Druck/inhalt.html\",\"lineno\":null}); \nURL https://ao.bundesfinanzministerium.de/lsth/2026/A-Einkommensteuergesetz/VI-Steuererhebung/2-Steuerabzug-vom-Arbeitslohn-Lohnsteuer/Paragraf-39b-Druck/inhalt.html is not accessible via this tool.\n--------------------------------------------------------------------------------\nInternal Error ()\n【turn627269view1】 [wordlim: 200] Source: open({\"ref_id\":\"https://ao.bundesfinanzministerium.de/lsth/2024/A-Einkommensteuergesetz/VI-Steuererhebung/2-Steuerabzug-vom-Arbeitslohn-Lohnsteuer/Paragraf-39b-Druck/inhalt.html\",\"lineno\":null}); \nFailed to fetch https://ao.bundesfinanzministerium.de/lsth/2024/A-Einkommensteuergesetz/VI-Steuererhebung/2-Steuerabzug-vom-Arbeitslohn-Lohnsteuer/Paragraf-39b-Druck/inhalt.html: (503) Service Unavailable"
+    }
+  ],
+  "isError": false
+}

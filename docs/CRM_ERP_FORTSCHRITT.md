@@ -3939,3 +3939,17 @@ Live-/Geräteabnahme. Die lokale zusätzliche Source4-Testbeobachtung und dieser
 Schlussnachweis sind noch nicht neu veröffentlicht; Runtimeprodukt unverändert.
 Der Gesamtauftrag wird unmittelbar mit der additiven Faktor-/P4-/bezahlten-
 Reiseverbindung fortgesetzt. Kein Teilabschluss beendet den Auftrag.
+
+
+## 10.11.2026 – eb74fb5 auch im eigenen iPhone-Nachlauf grün
+
+Alle20 Development42771773498-Jobs und der eigene unsignierte iPhone-
+Releasejob129681002071 von42771773315 sind tatsächlich erfolgreich.
+Signierter Upload129698183203 übersprungen. eb74fb52a40b8baf25eced4caf1b51a7bc1d9101
+ist der neue letzte vollständig grüne gemeinsame Produktstand. Der ursprüngliche
+noch laufende Abruf bleibt als Verlauf erhalten. [Abgeschlossener Abruf](evidence/complete-browser-accessibility-2026-11-10/published-ci-all-complete.json).
+79 lokale eindeutige Browserabläufe mit zwei getrennt erhaltenen ersten Fehlern
+und erfolgreichen Wiederholungen sind abgeschlossen. Die zusätzliche lokale
+Source4-Testbeobachtung und Schlussbelege werden als eigener Nachweisstand auf
+dem autorisierten Testbranch veröffentlicht. Keine neue Live-/Geräteabnahme.
+Die unvollständige V13-Folgeentwicklung bleibt isoliert; Gesamtauftrag läuft weiter.

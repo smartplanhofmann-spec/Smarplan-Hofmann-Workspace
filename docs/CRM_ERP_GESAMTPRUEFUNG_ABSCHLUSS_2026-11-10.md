@@ -70,3 +70,14 @@ Der Gesamtauftrag bleibt aktiv. Folgender Codeabschnitt verbindet Faktor-/P4-
 Lohn mit bereits bezahlten steuerfreien Reiseoriginalen in beiden Clients.
 Fach-, Geräte-, unabhängige Sicherheits- und produktive Gesamtabnahmen A–G
 werden durch diese technischen Nachweise nicht ersetzt.
+
+
+## Eigener iPhone-Nachlauf tatsächlich abgeschlossen
+
+Der ursprüngliche Abruf oben bleibt historisch. Inzwischen besteht auch der
+eigene unsignierte Releasejob129681002071 des iPhone42771773315-Laufs. Der
+explizite signierte TestFlight-Upload129698183203 ist übersprungen. Damit ist
+eb74fb52a40b8baf25eced4caf1b51a7bc1d9101 der letzte vollständig grüne gemeinsame
+Quellstand mit20 Development-Jobs und unsigniertem iPhone-Release.
+[Abgeschlossener tatsächlicher Abruf](evidence/complete-browser-accessibility-2026-11-10/published-ci-all-complete.json).
+Keine signierte Verteilung, neue Serverinstallation oder reale Geräteabnahme.

@@ -4,6 +4,17 @@ Stand: 10.11.2026. Projekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Lokaler Entwicklungsbranch: `codex/finish-20261108`.
 Autorisierter Veröffentlichungsbranch: `codex/testupdate-0.7-projects-20261104`.
 
+**Letzter vollständig grüner gemeinsamer Produktstand:**eb74fb52a40b8baf25eced4caf1b51a7bc1d9101
+besteht alle20 Development42771773498-Jobs und den eigenen unsignierten iPhone-
+Release42771773315; signierter Upload übersprungen.
+[Abgeschlossener tatsächlicher Abruf](evidence/complete-browser-accessibility-2026-11-10/published-ci-all-complete.json).
+Alle79 lokalen Browserauswahlen sind mit getrennten Vorfehlern/Wiederholungen
+abgeschlossen. Nur die zusätzliche Source4-Testbeobachtung und Schlussbelege
+werden jetzt nachveröffentlicht; Runtimeprodukt unverändert13fa17d.
+Die V13-Folgeentwicklung ist noch unvollständig und liegt separat in
+/workspace/smartplan-factor-claims-paid-travel-20261110. Gesamtauftrag aktiv;
+keine neue Serverinstallation oder tatsächliche Geräte-/Fach-/Gesamtabnahme.
+
 **Aktueller Schlussnachweis10.11.:** Der bestätigte Testbranch eb74fb5 besteht
 sämtliche20 eigenen Development42771773498-Jobs. Alle79 lokalen Browserauswahlen
 sind tatsächlich abgeschlossen:77 im Erstlauf und zwei mit getrennt erhaltenem

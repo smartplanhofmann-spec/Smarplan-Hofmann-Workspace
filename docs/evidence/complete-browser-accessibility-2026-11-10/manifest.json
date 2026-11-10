@@ -73,13 +73,13 @@
     }
   },
   "last_all_green": {
-    "commit": "799c144df8b4d42c62373699fff313cabf1cebfd",
-    "development_run": 42762857917,
-    "jobs_succeeded": 8,
-    "unsigned_iphone_run": 42762857879,
+    "commit": "eb74fb52a40b8baf25eced4caf1b51a7bc1d9101",
+    "development_run": 42771773498,
+    "jobs_succeeded": 20,
+    "unsigned_iphone_run": 42771773315,
     "unsigned_iphone_success": true,
     "signed_upload": "skipped",
-    "evidence": "predecessor-ci-complete.json"
+    "evidence": "published-ci-all-complete.json"
   },
   "earlier_attempts": [
     "First group CLI unimplemented; no false success.",
@@ -1163,7 +1163,7 @@
     "foreign_containers_untouched": true
   },
   "limits": [
-    "Whole79 browser complete with2 explicitly retained first failures and successful corrected follow-ups. All20 eb74 Development jobs passed; unsigned iPhone remains pending at last fetch. Only test observer differs locally from compiled runtime source.",
+    "All79 local selections complete with2 retained first failures and successful corrected follow-ups. All20 eb74 Development jobs and unsigned iPhone release succeeded; signed upload skipped. Only test observer and proof documents differ locally from compiled runtime source.",
     "Automatic and CSS root-font tests do not replace human screenreader/full browser zoom/actual Windows/iPhone acceptance.",
     "No live deployment, signing, payments, filings or real messages.",
     "A-G whole acceptance and remaining functional goals continue."
@@ -1175,7 +1175,7 @@
     "conclusion": "success",
     "evidence": "published-ci-development-complete.json",
     "iphone_run": 42771773315,
-    "iphone_status": "in_progress at last actual fetch"
+    "iphone_status": "completed success; explicit signed upload skipped"
   },
   "test_observer_source_commit": "000f2892798e08b4d9db17c15fc26e41d13bcfc7",
   "visual_review": [

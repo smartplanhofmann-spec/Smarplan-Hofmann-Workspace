@@ -50,7 +50,7 @@ separater Nachweis. Die laufende lokale Gesamtprüfung wird nicht vorweggenommen
 | Stand | Tatsächlich bestätigt |
 |---|---|
 | Aktuell veröffentlichter Quell- und Testbranch | `4f67bf8ba68c09c2ed77651b76d3487b85b32465`, ausschließlich auf dem autorisierten Testbranch veröffentlicht und Remote-Zeiger bestätigt. V15, Qonto, native Offline-Konfliktklärung und XML-Bankoriginalimport sind enthalten. |
-| Eigene aktuelle Workflowprüfung | 4f67bf8: Development 42864815919 alle 20 Gruppen erfolgreich, tatsächliche Windows-Komplett-/Onlinepakete und lokaler vollständiger Appnachlauf mit 1.997 Fällen erfolgreich. Automatischer unsignierter iPhone-Lauf 42864818725 aktiv. Tatsächlicher manueller Vorbereitungslauf 42864950880: unsignierter Client erfolgreich, Signierjob 130015860048 aktiv, Upload false. Der ältere V15-Stand besitzt zusätzlich den tatsächlich signierten Release 205. |
+| Eigene aktuelle Workflowprüfung | 4f67bf8: Development 42864815919 alle 20 Gruppen erfolgreich, tatsächliche Windows-Komplett-/Onlinepakete und lokaler vollständiger Appnachlauf mit 1.997 Fällen erfolgreich. Automatischer unsignierter iPhone-Release 207 aus 42864818725 erfolgreich. Tatsächlicher manueller Vorbereitungslauf 42864950880 einschließlich signiertem Paket 208 erfolgreich; Upload false. Der ältere V15-Stand besitzt zusätzlich den tatsächlich signierten Release 205. |
 | Vollständige CI zum Installationsprodukt c4a2d8f | Development42790149143:alle20 Gruppen erfolgreich. Die anHTTP403 vor Testbeginn gescheiterte Gruppe wurde allein wiederholt; alle13 wirklichen Browserabläufe bestehen, Erstfehler erhalten. Unsignierter iPhone42790149399 erfolgreich, signierter Upload übersprungen. Mailbot-Verträge42790149124 auf Linux/Windows erfolgreich; kein echter Versand. |
 | Aktueller geprüfter veröffentlichter Reparaturstand | `40d8fcf5571e8edc898e2e20b1cf7fe36e52149e`: alle20 Development-Gruppen42806104268 erfolgreich. Eigener manueller iPhone42806142665: vollständiger unsignierter Client, endgültiges signiertes IPA, strenge Keychain-/Teamprüfung und Schlüsselbereinigung erfolgreich. Signiertes Artefakt198 vorhanden; TestFlight-Uploadskipped. V14 ist davon getrennt. |
 | Letzter vom Nutzer bestätigter Server | `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5` vom05.11.; drei Dienste/Sicherungstimer und kontrollierter Updateabschluss bestätigt. Der10.11.-GET auf/ready liefert403 durchEnvoy; die tatsächliche Cloud-Zulassungsliste enthält die Domain nicht. Kein neuer bestätigter Ursprungstand und kein Update. |
@@ -482,3 +482,23 @@ e3805783925bb4577965f91b3e0472a67465c44bec582e26b4ebfaaa68e4864b.
 Der getrennte manuelle iPhone-Lauf 42864950880 ist noch aktiv; daraus wird
 noch kein signiertes Paket abgeleitet. Upload bleibt false. Neue
 Personal-Kontenauswahl wird getrennt geprüft und ist noch nicht veröffentlicht.
+
+## 10.11.2026 – integrierte Personal-Kontenauswahl und abgeschlossene iPhone-Pakete
+
+Die separat geprüfte Personal-Korrektur 495ee63 ist als 56d9925 in das
+Hauptprojekt integriert; alle zehn geänderten Dateien sind bytegleich.
+Direkt im Hauptprojekt bestehen zusätzlich vier tatsächliche MFA-/HTTP-/
+Quellarchivfälle in 6,847s und sieben Appfälle. Personalauswahl, geschützte
+Bearbeitung und das Beenden bestehender Profile nach Kontosperre sind damit
+konkret geprüft. Kein Zugang zur vollständigen Benutzerverwaltung wurde
+für Personalrollen geöffnet. Der neue Stand wird gesondert veröffentlicht
+und erhält seine eigene vollständige Plattformprüfung.
+
+Der vorherige veröffentlichte Bankstand 4f67bf8 hat jetzt neben allen 20
+Developmentgruppen und 1.997 lokalen Appfällen auch den automatischen
+unsignierten iPhone-Release 207 aus 42864818725 bestanden. Der tatsächliche
+manuelle Lauf 42864950880 besteht vollständig einschließlich signiertem
+iPhone-/iPad-Paket 208, Artefakt 13789192915; Upload false. Der automatische
+Push-Lauf und der manuelle Lauf sind unterschiedliche Auslöser. Das signierte
+208 enthält den Bankimport und Offline-Konfliktfix, die spätere Personal-
+Korrektur jedoch noch nicht. Keine neue Live- oder Geräteinstallation.

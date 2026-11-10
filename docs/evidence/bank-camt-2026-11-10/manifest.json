@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "published_own_all20_and_full_local_native_passed_signed_preparation_running",
+  "status": "published_all20_full_native1997_unsigned207_and_signed208_passed",
   "base_commit": "ff78dbb",
   "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
   "contract": "smartplan_bank_camt053_08_v1",
@@ -62,10 +62,12 @@
       "development_run_id": 42864815919,
       "signed_preparation_run_id": 42864950880,
       "upload_to_testflight": false,
-      "status": "in_progress",
+      "status": "completed",
       "development_status": "all_20_passed",
-      "signed_preparation_status": "in_progress",
-      "unsigned_push_run_id": 42864818725
+      "signed_preparation_status": "success",
+      "unsigned_push_run_id": 42864818725,
+      "unsigned_build": 207,
+      "signed_build": 208
     }
   },
   "raw_files": [
@@ -561,6 +563,18 @@
       "sha256": "bb60fe579f8d7c6ef4651d2f01d52628e29f14e66b7c7346a3c37aed8d0a6751",
       "uncompressed_bytes": 1425,
       "uncompressed_sha256": "6d55ebe793ff2f5fd0ad4a1bb11c07e7f5f3d3fbe5885bf7eff3923a9605cfbe"
+    },
+    {
+      "path": "camt-signed208-job-20261110.json.gz",
+      "bytes": 139025,
+      "sha256": "c8924e6944e7194a7b331200870ac71b0c469b51bfeb61e0281c2e726df0e510",
+      "uncompressed_bytes": 1470167,
+      "uncompressed_sha256": "c926a89d477998850b7f8458c0a3706dc98f30bca1c5c02ae7f7dbbcd8739f12"
+    },
+    {
+      "path": "own-iphone-complete-20261110.json",
+      "bytes": 14859,
+      "sha256": "d835d0de81d5d65a09683f8e24b126528649b2f71ea7ce9e494b80f0a0376ec5"
     }
   ],
   "source_commit": "c52d2072db09b4d1b4b31ce1477c4ad7100955b1",

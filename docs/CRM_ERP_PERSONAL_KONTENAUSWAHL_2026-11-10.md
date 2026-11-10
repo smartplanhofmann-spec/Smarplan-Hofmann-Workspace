@@ -75,3 +75,23 @@ durch den lesenden Endpunkt. Alle 61 historischen Lohnmodule und das originale
 Gesamtziel bleiben bytegleich. Die Integration und ihre eigene Paketprüfung
 werden getrennt nachgetragen; keine Liveinstallation oder Gesamtabnahme wird
 aus diesen lokalen Nachweisen abgeleitet.
+
+## 10.11.2026 – integrierte Personal-Kontenauswahl und abgeschlossene iPhone-Pakete
+
+Die separat geprüfte Personal-Korrektur 495ee63 ist als 56d9925 in das
+Hauptprojekt integriert; alle zehn geänderten Dateien sind bytegleich.
+Direkt im Hauptprojekt bestehen zusätzlich vier tatsächliche MFA-/HTTP-/
+Quellarchivfälle in 6,847s und sieben Appfälle. Personalauswahl, geschützte
+Bearbeitung und das Beenden bestehender Profile nach Kontosperre sind damit
+konkret geprüft. Kein Zugang zur vollständigen Benutzerverwaltung wurde
+für Personalrollen geöffnet. Der neue Stand wird gesondert veröffentlicht
+und erhält seine eigene vollständige Plattformprüfung.
+
+Der vorherige veröffentlichte Bankstand 4f67bf8 hat jetzt neben allen 20
+Developmentgruppen und 1.997 lokalen Appfällen auch den automatischen
+unsignierten iPhone-Release 207 aus 42864818725 bestanden. Der tatsächliche
+manuelle Lauf 42864950880 besteht vollständig einschließlich signiertem
+iPhone-/iPad-Paket 208, Artefakt 13789192915; Upload false. Der automatische
+Push-Lauf und der manuelle Lauf sind unterschiedliche Auslöser. Das signierte
+208 enthält den Bankimport und Offline-Konfliktfix, die spätere Personal-
+Korrektur jedoch noch nicht. Keine neue Live- oder Geräteinstallation.

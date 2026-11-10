@@ -459,3 +459,19 @@ erzeugt keine Zahlung oder Buchung. Private Bankdaten erfordern aktuelle
 globale Bank-, Finanz- und Buchführungsleserechte.
 
 [Einrichtung, enger Umfang und fehlende Providerabnahme](CRM_ERP_BANK_LIEFERANTEN_ANBINDUNGEN_2026-11-10.md).
+
+## Mitarbeiterprofile mit Personalrechten pflegen
+
+Im Browser unter **Personal → Mitarbeiterprofil anlegen** ein bereits
+vorhandenes aktives Benutzerkonto ausdrücklich auswählen. Die Auswahl
+verlangt Personal-Lese- und Verwaltungsrechte; die vollständige
+Benutzerverwaltung bleibt dem Inhaber vorbehalten. Bestehende Profile
+werden über **Bearbeiten** geöffnet und behalten ihr Benutzerkonto.
+Ein gesperrter Zugang verhindert die nachträgliche Beendigung des
+bestehenden Mitarbeiterprofils nicht. Die Zugangssperre bleibt erhalten.
+
+In Windows und auf dem iPhone im allgemeinen Bereich **Personal** den
+Unterbereich **Mitarbeiter** wählen und **Neu anlegen** bzw. das vorhandene
+Profil öffnen. Reine Personal-Leser können bestehende Profile ansehen.
+Der neue Auswahlweg benötigt den entsprechend aktualisierten Server.
+Bei einer unbestätigten Antwort denselben geöffneten Vorgang erneut senden.

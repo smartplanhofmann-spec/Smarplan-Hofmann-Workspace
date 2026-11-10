@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "local_checks_passed_not_integrated_or_published",
+  "status": "integrated_local_checks_passed_publication_pending",
   "source_commit": "495ee6312da707fbdd8ca8341117647e1e953c84",
   "base_commit": "4f67bf8ba68c09c2ed77651b76d3487b85b32465",
   "checks": {
@@ -30,7 +30,15 @@
     "new_sql_schema": false,
     "new_dependencies": false,
     "external_provider_calls": false,
-    "real_device_acceptance": false
+    "real_device_acceptance": false,
+    "main_http_archive": {
+      "tests": 4,
+      "seconds": 6.847
+    },
+    "main_native": {
+      "tests": 7,
+      "seconds": 7
+    }
   },
   "raw_files": [
     {
@@ -224,6 +232,21 @@
       "path": "confirmed-employee-synthetic-commands.json",
       "bytes": 1338,
       "sha256": "e495e4c7dd39183298f08d61a481ba3cb0956f26855796c633959ece260651a3"
+    },
+    {
+      "path": "employee-main-http-archive-20261110.txt.gz",
+      "bytes": 334,
+      "sha256": "29d85da2ba76b8a7adb6d4fe8b746ee89a4e0eb6abdef654fbefbe88b9444466",
+      "uncompressed_bytes": 1028,
+      "uncompressed_sha256": "07b1b6d3b7a7298acc493fa51e70d0f48b055f64ba5b30686dbc944319e0929e"
+    },
+    {
+      "path": "employee-main-native-20261110.txt.gz",
+      "bytes": 412,
+      "sha256": "e25fdd9db9557721185a9077602434f16f6c2db28be7c3b505eeb20b9203a1b1",
+      "uncompressed_bytes": 769,
+      "uncompressed_sha256": "0468cd3ee5e4cf2e8ea407de5ee3a26f1fd4acb2782a23212753938587674a2a"
     }
-  ]
+  ],
+  "integrated_source_commit": "56d9925840a6890ca9c4fc128b47909d75765c8d"
 }

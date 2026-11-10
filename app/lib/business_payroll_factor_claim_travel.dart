@@ -309,6 +309,44 @@ void payrollFactorClaimTravelRunHashes(Map<String, dynamic> v) {
     );
 }
 
+void payrollFactorClaimTravelCalculation(Map<String, dynamic> v) {
+  final d = businessMap(v['period_details']),
+      components = businessMap(d['components']);
+  final claims = businessMap(components['claims']?['plan']);
+  if (claims.isEmpty)
+    _bad('Die unveränderte ursprüngliche Anspruchsrechnung fehlt.');
+  payrollFactorClaimTravelPlan({
+    ..._omit(claims, ['plan_hash', 'can_confirm', 'can_calculate']),
+    'rule_version': payrollFactorClaimTravelRule,
+    'source_contract_version': 5,
+    'rules_sha256': v['rules_sha256'],
+    'source_snapshot_hash': d['source_snapshot_hash'],
+    'gross_minor': v['gross_minor'],
+    'components': components,
+    'factor_parameters': d['factor_parameters'],
+    'care_contribution_method': d['care_contribution_method'],
+    'travel': d['travel'],
+    'travel_source_hashes': d['travel_source_hashes'],
+    'travel_payment_refs': d['travel_payment_refs'],
+    'travel_paid_minor': d['travel_paid_minor'],
+    'satisfied_travel_component_wage_reviews':
+        d['satisfied_travel_component_wage_reviews'],
+    'blockers': v['blockers'],
+    'plan_hash': d['plan_hash'],
+    'can_confirm': true,
+    'can_calculate': v['payroll_calculation_complete'],
+  });
+  if (v['scope'] != 'unsupported' &&
+      (v['scope'] != payrollFactorClaimTravelScope ||
+          d['factor_parameters']?['tax_factor'] !=
+              v['tax_parameters']?['tax_factor'] ||
+          v['travel_expenses_included_in_net'] != false ||
+          v['net_deductions_minor'] != 0))
+    _bad(
+      'Anspruchslohn und bereits gezahlte Reise dürfen kein doppeltes Netto erzeugen.',
+    );
+}
+
 Map<String, dynamic> payrollFactorClaimTravelInput(
   String id,
   Map<String, dynamic> s,

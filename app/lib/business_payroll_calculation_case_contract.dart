@@ -1,3 +1,6 @@
+import 'business_payroll_factor_claim_travel.dart';
+export 'business_payroll_factor_claim_travel.dart';
+
 import 'dart:convert';
 
 import 'business_payroll_factor_claims.dart';
@@ -20,7 +23,8 @@ bool payrollCalculationCaseRuleKnown(dynamic rule, dynamic contract) =>
     (rule == payrollCalculationCaseRule && contract == 1 ||
         rule == payrollFactorTaxfreeTravelRule && contract == 2 ||
         rule == individualMinijobRule && contract == 3 ||
-        rule == payrollFactorClaimsRule && contract == 4);
+        rule == payrollFactorClaimsRule && contract == 4 ||
+        rule == payrollFactorClaimTravelRule && contract == 5);
 bool payrollFactorTravelBaseEligible(dynamic raw) {
   final value = businessMap(raw), plan = businessMap(value['plan']);
   final tax = plan['tax_periods'], social = plan['social_periods'];
@@ -171,6 +175,8 @@ Map<String, dynamic> payrollCalculationCasePlan(
     );
   if (v['gross_minor'] != null) _integer(v['gross_minor']);
   if (v['rule_version'] == payrollFactorClaimsRule) payrollFactorClaimsPlan(v);
+  if (v['rule_version'] == payrollFactorClaimTravelRule)
+    payrollFactorClaimTravelPlan(v);
   if (v['rule_version'] == payrollFactorTaxfreeTravelRule) {
     _factorTravelMetadata(v, required: v['can_calculate'] == true);
     _factorTravelBounds(v, month, v['can_calculate'] == true);
@@ -224,6 +230,8 @@ Map<String, dynamic> payrollCalculationCaseRecord(
   _bindings(s, d, v['source_file_ids'], employeeId, p);
   if (v['rule_version'] == payrollFactorClaimsRule)
     payrollFactorClaimsCaseHashes(v);
+  if (v['rule_version'] == payrollFactorClaimTravelRule)
+    payrollFactorClaimTravelCaseHashes(v);
   if (v['rule_version'] == payrollFactorTaxfreeTravelRule &&
       p['factor_parameters'] != null &&
       !payrollFactsSame(
@@ -273,6 +281,8 @@ void _bindings(
     _fail('Die Reiseabrechnungsquellen passen nicht zur Person und zum Monat.');
   if (s['rule_version'] == payrollFactorClaimsRule)
     payrollFactorClaimsBindings(s, d, plan);
+  if (s['rule_version'] == payrollFactorClaimTravelRule)
+    payrollFactorClaimTravelBindings(s, d, plan);
   if (s['rule_version'] == payrollFactorTaxfreeTravelRule) {
     if (s['period_case']['plan']['rule_version'] != payrollFactorPeriodRule ||
         [
@@ -501,6 +511,13 @@ Map<String, dynamic> payrollCalculationCaseInput(
       values['rule_version'] ??
       previous?['rule_version'] ??
       payrollCalculationCaseRule;
+  if (rule == payrollFactorClaimTravelRule)
+    return payrollFactorClaimTravelInput(
+      employeeId,
+      sources,
+      values,
+      previous: previous,
+    );
   if (rule == payrollFactorClaimsRule)
     return payrollFactorClaimsInput(
       employeeId,
@@ -896,6 +913,8 @@ Map<String, dynamic> payrollCalculationCasePreview(
   _bindings(s, d, body['source_file_ids'], body['employee_id'], p);
   if (body['rule_version'] == payrollFactorClaimsRule)
     payrollFactorClaimsCaseHashes(v);
+  if (body['rule_version'] == payrollFactorClaimTravelRule)
+    payrollFactorClaimTravelCaseHashes(v);
   if (body['rule_version'] == payrollFactorTaxfreeTravelRule &&
       p['factor_parameters'] != null &&
       !payrollFactsSame(
@@ -1017,6 +1036,8 @@ Map<String, dynamic> payrollCompositeCalculation(dynamic raw) {
             v['net_deductions_minor'] != 0))
       _fail('Faktor und Anspruchsrechnung widersprechen sich.');
   }
+  if (v['rule_version'] == payrollFactorClaimTravelRule)
+    payrollFactorClaimTravelCalculation(v);
   if (v['rule_version'] == payrollFactorTaxfreeTravelRule) {
     _factorTravelMetadata(d, required: v['scope'] != 'unsupported');
     _factorTravelBounds(d, v['month'], v['scope'] != 'unsupported');
@@ -1102,6 +1123,8 @@ Map<String, dynamic> payrollCompositeCalculation(dynamic raw) {
         payrollFactorTaxfreeTravelScope,
         if (v['rule_version'] == payrollFactorClaimsRule)
           payrollFactorClaimsScope,
+        if (v['rule_version'] == payrollFactorClaimTravelRule)
+          payrollFactorClaimTravelScope,
       ].contains(v['scope']) ||
       v['social_contributions_available'] != true ||
       v['payroll_calculation_complete'] != true ||
@@ -1303,6 +1326,14 @@ Map<String, dynamic> payrollCompositeSource(
     if (fact['rule_version'] == payrollFactorClaimsRule) ...[
       'factor_parameters',
       'care_contribution_method',
+    ],
+    if (fact['rule_version'] == payrollFactorClaimTravelRule) ...[
+      'factor_parameters',
+      'care_contribution_method',
+      'components',
+      'travel_payment_refs',
+      'travel_paid_minor',
+      'satisfied_travel_component_wage_reviews',
     ],
     if (fact['rule_version'] == payrollFactorTaxfreeTravelRule) ...[
       'factor_parameters',

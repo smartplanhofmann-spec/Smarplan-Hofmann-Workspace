@@ -162,6 +162,21 @@ class FactorClaimTravelWorkflow(FactorClaimTravelFixture):
         self.assertEqual(self.api._get(original['id']),original)
         self.assertEqual(f.payroll.get(f.owner,'run',run['id']),run)
 
+    def test_missing_whole_dependency_journal_cannot_prove_that_an_original_was_unused(self):
+        from business_payroll_annual_basis import TABLES as annual_tables
+        from payroll_factor_claim_travel_sources import require_unused_upgrade
+        original,_=self.save_case(entitlement_fixture.FactorEntitlementFixture.proposal(self))
+        current=self.api.preview(self.f.owner,self.proposal())
+        candidate=dict(original,rule_version=RULE,source_contract_version=CONTRACT,
+            sources=current['source_snapshot'],plan=current['plan'])
+        # Actual incomplete historical database, not a fabricated empty result.
+        # A missing entire additive module is allowed by its old validator,
+        # but cannot establish non-use for a new contract transition.
+        for table in annual_tables:self.f.office.db.execute('DROP TABLE '+table)
+        with self.assertRaises(Problem) as caught:require_unused_upgrade(self.api,original,candidate)
+        self.assertEqual(caught.exception.status,409)
+        self.assertEqual(self.api._get(original['id']),original)
+
     def test_actual_payment_euer_private_statement_and_annual_basis_keep_travel_separate(self):
         import business_schema
         from business_accounting_profile import AccountingPreparationProfile

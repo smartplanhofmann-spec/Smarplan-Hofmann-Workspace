@@ -495,6 +495,12 @@ class _BusinessPayrollCalculationCasesPageState
     if (body['rule_version'] == individualMinijobRule &&
         !session.hasFeature(individualMinijobFeature))
       _fail('Die Freigabe für den individuellen Minijob fehlt.', 403);
+    if (body['rule_version'] == payrollFactorClaimTravelRule &&
+        !session.hasFeature(payrollFactorClaimTravelFeature))
+      _fail(
+        'Die aktuelle Freigabe für Faktor, Ansprüche und bezahlte Reisen fehlt.',
+        403,
+      );
     if (body['rule_version'] == payrollFactorClaimsRule &&
         !session.hasFeature(payrollFactorClaimsFeature))
       _fail('Die aktuelle Freigabe für den Faktor-Anspruchsfall fehlt.', 403);
@@ -628,6 +634,10 @@ class _BusinessPayrollCalculationCasesPageState
   Future<void> edit([Map<String, dynamic>? previous]) async {
     if (previous?['rule_version'] == individualMinijobRule) {
       await editIndividualMinijob(previous);
+      return;
+    }
+    if (previous?['rule_version'] == payrollFactorClaimTravelRule) {
+      await editFactorClaims(previous, true);
       return;
     }
     if (previous?['rule_version'] == payrollFactorClaimsRule) {
@@ -1041,22 +1051,33 @@ class _BusinessPayrollCalculationCasesPageState
     }
   }
 
-  Future<void> editFactorClaims([Map<String, dynamic>? previous]) async {
-    if (busy ||
-        pending != null ||
-        !session.hasFeature(payrollFactorClaimsFeature))
-      return;
+  Future<void> editFactorClaims([
+    Map<String, dynamic>? previous,
+    bool includePaidTravel = false,
+  ]) async {
+    final combined =
+        includePaidTravel ||
+        previous?['rule_version'] == payrollFactorClaimTravelRule;
+    final feature = combined
+        ? payrollFactorClaimTravelFeature
+        : payrollFactorClaimsFeature;
+    final rule = combined
+        ? payrollFactorClaimTravelRule
+        : payrollFactorClaimsRule;
+    if (busy || pending != null || !session.hasFeature(feature)) return;
     final opening = epoch;
     try {
       final page = await fresh(write: true);
       if (!mounted ||
           !readable ||
           opening != epoch ||
-          !session.hasFeature(payrollFactorClaimsFeature))
+          !session.hasFeature(feature))
         return;
       final d = businessMap(previous?['details']);
       final values = await choose(
-        previous == null
+        combined
+            ? 'Faktor-Monat mit Ansprüchen und bezahlten Reisen'
+            : previous == null
             ? 'Faktor-Monat mit belegten Lohnansprüchen'
             : 'Faktor-Anspruchsfall berichtigen',
         [
@@ -1151,6 +1172,44 @@ class _BusinessPayrollCalculationCasesPageState
               empty: false,
             ),
           ),
+          if (combined)
+            BusinessField(
+              'travel_settlement_ids',
+              'Bereits erstattete steuerfreie Reiseabrechnungen',
+              type: BusinessInput.multiple,
+              required: true,
+              initial: ids(d['travel_settlement_refs']),
+              choices: choices(
+                businessItems(page['travel_settlements'])
+                    .where((v) => v['status'] == 'approved')
+                    .toList(),
+                (v) =>
+                    'Reise · Fassung ${v['revision']} · ${businessDate(v['created_at'])}',
+                empty: false,
+              ),
+            ),
+          if (combined)
+            BusinessField(
+              'travel_payment_ids',
+              'Tatsächliche Auszahlungs- und Rückzahlungsnachweise',
+              type: BusinessInput.multiple,
+              required: true,
+              initial: ids(d['travel_payment_refs']),
+              choices: choices(
+                page['travel_payment_proofs'],
+                (v) =>
+                    '${businessDate(v['paid_on'])} · ${v['kind'] == 'repayment' ? 'Rückzahlung' : 'Erstattung'} · ${_money(v['amount_minor'])} · Fassung ${v['revision']}',
+                empty: false,
+              ),
+            ),
+          if (combined &&
+              previous != null &&
+              previous['rule_version'] != payrollFactorClaimTravelRule)
+            const BusinessField(
+              'confirm_unused_upgrade',
+              'Ich ergänze nur den fehlenden Bestandteil eines bisher unbenutzten ursprünglichen Faktorfalls.',
+              type: BusinessInput.toggle,
+            ),
           files(
             page,
             'source_file_ids',
@@ -1169,13 +1228,17 @@ class _BusinessPayrollCalculationCasesPageState
               'Belegter Berichtigungsgrund',
               required: true,
             ),
-          const BusinessField(
+          BusinessField(
             'confirmed',
-            'Ich bestätige den vollständigen Faktor-Monat und sämtliche belegten Lohnansprüche aus den ausgewählten Originalen.',
+            combined
+                ? 'Ich bestätige den vollständigen Faktor-Monat, alle belegten Lohnansprüche und die bereits getrennt erstatteten steuerfreien Reisen.'
+                : 'Ich bestätige den vollständigen Faktor-Monat und sämtliche belegten Lohnansprüche aus den ausgewählten Originalen.',
             type: BusinessInput.toggle,
           ),
         ],
-        saveLabel: 'Faktor-Anspruchsfall unverbindlich prüfen',
+        saveLabel: combined
+            ? 'Faktor-/Anspruchs-/Reisefall unverbindlich prüfen'
+            : 'Faktor-Anspruchsfall unverbindlich prüfen',
       );
       if (values == null || opening != epoch) return;
       if (values['confirmed'] != true)
@@ -1186,14 +1249,14 @@ class _BusinessPayrollCalculationCasesPageState
       if (!mounted ||
           !readable ||
           opening != epoch ||
-          !session.hasFeature(payrollFactorClaimsFeature))
+          !session.hasFeature(feature))
         return;
       final body = payrollCalculationCaseInput(employeeId, page, {
         ...values,
         'month': month,
-        'rule_version': payrollFactorClaimsRule,
+        'rule_version': rule,
         'segment_events': <Map<String, dynamic>>[],
-        'travel_settlement_ids': <String>[],
+        if (!combined) 'travel_settlement_ids': <String>[],
         'thirty_day_rule': null,
         'policy_id': null,
       }, previous: previous);
@@ -1803,6 +1866,19 @@ class _BusinessPayrollCalculationCasesPageState
                           }),
                     child: const Text('Lohn aus diesem Gesamtfall berechnen'),
                   ),
+                if ([
+                      payrollFactorClaimsRule,
+                      payrollFactorTaxfreeTravelRule,
+                    ].contains(value['rule_version']) &&
+                    session.hasFeature(payrollFactorClaimTravelFeature))
+                  OutlinedButton(
+                    onPressed: busy
+                        ? null
+                        : () => editFactorClaims(value, true),
+                    child: const Text(
+                      'Fehlenden Anspruchs- oder Reisebestandteil belegt ergänzen',
+                    ),
+                  ),
                 OutlinedButton(
                   onPressed: busy ? null : () => edit(value),
                   child: const Text('Abrechnungsfall berichtigen'),
@@ -1923,6 +1999,16 @@ class _BusinessPayrollCalculationCasesPageState
                     icon: const Icon(Icons.add),
                     label: const Text(
                       'Belegten Abrechnungsfall zusammenstellen',
+                    ),
+                  ),
+                if (writable &&
+                    pending == null &&
+                    session.hasFeature(payrollFactorClaimTravelFeature))
+                  FilledButton.icon(
+                    onPressed: busy ? null : () => editFactorClaims(null, true),
+                    icon: const Icon(Icons.fact_check_outlined),
+                    label: const Text(
+                      'Faktor-Monat mit Ansprüchen und bezahlten Reisen',
                     ),
                   ),
                 if (writable &&

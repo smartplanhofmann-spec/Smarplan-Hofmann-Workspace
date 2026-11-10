@@ -29,7 +29,6 @@ def is_supported_upgrade(previous, current):
 
 def require_unused_upgrade(api, previous, current):
     from business_payroll_calculation_cases import validate_case_sources
-    validate_case_sources(api.office, previous)
     if not is_supported_upgrade(previous,current):
         raise Problem(400,'Nur den fehlenden Bestandteil eines unbenutzten V10-/V12-Originalfalls ausdrücklich ergänzen.')
 
@@ -53,11 +52,12 @@ def require_unused_upgrade(api, previous, current):
         'business_payroll_multiple_case_events':PayrollMultipleCases(api.office),
     }
     try:
+        if not set(resolvers).issubset(present):
+            raise Problem(409,'Die vollständigen ursprünglichen Abhängigkeitsjournale fehlen; Nichtverwendung ist nicht nachgewiesen.')
+        validate_case_sources(api.office,previous)
         for validate in (validate_payroll,validate_accounts,validate_annual,validate_oneoff,validate_multiple):
             validate(api.office)
         for table,resolver in resolvers.items():
-            if table not in present:
-                continue
             for row in api.db.execute('SELECT * FROM '+table+' WHERE employee_id=?',(previous['employee_id'],)):
                 if refers(resolver._event(row)):
                     raise Problem(409,'Der frühere Faktorfall wurde bereits verwendet; seine ursprüngliche Regel bleibt erhalten.')

@@ -31,6 +31,8 @@ import 'mail_attachment_preview.dart';
 import 'mail_attachment_widgets.dart' show exportMailAttachment;
 
 const payrollScopes = {
+  payrollFactorClaimTravelScope:
+      'Faktor-Monat mit belegten Ansprüchen und bereits bezahlten Reisen',
   individualMinijobScope:
       'Individuell besteuerter gewerblicher Minijob · belegter Vollmonat',
   payrollFactorTaxfreeTravelScope:
@@ -455,6 +457,8 @@ Map<String, dynamic> payrollPreview(dynamic raw, Map<String, dynamic> input) {
     final value = payrollCompositeSource(raw, input);
     if (value['calculation']['rule_version'] == payrollFactorClaimsRule)
       payrollFactorClaimsRunHashes(value);
+    if (value['calculation']['rule_version'] == payrollFactorClaimTravelRule)
+      payrollFactorClaimTravelRunHashes(value);
     if (!RegExp(r'^[a-f0-9]{64}$').hasMatch('${value['preview_hash']}'))
       throw const ApiException(0, 'Die Vorschauprüfsumme fehlt.');
     return value;
@@ -534,6 +538,8 @@ void Function(dynamic) payrollReceiptValidator(
     } else {
       if (v['calculation']?['rule_version'] == payrollFactorClaimsRule)
         payrollFactorClaimsRunHashes(v);
+      if (v['calculation']?['rule_version'] == payrollFactorClaimTravelRule)
+        payrollFactorClaimTravelRunHashes(v);
       bad =
           bad ||
           !payrollSame(v['source'], proof['source']) ||
@@ -1490,6 +1496,12 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
     try {
       await fresh();
       if (!currentContext(owner, person, ticket)) return;
+      if (fact['rule_version'] == payrollFactorClaimTravelRule &&
+          !session.hasFeature(payrollFactorClaimTravelFeature))
+        throw const ApiException(
+          403,
+          'Die aktuelle Freigabe für den gemeinsamen Faktor-/Anspruchs-/Reisefall fehlt.',
+        );
       if (fact['employee_id'] != person)
         throw const ApiException(
           403,
@@ -2670,6 +2682,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
                   payrollCalculationCaseRule,
                   payrollFactorTaxfreeTravelRule,
                   payrollFactorClaimsRule,
+                  payrollFactorClaimTravelRule,
                   individualMinijobRule,
                   payrollOneOffRule,
                   payrollMultipleRule,
@@ -2682,6 +2695,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         payrollCalculationCaseRule,
         payrollFactorTaxfreeTravelRule,
         payrollFactorClaimsRule,
+        payrollFactorClaimTravelRule,
         individualMinijobRule,
         payrollOneOffRule,
         payrollMultipleRule,
@@ -2772,6 +2786,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
               payrollCalculationCaseRule,
               payrollFactorTaxfreeTravelRule,
               payrollFactorClaimsRule,
+              payrollFactorClaimTravelRule,
               individualMinijobRule,
               payrollOneOffRule,
               payrollMultipleRule,

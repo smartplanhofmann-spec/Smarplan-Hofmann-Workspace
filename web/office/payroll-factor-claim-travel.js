@@ -65,6 +65,22 @@ export async function verifyFactorClaimTravelRun(v){
  return v;
 }
 
+export function factorClaimTravelCalculation(v){
+ const d=v?.period_details,c=d?.components?.claims?.plan;
+ if(!c)throw fail('Die unveränderte ursprüngliche Anspruchsrechnung fehlt.');
+ factorClaimTravelPlan({...omit(c,['plan_hash','can_confirm','can_calculate']),
+  rule_version:PAYROLL_FACTOR_CLAIM_TRAVEL_RULE,source_contract_version:5,rules_sha256:v.rules_sha256,
+  source_snapshot_hash:d.source_snapshot_hash,gross_minor:v.gross_minor,components:d.components,
+  factor_parameters:d.factor_parameters,care_contribution_method:d.care_contribution_method,
+  travel:d.travel,travel_source_hashes:d.travel_source_hashes,travel_payment_refs:d.travel_payment_refs,
+  travel_paid_minor:d.travel_paid_minor,satisfied_travel_component_wage_reviews:d.satisfied_travel_component_wage_reviews,
+  blockers:v.blockers,plan_hash:d.plan_hash,can_confirm:true,can_calculate:v.payroll_calculation_complete});
+ if(v.scope!=='unsupported'&&(v.scope!==PAYROLL_FACTOR_CLAIM_TRAVEL_SCOPE
+     || d.factor_parameters.tax_factor!==v.tax_parameters?.tax_factor||v.travel_expenses_included_in_net!==false
+     ||v.net_deductions_minor!==0))throw fail('Anspruchslohn und bereits gezahlte Reise dürfen kein doppeltes Netto erzeugen.');
+ return v;
+}
+
 export function factorClaimTravelInput(id,s,v,previous=null){
  factorTravelSources(s,id);
  const claim=factorClaimsInput(id,s,{...v,travel_settlement_ids:[],travel_payment_ids:[]});

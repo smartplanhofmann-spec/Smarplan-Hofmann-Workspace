@@ -1,6 +1,6 @@
 # Smartplan Office – Arbeitsabläufe der CRM-/ERP-Version
 
-Stand: 9. November 2026. Dieses Handbuch beschreibt den entwickelten Funktionsumfang.
+Stand: 10. November 2026. Dieses Handbuch beschreibt den entwickelten Funktionsumfang.
 Welche Abläufe aktuell getestet sind und welche Freigaben fehlen, steht im
 [aktuellen Arbeitsstand](CRM_ERP_ARBEITSSTAND.md). Die vorhandene
 Installation erhält diese Erweiterungen erst durch ein kontrolliertes Update.
@@ -73,6 +73,13 @@ in Gerätezeit. Fehlt die damals gespeicherte Mitarbeiterbasis, bleibt der
 Auftrag ungeklärt erhalten. Der Ablauf ergänzt keine Daten aus einem heutigen
 Profil und startet oder beendet keinen Timer. Details zum
 [begrenzten Zeitabgleich](CRM_ERP_OFFLINE_ALTZEITEN_2026-11-09.md).
+
+Bei einem prüfbaren alten Servicebericht **Ursprüngliches Protokoll prüfen**
+wählen. Der Abgleich überträgt nur Kennungen und Hashmetadaten. Erst eine
+passende ursprüngliche Archivquittung und die Prüfung des tatsächlichen PDFs
+bestätigen das Original in der angemeldeten Firma. Berichtstext und Unterschrift
+werden dabei nicht erneut übertragen. Ein fehlender Treffer bleibt ungeklärt;
+alte Gerätebestände und Schlüssel erhalten. [Einzelheiten](CRM_ERP_ALTBERICHT_ABGLEICH_2026-11-10.md).
 
 ## Zeiterfassung finden und Zeiten abrechnen
 
@@ -282,6 +289,40 @@ Abrechnungsversionen stehen unter
 Details: [Personalworkflow](CRM_ERP_PERSONAL_WORKFLOW.md),
 [Lohnbedienung](CRM_ERP_LOHN_CLIENTS.md),
 [belegte Zahlungen zur EÜR](CRM_ERP_LOHNZAHLUNGEN_EUER_CLIENTS.md).
+
+### Faktor-Monat mit Ansprüchen und bereits bezahlten Reisen
+
+Den Mitarbeiter und den tatsächlichen Abrechnungsmonat öffnen, dann
+**Abrechnungsfälle mit Ansprüchen und Reisen** und
+**Faktor-Monat mit Ansprüchen und bezahlten Reisen** wählen. Die native App
+zeigt denselben neuen Fall im Bereich der belegten Abrechnungsfälle.
+
+Den bestätigten Faktor-Monat, Beschäftigungs-, Profil- und Identitätsfassungen,
+sämtliche aktiven Anspruchsnachweise sowie die tatsächlichen Reiseabrechnungen
+und vollständigen Zahlungsnachweise auswählen. Erstattungs- und gegebenenfalls
+Rückzahlungsfassungen gehören zum ursprünglichen Nachweis. Eine noch unbezahlte,
+nicht vollständig belegte oder zusätzlich steuerpflichtige Reise passt nicht
+zu diesem begrenzten Fall.
+
+Die Vorschau zeigt Anspruchsbrutto und die bereits separat gezahlte Reise.
+Beispiel aus den kontrollierten Prüfdaten: Aus5000 Euro ursprünglichem
+Monatsgehalt und fünf belegten unbezahlten Tagen entstehen4193,55 Euro
+Anspruchsbrutto und2850,54 Euro Netto. Die bereits erstatteten14 Euro werden
+nicht erneut zum Lohnnetto addiert. Bezahlte Feiertage bei Stundenlohn werden
+als Anspruch belegt; es werden dafür keine Projektarbeitsstunden erfunden.
+
+Erst den geprüften Gesamtfall festhalten und danach die Lohnberechnung separat
+bestätigen. Bei verlorener Antwort den ursprünglichen Auftrag unverändert
+wiederholen. Vorhandene Rechte und die serverseitige Verfügbarkeit werden dabei
+neu geprüft. Eine Berechnung löst keine Überweisung oder Behördenmeldung aus.
+
+Bei einem bisherigen Faktorfall kann **Fehlenden Anspruchs- oder
+Reisebestandteil belegt ergänzen** angeboten werden. Diese Ergänzung benötigt
+einen ausdrücklichen Prüfvermerk und die Bestätigung, dass der ursprüngliche
+Fall noch nicht verwendet wurde. Ursprüngliche Bestandteile und Fassungen
+bleiben erhalten. Ein bereits verwendeter Fall oder eine unvollständige
+Verwendungshistorie bleibt gesperrt und erfordert fachliche Klärung.
+[Geprüfter Umfang und Grenzen](CRM_ERP_FAKTOR_ANSPRUECHE_BEZAHLTE_REISEN_V13_2026-11-10.md).
 
 ## Assistent, Sprache und Regeln
 

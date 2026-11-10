@@ -1,0 +1,509 @@
+{
+  "schema_version": 1,
+  "status": "client_and_pg_proofs_complete_whole_native_active",
+  "base_commit": "798cc61c91c132ddb1d889996cd06dd8ab816d23",
+  "core_commit": "7abba321f7c544fe295af15c2e8d0eada88335a2",
+  "rule_version": "de_2026_factor_claims_paid_travel_month_v13",
+  "source_contract_version": 5,
+  "raw_files": [
+    {
+      "path": "factor-claims-paid-travel-base798-ci-20261110.json.gz",
+      "bytes": 258,
+      "sha256": "ac38f3e8099117e2d857b85d89145c8dcfbc81df7a2cda9c7436b0a7b85c37be"
+    },
+    {
+      "path": "factor-claims-paid-travel-base798-ci-jobs-20261110.json.gz",
+      "bytes": 29283,
+      "sha256": "a95da3455ad5d167fdb4daa69446250f562d4475bf29eb7e826943c0d278c880"
+    },
+    {
+      "path": "factor-claims-paid-travel-before-20261110.txt.gz",
+      "bytes": 1872,
+      "sha256": "d78c57fe5ae5ef21aab62fdf019fb34a199212458572d4d56dceafa64697a6b4"
+    },
+    {
+      "path": "factor-claims-paid-travel-browser-contract-cases-20261110.txt.gz",
+      "bytes": 987,
+      "sha256": "e9d77eac9d012782fae6038cb73754430299892db6166a9da6b909d86e28ea27"
+    },
+    {
+      "path": "factor-claims-paid-travel-browser-contract-first-20261110.txt.gz",
+      "bytes": 169,
+      "sha256": "f1e8927237aeca33d11773bcf8e5f5677ac9d9d8dde05527c35d4638772d588f"
+    },
+    {
+      "path": "factor-claims-paid-travel-browser-generic-first-20261110.txt.gz",
+      "bytes": 1394,
+      "sha256": "8cbc4f518236414660656c56a6a919ce7d1106e3f736a1cb087cb0b2a39c9f4b"
+    },
+    {
+      "path": "factor-claims-paid-travel-browser-parent-retry-first-20261110.txt.gz",
+      "bytes": 1590,
+      "sha256": "30feb44d2f7c7ed83375f16eea3b7db54d0592ad19edb8307b0f066eb03152b4"
+    },
+    {
+      "path": "factor-claims-paid-travel-browser-ui-first-20261110.txt.gz",
+      "bytes": 2767,
+      "sha256": "21259369cb6147f607866c78de69cfb3d1d1077b36073554ef67fd0c87f2f62c"
+    },
+    {
+      "path": "factor-claims-paid-travel-browser-ui-second-20261110.txt.gz",
+      "bytes": 4711,
+      "sha256": "c9037dc80df9ba8b0ef0b4715450a0f4938aeb6eb3e9e463bcbf9e5abb7a1d3b"
+    },
+    {
+      "path": "factor-claims-paid-travel-browser-ui-third-20261110.txt.gz",
+      "bytes": 411,
+      "sha256": "b9043f684b166bcdd0a0c93c7bd54222686a01115fa214814dcee1782e4aa73f"
+    },
+    {
+      "path": "factor-claims-paid-travel-combined-component-plans-20261110.txt.gz",
+      "bytes": 9126,
+      "sha256": "e498c9ffc4f3ce051da84169241fd2f3504a360288aedfd4e06e0ded78944b82"
+    },
+    {
+      "path": "factor-claims-paid-travel-combined-first-20261110.txt.gz",
+      "bytes": 9126,
+      "sha256": "667c4832eb0f59c233860d9793ca38b46db23b9c41430e1cb7b4fe16ffa01f0a"
+    },
+    {
+      "path": "factor-claims-paid-travel-combined-hourly-originals-20261110.txt.gz",
+      "bytes": 7854,
+      "sha256": "06f628d988c9a81207721faf81b047f42b747ef9bf685f82c91ab5d6686dad74"
+    },
+    {
+      "path": "factor-claims-paid-travel-combined-hourly-review-20261110.txt.gz",
+      "bytes": 8563,
+      "sha256": "5f0b624b85cdd93de2e6d0a7bf084f95e473971a6905dcff1a7c9feeb301ab63"
+    },
+    {
+      "path": "factor-claims-paid-travel-combined-original-source-guards-20261110.txt.gz",
+      "bytes": 10456,
+      "sha256": "e6274f275c4e018ad7795644fea324138a75a2b79b0ddcc62941cac749e729b2"
+    },
+    {
+      "path": "factor-claims-paid-travel-combined-reviewed-boundaries-20261110.txt.gz",
+      "bytes": 10158,
+      "sha256": "496ff27ce1ddb4ce88f1ba6e5443860a6b47aa4cd76b62e1cfe9f3da97e333ce"
+    },
+    {
+      "path": "factor-claims-paid-travel-combined-strict-rejections-20261110.txt.gz",
+      "bytes": 8089,
+      "sha256": "20f9b8c2399cdd96cc4aa97f1d56d022582b3b78332826d46c91a05d90ca824a"
+    },
+    {
+      "path": "factor-claims-paid-travel-crlf-ci-first-20261110.txt.gz",
+      "bytes": 2241,
+      "sha256": "8d0190115b6a1f68e6303a8a46a650bba3ebee44533a2c959b38256301d17b4d"
+    },
+    {
+      "path": "factor-claims-paid-travel-dart-format-current-20261110.txt.gz",
+      "bytes": 47,
+      "sha256": "457046c7e0f7f51ee12739cb1cec08e6628546bde2580dd7034604f09041fcc2"
+    },
+    {
+      "path": "factor-claims-paid-travel-dart-format-first-20261110.txt.gz",
+      "bytes": 173,
+      "sha256": "f9e0f480df32afeb7e7b5bbc34b1eb025d94ccadb2af52c674f2a08a26ca43d6"
+    },
+    {
+      "path": "factor-claims-paid-travel-dart-generic-format-20261110.txt.gz",
+      "bytes": 173,
+      "sha256": "10813e14ae797424123f092262df28d42aa532b17a79033fbcbd42ab4c77f4c0"
+    },
+    {
+      "path": "factor-claims-paid-travel-golden-first-20261110.txt.gz",
+      "bytes": 127,
+      "sha256": "ec3cbce90ce1b67d4b1db36671cadb4aead09d43ba4604b379ebdf269477a22d"
+    },
+    {
+      "path": "factor-claims-paid-travel-hourly-component-diagnostic-20261110.json.gz",
+      "bytes": 500,
+      "sha256": "0b920d61fa0f5ab50a06e2d94872efb596ae4bfb26270cfb5d3fcea5372590f2"
+    },
+    {
+      "path": "factor-claims-paid-travel-kernel-first-20261110.txt.gz",
+      "bytes": 340,
+      "sha256": "5f2dd18ad4ae3f9f5e87b3298db33bf00dd54f711fe08cc1d6d7fafcf0ef361d"
+    },
+    {
+      "path": "factor-claims-paid-travel-money-annual-first-20261110.txt.gz",
+      "bytes": 1941,
+      "sha256": "9ea9a398165e959c1698a4854ccd0451d7faa5c8501c70d51df032efd2b05bb1"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-analyze-final-20261110.txt.gz",
+      "bytes": 293,
+      "sha256": "7aeef0ccb55b6d99df1fbc219061ea5e07683fceab7737362925d59e2a490371"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-analyze-second-20261110.txt.gz",
+      "bytes": 97,
+      "sha256": "7ee594199348af422c6459072590cda25cde707c17d1f960db57fd6da0aee514"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-analyze-ui-first-20261110.txt.gz",
+      "bytes": 1262,
+      "sha256": "8daac5739aedd4ed4c963ecf626bfcdb9a6a067837a57f10a99bc07d27764c39"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-contract-first-20261110.txt.gz",
+      "bytes": 1028,
+      "sha256": "4e878e908d298548eb8728a74b1d0f9981fdc62e7dcc0bf37983611db0c44725"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-form-format-20261110.txt.gz",
+      "bytes": 104,
+      "sha256": "deed95e677efd68c37e3c802b7d7c2a8a84dc47e299bc1bd42cb598a56eb9af5"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-forms-first-20261110.txt.gz",
+      "bytes": 3541,
+      "sha256": "c59fae521d40e69314c3095e671f13b1cdbcbdf295a06ad8bcf6626787124c23"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-forms-second-20261110.txt.gz",
+      "bytes": 7746,
+      "sha256": "ae48958fc9721a0591eefd45f79c5a956bb1ee6efb5a0ec1ec30494331159f5e"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-generic-first-20261110.txt.gz",
+      "bytes": 6597,
+      "sha256": "9c5d699a21e240cd5bd89388a3a83b353f2b2cf420e9683f62a84c4fb5d9ffe7"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-generic-test-format-20261110.txt.gz",
+      "bytes": 112,
+      "sha256": "2ee52ffe067fb8b1e4c06727513d355719e87c5174b9ee2072f64a5ad4fc1da1"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-guards-format-20261110.txt.gz",
+      "bytes": 185,
+      "sha256": "547be8208d6d6a0e02a052a7eb7f802a411d8202e5e3b6a604e6e6e075f3f5af"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-payroll-guard-format-20261110.txt.gz",
+      "bytes": 86,
+      "sha256": "03c26f3cfcb8214a868f6bb96a5ae9a8e27ed99786406b2e88a32af6a749895c"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-three-forms-first-20261110.txt.gz",
+      "bytes": 4611,
+      "sha256": "5ee9ef68d92afa45bef4e7e04cd342d03f84098ea37f2380dae35228f89fe218"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-three-forms-second-20261110.txt.gz",
+      "bytes": 4611,
+      "sha256": "413e1ecc6589af74e76c5419fe653f1256b8dafb9d5682f54ed2c39023a3236a"
+    },
+    {
+      "path": "factor-claims-paid-travel-native-three-forms-third-20261110.txt.gz",
+      "bytes": 756,
+      "sha256": "5d9991a38ab75e4d4b411097273c3bf3c8df49138abe8bbab89d8e7d83a46e98"
+    },
+    {
+      "path": "factor-claims-paid-travel-own-pg-20261110.json.gz",
+      "bytes": 152,
+      "sha256": "eb715d4f311cee873feb3f58a69415dd177e90f14348feba2ae99a01c1b50d61"
+    },
+    {
+      "path": "factor-claims-paid-travel-own-pg-first-20261110.json.gz",
+      "bytes": 152,
+      "sha256": "192a403bc5992949582350de1fe64b2247c40aabcc45e34fd6b10188d220d325"
+    },
+    {
+      "path": "factor-claims-paid-travel-package-first-20261110.txt.gz",
+      "bytes": 5088,
+      "sha256": "26f7c9127faacd54d43818976f0e63ecd2926600bceca2cb91bbfa8ed75b8706"
+    },
+    {
+      "path": "factor-claims-paid-travel-package-second-20261110.txt.gz",
+      "bytes": 4732,
+      "sha256": "f85df0f6ff63c843359eb4600719b60980145a80310bc5cbc9390f525992c3b9"
+    },
+    {
+      "path": "factor-claims-paid-travel-pg-chain-first-20261110.txt.gz",
+      "bytes": 3368,
+      "sha256": "eea831a6276cd53466306362d255aff7d18d2faa29f08647c32e220afb49cb86"
+    },
+    {
+      "path": "factor-claims-paid-travel-pg-chain-second-20261110.txt.gz",
+      "bytes": 7029,
+      "sha256": "b38856e6023a1268ffcc2ad9f53115c4f7280c24476aafbbfcbe6ce9db571fba"
+    },
+    {
+      "path": "factor-claims-paid-travel-pg-chain-third-20261110.txt.gz",
+      "bytes": 349,
+      "sha256": "842f05cb602216b40bc6d2228c92bed8e268f148b21695396304e0856718457b"
+    },
+    {
+      "path": "factor-claims-paid-travel-pg-cleanup-20261110.txt.gz",
+      "bytes": 265,
+      "sha256": "796477b80b4b500f32a5916aa7217c7c13c6d6b13d8b43169b9573401a6ddfb3"
+    },
+    {
+      "path": "factor-claims-paid-travel-pubget-20261110.txt.gz",
+      "bytes": 68,
+      "sha256": "d4cb7a3c68b4133b4f6e58c67ff5bfd13725d8021e930388cdc98da8a575919d"
+    },
+    {
+      "path": "factor-claims-paid-travel-source3-first-20261110.txt.gz",
+      "bytes": 1072,
+      "sha256": "43365dd8682d2e3c912fa150aff2e4e5a73589b336734da0cb749a377f4ba205"
+    },
+    {
+      "path": "factor-claims-paid-travel-upgrades-api-20261110.txt.gz",
+      "bytes": 1701,
+      "sha256": "cef91c6af145bbd5c08b03bd5fd9ac7ed49048af1a42758d1fe047c48ff9038e"
+    },
+    {
+      "path": "factor-claims-paid-travel-upgrades-first-20261110.txt.gz",
+      "bytes": 2462,
+      "sha256": "66d80ee60c344a86745a62f53760ed4748b1e8cb64a3125ef954f6270f48ba55"
+    },
+    {
+      "path": "factor-claims-paid-travel-whole-node-first-20261110.txt.gz",
+      "bytes": 110214,
+      "sha256": "4780b4caf44dc49b6686310f7da86fbb94ca8380961fec3d14761045139c5da4"
+    },
+    {
+      "path": "factor-claims-paid-travel-whole-node-second-20261110.txt.gz",
+      "bytes": 108479,
+      "sha256": "984b7cf676526a9010b116b23281ff1ce9e021591cc90e72fac9b81a4353e2e1"
+    },
+    {
+      "path": "payroll-factor-claims-paid-travel-mobile.png",
+      "bytes": 62616,
+      "sha256": "fd613e8ae4f149ed936b16a616768313078ea12692ce192c2b803c5b1a4f29fc"
+    },
+    {
+      "path": "payroll-factor-claims-paid-travel-synthetic-commands.json.gz",
+      "bytes": 2490645,
+      "sha256": "22e69064c0a64a16745b845b722f4719a21bbb0a5cc0cf357d4fda949cb437e9"
+    },
+    {
+      "path": "factor-claims-paid-travel-complete-backend-final-20261110.txt.gz",
+      "bytes": 8780,
+      "sha256": "3d30596da16178211c17bf25fc1fadb21964391257cbaeb27b25c065b929d769"
+    },
+    {
+      "path": "factor-claims-paid-travel-complete-backend-second-20261110.txt.gz",
+      "bytes": 10467,
+      "sha256": "081719e137f0cffa3d83788a7e4eed5f144ddf44e1e8c455159ec87f8b46de93"
+    },
+    {
+      "path": "factor-claims-paid-travel-missing-history-after-20261110.txt.gz",
+      "bytes": 332,
+      "sha256": "8423bdc5f9537e17ec723e7986f86c7a170ec7c7656895cb13aa03b1d5340e2e"
+    },
+    {
+      "path": "factor-claims-paid-travel-missing-history-before-20261110.txt.gz",
+      "bytes": 2931,
+      "sha256": "161eb66b2dd42fd2dfdafdad8ef849563d66464ae09f0274d87be3dafe1dcf82"
+    },
+    {
+      "path": "factor-claims-paid-travel-missing-history-original-comparison-20261110.json.gz",
+      "bytes": 313,
+      "sha256": "a111965d299d63551efaf8e2b787d0b014dcace89663b076afad8d23517ee912"
+    },
+    {
+      "path": "factor-claims-paid-travel-old10-browser-20261110.txt.gz",
+      "bytes": 352,
+      "sha256": "9becc088797d015929b9eef4e88aeafd88b5c2f57879fa2b6171d8cb676fc211"
+    },
+    {
+      "path": "factor-claims-paid-travel-old12-browser-20261110.txt.gz",
+      "bytes": 351,
+      "sha256": "5c15f7777533869f0252b21d38e9f32bd82c3fe3ff66789cbb86bc395de63809"
+    },
+    {
+      "path": "factor-claims-paid-travel-own-pg-final-20261110.json.gz",
+      "bytes": 158,
+      "sha256": "846b45d653778ee02249d6bac06310331c8f85df7560f7fc6fed21de3c66ad28"
+    },
+    {
+      "path": "factor-claims-paid-travel-pg-chain-final-20261110.txt.gz",
+      "bytes": 349,
+      "sha256": "0fc2bf50fd7bfe6725352387c4525ea412884bb416b36129060b589fc13ba627"
+    },
+    {
+      "path": "factor-claims-paid-travel-pg-final-result-20261110.json.gz",
+      "bytes": 266,
+      "sha256": "828991f7da2c3f7c0cbffc58d52f528991e6f5533964a501a8418fd10694d0d3"
+    }
+  ],
+  "historical_kernels_unchanged": [
+    {
+      "path": "backend/payroll_annual_basis_2026.py",
+      "sha256": "5b17e71d13ed596a2f4a18ec49f12970e95329ac17dd69ef17709978191ad431"
+    },
+    {
+      "path": "backend/payroll_calculations_2026.py",
+      "sha256": "5133cc7b0a52471bcfd08c76960461799bd92e335ac7e5d141368dc69f14b553"
+    },
+    {
+      "path": "backend/payroll_claims_composition_2026.py",
+      "sha256": "e8a08c7402ae06803045cf5a4421cee1bca0a50183e43677788194c9242e342d"
+    },
+    {
+      "path": "backend/payroll_de_2026.py",
+      "sha256": "c1365355ab501f194f37ede7c4bb0ab2c2347a1252dfda97ae360708593a9789"
+    },
+    {
+      "path": "backend/payroll_entitlements_2026.py",
+      "sha256": "c495a10a871f68dcc13d656a303d5d671855a7b5ea522b454ad141829cb457e7"
+    },
+    {
+      "path": "backend/payroll_factor_2026.py",
+      "sha256": "c55d017120f56b0e2539c793018839820d17aef54611c3ede636e1ee20d1df25"
+    },
+    {
+      "path": "backend/payroll_factor_claims_2026.py",
+      "sha256": "30a62329a33f2ac4b67c571d5940093189fcbe2929c96507b83216170e57606d"
+    },
+    {
+      "path": "backend/payroll_factor_periods_2026.py",
+      "sha256": "f18b0254d6c96b981433d519adb4895de7e97fcb7e4e9d951105cf95773c63c0"
+    },
+    {
+      "path": "backend/payroll_factor_taxfree_travel_2026.py",
+      "sha256": "e5c983e8996f98a66af049728e694710096062ecf45e53d1de1de69d12396566"
+    },
+    {
+      "path": "backend/payroll_holidays_2026.py",
+      "sha256": "d8ed5b71ce2f334d5670e707e421212e71abfad953121271efb81ea0eac99280"
+    },
+    {
+      "path": "backend/payroll_individual_minijob_2026.py",
+      "sha256": "cb5c57861aaca6564a236d0dbb4a9a67655522720354745b44d64d960ddea3db"
+    },
+    {
+      "path": "backend/payroll_multiple_oneoff_2026.py",
+      "sha256": "c6ea0b98dab3528055c7e0b190b93e062dc1469466f670513bd75c8d856f33c7"
+    },
+    {
+      "path": "backend/payroll_oneoff_2026.py",
+      "sha256": "a52973b0f88f0658906db61b610762959b84f1cefe2ded866a663d718f9f1ce8"
+    },
+    {
+      "path": "backend/payroll_oneoff_composition_2026.py",
+      "sha256": "9b48ef4898b043c647b1c238a6f37d8b05bf8f78dcf9967fb691b9803454d0d7"
+    },
+    {
+      "path": "backend/payroll_pap_2026.py",
+      "sha256": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071"
+    },
+    {
+      "path": "backend/payroll_pap_factor_2026.py",
+      "sha256": "92c6dee2d41b5c8985b52d9d8e86831919c05b16bbb504f4bdfc7176be7d088c"
+    },
+    {
+      "path": "backend/payroll_pap_minijob_2026.py",
+      "sha256": "1663e99dc8bcae8f958d63e28d84b68230c52a51a3441f11a10690483cdbd969"
+    },
+    {
+      "path": "backend/payroll_pap_oneoff_2026.py",
+      "sha256": "f2fc8ced86ab844e5c7b4ea592fab2ba5870a7843f47b78bc379b9f874b2f456"
+    },
+    {
+      "path": "backend/payroll_pap_periods_2026.py",
+      "sha256": "9307e599d25512db069bc42b8662ff0aa84b5436808745916bc97018b2675444"
+    },
+    {
+      "path": "backend/payroll_periods_2026.py",
+      "sha256": "c3df3ae3ee93c756010290f382bf17050676a7bbc6a327082ea07b83e7b96890"
+    },
+    {
+      "path": "backend/payroll_segments_2026.py",
+      "sha256": "819894663d24ae4a74e15d4f22c2b421ec34fbf4fc1d8a10a868a62b6270c83d"
+    },
+    {
+      "path": "backend/payroll_sickness_2026.py",
+      "sha256": "05dc76065032993b9ec59035cf17bc99c388b1b119ac30feb4540d937cb45e33"
+    },
+    {
+      "path": "backend/payroll_sickness_phases_2026.py",
+      "sha256": "3a9f7bcc4262d2594e94c6f87bb6f5035901411e64a73f91586fc5b7b9d19c0b"
+    },
+    {
+      "path": "backend/payroll_sickness_start_2026.py",
+      "sha256": "dc69e48b0ef255893b962d6d20ba8dadc478c17a53ccb438b7f12565c1a979c7"
+    },
+    {
+      "path": "backend/payroll_transition_2026.py",
+      "sha256": "b3b649e5179990ed54058ee4daee497a8744277cfe64c98750a5b333963d1897"
+    },
+    {
+      "path": "backend/payroll_travel_2026.py",
+      "sha256": "7c4be0176679fd9d6dcfe1b1049c223e33a1a8b75804f2864df7b0ccd65935fb"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v1.py",
+      "sha256": "03cbcb42b4a5c0eedfc11536c5997a53509c1ab5304a89e2c69c8fbc775164cb"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v2.py",
+      "sha256": "83b2673315b2e828abbf72fef26841bd80e8e8bbd70da45f587a01a5037527e5"
+    },
+    {
+      "path": "backend/payroll_travel_2026_v3.py",
+      "sha256": "6c8496f63c3f44ea56054d7eafa17aa75dbba71bc131306fcf59925d93faf45e"
+    },
+    {
+      "path": "backend/payroll_travel_expenses_2026.py",
+      "sha256": "2d96af39ded426f9868f3011ad3b47cdfc74c25c29f49ade56b6b178f67587d1"
+    },
+    {
+      "path": "backend/payroll_travel_ground_2026.py",
+      "sha256": "9fbc82efc589654ed2eb1425ce50fb4fe6a59b30bcde5ae29d27ec5f595deebc"
+    },
+    {
+      "path": "backend/payroll_travel_mileage_2026.py",
+      "sha256": "5f3892bd1023c9eef2216eb877be7779a6dbef940070f23aa1a315b4b454f79d"
+    },
+    {
+      "path": "backend/payroll_travel_mixed_2026.py",
+      "sha256": "0e640106f0d70e3a0f0c54e3154f22e3576d5120dabb9117dbfcf3bde0f6dced"
+    },
+    {
+      "path": "backend/payroll_travel_rates_2026.py",
+      "sha256": "b327e00ea0624b6e41b45843077984af077917eb83400b341a3f88842192b7c0"
+    },
+    {
+      "path": "backend/payroll_travel_tax_2026.py",
+      "sha256": "8b28d2a38923fe64e7e640a1e3487834dea38ab701f07e010bb62dda81495f21"
+    },
+    {
+      "path": "backend/payroll_travel_transport_2026.py",
+      "sha256": "60cc47920cd49bd6daf6ca8a8bba94b49c46b5963d940b655ad100461d2be7d5"
+    },
+    {
+      "path": "backend/payroll_wage_interruptions_2026.py",
+      "sha256": "3039dc435c9c689fbc5a50b005581393e4093c8703a9ae9b74e52d559a236aa9"
+    }
+  ],
+  "goal": {
+    "bytes": 23863,
+    "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+  },
+  "actual_results": {
+    "backend_joint": 39,
+    "node_whole": 1056,
+    "native_joint": 38,
+    "native_three_forms": 7,
+    "packages": 21,
+    "crlf_and_ci_contracts": 9,
+    "actual_pg_restore_seconds": 84.476,
+    "real_browser": true,
+    "whole_native": "running",
+    "live_deployment": false,
+    "real_device_acceptance": false,
+    "signed_iphone_distribution": false,
+    "backend_crlf_ci_joint": 48,
+    "backend_crlf_ci_seconds": 64.94,
+    "actual_pg_upgrade_restore_seconds": 63.034,
+    "actual_pg_upgrade_restore_removed": true,
+    "previous_real_browser_regressions": 2,
+    "missing_dependency_history_guard": true
+  }
+}

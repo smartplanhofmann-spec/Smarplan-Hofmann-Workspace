@@ -412,3 +412,34 @@ akzeptierten vollständigen Paketen bestehen unabhängig über kanonische Hashes
 Beide sichtbaren Bedienoberflächen, HTTP-/PG-/Restore-/Paket-/Schlussnachweise
 bleiben in Arbeit. Nicht veröffentlicht; aktueller Testbranch798cc61-Nachlauf
 wird getrennt dokumentiert. Der ganze Auftrag bleibt aktiv.
+
+
+## 10.11.2026 – V13: sichtbare Clients und echte vollständige Geld-/Restorekette
+
+Der [gemeinsame Faktor-/P4-/bezahlte-Reisevertrag](CRM_ERP_FAKTOR_ANSPRUECHE_BEZAHLTE_REISEN_V13_2026-11-10.md)
+ist jetzt in Browser und App einschließlich Vorschau, privaten Originalen,
+frischer eigener Fähigkeit, erster Schreibsperre und unveränderter Wiederholung
+angebunden. Alle1056 Browsermodulfälle bestehen ohne Fehler oder Skip;38
+native gemeinsame Fälle sowie alle drei echten ursprünglichen Formularpakete
+(Monat, Stundenfeiertag ohne Arbeit, ausdrücklich unbenutzte V12-Ergänzung)
+bestehen. Der echte MFA-/Chromiumablauf prüft beide verlorenen Antworten,
+unverändertes PDF, private Ausgabe,390px und unveränderte Reisezahlung.
+Der neue tatsächliche PostgreSQL-/MFA-/Parallelitäts-/CRLF-/EÜR-/Jahres-/volle
+Dump-Restorefall besteht in84,476s; getrennt2850,54 Euro Netto plus14,00 Euro
+Reise ergeben2864,54 Euro belegte EÜR-Ausgaben und keine Vorsteuer.21 Paket-
+und Inventarfälle bestehen in33,598s; acht CI-Gruppenverträge und der echte
+CRLF-Rücktransport bestehen ebenfalls. Eigene Testdatenbank nach voller ID,
+Aufgabenlabel und Loopback-Port32802 geprüft entfernt; fremde unverändert.
+
+Erste Fehler der Testeinrichtung bleiben als Rohdaten erhalten: fehlende feste
+Firmenbindung, abweichende sichtbare Text-Erwartung, falscher Testimport,
+noch laufende Scrollanimation, falscher Inventarmodulname, gesperrter Node-
+Unterprozess und falscher PostgreSQL-Testbesitzer. Keine Produktwächter oder
+historischen Rechenkerne gelockert. Vollständige aktuelle App-Suite nach sauberer
+Analyse ist noch aktiv, V13 noch nicht veröffentlicht. Bereits verwendete
+V10-/V12-Altfälle benötigen weiter ihren vollständigen Korrekturvertrag.
+
+Der bestätigte veröffentlichte Vorgänger798cc61 besteht inzwischen alle20
+Development42778059773-Jobs; der eigene unsignierte iPhone-Produktbuild eb74fb5
+bleibt erfolgreich, signierter Upload übersprungen. Kein neuer Live-/Gerätestand.
+Der Gesamtauftrag läuft über diese Etappe hinaus weiter.

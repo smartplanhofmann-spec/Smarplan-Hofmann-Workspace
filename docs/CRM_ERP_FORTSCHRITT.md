@@ -3983,3 +3983,69 @@ akzeptierten vollständigen Paketen bestehen unabhängig über kanonische Hashes
 Beide sichtbaren Bedienoberflächen, HTTP-/PG-/Restore-/Paket-/Schlussnachweise
 bleiben in Arbeit. Nicht veröffentlicht; aktueller Testbranch798cc61-Nachlauf
 wird getrennt dokumentiert. Der ganze Auftrag bleibt aktiv.
+
+
+## 10.11.2026 – V13: sichtbare Clients und echte vollständige Geld-/Restorekette
+
+Der [gemeinsame Faktor-/P4-/bezahlte-Reisevertrag](CRM_ERP_FAKTOR_ANSPRUECHE_BEZAHLTE_REISEN_V13_2026-11-10.md)
+ist jetzt in Browser und App einschließlich Vorschau, privaten Originalen,
+frischer eigener Fähigkeit, erster Schreibsperre und unveränderter Wiederholung
+angebunden. Alle1056 Browsermodulfälle bestehen ohne Fehler oder Skip;38
+native gemeinsame Fälle sowie alle drei echten ursprünglichen Formularpakete
+(Monat, Stundenfeiertag ohne Arbeit, ausdrücklich unbenutzte V12-Ergänzung)
+bestehen. Der echte MFA-/Chromiumablauf prüft beide verlorenen Antworten,
+unverändertes PDF, private Ausgabe,390px und unveränderte Reisezahlung.
+Der neue tatsächliche PostgreSQL-/MFA-/Parallelitäts-/CRLF-/EÜR-/Jahres-/volle
+Dump-Restorefall besteht in84,476s; getrennt2850,54 Euro Netto plus14,00 Euro
+Reise ergeben2864,54 Euro belegte EÜR-Ausgaben und keine Vorsteuer.21 Paket-
+und Inventarfälle bestehen in33,598s; acht CI-Gruppenverträge und der echte
+CRLF-Rücktransport bestehen ebenfalls. Eigene Testdatenbank nach voller ID,
+Aufgabenlabel und Loopback-Port32802 geprüft entfernt; fremde unverändert.
+
+Erste Fehler der Testeinrichtung bleiben als Rohdaten erhalten: fehlende feste
+Firmenbindung, abweichende sichtbare Text-Erwartung, falscher Testimport,
+noch laufende Scrollanimation, falscher Inventarmodulname, gesperrter Node-
+Unterprozess und falscher PostgreSQL-Testbesitzer. Keine Produktwächter oder
+historischen Rechenkerne gelockert. Vollständige aktuelle App-Suite nach sauberer
+Analyse ist noch aktiv, V13 noch nicht veröffentlicht. Bereits verwendete
+V10-/V12-Altfälle benötigen weiter ihren vollständigen Korrekturvertrag.
+
+Der bestätigte veröffentlichte Vorgänger798cc61 besteht inzwischen alle20
+Development42778059773-Jobs; der eigene unsignierte iPhone-Produktbuild eb74fb5
+bleibt erfolgreich, signierter Upload übersprungen. Kein neuer Live-/Gerätestand.
+Der Gesamtauftrag läuft über diese Etappe hinaus weiter.
+
+
+## 10.11.2026 – vollständige Verwendungshistorie vor Altfallergänzung
+
+Die eigenständige Datenbankgegenprüfung entfernt wirklich das ganze
+Jahresjournal in der eigenen Testdatei: Der vorige Helfer lässt die Ergänzung
+zu, der neue Vertrag weist409 aus. Fehlendes Journal ist kein belegtes leeres
+Journal. Der erste Prüfversuch mit fehlender Profil-/Lohnbasis erzeugt einen
+rohen Datenbankfehler und bleibt erhalten; anschließend wird der fehlende ganze
+Jahresbestand gezielt verglichen. Der neue Wächter prüft alle erforderlichen
+Abhängigkeitsjournale vor dem Quellenabgleich. Historische Validatoren und
+Rechenkerne bleiben unverändert.
+
+48 gemeinsame neue/bisherige Backend-, echte CRLF- und CI-Gruppenfälle bestehen
+in64,940s. Ein vorheriger zusätzlicher Sammellauf scheitert am falsch benannten
+Minijob-Testmodul; der richtige vorhandene Test ist erneut tatsächlich enthalten.
+Beide bisherigen echten Faktor-/P4- und Faktor-/Reise-Browserabläufe bestehen
+zusätzlich unverändert. Der zweite echte PostgreSQL-Schlusslauf bindet nun die
+explizite unbenutzte V12→V13-Ergänzung einschließlich alter Quittung und Restore.
+Er ist noch aktiv; die vollständige aktuelle Appprüfung läuft ohne bisherige
+Fehler weiter. [Benutzerhandbuch](CRM_ERP_BENUTZERHANDBUCH.md) ist um beide neuen
+Bedienwege ergänzt. Gesamtauftrag aktiv, noch keine V13-Veröffentlichung.
+
+
+## 10.11.2026 – finale PostgreSQL-Altfallkette bestanden
+
+Der nach dem neuen Journalwächter tatsächlich ausgeführte Schlusslauf besteht
+in63,034s: ursprünglichen unbenutzten V12-Fall erfassen, ausdrücklich nur den
+bezahlten Reisebestandteil ergänzen, alte Fassung unverändert lesen, parallel
+denselben Source3-Lauf wiederholen, getrennte echte Netto-/Reisegeldflüsse,
+EÜR2864,54 Euro, private Belege, Jahresbasis und vollständiger Dump/Restore
+mit beiden ursprünglichen Fallquittungen. Eigener Container bfb13f6e am
+Loopback-Port32803 wurde nach geprüftem Abschluss entfernt. Die vorherige
+84,476s-Kette bleibt ein eigener Nachweis. Vollständige App-Suite weiterhin
+aktiv; alle bisherigen Fälle ohne Fehler/Skip. V13 noch nicht veröffentlicht.

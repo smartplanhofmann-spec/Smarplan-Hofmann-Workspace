@@ -3,9 +3,12 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:smartplan_office/api.dart';
+import 'package:smartplan_office/business_payroll.dart' as payroll;
 import 'package:smartplan_office/business_session.dart'
     show businessMap, businessItems;
 import 'package:smartplan_office/business_payroll_factor_claim_travel.dart';
+import 'package:smartplan_office/business_payroll_calculation_case_contract.dart'
+    as common;
 
 dynamic copy(dynamic v) => jsonDecode(jsonEncode(v));
 
@@ -44,6 +47,46 @@ void main() {
           ..remove('request_id')
           ..remove('preview_hash');
         expect(body, expected);
+      },
+    );
+    test(
+      'actual13 generic command, original receipt and calculation routing: ${c['kind']}',
+      () {
+        final previous = c['previous'] == null
+            ? null
+            : businessMap(c['previous']);
+        final body = common.payrollCalculationCaseInput(
+          c['employee']['id'],
+          businessMap(c['sources']),
+          {
+            ...businessMap(c['values']),
+            'rule_version': payrollFactorClaimTravelRule,
+          },
+          previous: previous,
+        );
+        final expected = businessMap(copy(c['case_command']))
+          ..remove('request_id')
+          ..remove('preview_hash');
+        expect(body, expected);
+        common.payrollCalculationCasePreview(
+          c['case_preview'],
+          businessMap(c['case_command']),
+        );
+        common.payrollCalculationCaseValidator(
+          businessMap(c['case_command']),
+          previous: previous,
+          preview: businessMap(c['case_preview']),
+        )(c['case']);
+        common.payrollCompositeCalculation(c['run']['calculation']);
+        payroll.payrollPreview(c['run_preview'], businessMap(c['run_input']));
+        payroll.payrollReceiptValidator(
+          businessMap(c['run_command']),
+          preview: businessMap(c['run_preview']),
+        )(c['run']);
+        common.payrollCompositeSource(
+          c['run_preview'],
+          businessMap(c['run_input']),
+        );
       },
     );
   }

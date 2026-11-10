@@ -2,7 +2,7 @@
 const assert=require('node:assert/strict'),crypto=require('node:crypto'),fs=require('node:fs/promises'),path=require('node:path');
 
 async function payrollOneOffOwnFlow(h,employee,run){
-  const {page,navigate,fixture,screenshots}=h;
+  const {page,context,navigate,fixture,screenshots}=h;
   const close=async()=>{const dialog=page.getByRole('dialog');if(await dialog.count())await dialog.getByRole('button',{name:'Dialog schließen',exact:true}).click();};
   await close();await navigate(page,'Personal');
   await page.getByRole('button',{name:'Personalakte, Reisen und Lohnvorbereitung',exact:true}).click();
@@ -16,9 +16,22 @@ async function payrollOneOffOwnFlow(h,employee,run){
   try{
     await page.getByRole('dialog').getByRole('button',{name:'Mitarbeiter-Lohnnachweise ansehen',exact:true}).click();
     const list=page.getByRole('dialog',{name:'Meine Lohnnachweise · '+employee.name,exact:true});await list.waitFor();
-    const response=page.waitForResponse(r=>new URL(r.url()).pathname.endsWith('/payroll/employee-statements/'+run.id)&&r.request().method()==='GET');
-    await list.getByRole('button',{name:'Lohnnachweis ansehen',exact:true}).click();
-    const statement=(await(await response).json()).statement;
+    // Retain the genuine upstream JSON before delivery. Chromium may discard
+    // the later CDP body after heavy payroll traffic. All response bytes and
+    // employee/source/PDF assertions remain unchanged.
+    let observed,failed;
+    const response=new Promise((resolve,reject)=>{observed=resolve;failed=reject;});response.catch(()=>{});
+    const statementRoute=url=>url.origin===fixture.base_url&&url.pathname==='/api/v1/business/payroll/employee-statements/'+run.id;
+    const captureStatement=async route=>{
+      try{const upstream=await route.fetch({maxRedirects:0}),value=await upstream.json();await route.fulfill({response:upstream});observed(value);}
+      catch(error){failed(error);await route.abort('failed').catch(()=>{});}
+    };
+    await context.route(statementRoute,captureStatement);
+    let statement,timer;
+    try{
+      await list.getByRole('button',{name:'Lohnnachweis ansehen',exact:true}).click();
+      statement=(await Promise.race([response,new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Genuine employee Source4 statement response was not observed')),30000);})])).statement;
+    }finally{clearTimeout(timer);await context.unroute(statementRoute,captureStatement);}
     assert.equal(statement.schema_version,3);assert.deepEqual(statement.run_ref,{id:run.id,revision:run.revision,content_hash:run.content_hash});
     assert.equal(statement.one_off_summary.amount_minor,run.calculation.one_off_details.amount_minor);
     assert.equal(statement.one_off_summary.employee_social_total_minor,run.calculation.one_off_details.social.employee_total_minor);

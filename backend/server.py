@@ -96,7 +96,7 @@ def make_handler(office,drive,launch_id=""):
                     if not 0<size<=maximum:
                         raise Problem(413,"Anfrage zu groß oder leer")
                     raw=self.rfile.read(size)
-                    data=(business_api.decode_offline_report(raw, max_bytes=maximum) if (path == '/api/business/service-reports/offline' or
+                    data=(business_api.decode_offline_report(raw, max_bytes=maximum) if (path in ('/api/business/service-reports/offline', '/api/business/service-reports/offline/diagnosis') or
                           business_api.strict_workflow_path(path.removeprefix('/api')))
                           else json.loads(raw))
                     if not isinstance(data,dict):

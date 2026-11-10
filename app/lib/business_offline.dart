@@ -17,6 +17,8 @@ extension OfflineBusinessTime on OfflinePlans {
       final readonly = value['readonly'] == true;
       await _change((state) {
         state['business_readonly'] = readonly;
+        state['offline_report_diagnosis_supported'] =
+            value['offline_report_diagnosis_supported'] == true;
         if (value['report_project_ids'] is List) {
           final allowed = List<String>.from(value['report_project_ids']);
           (state['report_project_ids'] as List? ?? []).removeWhere(

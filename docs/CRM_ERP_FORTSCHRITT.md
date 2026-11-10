@@ -4518,3 +4518,41 @@ blockiert.40/62 entsprechen rund65 Prozent der erfassten Anforderungen. Das
 ist eine ungewichtete Statusquote, keine Aussage über Restaufwand oder
 produktive Einsatzbereitschaft. Zusätzliche V15-Prüfungen schließen die
 übergeordneten Lohn-/Gesamtabnahmen nicht pauschal.
+
+
+## 10.11.2026 – V15 vollständig grün; native Offline-Konfliktklärung lokal abgeschlossen
+
+Veröffentlichter Gesamtstand1fa0bcceb28a822bed9600ad18e33ba54d2c227f besteht alle20
+Development42842985262-Jobs einschließlich Windows-Kompilierung und realer
+Browser-/PostgreSQLgruppen. Tatsächlicher Backendabschluss:2.152 Fälle in
+1.657,445s, drei ausdrücklich übersprungene Fälle. Eigene Linux-Flutterauswahl:
+1.968 erfolgreiche Fälle; der bereits erhaltene lokale1971er-Gesamtlauf hat
+seine eigene Auswahl. Vollständige Rohlogs und Artefakt-IDs sind im V15-Manifest.
+Auch der eigene unsignierte iPhone-Release204 von42842985277 ist erfolgreich:
+Artefakt13779244653,15.037.649 Bytes, SHA256
+60c5c6502c246263fbb3bd5fb44e7fad0b51518dc3a411cbbe2062e5b3e1e1ad.
+Manuelle signierte Vorbereitung42843099650 noch aktiv, Uploadfalse.
+
+R11.03/F/G: [Native Konfliktklärung](CRM_ERP_OFFLINE_KONFLIKTKLAERUNG_2026-11-10.md)
+behebt die bislang nicht bedienbare Pause nach geänderten Projekt-/Kundennamen.
+Die nur lesende enge Geräte-Diagnose unterscheidet Originalbestätigung,
+wieder passenden Stand und tatsächlichen Kontextwechsel. Unverändertes
+Original wiederholen oder ausdrücklich einen neu zu unterschreibenden Entwurf
+anlegen; verschlüsseltes Altkommando und alte Unterschrift bleiben erhalten.
+Ältere Server, heutige Rechte, Kontosperre, konkurrierende Entscheidungen,
+verlorene Antwort, Geräte-Neustart und Speicherausfall sind berücksichtigt.
+
+30 gemeinsame Backendfälle28,246s, zwei wirkliche PG-/Dump-/Restoreläufe18,974s
+und20,113s,36 gemeinsame native Fälle19s sowie30 Paket-/Inventar-/CI-Fälle28,006s
+bestehen. Sechs gerenderte390px-Bilder mit Produktthema und wirklicher Schrift
+sind gesichert und visuell geprüft. Erste tatsächliche Transportfehler und
+rote Testeinrichtungsstände bleiben erhalten.61 bestehende aktuelle Lohnmodule
+und das Originalziel bleiben bytegleich, keine Schema-/Laufzeitabhängigkeitsänderung.
+[35 rohe Nachweise](evidence/offline-report-conflicts-2026-11-10/manifest.json).
+Diese neue Folge ist noch nicht veröffentlicht; neue eigene CI folgt nach Push.
+
+Keine neue Liveinstallation, kein TestFlight-Upload und keine reale Geräte-,
+Lohn-/Buchhaltungs- oder unabhängige Sicherheitsabnahme. Kreissparkasse Rottweil
+und Amex Business sind in der Matrix konkretisiert; die Loxone-Hostfreigabe bleibt
+auf Nutzerwunsch vertagt. Andere Dokument-/Konfliktarten, verbleibende benannte
+Regel-/Providerfälle und die ganze A–G-Abnahme bleiben im Gesamtauftrag offen.

@@ -13,6 +13,7 @@ part 'offline_imports.dart';
 part 'offline_workspace.dart';
 part 'business_offline.dart';
 part 'offline_service_reports.dart';
+part 'offline_report_conflicts.dart';
 part 'offline_instance.dart';
 
 /// Plan-only offline workspace. Its scoped seven-day token stays in OS secure storage.

@@ -47,7 +47,21 @@ class OfflineReportPostgresRestoreTests(unittest.TestCase):
             customer='Synthetic restore customer'), status=201).json['id']
         grant = self.call('POST', '/business/offline/access', {}, status=201).json
         body = capture_body(self.office, self.office.user(self.token), project)
+        diagnosis_path = PATH + '/diagnosis'
+        self.assertIs(self.call('GET', '/business/capabilities', token=grant['token']).json['offline_report_diagnosis_supported'], True)
+        self.assertEqual(self.call('POST', diagnosis_path, body, token=grant['token']).json['state'], 'ready')
+        with self.office.lock, self.office.db:
+            self.office.db.execute('UPDATE projects SET name=? WHERE id=?', ('Changed before import', project))
+        changed = self.call('POST', diagnosis_path, body, token=grant['token']).json
+        self.assertEqual(changed['state'], 'context_changed')
+        self.assertIsNone(changed['server_record'])
+        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM business_operation_entries').fetchone()[0], 0)
+        with self.office.lock, self.office.db:
+            self.office.db.execute('UPDATE projects SET name=? WHERE id=?', (body['content']['project_name'], project))
         row = self.call('POST', PATH, body, token=grant['token'], status=201).json
+        with self.office.lock, self.office.db:
+            self.office.db.execute('UPDATE projects SET name=? WHERE id=?', ('Changed after original import', project))
+        self.assertEqual(self.call('POST', diagnosis_path, body, token=grant['token']).json['server_record'], row)
         archive = '/business/service-reports/' + row['id']
         pdf = self.call('GET', archive + '/pdf', token=grant['token']).data
         self.assertEqual(hashlib.sha256(pdf).hexdigest(), row['pdf_sha256'])
@@ -68,9 +82,14 @@ class OfflineReportPostgresRestoreTests(unittest.TestCase):
                 self.app = create_app(office=self.office, key=self.key, host='office.example.test')
                 self.client = self.app.test_client()
                 self.call('POST', PATH, body, token=grant['token'], status=401)
+                self.call('POST', diagnosis_path, body, token=grant['token'], status=401)
                 self.call('GET', archive + '/pdf', token=grant['token'], status=401)
                 self.token = self.login('journey-owner@example.test', 'Synthetic-owner-password-123')
                 renewed = self.call('POST', '/business/offline/access', {}, status=201).json
+                diagnosed = self.call('POST', diagnosis_path, body, token=renewed['token']).json
+                self.assertEqual(diagnosed['state'], 'accepted')
+                self.assertEqual(diagnosed['server_record'], row)
+                self.assertEqual(diagnosed['current_context']['project_name'], 'Changed after original import')
                 self.assertEqual(self.call('POST', PATH, body, token=renewed['token'], status=201).json, row)
                 self.assertEqual(self.call('GET', archive, token=renewed['token']).json, row)
                 self.assertEqual(self.call('GET', archive + '/pdf', token=renewed['token']).data, pdf)

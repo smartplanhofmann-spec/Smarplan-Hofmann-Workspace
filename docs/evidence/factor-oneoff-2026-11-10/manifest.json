@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "published_local_checks_passed_own_remote_checks_running",
+  "status": "published_own_development_all20_and_unsigned204_passed_manual_signing_still_running",
   "base_commit": "5c779b92d2e3269c4fc799a02879c83b943ff129",
   "raw_files": [
     {
@@ -322,6 +322,30 @@
       "path": "factor-oneoff-published-runs-second-20261110.json.gz",
       "bytes": 1011,
       "sha256": "74b31e6ac5b50fb1311655da2329440d267d8ba8346c97a9805979260fa4d266"
+    },
+    {
+      "path": "v15-own-backend-remote-20261110.txt.gz",
+      "bytes": 522712,
+      "sha256": "20f220e963ff2c13b06240c6234ac672d6ac09205b0e01ede2fa3924a101367d",
+      "stored_bytes": 90995,
+      "stored_sha256": "91b964183867cf3549e936ff6053d9ebc7eeb4fac85e95ba55a23fec8bd343c0"
+    },
+    {
+      "path": "v15-own-flutter-remote-20261110.txt.gz",
+      "bytes": 563198,
+      "sha256": "54b127e860b6e8c8a91c55baaab5c7c5d7860a37d17c4a4a80a3312a9d01bee5",
+      "stored_bytes": 61380,
+      "stored_sha256": "eb260b9afc5e6980fad9375624581cbcf056743f5680850529c9933508de2981"
+    },
+    {
+      "path": "own-development-complete-20261110.json",
+      "bytes": 63585,
+      "sha256": "1760987fd54dfb043a00038d5316630aeb85f54877415e1c2b69dbed302e3c24"
+    },
+    {
+      "path": "own-unsigned-iphone-complete-20261110.json",
+      "bytes": 4746,
+      "sha256": "4200534739c3a45a7b6e10d84c59339fff14bc01229aad395ae50eebe253f753"
     }
   ],
   "independent_xml_vectors": 344,
@@ -414,5 +438,27 @@
     "prepare_signed_ipa": true,
     "upload_to_testflight": false,
     "state": "in_progress"
-  }
+  },
+  "own_development_result": {
+    "source_commit": "1fa0bcceb28a822bed9600ad18e33ba54d2c227f",
+    "run_id": 42842985262,
+    "all20": "success",
+    "backend_tests": 2152,
+    "backend_skipped": 3,
+    "backend_seconds": 1657.445,
+    "flutter_ci_tests": 1968,
+    "flutter_ci_excludes_tags": "native_pdf",
+    "local_full_flutter": 1971,
+    "production_or_device_acceptance": false
+  },
+  "own_unsigned_result": {
+    "run_id": 42842985277,
+    "artifact_id": 13779244653,
+    "name": "Smartplan-Office-iOS-UNSIGNED-204",
+    "bytes": 15037649,
+    "sha256": "60c5c6502c246263fbb3bd5fb44e7fad0b51518dc3a411cbbe2062e5b3e1e1ad",
+    "signed": false,
+    "real_device_acceptance": false
+  },
+  "hash_scope": "bytes/sha256 refer to decompressed raw content for .gz files and file content otherwise; added stored_* fields explicitly describe compression"
 }

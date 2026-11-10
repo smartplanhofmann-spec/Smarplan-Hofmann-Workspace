@@ -86,7 +86,7 @@ def offline_path(path, method, scopes=None):
         if isinstance(path, str) and re.fullmatch(r'/business/media/[a-f0-9]{32}/(?:chunks/[0-9]{1,3}|complete)', path) and method == 'POST':
             return True
     if 'offline_reports' in scopes:
-        if path == '/business/service-reports/offline' and method == 'POST':
+        if path in ('/business/service-reports/offline', '/business/service-reports/offline/diagnosis') and method == 'POST':
             return True
         if method == 'GET' and isinstance(path, str) and re.fullmatch(r'/business/service-reports/[a-f0-9]{32}(?:/pdf)?', path):
             return True
@@ -95,7 +95,7 @@ def offline_path(path, method, scopes=None):
 
 def strict_report_path(path):
     """Framing for the capture command and individual signed archive reads."""
-    return path == '/business/service-reports/offline' or (
+    return path in ('/business/service-reports/offline', '/business/service-reports/offline/diagnosis') or (
         isinstance(path, str) and re.fullmatch(r'/business/service-reports/[a-f0-9]{32}(?:/pdf)?', path) is not None)
 
 
@@ -235,6 +235,7 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
                 ('business_operations', 'field_media'), ('business_operations', 'offline_reports')) if scope in offline_capabilities}
             if 'offline_reports' in offline_capabilities:
                 result.update(_report_access(office, actor, result))
+                result['offline_report_diagnosis_supported'] = 'business_operations' in result['capabilities']
             for key in ('active_capabilities', 'read_capabilities'):
                 result[key] = [name for name in result.get(key, []) if name in permitted_modules]
             result.pop('restore_id', None)

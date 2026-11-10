@@ -110,8 +110,12 @@ extension OfflineServiceReports on OfflinePlans {
       'title': title,
       'description': description,
       'notes': notes,
-      'project_name': source['name'],
-      'customer': source['customer'],
+      'project_name': before?['conflict_source'] is Map
+          ? before['content']['project_name']
+          : source['name'],
+      'customer': before?['conflict_source'] is Map
+          ? before['content']['customer']
+          : source['customer'],
       'captured_at':
           before?['content']?['captured_at'] ??
           clock().toUtc().toIso8601String(),
@@ -144,6 +148,10 @@ extension OfflineServiceReports on OfflinePlans {
         'content_hash': hash,
         'status': 'draft',
         'sync_status': 'Auf diesem Gerät gesichert',
+        if (current?['conflict_source'] is Map)
+          'conflict_source': offlineCopy(
+            Map<String, dynamic>.from(current['conflict_source']),
+          ),
       };
       records[id] = record;
       return offlineCopy(record);

@@ -93,6 +93,24 @@ class OfflineReportLocalTransportTests(unittest.TestCase):
         row = self.call('POST', path, body, status=201)[0]
         self.call('GET', '/business/service-reports/' + row['id'] + '?project_id=' + self.project, status=400)
 
+    def test_local_conflict_diagnosis_is_read_only_strict_and_scope_limited(self):
+        body = self.capture()
+        path = '/business/service-reports/offline/diagnosis'
+        self.assertEqual(self.call('POST', path, body)[0]['state'], 'ready')
+        self.office.db.execute('UPDATE projects SET name=? WHERE id=?', ('Renamed site', self.project))
+        self.office.db.commit()
+        before = self.office.db.total_changes
+        result = self.call('POST', path, body)[0]
+        self.assertEqual(result['state'], 'context_changed')
+        self.assertEqual(result['current_context']['project_name'], 'Renamed site')
+        self.assertEqual(self.office.db.total_changes, before)
+        self.call('POST', path+'?ignored=1', body, status=400)
+        self.call('POST', path, ('{"request_id":"duplicate",'+canonical(body)[1:]).encode(), status=400)
+        with self.office.lock, self.office.db:
+            old = plan_access.issue(self.office, self.office.user(self.full), workspace=True, business=True,
+                                    business_capabilities=['time_events'])['token']
+        self.call('POST', path, body, token=old, status=403)
+
 
 if __name__ == '__main__':
     unittest.main()

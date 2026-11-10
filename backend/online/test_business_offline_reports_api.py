@@ -64,6 +64,35 @@ class OfflineReportsHttpTests(WorkspaceHttpFlow, unittest.TestCase):
         body = body or capture_body(self.office, self.owner, self.project)
         return self.call('POST', PATH, body, token=token, status=201).json, body
 
+    def test_mfa_device_diagnosis_does_not_import_and_recovers_original_after_lost_ack(self):
+        grant = self.grant()
+        body = capture_body(self.office, self.owner, self.project)
+        path = PATH+'/diagnosis'
+        capabilities = self.call('GET', '/business/capabilities', token=grant['token']).json
+        self.assertIs(capabilities['offline_report_diagnosis_supported'], True)
+        self.assertEqual(self.call('POST', path, body, token=grant['token']).json['state'], 'ready')
+        with self.office.lock, self.office.db:
+            self.office.db.execute('UPDATE projects SET name=? WHERE id=?', ('Geänderter Name', self.project))
+        changed = self.call('POST', path, body, token=grant['token']).json
+        self.assertEqual(changed['state'], 'context_changed')
+        self.assertIsNone(changed['server_record'])
+        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM business_operation_entries').fetchone()[0], 0)
+        self.call('POST', path+'?extra=1', body, token=grant['token'], status=400)
+        self.call('POST', path, ('{"request_id":"duplicate",'+canonical(body)[1:]).encode(),
+                  token=grant['token'], status=400, mime='application/json')
+        restricted = self.grant(scopes=['time_events'])
+        self.assertNotIn('offline_report_diagnosis_supported', self.call('GET', '/business/capabilities', token=restricted['token']).json)
+        self.call('POST', path, body, token=restricted['token'], status=403)
+        with self.office.lock, self.office.db:
+            self.office.db.execute('UPDATE projects SET name=? WHERE id=?', (body['content']['project_name'], self.project))
+        row, _ = self.capture(token=grant['token'], body=body)
+        with self.office.lock, self.office.db:
+            self.office.db.execute('UPDATE projects SET name=? WHERE id=?', ('Wieder geändert', self.project))
+        accepted = self.call('POST', path, body, token=grant['token']).json
+        self.assertEqual(accepted['state'], 'accepted')
+        self.assertEqual(accepted['server_record'], row)
+        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM business_operation_entries').fetchone()[0], 1)
+
     def permission(self, permission, effect, *, scope='*', revision=0):
         return self.call('POST', '/business/settings/permissions', dict(request_id=rid(),
             user_id=self.technician_id, permission=permission, effect=effect, scope=scope, revision=revision)).json

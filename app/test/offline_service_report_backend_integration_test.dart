@@ -231,6 +231,86 @@ app = create_app(''',
           'Synchronisiert',
         );
         expect(await repo.serviceReportPdf(project, draft['id']), serverPdf);
+        // A real customer rename changes the live project snapshot while the
+        // second frozen offline capture remains on disk, never accepted.
+        final conflicting = await repo.saveServiceReportDraft(
+          project,
+          title: 'Neuer Prüfbericht',
+          description: 'Prüfung vor Kundenumbenennung.',
+          notes: '',
+        );
+        await repo.signServiceReport(
+          project,
+          conflicting['id'],
+          signer: 'Bisheriger Kundenname',
+          strokes: reportInk,
+        );
+        await idle(repo);
+        final frozen = repo.serviceReport(
+          project,
+          conflicting['id'],
+        )['capture_request'];
+        final customerId = (hello['projects'] as List).single['customer_id'];
+        await owner.call('/api/customers/$customerId', {
+          'name': 'Geänderter synthetischer Kunde',
+        });
+        transport.connected = true;
+        await repo.sync();
+        expect(
+          repo.serviceReport(project, conflicting['id'])['sync_status'],
+          'Konflikt',
+        );
+        final diagnosis = await repo.diagnoseServiceReport(
+          project,
+          conflicting['id'],
+        );
+        expect(diagnosis['state'], 'context_changed');
+        expect(
+          diagnosis['current_context']['customer'],
+          'Geänderter synthetischer Kunde',
+        );
+        final copied = await repo.copyConflictedServiceReport(
+          project,
+          conflicting['id'],
+          reviewedDiagnosis: diagnosis,
+        );
+        expect(copied['status'], 'draft');
+        expect(copied.containsKey('strokes'), isFalse);
+        await repo.signServiceReport(
+          project,
+          copied['id'],
+          signer: 'Neu bestätigter Kundenname',
+          strokes: reportInk,
+        );
+        await idle(repo);
+        await repo.sync();
+        expect(
+          repo.serviceReport(project, copied['id'])['sync_status'],
+          'Synchronisiert',
+        );
+        expect(
+          repo.serviceReport(project, conflicting['id'])['sync_status'],
+          'Konflikt',
+        );
+        expect(
+          repo.serviceReport(project, conflicting['id'])['capture_request'],
+          frozen,
+        );
+        final remoteReports = await owner.call(
+          '/api/business/service-reports?project_id=$project',
+        );
+        expect(remoteReports['items'], hasLength(2));
+        expect(
+          (remoteReports['items'] as List).map((r) => r['id']),
+          isNot(contains(conflicting['id'])),
+        );
+        final freshPdf = await owner.bytes(
+          '/api/business/service-reports/${copied['id']}/pdf',
+          mediaType: 'application/pdf',
+        );
+        expect(await repo.serviceReportPdf(project, copied['id']), freshPdf);
+        expect(await repo.serviceReportPdf(project, draft['id']), serverPdf);
+        expect(repo.pending, 1);
       } finally {
         if (repo != null) {
           await idle(repo);

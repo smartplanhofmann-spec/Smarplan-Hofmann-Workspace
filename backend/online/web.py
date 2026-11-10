@@ -458,7 +458,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
             if request.headers.get('Content-Encoding', 'identity') != 'identity':
                 raise Problem(400, 'Komprimierte Uploadabschnitte werden nicht unterstützt')
             data = request.get_data(cache=False)
-        elif request.method == 'POST' and (bank_feed_methods(path) or path == '/business/service-reports/offline' or business_api.strict_workflow_path(path)):
+        elif request.method == 'POST' and (bank_feed_methods(path) or path in ('/business/service-reports/offline', '/business/service-reports/offline/diagnosis') or business_api.strict_workflow_path(path)):
             if not request.is_json:
                 raise Problem(415, 'JSON-Erfassung erwartet.')
             if path in ('/business/offline/recovery/lookup', '/business/offline/recovery/time-event', '/business/offline/recovery/service-report'):

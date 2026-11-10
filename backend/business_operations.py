@@ -939,7 +939,7 @@ def own_offline_report(office,actor,entry_id):
 
 
 def methods(path):
-    if path=='/service-reports/offline': return 'POST'
+    if path in ('/service-reports/offline', '/service-reports/offline/diagnosis'): return 'POST'
     if path=='/documentation/export' or re.fullmatch(r'/checklist-runs(?:/[a-f0-9]{32})?',path): return 'GET'
     if re.fullmatch(r'/(media|receipt-media|diary|defects|measurements|service-reports|checklists)(?:/[a-f0-9]{32})?(?:/(content|chunks/\d+|complete|sign|pdf|start|answers|report))?', path):
         if path.endswith(('/content','/pdf')): return 'GET'
@@ -955,9 +955,12 @@ def dispatch(office,actor,path,method,data):
     project_id=query.get('project_id') if method=='GET' else body.get('project_id')
     if isinstance(project_id,list): project_id=project_id[0] if len(project_id)==1 else None
     if method!='GET' and isinstance(body,dict): body={k:v for k,v in body.items() if k!='project_id'}
-    if path=='/service-reports/offline':
+    if path in ('/service-reports/offline', '/service-reports/offline/diagnosis'):
         if method!='POST': raise Problem(405,'Methode nicht unterstützt')
         if '_query' in data: raise Problem(400,'Keine zusätzlichen Filter bei Offline-Erfassung erlaubt')
+        if path.endswith('/diagnosis'):
+            from offline_report_conflicts import diagnose
+            return diagnose(api,actor,project_id,body),200,'application/json'
         return api.capture_offline(actor,project_id,body),201,'application/json'
     if path=='/documentation/export':
         if method!='GET': raise Problem(405,'Methode nicht unterstützt')

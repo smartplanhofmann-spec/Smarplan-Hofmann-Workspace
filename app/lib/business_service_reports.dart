@@ -355,6 +355,90 @@ class _OfflineServiceReportPageState extends State<OfflineServiceReportPage> {
     }
   }
 
+  Future<void> reviewConflict() async {
+    if (!writable || record == null || busy) return;
+    final id = record!['id'] as String;
+    setState(() {
+      busy = true;
+      error = null;
+    });
+    try {
+      final linked = record!['conflict_successor_id'];
+      Map<String, dynamic>? successor;
+      if (linked is String) {
+        successor = widget.repository.serviceReport(widget.project, linked);
+      } else {
+        final diagnosis = await widget.repository.diagnoseServiceReport(
+          widget.project,
+          id,
+        );
+        if (!mounted || !writable) return;
+        if (diagnosis['state'] != 'context_changed') {
+          await widget.repository.retryServiceReport(widget.project, id);
+          return;
+        }
+        final confirmed = await showDialog<bool>(
+          context: context,
+          builder: (dialogContext) => ListenableBuilder(
+            listenable: Listenable.merge([widget.session, widget.repository]),
+            builder: (_, _) => AlertDialog(
+              title: const Text('Projektangaben wurden geändert'),
+              content: SingleChildScrollView(
+                child: !writable
+                    ? const Text(
+                        'Der Zugang ist nicht mehr verfügbar. Das Original bleibt gesichert.',
+                      )
+                    : Text(
+                        'Unterschriebenes Original:\nProjekt: ${diagnosis['captured_context']['project_name']}\n'
+                        'Kunde: ${diagnosis['captured_context']['customer']}\n\n'
+                        'Aktueller Serverstand:\nProjekt: ${diagnosis['current_context']['project_name']}\n'
+                        'Kunde: ${diagnosis['current_context']['customer']}\n\n'
+                        'Das Original bleibt unverändert auf diesem Gerät und wird weiterhin als Konflikt angezeigt. '
+                        'Ein neuer Entwurf übernimmt den Berichtstext mit den aktuellen Projektangaben. '
+                        'Er muss geprüft und neu unterschrieben werden. Die bisherige Unterschrift wird nicht übernommen.',
+                      ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext, false),
+                  child: const Text('Abbrechen'),
+                ),
+                FilledButton(
+                  onPressed: writable
+                      ? () => Navigator.pop(dialogContext, true)
+                      : null,
+                  child: const Text('Neuen Entwurf erstellen'),
+                ),
+              ],
+            ),
+          ),
+        );
+        if (confirmed != true || !mounted || !writable) return;
+        successor = await widget.repository.copyConflictedServiceReport(
+          widget.project,
+          id,
+          reviewedDiagnosis: diagnosis,
+        );
+      }
+      if (!mounted || !writable) return;
+      await Navigator.push<void>(
+        context,
+        MaterialPageRoute(
+          builder: (_) => OfflineServiceReportPage(
+            session: widget.session,
+            repository: widget.repository,
+            project: widget.project,
+            id: successor!['id'],
+          ),
+        ),
+      );
+    } catch (e) {
+      if (mounted && allowed) setState(() => error = '$e');
+    } finally {
+      if (mounted) setState(() => busy = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final current = record;
@@ -413,6 +497,14 @@ class _OfflineServiceReportPageState extends State<OfflineServiceReportPage> {
                   Notice('${current['sync_status']}'),
                   if (current['sync_error'] != null)
                     Notice('${current['sync_error']}', error: true),
+                  if (current['conflict_source'] != null)
+                    const Notice(
+                      'Neuer Entwurf aus einem Konflikt. Das frühere unterschriebene Original bleibt gesichert; für diesen Bericht ist eine neue Unterschrift erforderlich.',
+                    ),
+                  if (current['conflict_successor_id'] != null)
+                    const Notice(
+                      'Ein neuer Bericht wurde als Entwurf angelegt. Dieses unterschriebene Original bleibt unverändert und ist weiterhin nicht synchronisiert.',
+                    ),
                   const SizedBox(height: 16),
                   Text(
                     'Projekt: ${current['content']['project_name']}\nKunde: ${current['content']['customer']}',
@@ -467,7 +559,28 @@ class _OfflineServiceReportPageState extends State<OfflineServiceReportPage> {
                       const Notice(
                         'Das archivierte PDF wird nach bestätigter Übertragung geladen. Die unterschriebene Fassung ist auf diesem Gerät gesichert.',
                       ),
-                    if (current['sync_status'] != 'Synchronisiert')
+                    if (current['sync_status'] == 'Konflikt' &&
+                        !widget.repository.reportConflictReviewSupported)
+                      const Notice(
+                        'Die Konfliktprüfung benötigt einen aktuellen Serverstand mit Verbindung. Das unterschriebene Original bleibt auf diesem Gerät gesichert.',
+                      ),
+                    if (current['sync_status'] == 'Konflikt')
+                      OutlinedButton.icon(
+                        onPressed:
+                            !writable ||
+                                busy ||
+                                widget.repository.syncing ||
+                                !widget.repository.reportConflictReviewSupported
+                            ? null
+                            : reviewConflict,
+                        icon: const Icon(Icons.rule_folder_outlined),
+                        label: Text(
+                          current['conflict_successor_id'] != null
+                              ? 'Neuen Bericht öffnen'
+                              : 'Konflikt prüfen',
+                        ),
+                      )
+                    else if (current['sync_status'] != 'Synchronisiert')
                       OutlinedButton.icon(
                         onPressed: widget.repository.syncing
                             ? null

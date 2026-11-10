@@ -7,6 +7,7 @@ import 'api.dart';
 import 'offline_binding.dart';
 import 'offline_vault.dart';
 import 'offline_time_recovery.dart';
+import 'offline_report_recovery.dart';
 
 enum LegacyPlanStatus {
   unchecked,
@@ -66,6 +67,22 @@ class _RetainedTime {
   LegacyTimeConfirmation? confirmation;
 }
 
+class LegacyReportCheck {
+  const LegacyReportCheck(this.number, this.status, this.confirmation);
+  final int number;
+  final LegacyPlanStatus status;
+  final LegacyReportConfirmation? confirmation;
+  bool get canCheck => LegacyPlanCheck(number, status).canCheck;
+  String get label => LegacyPlanCheck(number, status).label;
+}
+
+class _RetainedReport {
+  _RetainedReport(this.original);
+  final LegacyReportOriginal original;
+  LegacyPlanStatus status = LegacyPlanStatus.unchecked;
+  LegacyReportConfirmation? confirmation;
+}
+
 /// A read-only inspection, never a V1 cache migration or upload authority.
 /// A title is exposed only from a freshly authorized, fully matched server
 /// original. Unproven local geometry and project details never enter the view.
@@ -91,6 +108,7 @@ class LegacyOfflineRecovery extends ChangeNotifier {
   int? _generation;
   final _plans = <_RetainedPlan>[];
   final _times = <_RetainedTime>[];
+  final _reports = <_RetainedReport>[];
   int _epoch = 0;
   bool _disposed = false;
   bool busy = false, unlocking = false, inspected = false, found = false;
@@ -106,6 +124,10 @@ class LegacyOfflineRecovery extends ChangeNotifier {
   List<LegacyTimeCheck> get times => List.unmodifiable([
     for (var i = 0; i < _times.length; i++)
       LegacyTimeCheck(i + 1, _times[i].status, _times[i].confirmation),
+  ]);
+  List<LegacyReportCheck> get reports => List.unmodifiable([
+    for (var i = 0; i < _reports.length; i++)
+      LegacyReportCheck(i + 1, _reports[i].status, _reports[i].confirmation),
   ]);
   String get _server => '${api.base}|${api.version}';
   void _accessChanged() {
@@ -128,6 +150,10 @@ class LegacyOfflineRecovery extends ChangeNotifier {
     for (final entry in _times) {
       entry.original.clear();
     }
+    for (final entry in _reports) {
+      entry.original.clear();
+    }
+    _reports.clear();
     _times.clear();
     _plans.clear();
     _vault = null;
@@ -250,6 +276,56 @@ class LegacyOfflineRecovery extends ChangeNotifier {
     return result;
   }
 
+  Future<bool> _supportsReports(int epoch) async {
+    _current(epoch);
+    try {
+      final caps = await api.call('/api/business/capabilities');
+      _current(epoch);
+      return caps is Map &&
+          caps['features'] is List &&
+          caps['features'].contains(legacyReportRecoveryFeature) &&
+          caps['capabilities'] is List &&
+          caps['capabilities'].contains('business_operations');
+    } on ApiException catch (error) {
+      _current(epoch);
+      if (error.status == 401) rethrow;
+      return false;
+    }
+  }
+
+  List<_RetainedReport> _reportCandidates(
+    Map<String, dynamic> state,
+    String account,
+  ) {
+    final queue = state['service_report_outbox'] as List? ?? const [],
+        records = state['service_report_records'];
+    if (records is! Map) return [];
+    final counts = <String, int>{};
+    for (final value in queue) {
+      if (value is String) counts[value] = (counts[value] ?? 0) + 1;
+    }
+    final result = <_RetainedReport>[];
+    for (final id in queue) {
+      if (id is! String ||
+          counts[id] != 1 ||
+          records[id] is! Map ||
+          records[id]['id'] != id)
+        continue;
+      try {
+        result.add(
+          _RetainedReport(
+            LegacyReportOriginal.fromCache(records[id], accountId: account),
+          ),
+        );
+      } on ApiException {
+        /* Unsupported originals stay in the retained other count. */
+      } on FormatException {
+        /* No reconstruction or upload authority. */
+      }
+    }
+    return result;
+  }
+
   Future<void> _unchangedSnapshot(int epoch) async {
     _current(epoch);
     final state = await _read(_vault!, epoch);
@@ -366,6 +442,9 @@ class LegacyOfflineRecovery extends ChangeNotifier {
       final timeCandidates = _timeCandidates(state, binding.accountId);
       final timeSupported =
           timeCandidates.isNotEmpty && await _supportsTime(epoch);
+      final reportCandidates = _reportCandidates(state, binding.accountId);
+      final reportsSupported =
+          reportCandidates.isNotEmpty && await _supportsReports(epoch);
       _current(epoch);
       _vault = vault;
       _binding = binding;
@@ -378,7 +457,14 @@ class LegacyOfflineRecovery extends ChangeNotifier {
         for (final candidate in timeCandidates) {
           candidate.original.clear();
         }
-      otherPending = other - _times.length;
+      if (reportsSupported) {
+        _reports.addAll(reportCandidates);
+      } else {
+        for (final candidate in reportCandidates) {
+          candidate.original.clear();
+        }
+      }
+      otherPending = other - _times.length - _reports.length;
       found = inspected = true;
       _changed();
     } catch (_) {
@@ -483,6 +569,61 @@ class LegacyOfflineRecovery extends ChangeNotifier {
           _drop();
         else
           candidate.status = LegacyPlanStatus.unresolved;
+      }
+      rethrow;
+    } finally {
+      busy = false;
+      _changed();
+    }
+  }
+
+  Future<void> checkReport(int index) async {
+    if (busy ||
+        index < 0 ||
+        index >= _reports.length ||
+        !reports[index].canCheck)
+      throw const ApiException(
+        0,
+        'Diesen Protokollauftrag zuerst aus dem erhaltenen Bestand neu prüfen.',
+      );
+    final epoch = _epoch, candidate = _reports[index];
+    candidate.confirmation = null;
+    candidate.status = LegacyPlanStatus.unchecked;
+    busy = true;
+    _changed();
+    try {
+      final binding = await _fresh(epoch);
+      if (binding != _binding)
+        throw const ApiException(409, 'Die Firma wurde gewechselt.');
+      if (!await _supportsReports(epoch))
+        throw const ApiException(
+          409,
+          'Die aktuelle Freigabe für den Protokollabgleich fehlt.',
+        );
+      await _unchangedSnapshot(epoch);
+      _current(epoch);
+      final request = candidate.original.query(nonce: offlineId());
+      final reply = await api.call(
+        '/api/business/offline/recovery/service-report',
+        request,
+      );
+      _current(epoch);
+      final confirmed = candidate.original.match(
+        reply,
+        request: request,
+        binding: binding,
+      );
+      await _unchangedSnapshot(epoch);
+      _current(epoch);
+      candidate.confirmation = confirmed;
+      candidate.status = LegacyPlanStatus.confirmed;
+    } catch (error) {
+      if (!_disposed && epoch == _epoch) {
+        if (error is ApiException && error.status == 401) {
+          _drop();
+        } else {
+          candidate.status = LegacyPlanStatus.unresolved;
+        }
       }
       rethrow;
     } finally {

@@ -1,0 +1,334 @@
+{
+  "schema_version": 1,
+  "account_id": "44e5ac4423e24c8ab8be6715edbcd3e4",
+  "binding": {
+    "schema_version": 1,
+    "instance_id": "092bc9de17b945ad90e4a8bff117a1a1",
+    "account_id": "44e5ac4423e24c8ab8be6715edbcd3e4"
+  },
+  "cases": [
+    {
+      "record": {
+        "id": "3a1ce6677c0a4b4399d54dc0c047ac09",
+        "project_id": "81c184b7928b4c2abf33d0d3502c9dd8",
+        "kind": "service",
+        "title": " Synthetischer Altbericht ä ",
+        "description": "Originale Leistung.\nNichts verändert.",
+        "notes": "",
+        "project_name": "Same project name",
+        "customer": "Same customer name",
+        "captured_at": "2026-11-10T05:27:58+00:00",
+        "content": {
+          "title": " Synthetischer Altbericht ä ",
+          "description": "Originale Leistung.\nNichts verändert.",
+          "notes": "",
+          "project_name": "Same project name",
+          "customer": "Same customer name",
+          "captured_at": "2026-11-10T05:27:58+00:00"
+        },
+        "content_hash": "cd9dfbb01561a85f92902b9fcc0936292554d7b013ea5c87573e7648b02fff45",
+        "status": "signed",
+        "capture_request": {
+          "request_id": "51f03e752f9e4a1a805700123e529edf",
+          "entry_id": "3a1ce6677c0a4b4399d54dc0c047ac09",
+          "project_id": "81c184b7928b4c2abf33d0d3502c9dd8",
+          "content": {
+            "title": " Synthetischer Altbericht ä ",
+            "description": "Originale Leistung.\nNichts verändert.",
+            "notes": "",
+            "project_name": "Same project name",
+            "customer": "Same customer name",
+            "captured_at": "2026-11-10T05:27:58+00:00"
+          },
+          "content_hash": "cd9dfbb01561a85f92902b9fcc0936292554d7b013ea5c87573e7648b02fff45",
+          "signer": " Synthetischer Kunde ",
+          "strokes": [
+            [
+              [
+                0.1,
+                0.2
+              ],
+              [
+                0.8,
+                0.7
+              ]
+            ]
+          ],
+          "signed_at": "2026-11-10T05:32:58+00:00"
+        },
+        "signer": " Synthetischer Kunde ",
+        "strokes": [
+          [
+            [
+              0.1,
+              0.2
+            ],
+            [
+              0.8,
+              0.7
+            ]
+          ]
+        ],
+        "signed_at": "2026-11-10T05:32:58+00:00",
+        "sync_status": "Auf diesem Gerät unterschrieben · Übertragung ausstehend"
+      },
+      "command": {
+        "schema_version": 4,
+        "nonce": "c2c05da61b924e4796bf96aa62ec056b",
+        "kind": "service_report_capture",
+        "project_id": "81c184b7928b4c2abf33d0d3502c9dd8",
+        "entry_id": "3a1ce6677c0a4b4399d54dc0c047ac09",
+        "request_id": "51f03e752f9e4a1a805700123e529edf",
+        "capture_hash": "98e1d43f66051bad0c4760bfc90a63d2d63d27b2044fdf808dbff19db682a0a7"
+      },
+      "response": {
+        "binding": {
+          "account_id": "44e5ac4423e24c8ab8be6715edbcd3e4",
+          "instance_id": "092bc9de17b945ad90e4a8bff117a1a1",
+          "schema_version": 1
+        },
+        "capture_hash": "98e1d43f66051bad0c4760bfc90a63d2d63d27b2044fdf808dbff19db682a0a7",
+        "entry_id": "3a1ce6677c0a4b4399d54dc0c047ac09",
+        "kind": "service_report_capture",
+        "lookup_hash": "b9a25e3cf141fcde092a7146851769c07dc1176ad48d62b1cc092721a24d39d9",
+        "nonce": "c2c05da61b924e4796bf96aa62ec056b",
+        "original": {
+          "actor_id": "44e5ac4423e24c8ab8be6715edbcd3e4",
+          "archive_content_hash": "c0afb841d5018b4e73f82647cb1b55786c8005f9365abac4ef915b2d3a8b5595",
+          "capture_hash": "98e1d43f66051bad0c4760bfc90a63d2d63d27b2044fdf808dbff19db682a0a7",
+          "content_hash": "cd9dfbb01561a85f92902b9fcc0936292554d7b013ea5c87573e7648b02fff45",
+          "entry_id": "3a1ce6677c0a4b4399d54dc0c047ac09",
+          "pdf_sha256": "1af518d4fd0603e0051212f02a8228e40e4e60534ce377fce89662c129148df9",
+          "project_id": "81c184b7928b4c2abf33d0d3502c9dd8",
+          "received_at": "2026-11-10T05:37:58+00:00",
+          "request_hash": "cb9a70716628220b90024caefd1be3df995b74be48478036688a5fdb7aa5355d",
+          "request_id": "51f03e752f9e4a1a805700123e529edf",
+          "revision": 2,
+          "schema_version": 1,
+          "signature_sha256": "6aae926f72caeb988a81d8b4e9728807feea7c4973e55c8a932fd3da6d95f4a2",
+          "signed_at": "2026-11-10T05:32:58+00:00"
+        },
+        "project_id": "81c184b7928b4c2abf33d0d3502c9dd8",
+        "request_id": "51f03e752f9e4a1a805700123e529edf",
+        "schema_version": 4
+      },
+      "accepted": {
+        "content_hash": "c0afb841d5018b4e73f82647cb1b55786c8005f9365abac4ef915b2d3a8b5595",
+        "created_at": "2026-11-10T05:37:58+00:00",
+        "created_by": "44e5ac4423e24c8ab8be6715edbcd3e4",
+        "description": "Originale Leistung.\nNichts verändert.",
+        "id": "3a1ce6677c0a4b4399d54dc0c047ac09",
+        "kind": "service",
+        "media_ids": [],
+        "notes": "",
+        "offline_capture": {
+          "content": {
+            "captured_at": "2026-11-10T05:27:58+00:00",
+            "customer": "Same customer name",
+            "description": "Originale Leistung.\nNichts verändert.",
+            "notes": "",
+            "project_name": "Same project name",
+            "title": " Synthetischer Altbericht ä "
+          },
+          "content_hash": "cd9dfbb01561a85f92902b9fcc0936292554d7b013ea5c87573e7648b02fff45",
+          "received_at": "2026-11-10T05:37:58+00:00",
+          "request_hash": "cb9a70716628220b90024caefd1be3df995b74be48478036688a5fdb7aa5355d",
+          "request_id": "51f03e752f9e4a1a805700123e529edf",
+          "schema": 1,
+          "signed_at": "2026-11-10T05:32:58+00:00"
+        },
+        "pdf_sha256": "1af518d4fd0603e0051212f02a8228e40e4e60534ce377fce89662c129148df9",
+        "project_id": "81c184b7928b4c2abf33d0d3502c9dd8",
+        "revision": 2,
+        "signed_at": "2026-11-10T05:32:58+00:00",
+        "signed_by": "44e5ac4423e24c8ab8be6715edbcd3e4",
+        "signed_content_hash": "c0afb841d5018b4e73f82647cb1b55786c8005f9365abac4ef915b2d3a8b5595",
+        "signer": " Synthetischer Kunde ",
+        "status": "signed",
+        "strokes": [
+          [
+            [
+              0.1,
+              0.2
+            ],
+            [
+              0.8,
+              0.7
+            ]
+          ]
+        ],
+        "title": " Synthetischer Altbericht ä ",
+        "updated_at": "2026-11-10T05:37:58+00:00",
+        "updated_by": "44e5ac4423e24c8ab8be6715edbcd3e4"
+      }
+    },
+    {
+      "record": {
+        "id": "baf23c737d7c4ea6857192b234b70d33",
+        "project_id": "81c184b7928b4c2abf33d0d3502c9dd8",
+        "kind": "service",
+        "title": " Synthetischer Altbericht ä ",
+        "description": "Originale Leistung.\nNichts verändert.",
+        "notes": "",
+        "project_name": "Same project name",
+        "customer": "Same customer name",
+        "captured_at": "2026-11-10T05:27:58+00:00",
+        "content": {
+          "title": " Synthetischer Altbericht ä ",
+          "description": "Originale Leistung.\nNichts verändert.",
+          "notes": "",
+          "project_name": "Same project name",
+          "customer": "Same customer name",
+          "captured_at": "2026-11-10T05:27:58+00:00"
+        },
+        "content_hash": "8f726c79342c3b0ad37214ebf52c99d2c1cce213ef766e36472e4f5d9c8e4d16",
+        "status": "signed",
+        "capture_request": {
+          "request_id": "48deccdb4ca84c03b300d3d38b30ccb5",
+          "entry_id": "baf23c737d7c4ea6857192b234b70d33",
+          "project_id": "81c184b7928b4c2abf33d0d3502c9dd8",
+          "content": {
+            "title": " Synthetischer Altbericht ä ",
+            "description": "Originale Leistung.\nNichts verändert.",
+            "notes": "",
+            "project_name": "Same project name",
+            "customer": "Same customer name",
+            "captured_at": "2026-11-10T05:27:58+00:00"
+          },
+          "content_hash": "8f726c79342c3b0ad37214ebf52c99d2c1cce213ef766e36472e4f5d9c8e4d16",
+          "signer": " Synthetischer Kunde ",
+          "strokes": [
+            [
+              [
+                0.0,
+                -0.0
+              ],
+              [
+                1e-07,
+                0.1
+              ],
+              [
+                1,
+                1.0
+              ]
+            ]
+          ],
+          "signed_at": "2026-11-10T05:32:58+00:00"
+        },
+        "signer": " Synthetischer Kunde ",
+        "strokes": [
+          [
+            [
+              0.0,
+              -0.0
+            ],
+            [
+              1e-07,
+              0.1
+            ],
+            [
+              1,
+              1.0
+            ]
+          ]
+        ],
+        "signed_at": "2026-11-10T05:32:58+00:00",
+        "sync_status": "Auf diesem Gerät unterschrieben · Übertragung ausstehend"
+      },
+      "command": {
+        "schema_version": 4,
+        "nonce": "c2c05da61b924e4796bf96aa62ec056b",
+        "kind": "service_report_capture",
+        "project_id": "81c184b7928b4c2abf33d0d3502c9dd8",
+        "entry_id": "baf23c737d7c4ea6857192b234b70d33",
+        "request_id": "48deccdb4ca84c03b300d3d38b30ccb5",
+        "capture_hash": "643d71fa9884e5aefd9a4418091441fe2b89e48d1815e2d08e8b01833b4c563c"
+      },
+      "response": {
+        "binding": {
+          "account_id": "44e5ac4423e24c8ab8be6715edbcd3e4",
+          "instance_id": "092bc9de17b945ad90e4a8bff117a1a1",
+          "schema_version": 1
+        },
+        "capture_hash": "643d71fa9884e5aefd9a4418091441fe2b89e48d1815e2d08e8b01833b4c563c",
+        "entry_id": "baf23c737d7c4ea6857192b234b70d33",
+        "kind": "service_report_capture",
+        "lookup_hash": "2b6a0bbf353e5d0d823a4f6bf90ee3ef44f583bea1cb85c54ce8f24ea14dea1a",
+        "nonce": "c2c05da61b924e4796bf96aa62ec056b",
+        "original": {
+          "actor_id": "44e5ac4423e24c8ab8be6715edbcd3e4",
+          "archive_content_hash": "3265ba5dadff28aa0b08bd199dc958f5b60da6daf0817873f186e08922766cc3",
+          "capture_hash": "643d71fa9884e5aefd9a4418091441fe2b89e48d1815e2d08e8b01833b4c563c",
+          "content_hash": "8f726c79342c3b0ad37214ebf52c99d2c1cce213ef766e36472e4f5d9c8e4d16",
+          "entry_id": "baf23c737d7c4ea6857192b234b70d33",
+          "pdf_sha256": "7448967ad7b67e5d96df3cf416b85c076d3c96109205d0352df38f7421b97af9",
+          "project_id": "81c184b7928b4c2abf33d0d3502c9dd8",
+          "received_at": "2026-11-10T05:37:58+00:00",
+          "request_hash": "0a7e6240272f29aabb67591522050ccbe8d045572de0406065ffce36bb460b08",
+          "request_id": "48deccdb4ca84c03b300d3d38b30ccb5",
+          "revision": 2,
+          "schema_version": 1,
+          "signature_sha256": "70021470d309d8ef69e1cf64e902c0e9d7150f55e47905633aa1be271f708ecb",
+          "signed_at": "2026-11-10T05:32:58+00:00"
+        },
+        "project_id": "81c184b7928b4c2abf33d0d3502c9dd8",
+        "request_id": "48deccdb4ca84c03b300d3d38b30ccb5",
+        "schema_version": 4
+      },
+      "accepted": {
+        "content_hash": "3265ba5dadff28aa0b08bd199dc958f5b60da6daf0817873f186e08922766cc3",
+        "created_at": "2026-11-10T05:37:58+00:00",
+        "created_by": "44e5ac4423e24c8ab8be6715edbcd3e4",
+        "description": "Originale Leistung.\nNichts verändert.",
+        "id": "baf23c737d7c4ea6857192b234b70d33",
+        "kind": "service",
+        "media_ids": [],
+        "notes": "",
+        "offline_capture": {
+          "content": {
+            "captured_at": "2026-11-10T05:27:58+00:00",
+            "customer": "Same customer name",
+            "description": "Originale Leistung.\nNichts verändert.",
+            "notes": "",
+            "project_name": "Same project name",
+            "title": " Synthetischer Altbericht ä "
+          },
+          "content_hash": "8f726c79342c3b0ad37214ebf52c99d2c1cce213ef766e36472e4f5d9c8e4d16",
+          "received_at": "2026-11-10T05:37:58+00:00",
+          "request_hash": "0a7e6240272f29aabb67591522050ccbe8d045572de0406065ffce36bb460b08",
+          "request_id": "48deccdb4ca84c03b300d3d38b30ccb5",
+          "schema": 1,
+          "signed_at": "2026-11-10T05:32:58+00:00"
+        },
+        "pdf_sha256": "7448967ad7b67e5d96df3cf416b85c076d3c96109205d0352df38f7421b97af9",
+        "project_id": "81c184b7928b4c2abf33d0d3502c9dd8",
+        "revision": 2,
+        "signed_at": "2026-11-10T05:32:58+00:00",
+        "signed_by": "44e5ac4423e24c8ab8be6715edbcd3e4",
+        "signed_content_hash": "3265ba5dadff28aa0b08bd199dc958f5b60da6daf0817873f186e08922766cc3",
+        "signer": " Synthetischer Kunde ",
+        "status": "signed",
+        "strokes": [
+          [
+            [
+              0.0,
+              -0.0
+            ],
+            [
+              1e-07,
+              0.1
+            ],
+            [
+              1,
+              1.0
+            ]
+          ]
+        ],
+        "title": " Synthetischer Altbericht ä ",
+        "updated_at": "2026-11-10T05:37:58+00:00",
+        "updated_by": "44e5ac4423e24c8ab8be6715edbcd3e4"
+      }
+    }
+  ],
+  "source": "Actually accepted original capture and hash-only current-company MFA/HTTP response; synthetic data"
+}

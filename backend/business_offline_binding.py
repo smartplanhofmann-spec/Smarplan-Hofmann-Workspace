@@ -12,8 +12,8 @@ import time
 from core import Problem, canonical, digest, text_field
 from business_foundation import _fresh, require_permission
 
-FEATURES = ('offline_instance_binding', 'offline_time_event_recovery')
-RECOVERY_PATHS = ('/offline/recovery/lookup', '/offline/recovery/time-event')
+FEATURES = ('offline_instance_binding', 'offline_time_event_recovery', 'offline_service_report_recovery')
+RECOVERY_PATHS = ('/offline/recovery/lookup', '/offline/recovery/time-event', '/offline/recovery/service-report')
 TABLE = 'business_offline_instance_grants'
 HEADER = 'X-Smartplan-Offline-Binding'
 ID = r'[a-f0-9]{32}'
@@ -273,5 +273,8 @@ def dispatch(office, actor, path, method, data):
         return None
     if method != 'POST':
         raise Problem(405, 'Nur der lesende POST-Abgleich ist verfügbar.')
+    if path == '/offline/recovery/service-report':
+        from offline_report_recovery import lookup
+        return lookup(office, actor, data), 200, 'application/json'
     lookup = legacy_lookup if path == '/offline/recovery/lookup' else legacy_time_lookup
     return lookup(office, actor, data), 200, 'application/json'

@@ -73,7 +73,7 @@ class _LegacyOfflineRecoveryPageState extends State<LegacyOfflineRecoveryPage>
             ),
             const SizedBox(height: 12),
             const Text(
-              'Alte Plan- und Zeitaufträge können bereits beim ursprünglichen Server angekommen sein. Der Abgleich überträgt ausschließlich Kennungen und Originalhashes. Erst nach passender Serverbestätigung erscheint das dort geprüfte Original.',
+              'Alte Plan-, Zeit- und Protokollaufträge können bereits beim ursprünglichen Server angekommen sein. Der Abgleich überträgt ausschließlich Kennungen und Originalhashes. Erst nach passender Serverbestätigung erscheint das dort geprüfte Original.',
             ),
             const SizedBox(height: 12),
             const Text(
@@ -108,7 +108,7 @@ class _LegacyOfflineRecoveryPageState extends State<LegacyOfflineRecoveryPage>
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Text(
-                  '${recovery.plans.length} alte Planaufträge · ${recovery.times.length} Zeitaufträge · ${recovery.otherPending} weitere erhaltene Aufträge',
+                  '${recovery.plans.length} alte Planaufträge · ${recovery.times.length} Zeitaufträge${recovery.reports.isEmpty ? '' : ' · ${recovery.reports.length} Protokollaufträge'} · ${recovery.otherPending} weitere erhaltene Aufträge',
                 ),
               ),
               for (final row in recovery.plans)
@@ -139,6 +139,42 @@ class _LegacyOfflineRecoveryPageState extends State<LegacyOfflineRecoveryPage>
                                 : () =>
                                       run(() => recovery.check(row.number - 1)),
                             child: const Text('Ursprüngliche Annahme prüfen'),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+              for (final row in recovery.reports)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Protokollauftrag ${row.number}',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(row.label),
+                        if (row.confirmation != null)
+                          const Padding(
+                            padding: EdgeInsets.only(top: 8),
+                            child: Text(
+                              'Passende unterschriebene Archivfassung und PDF im aktuell angemeldeten Unternehmen bestätigt. Der alte Gerätebestand bleibt unverändert.',
+                            ),
+                          ),
+                        const SizedBox(height: 8),
+                        if (row.canCheck)
+                          OutlinedButton(
+                            onPressed: recovery.busy
+                                ? null
+                                : () => run(
+                                    () => recovery.checkReport(row.number - 1),
+                                  ),
+                            child: const Text(
+                              'Ursprüngliches Protokoll prüfen',
+                            ),
                           ),
                       ],
                     ),

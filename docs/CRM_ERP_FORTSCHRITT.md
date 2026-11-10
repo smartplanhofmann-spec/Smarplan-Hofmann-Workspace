@@ -3835,3 +3835,29 @@ separaten Arbeitsverzeichnis /workspace/smartplan-legacy-service-recovery-202611
 Alte Texte oder Unterschriften werden dabei nicht neu übertragen, neue Firmen
 nicht aus einer alten ungebundenen Adresse abgeleitet und Altaufträge nicht als
 neue Dokumente wiederholt. Diese Folgeentwicklung ist noch nicht veröffentlicht.
+
+
+## 10.11.2026 – aktive Altprotokollfolge nach V12
+
+R11.03/B/F/G: [Lesender Abgleich alter Serviceprotokolle](CRM_ERP_ALTBERICHT_ABGLEICH_2026-11-10.md)
+wird auf d1f5ba1 umgesetzt. Die erste tatsächliche Reproduktion ist404; der
+neue begrenzte Backendvertrag besteht danach mit vier echten MFA-/HTTP-Fällen.
+Native Quellbindung und Bedienung, ursprüngliche Signatur-/PDF-Prüfung und
+weitere gemeinsame Nachweise bleiben aktive Arbeit. Kein alter Text oder
+Signaturzug wird hochgeladen, keine Quarantäne automatisch freigegeben und
+keine Warteschlange geändert. Der Gesamtauftrag bleibt aktiv.
+
+
+## 10.11.2026 – gemeinsame Altprotokollprüfung
+
+[Lesender Altprotokollabgleich](CRM_ERP_ALTBERICHT_ABGLEICH_2026-11-10.md):58
+Backendfälle,29 native Altbestandsfälle, zusätzlicher echter Zwei-Firmen-/MFA-/
+TCP-/PDF-/Dateiabgleich, drei neue und sechs bestehende echte PostgreSQL-/
+Restorefälle sowie21 Paketprüfungen und saubere Analyse bestehen. Erste
+Test-I/O-/Scroll-/Importfehler bleiben erhalten; Produktwächter wurden nicht
+gelockert. Eigene Wegwerfdatenbank nach verifiziertem Abschluss entfernt.
+Der vollständige aktuelle App-Lauf bleibt noch aktiv. V12 ist als799c144
+veröffentlicht, seine eigene Development42762857917 und iPhone42762857879
+laufen; keine neue Serverinstallation oder Geräteabnahme. Der Gesamtauftrag
+geht nach dieser Etappe weiter, insbesondere andere Offline-Dokumentarten,
+weitere vereinbarte Regel-/Lohn-/EÜR-Fälle und technische Gesamtintegration.

@@ -4934,3 +4934,44 @@ beginnt mit der bekannten Windows-SSH-Verbindung und pinnt den geprüften
 Commit; hier fehlen Zugang und Hostfreigabe. Der Gesamtauftrag bleibt aktiv,
 weitere Code-/Fachfälle und echte Anbieter-/Betriebsnachweise sind nicht
 pauschal abgeschlossen.
+
+## 11.11.2026 – Unternehmensweite Auslagenoriginale und Freigaberücknahme
+
+Der aktive Gesamtauftrag läuft weiter. Tatsächlich reproduzierter Fehler:
+Ein zweiter Mitarbeiter kann denselben vollständigen, bereits mit 49,87 EUR
+erstatteten Beleg unter anderer Datei-ID einreichen. Der ursprüngliche einzelne
+Gegenfall bleibt rot archiviert; derselbe unveränderte Test besteht am neuen Code.
+
+Neue Einreichung, Freigabe, Erstattung und zusätzliche Reiseabrechnung prüfen
+nun die Bindung des ganzen Originals innerhalb der Unternehmensdatenbank.
+Eine neue begründete Aktion nimmt ausschließlich unbezahlte, ungebundene
+Freigaben durch eine andere berechtigte Person zurück. Browser/App verwenden
+hierfür eine neue Serverfähigkeit; ältere Server zeigen die Aktion nicht.
+Historische Originale, Entscheidungen, Monatsunterlagen, Geldflüsse und bereits
+angenommene Aufträge werden erhalten. Echte vollständige Rückzahlungen bleiben
+für bereits erstattete Anträge notwendig.
+
+Final tatsächlich erfolgreich: 80 betroffene Backend-/Reise-/CI-Fälle in
+72,180s; drei echte PostgreSQL-/MFA-/HTTP-/Konkurrenz-/Komplettrestorefälle in
+31,812s; 1.120 Browsermodulfälle; zwölf native Personal-Widgetfälle; gesamte
+Appanalyse ohne Befund; echter Browserablauf mit aktiver Chromium-Isolation.
+Beide eigenständigen Datenbankverbindungen nehmen nur einen konkurrierenden
+Antrag an. Nach Restore bleiben beide Originale und angenommene Zahlungs-/
+Rücknahmequittungen exakt erhalten. Alle drei eigenen PG-Container wurden
+nach vollständiger ID-/Label-/Loopback-Prüfung entfernt. Fehlgeschlagene
+Testaufbauten und Cloud-Sandbox-Vorläufe bleiben getrennt archiviert.
+
+Originalziel mit 23.863 Bytes und bekanntem SHA sowie alle 64 bisherigen
+Lohnmodule sind gegen ab6b615 bytegleich. Die eigene Nachweissammlung bindet
+zwölf Code-/Testdateien per SHA256 und erhält Rohlogs, roten ursprünglichen
+Gegenfall und synthetische Browserbelege. [Vertrag und Nachweise](CRM_ERP_AUSLAGEN_ORIGINALSPERRE_2026-11-11.md).
+Der neue PostgreSQL-Fall ist in der verpflichtenden gemeinsamen CI-Auswahl
+enthalten. Neue Remoteprüfung/Pakete und Installation bleiben gesondert.
+
+Die automatische Freigabeprüfung hat den TestFlight-Start aus „Ok. Mach fertig“
+abgelehnt, weil die konkrete signierte App-Übermittlung an Apple nicht eindeutig
+freigegeben war. Der abgelehnte Start wurde nicht ausgeführt. Die neue konkrete
+Uploadfrage ist bisher unbeantwortet. Keine TestFlight-Veröffentlichung;
+Freigaben zum abgefragten älteren Funktionsstand dürfen nicht still auf die
+neue Auslagenfunktion übertragen werden. Fehlende Anbieter-/Serverzugänge,
+reale Gerätefälle und Fach-/Sicherheits-/Gesamtabnahme bleiben offen.

@@ -4,6 +4,32 @@ Stand: 11.11.2026. Der aktive Auftrag bleibt die vollständige CRM-/ERP-Software
 nach Nutzerauftrag und unveränderter `CRM_ERP_Gesamtziel.txt`. Ein abgeschlossener
 Lieferabschnitt ist keine Verkleinerung des Gesamtziels und beendet den Auftrag nicht.
 
+## Aktive Fortsetzung: Auslagenoriginale über Mitarbeiter hinweg
+
+Die [zusätzliche Auslagenkorrektur](CRM_ERP_AUSLAGEN_ORIGINALSPERRE_2026-11-11.md)
+schließt eine tatsächlich reproduzierte doppelte Einreichung desselben bereits
+erstatteten Originals durch einen zweiten Mitarbeiter. Einreichung, Freigabe,
+Erstattung und neue Reiseabrechnung prüfen die Unternehmensbindung. Unbezahlte
+Freigaben lassen sich begründet und mit unveränderter Historie zurücknehmen,
+bedienbar in Browser und App mit eigener Serverfähigkeit.
+
+80 betroffene Backend-/Reisefälle und drei tatsächliche PostgreSQL-/MFA-/
+Konkurrenz-/Komplettrestorefälle bestehen. Zwölf native Personalprüfungen und
+die vollständige Appanalyse bestehen. Alle 1.120 Browsermodulfälle und der
+finale tatsächliche Browserablauf bestehen. Die ursprüngliche Fehlerprobe
+besteht unverändert; Ziel und 64 Lohnmodule sind bytegleich. Gemeinsamer
+Remote-Nachlauf wird getrennt ergänzt. Eigene Arbeitskopie:
+`/tmp/smartplan-expense-originals-20261111`; Hauptprojekt bleibt unverändert
+unter dem nachstehenden kanonischen Pfad. Die früheren ab6b615-Paketnachweise
+belegen ausschließlich ihren damaligen Funktionsstand.
+
+Die automatische Freigabeprüfung hat den TestFlight-Start auf Grundlage von
+„Ok. Mach fertig“ abgelehnt, weil die konkrete App-Übermittlung an Apple darin
+nicht ausdrücklich genug benannt ist. Keine Ausführung dieses abgelehnten
+Starts. Die neu konkret gestellte Uploadfrage ist weiter unbeantwortet;
+Upload bleibt false. Die neue Auslagenfunktion ist nicht vom abgefragten
+älteren ab6b615-Funktionsstand umfasst.
+
 ## Projekt, Quelle und zulässige Veröffentlichung
 
 - Hauptprojekt: `/workspace/Smarplan-Hofmann-Workspace`, lokaler Branch

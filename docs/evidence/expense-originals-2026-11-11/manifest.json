@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "base_commit": "64f49d63459dbeaaa1735ad3ebbe3f52fd76b062",
+  "runtime_files_sha256": {
+    "app/lib/business_personnel_workflow.dart": "7602c689d5312e88e92da6144268b9a54ec0d8b8f13023b12048ca4bd9e8ffbd",
+    "app/test/business_personnel_workflow_test.dart": "f64d442d4892bbc4d0c4d84534042c329abeef24b5b7d12d70a7d3c524214225",
+    "backend/business_personnel_workflow.py": "e404f0d284d5d3aefddb8fc9eeb41f38516c54aaab2f00eec3a9e4bd1129fe30",
+    "backend/business_travel_allowances.py": "6edd215e3b455792c150015f27f5302f805d73377ae2e6e04b5ea76c3c8d1ae6",
+    "backend/test_business_travel_expenses.py": "38e00b04c7e2fa4d7cefe36a0edde675993606b9605104f159f8995682d2f4f4",
+    "scripts/ci-check-plan.json": "ca738d0fe7613d756d75188bbc42ab880191dcd12ece153a0bf5fb8640a8378a",
+    "web/office/office.js": "246b19653f0c8e133f2542723be5577962334a689536dc1a13f57ac1f4a8889d",
+    "web/office/personnel-workflow.js": "4b9bc3950db85aa743c2e6bd95817579739eec140a677e7a83beb0401c365078",
+    "web/office/tests/personnel-workflow-flow.cjs": "52e3ad0d66370d31394d0e682cc8f1200362fb26ba0667896e491aab69f4f730",
+    "web/office/tests/personnel-workflow.test.mjs": "5e6d34d37745918d716268bb647f7b12674688feb5c73b6dfafaed80180be3c5",
+    "backend/online/test_business_expense_originals_pg.py": "adeecc5896308412be82ffdd4b78de5e801274887b68dcc8ef67a70f2365f07c",
+    "backend/test_business_expense_originals.py": "31874a3a57df8b87a78ded646cb46a4bce83e8646135b0c1673af0cc2616d560"
+  },
+  "source_frozen": true,
+  "evidence": [
+    {
+      "path": "backend-final.txt.gz",
+      "bytes": 3100,
+      "sha256": "44080109976abe1717cf1db459d41eb36521aff71ec03223ede2988024bc4098",
+      "original_bytes": 16843,
+      "original_sha256": "6a4ba2324386e922567ace26aca809cd527389f9d32a10c8d8847ff64ebf5d2a"
+    },
+    {
+      "path": "backend-integration-first.txt.gz",
+      "bytes": 3065,
+      "sha256": "c6b52a58c5e87816d1d91c4553525b10b9776e594ec1c98bb0f407e4f57750a4",
+      "original_bytes": 16629,
+      "original_sha256": "030aa521990a3b98d7c42c1ed54ecdaee6b98f43b598ce83205b02317fa28af3"
+    },
+    {
+      "path": "backend.txt.gz",
+      "bytes": 1000,
+      "sha256": "ae1e270fa2516c1587ddc510e6ed863234f9e9bef28b386715b96d02c29c7a71",
+      "original_bytes": 4769,
+      "original_sha256": "930f3f46b982b4fbf0462edc2653de24003a7ae4b34ac19b8e10a1b062b49a09"
+    },
+    {
+      "path": "browser-modules-final-second.txt.gz",
+      "bytes": 33936,
+      "sha256": "48cd7a938b3096b15384431e43db33ec114bf1ce68210bbda6754fe687ab5004",
+      "original_bytes": 114602,
+      "original_sha256": "ff42180a0e1e0e51bb4e08ff2c2f806b3c182901c7228a1328c38915c2291ce0"
+    },
+    {
+      "path": "browser-modules-final.txt.gz",
+      "bytes": 34691,
+      "sha256": "6fa323d80b52553585ed848eb6a884abb2fa312b16ea61d8cedb08d3b47ab4f8",
+      "original_bytes": 116308,
+      "original_sha256": "d25871315b0b7035101cbb63e3064c064b24cc1ee56d5808205146a492aaf5cb"
+    },
+    {
+      "path": "browser-personnel-final.txt.gz",
+      "bytes": 291,
+      "sha256": "7b53115d8a0248e1288b1fe35b4a1b69b69fe6b315676856f5d6194331638e2c",
+      "original_bytes": 421,
+      "original_sha256": "9903d7bc2e5f6bbe7dc6cb8d5396f4ef07cffb5f683beb82eac905a228f89d98"
+    },
+    {
+      "path": "browser-personnel-first.txt.gz",
+      "bytes": 602,
+      "sha256": "b118f822bbe7cc02def6a10ba56ed78b4c48386edafb53236f665ac9a8789099",
+      "original_bytes": 2679,
+      "original_sha256": "36e8a195ae46e31726f77af72700d3992b880d69dc9a1ace5b764cd6c57e66dd"
+    },
+    {
+      "path": "browser-personnel-second.txt.gz",
+      "bytes": 291,
+      "sha256": "7b53115d8a0248e1288b1fe35b4a1b69b69fe6b315676856f5d6194331638e2c",
+      "original_bytes": 421,
+      "original_sha256": "9903d7bc2e5f6bbe7dc6cb8d5396f4ef07cffb5f683beb82eac905a228f89d98"
+    },
+    {
+      "path": "browser-unit-first.txt.gz",
+      "bytes": 473,
+      "sha256": "82606889c0aff3b29c1becdad07af694277d8968e3682a0e6395f9a1c8898788",
+      "original_bytes": 815,
+      "original_sha256": "4eeedbffffdfaf40c171ebb3a40a30be39308cd890125735e08f8e26d51d6f75"
+    },
+    {
+      "path": "flutter-analyze.txt.gz",
+      "bytes": 72,
+      "sha256": "44f44fa0414cecddc05d2fe82eaea08b7c4955e08b887085e4c7222bee699ec0",
+      "original_bytes": 97,
+      "original_sha256": "6fec6e1e4cc99f32a33b76372bef4adeb715db06ba8a4e202d2f66cb8cafe904"
+    },
+    {
+      "path": "flutter-fifth.txt.gz",
+      "bytes": 611,
+      "sha256": "58c2d51cf3b9a2d662940eb79e1a6a1c362a01072718899a5d41b2fbb4027470",
+      "original_bytes": 1275,
+      "original_sha256": "46164fd12e356f8a33791521c636d60928dab6bb775191df1a19f7c50d31e303"
+    },
+    {
+      "path": "flutter-first.txt.gz",
+      "bytes": 1033,
+      "sha256": "9353d21d075b809e1df706c95a852c4b61d6bd8e73004f47ba71584877bdf1ed",
+      "original_bytes": 5760,
+      "original_sha256": "4faccb4a3686888bc1676263bb5a2466ae68d98d16073c500a5ed4d88d6f800e"
+    },
+    {
+      "path": "flutter-fourth.txt.gz",
+      "bytes": 1206,
+      "sha256": "dc3c29abdea83bed0659ae8e59221c0a46a5af5e0cddde379a5ad7eac82cc4b3",
+      "original_bytes": 3782,
+      "original_sha256": "8889e955ed9fa6d418d5d38d2a8d23041ba5201d350857f8dee183773f4c422f"
+    },
+    {
+      "path": "flutter-pub-second.txt.gz",
+      "bytes": 71,
+      "sha256": "33e704fc20f0db5a9a37ee8f146d3084685cdb8c352aaa2fd21f09a54fab7cf4",
+      "original_bytes": 68,
+      "original_sha256": "d4cb7a3c68b4133b4f6e58c67ff5bfd13725d8021e930388cdc98da8a575919d"
+    },
+    {
+      "path": "flutter-pub.txt.gz",
+      "bytes": 182,
+      "sha256": "04b46f7a39ff77b680a7cb016df2736cb685cecc3245016a159934eb3a1f1530",
+      "original_bytes": 217,
+      "original_sha256": "9095b1fe43a7920b563b7ae338646eb475c800044d351f2a0712d8b66a42f6b1"
+    },
+    {
+      "path": "flutter-second.txt.gz",
+      "bytes": 606,
+      "sha256": "4b6bb5b4e3392118c2ec7d05bf107b19b5459f0bf81c42467205fe2f8ebc60ef",
+      "original_bytes": 4324,
+      "original_sha256": "a4e86940200049486afbadb7835d68288c87497b63256611578dad9d38053c8d"
+    },
+    {
+      "path": "flutter-third.txt.gz",
+      "bytes": 474,
+      "sha256": "84737ad4ed1c03f89805d1c417e42fc757757048d0d5f5eee530269d24771342",
+      "original_bytes": 1636,
+      "original_sha256": "43e674beb6fe82aeff56e467320fd985943e32c98ffb147e0eb5fe10415f4515"
+    },
+    {
+      "path": "pdfium-cached-sha256.txt.gz",
+      "bytes": 182,
+      "sha256": "0f0211e230d9766ff40b3b41f560cf6b14ffa52fc1176b42348a4e66b8394edb",
+      "original_bytes": 346,
+      "original_sha256": "d94158c38006f5ce3106a757774927a30341e817b7fb3ba92d818dd3817c5513"
+    },
+    {
+      "path": "postgres-final.txt.gz",
+      "bytes": 287,
+      "sha256": "17a30f89c0fe99d9b3667c541db8cd12cf88cc408404475b5f76d040ffb8effc",
+      "original_bytes": 848,
+      "original_sha256": "2501d6c3e5a8f5f5a48ebeda1f53efe453750201a4687c427131c87521a4a7cb"
+    },
+    {
+      "path": "postgres-first.txt.gz",
+      "bytes": 625,
+      "sha256": "c37f340c15b0eeb46c1412ccbf7ea98491fd38527ff3a689cbb0bd10a245fc0c",
+      "original_bytes": 2218,
+      "original_sha256": "3f96aa13eb9d58218f0d21e0e98ffcb7f094c14f6b7fb759961338787cd4fb7c"
+    },
+    {
+      "path": "postgres-second.txt.gz",
+      "bytes": 287,
+      "sha256": "b0c4efcb61afb5120f43c32cd10a8c9cf53f7f58da0b0af532d4c13e87493887",
+      "original_bytes": 848,
+      "original_sha256": "bc2c2100951ecc478ec23422964af62411f941054e5e49d345fd13906e438f47"
+    },
+    {
+      "path": "reproduction-after.txt.gz",
+      "bytes": 140,
+      "sha256": "3e5036816f24e2d1c61b7a15d562a64c3e1b9603ff11d0e732b722a056c0c64e",
+      "original_bytes": 264,
+      "original_sha256": "ea29c6b3d96aefa755eeb33f7b2595cf6d90e378a58648cc56260a91d8eb2307"
+    },
+    {
+      "path": "goal-and-rules.json.gz",
+      "bytes": 601,
+      "sha256": "cdbed2acbfa1b994968b536c832d488c816d1c82ab56a1843b8912f1a4934f4f",
+      "original_bytes": 3149,
+      "original_sha256": "46d1d444e9831cfde39cbef659f32e92755c82e1202aaa1c99454f4025d443e5"
+    },
+    {
+      "path": "postgres-final-environment.json.gz",
+      "bytes": 198,
+      "sha256": "9cd9a4eb58b8d4920169b762791d41a8755aac43a9dde4f387ce21750ef295f0",
+      "original_bytes": 242,
+      "original_sha256": "d08bf2e92cab8500aa6e1089184fb4b223a1d9e767141890ab394cccadbfa055"
+    },
+    {
+      "path": "postgres-first-environment.json.gz",
+      "bytes": 199,
+      "sha256": "f7125e1b6f658c6ba0dd84c8ae83759ea6408902c3b93887c4efcf82311c7c91",
+      "original_bytes": 242,
+      "original_sha256": "84c8ac3033b1d9e1fea8246df69d389f9fd7a2d3613da897eaa695b9499ed11a"
+    },
+    {
+      "path": "postgres-second-environment.json.gz",
+      "bytes": 197,
+      "sha256": "bb6b8b7527413ade6781928480dda8b000bb580d428e59d5e35c728d402331f7",
+      "original_bytes": 242,
+      "original_sha256": "c9d5672617c0b6b4fcf48adcb07fc30aa3481b597b4cc382451209537b23b14d"
+    },
+    {
+      "path": "run-own-postgres.py.gz",
+      "bytes": 1629,
+      "sha256": "b9dbbc49677c47b69fc8e64382e9a9f6cde78ef71aad73e4525d3a6d1302fc3e",
+      "original_bytes": 4231,
+      "original_sha256": "0c8a90487ec1b6cefefebe65eb716bba667c7b59d60c49f03037e16dcedcafee"
+    },
+    {
+      "path": "reproduce-original.py.gz",
+      "bytes": 888,
+      "sha256": "79d16b9dc01c6e51e29031e24dd120c6297040fd4383a2e1f31d2960725e4cc2",
+      "original_bytes": 1841,
+      "original_sha256": "b23342fc166e53258ac4f8ca71e3b6fe61a7f9c1ccdf36eaae86bab98a7620d1"
+    },
+    {
+      "path": "reproduction-before.txt.gz",
+      "bytes": 309,
+      "sha256": "2db7486a1fb15c9fa41cba13725b4f6458bfe4cb66712d2284ca37a36e61b22a",
+      "original_bytes": 888,
+      "original_sha256": "ff4b54c924631ecf3bae675bdfb9b9682e962d04adad93c986f18314bfc444cc"
+    },
+    {
+      "path": "browser-personnel-personnel-month-history-desktop.png.gz",
+      "bytes": 229541,
+      "sha256": "5e389868f8b29ce81755e8656c3e106966a5937862257f9933fb5f029978f808",
+      "original_bytes": 249071,
+      "original_sha256": "813227fbd92152bc2e404e8a053da209dbbdaed679fc516e4cc4a4ab1b5a915e"
+    },
+    {
+      "path": "browser-personnel-personnel-month-history-mobile.png.gz",
+      "bytes": 148311,
+      "sha256": "0c7557a1d2e45e803358633ebaa6ae6b14fadca0a14b6513de078a3fdb70a577",
+      "original_bytes": 162803,
+      "original_sha256": "ad512a739a18454385a5e41be2379051b848dbae10329fb28c64e21842fb60b1"
+    },
+    {
+      "path": "browser-personnel-personnel-workflow-http-records.json.gz",
+      "bytes": 7234,
+      "sha256": "ce01d5d1ded46d66703f1d3596d187d8bbe49fbdb161b404532d98ada0f2ca08",
+      "original_bytes": 213178,
+      "original_sha256": "7f29c84df04c8e65dc9fcd2695d61b679bed263771803e1e4d536d841ab9daa1"
+    },
+    {
+      "path": "browser-personnel-final-personnel-month-history-desktop.png.gz",
+      "bytes": 229477,
+      "sha256": "cb2cc65f95b2f42828bea93852d748e270dedf090ac2c02a4bdbe931ca8f77ba",
+      "original_bytes": 249131,
+      "original_sha256": "95768389b63a66ca0725fa025e60239f1beb52e584f539237767ed05e9336088"
+    },
+    {
+      "path": "browser-personnel-final-personnel-month-history-mobile.png.gz",
+      "bytes": 148372,
+      "sha256": "4b40338172e16abbedb76689c2f999bdc9ba4f993d20bd3ab8a2441843b57f2c",
+      "original_bytes": 162821,
+      "original_sha256": "99da36d9b6d0ff62a1a0cba052c97576a0833328b3d1fa201d763a5e8fc86ec1"
+    },
+    {
+      "path": "browser-personnel-final-personnel-workflow-http-records.json.gz",
+      "bytes": 7203,
+      "sha256": "7b9d86e4aff1da5b4d2c7d8e52c9d3bc2cbf0b119e3ef0358b69d409dab1eb10",
+      "original_bytes": 213312,
+      "original_sha256": "375bd6f0dfb427036ecd372b677d0fbbc4b6a66bbd9367e8b15088933ab672e0"
+    }
+  ],
+  "checks": {
+    "backend": 80,
+    "postgres_http_restore": 3,
+    "browser_modules": 1120,
+    "native_personnel": 12,
+    "real_browser_workflow": 1,
+    "reproduction_after": 1,
+    "app_analysis": "no_issues"
+  },
+  "earlier_failures_preserved": true,
+  "production_server_updated": false,
+  "real_device_acceptance": false,
+  "external_professional_acceptance": false,
+  "testflight_uploaded": false
+}

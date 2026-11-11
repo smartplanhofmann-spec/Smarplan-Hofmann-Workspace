@@ -455,7 +455,9 @@ class TravelAllowances:
         if (calc['totals']['flat_taxable_minor'] or calc['totals']['individual_taxable_minor']) and payroll_month is None:
             calc['blockers'].append(dict(code='payroll_month_missing',text='Vorgesehenen Zuflussmonat der steuerpflichtigen Erstattung ausdrücklich auswählen.',source_ref=None));calc['can_approve']=False;calc['can_pay']=False
         from payroll_travel_expenses_2026 import ensure_expense_unreserved
-        for expense in expenses:ensure_expense_unreserved(self.office,expense,own_settlement=old['id'] if old else None)
+        for expense in expenses:
+            ensure_expense_unreserved(self.office,expense,own_settlement=old['id'] if old else None)
+            if not historical:self.hr._ensure_expense_originals_available(expense)
         claims={value['date'] for value in calc['days']}
         for existing in self._all('settlement',employee['id']):
             if old and existing['id']==old['id']:continue

@@ -1181,6 +1181,7 @@ const mileageWorkspace=privateCarMileageUi({el,button,field,form,dialog,panel,ro
   saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
 
 const personnelWorkflow=personnelWorkflowUi({el,button,field,form,dialog,panel,rows,row,notice,table,api,biz,query,mutation,action,refresh,formatDate,formatMoney,duration,
+  feature:value=>state.features.has(value),
   available:()=>state.features.has('personnel_preparation')&&state.section==='personnel',
   mileageAvailable:()=>state.features.has(MILEAGE_READ_FEATURE)&&state.capabilities.has('business_travel_allowances'),openMileage:employee=>mileageWorkspace.open(employee),
   payrollAvailable:()=>state.features.has('german_payroll_2026'),openPayroll:employee=>payrollWorkspace.open(employee),

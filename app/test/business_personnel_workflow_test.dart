@@ -94,7 +94,177 @@ class PersonnelApi extends OfficeApi {
   }
 }
 
+class ExpenseApprovalApi extends PersonnelApi {
+  bool approve = true;
+  bool modernServer = true;
+  String viewer = owner;
+  Map<String, dynamic> expense = {
+    'id': 'e' * 32,
+    'employee_id': employeeId,
+    'revision': 3,
+    'status': 'approved',
+    'purpose': 'Synthetischer Bahnbeleg',
+    'total_minor': 4987,
+    'submitted_by': worker,
+    'items': [],
+    'payments': [],
+  };
+  Map<String, dynamic>? withdrawal;
+  @override
+  Future<dynamic> call(String path, [Map<String, dynamic>? body]) async {
+    if (path == '/api/me') return {'id': viewer};
+    if (path.startsWith('/api/business/capabilities')) {
+      final value = await super.call(path, body) as Map<String, dynamic>;
+      return {
+        ...value,
+        'features': [
+          ...value['features'],
+          if (modernServer) 'personnel_expense_originals_v2',
+        ],
+        'permissions': [
+          ...value['permissions'],
+          if (approve) 'personnel.approve',
+        ],
+      };
+    }
+    if (path.startsWith('/api/business/personnel/expenses?')) {
+      return {
+        'employee_id': employeeId,
+        'items': [copy(expense)],
+      };
+    }
+    if (path.endsWith('/withdraw-approval')) {
+      commands.add(copy(body!));
+      if (!approve) throw const ApiException(403, 'Prüfrecht entzogen');
+      accepted ??= copy(body);
+      expect(body, accepted);
+      withdrawal ??= {
+        ...expense,
+        'revision': 4,
+        'status': 'rejected',
+        'decision': {'reason': body['reason'], 'by': owner},
+      };
+      expense = copy(withdrawal!);
+      if (lose) {
+        lose = false;
+        throw const ApiException(0, 'Erfolgsantwort verloren');
+      }
+      return copy(withdrawal!);
+    }
+    return super.call(path, body);
+  }
+}
+
 void main() {
+  Future<BusinessSession> show(
+    WidgetTester tester,
+    PersonnelApi api, {
+    Uint8List? bytes,
+  }) async {
+    tester.view.physicalSize = const Size(1500, 1600);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final session = BusinessSession(api: api);
+    await session.load();
+    await tester.pumpWidget(
+      MaterialApp(
+        home: BusinessPersonnelWorkflowPage(
+          session: session,
+          pickFile: () async => XFile.fromData(
+            bytes ?? png,
+            name: 'Vertrag.png',
+            mimeType: 'image/png',
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    return session;
+  }
+
+  testWidgets(
+    'approval withdrawal retains exact command across lost ACK and fresh permission revocation',
+    (tester) async {
+      final api = ExpenseApprovalApi(), session = await show(tester, api);
+      try {
+        await tester.ensureVisible(find.text('Freigabe zurücknehmen'));
+        await tester.tap(find.text('Freigabe zurücknehmen'));
+        await tester.pumpAndSettle();
+        await tester.enterText(
+          find.widgetWithText(TextFormField, 'Prüfvermerk'),
+          'Doppeltes Original vor Zahlung geprüft',
+        );
+        await tester.tap(find.text('Freigabe zurücknehmen').last);
+        await tester.pumpAndSettle();
+        expect(find.text('Erfolgsantwort verloren'), findsOneWidget);
+        await tester.tap(find.text('Schließen'));
+        await tester.pumpAndSettle();
+        api.approve = false;
+        api.generation++;
+        await session.load();
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Unverändert wiederholen'));
+        await tester.pumpAndSettle();
+        expect(api.commands, hasLength(2));
+        expect(find.text('Prüfrecht entzogen'), findsOneWidget);
+        expect(
+          session.pending('personnel-${'e' * 32}-withdraw-approval-3'),
+          isTrue,
+        );
+        expect(api.withdrawal!['payments'], isEmpty);
+        api.approve = true;
+        api.generation++;
+        await session.load();
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Unverändert wiederholen'));
+        await tester.pumpAndSettle();
+        expect(api.commands, hasLength(3));
+        expect(api.commands[0], api.commands[1]);
+        expect(api.commands[0], api.commands[2]);
+        expect(api.commands[0]['revision'], 3);
+        expect(find.text('Freigabe zurücknehmen'), findsNothing);
+        expect(
+          session.pending('personnel-${'e' * 32}-withdraw-approval-3'),
+          isFalse,
+        );
+      } finally {
+        await tester.pumpWidget(const SizedBox.shrink());
+        session.dispose();
+        api.dispose();
+      }
+    },
+    variant: TargetPlatformVariant.only(TargetPlatform.windows),
+  );
+
+  testWidgets(
+    'employee cannot withdraw own approval even with reviewer permission',
+    (tester) async {
+      final api = ExpenseApprovalApi()..viewer = worker,
+          session = await show(tester, api);
+      try {
+        expect(find.text('Freigabe zurücknehmen'), findsNothing);
+      } finally {
+        await tester.pumpWidget(const SizedBox.shrink());
+        session.dispose();
+        api.dispose();
+      }
+    },
+    variant: TargetPlatformVariant.only(TargetPlatform.windows),
+  );
+
+  testWidgets('old server hides unavailable withdrawal action', (tester) async {
+    final api = ExpenseApprovalApi()..modernServer = false,
+        session = await show(tester, api);
+    try {
+      expect(find.text('Freigabe zurücknehmen'), findsNothing);
+    } finally {
+      await tester.pumpWidget(const SizedBox.shrink());
+      session.dispose();
+      api.dispose();
+    }
+  }, variant: TargetPlatformVariant.only(TargetPlatform.windows));
+
   test('cent conversion preserves exact monetary inputs', () {
     expect(personnelMinor('49,87'), 4987);
     expect(personnelMinor('0.01'), 1);
@@ -204,32 +374,6 @@ void main() {
       throwsFormatException,
     );
   });
-  Future<BusinessSession> show(
-    WidgetTester tester,
-    PersonnelApi api, {
-    Uint8List? bytes,
-  }) async {
-    tester.view.physicalSize = const Size(1500, 1600);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
-    final session = BusinessSession(api: api);
-    await session.load();
-    await tester.pumpWidget(
-      MaterialApp(
-        home: BusinessPersonnelWorkflowPage(
-          session: session,
-          pickFile: () async => XFile.fromData(
-            bytes ?? png,
-            name: 'Vertrag.png',
-            mimeType: 'image/png',
-          ),
-        ),
-      ),
-    );
-    await tester.pumpAndSettle();
-    return session;
-  }
 
   testWidgets(
     'private upload lost ACK survives close, fresh denied rights and changed generation with exact retry',

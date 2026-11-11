@@ -243,6 +243,16 @@ Personalakten und Originale sind gesondert geschützt. Reisekostenauslagen werde
 belegt und durch eine andere berechtigte Person freigegeben. Erstattung,
 Rückzahlung und Korrektur behalten ihren tatsächlichen Zahlungsbezug.
 
+Bytegleiche ganze Auslagenbelege sind über Mitarbeiterprofile hinweg gegen
+mehrfache Einreichung, Freigabe und Erstattung gesperrt. Meldet die Software
+einen bereits zugeordneten Beleg, prüft die Personalverwaltung die vorhandenen
+Anträge. Eine andere prüfende Person kann bei noch unbezahlten Anträgen über
+**Freigabe zurücknehmen** mit Prüfvermerk eine neue zurückgewiesene Fassung
+anlegen. Bereits erstattete Anträge benötigen weiterhin eine bestätigte
+tatsächliche vollständige Rückzahlung. Frühere Originale und Freigaben bleiben
+in der Historie. Die neue Aktion benötigt einen entsprechend aktualisierten
+Server. [Genauer Ablauf und Grenzen](CRM_ERP_AUSLAGEN_ORIGINALSPERRE_2026-11-11.md).
+
 Vor einer Lohnberechnung werden die belegten Mitarbeiterdaten und das passende
 Profil gepflegt. Der unterstützte Umfang der 2026-Rechnung steht ausdrücklich
 in der [Lohndokumentation](CRM_ERP_LOHN_RECHENWERK_2026.md). Nicht unterstützte

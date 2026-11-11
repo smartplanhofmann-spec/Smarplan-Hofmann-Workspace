@@ -1,5 +1,11 @@
 # Personalakten, belegte Reisekosten und monatliche Lohnvorbereitung
 
+Ergänzung 11.11.2026: Die [unternehmensweite Originalsperre samt begründeter
+Rücknahme unbezahlter Freigaben](CRM_ERP_AUSLAGEN_ORIGINALSPERRE_2026-11-11.md)
+erweitert den nachstehenden ursprünglichen Ablauf. Neue Einreichung, Freigabe
+und Erstattungsbestätigung vergleichen das ganze Original auch zwischen
+Mitarbeitern; bereits angenommene Quittungen und historische Originale bleiben erhalten.
+
 Stand: 3. November 2026. Backend-Modul: `business_personnel_workflow`; Feature: `personnel_preparation`. Der Ablauf ergänzt die vorhandenen Mitarbeiter-, Zeit- und Abwesenheitsdaten. Er führt keine Brutto-Netto-, Steuer-, Sozialversicherungs- oder Pauschalenberechnung aus.
 
 ## Abgeschlossener Ablauf

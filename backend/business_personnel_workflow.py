@@ -21,7 +21,7 @@ from business_foundation import _fresh, permissions, require_permission
 from business_operations import identifier, iso_date, instant, text, transaction, _image_check
 from workspace_api import BinaryAttachment
 
-FEATURES = ('personnel_preparation',)
+FEATURES = ('personnel_preparation', 'personnel_expense_originals_v2')
 TABLES = ('business_personnel_files', 'business_personnel_events', 'business_personnel_requests')
 MAX_FILE_BYTES = 600_000
 ID = r'[a-f0-9]{32}'
@@ -51,6 +51,7 @@ def schema_statements(binary_type='BYTEA'):
           user_id TEXT NOT NULL REFERENCES users(id),request_id TEXT NOT NULL,
           request_hash TEXT NOT NULL,result_json TEXT NOT NULL,PRIMARY KEY(user_id,request_id))''',
         'CREATE INDEX IF NOT EXISTS business_personnel_employee ON business_personnel_events(employee_id,kind,id,revision)',
+        'CREATE INDEX IF NOT EXISTS business_personnel_kind ON business_personnel_events(kind,id,revision)',
     ]
 
 
@@ -200,6 +201,23 @@ class PersonnelWorkflow:
             '(SELECT 1 FROM business_personnel_events n WHERE n.id=e.id AND n.revision>e.revision) ORDER BY e.created_at,e.id',
             (kind, employee_id)).fetchall()
         return [self._event(row) for row in rows]
+
+    def _ensure_expense_originals_available(self, expense):
+        """Reserve whole originals across employees, inside the write transaction.
+
+        This is an internal company-wide check, never a company-wide list API.
+        Existing accepted command receipts remain authoritative on replay.
+        """
+        hashes = {item['receipt_sha256'] for item in expense['items']}
+        rows = self.db.execute('SELECT ' + ','.join('e.' + name for name in EVENT_COLUMNS.split(',')) +
+            " FROM business_personnel_events e WHERE e.kind='expense' AND e.id<>? AND NOT EXISTS "
+            '(SELECT 1 FROM business_personnel_events n WHERE n.id=e.id AND n.revision>e.revision)',
+            (expense['id'],)).fetchall()
+        for row in rows:
+            other = self._event(row)
+            if other['status'] in ('submitted','approved','reimbursed') and hashes & {item['receipt_sha256'] for item in other['items']}:
+                # Do not disclose another employee, claim, file or amount.
+                raise Problem(409, 'Ein Beleg ist bereits einem eingereichten, freigegebenen oder erstatteten Antrag zugeordnet. Personalverwaltung zur Prüfung kontaktieren.')
 
     def list_records(self, actor, kind, query=None):
         query = query or {}
@@ -375,7 +393,7 @@ class PersonnelWorkflow:
         return self._command(actor, data['employee_id'], 'personnel.write', True, 'expense.saved', data, save)
 
     def expense_action(self, actor, object_id, action, data):
-        fields = {'submit': (), 'approve': ('reason',), 'reject': ('reason',),
+        fields = {'submit': (), 'approve': ('reason',), 'reject': ('reason',), 'withdraw-approval': ('reason',),
                   'reimburse': ('payment_reference','paid_on','amount_minor','confirmed'),
                   'reverse-reimbursement': ('payment_reference','paid_on','amount_minor','confirmed')}
         if action not in fields:
@@ -393,19 +411,27 @@ class PersonnelWorkflow:
             if action == 'submit':
                 if previous['status'] != 'draft':
                     raise Problem(409, 'Nur ein Entwurf kann eingereicht werden.')
-                # A receipt may not fund two currently submitted/approved claims.
-                current_files = {item['receipt_sha256'] for item in previous['items']}
-                for other in self._all('expense', employee['id']):
-                    if other['id'] != object_id and other['status'] in ('submitted','approved','reimbursed') and current_files & {item['receipt_sha256'] for item in other['items']}:
-                        raise Problem(409, 'Ein Beleg ist bereits einem eingereichten oder erstatteten Antrag zugeordnet.')
+                self._ensure_expense_originals_available(previous)
+                from payroll_travel_expenses_2026 import ensure_expense_unreserved
+                ensure_expense_unreserved(self.office, previous)
                 payload.update(status='submitted', submitted_by=fresh['id'], submitted_at=self.now())
-            elif action in ('approve','reject'):
-                if previous['status'] != 'submitted':
-                    raise Problem(409, 'Nur eingereichte Anträge können geprüft werden.')
+            elif action in ('approve','reject','withdraw-approval'):
+                if previous['status'] != ('approved' if action == 'withdraw-approval' else 'submitted'):
+                    raise Problem(409, 'Der Antrag hat nicht den für diese Prüfung erforderlichen Status. Bitte neu laden.')
                 if employee['user_id'] == fresh['id'] or previous['submitted_by'] == fresh['id']:
                     raise Problem(403, 'Ein eigener oder selbst eingereichter Antrag benötigt eine andere prüfende Person.')
                 reason = text(data.get('reason',''), 'Prüfvermerk', 1000, required=True)
-                payload.update(status='approved' if action == 'approve' else 'rejected', decision=dict(by=fresh['id'], at=self.now(), reason=reason))
+                if action == 'approve':
+                    self._ensure_expense_originals_available(previous)
+                if action in ('approve','withdraw-approval'):
+                    from payroll_travel_expenses_2026 import ensure_expense_unreserved
+                    ensure_expense_unreserved(self.office, previous)
+                if action == 'withdraw-approval' and sum(p['amount_minor'] * (1 if p['kind'] == 'reimbursement' else -1) for p in previous['payments']):
+                    raise Problem(409, 'Eine ausgeführte Erstattung benötigt zuerst eine bestätigte vollständige Rückzahlung.')
+                decision = dict(by=fresh['id'], at=self.now(), reason=reason)
+                if action == 'withdraw-approval':
+                    decision['operation'] = 'withdraw-approval'
+                payload.update(status='approved' if action == 'approve' else 'rejected', decision=decision)
             elif action in ('reimburse','reverse-reimbursement'):
                 if action=='reimburse':
                     from payroll_travel_expenses_2026 import ensure_expense_unreserved
@@ -413,6 +439,8 @@ class PersonnelWorkflow:
                 expected = 'approved' if action == 'reimburse' else 'reimbursed'
                 if previous['status'] != expected:
                     raise Problem(409, 'Für diese Zahlungsbestätigung ist der Antragsstatus ungeeignet.')
+                if action == 'reimburse':
+                    self._ensure_expense_originals_available(previous)
                 if data.get('confirmed') is not True or _integer(data.get('amount_minor'), 1) != previous['total_minor']:
                     raise Problem(400, 'Den tatsächlich vollständig gezahlten Betrag ausdrücklich bestätigen.')
                 paid_on = iso_date(data.get('paid_on'))
@@ -722,7 +750,7 @@ def validate_integrity(office):
 def _validate_expense_transition(value, previous, employee_user_id):
     status = value['status']
     allowed = {'draft': ('draft','rejected','approved','reversed'), 'submitted': ('draft',),
-               'approved': ('submitted',), 'rejected': ('submitted',),
+               'approved': ('submitted',), 'rejected': ('submitted','approved'),
                'reimbursed': ('approved',), 'reversed': ('reimbursed',)}
     if status not in allowed or previous and previous['status'] not in allowed[status]:
         raise ValueError('Invalid expense transition')
@@ -743,6 +771,11 @@ def _validate_expense_transition(value, previous, employee_user_id):
     if status == 'submitted' and (value['submitted_by'] != value['created_by'] or instant(value['submitted_at']) > value['created_at']):
         raise ValueError('Invalid expense submission attribution')
     if status in ('approved','rejected'):
+        if status == 'rejected' and previous['status'] == 'approved':
+            if value['decision'].get('operation') != 'withdraw-approval':
+                raise ValueError('Explicit approval withdrawal required')
+            if sum(p['amount_minor'] * (1 if p['kind'] == 'reimbursement' else -1) for p in value['payments']):
+                raise ValueError('Paid approval cannot be withdrawn without repayment')
         decision = value['decision']
         if (decision['by'] != value['created_by'] or instant(decision['at']) > value['created_at']
                 or decision['by'] in (employee_user_id,value['submitted_by']) or not decision['reason'].strip()):
@@ -769,7 +802,7 @@ def methods(path):
         return 'GET'
     if re.fullmatch(r'/personnel/payroll-preparations/' + ID + r'/(?:csv|pdf|json)', path):
         return 'GET'
-    if re.fullmatch(r'/personnel/expenses/' + ID + r'/(?:submit|approve|reject|reimburse|reverse-reimbursement)', path):
+    if re.fullmatch(r'/personnel/expenses/' + ID + r'/(?:submit|approve|reject|withdraw-approval|reimburse|reverse-reimbursement)', path):
         return 'POST'
     return None
 

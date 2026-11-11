@@ -1,5 +1,11 @@
 # CRM/ERP: Anforderungen und Abnahmestand
 
+Fortsetzung 11.11.: Die [Auslagenoriginalsperre über Mitarbeiterprofile hinweg](CRM_ERP_AUSLAGEN_ORIGINALSPERRE_2026-11-11.md)
+schließt den reproduzierten doppelten ganzen Beleg und ergänzt eine begründete
+Rücknahme unbezahlter Freigaben in beiden Clients. 80 betroffene Backendfälle,
+drei tatsächliche PG-/Restorefälle und zwölf native Personalprüfungen bestehen.
+Dieser zusätzliche Teilnachweis schließt weder R09 insgesamt noch A–G pauschal.
+
 Aktueller veröffentlichter Produktquellstand: `ab6b61535a35f8306bbf04ebe6557acdb2ac3f41`.
 Alle 20 eigenen Developmentgruppen, tatsächliche Windows-Paketierung,
 automatischer iPhone-Gerätebuild 215 nach dokumentiertem Runner-Nachlauf und

@@ -584,7 +584,8 @@
       "test_bank_feeds_pg.py",
       "-v"
     ],
-    ["online.test_qonto_own_account", "-v"]
+    ["online.test_qonto_own_account", "-v"],
+    ["online.test_business_expense_originals_pg", "-v"]
   ],
   "browser": [
     {"id": "payroll-rv-lifecycle", "script": "tests/e2e.cjs", "workflow": "payroll-rv-lifecycle"},

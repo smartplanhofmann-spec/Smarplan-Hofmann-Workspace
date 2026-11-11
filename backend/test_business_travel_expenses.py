@@ -37,8 +37,33 @@ class TravelExpenseTests(BusinessFixture,unittest.TestCase):
         self.assertEqual(settlement['calculation']['totals']['tax_free_minor'],2900)
         self.assertEqual(settlement['calculation']['totals']['expense_allowance_minor'],1500)
         self.problem(409,lambda:self.hr.expense_action(self.owner,expense['id'],'reimburse',dict(request_id=rid(),revision=expense['revision'],payment_reference='No double payout',paid_on='2026-10-27',amount_minor=2000,confirmed=True)))
+        self.problem(409,lambda:self.hr.expense_action(self.owner,expense['id'],'withdraw-approval',dict(request_id=rid(),revision=expense['revision'],reason='Cannot withdraw an original already bound to a settlement')))
         paid=record_payment(self.api,self.owner,self.payment(settlement,2900))['result']
         self.assertEqual(public_source(self.office,paid['id'])['cash_movements'][0]['amount'],'29.00')
+        self.assertTrue(validate_integrity(self.office))
+
+    def test_legacy_other_employee_duplicate_blocks_new_travel_settlement_until_unpaid_approval_withdrawn(self):
+        import base64
+        from test_business_expense_originals import PreFixPersonnel
+        expense,original=self.expense()
+        uid=self.office.add_user('legacy-expense@example.test','Synthetic-legacy-expense-password-123','technician')
+        employee=self.call(self.planning,'save_employee',self.owner,dict(request_id=rid(),user_id=uid,name='Other legacy claimant',weekly_minutes=2400,hourly_cost_minor=3500))
+        actor=dict(id=uid,role='technician')
+        content=self.hr.file_content(self.owner,original['id'])[0]
+        duplicate=self.hr.upload(actor,dict(request_id=rid(),employee_id=employee['id'],purpose='expense_receipt',owner_visible=True,
+            filename='other-ticket.pdf',media_type=original['media_type'],content_base64=base64.b64encode(content).decode()))
+        old=PreFixPersonnel(self.office,clock=lambda:self.now)
+        claim=old.save_expense(actor,dict(request_id=rid(),employee_id=employee['id'],revision=0,purpose='Old duplicate ticket',start_date='2026-10-26',end_date='2026-10-26',
+            items=[dict(date='2026-10-26',description='Whole ticket',amount_minor=2000,currency='EUR',receipt_file_id=duplicate['id'])]))
+        claim=old.expense_action(actor,claim['id'],'submit',dict(request_id=rid(),revision=claim['revision']))
+        claim=old.expense_action(self.owner,claim['id'],'approve',dict(request_id=rid(),revision=claim['revision'],reason='Old independent approval'))
+        self.problem(409,lambda:self.settle(expense,original))
+        self.hr.expense_action(self.owner,claim['id'],'withdraw-approval',dict(request_id=rid(),revision=claim['revision'],reason='Duplicate whole original withdrawn before payment'))
+        # Retry settlement of the retained submitted trip; do not create another
+        # overlapping trip merely to recover from the rejected preview.
+        trip=self.api._all('trip',self.employee['id'])[-1]
+        settled=self.api.approve(self.owner,self.approval(trip))['result']
+        self.assertEqual(settled['calculation']['totals']['expense_allowance_minor'],2000)
         self.assertTrue(validate_integrity(self.office))
 
     def test_existing_actual_expense_reimbursement_is_bound_and_not_paid_again(self):

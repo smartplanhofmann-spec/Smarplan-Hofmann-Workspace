@@ -1,0 +1,14 @@
+{
+  "action": "Upload signed Smartplan Office to Apple TestFlight",
+  "bundle_id": "de.smartplanhofmann.office",
+  "functional_source": "ab6b61535a35f8306bbf04ebe6557acdb2ac3f41",
+  "prepared_build": 216,
+  "attempted_interpretation": "Ok. Mach fertig",
+  "automatic_approval_review": "rejected",
+  "reason": "User instruction does not unambiguously authorize concrete signed payload transfer to Apple TestFlight.",
+  "rejected_exec_started": false,
+  "explicit_followup_question_asked": true,
+  "explicit_followup_answer_received": false,
+  "upload_to_testflight": false,
+  "authorization_does_not_cover_new_expense_function": true
+}

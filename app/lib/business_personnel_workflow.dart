@@ -745,6 +745,7 @@ class _BusinessPersonnelWorkflowPageState
           'submit': 'Reisekosten einreichen',
           'approve': 'Reisekosten freigeben',
           'reject': 'Reisekosten zurückweisen',
+          'withdraw-approval': 'Freigabe zurücknehmen',
           'reimburse': 'Erstattung bestätigen',
           'reverse-reimbursement': 'Rückzahlung bestätigen',
         }[operation]!;
@@ -782,6 +783,12 @@ class _BusinessPersonnelWorkflowPageState
           ),
       ],
       (values) {
+        if (operation == 'withdraw-approval' &&
+            !session.hasFeature('personnel_expense_originals_v2')) {
+          throw const FormatException(
+            'Der Server unterstützt die Rücknahme einer Freigabe noch nicht.',
+          );
+        }
         if (payment && values['confirmed'] != true)
           throw const FormatException(
             'Tatsächlich ausgeführte Zahlung ausdrücklich bestätigen.',
@@ -1384,6 +1391,24 @@ class _BusinessPersonnelWorkflowPageState
                                           ? 'Erstattung bestätigen'
                                           : 'Rückzahlung bestätigen',
                                     ),
+                                  ),
+                                if (session.hasFeature(
+                                      'personnel_expense_originals_v2',
+                                    ) &&
+                                    item['status'] == 'approved' &&
+                                    person['user_id'] != userId &&
+                                    item['submitted_by'] != userId &&
+                                    write(
+                                      person,
+                                      permission: 'personnel.approve',
+                                    ))
+                                  TextButton(
+                                    onPressed: () => expenseAction(
+                                      person,
+                                      item,
+                                      'withdraw-approval',
+                                    ),
+                                    child: const Text('Freigabe zurücknehmen'),
                                   ),
                               ],
                             ),

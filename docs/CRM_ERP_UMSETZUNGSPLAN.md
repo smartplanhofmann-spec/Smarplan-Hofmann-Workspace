@@ -1,5 +1,13 @@
 # CRM/ERP – laufender Umsetzungsplan
 
+Fortsetzung 11.11.: [Unternehmensweite Auslagenoriginalsperre und begründete
+Freigaberücknahme](CRM_ERP_AUSLAGEN_ORIGINALSPERRE_2026-11-11.md) gegen den
+tatsächlich roten Mitarbeiterwechsel-Gegenfall implementieren und mit beiden
+Clients, Konkurrenz, alten Quittungen und vollständigem Restore schließen.
+Lokale betroffene Prüfungen bestehen; eigener finaler Browser-/Remote-
+und Paketnachlauf werden ergänzt. Danach verbleibende Code- und Betriebs-
+abnahmen des vollständigen Gesamtziels weiter bearbeiten.
+
 Aktueller veröffentlichter Produktquellstand: `ab6b61535a35f8306bbf04ebe6557acdb2ac3f41`.
 Alle 20 eigenen Developmentgruppen, tatsächliche Windows-Paketierung,
 automatischer iPhone-Gerätebuild 215 nach dokumentiertem Runner-Nachlauf und

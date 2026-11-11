@@ -54,23 +54,29 @@ Komplettrestorefall besteht in 44,962 Sekunden am unveränderten Produktcode:
 Vorsteuer. Quittungen und Exporte bleiben nach Restore exakt erhalten. Eigener
 Container nach voller ID/Label/Loopback-Port entfernt; kein externer Fachnachweis.
 
-## Noch laufende eigene iPhone-Auslieferung des aktuellen Codes
+## Eigene signierte iPhone-Vorbereitung erfolgreich, automatischer Nachlauf offen
 
-- Automatischer unsignierter Release: 42923602365.
-- Eigene signierte Vorbereitung: 42924966961.
-- Beide gehören nach tatsächlich beobachteter Laufkennung exakt zu ab6b615.
-  Ihre endgültigen Ergebnisse und Pakete sind noch abzuwarten.
-- Ausschließlich `prepare_signed_ipa=true`, `upload_to_testflight=false`.
+- Der manuelle Lauf 42924966961 besteht mit beiden Jobs. Signiertes Paket 216,
+  Artefakt 13815294262, 30.028.710 Bytes, ist vorhanden. Tatsächliche Vorprüfung:
+  2.028 Apphauptfälle plus drei native PDF-Fälle, fünf Linux-Auslassungen.
+- Beide Apple-Exporte, endgültige Signatur-/Team-/Keychain-Prüfung und
+  Schlüsselbereinigung sind erfolgreich. TestFlight-Schritt ausgelassen.
+- Der automatische Lauf 42923602365 meldet im ersten Versuch nach 53 Minuten
+  Runnerkontaktverlust; zugrunde liegende Ursache nicht belegt, vollständiges
+  Joblog nicht verfügbar. Der erste Versuch bleibt als Fehler erhalten.
+- Nur der ausgefallene Job wird unverändert wiederholt: Versuch 2,
+  Job 130229438142. Ergebnis und automatisches Paket stehen noch aus.
+- Alle Läufe gehören nach beobachteter Laufkennung exakt zu ab6b615. Nur
+  `prepare_signed_ipa=true`, `upload_to_testflight=false` ist bislang freigegeben.
   Keine TestFlight-Veröffentlichung aus dem Entwicklungsauftrag ableiten.
-- Die überholte Vorbereitung 42918342817 zu 51c404b wurde vor dem ersten
-  Apple-Export ausdrücklich beendet. Die tatsächliche Schlüsselbereinigung
-  ist erfolgreich bestätigt; der Lauf bleibt als abgebrochen dokumentiert.
+- Die überholte Vorbereitung 42918342817 zu 51c404b wurde vor Apple-Export
+  ausdrücklich beendet. Tatsächliche Schlüsselbereinigung erfolgreich bestätigt.
 
-Nächster unmittelbarer Schritt: beide eigenen iPhone-Läufe abschließen,
-Endsignatur/Team/Keychain und Bereinigung prüfen, exakte Paketmetadaten sichern,
-Nachweisprüfer ausführen und den aktuellen Lieferstand mit konkreter Anleitung
-für genau diesen Commit ergänzen. Reinen Belegcommit erst nach den laufenden
-Prüfungen veröffentlichen. Frühere Pakete sind kein Nachweis dieses Nachfolgers.
+Nächster unmittelbarer Schritt: automatische Wiederholung abschließen und
+samt tatsächlich vorhandenen Paketmetadaten sichern, vollständigen Nachweisprüfer
+ausführen und Lieferstand endgültig ergänzen. Reinen Belegcommit erst nach
+laufenden Prüfungen veröffentlichen. Ein fehlgeschlagener früherer Versuch wird
+nicht rückwirkend grün dargestellt. [Pakete und konkrete Anleitung](CRM_ERP_LIEFERSTAND_AKTUELL.md).
 
 ## Gesamtziel, Nutzerentscheidungen und tatsächliche Grenzen
 

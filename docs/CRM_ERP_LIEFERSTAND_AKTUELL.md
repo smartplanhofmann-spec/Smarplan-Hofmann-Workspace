@@ -5,8 +5,10 @@ Stand: 11.11.2026. Aktuelle veröffentlichte Produktquelle:
 `codex/testupdate-0.7-projects-20261104`. Hauptprojekt:
 `/workspace/Smarplan-Hofmann-Workspace`.
 
-Die gemeinsame Developmentprüfung und beide Windows-Pakete sind erfolgreich.
-Die beiden eigenen iPhone-Läufe sind noch nicht abgeschlossen. Der gesamte
+Die gemeinsame Developmentprüfung, beide Windows-Pakete und die tatsächliche
+signierte iPhone-Vorbereitung 216 sind erfolgreich. Der automatische
+iPhone-Erstlauf scheiterte am gemeldeten Runnerkontaktverlust; seine gezielte
+Wiederholung am unveränderten Code läuft noch. Der gesamte
 Produktivabschluss wird deshalb nicht behauptet. Der
 [vorherige vollständig abgeschlossene V16-Paketstand](CRM_ERP_LIEFERSTAND_V16_VOR_RV_2026-11-10.md)
 bleibt unverändert archiviert; seine Pakete enthalten den neuen RV-Umfang nicht.
@@ -66,18 +68,31 @@ von ZIP-Bytes mit HTTP403 blockiert. Die tatsächlichen CI-Bau-/Paket-/Import-/
 Start-/Restoreprüfungen sind davon unabhängig erfolgreich. Die Downloads
 benötigen GitHub-Zugriff und sind befristet.
 
-## Eigene iPhone-Auslieferung: noch in Prüfung
+## Tatsächliches signiertes iPhone-/iPad-Paket 216
 
-- [Automatischer unsignierter Release 42923602365](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42923602365).
-- [Signierte Vorbereitung 42924966961](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42924966961).
+Der eigene [manuelle Lauf 42924966961](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42924966961)
+besteht mit beiden Jobs. Seine Vorprüfung bestätigt 2.028 Apphauptfälle plus
+drei native PDF-Fälle und fünf ausdrücklich ausgewiesene Linux-Auslassungen.
+Analyse, tatsächlicher Gerätebuild, zwei Apple-Exporte und endgültige
+Signatur-/Team-/Keychain-Prüfung sind erfolgreich. Die tatsächliche
+Schlüsselbereinigung ist erfolgreich; der TestFlight-Schritt ist ausgelassen.
 
-Beide sind nach beobachteter Laufkennung an genau ab6b615 gebunden. Endgültige
-Pakete, Signatur-/Team-/Keychain-Prüfung und Schlüsselbereinigung werden erst
-nach tatsächlichem Abschluss ergänzt. `prepare_signed_ipa=true`,
-`upload_to_testflight=false`. Ein signiertes IPA ist keine TestFlight-Verteilung
-oder reale Installation. Die überholte Vorbereitung 42918342817 zu 51c404b ist
-vor dem ersten Apple-Export bewusst beendet; die tatsächliche Schlüsselbereinigung
-ist erfolgreich bestätigt. Sie ist kein Paketnachweis des aktuellen Standes.
+- [Signiertes iPhone-/iPad-Paket 216](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42924966961/artifacts/13815294262): 30.028.710 Bytes; SHA256-Metadatendigest `502747584141d3a9fcf41b1f08ff4a09e11466a63591ff3bdbbae2408f5ab2c2`.
+- [Unsignierte Vorprüfung 216](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42924966961/artifacts/13814424702): 15.123.332 Bytes; SHA256-Metadatendigest `25fac734fb219ffe2457600a61456463acc32b3b39da846cfd3196910e824d64`.
+
+Beide Artefakte gehören laut tatsächlicher Workflowbindung genau zu ab6b615.
+Die automatische Prüfung 42923602365 meldet im ersten Versuch nach 53 Minuten
+Kontaktverlust des gehosteten Runners. Die zugrunde liegende Ursache ist damit
+nicht weiter belegt. Ein vollständiges Joblog ist nicht verfügbar; fehlende
+Logbytes werden nicht als bestandener Test ausgegeben. Der erste Versuch bleibt
+fehlgeschlagen dokumentiert. Ausschließlich sein ausgefallener Job wird ohne
+Produktänderung im zweiten Versuch mit Job 130229438142 wiederholt.
+
+`prepare_signed_ipa=true`, `upload_to_testflight=false`. Ein signiertes IPA ist
+keine TestFlight-Verteilung oder reale Installation. Eine eigene ausdrückliche
+Freigabe zur TestFlight-Übermittlung dieses aktuellen Funktionsstands liegt noch
+nicht vor. Die überholte Vorbereitung 42918342817 zu 51c404b wurde vor dem ersten
+Apple-Export bewusst beendet; die tatsächliche Schlüsselbereinigung ist erfolgreich.
 
 ## Server und tatsächliche Abnahme
 

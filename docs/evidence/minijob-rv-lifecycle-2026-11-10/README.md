@@ -6,10 +6,15 @@ Die korrigierte Quelle besteht alle 20 eigenen Gruppen im Lauf 42923602362.
 Ihr gesamter Backend-, Linux-App-, Windows-, Browser- und PostgreSQLumfang ist
 im aktuellen Arbeitsstand und Lieferstand beschrieben.
 
-Die beiden eigenen iPhone-Läufe 42923602365 und 42924966961 sind noch nicht
-abgeschlossen. `corrected-delivery-pending.json` hält diesen tatsächlichen
+Die manuelle iPhone-Vorbereitung 42924966961 besteht mit beiden Jobs und
+tatsächlich signiertem Paket 216, erfolgreicher Endsignatur-/Team-/Keychain-
+Prüfung sowie Schlüsselbereinigung. Der TestFlight-Schritt ist ausgelassen.
+Die automatische Prüfung 42923602365 verlor im ersten Versuch nach 53 Minuten
+den Runnerkontakt; die zugrunde liegende Ursache ist nicht weiter belegt.
+Das vollständige Joblog ist nicht verfügbar. Nur der ausgefallene Job wird
+unverändert im zweiten Versuch 130229438142 wiederholt; dieser läuft noch. `corrected-delivery-pending.json` hält diesen tatsächlichen
 Zwischenstand fest und ist ausdrücklich kein vollständiger Auslieferungsbeleg.
-Die vorherige überholte signierte Vorbereitung wurde vor Apple-Export beendet;
+Die noch ältere überholte signierte Vorbereitung wurde vor Apple-Export beendet;
 die tatsächliche Schlüsselbereinigung steht im eigenen Abbruchbeleg.
 
 Alle Textlogs mit `.gz` sind verlustfrei gzip-komprimierte Originalausgaben

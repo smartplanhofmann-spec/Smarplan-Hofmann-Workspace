@@ -69,6 +69,12 @@ check(review['own_container']['test_exit_code']==0 and review['own_container']['
 for item in review['logs']:
     raw=gzip.decompress((OUT/item['stored_name']).read_bytes())
     check(len(raw)==item['raw_bytes'] and hashlib.sha256(raw).hexdigest()==item['raw_sha256'],'lossless actual financial PG counterreview '+item['original_name'])
+auto_first=read('corrected-auto-ios-first-failure.json')
+check(auto_first['source_commit']==SOURCE and auto_first['attempt']==1 and auto_first['first_attempt_remains_failed'] is True,'automatic first runner failure remains failed')
+check(any('lost communication with the server' in item['message'] for item in auto_first['actual_github_annotation']),'actual observed runner communication annotation')
+for item in auto_first['raw_files']:
+    raw=gzip.decompress((OUT/item['file']).read_bytes())
+    check(len(raw)==item['raw_bytes'] and hashlib.sha256(raw).hexdigest()==item['raw_sha256'],'lossless first automatic runner failure evidence')
 manifest=optional('corrected-delivery-manifest.json')
 if manifest:
     check(manifest['source_commit']==SOURCE,'delivery source')

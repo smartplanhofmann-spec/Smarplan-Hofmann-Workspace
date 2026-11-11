@@ -1,0 +1,64 @@
+{
+  "source_commit": "ab6b61535a35f8306bbf04ebe6557acdb2ac3f41",
+  "run_id": 42923602365,
+  "attempt": 1,
+  "failed_job_id": 130204330082,
+  "conclusion": "failure",
+  "actual_github_annotation": [
+    {
+      "path": ".github",
+      "blob_href": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/blob/ab6b61535a35f8306bbf04ebe6557acdb2ac3f41/.github",
+      "start_line": 1,
+      "start_column": null,
+      "end_line": 1,
+      "end_column": null,
+      "annotation_level": "failure",
+      "title": "",
+      "message": "The hosted runner lost communication with the server. Anything in your workflow that terminates the runner process, starves it for CPU/Memory, or blocks its network access can cause this error.",
+      "raw_details": ""
+    }
+  ],
+  "underlying_runner_loss_cause_verified": false,
+  "complete_job_log_available": false,
+  "job_log_fetch_error": "BlobNotFound; no complete job log bytes received",
+  "manual_same_source_unsigned_job_id": 130209029249,
+  "manual_actual_successes": {
+    "main_app": 2028,
+    "native_pdf": 3,
+    "declared_linux_skips": 5,
+    "unsigned_build": true
+  },
+  "first_attempt_remains_failed": true,
+  "raw_files": [
+    {
+      "file": "corrected-auto-first-auto-ios-failed-full-job.json.gz",
+      "raw_sha256": "c98bc8ac369ece2378aab9348032938f43d7f331609dd186f996e1e251fb1165",
+      "raw_bytes": 5064
+    },
+    {
+      "file": "corrected-auto-first-auto-ios-failed-annotations.json.gz",
+      "raw_sha256": "ae9ccdfe519487acb2dc1f488b308482e9e50bf743cf266cc94aea20384934a4",
+      "raw_bytes": 553
+    },
+    {
+      "file": "corrected-auto-first-auto-ios-state-after-step-reader-error.json.gz",
+      "raw_sha256": "f835e1835d178ff6aa8712d399e9f8b52c5d32069921433cf60997fe2d93534a",
+      "raw_bytes": 2137
+    },
+    {
+      "file": "corrected-auto-first-corrected-job-130204330082.json.gz",
+      "raw_sha256": "7d67e4a650c42d0f02183513cbf180539bd1f48bfc9c7904c16038d96fbc1506",
+      "raw_bytes": 554
+    },
+    {
+      "file": "corrected-auto-first-corrected-auto-ios-duration-observation.json.gz",
+      "raw_sha256": "dc95fb20a3f9173fb269a22ddd8f7815985c89c2f50d2fa40a393e45e5c696ed",
+      "raw_bytes": 220
+    },
+    {
+      "file": "corrected-auto-first-obsolete-unsigned-duration-comparison.json.gz",
+      "raw_sha256": "1bf65d8142f4fdeeb2d57a70144b6c7af0bd3ea9e5efbbddac0bde0d918fa3bc",
+      "raw_bytes": 450
+    }
+  ]
+}

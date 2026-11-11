@@ -1,0 +1,12 @@
+{
+  "asked_at_utc": "2026-11-11T00:32:51.019825+00:00",
+  "requested_functional_source": "ab6b61535a35f8306bbf04ebe6557acdb2ac3f41",
+  "reviewable_signed_preparation_build": 216,
+  "reviewable_signed_artifact_id": 13815294262,
+  "condition": "Only after the pending exact-source automatic retry has actually succeeded",
+  "user_answer_received": false,
+  "testflight_upload_approved": false,
+  "testflight_uploaded": false,
+  "earlier_pending_question_for_build210_is_not_approval_for_this_functional_source": true,
+  "reason": "Original goal separates publishing from development; only signed preparation had previously been authorized"
+}

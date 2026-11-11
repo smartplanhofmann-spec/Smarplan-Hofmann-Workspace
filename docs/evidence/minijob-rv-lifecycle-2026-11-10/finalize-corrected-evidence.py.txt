@@ -1,0 +1,75 @@
+"""Capture exact current RV delivery evidence; no publishing or external data IO."""
+from pathlib import Path
+import datetime,gzip,hashlib,json,subprocess,sys
+
+ROOT=Path('/workspace/Smarplan-Hofmann-Workspace')
+OUT=ROOT/'docs/evidence/minijob-rv-lifecycle-2026-11-10'
+SOURCE='ab6b61535a35f8306bbf04ebe6557acdb2ac3f41'
+
+def read(name):return json.loads((OUT/name).read_text())
+def required_success(name,expected=None):
+    data=read(name);jobs=data['jobs']
+    if expected is not None:assert len(jobs)==expected
+    assert all(j['status']=='completed' and j['conclusion']=='success' for j in jobs)
+    return data
+
+dev=required_success('corrected-development-final.json',20)
+signed=required_success('corrected-signed-preparation-final.json',2)
+signjob=next(j for j in signed['jobs'] if any(s['name']=='Zu TestFlight hochladen' for s in j['steps']))
+assert next(s for s in signjob['steps'] if s['name']=='Zu TestFlight hochladen')['conclusion']=='skipped'
+assert next(s for s in signjob['steps'] if s['name']=='API-Schluessel loeschen')['conclusion']=='success'
+assert not subprocess.check_output(['git','-C',str(ROOT),'diff','--name-only',SOURCE,'--','app','backend','web','scripts','.github']).strip()
+
+auto_ready=False
+if (OUT/'corrected-auto-ios-final.json').is_file():
+    jobs=read('corrected-auto-ios-final.json')['jobs']
+    primary=[j for j in jobs if j['name']=='Online-Release ohne Apple-Zugang pruefen']
+    auto_ready=len(primary)==1 and primary[0]['status']=='completed' and primary[0]['conclusion']=='success'
+if '--allow-pending' not in sys.argv:assert auto_ready,'Actual successful automatic retry still required'
+
+own=read('corrected-own-workflows.json')
+assert all(r['head_sha']==SOURCE for r in own)
+raw_files={}
+for path in sorted(OUT.rglob('*')):
+    if not path.is_file():continue
+    if path.name in ['corrected-delivery-manifest.json','corrected-delivery-verification.json']:continue
+    data=path.read_bytes();raw_files[str(path.relative_to(OUT))]={'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}
+
+artifacts={}
+for name,run_id in [('corrected-development-artifacts.json',42923602362),('corrected-signed-artifacts.json',42924966961),('corrected-auto-ios-artifacts.json',42923602365)]:
+    if not (OUT/name).is_file():continue
+    for item in read(name)['artifacts']:
+        assert item['workflow_run']['head_sha']==SOURCE and item['workflow_run']['id']==run_id
+        if item['name'] in ['Smartplan-Office-Windows','Smartplan-Office-Windows-Online-Pilot','Smartplan-Office-iOS-216','Smartplan-Office-iOS-UNSIGNED-216'] or 'UNSIGNED' in item['name'] and run_id==42923602365:
+            artifacts[item['name']]={'id':item['id'],'run_id':run_id,'bytes':item['size_in_bytes'],'github_metadata_digest':item['digest'],'expires_at':item['expires_at'],'local_zip_bytes_verified':False}
+
+manifest={
+    'schema_version':1,
+    'captured_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    'source_commit':SOURCE,
+    'source_published_on_authorized_test_branch':True,
+    'authorized_branch':'codex/testupdate-0.7-projects-20261104',
+    'status':'own_full_development_windows_actual_signed_216_pass_automatic_retry_'+('pass' if auto_ready else 'pending'),
+    'original_goal_unchanged':True,
+    'historical_payroll_modules_unchanged':63,
+    'development':{'run_id':42923602362,'all_20_jobs':'success','backend':{'cases':2225,'seconds':1023.039,'skips':3},'linux':{'main_app':2033,'native_pdf':3},'windows':{'main_app':1988,'native_pdf':3,'portable_backend':81},'browser_modules':1119,'browser_groups':6,'postgres_api_groups':6},
+    'manual_iphone':{'run_id':42924966961,'all_2_jobs':'success','main_app':2028,'native_pdf':3,'declared_linux_skips':5,'build_number':216,'unsigned_artifact_id':13814424702,'signed_artifact_id':13815294262,'final_signature_team_keychain':'success','key_cleanup':'success','testflight_step':'skipped'},
+    'automatic_iphone':{'run_id':42923602365,'first_attempt':'failed_hosted_runner_communication_loss','underlying_failure_cause_verified':False,'original_complete_job_log_available':False,'retry_attempt':2,'retry_job_id':130229438142,'retry':'success' if auto_ready else 'pending'},
+    'frozen_package_archive':{'cases':22,'seconds':17.556,'source_commit':SOURCE,'actual_frozen_mfa_rv_browser_asset_case_pass':True},
+    'additional_actual_postgres_financial_counterreview':{'cases':1,'seconds':44.962,'product_runtime_unchanged':True,'net_minor':58129,'remittance_minor':20966,'euer_expenses':'790.95','input_vat':'0.00','concurrent_original_receipt_exact':True,'old_cash_and_euer_export_exact_after_full_restore':True,'own_container_verified_removed':True},
+    'artifacts':artifacts,
+    'artifact_digests_origin':'actual GitHub artifact metadata, not independently downloaded local ZIP bytes',
+    'server_updated':False,
+    'last_user_confirmed_server_commit':'a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5',
+    'testflight_uploaded':False,
+    'real_device_tests_performed':False,
+    'prepared_unperformed_device_cases':34,
+    'external_fiscal_approval':False,
+    'independent_security_acceptance':False,
+    'overall_acceptance_complete':False,
+    'overall_acceptances_closed':0,
+    'additional_supported_scope_does_not_close_remaining_code_or_business_cases':True,
+    'raw_files':raw_files,
+}
+(OUT/'corrected-delivery-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({'source_commit':SOURCE,'raw_files':len(raw_files),'automatic_retry_ready':auto_ready,'manifest_written':True,'server_updated':False,'testflight_uploaded':False,'overall_acceptance_complete':False},ensure_ascii=False,indent=2))

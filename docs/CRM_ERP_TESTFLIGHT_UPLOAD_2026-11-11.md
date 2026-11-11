@@ -1,6 +1,6 @@
 # Ausdrücklich freigegebener TestFlight-Upload
 
-Stand: 11.11.2026, laufender Auslieferungsvorgang.
+Stand: 11.11.2026, Upload von Apple angenommen um 14:25:35 Uhr Europe/Berlin.
 
 Der Nutzer hat die konkrete Frage zum Upload von Smartplan Office,
 Bundle-ID `de.smartplanhofmann.office`, Funktionsstand `4bb5071`, geprüftem
@@ -28,7 +28,7 @@ betreffen Dokumentation. Die unveränderte Originalzieldatei behält ihre
 `a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5`.
 Der frühere signierte Vorbereitungsnachweis bleibt ausdrücklich bei Upload false.
 
-## Ergebnisgrenzen
+## Tatsächliches Ergebnis
 
 Die eigene Vorprüfung 130520300731 ist vollständig erfolgreich:
 2.031 Apphauptfälle mit fünf ausgewiesenen Linux-Auslassungen, drei native
@@ -38,12 +38,42 @@ Das unsignierte Artefakt 13855909165 ist kein installierbares iPhone-Paket.
 Seine GitHub-Metadaten nennen 15.123.862 Bytes und äußere Artefakt-SHA256
 `a6bccd8fadf8c1784a598a53760d9130fb08e675335eb58767e3f35304d91021`.
 
-Der signierte Auslieferungsjob 130539182159 läuft. Der Upload ist noch nicht
-erfolgreich bestätigt. Signatur, Apple-Annahme und Schlüsselbereinigung werden
-aus den tatsächlichen Ergebnissen dieses Laufs übernommen. Apple-Verarbeitung,
-Freischaltung für Tester und Installation auf einem echten Gerät sind
-anschließende getrennte Nachweise. Ein erfolgreicher Upload allein belegt
-diese Schritte nicht.
+Auch der signierte Auslieferungsjob 130539182159 und der gesamte Lauf sind
+erfolgreich abgeschlossen. Beide Apple-Exporte, finale Codesignatur,
+Team-/Keychain-/Debugger-Prüfung, tatsächlicher Upload und Bereinigung des
+temporären API-Schlüssels sind erfolgreich. Beide Auslieferungsschalter sind
+im tatsächlichen Jobprotokoll true.
+
+Apple bestätigt im Uploadprotokoll am 11.11.2026 um **14:25:35 Uhr**
+Europe/Berlin (`2026-11-11T13:25:35Z`):
+
+> UPLOAD SUCCEEDED with no errors
+>
+> Delivery UUID: 67e7fe99-4cad-41fc-83f9-e89da98777eb
+
+Das [signierte Paket 0.13.0 / Build 221](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/43019931541/artifacts/13860365797)
+hat Artefaktkennung 13860365797, 30.029.391 Bytes und GitHub-Metadaten-SHA256
+`40e004775cfb1d59ec1b696ee64652a98c2bbc9cc77c684a0c4e48d32bab4222`.
+Diese Prüfsumme bezeichnet das äußere GitHub-Artefakt-ZIP; dieses wurde hier
+nicht erneut lokal heruntergeladen. Der Workflow selbst prüft das exportierte
+IPA und legt dessen Manifest sowie SHA256 vor dem Upload ab.
+
+## Anschließende Prüfung
+
+Apples Verarbeitung, tatsächliche Verfügbarkeit für die bestehende Testgruppe
+und Installation auf einem echten iPhone sind noch nicht beobachtet.
+Der Uploadnachweis setzt keinen dieser Zustände auf erfolgreich.
+Nach der Verarbeitung in der vorhandenen TestFlight-App bei Smartplan Office
+nach Version 0.13.0 / Build 221 sehen und gegebenenfalls aktualisieren.
+Falls der Build nicht automatisch in der bestehenden Gruppe „Smartplan intern“
+erscheint, die Buildzuordnung im vorhandenen App-Store-Connect-Eintrag prüfen.
+Keine neue Apple-Mitgliedschaft, App-ID oder Testergruppe ist dafür nötig.
+
+Der neue [Ergebnisbeleg](evidence/testflight-upload-2026-11-11/result.json)
+und das eigene Prüfskript binden Freigabe, Quellvergleich, beide erfolgreichen
+Jobs, Apple-Annahme und Artefaktkennungen zusammen. Die frühere Vorbereitung
+220 bleibt unverändert ohne Upload. Alle 37 vorbereiteten echten Gerätefälle
+und die Gesamtabnahmen bleiben offen; der Server wurde hier nicht aktualisiert.
 
 Die Rohbelege werden unter
 [`docs/evidence/testflight-upload-2026-11-11/`](evidence/testflight-upload-2026-11-11/)

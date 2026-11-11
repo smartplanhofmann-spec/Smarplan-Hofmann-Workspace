@@ -1,0 +1,109 @@
+#!/usr/bin/env python3
+"""Verify the recorded, explicitly authorized upload; perform no network calls."""
+import gzip
+import hashlib
+import json
+import re
+import subprocess
+from pathlib import Path
+
+
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[2]
+
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def read(name):
+    data = (HERE / name).read_bytes()
+    if name.endswith('.gz'):
+        data = gzip.decompress(data)
+    return json.loads(data)
+
+
+manifest = read('manifest.json')
+assert manifest['verifier_sha256'] == sha(Path(__file__).read_bytes())
+for item in manifest['files']:
+    data = (HERE / item['path']).read_bytes()
+    assert len(data) == item['bytes'] and sha(data) == item['sha256'], item['path']
+    if item['path'].endswith('.gz'):
+        raw = gzip.decompress(data)
+        assert len(raw) == item['uncompressed_bytes'], item['path']
+        assert sha(raw) == item['uncompressed_sha256'], item['path']
+
+authorization = read('authorization.json')
+result = read('result.json')
+comparison = read('dispatched-source-comparison.json')
+approved = '4bb5071891344a38f640d8ae43ec240c1f95e61e'
+source = 'e9bdb46c9679e52944d6614e7b731c41d7dfa94e'
+assert authorization['answer'] == 'Ja, diesen Funktionsstand an Apple TestFlight hochladen'
+assert authorization['functional_source'] == approved
+assert authorization['authorizes_new_build_with_identical_program_code'] is True
+assert authorization['authorized_target'] == 'Apple TestFlight'
+assert authorization['bundle_id'] == result['bundle_id'] == 'de.smartplanhofmann.office'
+assert result['functional_source'] == comparison['approved_functional_source'] == approved
+assert result['run_source'] == comparison['actual_workflow_source'] == source
+assert result['authorized_ref'] == authorization['authorized_ref']
+for name, trees in comparison['trees'].items():
+    actual = subprocess.check_output(['git', 'rev-parse', f'{source}:{name}'], cwd=ROOT, text=True).strip()
+    baseline = subprocess.check_output(['git', 'rev-parse', f'{approved}:{name}'], cwd=ROOT, text=True).strip()
+    assert actual == baseline == trees['approved_tree'] == trees['dispatched_tree']
+changed = subprocess.check_output(['git', 'diff', '--name-only', approved, source], cwd=ROOT, text=True).splitlines()
+assert len(changed) == comparison['changed_path_count'] and all(p.startswith('docs/') for p in changed)
+goal = (ROOT / 'CRM_ERP_Gesamtziel.txt').read_bytes()
+assert len(goal) == 23863 and sha(goal) == 'a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5'
+
+run = read('final-run.json.gz')
+jobs = read('final-jobs.json.gz')['jobs']
+artifacts = read('final-artifacts.json.gz')['artifacts']
+assert run['id'] == result['run_id'] == 43019931541
+assert run['run_attempt'] == result['run_attempt'] == 1
+assert run['head_sha'] == source and run['event'] == 'workflow_dispatch'
+assert run['head_branch'] == 'codex/testupdate-0.7-projects-20261104'
+assert run['status'] == 'completed' and run['conclusion'] == 'success'
+assert len(jobs) == 2 and all(j['conclusion'] == 'success' for j in jobs)
+preflight = next(j for j in jobs if j['id'] == 130520300731)
+signed = next(j for j in jobs if j['id'] == 130539182159)
+for job in [preflight, signed]:
+    assert job['run_id'] == run['id']
+    assert all(s['status'] == 'completed' and s['conclusion'] == 'success' for s in job['steps'])
+steps = {s['name']: s for s in signed['steps']}
+for name in ['Auslieferungsauswahl vor Apple-Zugriff pruefen',
+             'Signiertes iPhone-/iPad-Paket pruefen',
+             'Zu TestFlight hochladen', 'API-Schluessel loeschen']:
+    assert steps[name]['conclusion'] == 'success'
+
+preflight_log = gzip.decompress((HERE / 'job-130520300731-log.txt.gz').read_bytes()).decode('utf-8')
+signed_log = gzip.decompress((HERE / 'job-130539182159-log.txt.gz').read_bytes()).decode('utf-8')
+assert re.search(r'\+2031 ~5: All tests passed!', preflight_log)
+assert re.search(r'\+3: All tests passed!', preflight_log)
+assert 'Build-Nummer: 221' in preflight_log
+assert 'SMARTPLAN_PREPARE_IPA: true' in signed_log
+assert 'SMARTPLAN_UPLOAD_TESTFLIGHT: true' in signed_log
+assert '2026-11-11T13:25:35.0441370Z UPLOAD SUCCEEDED with no errors' in signed_log
+assert 'Delivery UUID: ' + result['delivery_uuid'] in signed_log
+assert result['delivery_uuid'] == '67e7fe99-4cad-41fc-83f9-e89da98777eb'
+assert result['apple_acceptance_confirmed'] is True
+assert result['temporary_key_cleanup_success'] is True
+
+for label, artifact_id, size, digest in [
+    ('signed_artifact', 13860365797, 30029391, 'sha256:40e004775cfb1d59ec1b696ee64652a98c2bbc9cc77c684a0c4e48d32bab4222'),
+    ('unsigned_artifact', 13855909165, 15123862, 'sha256:a6bccd8fadf8c1784a598a53760d9130fb08e675335eb58767e3f35304d91021'),
+]:
+    artifact = next(a for a in artifacts if a['id'] == artifact_id)
+    assert artifact == result[label]
+    assert artifact['size_in_bytes'] == size and artifact['digest'] == digest
+    assert artifact['workflow_run']['head_sha'] == source
+    assert artifact['expired'] is False
+assert result['build_number'] == 221 and result['version'] == '0.13.0'
+assert result['artifact_zip_downloaded_locally'] is False
+assert result['apple_processing_observed'] is False
+assert result['tester_availability_observed'] is False
+assert result['device_installation_observed'] is False
+assert result['real_device_cases_performed'] == 0
+print(json.dumps({'status': 'passed', 'run_id': run['id'], 'functional_source': approved,
+                  'workflow_source': source, 'build': 221, 'apple_upload_accepted': True,
+                  'apple_processing_observed': False, 'device_installation_observed': False,
+                  'files_verified': len(manifest['files'])}, ensure_ascii=False))

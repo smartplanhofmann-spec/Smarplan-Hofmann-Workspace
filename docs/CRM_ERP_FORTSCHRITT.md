@@ -5150,3 +5150,38 @@ Gegenüber dem freigegebenen 4bb5071 sind ausschließlich Dokumente geändert;
 sämtliche Programm- und Workflowbäume stimmen exakt überein. Der bestehende
 Ablauf beginnt mit seiner eigenen Appvorprüfung. Eine laufende Vorprüfung ist
 keine Uploadbestätigung und keine Bestätigung der Verarbeitung oder Installation.
+
+
+## 11.11.2026 – ausdrücklich freigegebener TestFlight-Upload 221 angenommen
+
+Die konkrete Nutzerantwort „Ja, diesen Funktionsstand an Apple TestFlight
+hochladen“ autorisiert Smartplan Office, Bundle-ID de.smartplanhofmann.office,
+Funktionsstand 4bb5071 und einen neuen Build mit identischem Programmcode.
+Der vorhandene Workflow wurde genau einmal mit beiden Schaltern true auf dem
+autorisierten Testbranch gestartet. Lauf 43019931541, Quelle e9bdb46, besteht
+mit beiden Jobs. Tatsächlicher Git-Objektvergleich: app/backend/web/scripts/
+.github/deploy sind zum freigegebenen 4bb5071 identisch; dazwischen nur Dokumentation.
+
+Die eigene Vorprüfung besteht 2.031 Apphauptfälle mit fünf Linux-Auslassungen
+und drei native PDF-Fälle, Analyse, echten Gerätebau und Paket-/Manifestprüfung.
+Tatsächlicher Build 221, Version 0.13.0. Beide Apple-Exporte und finale
+Signatur-/Team-/Keychain-/Debugger-Prüfung bestehen. Apple bestätigt am
+11.11.2026 um 14:25:35 Uhr Europe/Berlin (`2026-11-11T13:25:35Z`)
+„UPLOAD SUCCEEDED with no errors“, Delivery UUID
+67e7fe99-4cad-41fc-83f9-e89da98777eb. Die temporäre Schlüsselbereinigung besteht.
+Signiertes Artefakt 13860365797: 30.029.391 Bytes, äußere GitHub-ZIP-SHA256
+40e004775cfb1d59ec1b696ee64652a98c2bbc9cc77c684a0c4e48d32bab4222.
+Kein erneuter lokaler Binärdownload behauptet.
+
+[Uploadnachweis](CRM_ERP_TESTFLIGHT_UPLOAD_2026-11-11.md) mit eigenen
+verlustfrei archivierten Joblogs, API-Metadaten, Freigabe und Quellvergleich
+liegt im Repository. Die frühere signierte Vorbereitung 220 bleibt unverändert
+bei Upload false; ihre historischen technischen Nachweise werden nicht umgedeutet.
+Apple-Verarbeitung, Testerverfügbarkeit und Installation sind noch nicht
+beobachtet. Kein neuer Serverupdate; alle 37 echten Gerätefälle bleiben offen.
+Der vollständige Gesamtauftrag und verbleibende Code-/Facharbeiten bleiben aktiv.
+
+Eigenständiger Uploadnachweisprüfer tatsächlich erfolgreich: 16 archivierte
+Dateien mit komprimierten/entpackten Hashes, Freigabe, sechs identischen
+Quellbäumen, beiden Jobs, echten Testzählern, Apple-Annahme und Artefaktkennungen.
+Ergebnis in `evidence/testflight-upload-2026-11-11/final-verification.json`.

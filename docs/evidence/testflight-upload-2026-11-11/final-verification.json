@@ -1,0 +1,18 @@
+{
+  "recorded_at_utc": "2026-11-11T13:31:31.767123+00:00",
+  "command": "python docs/evidence/testflight-upload-2026-11-11/verify-upload-evidence.py.txt",
+  "observed_exit_code": 0,
+  "observed_result": {
+    "status": "passed",
+    "run_id": 43019931541,
+    "functional_source": "4bb5071891344a38f640d8ae43ec240c1f95e61e",
+    "workflow_source": "e9bdb46c9679e52944d6614e7b731c41d7dfa94e",
+    "build": 221,
+    "apple_upload_accepted": true,
+    "apple_processing_observed": false,
+    "device_installation_observed": false,
+    "files_verified": 16
+  },
+  "manifest_sha256": "8dd687dc4436a3beca86982541475e8eeaba68662fb733c197408afbbc263230",
+  "verifier_sha256": "bbcc56b4303c32366fad950a3bb7f5ad0f47f70cdf4e1d6213edfb00047ab93e"
+}

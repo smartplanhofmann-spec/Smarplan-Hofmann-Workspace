@@ -93,10 +93,16 @@ hochladen“ beantwortet. Die Freigabe ist im separaten Uploadnachweis festgehal
 Der vorhandene
 Auslieferungsweg erstellt für den Upload einen neuen Build mit identischem
 Programmcode. Der bisherige Vorbereitungsnachweis bleibt bei Upload false.
-Der neue ausdrücklich freigegebene Uploadlauf 43019931541 ist gestartet, Quelle
-e9bdb46 bei identischen Programmdateien zu 4bb5071. Er verwendet beide
-Schalter true. Tatsächlicher Upload, Apple-Verarbeitung und Installation sind
-noch nicht bestätigt und werden separat geprüft.
+Der neue ausdrücklich freigegebene [Uploadlauf 43019931541](CRM_ERP_TESTFLIGHT_UPLOAD_2026-11-11.md)
+ist mit beiden Jobs erfolgreich abgeschlossen. Quelle e9bdb46 hat identische
+Programmbäume zu 4bb5071. Build 221 besteht 2.031 Apphauptfälle mit fünf
+Linux-Auslassungen, drei native PDF-Fälle, Gerätebau, beide Apple-Exporte und
+finale Signatur-/Team-/Keychain-Prüfung. Apple bestätigt den tatsächlichen Upload
+am 11.11.2026 um 14:25:35 Uhr Europe/Berlin mit „UPLOAD SUCCEEDED with no errors“,
+Delivery UUID 67e7fe99-4cad-41fc-83f9-e89da98777eb. Signiertes Artefakt
+13860365797 und Schlüsselbereinigung sind erfolgreich. Apple-Verarbeitung,
+Testerverfügbarkeit und Installation sind noch nicht bestätigt. Der frühere
+Vorbereitungsnachweis 220 bleibt unverändert bei Upload false.
 
 Deutschland/EUR, Einzelunternehmen/EÜR, Regelbesteuerung/Ist, 19 %, SKR04,
 Nettopreise; reguläre Mitarbeiter und gewerbliche Minijobs. Die frühere

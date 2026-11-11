@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-11T13:30:48.626898+00:00",
+  "scope": "Explicitly authorized TestFlight upload of functional source 4bb5071 via unchanged existing workflow; new build 221 accepted by Apple. Prior preparation evidence remains unchanged.",
+  "run_id": 43019931541,
+  "files": [
+    {
+      "path": "authorization.json",
+      "bytes": 1431,
+      "sha256": "a2a6e7fa0cf111277ff3965c0eb05fab6ef4aa5ac9f097697705bb0def833e3e"
+    },
+    {
+      "path": "dispatch.json",
+      "bytes": 591,
+      "sha256": "c084691b54ac8d45317acff4badcea6d88eb065b830994625a8ad9d85e07ca39"
+    },
+    {
+      "path": "dispatched-source-comparison.json",
+      "bytes": 1371,
+      "sha256": "25fde473464b7ca62db8035a003a094f1b98bf6c97b09cd486fbf304c2fbe4a0"
+    },
+    {
+      "path": "final-artifacts.json.gz",
+      "bytes": 627,
+      "sha256": "1140f2c9dd2f1574abca6860391a0cc06e0b4e87e29d45c9799d62406fef5d48",
+      "uncompressed_bytes": 1949,
+      "uncompressed_sha256": "66e4a681179ada7d7b9d270fbd9eea02d37524c9ae4307d3f6a11ce6c8a655a1"
+    },
+    {
+      "path": "final-jobs.json.gz",
+      "bytes": 1691,
+      "sha256": "4e86ee35a1d2117fc1964bd06d11205b10b34fcda5d81e539d19252f3c06fd5d",
+      "uncompressed_bytes": 13286,
+      "uncompressed_sha256": "2c7e571cadbcc6ff1a4c59950bd8ca536c22def66a826e0733b64afa162abf7e"
+    },
+    {
+      "path": "final-run.json.gz",
+      "bytes": 1688,
+      "sha256": "a1ec933a5945511d65e4605a271e3ce9a398f32ad07d9b10b6c94ded3a244dc1",
+      "uncompressed_bytes": 16540,
+      "uncompressed_sha256": "2341f9683017790cb74df088af20a76c1bcadf14a229c97c95e05cc1503860d3"
+    },
+    {
+      "path": "job-130520300731-log.txt.gz",
+      "bytes": 66849,
+      "sha256": "e0be3be16dcfbc6fb40eae1358280c99c5ba5bf6aa5155ed27c14eedac4da0fa",
+      "uncompressed_bytes": 605107,
+      "uncompressed_sha256": "5bb5e014011eddf286160fc9836725dd6df2ad60b13b0123de6991b650e3f5de"
+    },
+    {
+      "path": "job-130539182159-log.txt.gz",
+      "bytes": 140176,
+      "sha256": "9f88b950a659bbaa4b1fdaa2575c82c1f7708df78fb63d1c12826e9503f80d5e",
+      "uncompressed_bytes": 1463851,
+      "uncompressed_sha256": "ee2d589704c2791ab7656c3ffd9f65e4a2f7ee8a193af6e2c9990a244f941471"
+    },
+    {
+      "path": "observation-01-jobs.json",
+      "bytes": 3007,
+      "sha256": "b0b6d2588732edfd1f9b066f357e41e1f9b6a6cad93e6627c2681c9f52139401"
+    },
+    {
+      "path": "observation-01-run.json",
+      "bytes": 16537,
+      "sha256": "09b090a591903a8fa59d2adcc98045123f4c2729a8172a80c21101a8b0d2db7a"
+    },
+    {
+      "path": "preflight-complete-artifacts.json.gz",
+      "bytes": 513,
+      "sha256": "af2303f8694bed264d9368f4a24051ee727db6a764493945bc48d24f2479e5ae",
+      "uncompressed_bytes": 1001,
+      "uncompressed_sha256": "75c0c4756c30d216a39a277f9dc0dfd152943c6d7e2a21cddc5a26185f4e2b88"
+    },
+    {
+      "path": "preflight-complete-jobs.json.gz",
+      "bytes": 1659,
+      "sha256": "6cfb694a0e7735e0f1c22fecd8822fa996e11c4ac55bb25bb45678ddb4932375",
+      "uncompressed_bytes": 12088,
+      "uncompressed_sha256": "87e7699ab01d2419f14cfa4007c2d5af83e09517382f6f3ea48a7c3a426dc218"
+    },
+    {
+      "path": "preflight-complete-run.json.gz",
+      "bytes": 1686,
+      "sha256": "b77a78534fcb71935085608239247691f663277e0fe7a4a00d41d8f6d5faf0e3",
+      "uncompressed_bytes": 16537,
+      "uncompressed_sha256": "57c02eabd83c30f086fc434f1f9c8a300a181f8e6800092c792e7d166c8f8786"
+    },
+    {
+      "path": "preflight-results.json",
+      "bytes": 413,
+      "sha256": "bbb1df5ee871288477054bfc1b0cad2d0a59fab7ee23ca8fbad8108629ee9000"
+    },
+    {
+      "path": "result.json",
+      "bytes": 3493,
+      "sha256": "f18d8338de847a518aaca572378f753b8e36540c8f8a842a0d4a70b73ff07727"
+    },
+    {
+      "path": "source-comparison.json",
+      "bytes": 11161,
+      "sha256": "a60df27ab085fd835c931e6e93e47bd01be0181d6b5480e5804dfed166e9c504"
+    }
+  ],
+  "verifier_sha256": "bbcc56b4303c32366fad950a3bb7f5ad0f47f70cdf4e1d6213edfb00047ab93e",
+  "raw_logs_preserve_decoded_github_log_utf8_bytes": true,
+  "api_json_is_canonical_serialization_of_connector_response": true,
+  "artifact_hashes_are_github_outer_artifact_zip_metadata": true,
+  "apple_processing_and_device_installation_unconfirmed": true
+}

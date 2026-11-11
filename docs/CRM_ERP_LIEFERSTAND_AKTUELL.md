@@ -81,14 +81,41 @@ ist tatsächlich ausgelassen.
 30.029.207 Bytes, Quelle 4bb5071, Bundle-ID `de.smartplanhofmann.office`,
 GitHub-Metadaten-SHA256
 `f7da31a9314c1ebf702ab013d9f46414154ed75fa94387f927c77f75d566877b`.
-Die signierte Vorbereitung ist vollständig technisch geprüft; eine tatsächliche
-TestFlight-Übermittlung, Verarbeitung bei Apple oder Geräteinstallation liegt
-noch nicht vor.
+Diese signierte Vorbereitung ist vollständig technisch geprüft. Ihr eigener
+TestFlight-Schritt ist ausgelassen; sie belegt keine Übermittlung oder Installation.
 
 Das getrennte unsignierte Vorprüfpaket 220 hat Artefaktkennung 13834413616,
 15.123.860 Bytes und GitHub-Metadaten-SHA256
 `699a20089717b9ab2a32438a459c9f5fd39448fa55829c2d7ac4ea72364147eb`.
 Alle Pakete und die drei eigenen Läufe sind derselben Produktquelle zugeordnet.
+
+## Tatsächlicher TestFlight-Upload 221
+
+Der ausdrücklich freigegebene [Lauf 43019931541](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/43019931541)
+ist mit beiden Jobs erfolgreich abgeschlossen. Seine Quelle e9bdb46 hat in
+`app`, `backend`, `web`, `scripts`, `.github` und `deploy` identische Bäume zu
+4bb5071. Version 0.13.0 / Build **221** besteht die eigene Vorprüfung mit
+2.031 Apphauptfällen, fünf ausgewiesenen Linux-Auslassungen und drei nativen
+PDF-Fällen. Gerätebau, beide Apple-Exporte, finale Signatur-/Team-/Keychain-
+Prüfung, tatsächlicher Upload und temporäre Schlüsselbereinigung sind erfolgreich.
+
+Apple bestätigt am **11.11.2026 um 14:25:35 Uhr Europe/Berlin**
+„UPLOAD SUCCEEDED with no errors“, Delivery UUID
+`67e7fe99-4cad-41fc-83f9-e89da98777eb`.
+
+[Signiertes iPhone-Paket 221](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/43019931541/artifacts/13860365797):
+30.029.391 Bytes, äußere GitHub-Artefakt-SHA256
+`40e004775cfb1d59ec1b696ee64652a98c2bbc9cc77c684a0c4e48d32bab4222`.
+Das unsignierte Vorprüfpaket 221 hat Artefaktkennung 13855909165,
+15.123.862 Bytes, äußere GitHub-Artefakt-SHA256
+`a6bccd8fadf8c1784a598a53760d9130fb08e675335eb58767e3f35304d91021`.
+Diese ZIP-Prüfsummen stammen aus GitHub-Metadaten; ein erneuter lokaler
+Binärdownload wird nicht behauptet. Der Workflow prüft das tatsächliche IPA.
+
+Die [Freigabe und der neue Uploadnachweis](CRM_ERP_TESTFLIGHT_UPLOAD_2026-11-11.md)
+sind vom unveränderten früheren Vorbereitungsnachweis getrennt.
+Apple-Verarbeitung, Testerverfügbarkeit und reale Installation bleiben
+unbestätigt. Nach der Verarbeitung in TestFlight nach 0.13.0 / Build 221 sehen.
 
 Der [erste Auslagenlieferstand](CRM_ERP_LIEFERSTAND_AUSLAGEN_ERSTKANDIDAT_2026-11-11.md)
 und der [vorherige RV-Lieferstand](CRM_ERP_LIEFERSTAND_RV_VOR_AUSLAGEN_2026-11-11.md)
@@ -113,13 +140,12 @@ App-Pakets an Apple fehlte. Der abgelehnte Start wurde nicht ausgeführt.
 Die frühere Frage zu ab6b615 ist durch die neue konkrete Frage zu Smartplan
 Office, Bundle-ID `de.smartplanhofmann.office`, Funktionsstand 4bb5071 und
 geprüfter Vorbereitung 220 ersetzt. Diese Frage ist ausdrücklich mit „Ja, diesen Funktionsstand an Apple TestFlight
-hochladen“ beantwortet. Der [freigegebene Uploadlauf 43019931541](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/43019931541)
-ist gestartet, Quelle e9bdb46 bei identischen Programmdateien zu 4bb5071.
-Beide Schalter sind true; Erfolg, Apple-Verarbeitung und Geräteinstallation
-sind noch nicht bestätigt. Die frühere manuelle Vorbereitung 42968958373 hat
-ausschließlich das signierte Paket 220 vorbereitet. Der neue freigegebene
-Lauf erstellt einen weiteren Build mit identischem Programmcode und führt
-anschließend den Upload aus. Der bisherige Vorbereitungsnachweis bleibt unverändert.
+hochladen“ beantwortet. Der freigegebene Uploadlauf 43019931541 ist mit Quelle
+e9bdb46 bei identischen Programmdateien zu 4bb5071 erfolgreich abgeschlossen.
+Apple hat Build 221 tatsächlich angenommen; die Schlüsselbereinigung besteht.
+Die frühere manuelle Vorbereitung 42968958373 bleibt unverändert ein eigener
+Nachweis für Paket 220 ohne Upload. Apple-Verarbeitung und Geräteinstallation
+werden dadurch nicht als erfolgreich ausgegeben.
 
 Die drei zusätzlichen Gerätefälle zur Originalsperre/Freigaberücknahme sind
 vorbereitet; alle bisherigen 34 Zeilen bleiben bytegleich. Alle 37 realen

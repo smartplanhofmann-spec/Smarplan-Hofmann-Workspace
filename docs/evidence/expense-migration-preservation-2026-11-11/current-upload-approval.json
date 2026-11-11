@@ -1,9 +1,9 @@
 {
   "recorded_at": "2026-11-11T07:19:54.491620+00:00",
-  "status": "authorized_workflow_dispatched",
+  "status": "authorized_upload_accepted",
   "question_asked": true,
   "answer_received": true,
-  "upload_performed": false,
+  "upload_performed": true,
   "upload_target": "Apple TestFlight",
   "app_name": "Smartplan Office",
   "bundle_id": "de.smartplanhofmann.office",
@@ -20,5 +20,13 @@
   "approval_record": "../testflight-upload-2026-11-11/authorization.json",
   "run_id": 43019931541,
   "run_source": "e9bdb46c9679e52944d6614e7b731c41d7dfa94e",
-  "upload_success_observed": false
+  "upload_success_observed": true,
+  "status_updated_at_utc": "2026-11-11T13:27:26.842448+00:00",
+  "uploaded_build": 221,
+  "uploaded_artifact_id": 13860365797,
+  "apple_delivery_uuid": "67e7fe99-4cad-41fc-83f9-e89da98777eb",
+  "apple_accepted_at_utc": "2026-11-11T13:25:35Z",
+  "upload_result": "../testflight-upload-2026-11-11/result.json",
+  "apple_processing_observed": false,
+  "device_installation_observed": false
 }

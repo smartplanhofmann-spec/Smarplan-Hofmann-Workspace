@@ -75,6 +75,14 @@ check(any('lost communication with the server' in item['message'] for item in au
 for item in auto_first['raw_files']:
     raw=gzip.decompress((OUT/item['file']).read_bytes())
     check(len(raw)==item['raw_bytes'] and hashlib.sha256(raw).hexdigest()==item['raw_sha256'],'lossless first automatic runner failure evidence')
+final_workflows=read('corrected-own-workflows-final.json')['workflow_runs']
+check({run['id'] for run in final_workflows}=={42923602362,42923602365,42924966961},'exact final owned workflow IDs')
+check(all(run['head_sha']==SOURCE and run['status']=='completed' and run['conclusion']=='success' for run in final_workflows),'actual final source-bound completed workflow conclusions')
+check(next(run for run in final_workflows if run['id']==42923602365)['run_attempt']==2,'successful automatic second attempt separately bound')
+auto=rawlog('corrected-ci-job-130229438142.txt.gz')
+check('+2028 ~5: All tests passed!' in auto and '+3: All tests passed!' in auto,'actual automatic iPhone app/PDF success with declared Linux skips')
+manual=rawlog('corrected-ci-job-130209029249.txt.gz')
+check('+2028 ~5: All tests passed!' in manual and '+3: All tests passed!' in manual,'actual manual iPhone app/PDF success with declared Linux skips')
 manifest=optional('corrected-delivery-manifest.json')
 if manifest:
     check(manifest['source_commit']==SOURCE,'delivery source')

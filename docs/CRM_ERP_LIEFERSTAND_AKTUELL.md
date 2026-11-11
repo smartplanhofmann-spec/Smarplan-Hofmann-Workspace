@@ -5,11 +5,12 @@ Stand: 11.11.2026. Aktuelle veröffentlichte Produktquelle:
 `codex/testupdate-0.7-projects-20261104`. Hauptprojekt:
 `/workspace/Smarplan-Hofmann-Workspace`.
 
-Die gemeinsame Developmentprüfung, beide Windows-Pakete und die tatsächliche
-signierte iPhone-Vorbereitung 216 sind erfolgreich. Der automatische
-iPhone-Erstlauf scheiterte am gemeldeten Runnerkontaktverlust; seine gezielte
-Wiederholung am unveränderten Code läuft noch. Der gesamte
-Produktivabschluss wird deshalb nicht behauptet. Der
+Die gemeinsame Developmentprüfung, beide Windows-Pakete, die automatische
+iPhone-Wiederholung mit Gerätebuild 215 und die tatsächliche signierte
+iPhone-Vorbereitung 216 sind erfolgreich. Der erste automatische Versuch
+bleibt wegen des gemeldeten Runnerkontaktverlusts als fehlgeschlagen erhalten.
+Produktivabschluss, reale Geräteprüfung und externe Freigaben bleiben getrennte
+offene Nachweise. Der
 [vorherige vollständig abgeschlossene V16-Paketstand](CRM_ERP_LIEFERSTAND_V16_VOR_RV_2026-11-10.md)
 bleibt unverändert archiviert; seine Pakete enthalten den neuen RV-Umfang nicht.
 
@@ -80,13 +81,19 @@ Schlüsselbereinigung ist erfolgreich; der TestFlight-Schritt ist ausgelassen.
 - [Signiertes iPhone-/iPad-Paket 216](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42924966961/artifacts/13815294262): 30.028.710 Bytes; SHA256-Metadatendigest `502747584141d3a9fcf41b1f08ff4a09e11466a63591ff3bdbbae2408f5ab2c2`.
 - [Unsignierte Vorprüfung 216](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42924966961/artifacts/13814424702): 15.123.332 Bytes; SHA256-Metadatendigest `25fac734fb219ffe2457600a61456463acc32b3b39da846cfd3196910e824d64`.
 
-Beide Artefakte gehören laut tatsächlicher Workflowbindung genau zu ab6b615.
+[Automatischer unsignierter Gerätebuild 215](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42923602365/artifacts/13817987677): 15.123.291 Bytes; SHA256-Metadatendigest `a157c6be5bf7fccc41cbf7bd0148fd8c373fa74ce8690f88311ab4cdcc83c093`.
+
+Alle genannten Artefakte gehören laut tatsächlicher Workflowbindung genau zu ab6b615.
 Die automatische Prüfung 42923602365 meldet im ersten Versuch nach 53 Minuten
 Kontaktverlust des gehosteten Runners. Die zugrunde liegende Ursache ist damit
 nicht weiter belegt. Ein vollständiges Joblog ist nicht verfügbar; fehlende
 Logbytes werden nicht als bestandener Test ausgegeben. Der erste Versuch bleibt
-fehlgeschlagen dokumentiert. Ausschließlich sein ausgefallener Job wird ohne
-Produktänderung im zweiten Versuch mit Job 130229438142 wiederholt.
+fehlgeschlagen dokumentiert. Ausschließlich sein ausgefallener Job wurde ohne Produktänderung im zweiten
+Versuch mit Job 130229438142 wiederholt. Dieser Versuch besteht vollständig: UI-
+Analyse ohne Befund, 2.028 Apphauptfälle plus drei native PDF-Fälle mit fünf
+ausgewiesenen Linux-Auslassungen, Gerätebuild und endgültige Paketprüfung
+erfolgreich. Der frühere Fehler wird dadurch nicht nachträglich als Erfolg
+ausgegeben.
 
 `prepare_signed_ipa=true`, `upload_to_testflight=false`. Ein signiertes IPA ist
 keine TestFlight-Verteilung oder reale Installation. Eine eigene ausdrückliche

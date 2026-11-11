@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "captured_at_utc": "2026-11-11T00:46:17.872205+00:00",
+  "captured_at_utc": "2026-11-11T01:02:19.834340+00:00",
   "source_commit": "ab6b61535a35f8306bbf04ebe6557acdb2ac3f41",
   "source_published_on_authorized_test_branch": true,
   "authorized_branch": "codex/testupdate-0.7-projects-20261104",
-  "status": "own_full_development_windows_actual_signed_216_pass_automatic_retry_pending",
+  "status": "own_full_development_windows_actual_signed_216_pass_automatic_retry_pass",
   "original_goal_unchanged": true,
   "historical_payroll_modules_unchanged": 63,
   "development": {
@@ -48,7 +48,7 @@
     "original_complete_job_log_available": false,
     "retry_attempt": 2,
     "retry_job_id": 130229438142,
-    "retry": "pending"
+    "retry": "success"
   },
   "frozen_package_archive": {
     "cases": 22,
@@ -100,6 +100,14 @@
       "github_metadata_digest": "sha256:25fac734fb219ffe2457600a61456463acc32b3b39da846cfd3196910e824d64",
       "expires_at": "2026-11-25T00:19:57Z",
       "local_zip_bytes_verified": false
+    },
+    "Smartplan-Office-iOS-UNSIGNED-215": {
+      "id": 13817987677,
+      "run_id": 42923602365,
+      "bytes": 15123291,
+      "github_metadata_digest": "sha256:a157c6be5bf7fccc41cbf7bd0148fd8c373fa74ce8690f88311ab4cdcc83c093",
+      "expires_at": "2026-11-25T00:57:14Z",
+      "local_zip_bytes_verified": false
     }
   },
   "artifact_digests_origin": "actual GitHub artifact metadata, not independently downloaded local ZIP bytes",
@@ -115,8 +123,8 @@
   "additional_supported_scope_does_not_close_remaining_code_or_business_cases": true,
   "raw_files": {
     "README.md": {
-      "bytes": 2535,
-      "sha256": "889cc09ac96910f7bbf0ca114f32aeb5383a94c2f824d50c099134b13dbcac82"
+      "bytes": 2698,
+      "sha256": "978403789a8550e04a22fabef3eb695b0a1a2bda65ec7805fa9d4bd1827dcc47"
     },
     "additional-official-source-observation.json": {
       "bytes": 420,
@@ -149,6 +157,14 @@
     "corrected-auto-first-obsolete-unsigned-duration-comparison.json.gz": {
       "bytes": 237,
       "sha256": "d978942be64bef74d91338db70f67cb2cb09307771d91313a28130b38039b5ed"
+    },
+    "corrected-auto-ios-artifacts.json": {
+      "bytes": 765,
+      "sha256": "6ef59b58a6ba47bd929bd57cd0b6fec6687ae7b97b73351092de297519d90afb"
+    },
+    "corrected-auto-ios-final.json": {
+      "bytes": 2269,
+      "sha256": "99d722723584ea2e92032b3ce74267aaa07d84b3b7990dba772a44763af6836c"
     },
     "corrected-auto-ios-first-failure.json": {
       "bytes": 2414,
@@ -218,6 +234,10 @@
       "bytes": 137977,
       "sha256": "140b9b76dc1eb4f7c379bdb35021c8c7ed0ee39c2a609c86c6bcc5f987bdde0f"
     },
+    "corrected-ci-job-130229438142.txt.gz": {
+      "bytes": 67955,
+      "sha256": "9cd98f570d1e5c39fe9a9db87049aaf07ad26a95704d070f1555196f6e1e8465"
+    },
     "corrected-delivery-pending.json": {
       "bytes": 573,
       "sha256": "4b19643241c35cee5209240b97b64a9a64bbda7a926d3b999ae10ce882bd74b5"
@@ -237,6 +257,10 @@
     "corrected-frozen-archive.txt.gz": {
       "bytes": 1118,
       "sha256": "47de5fae28fec0f973c8b4242c6ccd6a38494c246f19c1fc7a5a5e54cc9437ee"
+    },
+    "corrected-own-workflows-final.json": {
+      "bytes": 45885,
+      "sha256": "70c4aa363d91a52573e7a9a7a4347c50b49d5d69dbae86ece54fc5db056f3765"
     },
     "corrected-own-workflows.json": {
       "bytes": 788,
@@ -883,8 +907,8 @@
       "sha256": "4897611155b7b759fbf7e31bbc97847648bc0e3be842c96924076d8b6853f725"
     },
     "verify-corrected-delivery.py.txt": {
-      "bytes": 10963,
-      "sha256": "d2cb69479eab6d9452a7d43db2b48817de2517bbb4b16afa35c2237935b20aa3"
+      "bytes": 11891,
+      "sha256": "5f5a82f84ca50feb3d0b6b7751f0754a808b704eeb9bce3354a7a3e19067d3da"
     },
     "worktree-pure-first.txt.gz": {
       "bytes": 517,

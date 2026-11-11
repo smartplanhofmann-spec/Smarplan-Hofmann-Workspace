@@ -4898,3 +4898,39 @@ Testtreiber, Runner, Quellbindung, tatsächlicher Lauf und Aufräumresultat sind
 verlustfrei unter `evidence/minijob-rv-lifecycle-2026-11-10/` archiviert. Dies ist
 eine eigene technische Gegenprüfung, keine unabhängige externe Fachfreigabe.
 Der Produktcode wurde für diesen Zusatznachweis nicht verändert.
+
+## 11.11.2026 – eigene Plattformnachweise des korrigierten RV-Stands abgeschlossen
+
+Produktquelle ab6b61535a35f8306bbf04ebe6557acdb2ac3f41 bleibt unverändert.
+Development 42923602362 besteht alle 20 Gruppen: 2.225 Backendfälle mit drei
+ausgewiesenen Auslassungen, 2.033 Linux-Apphauptfälle plus drei native PDF-Fälle,
+1.119 Browsermodulfälle, sechs tatsächliche Browser- und sechs PG-/API-Gruppen,
+Runtime/MFA, Isolation, Update, HTTPS und Restore. Windows besteht mit 1.988
+Apphauptfällen, drei nativen PDF-Fällen, 81 portablen Backendfällen und
+tatsächlichen Komplett-/Onlinepaketen.
+
+Die manuelle iPhone-Vorbereitung 42924966961 besteht mit beiden Jobs und Paket
+216/Artefakt 13815294262. Beide Apple-Exporte, endgültige Signatur-/Team-/
+Keychain-Prüfung und Schlüsselbereinigung erfolgreich. 2.028 Apphauptfälle
+plus drei native PDF-Fälle, fünf ausgewiesene Linux-Auslassungen.
+TestFlight-Schritt ausgelassen. Die automatische Prüfung 42923602365 meldet
+im ersten Versuch Runnerkontaktverlust; zugrunde liegende Ursache nicht belegt,
+vollständiges Joblog nicht verfügbar. Nur der ausgefallene Job wurde unverändert
+wiederholt. Versuch 2/Job 130229438142 besteht vollständig, einschließlich
+Gerätebuild 215/Artefakt 13817987677. Erster Versuch bleibt getrennt fehlgeschlagen.
+
+Die Nachweissammlung bindet tatsächliche Läufe, Pakete, Artefaktdigests und
+Rohausgaben an denselben Produktquellstand. ZIP-Digests sind GitHub-Metadaten,
+keine hier ausgeführte lokale ZIP-Byteprüfung. Zusätzlicher eigener wirklicher
+PG-/Geld-/EÜR-/Export-/Restorefall besteht am unveränderten Produkt in 44,962s.
+Originalziel und 63 historische Lohnmodule bleiben bytegleich; 34 reale
+Gerätefälle sowie sämtliche Gesamtabnahmen A–G bleiben offen. Keine echte
+Zahlung, Meldung, Nachricht, neue Liveinstallation oder TestFlight-Verteilung.
+
+Die Frage zur TestFlight-Freigabe nennt ausdrücklich den aktuellen geprüften
+Funktionsstand ab6b615 und die fertige signierte Vorbereitung 216. Bis zur
+passenden ausdrücklichen Antwort bleibt Upload false. Die Serveranleitung
+beginnt mit der bekannten Windows-SSH-Verbindung und pinnt den geprüften
+Commit; hier fehlen Zugang und Hostfreigabe. Der Gesamtauftrag bleibt aktiv,
+weitere Code-/Fachfälle und echte Anbieter-/Betriebsnachweise sind nicht
+pauschal abgeschlossen.

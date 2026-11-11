@@ -54,29 +54,35 @@ Komplettrestorefall besteht in 44,962 Sekunden am unveränderten Produktcode:
 Vorsteuer. Quittungen und Exporte bleiben nach Restore exakt erhalten. Eigener
 Container nach voller ID/Label/Loopback-Port entfernt; kein externer Fachnachweis.
 
-## Eigene signierte iPhone-Vorbereitung erfolgreich, automatischer Nachlauf offen
+## Eigene iPhone-Auslieferung vollständig technisch geprüft
 
-- Der manuelle Lauf 42924966961 besteht mit beiden Jobs. Signiertes Paket 216,
-  Artefakt 13815294262, 30.028.710 Bytes, ist vorhanden. Tatsächliche Vorprüfung:
-  2.028 Apphauptfälle plus drei native PDF-Fälle, fünf Linux-Auslassungen.
-- Beide Apple-Exporte, endgültige Signatur-/Team-/Keychain-Prüfung und
-  Schlüsselbereinigung sind erfolgreich. TestFlight-Schritt ausgelassen.
-- Der automatische Lauf 42923602365 meldet im ersten Versuch nach 53 Minuten
-  Runnerkontaktverlust; zugrunde liegende Ursache nicht belegt, vollständiges
-  Joblog nicht verfügbar. Der erste Versuch bleibt als Fehler erhalten.
-- Nur der ausgefallene Job wird unverändert wiederholt: Versuch 2,
-  Job 130229438142. Ergebnis und automatisches Paket stehen noch aus.
-- Alle Läufe gehören nach beobachteter Laufkennung exakt zu ab6b615. Nur
-  `prepare_signed_ipa=true`, `upload_to_testflight=false` ist bislang freigegeben.
-  Keine TestFlight-Veröffentlichung aus dem Entwicklungsauftrag ableiten.
-- Die überholte Vorbereitung 42918342817 zu 51c404b wurde vor Apple-Export
-  ausdrücklich beendet. Tatsächliche Schlüsselbereinigung erfolgreich bestätigt.
+Der manuelle Lauf 42924966961 besteht mit beiden Jobs. Signiertes Paket 216,
+Artefakt 13815294262, 30.028.710 Bytes, ist vorhanden; endgültige Signatur-/Team-/
+Keychain-Prüfung und Schlüsselbereinigung sind erfolgreich. TestFlight-Schritt
+ist ausgelassen. Die tatsächliche Vorprüfung bestätigt 2.028 Apphauptfälle plus
+drei native PDF-Fälle mit fünf ausgewiesenen Linux-Auslassungen.
 
-Nächster unmittelbarer Schritt: automatische Wiederholung abschließen und
-samt tatsächlich vorhandenen Paketmetadaten sichern, vollständigen Nachweisprüfer
-ausführen und Lieferstand endgültig ergänzen. Reinen Belegcommit erst nach
-laufenden Prüfungen veröffentlichen. Ein fehlgeschlagener früherer Versuch wird
-nicht rückwirkend grün dargestellt. [Pakete und konkrete Anleitung](CRM_ERP_LIEFERSTAND_AKTUELL.md).
+Der automatische Lauf 42923602365 meldete zunächst nach 53 Minuten einen
+Runnerkontaktverlust. Dessen zugrunde liegende Ursache ist nicht weiter belegt;
+ein vollständiges Joblog fehlt. Dieser erste Versuch bleibt als Fehler erhalten.
+Die gezielte unveränderte Wiederholung im Versuch 2, Job 130229438142, besteht
+vollständig einschließlich derselben App-/PDF-Fälle, Gerätebuild und Paketprüfung.
+Automatisches unsigniertes Paket 215, Artefakt 13817987677, ist vorhanden.
+
+Alle drei eigenen Läufe sind nach tatsächlich abschließend beobachteter
+Laufkennung exakt an ab6b615 gebunden. Nach dem Einfrieren wurde kein Runtimecode
+geändert. Der [Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md) enthält die tatsächlichen
+Paketmetadaten, Digests, Erstfehler und die konkrete Serveranleitung.
+
+Nächste notwendige Betriebsschritte: geschützten Serverzugang beziehungsweise
+vorbereitete Windows-SSH-Befehle verwenden, tatsächlichen Installationsstand
+abgleichen und reale Geräte-/Fach-/Sicherheitsabnahmen durchführen. TestFlight
+ist noch nicht freigegeben: Für den konkreten geprüften Funktionsstand ab6b615
+mit fertiger signierter Vorbereitung 216 ist eine eigene Frage gestellt. Erst
+auf eine ausdrückliche passende Antwort handeln; keine Antwort ist keine
+Freigabe. Eine ältere offene Frage zu Paket 210/29b02c8 gilt nicht für diesen
+neuen Funktionsstand. Bislang nur `prepare_signed_ipa=true`,
+`upload_to_testflight=false`; kein tatsächlicher Upload ist erfolgt.
 
 ## Gesamtziel, Nutzerentscheidungen und tatsächliche Grenzen
 
@@ -113,6 +119,6 @@ weitere tatsächlich geöffnete amtliche Ansichten liefern 503. Keine Regel rate
 
 Der [unverändert archivierte vorherige Arbeitsstand](CRM_ERP_ARBEITSSTAND_VOR_RV_ABSCHLUSS_2026-11-10.md)
 erhält sämtliche früheren Abschnitte samt damaligen Quellen und Grenzen.
-Der bisherige vollständig abgeschlossene V16-Paketnachweis zu 4aa0abd bleibt im
-[Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md) erhalten, bis die aktuellen eigenen
-iPhone-Nachweise vorliegen. Das Gesamtziel ist noch nicht vollständig erreicht.
+Der vorherige V16-Paketnachweis zu 4aa0abd bleibt im
+[unveränderten Lieferarchiv](CRM_ERP_LIEFERSTAND_V16_VOR_RV_2026-11-10.md) erhalten.
+Die gesamte Software ist weiterhin nicht vollständig produktiv freigegeben.

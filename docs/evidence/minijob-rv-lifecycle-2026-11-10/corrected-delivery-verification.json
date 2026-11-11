@@ -1,0 +1,12 @@
+{
+  "source_commit": "ab6b61535a35f8306bbf04ebe6557acdb2ac3f41",
+  "original_goal_unchanged": true,
+  "historical_payroll_modules_unchanged": 63,
+  "requirements": 62,
+  "real_device_cases_unperformed": 34,
+  "overall_acceptances_closed": 0,
+  "server_updated": false,
+  "testflight_uploaded": false,
+  "pending": [],
+  "complete_internal_delivery_evidence": true
+}

@@ -7,15 +7,19 @@ Ihr gesamter Backend-, Linux-App-, Windows-, Browser- und PostgreSQLumfang ist
 im aktuellen Arbeitsstand und Lieferstand beschrieben.
 
 Die manuelle iPhone-Vorbereitung 42924966961 besteht mit beiden Jobs und
-tatsächlich signiertem Paket 216, erfolgreicher Endsignatur-/Team-/Keychain-
-Prüfung sowie Schlüsselbereinigung. Der TestFlight-Schritt ist ausgelassen.
-Die automatische Prüfung 42923602365 verlor im ersten Versuch nach 53 Minuten
-den Runnerkontakt; die zugrunde liegende Ursache ist nicht weiter belegt.
-Das vollständige Joblog ist nicht verfügbar. Nur der ausgefallene Job wird
-unverändert im zweiten Versuch 130229438142 wiederholt; dieser läuft noch. `corrected-delivery-pending.json` hält diesen tatsächlichen
-Zwischenstand fest und ist ausdrücklich kein vollständiger Auslieferungsbeleg.
-Die noch ältere überholte signierte Vorbereitung wurde vor Apple-Export beendet;
-die tatsächliche Schlüsselbereinigung steht im eigenen Abbruchbeleg.
+signiertem Paket 216, erfolgreicher Endsignatur-/Team-/Keychain-Prüfung sowie
+Schlüsselbereinigung. TestFlight-Schritt ausgelassen. Die automatische Prüfung
+42923602365 verlor im ersten Versuch den Runnerkontakt; die zugrunde liegende
+Ursache ist nicht weiter belegt, ein vollständiges Joblog fehlt. Nur der
+betroffene Job wurde am unveränderten Code wiederholt. Versuch 2 mit Job
+130229438142 besteht vollständig mit unsigniertem Gerätebuild 215.
+
+`corrected-delivery-manifest.json` und `corrected-delivery-verification.json`
+binden den endgültigen eigenen technischen Liefernachweis. Die älteren
+`corrected-delivery-pending.json` und Stufenmanifeste bewahren ihre damals noch
+unvollständigen Zustände. Kein fehlgeschlagener Erstlauf wird nachträglich grün
+angezeigt. Die noch ältere überholte Vorbereitung 42918342817 wurde vor
+Apple-Export beendet; ihre Schlüsselbereinigung ist tatsächlich bestätigt.
 
 Alle Textlogs mit `.gz` sind verlustfrei gzip-komprimierte Originalausgaben
 beziehungsweise dekodierte GitHub-Joblogs. Die jeweiligen Stufen-/Quellmanifeste

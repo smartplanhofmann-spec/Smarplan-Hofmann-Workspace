@@ -1,0 +1,19 @@
+{
+  "recorded_at": "2026-11-11T07:19:54.491620+00:00",
+  "status": "explicit_upload_answer_pending",
+  "question_asked": true,
+  "answer_received": false,
+  "upload_performed": false,
+  "upload_target": "Apple TestFlight",
+  "app_name": "Smartplan Office",
+  "bundle_id": "de.smartplanhofmann.office",
+  "functional_source": "4bb5071891344a38f640d8ae43ec240c1f95e61e",
+  "reviewed_signed_build": 220,
+  "reviewed_signed_artifact": 13834509998,
+  "reviewed_signed_artifact_sha256": "f7da31a9314c1ebf702ab013d9f46414154ed75fa94387f927c77f75d566877b",
+  "existing_pipeline_creates_new_build_with_identical_program_code": true,
+  "previous_broad_instruction": "Ok. Mach fertig",
+  "previous_automatic_approval_review": "rejected",
+  "previous_rejected_exec_started": false,
+  "previous_ab6b615_question_superseded": true
+}

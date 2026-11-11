@@ -85,10 +85,13 @@ zurückgezogen und ihr Ausführungsblock gesperrt.
 Die automatische Freigabeprüfung hat den aus „Ok. Mach fertig“ abgeleiteten
 TestFlight-Start abgelehnt, weil die Übermittlung des konkreten signierten
 App-Pakets an Apple darin nicht ausdrücklich genug freigegeben ist. Der ganze
-abgelehnte Start wurde nicht ausgeführt. Die neu konkret gestellte Frage zu
-ab6b615 ist weiterhin unbeantwortet und deckt den neuen Funktionsstand nicht
-ab. Signierte Vorbereitung ist kein Upload; Upload bleibt false. Nur eine
-passende ausdrückliche Freigabe des konkreten Pakets/Ziels ermöglicht Verteilung.
+abgelehnte Start wurde nicht ausgeführt. Die frühere Frage zu ab6b615 deckt den neuen Funktionsstand nicht ab.
+Die neue konkrete Uploadfrage zu Smartplan Office, Bundle-ID
+`de.smartplanhofmann.office`, Funktionsstand 4bb5071 und geprüfter Vorbereitung
+220 ist gestellt; eine Antwort liegt noch nicht vor. Der vorhandene
+Auslieferungsweg erstellt für den Upload einen neuen Build mit identischem
+Programmcode. Signierte Vorbereitung ist kein Upload; Upload bleibt false.
+Nur eine passende ausdrückliche Freigabe dieses Pakets/Ziels ermöglicht Verteilung.
 
 Deutschland/EUR, Einzelunternehmen/EÜR, Regelbesteuerung/Ist, 19 %, SKR04,
 Nettopreise; reguläre Mitarbeiter und gewerbliche Minijobs. Die frühere

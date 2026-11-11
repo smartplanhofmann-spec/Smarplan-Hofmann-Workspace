@@ -5121,3 +5121,11 @@ fertig vorbereiteten aktuellen Funktionsstand ist eine eigene ausdrückliche
 Uploadfreigabe notwendig. Die ältere Frage zu ab6b615 deckt ihn nicht ab.
 Der vollständige Gesamtauftrag bleibt aktiv; weitere benannte Code-/Fachfälle
 und echte Anbieter-/Betriebsabnahmen werden nicht pauschal als erledigt geführt.
+
+Die aktuelle konkrete TestFlight-Frage ist jetzt gestellt und ersetzt die frühere
+Frage zu ab6b615. Sie nennt Smartplan Office, de.smartplanhofmann.office,
+Funktionsstand 4bb5071, vorbereiteten signierten Build 220 und ausdrücklich den
+bestehenden Uploadweg mit einem neuen Build bei identischem Programmcode.
+Eine Antwort liegt beim Festhalten dieses Zwischenstands nicht vor. Kein Upload
+wurde gestartet. Die notwendige ausdrückliche Freigabe darf nicht aus Zeitablauf,
+vorbelegter Auswahl oder dem zuvor abgelehnten allgemeinen Auftrag abgeleitet werden.

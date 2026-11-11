@@ -1,0 +1,122 @@
+{
+  "source_commit": "ab6b61535a35f8306bbf04ebe6557acdb2ac3f41",
+  "baseline": "4aa0abd6d313fcc5d693606dbef1c7193afb0729",
+  "runtime_files": [
+    {
+      "path": "app/lib/business_payroll.dart",
+      "sha256": "f2a042ba23716745e1dba6d361dcd52125be6fd8616ae36a5ecc288903131f84"
+    },
+    {
+      "path": "app/lib/business_payroll_rv_contract.dart",
+      "sha256": "1b3f52c5f568eb35227c3ac85393cddecdf71976327e88a7e3cff6037299a54a"
+    },
+    {
+      "path": "app/lib/business_payroll_rv_lifecycle.dart",
+      "sha256": "62d566c7455e3d5e8d88cc82748e0ca57b99062acbd5f6f5a5e88590adb346e3"
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "sha256": "2d22151f9134b2bc7eef7de9301a5994d0b3e3960e649b83f6951fa233ab19d5"
+    },
+    {
+      "path": "app/test/business_payroll_rv_lifecycle_test.dart",
+      "sha256": "c9a1b393d63697f9419b712366cb4b2f0e45d2097773c215df505e5ce662f2ea"
+    },
+    {
+      "path": "app/test/fixtures/payroll_rv_lifecycle.json",
+      "sha256": "27e111ed46b99e5174ebfb5ff58b931619b1dec393b14bcc09c2c9a508aa92d0"
+    },
+    {
+      "path": "app/test/fixtures/payroll_rv_lifecycle_many_files.json",
+      "sha256": "ae62c930c4e6eeac87a45d9cf60e81ba1f7ed35b24a5097af1c64417fed48d97"
+    },
+    {
+      "path": "backend/business_api.py",
+      "sha256": "34a1896a66c5580c89749033629bb23697611c8f40484597399073a0043a859c"
+    },
+    {
+      "path": "backend/business_payroll.py",
+      "sha256": "0e5c02ae2b97c8c23e3b04b09bcc631a932479abbaef23825676e185bdf95d64"
+    },
+    {
+      "path": "backend/business_payroll_rv_lifecycle.py",
+      "sha256": "2a9e0ec2f514cf05bb8c0e798f5e79f83d66b3fb5d7fe1eddb1c668448b0afd0"
+    },
+    {
+      "path": "backend/business_schema.py",
+      "sha256": "9112941a6b49aca9f64055255681a3e3648929a64ca747171722bb4ee2ce4630"
+    },
+    {
+      "path": "backend/company_export_catalog.py",
+      "sha256": "09c8bb360ce408692e0217a8abd266fd66f87406ba2405dd26d518682632f314"
+    },
+    {
+      "path": "backend/online/test_business_payroll_rv_lifecycle_pg.py",
+      "sha256": "76abbf15a99d90d082b43efff15389540adb2dc5d22077fedbb2fc07f628493e"
+    },
+    {
+      "path": "backend/online/web.py",
+      "sha256": "d0bc799f89966b121f34b4d438defe1e59c02ba5bd8e048024b5b487d4d3cae1"
+    },
+    {
+      "path": "backend/payroll_minijob_rv_lifecycle_2026.py",
+      "sha256": "9378bdcb2b24d34273676edc70e84be7caefef3b3361c17bcdf05423739601b7"
+    },
+    {
+      "path": "backend/test_business_payroll_rv_binding.py",
+      "sha256": "489bc49cdf1e928e47adedebce535a05784cd1b53599ff0e58c431598894dc8b"
+    },
+    {
+      "path": "backend/test_business_payroll_rv_lifecycle.py",
+      "sha256": "01d8f0a41acc6bd7d0ef4932818ac7c2add8cf3216aaace2c2f68ed0ebce5fed"
+    },
+    {
+      "path": "backend/test_payroll_minijob_rv_lifecycle_2026.py",
+      "sha256": "e749c05f87f8120d43ae74e2f6737964ce7fd786909595e940e88f1356961953"
+    },
+    {
+      "path": "scripts/ci-check-plan.json",
+      "sha256": "c62b5e3be9a12f1f641736361ef0cd5019be3d09f388a9838fff940f54b1bbcb"
+    },
+    {
+      "path": "scripts/generate-payroll-rv-lifecycle-fixture.py",
+      "sha256": "4cb29fe0d9cfe4ddeec7a8b3b47207816e0fb5c7bbd751cd7023273267148aa1"
+    },
+    {
+      "path": "scripts/native-release.py",
+      "sha256": "e0be48fb3eafcd8b2aa22445605b0b4b1f8dd8920e0b00b59e17bc88f0230300"
+    },
+    {
+      "path": "scripts/test_online_archive_runtime.py",
+      "sha256": "4cb3e95b6486453d5cf8b751873d70ae38d4c312f27d34cc76dc1d837a8df248"
+    },
+    {
+      "path": "web/office/office.js",
+      "sha256": "2cc5a869e68d877e169b2f20e3c00f1670e536f106fc541154e39edbad1bfea0"
+    },
+    {
+      "path": "web/office/payroll-rv-lifecycle.js",
+      "sha256": "c1dd8593ff9610dc9bc6e189e411bde49c48a7af62adf7b28ec6e4c6b5162ad0"
+    },
+    {
+      "path": "web/office/payroll.js",
+      "sha256": "fca07073c8728833d7d532412891fede07b0abe0c8661c8cb01b8e87314f0a25"
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "sha256": "bd6c5918b76869ca96ad0afa836a117e3ebcb8f78bab7596c8881672086cddd3"
+    },
+    {
+      "path": "web/office/tests/payroll-rv-lifecycle-flow.cjs",
+      "sha256": "1de21c1fae3be87326509ebddb002bedb5a4da719aed832192030ad75970f020"
+    },
+    {
+      "path": "web/office/tests/payroll-rv-lifecycle.test.mjs",
+      "sha256": "0c01d80faa40ab8e32cb91a51fefad8bba0c5ac3acd74d06dbfa1823c6ab7297"
+    },
+    {
+      "path": "web/office/tests/resource-custody-flow.cjs",
+      "sha256": "337e96a496fe962c52570d75eb1609fcdab9ba4fe82e6985e01443611fafb1d9"
+    }
+  ]
+}

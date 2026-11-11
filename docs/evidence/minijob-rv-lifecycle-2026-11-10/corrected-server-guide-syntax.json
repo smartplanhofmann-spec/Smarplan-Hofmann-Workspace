@@ -1,0 +1,9 @@
+{
+  "path": "docs/CRM_ERP_SERVERUPDATE_AB6B615_2026-11-10.md",
+  "source_commit": "ab6b61535a35f8306bbf04ebe6557acdb2ac3f41",
+  "bash_blocks": 1,
+  "bash_syntax_exit_code": 0,
+  "guide_sha256": "3d4039c5fc8a67e11008161a14b9b0b120c27801795fa2697da9a62f628b6008",
+  "commands_executed_on_server": false,
+  "original_server_unchanged": true
+}

@@ -1,0 +1,18 @@
+{
+  "run_id": 42918342817,
+  "source_commit": "51c404b59c4bb19ee564f6ee9f4185ddb7961701",
+  "reason": "Obsolete known failed candidate; cancel deliberately requested before first Apple export",
+  "conclusion": "cancelled",
+  "first_apple_export_executed": false,
+  "signing_key_cleanup": "success",
+  "testflight_upload_executed": false,
+  "not_a_release_proof_for_corrected_source": true,
+  "raw_log_sha256": "dd8fe3dadab607c499de75f1ba3ef070b2b9d44c3c9110fe75b2ca4a202ce004",
+  "raw_log_bytes": 48931,
+  "successor_run_id": 42924966961,
+  "successor_source_commit": "ab6b61535a35f8306bbf04ebe6557acdb2ac3f41",
+  "successor_inputs": {
+    "prepare_signed_ipa": true,
+    "upload_to_testflight": false
+  }
+}

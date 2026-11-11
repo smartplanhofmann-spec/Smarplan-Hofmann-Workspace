@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "product_source": "ab6b61535a35f8306bbf04ebe6557acdb2ac3f41",
+  "product_runtime_unchanged": true,
+  "scope": "additional exact-source actual PostgreSQL MFA cash, remittance, EÜR, private-data boundary, concurrent receipt and full restore",
+  "actual_result": "pass",
+  "expected_net_minor": 58129,
+  "expected_remittance_minor": 20966,
+  "expected_euer_expenses": "790.95",
+  "actual_euer_input_vat": "0.00",
+  "old_payment_and_cash_receipts_exact_after_later_rv_review_and_full_restore": true,
+  "mfa_required_after_restore": true,
+  "own_container": {
+    "container_id": "3da00a658fefdc5ff4f426a202b46c53af003da2e7082e451e43d2a293fb8ba9",
+    "name": "smartplan-rv-cash-pg-20261111",
+    "synthetic": true,
+    "cleanup_verified": true,
+    "loopback_port": "32826",
+    "test_exit_code": 0
+  },
+  "not_independent_external_approval": true,
+  "logs": [
+    {
+      "original_name": "postgres-first.txt",
+      "stored_name": "counterreview-cash-postgres-first.txt.gz",
+      "raw_bytes": 318,
+      "raw_sha256": "67be057d5074bcf5b400a8183360e1473f800ecb24752597c6067d8e6361e7c7"
+    },
+    {
+      "original_name": "postgres-first-environment.json",
+      "stored_name": "counterreview-cash-postgres-first-environment.json.gz",
+      "raw_bytes": 232,
+      "raw_sha256": "64880853a18d21e673770789caf3d5572954164d50e316971539ccc2c92f0708"
+    },
+    {
+      "original_name": "runner-first.txt",
+      "stored_name": "counterreview-cash-runner-first.txt.gz",
+      "raw_bytes": 218,
+      "raw_sha256": "7fab87fd4f8a3be7342d5c7c463f74e2e77d86ab301d039cba92697f7896522e"
+    },
+    {
+      "original_name": "test_rv_cash_counterreview.py",
+      "stored_name": "counterreview-cash-test_rv_cash_counterreview.py.gz",
+      "raw_bytes": 13822,
+      "raw_sha256": "07bee2e8926046360a2a47371085e5501d6e94f792a76306e1e6916e68ec9d3c"
+    },
+    {
+      "original_name": "run-own-postgres.py",
+      "stored_name": "counterreview-cash-run-own-postgres.py.gz",
+      "raw_bytes": 3803,
+      "raw_sha256": "405541a204d11c3a45d60526436098008556ee432af41bac382678ba6bc10995"
+    },
+    {
+      "original_name": "source-binding.json",
+      "stored_name": "counterreview-cash-source-binding.json.gz",
+      "raw_bytes": 604,
+      "raw_sha256": "36cc68cc76194e650cd20e815dec4748a9695fbe121233c61e0a6be0c90abebb"
+    }
+  ]
+}

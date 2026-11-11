@@ -1,0 +1,23 @@
+[
+  {
+    "id": 42924966961,
+    "head_sha": "ab6b61535a35f8306bbf04ebe6557acdb2ac3f41",
+    "event": "workflow_dispatch",
+    "name": "iPhone TestFlight",
+    "html_url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42924966961"
+  },
+  {
+    "id": 42923602365,
+    "head_sha": "ab6b61535a35f8306bbf04ebe6557acdb2ac3f41",
+    "event": "push",
+    "name": "iPhone TestFlight",
+    "html_url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42923602365"
+  },
+  {
+    "id": 42923602362,
+    "head_sha": "ab6b61535a35f8306bbf04ebe6557acdb2ac3f41",
+    "event": "push",
+    "name": "Development checks",
+    "html_url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42923602362"
+  }
+]

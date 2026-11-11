@@ -1,0 +1,111 @@
+"""Read-only evidence verification for the exact corrected RV delivery."""
+from pathlib import Path
+import csv,gzip,hashlib,io,json,re,subprocess,sys
+ROOT=Path('/workspace/Smarplan-Hofmann-Workspace')
+OUT=ROOT/'docs/evidence/minijob-rv-lifecycle-2026-11-10'
+SOURCE='ab6b61535a35f8306bbf04ebe6557acdb2ac3f41'
+BASE='4aa0abd6d313fcc5d693606dbef1c7193afb0729'
+pending=[]
+def check(value,label):
+    if not value:raise AssertionError(label)
+def read(name):return json.loads((OUT/name).read_text())
+def git(*args):return subprocess.check_output(['git','-C',str(ROOT),*args])
+def optional(name):
+    if not (OUT/name).is_file():pending.append(name);return None
+    return read(name)
+def rawlog(name):return gzip.decompress((OUT/name).read_bytes()).decode('utf-8')
+goal=(ROOT/'CRM_ERP_Gesamtziel.txt').read_bytes()
+check(len(goal)==23863 and hashlib.sha256(goal).hexdigest()=='a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5','original goal unchanged')
+old=[p for p in git('ls-tree','-r','--name-only',BASE,'backend').decode().splitlines() if p.startswith('backend/payroll_') and p.endswith('.py')]
+check(len(old)==63,'old module count')
+for p in old:check((ROOT/p).read_bytes()==git('show',BASE+':'+p),'preserved module '+p)
+check(not git('diff','--name-only',SOURCE,'--','app','backend','web','scripts','.github').strip(),'runtime source remains the exact CI source')
+def matrix(data):return {r.split('|')[1].strip():r.split('|')[3].strip() for r in data.decode().splitlines() if re.match(r'^\| R\d{2}\.\d{2} \|',r)}
+current=(ROOT/'docs/CRM_ERP_ANFORDERUNGEN.md').read_bytes()
+check(len(matrix(current))==62 and matrix(current)==matrix(git('show',BASE+':docs/CRM_ERP_ANFORDERUNGEN.md')),'no invented overall closures')
+for key in 'ABCDEFG':check(re.search(r'^\| '+key+r' \| offen \|',current.decode(),re.M),'overall acceptance remains open '+key)
+protocol=(ROOT/'docs/CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv').read_bytes()
+check(protocol.startswith(git('show',BASE+':docs/CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv')),'original 31-case bytes unchanged')
+rows=list(csv.reader(io.StringIO(protocol.decode('utf-8-sig')),delimiter=';'))
+check(len(rows)==35 and all(len(row)==14 for row in rows),'34 full device cases')
+check(all(row[10]=='ungeprüft' for row in rows[1:]),'no invented real device results')
+failure=read('first-51c404b-failure-receipt.json')
+check(failure['success_jobs']==17 and failure['failed_jobs']==3 and failure['source_released'] is False,'failed first source preserved')
+for item in failure['logs']:
+    raw=gzip.decompress((OUT/item['file']).read_bytes())
+    check(len(raw)==item['raw_bytes'] and hashlib.sha256(raw).hexdigest()==item['raw_sha256'],'lossless failed log')
+for filename in ['implementation-stage.json','implementation-exact-selection-stage.json','legacy-catalog-correction-stage.json']:
+    # Each stage retains its own actual local results; no earlier failure is erased.
+    stage=read(filename)
+    for item in stage.get('logs',[]):
+        if not isinstance(item,dict):continue
+        name=item.get('stored_name',item.get('file'))
+        if name and 'raw_sha256' in item:
+            raw=gzip.decompress((OUT/name).read_bytes())
+            check(hashlib.sha256(raw).hexdigest()==item['raw_sha256'],'lossless local log '+name)
+inventory=read('corrected-runtime-inventory.json')
+check(inventory['source_commit']==SOURCE and len(inventory['runtime_files'])==29,'29 frozen changed runtime files')
+for item in inventory['runtime_files']:
+    check(hashlib.sha256((ROOT/item['path']).read_bytes()).hexdigest()==item['sha256'],'frozen runtime hash '+item['path'])
+check('Ran 2225 tests in 1023.039s' in rawlog('corrected-ci-job-130204330619.txt.gz') and 'OK (skipped=3)' in rawlog('corrected-ci-job-130204330619.txt.gz'),'actual whole backend result')
+check('+2033: All tests passed!' in rawlog('corrected-ci-job-130204330631.txt.gz') and '+3: All tests passed!' in rawlog('corrected-ci-job-130204330631.txt.gz'),'actual Linux app and native PDF result')
+windows=rawlog('corrected-ci-job-130204330451.txt.gz')
+check('+1988: All tests passed!' in windows and '+3: All tests passed!' in windows and 'Ran 81 tests in ' in windows,'actual Windows app PDF and portable backend result')
+check('test_force_closed_launcher_does_not_leave_hidden_server (test_windows_office.WindowsOfficeTests.test_force_closed_launcher_does_not_leave_hidden_server) ... ok' in windows,'actual Windows-specific process cleanup')
+check('# tests 1119' in rawlog('corrected-ci-job-130204330533.txt.gz') and '# fail 0' in rawlog('corrected-ci-job-130204330533.txt.gz'),'actual all browser modules')
+check('SMARTPLAN_CHECK_END payroll-rv-lifecycle exit=0' in rawlog('corrected-ci-job-130204330576.txt.gz'),'actual new RV browser workflow')
+check('SMARTPLAN_CHECK_END resource-custody exit=0' in rawlog('corrected-ci-job-130204330591.txt.gz'),'actual corrected custody browser workflow')
+pg=rawlog('corrected-ci-job-130204331149.txt.gz')
+check('SMARTPLAN_CHECK_END online-065-test_business_payroll_rv_lifecycle_pg exit=0' in pg,'actual new RV MFA/private PDF/pay/restore')
+for name in ['test_independent_connections_replay_one_customer_project_and_receipt','test_receipt_failure_and_outer_rollback_leave_no_partial_project']:
+    check(any(name in line and '... ok' in line for line in pg.splitlines()),'actual separate PG countercase '+name)
+check('test_hash_valid_but_unreadable_old_run_blocks_upgrade_without_writing (online.test_minijob_v11_independent_pg.MinijobV11IndependentPostgres.test_hash_valid_but_unreadable_old_run_blocks_upgrade_without_writing) ... ok' in rawlog('corrected-ci-job-130204330464.txt.gz'),'actual former damaged-legacy PG regression now pass')
+archive=read('corrected-frozen-archive.json')
+check(archive['source_commit']==SOURCE and archive['actual_tests']==22 and archive['exit_code']==0 and archive['actual_frozen_git_archive_used'] is True,'actual exact source archive and MFA package checks')
+check('Ran 22 tests in ' in rawlog('corrected-frozen-archive.txt.gz') and '\nOK\n' in rawlog('corrected-frozen-archive.txt.gz'),'actual archive result log')
+review=read('counterreview-cash-result.json')
+check(review['product_source']==SOURCE and review['product_runtime_unchanged'] is True and review['actual_result']=='pass','actual additional exact-source PostgreSQL financial counterreview')
+check(review['own_container']['test_exit_code']==0 and review['own_container']['cleanup_verified'] is True,'own additional financial PG container verified removed')
+for item in review['logs']:
+    raw=gzip.decompress((OUT/item['stored_name']).read_bytes())
+    check(len(raw)==item['raw_bytes'] and hashlib.sha256(raw).hexdigest()==item['raw_sha256'],'lossless actual financial PG counterreview '+item['original_name'])
+manifest=optional('corrected-delivery-manifest.json')
+if manifest:
+    check(manifest['source_commit']==SOURCE,'delivery source')
+    check(not any(manifest[k] for k in ['server_updated','testflight_uploaded','real_device_tests_performed','external_fiscal_approval','overall_acceptance_complete']),'no invented external completion')
+    for name,item in manifest['raw_files'].items():
+        raw=(OUT/name).read_bytes()
+        check(len(raw)==item['bytes'] and hashlib.sha256(raw).hexdigest()==item['sha256'],'bound raw evidence '+name)
+workflows=optional('corrected-own-workflows.json')
+bindings={} if workflows is None else {x['id']:x['head_sha'] for x in workflows}
+for filename,run_id,count in [('corrected-development-final.json',42923602362,20),('corrected-auto-ios-final.json',42923602365,None),('corrected-signed-preparation-final.json',42924966961,2)]:
+    data=optional(filename)
+    if data is None:continue
+    jobs=data['jobs']
+    check(count is None or len(jobs)==count,filename+' required job count')
+    for job in jobs:
+        check(bindings.get(job['run_id'])==SOURCE,filename+' actual workflow source binding')
+        check(run_id is None or job['run_id']==run_id,filename+' exact owned run')
+        check(job['conclusion'] not in ['failure','cancelled','timed_out','action_required'],filename+' not failed')
+    if any(j['status']!='completed' for j in jobs):pending.append(filename+' not complete');continue
+    required=jobs if count else [j for j in jobs if j['name']=='Online-Release ohne Apple-Zugang pruefen']
+    check(required and all(j['conclusion']=='success' for j in required),filename+' required success')
+    if filename=='corrected-development-final.json':
+        for group in ['browser-journeys','online-api']:
+            check({j['name'] for j in jobs if j['name'].startswith(group+' (')}=={group+' ('+str(i)+')' for i in range(6)},'complete '+group)
+    if filename=='corrected-signed-preparation-final.json':
+        signed=[j for j in jobs if any(s['name']=='Zu TestFlight hochladen' for s in j['steps'])]
+        check(len(signed)==1,'one actual signed job')
+        steps=signed[0]['steps']
+        check(any(s['name']=='Zu TestFlight hochladen' and s['conclusion']=='skipped' for s in steps),'TestFlight upload skipped')
+        check(any(s['name']=='API-Schluessel loeschen' and s['conclusion']=='success' for s in steps),'actual signing key cleanup')
+for filename in ['corrected-development-artifacts.json','corrected-auto-ios-artifacts.json','corrected-signed-artifacts.json']:
+    data=optional(filename)
+    if data:
+        check(data['artifacts'],'actual artifacts '+filename)
+        for artifact in data['artifacts']:
+            check(not artifact['expired'] and re.fullmatch(r'sha256:[0-9a-f]{64}',artifact['digest']),filename+' actual metadata digest')
+            expected_run={'corrected-development-artifacts.json':42923602362,'corrected-auto-ios-artifacts.json':42923602365,'corrected-signed-artifacts.json':42924966961}[filename]
+            check(artifact['workflow_run']['head_sha']==SOURCE and artifact['workflow_run']['id']==expected_run,filename+' actual artifact workflow source')
+print(json.dumps({'source_commit':SOURCE,'original_goal_unchanged':True,'historical_payroll_modules_unchanged':63,'requirements':62,'real_device_cases_unperformed':34,'overall_acceptances_closed':0,'server_updated':False,'testflight_uploaded':False,'pending':pending,'complete_internal_delivery_evidence':not pending},ensure_ascii=False,indent=2))
+if pending and '--allow-pending' not in sys.argv:raise SystemExit(2)

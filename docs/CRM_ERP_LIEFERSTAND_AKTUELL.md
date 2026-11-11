@@ -1,116 +1,116 @@
 # Aktueller Lieferstand
 
-Der erste RV-Testkandidat51c404b ist wegen belegter Altlohn-Regressionen nicht
-freigegeben. Die Korrektur9a20836 und der tatsächliche größere Originalkatalog
-bestehen ihre gezielten Backend-, Browser-, App- und PostgreSQL-/Restoreprüfungen.
-[Umfang und Erstfehler](CRM_ERP_MINIJOB_RV_INTEGRATION_2026-11-10.md).
-Der Nachfolger benötigt seinen eigenen vollständigen Plattform- und Paketnachweis.
-Läufe und Artefakte von51c404b oder4aa0abd sind kein Nachweis dieses Nachfolgers.
-Kein TestFlight-Upload und kein neuer Liveupdate. Die nachstehenden V16-Pakete
-bleiben der letzte vollständig abgeschlossene Lieferstand.
+Stand: 11.11.2026. Aktuelle veröffentlichte Produktquelle:
+`ab6b61535a35f8306bbf04ebe6557acdb2ac3f41`, ausschließlich auf
+`codex/testupdate-0.7-projects-20261104`. Hauptprojekt:
+`/workspace/Smarplan-Hofmann-Workspace`.
 
+Die gemeinsame Developmentprüfung und beide Windows-Pakete sind erfolgreich.
+Die beiden eigenen iPhone-Läufe sind noch nicht abgeschlossen. Der gesamte
+Produktivabschluss wird deshalb nicht behauptet. Der
+[vorherige vollständig abgeschlossene V16-Paketstand](CRM_ERP_LIEFERSTAND_V16_VOR_RV_2026-11-10.md)
+bleibt unverändert archiviert; seine Pakete enthalten den neuen RV-Umfang nicht.
 
-Stand10.11.2026. Hauptprojekt: `/workspace/Smarplan-Hofmann-Workspace`.
-Geprüfter veröffentlichter Produktcode:
-`4aa0abd6d313fcc5d693606dbef1c7193afb0729`, ausschließlich auf dem freigegebenen
-Testbranch `codex/testupdate-0.7-projects-20261104`. Spätere reine Belegcommits
-ändern diesen Produktcode nicht. Das Gesamtziel ist weiter offen; technische
-Paketprüfungen sind keine Produktiv-, Geräte- oder unabhängige Fachfreigabe.
+## Tatsächlich abgeschlossene gemeinsame Prüfung
 
-## Tatsächlicher gemeinsamer Nachweis
-
-[Development42898771085](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42898771085)
-besteht alle20eigenen Gruppen. Der vollständige Backendjob bestätigt2.199Fälle
-in1.611,192s mit3ausgewiesenen Auslassungen. Linux-App:2.020Hauptfälle plus3native
-PDF-Fälle; Analyse ohne Befund. Windows:1.975Appfälle und81portable Backendfälle
-sowie tatsächlicher Bau und Paketierung. Sechs Browser- und sechs PostgreSQL-/
-API-Gruppen, Runtime/MFA, Isolation, Update und Wiederherstellung bestehen.
-[Unveränderte Rohbelege mit Prüfsummen](evidence/factor-transition-periods-2026-11-10/manifest.json).
-
-Der vollständige lokale App-Lauf besteht ebenfalls mit2.023Fällen in25:11.
-Der zusätzliche lokale Backendaufruf endete zunächst mit4Importfehlern unter
-2.178erfassten Fällen: Im Testaufruf fehlte das Projektverzeichnis im Pythonpfad.
-Die4betroffenen Transportmodule und der nach der ersten Auswahl ergänzte
-Austrittsfall bestehen im korrigierten Nachlauf mit25Fällen. Der erste rote
-Lauf bleibt erhalten. Der vollständige eigene CI-Backendlauf ist davon getrennt
-erfolgreich; kein gescheiterter Erstlauf wird nachträglich grün ausgegeben.
+[Development 42923602362](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42923602362)
+besteht alle 20 eigenen Gruppen: 2.225 Backendfälle in 1.023,039 Sekunden mit
+drei ausgewiesenen Auslassungen, 2.033 Linux-Apphauptfälle plus drei native
+PDF-Fälle, 1.119 Browsermodulfälle, sechs tatsächliche Browsergruppen, sechs
+PostgreSQL-/API-Gruppen, Runtime/MFA, Isolation, HTTPS, Update und Restore.
+Windows besteht mit 1.988 Apphauptfällen, drei nativen PDF-Fällen und 81
+portablen Backendfällen, tatsächlichem Bau, Paketierung, Start/Sicherung/Restore
+und getrenntem Onlinepaket. Die im allgemeinen Backendlauf ausgelassenen beiden
+PG-Gegenfälle und der Windows-Prozessfall sind dort tatsächlich separat geprüft.
 
 Enthalten sind die bisherigen CRM-, Projekt-, Angebots-/Rechnungs-, Zeit-,
-Material-, Service- und abgegrenzten Finanz-/Personalabläufe sowie native
-Offline-Berichtsklärung, CAMT.053.001.08-Originalimport und Personalpflege ohne
-Zugriff auf die vollständige Benutzerverwaltung. Der neue
-[Faktor-/Midijob-Teilmonat V16](CRM_ERP_FAKTOR_MIDIJOB_TEILMONAT_V16_2026-11-10.md)
-verbindet einen belegten30-Tage-Vertrag, tatsächliche Steuer-/SV-Tage,
-unverändertes ELStAM-Profil und getrennte Prognose.300unabhängige XML-/
-Beitragsgegenwerte, beide Clients und wirkliche Geld-/Restorekette sind belegt.
+Material-, Einkaufs-, Service-, Finanz-, Personal- und abgegrenzten Lohnabläufe.
+Der neue [belegte Minijob-RV-Verlauf](CRM_ERP_MINIJOB_RV_INTEGRATION_2026-11-10.md)
+verbindet private Originale und vollständige Fassungsgeschichte mit genauer
+Profilfassung, tatsächlichem Abrechnungsmonat und beiden Clients. Ein offenes
+Verfahren erzeugt keine scheinbare Entscheidung. Neue Lohnschritte verwenden
+den aktuell geprüften Status; historische Belege und Quittungen bleiben erhalten.
 
-## Tatsächliche Pakete für4aa0abd
+22 zusätzliche Paket-/Archivfälle bestehen in 17,556 Sekunden, darunter das
+wirkliche festgelegte Commitarchiv nach MFA mit eigenem Quellmarker und neuen
+RV-/Browserdateien. Eine weitere tatsächliche PG-/MFA-/Konkurrenz-/Geld-/EÜR-/
+Export-/Komplettrestore-Gegenprüfung besteht in 44,962 Sekunden am unveränderten
+Produktcode: 581,29 EUR Netto plus 209,66 EUR Abführung ergeben 790,95 EUR
+EÜR-Aufwand, Vorsteuer 0,00 EUR. Eigener Testcontainer ist entfernt.
 
-| Paket | Nachweis und GitHub-Metadaten |
+Der erste Kandidat 51c404b bleibt nicht freigegeben: Sein eigener Lauf besitzt
+17 erfolgreiche und drei rote Gruppen. Die Altbelegregression und eine
+Nullsekunden-Browsertesteingabe sind getrennt behoben und im aktuellen
+Gesamtlauf nachgeprüft. Ursprüngliche Fehl- und Nachläufe bleiben mit ihren
+jeweiligen Quellen unverändert unter
+[evidence/minijob-rv-lifecycle-2026-11-10](evidence/minijob-rv-lifecycle-2026-11-10/)
+erhalten. Frühere Erfolge werden nicht als neuer Lauf ausgegeben.
+
+## Tatsächliche Windows-Pakete des aktuellen Quellstands
+
+| Paket | Tatsächlicher Nachweis |
 |---|---|
-| [Windows mit lokalem Backend](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42898771085/artifacts/13803825624) |40.668.045Bytes; tatsächlicher Windowsbau und Quellen-/Paketprüfung|
-| [Windows für den Onlineserver](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42898771085/artifacts/13802673210) |22.284.962Bytes; getrenntes Onlinepaket|
-| [Unsignierter iPhone-/iPad-Release211](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42898770963/artifacts/13804211792) |15.084.001Bytes; eigener automatischer erfolgreicher Lauf|
-| [Signiertes iPhone-/iPad-Paket212](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42898966618/artifacts/13805341384) |29.979.577Bytes; eigener tatsächlicher Apple-Export, Signatur-/Team-/Keychain-Prüfung und Schlüsselbereinigung erfolgreich|
+| [Windows mit lokalem Backend](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42923602362/artifacts/13814036629) | 40.712.595 Bytes; Quelle ab6b615; Metadatenablauf 2026-11-24T23:45:58Z |
+| [Windows für den Onlineserver](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42923602362/artifacts/13813403219) | 22.319.641 Bytes; Quelle ab6b615; Metadatenablauf 2026-11-24T23:47:13Z |
+| [Windows Start und Sicherung](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42923602362/artifacts/13812318527) | 19.624.557 Bytes; Quelle ab6b615; Metadatenablauf 2026-11-24T23:29:01Z |
 
-SHA256 der Windows-Komplettdatei:
-`3b44d6c06c65b32818b41f42c25492ff383e2c5a8538530ef73af0d4dae8e927`.
-Windows-Online:
-`0284aa54575255b9135be036a5a8811403683e5abc28539edf496617bc358d39`.
-Unsigniertes iOS211:
-`0a676fbde938144faba563938de49660769e1edd704adc889bf972f02bc9b67f`.
-Signiertes iOS212:
-`1061f69bb27c959a009ea3f511f07e07472221c3b28f16f581b58b0aa2f3a9fe`.
+SHA256 aus den tatsächlichen GitHub-Artefaktmetadaten:
 
-Die Digests stammen aus tatsächlichen GitHub-Artefaktmetadaten. Eine zusätzliche
-lokale Archivkontrolle war beim Vorgänger bereits vor Empfang der ZIP-Bytes
-am Cloud-Proxy mitHTTP403 blockiert; sie wird für diese neuen ZIPs nicht als
-lokal bestanden behauptet. Die wirklichen CI-Bau-/Paketprüfungen sind separat
-erfolgreich. Artefakte sind derzeit bis24.11.2026befristet und benötigen Zugriff
-auf GitHub-Artefakte.
+- Windows vollständig: `f3ec25258853df97efdaed400ccdb8ddc136a33b3bc26bcb84ece48e0a66a480`.
+- Windows online: `7ca912aed728d678b5b0ad0a3ede159bfeba19fe97f84e6a0aa1a41a256e9da9`.
+- Start/Sicherung: `772dbe7241e15b6a8d353a0183109a404d806a52faaa1c2287fa7b0c1ec3ea0d`.
 
-Die [signierte Vorbereitung42898966618](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42898966618)
-besteht mit beiden Jobs. Ihre tatsächliche macOS-Vorprüfung bestätigt2.015Haupt-
-und3native PDF-Fälle;5Linux-Integrationsfälle sind dort ausdrücklich ausgelassen
-und im eigenen Linuxnachweis enthalten. `prepare_signed_ipa=true`,
-`upload_to_testflight=false`; der tatsächliche Uploadschritt ist ausgelassen.
-Eine App-Store-signierte IPA allein ist keine TestFlight-Verteilung oder reale
-Geräteinstallation. Der vorherige vollständig geprüfte Produktstand29b02c8
-und sein signiertes Paket210 bleiben im
-[Personal-/Paketarchiv](evidence/employee-account-selection-2026-11-10/manifest.json)
-mit ihren eigenen Nachweisen erhalten.
+Dies sind Metadatendigests. Die ZIP-Bytes wurden hier nicht zusätzlich lokal
+heruntergeladen und geprüft; ein früherer Archivabruf war bereits vor Empfang
+von ZIP-Bytes mit HTTP403 blockiert. Die tatsächlichen CI-Bau-/Paket-/Import-/
+Start-/Restoreprüfungen sind davon unabhängig erfolgreich. Die Downloads
+benötigen GitHub-Zugriff und sind befristet.
 
-Die älteren Windows-Online-Startnotizen beschreiben Berichte noch pauschal als
-onlinepflichtig. Für den ausdrücklich freigegebenen Offline-Serviceberichtweg
-gelten die aktuellen [Handbuchschritte](CRM_ERP_BENUTZERHANDBUCH.md#verbindungsabbruch-und-offlinearbeit)
+## Eigene iPhone-Auslieferung: noch in Prüfung
+
+- [Automatischer unsignierter Release 42923602365](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42923602365).
+- [Signierte Vorbereitung 42924966961](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42924966961).
+
+Beide sind nach beobachteter Laufkennung an genau ab6b615 gebunden. Endgültige
+Pakete, Signatur-/Team-/Keychain-Prüfung und Schlüsselbereinigung werden erst
+nach tatsächlichem Abschluss ergänzt. `prepare_signed_ipa=true`,
+`upload_to_testflight=false`. Ein signiertes IPA ist keine TestFlight-Verteilung
+oder reale Installation. Die überholte Vorbereitung 42918342817 zu 51c404b ist
+vor dem ersten Apple-Export bewusst beendet; die tatsächliche Schlüsselbereinigung
+ist erfolgreich bestätigt. Sie ist kein Paketnachweis des aktuellen Standes.
+
+## Server und tatsächliche Abnahme
+
+Die [konkrete Serveranleitung für ab6b615](CRM_ERP_SERVERUPDATE_AB6B615_2026-11-10.md)
+beginnt mit der bekannten Windows-SSH-Verbindung, erhält den bisherigen
+Quellcommit und verwendet das kontrollierte Update auf den festen geprüften
+Stand. Die Bash-Syntax ist geprüft; aus dieser Cloud ist kein Serverbefehl
+ausgeführt. Hier fehlen geschützter SSH-Zugang und Hostfreigabe. Der letzte
+vom Nutzer bestätigte Server bleibt a93cb4d vom 05.11. Ein alter Cloudabruf
+mit HTTP403 ist kein Beweis eines Serverausfalls oder einer neuen Installation.
+
+[34 reale Gerätefälle](CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv) bleiben ungeprüft;
+die ursprünglichen 31 Zeilen sind bytegleich erhalten. Vor realen Tests passende
+Client-/Serverstände abgleichen. Die älteren Windows-Online-Startnotizen
+beschreiben Berichte noch pauschal als onlinepflichtig; für den ausdrücklich
+freigegebenen Offline-Serviceberichtweg gelten die aktuellen
+[Handbuchschritte](CRM_ERP_BENUTZERHANDBUCH.md#verbindungsabbruch-und-offlinearbeit)
 und die [Konfliktklärung](CRM_ERP_OFFLINE_KONFLIKTKLAERUNG_2026-11-10.md).
-Daraus folgt keine allgemeine Offlinefreigabe aller Dokumentarten.
+Dies ist keine allgemeine Offlinefreigabe beliebiger Dokumentarten.
 
-## Server und reale Abnahme
+## Gesamtziel und konkrete verbleibende Grenzen
 
-Die [konkrete Anleitung für4aa0abd](CRM_ERP_SERVERUPDATE_4AA0ABD_2026-11-10.md)
-enthält zuerst die bekannte Windows-SSH-Verbindung, dann das kontrollierte
-Update auf den festgelegten geprüften Commit mit Prüfung der tatsächlichen
-Installationskennung. In dieser Cloud fehlen SSH-Schlüssel und Agent; kein
-neuer Liveupdate ist ausgeführt. Der letzte vom Nutzer bestätigte Serverstand
-bleibta93cb4d vom05.11. Ein zusätzlicher ausschließlich lesender Bereitschafts-
-abruf aus dieser Cloud antwortetHTTP403. Daraus wird weder ein Serverausfall
-noch eine neue Installation abgeleitet.
+Die [Anforderungsmatrix](CRM_ERP_ANFORDERUNGEN.md) und Gesamtabnahmen A–G bleiben
+maßgeblich. Technische Paketprüfungen ersetzen weder tatsächliche Geräte-,
+Fach-, Rechts-, Sicherheits- noch Produktivnachweise. Weitere ausdrücklich
+beschriebene Lohn-, Reise-, Offline-Altbestands- und Schnittstellenfälle sind
+nicht pauschal geschlossen. Direkte produktive Meldewege und unabhängige
+Fach-/Sicherheitsprüfungen fehlen. Die zusätzliche gleichzeitige Source5-Gruppe
+bleibt ohne verifizierte fachliche Gruppierungsgrundlage gesperrt.
 
-[31reale Gerätefälle](CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv) bleiben ungeprüft;
-die bisherigen28Zeilen sind bytegleich erhalten. Das
-[konkrete externe Prüfpaket](CRM_ERP_EXTERNER_ABNAHMEAUFTRAG_2026-11-10.md)
-enthält zusätzlich300einzeln nachprüfbare Teilmonatswerte. Kein externer Prüfer
-ist hier beauftragt oder kontaktiert.
-
-## Noch laufende Gesamtarbeit
-
-Die [Anforderungsmatrix](CRM_ERP_ANFORDERUNGEN.md) behält62Anforderungen mit ihren
-wirklichen Statuswerten; A–G sind nicht pauschal abgeschlossen. Die nächste
-getrennte [RV-Lebenslaufentwicklung](CRM_ERP_MINIJOB_RV_LEBENSLAUF_PLAN_2026-11-10.md)
-besitzt erste eigene Komponenten-/Speicherprüfungen, ist aber noch nicht in
-beide Clients und den vollständigen Lohn-/Geld-/Restoreweg integriert. Weitere
-Lohn-/Steuerfälle bleiben Codearbeit. Anbieterzugänge, echte Bank-/Lieferanten-
-originale und unabhängige Fach-/Sicherheits-/Betriebsnachweise bleiben getrennt.
-Die Loxone-Hostfreigabe ist auf Nutzerwunsch später einzurichten. Es wurden
-keine echten Nachrichten, Zahlungen oder Meldungen erzeugt.
+Qonto, Kreissparkasse Rottweil und Amex Business sind gewählt; echte Zugänge,
+Anbieterdateien und Abnahmen fehlen. Dasselbe gilt für die festgelegten
+Lieferanten. Loxones Hosteinrichtung ist ausdrücklich auf später verschoben.
+Keine echte Zahlung, Meldung, Nachricht, Anbieteranbindung, neue Liveinstallation
+oder TestFlight-Veröffentlichung wurde aus dem Entwicklungsauftrag ausgeführt.
+Das Gesamtziel ist noch nicht vollständig erreicht.

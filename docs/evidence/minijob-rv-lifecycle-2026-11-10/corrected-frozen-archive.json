@@ -1,0 +1,11 @@
+{
+  "source_commit": "ab6b61535a35f8306bbf04ebe6557acdb2ac3f41",
+  "actual_tests": 22,
+  "seconds": 17.556,
+  "exit_code": 0,
+  "command": "PYTHONPATH=.:backend:backend/business_tests:backend/online:scripts .venv/bin/python -m unittest scripts.test_native_release scripts.test_online_source_archive scripts.test_online_archive_runtime -v",
+  "actual_frozen_git_archive_used": true,
+  "real_mfa_browser_assets_and_rv_capability_checked": true,
+  "raw_bytes": 4987,
+  "raw_sha256": "fd2ae2130e3d2738911b08954e43f337f7e96e5006015eddfb21bbe44f66e7eb"
+}

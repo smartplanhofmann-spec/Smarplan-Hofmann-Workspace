@@ -59,6 +59,29 @@ lokal geprüft. Alle20eigenen Development-Gruppen,2.199Backendfälle mit3Auslass
 2.023Linux-Appfälle, Windows-Paketierung und tatsächliche signierte iPhone-
 Vorbereitung212 sind erfolgreich. R09.03/D und A–G bleiben offen. Fehlende weitere Rechenfälle werden damit nicht als extern blockiert erklärt.
 
+## Neuester gemeinsamer Entwicklungsnachweis vom 11.11.2026
+
+Produktquelle `ab6b61535a35f8306bbf04ebe6557acdb2ac3f41` besteht alle 20
+eigenen Developmentgruppen 42923602362: 2.225 Backendfälle mit drei
+ausgewiesenen Auslassungen, 2.033 Linux-Apphauptfälle plus drei native
+PDF-Fälle, 1.119 Browsermodulfälle, tatsächliche Browser-/PostgreSQL-/MFA-/
+Update-/Restoregruppen und Windowsbau. Windows besteht mit 1.988
+Apphauptfällen, drei nativen PDF-Fällen und 81 portablen Backendfällen.
+
+Der [belegte Minijob-RV-Verlauf](CRM_ERP_MINIJOB_RV_INTEGRATION_2026-11-10.md)
+ist mit beiden Clients verbunden. Die zusätzliche tatsächliche
+PG-/Konkurrenz-/Geld-/EÜR-/Export-/Komplettrestore-Gegenprüfung besteht in
+44,962 Sekunden am unveränderten Code. Ein offenes Verfahren erzeugt keine
+scheinbare Entscheidung; alte Belege und angenommene Quittungen bleiben erhalten.
+Der erste Kandidat 51c404b mit drei roten Gruppen bleibt separat dokumentiert.
+
+Die eigenen iPhone-Läufe 42923602365 und 42924966961 werden im
+[Arbeitsstand](CRM_ERP_ARBEITSSTAND.md) und [Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md)
+getrennt geführt. 34 reale Gerätefälle und sämtliche Gesamtabnahmen A–G
+bleiben offen. Keine neue Serverinstallation, TestFlight-Veröffentlichung
+oder Fach-/Produktivfreigabe wird aus diesen Entwicklungsprüfungen abgeleitet.
+Die früheren nachstehenden Quellstände behalten ihre damaligen Nachweise.
+
 ## Status und Nachweise
 
 Aktueller Produktnachweis: [4aa0abd samt tatsächlichen Paketen](CRM_ERP_LIEFERSTAND_AKTUELL.md) besteht alle20eigenen Development-Gruppen,2.199Backendfälle mit3ausgewiesenen Auslassungen und2.023Linux-Appfälle sowie Windows-Paketierung und signierte iPhone-Vorbereitung212. [31reale Gerätefälle](CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv) bleiben ungeprüft; die bisherigen28Zeilen sind bytegleich. Kein Serverwechsel, TestFlight-Upload oder A–G-Abschluss ausCI ableiten. Der neue vollständige lokale App-Lauf besteht2.023Fälle. Ältere unterbrochene und gescheiterte Aufrufe bleiben mit ihren tatsächlichen Grenzen dokumentiert.

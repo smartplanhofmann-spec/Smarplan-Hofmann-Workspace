@@ -1,12 +1,12 @@
 # Smartplan Office – Arbeitsabläufe der CRM-/ERP-Version
 
-Stand: 10. November 2026. Dieses Handbuch beschreibt den entwickelten Funktionsumfang.
+Stand: 11. November 2026. Dieses Handbuch beschreibt den entwickelten Funktionsumfang.
 Welche Abläufe aktuell getestet sind und welche Freigaben fehlen, steht im
 [aktuellen Arbeitsstand](CRM_ERP_ARBEITSSTAND.md). Die vorhandene
 Installation erhält diese Erweiterungen erst durch ein kontrolliertes Update.
 Aktuelle Paketdownloads und der passende Serverstand stehen im
 [Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md). Die
-[Updateanleitung](CRM_ERP_SERVERUPDATE_29B02C8_2026-11-10.md) enthält die bekannte
+[Updateanleitung](CRM_ERP_SERVERUPDATE_AB6B615_2026-11-10.md) enthält die bekannte
 SSH-Verbindung und den geprüften kontrollierten Updateweg.
 
 ## Einstieg und Unternehmenseinstellungen

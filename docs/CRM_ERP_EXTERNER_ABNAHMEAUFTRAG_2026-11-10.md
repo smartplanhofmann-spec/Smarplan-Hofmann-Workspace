@@ -4,6 +4,35 @@ Dieses Paket bereitet die im Gesamtziel vorgesehenen gesonderten Nachweise vor.
 Es beauftragt niemanden, versendet keine Daten und erteilt keine Produktivfreigabe.
 Alle nachstehenden Beispiele verwenden kontrollierte synthetische Daten.
 
+## Zusätzlicher aktueller RV-Prüfumfang ab6b615
+
+Der neue Produktquellstand `ab6b61535a35f8306bbf04ebe6557acdb2ac3f41` besteht
+alle 20 eigenen Developmentgruppen einschließlich 2.225 Backendfällen mit
+drei ausgewiesenen Auslassungen, Browser, PostgreSQL, Windows und Restore.
+Seine iPhone-Auslieferung wird im aktuellen Lieferstand getrennt nachgewiesen.
+Der vorherige V16-Prüfumfang weiter unten bleibt erhalten.
+
+Bitte zusätzlich den [begrenzten RV-Widerrufsvertrag](CRM_ERP_MINIJOB_RV_INTEGRATION_2026-11-10.md)
+prüfen: bereits bestehende belegte Befreiung, ein durchgehender gewerblicher
+Minijob, tatsächlicher Eingang ab 01.07.2026, Originalnachweise, tatsächlich
+geprüfte Widerspruchsfrist einschließlich Feiertagen und ausdrücklich belegter
+Verfahrensstand. Ein offenes Verfahren erzeugt keine scheinbare Entscheidung.
+Es erfolgt keine automatische Behördenmeldung. Anfangsverfahren, Wiederbeginn,
+parallele Minijobs und besondere Rentenfälle sind nicht pauschal freigegeben.
+
+Beim kontrollierten 603,00-EUR-Beispiel bleiben ursprünglich 603,00 EUR Netto
+unverändert archiviert. Nach belegtem wirksamem Widerruf beträgt das neue
+Netto 581,29 EUR; Arbeitnehmer-RV 21,71 EUR. Die zusätzliche wirkliche PG-/MFA-/
+Konkurrenz-/Geld-/EÜR-/Export-/Restore-Gegenprüfung besteht in 44,962 Sekunden:
+581,29 EUR Netto und 209,66 EUR Abführung ergeben 790,95 EUR EÜR-Aufwand,
+Vorsteuer 0,00 EUR. Dies sind interne technische Gegenwerte, keine externe
+fachliche Bestätigung und keine tatsächliche Mitarbeiterabrechnung.
+
+Das Geräteprotokoll enthält nun 34 weiterhin ungeprüfte Fälle. Die früheren
+31 Zeilen bleiben bytegleich. Neu sind die RV-Verläufe im Browser, unter
+Windows und auf iPhone einschließlich offener Verfahren, Versionsauswahl und
+unveränderter Wiederholung nach verlorener Antwort.
+
 ## Aktueller technischer Prüfumfang
 
 Maßgeblicher neuer Prüfstand ist4aa0abd6d313fcc5d693606dbef1c7193afb0729.
@@ -23,7 +52,7 @@ Benutzerverwaltung bleibt gesperrt. Projektfreigaben, Rechteentzug, verspätete
 Antworten und Sitzungswechsel prüfen. Das Beenden eines Profils darf seinen
 gesperrten Benutzerzugang nicht entsperren. [Umsetzung und interne Nachweise](CRM_ERP_PERSONAL_KONTENAUSWAHL_2026-11-10.md).
 
-Das Geräteprotokoll umfasst jetzt31 ausdrücklich noch ungeprüfte Fälle; die
+Der historische V16-Abschnitt umfasste31 ausdrücklich ungeprüfte Fälle; die
 bisherigen28Zeilen und ursprünglichen20Zeilen bleiben jeweils unverändert. Neu sind XML-Auszug und
 Personalpflege auf allen drei Clients sowie die native Offline-Konfliktklärung.
 Die Durchführung erfolgt in einem isolierten Testunternehmen; keine

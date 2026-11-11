@@ -4869,3 +4869,32 @@ Die produktive Betriebsmittellogik bleibt unverändert. Rohlogs des roten
 Erstlaufs und erfolgreichen Nachlaufs stehen verlustfrei komprimiert unter
 `docs/evidence/minijob-rv-lifecycle-2026-11-10/`. Der korrigierte Gesamtstand
 benötigt weiterhin seine eigene vollständige Remoteprüfung und Paketnachweise.
+
+## 11.11.2026 – zusätzliche tatsächliche PostgreSQL-Geld-/EÜR-Gegenprüfung
+
+Die genaue Quellnachprüfung trennt die Nachweise: Der bisherige eigene neue
+RV-PG-Fall reicht bis zum Zahlungsoriginal und vollständigen Restore; die
+zusätzliche Netto-/Abführungs-/EÜR-Kette war bis dahin unter SQLite geprüft.
+Ein eigener weiterer Gegenlauf verwendet jetzt unveränderten Produktcode
+ab6b615 und einen separat gespeicherten Testtreiber. Er erweitert den
+wirklichen MFA-/HTTP-/Konkurrenzfall um beide Geldflüsse, EÜR und Export.
+
+Der Lauf besteht einen vollständigen Fall in 44,962 Sekunden: tatsächliches
+Netto 581,29 EUR, Abführung 209,66 EUR, EÜR-Aufwand 790,95 EUR, Vorsteuer 0,00 EUR.
+Zwei unabhängige Verbindungen nehmen denselben ursprünglichen Nettoauftrag
+nur einmal an. Berechtigte HTTP-Wiederholung liefert dieselbe Quittung. Eine
+weitere RV-Prüffassung verändert weder frühere Geldflüsse noch deren Annahmen.
+Nach wirklichem Dump/Restore bleiben Lohn-PDF, Zahlungsoriginal, beide
+Geldquittungen und EÜR-Export exakt erhalten; zwei Cash-Batches bleiben zwei.
+Die alte Anmeldung wird abgewiesen, danach ist eine neue tatsächliche MFA
+erfolgreich. Private Personal-/RV-Kennungen erscheinen nicht im öffentlichen
+Geldbezug oder EÜR-Export.
+
+Der eigene Container `smartplan-rv-cash-pg-20261111`, volle ID
+`3da00a658fefdc5ff4f426a202b46c53af003da2e7082e451e43d2a293fb8ba9`,
+war ausschließlich an Loopback-Port 32826 gebunden und ist nach Prüfung von
+ID/Label/Port entfernt. Keine fremde Instanz oder Produktivdatenbank betroffen.
+Testtreiber, Runner, Quellbindung, tatsächlicher Lauf und Aufräumresultat sind
+verlustfrei unter `evidence/minijob-rv-lifecycle-2026-11-10/` archiviert. Dies ist
+eine eigene technische Gegenprüfung, keine unabhängige externe Fachfreigabe.
+Der Produktcode wurde für diesen Zusatznachweis nicht verändert.

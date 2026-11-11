@@ -6,7 +6,9 @@ Rücknahme unbezahlter Freigaben in beiden Clients. 80 betroffene Backendfälle,
 drei tatsächliche PG-/Restorefälle und zwölf native Personalprüfungen bestehen.
 Dieser zusätzliche Teilnachweis schließt weder R09 insgesamt noch A–G pauschal.
 
-Aktueller veröffentlichter Produktquellstand: `ab6b61535a35f8306bbf04ebe6557acdb2ac3f41`.
+Aktuelle veröffentlichte Quelle: `3c824c174ec6247d50219a70612ba42fed75d017`;
+eigene gemeinsame Plattformprüfung 42966124379 läuft.
+Der vorherige vollständig abgeschlossene Paketstand ist `ab6b61535a35f8306bbf04ebe6557acdb2ac3f41`.
 Alle 20 eigenen Developmentgruppen, tatsächliche Windows-Paketierung,
 automatischer iPhone-Gerätebuild 215 nach dokumentiertem Runner-Nachlauf und
 signierte Vorbereitung 216 sind erfolgreich. Reale Installation, Verteilung

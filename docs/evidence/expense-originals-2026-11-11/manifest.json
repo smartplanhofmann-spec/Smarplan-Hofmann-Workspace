@@ -261,6 +261,41 @@
       "sha256": "7b9d86e4aff1da5b4d2c7d8e52c9d3bc2cbf0b119e3ef0358b69d409dab1eb10",
       "original_bytes": 213312,
       "original_sha256": "375bd6f0dfb427036ecd372b677d0fbbc4b6a66bbd9367e8b15088933ab672e0"
+    },
+    {
+      "path": "frozen-3c824c1-package.txt.gz",
+      "bytes": 224,
+      "sha256": "7f6e16708e38f8c48c4bc96ff96f8b549f27864ca0ffc7e4ee37d134bc511cd8",
+      "original_bytes": 561,
+      "original_sha256": "c5db53965bd346554ee4a611032a86e8a077460504717543f6f64944a296e12d"
+    },
+    {
+      "path": "frozen-company-archive-first.txt.gz",
+      "bytes": 103,
+      "sha256": "8675f92beabc8aeec58c2b8474af582cb90fad786f735a031b00a2c96b0818a6",
+      "original_bytes": 91,
+      "original_sha256": "288448c19e6ffe6ccfcd633d7048d18ded704e3345f0def4c75f09a265f7d8ac"
+    },
+    {
+      "path": "frozen-company-archive-second.txt.gz",
+      "bytes": 202,
+      "sha256": "a123237c9c9fd790debe17111b74e177b431a5acd8feca1b202998e6b0f00a54",
+      "original_bytes": 297,
+      "original_sha256": "d290e302def5fb4a8ccbeca826b95b743ea26b4058d9d70b7a28d0e2581f4917"
+    },
+    {
+      "path": "verify-frozen-expense-source-first.py.gz",
+      "bytes": 1645,
+      "sha256": "f48a9df014e119fb827cae40f72f56cb7cb83cd08c9ea11bdd5188cb0cad6c20",
+      "original_bytes": 3622,
+      "original_sha256": "0a53bd2915254f6110fefc3597294d4577ed6c4069299784b538ca0a149ce86b"
+    },
+    {
+      "path": "verify-frozen-expense-source.py.gz",
+      "bytes": 1682,
+      "sha256": "618f645bf6f771f81978a2ca7bb88b3c180cbf3c51e92025236f508862f5b4da",
+      "original_bytes": 3706,
+      "original_sha256": "f2d8cff7b0ed48069c5a095410c2830d9c7f3316f2b58dd15c2b6df7207bcc4b"
     }
   ],
   "checks": {
@@ -276,5 +311,11 @@
   "production_server_updated": false,
   "real_device_acceptance": false,
   "external_professional_acceptance": false,
-  "testflight_uploaded": false
+  "testflight_uploaded": false,
+  "product_commit": "3c824c174ec6247d50219a70612ba42fed75d017",
+  "additional_checks": {
+    "frozen_archive_cases": 2,
+    "frozen_two_company_mfa_case": 1,
+    "production_code_changed_after_freeze": false
+  }
 }

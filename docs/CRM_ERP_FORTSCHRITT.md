@@ -4975,3 +4975,21 @@ Uploadfrage ist bisher unbeantwortet. Keine TestFlight-Veröffentlichung;
 Freigaben zum abgefragten älteren Funktionsstand dürfen nicht still auf die
 neue Auslagenfunktion übertragen werden. Fehlende Anbieter-/Serverzugänge,
 reale Gerätefälle und Fach-/Sicherheits-/Gesamtabnahme bleiben offen.
+
+Zusätzlicher unveränderter Commitarchivnachweis für 3c824c1: zwei Paket-/
+MFA-/Browserdateifälle bestehen in 2,900s. Ein weiterer tatsächlicher isolierter
+Archivfall bestätigt zwei Firmen nach echter MFA: gleiches Original unabhängig
+pro Firma zulässig, zweite Einreichung innerhalb der Firma gesperrt, fremder
+Firmentoken 401, ausgelieferte Browserdateien bytegleich zum Archiv und neue
+Serverfähigkeit vorhanden. Seine erste zu strenge Asset-Erwartung bleibt als
+roter Testaufbau erhalten; die korrigierte Probe verändert keinen Produktcode.
+Der ausführbare lokale Nachweisprüfer bestätigt jetzt 40 verlustfreie Rohdateien,
+zwölf Code-/Testdateien, Originalziel und 64 unveränderte Lohnmodule.
+
+Die konkrete Serveranleitung ist auf 3c824c1 festgelegt und mit `bash -n`
+syntaktisch geprüft, jedoch nicht am Server ausgeführt. Development42966124379,
+automatisches iPhone42966124295 und signierte Vorbereitung42966356463 laufen
+auf derselben Quelle. Letztere wurde mit `prepare_signed_ipa=true` und ausdrücklich
+`upload_to_testflight=false` gestartet. Vorheriger vollständiger RV-Liefernachweis
+bleibt bytegleich archiviert. Nur Dokumentation und Nachweise wurden seit dem
+Einfrieren des neuen Produktcodes geändert.

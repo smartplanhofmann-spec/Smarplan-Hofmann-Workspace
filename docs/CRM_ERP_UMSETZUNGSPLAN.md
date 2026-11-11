@@ -8,7 +8,9 @@ Lokale betroffene Prüfungen bestehen; eigener finaler Browser-/Remote-
 und Paketnachlauf werden ergänzt. Danach verbleibende Code- und Betriebs-
 abnahmen des vollständigen Gesamtziels weiter bearbeiten.
 
-Aktueller veröffentlichter Produktquellstand: `ab6b61535a35f8306bbf04ebe6557acdb2ac3f41`.
+Aktuelle veröffentlichte Quelle: `3c824c174ec6247d50219a70612ba42fed75d017`;
+eigene gemeinsame Plattformprüfung 42966124379 läuft.
+Der vorherige vollständig abgeschlossene Paketstand ist `ab6b61535a35f8306bbf04ebe6557acdb2ac3f41`.
 Alle 20 eigenen Developmentgruppen, tatsächliche Windows-Paketierung,
 automatischer iPhone-Gerätebuild 215 nach dokumentiertem Runner-Nachlauf und
 signierte Vorbereitung 216 sind erfolgreich. Reale Installation, Verteilung

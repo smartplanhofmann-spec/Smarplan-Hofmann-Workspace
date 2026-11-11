@@ -1,0 +1,69 @@
+"""Run with Python from any directory; verify the frozen source, not newer code."""
+import gzip
+import hashlib
+import json
+from pathlib import Path
+import re
+import subprocess
+
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[2]
+SOURCE = '3c824c174ec6247d50219a70612ba42fed75d017'
+
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def git_bytes(commit, path):
+    return subprocess.check_output(['git', 'show', commit+':'+path], cwd=ROOT)
+
+
+manifest = json.loads((HERE/'manifest.json').read_text())
+raw = {}
+for entry in manifest['evidence']:
+    path = HERE/entry['path']
+    assert path.parent == HERE, 'Unexpected evidence path'
+    compressed = path.read_bytes()
+    assert len(compressed) == entry['bytes'] and sha(compressed) == entry['sha256'], path.name
+    original = gzip.decompress(compressed)
+    assert len(original) == entry['original_bytes'] and sha(original) == entry['original_sha256'], path.name
+    raw[path.name.removesuffix('.gz')] = original
+for path, digest in manifest['runtime_files_sha256'].items():
+    assert sha(git_bytes(SOURCE, path)) == digest, path
+goal = git_bytes(SOURCE, 'CRM_ERP_Gesamtziel.txt')
+assert len(goal) == 23863 and sha(goal) == 'a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5'
+rules = json.loads(raw['goal-and-rules.json'])
+assert rules['unchanged_payroll_module_count'] == len(rules['unchanged_payroll_modules']) == 64
+for path in rules['unchanged_payroll_modules']:
+    assert git_bytes(SOURCE, path) == git_bytes(rules['comparison_commit'], path), path
+for name, count in [('backend-final.txt', 80), ('postgres-final.txt', 3), ('reproduction-after.txt', 1)]:
+    value = raw[name].decode()
+    assert re.search(r'Ran '+str(count)+r' tests? in ', value) and value.rstrip().endswith('OK'), name
+assert 'FAILED (failures=1)' in raw['reproduction-before.txt'].decode()
+assert 'Problem not raised' in raw['reproduction-before.txt'].decode()
+node = raw['browser-modules-final-second.txt'].decode()
+assert 'tests 1120' in node and 'pass 1120' in node and 'fail 0' in node and 'skipped 0' in node
+assert '+12: All tests passed!' in raw['flutter-fifth.txt'].decode()
+assert 'No issues found!' in raw['flutter-analyze.txt'].decode()
+browser = raw['browser-personnel-final.txt'].decode()
+assert 'namespace, PID, network and seccomp sandboxes verified' in browser
+assert '1 targeted personnel workflow passed' in browser
+archive = json.loads(raw['frozen-company-archive-second.txt'])
+assert archive['source_commit'] == SOURCE and archive['companies'] == 2
+for key in ['actual_mfa', 'same_original_across_companies_accepted', 'within_company_duplicate_rejected',
+            'cross_company_token_rejected', 'exact_archive_browser_assets', 'new_personnel_feature']:
+    assert archive[key] is True, key
+assert 'AssertionError' in raw['frozen-company-archive-first.txt'].decode()
+assert 'Ran 2 tests' in raw['frozen-3c824c1-package.txt'].decode()
+for attempt in ['first', 'second', 'final']:
+    environment = json.loads(raw['postgres-'+attempt+'-environment.json'])
+    assert environment['synthetic'] is True and environment['cleanup_verified'] is True
+    assert environment['name'] == 'smartplan-expense-originals-pg-20261111'
+    assert re.fullmatch('[a-f0-9]{64}', environment['container_id'])
+    assert environment['test_exit_code'] == (1 if attempt == 'first' else 0)
+approval = json.loads((HERE/'testflight-approval-review.json').read_text())
+assert approval['automatic_approval_review'] == 'rejected'
+assert approval['rejected_exec_started'] is False and approval['upload_to_testflight'] is False
+print(json.dumps(dict(source=SOURCE, raw_evidence_files=len(raw), code_files=len(manifest['runtime_files_sha256']),
+    unchanged_rules=64, goal_unchanged=True, archived_failures_preserved=True, verified=True), indent=2))

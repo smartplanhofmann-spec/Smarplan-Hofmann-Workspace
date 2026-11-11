@@ -38,6 +38,10 @@ Upload bleibt false. Die neue Auslagenfunktion ist nicht vom abgefragten
   `codex/testupdate-0.7-projects-20261104` im bestehenden GitHub-Repository.
   Kein Force-Push und keine Änderung des Standardbranches daraus ableiten.
 - Aktueller veröffentlichter Produktquellstand:
+  `3c824c174ec6247d50219a70612ba42fed75d017`; eigener gemeinsamer Nachlauf
+  42966124379 und iPhone-Läufe 42966124295/42966356463 laufen. Die signierte
+  Vorbereitung verwendet ausdrücklich `upload_to_testflight=false`.
+- Zuletzt vollständig abgeschlossener vorheriger Plattformnachweis:
   `ab6b61535a35f8306bbf04ebe6557acdb2ac3f41`.
 - Originalziel: 23.863 Bytes, SHA256
   `a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5`.

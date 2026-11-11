@@ -4,7 +4,35 @@ Dieses Paket bereitet die im Gesamtziel vorgesehenen gesonderten Nachweise vor.
 Es beauftragt niemanden, versendet keine Daten und erteilt keine Produktivfreigabe.
 Alle nachstehenden Beispiele verwenden kontrollierte synthetische Daten.
 
-## Zusätzlicher aktueller RV-Prüfumfang ab6b615
+## Aktueller zusätzlicher Prüfumfang 4bb5071
+
+Aktuelle Produktquelle: `4bb5071891344a38f640d8ae43ec240c1f95e61e`.
+Alle 20 eigenen Developmentgruppen sind erfolgreich: 2.236 Backendfälle mit
+3 ausgewiesenen Auslassungen, 2.036 Linux-Appfälle plus drei native PDF-Fälle,
+1.120 Browsermodulfälle, tatsächliche Browser-/PostgreSQL-/Update-/Restore-
+prüfungen und Windowsbau. Windows: 1.991 Appfälle, drei PDF-Fälle und 81 portable
+Backendfälle. Automatisches iPhone-Paket 219 ist erfolgreich, signierte
+Vorbereitung wird im [aktuellen Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md) nachgeführt.
+
+Zusätzlich fachlich prüfen: Derselbe ganze Beleg darf über zwei Mitarbeiter
+und verschiedene Upload-IDs nur einen aktiven Erstattungsanspruch begründen.
+Alte schon freigegebene Doppelanträge werden vor neuer Zahlung abgefangen.
+Eine andere berechtigte Person kann ausschließlich unbezahlte, ungebundene
+Freigaben mit Prüfvermerk zurücknehmen. Bereits ausgeführte Erstattungen
+benötigen eine belegte tatsächliche vollständige Rückzahlung. Frühere
+Quittungen und Originale müssen unverändert wiederholbar bleiben. Gemeinsame
+Teilbelege verschiedener Mitarbeiter sind damit nicht pauschal fachlich freigegeben.
+
+Der erste Auslagenkandidat 3c824c1 ist zurückgezogen: Ein tatsächlicher
+Altbestandsgegenfall erkennt seine geänderte Migrationsprüfsumme. Die Korrektur
+erhält alle 59 bisherigen Modulverträge in beiden Dialekten exakt und wird
+mit alten SQLite-/PostgreSQL-Beständen geprüft. Auch der vollständige Operator-
+pfad vom zuletzt bestätigten a93cb4d besteht an kontrollierten Daten mit
+Sicherung, Kandidatenkopie, drei zusätzlichen Modulen und Runtime-Rechten.
+Kein tatsächlicher Liveupdate ist daraus abzuleiten. Geräteprotokoll A–G
+und unabhängige Fach-/Sicherheitsabnahme bleiben offen.
+
+## Vorheriger RV-Prüfumfang ab6b615
 
 Der neue Produktquellstand `ab6b61535a35f8306bbf04ebe6557acdb2ac3f41` besteht
 alle 20 eigenen Developmentgruppen einschließlich 2.225 Backendfällen mit
@@ -33,9 +61,9 @@ Das Geräteprotokoll enthält nun 34 weiterhin ungeprüfte Fälle. Die früheren
 Windows und auf iPhone einschließlich offener Verfahren, Versionsauswahl und
 unveränderter Wiederholung nach verlorener Antwort.
 
-## Aktueller technischer Prüfumfang
+## Vorheriger technischer Prüfumfang 4aa0abd
 
-Maßgeblicher neuer Prüfstand ist4aa0abd6d313fcc5d693606dbef1c7193afb0729.
+Der damalige Prüfstand ist 4aa0abd6d313fcc5d693606dbef1c7193afb0729.
 Er enthält XML-Bankoriginalimport und die begrenzte Personal-Kontenauswahl.
 Seine eigenen Prüfungen und Pakete stehen im [aktuellen Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md).
 Die älteren Zahlen weiter unten bleiben ihren jeweiligen Quellen zugeordnet.

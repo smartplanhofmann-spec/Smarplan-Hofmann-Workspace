@@ -5038,3 +5038,53 @@ Alle drei alten Kandidatenläufe 42966124379/42966124295/42966356463 sind tatsä
 als abgebrochen abgeschlossen; ihre Metadaten bleiben erhalten. Die neue konkrete
 Serveranleitung ist syntaktisch geprüft, noch nicht am Server ausgeführt.
 Seit diesem Einfrieren nur Dokumentation und Nachweise verändert.
+
+Zusätzlicher tatsächlicher Browsergegenlauf am eingefrorenen Produktarchiv 4bb5071
+besteht: Zweiter Mitarbeiter, neue Datei-ID, gleiches ganzes Original; beim
+Einreichen sichtbare 409-Meldung und ausdrücklich keine Annahme. Desktop-/
+Mobilansicht ohne horizontalen Überlauf. Nach unabhängiger Freigaberücknahme
+nimmt die tatsächliche UI-Wiederholung mit 200 an. Danach bestehen der vollständige
+ursprüngliche Personal-/Monats-/Geld-/Korrekturablauf und die unveränderte
+Wiederholung nach verlorener Antwort weiter. 1.045 übrige Archivdateien sind
+bytegleich zum Commit geprüft; ausschließlich separater Testtreiber erweitert.
+Keine Veränderung am Produktcode oder an den laufenden Plattformprüfungen.
+
+Die ersten Kandidatenläufe sind nun mit endgültigen Jobmetadaten und 22 verlustfreien
+Rohlogs erhalten: Development42966124379 endet abgebrochen mit 19 erfolgreichen
+Jobs und einem abgebrochenen Backendjob. Beide alten iPhone-Läufe enden ebenfalls
+abgebrochen; kein Apple-Schritt der alten manuellen Vorbereitung startete.
+Diese Ergebnisse werden weder als neuer Quellnachweis noch als Produktivfreigabe
+verwendet. Der rote tatsächliche Altbestandsgegenfall bleibt ausschlaggebend für
+die Rücknahme 3c824c1.
+
+Gemeinsame Prüfung 42968922844 auf genau 4bb5071 vollständig erfolgreich:
+alle 20 Gruppen, 2.236 Backendfälle in 1.040,812 Sekunden mit drei ausgewiesenen
+Auslassungen, 2.036 Linux-Appfälle plus drei native PDF-Fälle, 1.120 Browser-
+modulfälle, sechs tatsächliche Browser-/sechs PG-Gruppen, Runtime/MFA/HTTPS/
+Update/Restore. Windows besteht 1.991 Apphauptfälle, drei native PDF-Fälle,
+81 portable Backendfälle und tatsächliche Komplett-/Onlinepakete einschließlich
+Start/Sicherung/Restore. Zwei PostgreSQL-Auslassungen sind tatsächlich in der
+PG-Auswahl geprüft; der Windows-Prozessfall ist im Windowsumfang enthalten.
+
+Automatisches iPhone 42968922850 erfolgreich: 2.031 Apphauptfälle mit fünf
+Linux-Auslassungen, drei native PDF-Fälle, Gerätebuild und Paketprüfung.
+Unsigniertes Paket 219, Artefakt 13834280596, 15.123.896 Bytes, Quelle 4bb5071.
+Die separate signierte Vorbereitung 42968958373 läuft weiter; Upload ist false.
+Alle tatsächlichen Artefaktdigests und Quellbindungen stehen im Lieferstand.
+
+Zusätzlicher tatsächlicher Operatorgegenfall vom zuletzt bestätigten Servercode
+a93cb4d nach 4bb5071 besteht einen Fall in 15,136 Sekunden. Das alte Commitarchiv
+erzeugt einen kontrollierten PostgreSQL-Bestand mit MFA, Personaloriginal,
+Erstattung und Monatsabschluss. Der tatsächliche privilegierte Operatorpfad
+sichert und kopiert die Quelle, ergänzt drei Module, erhält vorhandene Daten
+und teilt die neuen engen Runtime-Rechte zu. Danach bleiben Zahlungs-/Monats-
+quittung und Original/PDF exakt erhalten; die neue Fähigkeit ist über HTTP
+verfügbar. Quelle bleibt unverändert. Kein Kontakt zum tatsächlichen Server.
+
+56 bisherige Modulverträge des bestätigten a93cb4d sind in beiden Dialekten
+exakt erhalten. Hinzu kommen Offlinebindung, Projektmeilensteine und RV-Verlauf.
+Der erste isolierte Test hatte nur Migration aufgerufen und die nachfolgende
+Runtime-Rechtevergabe ausgelassen; seine erwartbar fehlenden Tabellenrechte
+bleiben als roter Testaufbau archiviert. Der vollständige bestehende Operatorpfad
+besteht unverändert. Beide eigenen Container mit ID/Label/Ports 32831/32832 sind
+kontrolliert entfernt. Kein Produktcode für diesen Zusatznachweis verändert.

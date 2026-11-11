@@ -48,6 +48,17 @@ gezählt. Browser- und App-Produktcode bleiben bytegleich zu 3c824c1; die
 Schemaerhaltung und der neue feste Gegenfall erhalten dennoch einen eigenen
 vollständigen gemeinsamen Quell-/Paketnachlauf.
 
+Ein zusätzlicher tatsächlicher Chromiumlauf am eingefrorenen Produktarchiv
+4bb5071 besteht auch die sichtbare Mitarbeitergrenze: Ein zweiter Mitarbeiter
+lädt dasselbe ganze Original unter neuer Datei-ID hoch, erhält beim Einreichen
+409 mit `request_resolution=not_accepted` und eine lesbare Meldung auf Desktop
+und Mobilansicht. Nach unabhängiger Freigaberücknahme wird die erneute
+Einreichung mit 200 angenommen. Der vollständige ursprüngliche Ablauf mit
+Freigabe, Zahlung/Rückzahlung, Monats-PDF und verlorener Antwort besteht danach
+weiter. Alle 1.045 übrigen Archivdateien sind gegen 4bb5071 bytegleich geprüft;
+nur der externe Testtreiber ist erweitert. Produktcode und laufende CI bleiben
+unverändert. HTTP-Belege und Screenshots sind archiviert.
+
 Die eigene alte signierte Vorbereitung 42966356463 wurde während der
 unsignierten Vorprüfung geordnet abgebrochen. Der danach als abgebrochen
 aufgeführte Signierjob besitzt keine Schritte; kein Apple-Schritt war gestartet.

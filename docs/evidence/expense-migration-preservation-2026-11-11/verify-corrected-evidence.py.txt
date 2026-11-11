@@ -3,6 +3,7 @@ import gzip
 import hashlib
 import json
 from pathlib import Path
+import re
 import subprocess
 
 HERE = Path(__file__).resolve().parent
@@ -40,11 +41,65 @@ catalog = json.loads(raw['all-schema-contracts.txt'])
 assert catalog['previous_source'] == PREVIOUS and catalog['corrected_source'] == SOURCE
 assert catalog['modules'] == len(catalog['catalog']['contracts']) == 59
 assert catalog['dialects'] == 2 and catalog['control_unchanged'] is True and catalog['all_contracts_unchanged'] is True
+server = json.loads(raw['last-server-schema-contracts.txt'])
+assert server['previous_source'] == 'a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5'
+assert server['corrected_source'] == SOURCE and server['old_modules'] == 56
+assert server['control_unchanged'] is True and server['all_contracts_unchanged'] is True
+assert server['added_modules'] == ['business_offline_binding', 'business_payroll_rv_lifecycle', 'business_project_milestones']
+operator = raw['last-server-postgres-operator-path.txt'].decode()
+assert 'Ran 1 test in 15.136s' in operator and operator.rstrip().endswith('OK')
+assert 'permission denied for table business_offline_instance_grants' in raw['last-server-postgres-actual-last-server.txt'].decode()
+operator_environment = json.loads(raw['last-server-postgres-operator-path-environment.json'])
+assert operator_environment['cleanup_verified'] is True and operator_environment['test_exit_code'] == 0
+assert operator_environment['container_id'] == '450b5a94d6e7a786727c04d74dcd2b98e9bda5561dbe76817df778a3bde440b5'
 company = json.loads(raw['corrected-company-archive.txt'])
 assert company['source_commit'] == SOURCE and company['companies'] == 2
 for key in ['actual_mfa', 'same_original_across_companies_accepted', 'within_company_duplicate_rejected',
             'cross_company_token_rejected', 'exact_archive_browser_assets', 'new_personnel_feature']:
     assert company[key] is True, key
+browser = json.loads(raw['corrected-browser-source-verification.json'])
+assert browser['source_commit'] == SOURCE and browser['unchanged_archived_files'] == 1045
+assert browser['only_extended_test_driver'] == 'web/office/tests/personnel-workflow-flow.cjs'
+assert browser['blocked_submit_status'] == 409 and browser['accepted_after_independent_withdrawal_status'] == 200
+assert browser['request_resolution'] == 'not_accepted' and browser['desktop_mobile_alert'] is True
+assert browser['all_archived_runtime_files_unchanged'] is True and browser['synthetic_only'] is True
+for path, digest in browser['sha256'].items():
+    assert sha(git_bytes(SOURCE, path)) == digest, path
+assert 'frozen UI countercase:' in raw['corrected-browser-countercase.txt'].decode()
+assert 'actual UI retry 200 passed' in raw['corrected-browser-countercase.txt'].decode()
+development = json.loads(raw['corrected-development-run.json'])
+assert development['id'] == 42968922844 and development['head_sha'] == SOURCE
+assert development['status'] == 'completed' and development['conclusion'] == 'success'
+jobs = json.loads(raw['corrected-development-jobs.json'])['jobs']
+assert len(jobs) == 20 and all(j['status'] == 'completed' and j['conclusion'] == 'success' for j in jobs)
+for job in jobs:
+    assert job['run_id'] == development['id']
+    assert b'Current runner version' in raw[f"corrected-job-{job['id']}-final-log.txt"]
+backend_log = raw['corrected-job-130352650127-final-log.txt'].decode()
+assert 'Ran 2236 tests in 1040.812s' in backend_log and 'OK (skipped=3)' in backend_log
+linux_log = raw['corrected-job-130352649221-final-log.txt'].decode()
+assert '+2036: All tests passed!' in linux_log and '+3: All tests passed!' in linux_log
+windows_log = raw['corrected-job-130352649165-final-log.txt'].decode()
+assert '+1991: All tests passed!' in windows_log and '+3: All tests passed!' in windows_log
+assert 'Ran 81 tests' in windows_log
+node_log = raw['corrected-job-130352649138-final-log.txt'].decode()
+assert '# tests 1120' in node_log and '# pass 1120' in node_log and '# fail 0' in node_log
+auto = json.loads(raw['corrected-ios-auto-run.json'])
+assert auto['id'] == 42968922850 and auto['head_sha'] == SOURCE and auto['conclusion'] == 'success'
+auto_jobs = json.loads(raw['corrected-ios-auto-jobs.json'])['jobs']
+assert next(j for j in auto_jobs if j['id'] == 130352668786)['conclusion'] == 'success'
+assert all(j['conclusion'] == 'skipped' for j in auto_jobs if j['id'] != 130352668786)
+ios_log = raw['corrected-job-130352668786-final-log.txt'].decode()
+assert '+2031 ~5: All tests passed!' in ios_log and '+3: All tests passed!' in ios_log
+assert 'Build-Nummer: 219' in ios_log
+for artifact in manifest['artifacts']:
+    assert artifact['workflow_run']['head_sha'] == SOURCE
+    assert artifact['workflow_run']['id'] in (42968922844, 42968922850)
+    assert artifact['expired'] is False and artifact['size_in_bytes'] > 0
+    assert re.fullmatch('sha256:[a-f0-9]{64}', artifact['digest'])
+required = {'Smartplan-Office-Windows', 'Smartplan-Office-Windows-Online-Pilot',
+            'Smartplan-Windows-Start-und-Sicherung', 'Smartplan-Office-iOS-UNSIGNED-219'}
+assert required <= {a['name'] for a in manifest['artifacts']}
 container = json.loads(raw['postgres-corrected-environment.json'])
 assert container['cleanup_verified'] is True and container['test_exit_code'] == 0 and container['synthetic'] is True
 assert container['container_id'] == '8ec93b99a74c44025ee891fe2fdb1704fff09c9be755586d55538d54d454ce15'
@@ -65,5 +120,5 @@ for path in rules:
     assert git_bytes(SOURCE, path) == git_bytes(PREVIOUS, path), path
 print(json.dumps(dict(source=SOURCE, raw_evidence_files=len(raw), frozen_files=len(manifest['runtime_files_sha256']),
     module_contracts_unchanged=59, dialects=2, unchanged_rules=64, identical_client_files=reused,
-    goal_unchanged=True, previous_candidate_blocked=True, corrected_evidence_verified=True,
+    goal_unchanged=True, previous_candidate_blocked=True, corrected_evidence_verified=True, actual_browser_countercase=True,
     shared_ci_status=manifest['shared_ci']['status'], testflight_uploaded=False), indent=2))

@@ -1,4 +1,4 @@
-# Vorbereitetes Serverupdate für den korrigierten Auslagenstand 4bb5071
+# Serverupdate für den geprüften Auslagenstand 4bb5071
 
 Der Quellstand `4bb5071891344a38f640d8ae43ec240c1f95e61e` ergänzt die
 Auslagenoriginalsperre und erhält den alten Migrationsvertrag vollständig.
@@ -7,8 +7,11 @@ Restorefälle bestehen. Alle 59 Modulverträge sind in beiden Dialekten exakt
 zum alten ab6b615 erhalten. Am wirklichen Commitarchiv bestehen Paket-/MFA-/
 Browserdatei- und Zwei-Firmen-Prüfung. Der neue gemeinsame
 [Developmentlauf](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42968922844)
-läuft noch. Bis zu dessen erfolgreichem Abschluss ist diese Anleitung nur
-vorbereitet. [Aktuelle Pakete und tatsächliche Ergebnisse](CRM_ERP_LIEFERSTAND_AKTUELL.md).
+besteht alle 20 Gruppen. Windowsbau, Paketierung, Start/Sicherung/Restore,
+Browser und PostgreSQL sind erfolgreich. Ein weiterer tatsächlicher Operator-
+gegenfall vom zuletzt bestätigten a93cb4d erhält Daten und Quittungen bei
+Sicherung, Kandidatenkopie, drei neuen Modulen und Runtime-Rechtevergabe.
+Diese Anleitung ist konkret vorbereitet und syntaktisch geprüft. [Aktuelle Pakete und tatsächliche Ergebnisse](CRM_ERP_LIEFERSTAND_AKTUELL.md).
 
 Diese Anleitung ist konkret vorbereitet und syntaktisch geprüft. Sie wurde
 aus dieser Cloud nicht am Server ausgeführt. Der letzte vom Nutzer bestätigte

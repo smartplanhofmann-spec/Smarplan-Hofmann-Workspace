@@ -53,12 +53,16 @@ Browser-/App-Produktcode sind bytegleich zum ersten Auslagenkandidaten, dessen
 1.120 Browsermodulfälle, zwölf native Personalprüfungen, vollständige Appanalyse
 und tatsächlicher Browserablauf erfolgreich waren. Diese Komponentennachweise
 werden nicht als neuer gemeinsamer Gesamtquelllauf ausgegeben. Der neue eigene
-Gesamtnachlauf auf genau 4bb5071 läuft:
+Gesamtnachlauf auf genau 4bb5071:
 
-- Development 42968922844: alle 20 Gruppen, einschließlich vorhandener Discovery
-  des neuen PG-Gegenfalls; kein doppelter identischer Einzelaufruf.
-- Automatisches iPhone 42968922850: unsignierter Gerätebuild.
-- Signierte Vorbereitung 42968958373: `prepare_signed_ipa=true`,
+- Development 42968922844 vollständig erfolgreich: 2.236 Backendfälle mit drei
+  ausgewiesenen Auslassungen, 2.036 Linux-Appfälle plus drei PDF-Fälle,
+  1.120 Browsermodulfälle, sechs Browser-/sechs PG-Gruppen, Runtime/MFA/HTTPS/
+  Update/Restore. Windows: 1.991 Appfälle, drei PDF-Fälle, 81 portable
+  Backendfälle, tatsächliche Komplett-/Onlinepakete und Start/Sicherung/Restore.
+- Automatisches iPhone 42968922850 erfolgreich: 2.031 Appfälle plus drei
+  native PDF-Fälle mit fünf Linux-Auslassungen; unsigniertes Paket 219 vorhanden.
+- Signierte Vorbereitung 42968958373 läuft weiter: `prepare_signed_ipa=true`,
   `upload_to_testflight=false`.
 
 Alte Läufe 42966124379/42966124295/42966356463 behalten ihre tatsächlichen

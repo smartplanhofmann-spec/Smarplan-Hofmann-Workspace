@@ -9,7 +9,9 @@ und Paketnachlauf werden ergänzt. Danach verbleibende Code- und Betriebs-
 abnahmen des vollständigen Gesamtziels weiter bearbeiten.
 
 Aktuelle veröffentlichte Quelle: `4bb5071891344a38f640d8ae43ec240c1f95e61e`;
-eigene gemeinsame Plattformprüfung 42968922844 läuft.
+eigene gemeinsame Plattformprüfung 42968922844 besteht alle 20 Gruppen.
+Windows-Pakete und unsignierter iPhone-Gerätebuild 219 sind tatsächlich
+vorhanden; die getrennte signierte Vorbereitung 42968958373 läuft noch.
 Der erste Auslagenkandidat 3c824c1 ist wegen seiner geänderten alten
 Migrationsprüfsumme zurückgezogen; die [Korrektur](CRM_ERP_AUSLAGEN_MIGRATIONSERHALT_2026-11-11.md) erhält alle alten Modulverträge.
 Der vorherige vollständig abgeschlossene Paketstand ist `ab6b61535a35f8306bbf04ebe6557acdb2ac3f41`.

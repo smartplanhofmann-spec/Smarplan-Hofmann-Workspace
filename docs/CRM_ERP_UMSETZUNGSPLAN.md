@@ -1,5 +1,12 @@
 # CRM/ERP – laufender Umsetzungsplan
 
+Aktuell ausdrücklich freigegeben und gestartet: [TestFlight-Upload des
+Funktionsstands 4bb5071](CRM_ERP_TESTFLIGHT_UPLOAD_2026-11-11.md), Lauf
+43019931541 mit beiden Auslieferungsschaltern true. Die tatsächliche
+Workflowquelle e9bdb46 hat identische Programmbäume. Die frühere signierte
+Vorbereitung 220 bleibt ein eigener Nachweis ohne Upload. Erfolg,
+Apple-Verarbeitung und echte Installation sind noch nicht bestätigt.
+
 Fortsetzung 11.11.: [Unternehmensweite Auslagenoriginalsperre und begründete
 Freigaberücknahme](CRM_ERP_AUSLAGEN_ORIGINALSPERRE_2026-11-11.md) gegen den
 tatsächlich roten Mitarbeiterwechsel-Gegenfall implementieren und mit beiden

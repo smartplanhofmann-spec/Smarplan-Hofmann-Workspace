@@ -1,0 +1,14 @@
+{
+  "recorded_at_utc": "2026-11-11T13:13:16.304184+00:00",
+  "run_id": 43019931541,
+  "source": "e9bdb46c9679e52944d6614e7b731c41d7dfa94e",
+  "job_id": 130520300731,
+  "conclusion": "success",
+  "actual_build": 221,
+  "main_app_tests_passed": 2031,
+  "main_app_tests_skipped": 5,
+  "native_pdf_tests_passed": 3,
+  "unsigned_artifact_id": 13855909165,
+  "signature_confirmed": false,
+  "upload_confirmed": false
+}

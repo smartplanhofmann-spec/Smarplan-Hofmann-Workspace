@@ -116,11 +116,10 @@ geprüfter Vorbereitung 220 ersetzt. Diese Frage ist ausdrücklich mit „Ja, di
 hochladen“ beantwortet. Der [freigegebene Uploadlauf 43019931541](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/43019931541)
 ist gestartet, Quelle e9bdb46 bei identischen Programmdateien zu 4bb5071.
 Beide Schalter sind true; Erfolg, Apple-Verarbeitung und Geräteinstallation
-sind noch nicht bestätigt. Der aktuelle manuelle Lauf hat ausschließlich das signierte Paket vorbereitet.
-Ein TestFlight-Upload hat nicht stattgefunden. Der vorhandene Uploadweg würde
-einen neuen Build mit identischem Programmcode erstellen; dafür ist eine
-ausdrückliche passende Freigabe des aktuellen Funktionsstands/Ziels erforderlich;
-diese liegt nun vor. Der bisherige Vorbereitungsnachweis bleibt unverändert.
+sind noch nicht bestätigt. Die frühere manuelle Vorbereitung 42968958373 hat
+ausschließlich das signierte Paket 220 vorbereitet. Der neue freigegebene
+Lauf erstellt einen weiteren Build mit identischem Programmcode und führt
+anschließend den Upload aus. Der bisherige Vorbereitungsnachweis bleibt unverändert.
 
 Die drei zusätzlichen Gerätefälle zur Originalsperre/Freigaberücknahme sind
 vorbereitet; alle bisherigen 34 Zeilen bleiben bytegleich. Alle 37 realen

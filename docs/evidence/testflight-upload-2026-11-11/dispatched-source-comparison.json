@@ -1,0 +1,36 @@
+{
+  "checked_at_utc": "2026-11-11T12:34:44.566425+00:00",
+  "run_id": 43019931541,
+  "approved_functional_source": "4bb5071891344a38f640d8ae43ec240c1f95e61e",
+  "actual_workflow_source": "e9bdb46c9679e52944d6614e7b731c41d7dfa94e",
+  "changed_path_count": 103,
+  "all_changed_paths_under_docs": true,
+  "trees": {
+    "app": {
+      "approved_tree": "dbd11e942cc2265d65a08e86b5f6ef0a9de013d4",
+      "dispatched_tree": "dbd11e942cc2265d65a08e86b5f6ef0a9de013d4"
+    },
+    "backend": {
+      "approved_tree": "090b98dd36ff577644cea26b04fee0ec1984058a",
+      "dispatched_tree": "090b98dd36ff577644cea26b04fee0ec1984058a"
+    },
+    "web": {
+      "approved_tree": "ab21149e9cbea80e9638ce255e3cf6d427c3115c",
+      "dispatched_tree": "ab21149e9cbea80e9638ce255e3cf6d427c3115c"
+    },
+    "scripts": {
+      "approved_tree": "74306e592bb6e8ebe31cb2b6b14980765fdf9ba5",
+      "dispatched_tree": "74306e592bb6e8ebe31cb2b6b14980765fdf9ba5"
+    },
+    ".github": {
+      "approved_tree": "9869596601ab378ea5cf9dd43b65a93a5a417095",
+      "dispatched_tree": "9869596601ab378ea5cf9dd43b65a93a5a417095"
+    },
+    "deploy": {
+      "approved_tree": "81e95f0c41ae7454562216451e3bc2b6b4e0e679",
+      "dispatched_tree": "81e95f0c41ae7454562216451e3bc2b6b4e0e679"
+    }
+  },
+  "goal_bytes": 23863,
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+}

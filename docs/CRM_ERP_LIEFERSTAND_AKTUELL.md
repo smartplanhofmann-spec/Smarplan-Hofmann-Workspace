@@ -113,7 +113,10 @@ App-Pakets an Apple fehlte. Der abgelehnte Start wurde nicht ausgeführt.
 Die frühere Frage zu ab6b615 ist durch die neue konkrete Frage zu Smartplan
 Office, Bundle-ID `de.smartplanhofmann.office`, Funktionsstand 4bb5071 und
 geprüfter Vorbereitung 220 ersetzt. Diese Frage ist ausdrücklich mit „Ja, diesen Funktionsstand an Apple TestFlight
-hochladen“ beantwortet. Der freigegebene Uploadlauf wird separat dokumentiert. Der aktuelle manuelle Lauf hat ausschließlich das signierte Paket vorbereitet.
+hochladen“ beantwortet. Der [freigegebene Uploadlauf 43019931541](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/43019931541)
+ist gestartet, Quelle e9bdb46 bei identischen Programmdateien zu 4bb5071.
+Beide Schalter sind true; Erfolg, Apple-Verarbeitung und Geräteinstallation
+sind noch nicht bestätigt. Der aktuelle manuelle Lauf hat ausschließlich das signierte Paket vorbereitet.
 Ein TestFlight-Upload hat nicht stattgefunden. Der vorhandene Uploadweg würde
 einen neuen Build mit identischem Programmcode erstellen; dafür ist eine
 ausdrückliche passende Freigabe des aktuellen Funktionsstands/Ziels erforderlich;

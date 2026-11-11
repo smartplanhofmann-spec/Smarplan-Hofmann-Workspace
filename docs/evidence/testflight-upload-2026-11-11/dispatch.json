@@ -1,0 +1,14 @@
+{
+  "status": "workflow_dispatched_upload_unconfirmed",
+  "run_id": 43019931541,
+  "run_url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/43019931541",
+  "run_source": "e9bdb46c9679e52944d6614e7b731c41d7dfa94e",
+  "functional_source": "4bb5071891344a38f640d8ae43ec240c1f95e61e",
+  "created_at_utc": "2026-11-11T12:23:36Z",
+  "created_at_berlin": "2026-11-11T13:23:36+01:00",
+  "prepare_signed_ipa": true,
+  "upload_to_testflight": true,
+  "upload_success_observed": false,
+  "apple_processing_observed": false,
+  "device_installation_observed": false
+}

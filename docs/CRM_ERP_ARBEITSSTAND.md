@@ -93,7 +93,10 @@ hochladen“ beantwortet. Die Freigabe ist im separaten Uploadnachweis festgehal
 Der vorhandene
 Auslieferungsweg erstellt für den Upload einen neuen Build mit identischem
 Programmcode. Der bisherige Vorbereitungsnachweis bleibt bei Upload false.
-Der neue ausdrücklich freigegebene Uploadlauf wird separat gestartet und geprüft.
+Der neue ausdrücklich freigegebene Uploadlauf 43019931541 ist gestartet, Quelle
+e9bdb46 bei identischen Programmdateien zu 4bb5071. Er verwendet beide
+Schalter true. Tatsächlicher Upload, Apple-Verarbeitung und Installation sind
+noch nicht bestätigt und werden separat geprüft.
 
 Deutschland/EUR, Einzelunternehmen/EÜR, Regelbesteuerung/Ist, 19 %, SKR04,
 Nettopreise; reguläre Mitarbeiter und gewerbliche Minijobs. Die frühere

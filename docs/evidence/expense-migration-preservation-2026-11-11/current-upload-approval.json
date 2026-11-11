@@ -1,6 +1,6 @@
 {
   "recorded_at": "2026-11-11T07:19:54.491620+00:00",
-  "status": "explicitly_approved",
+  "status": "authorized_workflow_dispatched",
   "question_asked": true,
   "answer_received": true,
   "upload_performed": false,
@@ -17,5 +17,8 @@
   "previous_rejected_exec_started": false,
   "previous_ab6b615_question_superseded": true,
   "answer": "Ja, diesen Funktionsstand an Apple TestFlight hochladen",
-  "approval_record": "../testflight-upload-2026-11-11/authorization.json"
+  "approval_record": "../testflight-upload-2026-11-11/authorization.json",
+  "run_id": 43019931541,
+  "run_source": "e9bdb46c9679e52944d6614e7b731c41d7dfa94e",
+  "upload_success_observed": false
 }

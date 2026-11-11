@@ -5143,3 +5143,10 @@ stehen separat unter evidence/testflight-upload-2026-11-11/. Frühere abgelehnte
 und nicht ausgeführte Starts bleiben als historische Zustände erhalten.
 Der neue Lauf wird erst anschließend mit Uploadtrue gestartet; Erfolg und
 Verarbeitung bei Apple werden nicht aus der Freigabe abgeleitet.
+
+Der ausdrücklich freigegebene Lauf 43019931541 ist tatsächlich gestartet,
+Quellcommit e9bdb46c9679e52944d6614e7b731c41d7dfa94e, beide Schalter true.
+Gegenüber dem freigegebenen 4bb5071 sind ausschließlich Dokumente geändert;
+sämtliche Programm- und Workflowbäume stimmen exakt überein. Der bestehende
+Ablauf beginnt mit seiner eigenen Appvorprüfung. Eine laufende Vorprüfung ist
+keine Uploadbestätigung und keine Bestätigung der Verarbeitung oder Installation.

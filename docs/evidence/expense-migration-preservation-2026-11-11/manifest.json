@@ -660,6 +660,48 @@
       "bytes": 1663,
       "original_sha256": "a20bfe1fa4e7c0b489164f5241602b8657b415e533aac494a87f61f50b10972e",
       "original_bytes": 3779
+    },
+    {
+      "path": "corrected-ios-manual-run.json.gz",
+      "sha256": "a4f7bf7d14361c969d29be2db14b01ee182d1cd76c627f79d366170a264da22f",
+      "bytes": 1687,
+      "original_sha256": "7c43c6a29e9045c5c12d1ef49cfcc24a29fc9347beea88ee01f87448daadcb29",
+      "original_bytes": 16532
+    },
+    {
+      "path": "corrected-ios-manual-jobs.json.gz",
+      "sha256": "f4b2c1e86b03fe140caa494ba554b97d8132c6445de91d3088d2208c83492ac4",
+      "bytes": 992,
+      "original_sha256": "70ef563828ea28ebdb7c146502636ad47dfe1c3d7748d407730c800e655cfa0a",
+      "original_bytes": 7232
+    },
+    {
+      "path": "corrected-ios-manual-artifacts.json.gz",
+      "sha256": "ebbeb5b47db4fa719eca9de71f0ea30f72ec2feaf68c379d6465b6277a59bc85",
+      "bytes": 621,
+      "original_sha256": "3d91b79d834c6bafe5353d006b52ba9d0874e45ecc792d652582fab3f4ca2d4a",
+      "original_bytes": 1949
+    },
+    {
+      "path": "corrected-job-130352682099-final-log.txt.gz",
+      "sha256": "409364818e984e5ea0bbc9bf0309458f4576593af6830ad0c09f77282f6bb768",
+      "bytes": 66756,
+      "original_sha256": "7b8f175be056baee71165227c3a191da359ddaee3cb7e293f0ddec0074dbc73a",
+      "original_bytes": 603813
+    },
+    {
+      "path": "corrected-job-130371019437-final-log.txt.gz",
+      "sha256": "7b526278757d175921da443034dd83d17d372d621d18906187adfcdc3c759241",
+      "bytes": 141929,
+      "original_sha256": "68b6c0f1b6f3f115b8fef2a395373450b81549ad626503888f2862266074354f",
+      "original_bytes": 1460071
+    },
+    {
+      "path": "prepared-device-plan-37.csv.gz",
+      "sha256": "e344b55911fbeae89daf097c14254841013e817a50d528605908c0900827010b",
+      "bytes": 2351,
+      "original_sha256": "ac1fd12fcffee004cefbbaff9f87040062fb6dd5b66e4a7d774e3da37832a6bc",
+      "original_bytes": 10144
     }
   ],
   "checks": {
@@ -704,10 +746,13 @@
     "development": 42968922844,
     "automatic_ios": 42968922850,
     "signed_preparation": 42968958373,
-    "status": "development_and_unsigned_ios_success_signed_pending",
+    "status": "complete_internal_delivery_evidence",
     "upload_to_testflight": false,
     "development_conclusion": "success",
-    "automatic_ios_conclusion": "success"
+    "automatic_ios_conclusion": "success",
+    "signed_preparation_conclusion": "success",
+    "upload_step_conclusion": "skipped",
+    "key_cleanup_conclusion": "success"
   },
   "previous_candidate_ci": {
     "development": {
@@ -1066,6 +1111,73 @@
         "head_branch": "codex/testupdate-0.7-projects-20261104",
         "head_sha": "4bb5071891344a38f640d8ae43ec240c1f95e61e"
       }
+    },
+    {
+      "id": 13834509998,
+      "node_id": "MDg6QXJ0aWZhY3QxMzgzNDUwOTk5OA==",
+      "name": "Smartplan-Office-iOS-220",
+      "size_in_bytes": 30029207,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13834509998",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13834509998/zip",
+      "expired": false,
+      "digest": "sha256:f7da31a9314c1ebf702ab013d9f46414154ed75fa94387f927c77f75d566877b",
+      "created_at": "2026-11-11T06:57:11Z",
+      "updated_at": "2026-11-11T06:57:11Z",
+      "expires_at": "2026-11-25T06:57:07Z",
+      "workflow_run": {
+        "id": 42968958373,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4bb5071891344a38f640d8ae43ec240c1f95e61e"
+      }
+    },
+    {
+      "id": 13834413616,
+      "node_id": "MDg6QXJ0aWZhY3QxMzgzNDQxMzYxNg==",
+      "name": "Smartplan-Office-iOS-UNSIGNED-220",
+      "size_in_bytes": 15123860,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13834413616",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13834413616/zip",
+      "expired": false,
+      "digest": "sha256:699a20089717b9ab2a32438a459c9f5fd39448fa55829c2d7ac4ea72364147eb",
+      "created_at": "2026-11-11T06:45:53Z",
+      "updated_at": "2026-11-11T06:45:53Z",
+      "expires_at": "2026-11-25T06:45:50Z",
+      "workflow_run": {
+        "id": 42968958373,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "4bb5071891344a38f640d8ae43ec240c1f95e61e"
+      }
     }
-  ]
+  ],
+  "technical_delivery_verified": true,
+  "real_device_acceptance": false,
+  "independent_professional_acceptance": false,
+  "total_goal_reached": false,
+  "signed_payload": {
+    "name": "Smartplan Office",
+    "bundle_id": "de.smartplanhofmann.office",
+    "functional_source": "4bb5071891344a38f640d8ae43ec240c1f95e61e",
+    "build": 220,
+    "artifact_id": 13834509998,
+    "artifact_sha256": "f7da31a9314c1ebf702ab013d9f46414154ed75fa94387f927c77f75d566877b",
+    "upload_target": "Apple TestFlight",
+    "specific_upload_approval_received": false
+  },
+  "device_plan": {
+    "previous_cases": 34,
+    "current_cases": 37,
+    "all_unperformed": true,
+    "previous_prefix_sha256": "83500dca09969b52a0c1a37c5b63beabd6e203fc90d3a49f9b2846be2b6c0ecc",
+    "previous_prefix_bytes": 8672,
+    "original_34_rows_preserved": true,
+    "current_sha256": "ac1fd12fcffee004cefbbaff9f87040062fb6dd5b66e4a7d774e3da37832a6bc"
+  },
+  "verification_receipt": {
+    "path": "final-verification.json",
+    "sha256": "55d1d9607b996f9bb7892993bb6d005163107838de2b4908834bdce94694ad24"
+  }
 }

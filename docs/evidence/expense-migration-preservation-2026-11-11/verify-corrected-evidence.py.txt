@@ -1,5 +1,7 @@
 """Verify the corrected frozen source and retained rejected-candidate evidence."""
 import gzip
+import csv
+import io
 import hashlib
 import json
 from pathlib import Path
@@ -94,12 +96,43 @@ assert '+2031 ~5: All tests passed!' in ios_log and '+3: All tests passed!' in i
 assert 'Build-Nummer: 219' in ios_log
 for artifact in manifest['artifacts']:
     assert artifact['workflow_run']['head_sha'] == SOURCE
-    assert artifact['workflow_run']['id'] in (42968922844, 42968922850)
+    assert artifact['workflow_run']['id'] in (42968922844, 42968922850, 42968958373)
     assert artifact['expired'] is False and artifact['size_in_bytes'] > 0
     assert re.fullmatch('sha256:[a-f0-9]{64}', artifact['digest'])
 required = {'Smartplan-Office-Windows', 'Smartplan-Office-Windows-Online-Pilot',
-            'Smartplan-Windows-Start-und-Sicherung', 'Smartplan-Office-iOS-UNSIGNED-219'}
+            'Smartplan-Windows-Start-und-Sicherung', 'Smartplan-Office-iOS-UNSIGNED-219',
+            'Smartplan-Office-iOS-220', 'Smartplan-Office-iOS-UNSIGNED-220'}
 assert required <= {a['name'] for a in manifest['artifacts']}
+manual = json.loads(raw['corrected-ios-manual-run.json'])
+assert manual['id'] == 42968958373 and manual['head_sha'] == SOURCE and manual['conclusion'] == 'success'
+manual_jobs = json.loads(raw['corrected-ios-manual-jobs.json'])['jobs']
+assert len(manual_jobs) == 2 and all(j['status'] == 'completed' and j['conclusion'] == 'success' for j in manual_jobs)
+signed = next(j for j in manual_jobs if j['id'] == 130371019437)
+steps = {s['name']:s['conclusion'] for s in signed['steps']}
+for name in ['Auslieferungsauswahl vor Apple-Zugriff pruefen',
+             'Distributionsidentitaet aus temporaerem Apple-Export ermitteln',
+             'Eigene Keychain-Berechtigung vor finaler Distributionssignierung erhalten',
+             'IPA mit erhaltener Keychain-Berechtigung final exportieren',
+             'Signiertes iPhone-/iPad-Paket pruefen', 'API-Schluessel loeschen']:
+    assert steps[name] == 'success', name
+assert steps['Zu TestFlight hochladen'] == 'skipped'
+manual_unsigned_log = raw['corrected-job-130352682099-final-log.txt'].decode()
+assert '+2031 ~5: All tests passed!' in manual_unsigned_log and '+3: All tests passed!' in manual_unsigned_log
+assert 'Build-Nummer: 220' in manual_unsigned_log
+signed_log = raw['corrected-job-130371019437-final-log.txt'].decode()
+assert 'SMARTPLAN_PREPARE_IPA: true' in signed_log and 'SMARTPLAN_UPLOAD_TESTFLIGHT: false' in signed_log
+assert SOURCE in signed_log
+payload = manifest['signed_payload']
+assert payload['bundle_id'] == 'de.smartplanhofmann.office' and payload['build'] == 220
+assert payload['artifact_id'] == 13834509998 and payload['specific_upload_approval_received'] is False
+assert manifest['shared_ci']['status'] == 'complete_internal_delivery_evidence'
+device = raw['prepared-device-plan-37.csv']
+base_device = git_bytes(SOURCE, 'docs/CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv')
+assert device.startswith(base_device)
+assert sha(base_device) == '83500dca09969b52a0c1a37c5b63beabd6e203fc90d3a49f9b2846be2b6c0ecc'
+device_rows = list(csv.reader(io.StringIO(device.decode('utf-8-sig')), delimiter=';'))
+assert len(device_rows) == 38 and all(len(row) == 14 for row in device_rows)
+assert all(row[10] == 'ungeprüft' for row in device_rows[1:])
 container = json.loads(raw['postgres-corrected-environment.json'])
 assert container['cleanup_verified'] is True and container['test_exit_code'] == 0 and container['synthetic'] is True
 assert container['container_id'] == '8ec93b99a74c44025ee891fe2fdb1704fff09c9be755586d55538d54d454ce15'

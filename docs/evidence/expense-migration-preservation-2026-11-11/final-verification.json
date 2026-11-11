@@ -1,0 +1,15 @@
+{
+  "source": "4bb5071891344a38f640d8ae43ec240c1f95e61e",
+  "raw_evidence_files": 99,
+  "frozen_files": 13,
+  "module_contracts_unchanged": 59,
+  "dialects": 2,
+  "unchanged_rules": 64,
+  "identical_client_files": 6,
+  "goal_unchanged": true,
+  "previous_candidate_blocked": true,
+  "corrected_evidence_verified": true,
+  "actual_browser_countercase": true,
+  "shared_ci_status": "complete_internal_delivery_evidence",
+  "testflight_uploaded": false
+}

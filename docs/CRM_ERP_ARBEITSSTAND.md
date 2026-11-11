@@ -62,13 +62,16 @@ Gesamtnachlauf auf genau 4bb5071:
   Backendfälle, tatsächliche Komplett-/Onlinepakete und Start/Sicherung/Restore.
 - Automatisches iPhone 42968922850 erfolgreich: 2.031 Appfälle plus drei
   native PDF-Fälle mit fünf Linux-Auslassungen; unsigniertes Paket 219 vorhanden.
-- Signierte Vorbereitung 42968958373 läuft weiter: `prepare_signed_ipa=true`,
-  `upload_to_testflight=false`.
+- Signierte Vorbereitung 42968958373 mit beiden Jobs erfolgreich: signiertes
+  Paket 220, Artefakt 13834509998, 30.029.207 Bytes. Eigene 2.031 Appfälle
+  plus drei PDF-Fälle mit fünf Linux-Auslassungen, beide Apple-Exporte, finale
+  Signatur-/Team-/Keychain-Prüfung und Schlüsselbereinigung erfolgreich.
+  `prepare_signed_ipa=true`, `upload_to_testflight=false`; Uploadschritt ausgelassen.
 
 Alte Läufe 42966124379/42966124295/42966356463 behalten ihre tatsächlichen
 Ergebnisse. Die alte manuelle Vorbereitung wurde vor dem ersten Apple-Schritt
-abgebrochen; ihr Signierjob besitzt keine Schritte. Neue Paketkennungen und
-endgültige Ergebnisse werden im [Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md) ergänzt.
+abgebrochen; ihr Signierjob besitzt keine Schritte. Alle endgültigen eigenen Ergebnisse und Paketkennungen stehen im
+[Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md).
 Rohbelege liegen in den getrennten Auslagen- und Migrationsnachweisverzeichnissen.
 
 ## Betrieb, Uploadfreigabe und vollständiges Gesamtziel
@@ -95,7 +98,9 @@ Alexander Bürkle, Loxone, Voltus. Echte Zugänge und Anbieterdateien fehlen;
 Loxones Hostfreigabe ist ausdrücklich auf später verschoben. Nicht erneut als
 unbeantwortete Frage behandeln; keine fertige echte Anbieteranbindung behaupten.
 
-34 echte Gerätefälle und Gesamtabnahmen A–G bleiben offen. Eigene synthetische
+37 echte Gerätefälle und Gesamtabnahmen A–G bleiben offen. Die bisherigen
+34 CSV-Zeilen bleiben bytegleich; die drei neuen Fälle betreffen die
+Originalsperre/Freigaberücknahme in Browser, Windows und auf iPhone. Eigene synthetische
 Prüfungen sind keine unabhängige Fach-/Sicherheitsabnahme. Weitere Code-/Fachfälle,
 insbesondere Source5-Gruppen, alte Offlinebestände und weitere Lohnfälle, bleiben
 im [Plan](CRM_ERP_UMSETZUNGSPLAN.md) und in der [Matrix](CRM_ERP_ANFORDERUNGEN.md).

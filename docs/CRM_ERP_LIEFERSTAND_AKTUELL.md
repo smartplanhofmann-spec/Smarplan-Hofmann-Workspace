@@ -71,11 +71,24 @@ Der automatische Signierschritt ist ausgelassen; kein Upload.
 Dieses unsignierte Prüfartefakt ist kein bereits verteiltes iPhone-Paket.
 
 Die [signierte Vorbereitung 42968958373](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42968958373)
-läuft weiterhin auf derselben Quelle: `prepare_signed_ipa=true`,
-`upload_to_testflight=false`. Ihre Appvorprüfung hat den Gerätebau erreicht.
-Eine tatsächlich abgeschlossene neue Signatur samt Paketkennung wird erst
-nach Abschluss bestätigt. Frühere Pakete 215/216 oder erste Auslagenpakete
-werden nicht als signierte Pakete der korrigierten Quelle ausgegeben.
+besteht mit beiden Jobs auf exakt 4bb5071. Auch ihre eigene Vorprüfung besteht
+2.031 Apphauptfälle plus drei native PDF-Fälle mit fünf ausgewiesenen
+Linux-Auslassungen. Beide Apple-Exporte, endgültige Signatur-/Team-/Keychain-
+Prüfung und Schlüsselbereinigung sind erfolgreich. Der TestFlight-Schritt
+ist tatsächlich ausgelassen.
+
+[Signiertes iPhone-Paket 220](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42968958373/artifacts/13834509998):
+30.029.207 Bytes, Quelle 4bb5071, Bundle-ID `de.smartplanhofmann.office`,
+GitHub-Metadaten-SHA256
+`f7da31a9314c1ebf702ab013d9f46414154ed75fa94387f927c77f75d566877b`.
+Die signierte Vorbereitung ist vollständig technisch geprüft; eine tatsächliche
+TestFlight-Übermittlung, Verarbeitung bei Apple oder Geräteinstallation liegt
+noch nicht vor.
+
+Das getrennte unsignierte Vorprüfpaket 220 hat Artefaktkennung 13834413616,
+15.123.860 Bytes und GitHub-Metadaten-SHA256
+`699a20089717b9ab2a32438a459c9f5fd39448fa55829c2d7ac4ea72364147eb`.
+Alle Pakete und die drei eigenen Läufe sind derselben Produktquelle zugeordnet.
 
 Der [erste Auslagenlieferstand](CRM_ERP_LIEFERSTAND_AUSLAGEN_ERSTKANDIDAT_2026-11-11.md)
 und der [vorherige RV-Lieferstand](CRM_ERP_LIEFERSTAND_RV_VOR_AUSLAGEN_2026-11-11.md)
@@ -98,10 +111,14 @@ Die automatische Freigabeprüfung hat den aus „Ok. Mach fertig“ abgeleiteten
 TestFlight-Start abgelehnt: Eine eindeutige Freigabe des konkreten signierten
 App-Pakets an Apple fehlte. Der abgelehnte Start wurde nicht ausgeführt.
 Die neu konkrete Uploadfrage zu ab6b615 ist unbeantwortet und deckt diesen
-neuen Funktionsstand nicht ab. Der aktuelle manuelle Lauf bereitet nur das
-signierte Paket vor. Ein TestFlight-Upload hat nicht stattgefunden.
+neuen Funktionsstand nicht ab. Der aktuelle manuelle Lauf hat ausschließlich das signierte Paket vorbereitet.
+Ein TestFlight-Upload hat nicht stattgefunden. Der vorhandene Uploadweg würde
+einen neuen Build mit identischem Programmcode erstellen; dafür ist eine
+ausdrückliche passende Freigabe des aktuellen Funktionsstands/Ziels erforderlich.
 
-Alle 34 realen Gerätefälle, Fach-/Sicherheitsprüfung und Gesamtabnahme A–G
+Die drei zusätzlichen Gerätefälle zur Originalsperre/Freigaberücknahme sind
+vorbereitet; alle bisherigen 34 Zeilen bleiben bytegleich. Alle 37 realen
+Gerätefälle, Fach-/Sicherheitsprüfung und Gesamtabnahme A–G
 bleiben offen. Anbieterzugänge und weitere benannte Code-/Fachfälle sind damit
 nicht erledigt. Der vollständige Gesamtauftrag bleibt aktiv; eine produktive
 Gesamtfreigabe liegt noch nicht vor.

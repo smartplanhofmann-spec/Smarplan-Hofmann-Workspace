@@ -11,8 +11,11 @@ Alle 20 eigenen Developmentgruppen sind erfolgreich: 2.236 Backendfälle mit
 3 ausgewiesenen Auslassungen, 2.036 Linux-Appfälle plus drei native PDF-Fälle,
 1.120 Browsermodulfälle, tatsächliche Browser-/PostgreSQL-/Update-/Restore-
 prüfungen und Windowsbau. Windows: 1.991 Appfälle, drei PDF-Fälle und 81 portable
-Backendfälle. Automatisches iPhone-Paket 219 ist erfolgreich, signierte
-Vorbereitung wird im [aktuellen Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md) nachgeführt.
+Backendfälle. Automatisches iPhone-Paket 219 und signierte Vorbereitung 220
+sind erfolgreich. Signatur-/Keychain-Prüfung und Bereinigung sind bestanden,
+TestFlight-Schritt ausgelassen. [Tatsächliche Pakete](CRM_ERP_LIEFERSTAND_AKTUELL.md).
+37 Gerätefälle bleiben ungeprüft; die bisherigen 34 Zeilen sind bytegleich
+erhalten. Drei neue Fälle betreffen die Originalsperre/Freigaberücknahme.
 
 Zusätzlich fachlich prüfen: Derselbe ganze Beleg darf über zwei Mitarbeiter
 und verschiedene Upload-IDs nur einen aktiven Erstattungsanspruch begründen.

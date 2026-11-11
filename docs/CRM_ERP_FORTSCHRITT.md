@@ -5088,3 +5088,36 @@ Runtime-Rechtevergabe ausgelassen; seine erwartbar fehlenden Tabellenrechte
 bleiben als roter Testaufbau archiviert. Der vollständige bestehende Operatorpfad
 besteht unverändert. Beide eigenen Container mit ID/Label/Ports 32831/32832 sind
 kontrolliert entfernt. Kein Produktcode für diesen Zusatznachweis verändert.
+
+## 11.11.2026 – korrigierte gemeinsame Auslagen-Auslieferung technisch abgeschlossen
+
+Produktquelle 4bb5071891344a38f640d8ae43ec240c1f95e61e bleibt eingefroren.
+Development 42968922844 besteht alle 20 Gruppen. Die automatische iPhone-
+prüfung 42968922850 besteht mit unsigniertem Paket 219. Die manuelle signierte
+Vorbereitung 42968958373 besteht jetzt mit beiden Jobs: eigene 2.031 Appfälle
+plus drei native PDF-Fälle bei fünf ausgewiesenen Linux-Auslassungen, beide
+Apple-Exporte, endgültige Signatur-/Team-/Keychain-Prüfung und Schlüsselbereinigung.
+Signiertes Paket 220, Artefakt 13834509998, 30.029.207 Bytes. TestFlight-Schritt
+ist tatsächlich ausgelassen. Alle drei eigenen Läufe/Pakete stammen aus 4bb5071.
+
+Der ausführbare Nachweisprüfer bindet tatsächliche Rohlogs, Quellmarker,
+Artefaktdigests, alte negative Gegenfälle und korrigierte Migration an diese
+Quelle. SHA256 der äußeren Paket-ZIPs sind GitHub-Metadaten und keine hier
+behauptete lokale ZIP-Byteprüfung. Die tatsächlichen Windows-Laufzeit-/Restore-
+prüfungen und endgültige Apple-Signaturprüfung sind eigenständig erfolgreich.
+Originalziel, 64 bisherige Lohnmodule und alte Migrationsverträge bleiben erhalten.
+
+Das Geräteprotokoll ergänzt drei ausdrücklich ungeprüfte Browser-/Windows-/
+iPhone-Fälle zur Originalsperre und Freigaberücknahme. Die vorherigen 34 Zeilen
+sind als vollständiges Bytepräfix erhalten, SHA256 des Präfixes
+83500dca09969b52a0c1a37c5b63beabd6e203fc90d3a49f9b2846be2b6c0ecc.
+Alle 37 realen Gerätefälle bleiben ungeprüft. Gesamtabnahmen A–G und unabhängige
+Fach-/Sicherheitsfreigaben werden dadurch nicht erteilt.
+
+Kein neuer Serverupdate, kein TestFlight-Upload, keine tatsächliche Zahlung,
+Meldung oder Nachricht ist erfolgt. Die automatische Freigabeprüfung hatte den
+breit ausgelegten Upload aus „Ok. Mach fertig“ abgelehnt. Für den nun konkret
+fertig vorbereiteten aktuellen Funktionsstand ist eine eigene ausdrückliche
+Uploadfreigabe notwendig. Die ältere Frage zu ab6b615 deckt ihn nicht ab.
+Der vollständige Gesamtauftrag bleibt aktiv; weitere benannte Code-/Fachfälle
+und echte Anbieter-/Betriebsabnahmen werden nicht pauschal als erledigt geführt.

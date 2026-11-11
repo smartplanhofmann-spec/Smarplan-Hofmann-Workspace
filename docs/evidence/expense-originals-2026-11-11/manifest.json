@@ -317,5 +317,8 @@
     "frozen_archive_cases": 2,
     "frozen_two_company_mfa_case": 1,
     "production_code_changed_after_freeze": false
-  }
+  },
+  "delivery_eligible": false,
+  "blocking_counterexample": "Actual ab6b615 database cannot open because of an altered version-1 schema checksum; corrected separately without the extra index.",
+  "followup": "../expense-migration-preservation-2026-11-11/manifest.json"
 }

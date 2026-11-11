@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "previous_candidate": "3c824c174ec6247d50219a70612ba42fed75d017",
+  "previous_candidate_delivery_eligible": false,
+  "reason": "Actual old database rejected modified version-1 migration checksum",
+  "corrected_file_sha256": {
+    "backend/business_personnel_workflow.py": "e95faa3e2d8448b38207cf0b2d28d40e506454fd297e02a470eea9a3407f8c2a",
+    "backend/test_business_expense_originals.py": "23a9d44b07d3c18d0ec78f77f334c10b224b4868fb658e98747b03101d13a16e",
+    "backend/testdata/personnel-workflow-schema-ab6b615.json": "87d6f92c7f7d4c59aef10ea1c7c33cb1278d35a42279412152dcfef9e7f173e3",
+    "scripts/ci-check-plan.json": "c62b5e3be9a12f1f641736361ef0cd5019be3d09f388a9838fff940f54b1bbcb"
+  },
+  "evidence": [
+    {
+      "path": "backend-final-corrected.txt.gz",
+      "sha256": "ceca640355c98e66e3c3c5dba0b83c4127036cbe2767dbf184c2c0e57538c98f",
+      "bytes": 3155,
+      "original_sha256": "be7e52049e65215473d4425326375268c69f5f1ece586a691e8fc2c7623c787c",
+      "original_bytes": 17095
+    },
+    {
+      "path": "first-candidate-jobs-0.json.gz",
+      "sha256": "e5d4ed08df64bf9ad9f059d21b16d5bf39e8a3b82e5169a57fa15a169e02ecb6",
+      "bytes": 2136,
+      "original_sha256": "4034e404d2ba4005bbc9d7cecb555d46d146ebd8188748a2a2521f3e89be1445",
+      "original_bytes": 47958
+    },
+    {
+      "path": "first-candidate-jobs-1.json.gz",
+      "sha256": "fad962ee11c0ff0ff9a64b12e83aecdf21959ae5d79e092e58dd9ef8ee1c7d55",
+      "bytes": 653,
+      "original_sha256": "4f99efec7b25fb18127d8edaacf8004b2568793579177e6afbd9ac7c7727eea3",
+      "original_bytes": 3218
+    },
+    {
+      "path": "first-candidate-jobs-2.json.gz",
+      "sha256": "c530f0cd7b1d1990c82e349b995353701d5e0dc70120da00aebe73dde640fb1a",
+      "bytes": 712,
+      "original_sha256": "7b88781b6c48856234dad363ba260705c32f755a0889104c4f6eb68746c28f7e",
+      "original_bytes": 3676
+    },
+    {
+      "path": "fix-reproducer.py.gz",
+      "sha256": "5e3465816d8207693c568ce2d636d35d050a969207938991ef31eb5750c658f1",
+      "bytes": 175,
+      "original_sha256": "4a7543ea4c2d9fae5a55caab1b26e54fa990004d3c303db50da86d8a32b7abc3",
+      "original_bytes": 213
+    },
+    {
+      "path": "postgres-corrected-environment.json.gz",
+      "sha256": "30972a76dc8aa0d6a7f819b57c3a2a87c5f1e636a07751b1117e63fcaff84ae9",
+      "bytes": 196,
+      "original_sha256": "19231e3be5269e574c32672aa1f19cbc0f45b75ea265d42449092059a6d880a2",
+      "original_bytes": 238
+    },
+    {
+      "path": "postgres-corrected.txt.gz",
+      "sha256": "180ccd404a442ddc5b68ae98daea2a675c33bd9a194fda0e6d3b8d368d43d9ad",
+      "bytes": 354,
+      "original_sha256": "dd8932cf4554a51ec0fac7760f26d201fe4a2455a44dba5df2e0f95fb0989120",
+      "original_bytes": 1097
+    },
+    {
+      "path": "reproduce-upgrade.py.gz",
+      "sha256": "8a8c9f4012828216aff883672357e9092152fdf48167a05f32c96ab598212142",
+      "bytes": 1117,
+      "original_sha256": "407c80024ea47e5f62b8258b22349a810de4f3c5dc1f309393427ce850398d75",
+      "original_bytes": 2334
+    },
+    {
+      "path": "run-own-postgres.py.gz",
+      "sha256": "ff944857831a816113bfe39a90c0a08fdd447416d1ffa2590894bb1f57fb34fe",
+      "bytes": 1662,
+      "original_sha256": "4fdda03f5afc753a5a3a7e40f4671af5ec86e356eb7302922c2e4bb2e8f5cbe0",
+      "original_bytes": 4229
+    },
+    {
+      "path": "schema-and-expense-tests.txt.gz",
+      "sha256": "5f6df2a988ea72d7259bd87cb87e626f842b4686be63ea7b9d9349d5000976e5",
+      "bytes": 2116,
+      "original_sha256": "077b1e90d599f02076df383ccc0e3360156d2b83b3d4d8831942954b4d903032",
+      "original_bytes": 10291
+    },
+    {
+      "path": "test_old_personnel_upgrade_pg.py.gz",
+      "sha256": "ddf75cc26c243f276d3b5fbb41190d7cd4fe750809d14fec2be3bf8ffd94614a",
+      "bytes": 1631,
+      "original_sha256": "880122cde29257e4ba2d98926380795ef941192dd1e951de744898da484a1bfc",
+      "original_bytes": 3660
+    },
+    {
+      "path": "upgrade-after-second.txt.gz",
+      "sha256": "cc55048632ed79967e3f476823709713e9dfa660120f2c133c83b12fb1194b0b",
+      "bytes": 271,
+      "original_sha256": "80f62ade65c5b1f885ec7514cdccc5b03967a003c5893f2937b8107ade497fb6",
+      "original_bytes": 398
+    },
+    {
+      "path": "upgrade-after.txt.gz",
+      "sha256": "b06343f13843eb2f6234dc61b098c66bea843b8d6edb60d1790273b1d43f56f8",
+      "bytes": 1046,
+      "original_sha256": "e7a238f43c9d50114f4cfac94a6d256074554550d97d942ef38c42f61f64424f",
+      "original_bytes": 1987
+    },
+    {
+      "path": "upgrade-before.txt.gz",
+      "sha256": "441ac8341cafa5dcb01aea69ce7ff6d7e1b522dc21e8f1d2761e03bacffeca0b",
+      "bytes": 384,
+      "original_sha256": "461b5ca2c7f317459d7e9ad6f754cfc7be969dd600869b3ee8893edd4b047216",
+      "original_bytes": 878
+    }
+  ],
+  "checks": {
+    "targeted_expense_schema_ci": 48,
+    "final_backend_travel_ci": 81,
+    "actual_postgres_old_archive_and_restore": 4,
+    "actual_old_sqlite_payment_receipt_preserved": true
+  },
+  "testflight_uploaded": false,
+  "production_updated": false
+}

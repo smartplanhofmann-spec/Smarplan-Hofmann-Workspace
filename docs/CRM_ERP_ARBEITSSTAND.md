@@ -6,6 +6,14 @@ Lieferabschnitt ist keine Verkleinerung des Gesamtziels und beendet den Auftrag 
 
 ## Aktive Fortsetzung: Auslagenoriginale über Mitarbeiter hinweg
 
+**Zusätzliche Updatekorrektur:** 3c824c1 ist wegen einer tatsächlich erkannten
+Änderung des alten Migrationsvertrags nicht zur Installation freigegeben.
+Der zusätzliche Index ist entfernt; vorhandene SQLite-/PostgreSQL-Verträge
+bleiben exakt erhalten. [Gegenfall und Korrektur](CRM_ERP_AUSLAGEN_MIGRATIONSERHALT_2026-11-11.md).
+48 gezielte Fälle sowie vier tatsächliche PG-/Altbestands-/Restorefälle bestehen.
+Die alte signierte Vorbereitung 42966356463 ist vor dem ersten Apple-Schritt
+gestoppt. Der korrigierte Quellstand erhält einen neuen vollständigen Nachlauf.
+
 Die [zusätzliche Auslagenkorrektur](CRM_ERP_AUSLAGEN_ORIGINALSPERRE_2026-11-11.md)
 schließt eine tatsächlich reproduzierte doppelte Einreichung desselben bereits
 erstatteten Originals durch einen zweiten Mitarbeiter. Einreichung, Freigabe,

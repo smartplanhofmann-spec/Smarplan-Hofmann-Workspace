@@ -51,7 +51,6 @@ def schema_statements(binary_type='BYTEA'):
           user_id TEXT NOT NULL REFERENCES users(id),request_id TEXT NOT NULL,
           request_hash TEXT NOT NULL,result_json TEXT NOT NULL,PRIMARY KEY(user_id,request_id))''',
         'CREATE INDEX IF NOT EXISTS business_personnel_employee ON business_personnel_events(employee_id,kind,id,revision)',
-        'CREATE INDEX IF NOT EXISTS business_personnel_kind ON business_personnel_events(kind,id,revision)',
     ]
 
 

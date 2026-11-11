@@ -1,5 +1,11 @@
 # Aktueller Lieferstand
 
+**3c824c1 ist zurückgezogen und darf nicht installiert werden.** Der zusätzliche
+[Altbestandscheck](CRM_ERP_AUSLAGEN_MIGRATIONSERHALT_2026-11-11.md) findet eine
+Migrationsvertragsänderung. Die Korrektur erhält die alten Verträge exakt und
+wird in einem neuen gemeinsamen Lauf geprüft. Die nachstehenden früheren
+Laufangaben und Pakete sind keine Freigabe des korrigierten Stands.
+
 Stand: 11.11.2026. Veröffentlichte Produktquelle:
 `3c824c174ec6247d50219a70612ba42fed75d017`, ausschließlich auf
 `codex/testupdate-0.7-projects-20261104`. Hauptprojekt:

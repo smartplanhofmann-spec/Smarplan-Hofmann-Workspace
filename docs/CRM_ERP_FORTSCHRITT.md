@@ -4993,3 +4993,31 @@ auf derselben Quelle. Letztere wurde mit `prepare_signed_ipa=true` und ausdrück
 `upload_to_testflight=false` gestartet. Vorheriger vollständiger RV-Liefernachweis
 bleibt bytegleich archiviert. Nur Dokumentation und Nachweise wurden seit dem
 Einfrieren des neuen Produktcodes geändert.
+
+## 11.11.2026 – echter Altbestandscheck hält den ersten Auslagenkandidaten zurück
+
+3c824c1 ist nicht zur Installation freigegeben: Ein zusätzlicher tatsächlicher
+Gegenlauf mit einer aus ab6b615 erzeugten alten SQLite-Datenbank scheitert am
+geänderten Migrationsvertrag. Der zusätzliche Suchindex hatte die registrierte
+Version-1-Prüfsumme geändert. Die Schutzprüfung arbeitete korrekt; kein alter
+Journalwert wird überschrieben. Der Index ist entfernt, beide alten Dialekt-
+verträge sind mit tatsächlich aus dem Altarchiv ermittelten Prüfsummen als
+feste Regression gesichert. Der bereits über die CI-Discovery erfasste PG-Fall
+benötigt keinen zweiten identischen Einzelaufruf; dieser ist entfernt.
+
+Nach Korrektur erfolgreich: derselbe alte SQLite-Bestand samt unveränderter
+Zahlungsquittung; 48 Auslagen-/Schema-/CI-Fälle in10,107s; 81 betroffene Backend-/
+Reise-/CI-Fälle in60,654s; vier tatsächliche PostgreSQL-/MFA-/Altbestands-/
+Komplettrestorefälle in31,890s. Der wirkliche alte PostgreSQL-Bestand aus ab6b615
+behält bei Migration seinen gesamten Datenfingerabdruck; danach sind Zahlungs-/
+Monatsquittung, Originaldatei und Monats-PDF exakt erhalten. Eigener Container
+mit vollständiger ID/Label/Loopback-Port32830 kontrolliert entfernt.
+
+Die alte signierte Vorbereitung42966356463 wurde noch in der unsignierten
+Vorprüfung abgebrochen. Der Signierjob ist ohne Schritte als abgebrochen
+aufgeführt, kein Apple-Schritt wurde gestartet. Alte Prüfungen und erster roter
+Altbestandsgegenfall bleiben mit Quelle erhalten. Browser-/App-Produktcode
+bleiben bytegleich; die korrigierte Gesamtquelle erhält trotzdem einen neuen
+vollständigen gemeinsamen Plattform-/Paketnachlauf. Die alte Serveranleitung
+zu3c824c1 ist zurückgezogen und ihr Ausführungsblock gesperrt.
+[Nachweis und korrigierter Vertrag](CRM_ERP_AUSLAGEN_MIGRATIONSERHALT_2026-11-11.md).

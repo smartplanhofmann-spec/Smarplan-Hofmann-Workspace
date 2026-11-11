@@ -1,0 +1,7 @@
+{
+  "source_commit": "ab6b61535a35f8306bbf04ebe6557acdb2ac3f41",
+  "module": "business_personnel_workflow",
+  "version": 1,
+  "sqlite": "95d635b2e03b2d2663a6ffee7b0f7b6ad5416136821704c0d1fa4d011a89f9af",
+  "postgresql": "1737616f04bbed1a8945ffa454b05672eb6a4197ec7eeac4eafefc35303742d6"
+}

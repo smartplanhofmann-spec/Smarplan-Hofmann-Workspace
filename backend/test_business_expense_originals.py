@@ -1,6 +1,9 @@
 """Whole original ownership across employees, legacy decisions and races."""
 import base64
+import json
+from pathlib import Path
 import threading
+from types import SimpleNamespace
 import unittest
 from concurrent.futures import ThreadPoolExecutor
 
@@ -32,6 +35,14 @@ class ExpenseOriginalTests(BusinessFixture, unittest.TestCase):
         return self.hr.save_expense(actor, dict(request_id=rid(), employee_id=employee['id'], revision=0,
             purpose='Synthetic actual ticket', start_date='2026-10-23', end_date='2026-10-24',
             items=[dict(date='2026-10-23', description='Whole ticket', amount_minor=4987, currency='EUR', receipt_file_id=file['id'])]))
+
+    def test_installed_sqlite_and_postgres_migration_contracts_remain_exactly_the_verified_old_version(self):
+        from business_schema import _definition, registry
+        baseline = json.loads((Path(__file__).parent/'testdata/personnel-workflow-schema-ab6b615.json').read_text())
+        spec = next(spec for spec in registry() if spec.name == baseline['module'])
+        self.assertEqual(spec.version, baseline['version'])
+        self.assertEqual(_definition(self.office, spec)[2], baseline['sqlite'])
+        self.assertEqual(_definition(SimpleNamespace(db=object()), spec)[2], baseline['postgresql'])
 
     def change(self, record, action, actor=None, api=None, **values):
         return (api or self.hr).expense_action(actor or self.owner, record['id'], action,

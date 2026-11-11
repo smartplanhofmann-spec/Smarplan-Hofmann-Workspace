@@ -1,5 +1,10 @@
 # Vorbereitetes Serverupdate für den Auslagenstand 3c824c1
 
+**ZURÜCKGEZOGEN: Diesen Kandidaten nicht installieren.** Ein zusätzlicher
+[Altbestandsgegenfall](CRM_ERP_AUSLAGEN_MIGRATIONSERHALT_2026-11-11.md) weist
+eine Migrationsvertragsänderung nach. Eine neue festgelegte Anleitung folgt
+für den korrigierten und vollständig erneut geprüften Quellstand.
+
 Der Quellstand `3c824c174ec6247d50219a70612ba42fed75d017` ergänzt die
 [unternehmensweite Auslagenoriginalsperre](CRM_ERP_AUSLAGEN_ORIGINALSPERRE_2026-11-11.md).
 80 betroffene Backend-/Reisefälle, drei wirkliche PostgreSQL-/MFA-/Konkurrenz-/
@@ -34,24 +39,8 @@ die Datenbanksicherung und unterscheidet Abbruch vor beziehungsweise nach
 Aktivierung. Keine Befehle zum manuellen Zurückschalten der Datenbank ergänzen.
 
 ```bash
-(
-  set -euo pipefail
-  cd /opt/smartplan-test
-  git diff --quiet
-  git diff --cached --quiet
-  smartplan_previous_commit=$(git rev-parse HEAD)
-  smartplan_backup_ref="backup/server-before-3c824c1-$(date -u +%Y%m%dT%H%M%SZ)"
-  git branch "$smartplan_backup_ref" "$smartplan_previous_commit"
-  git fetch origin codex/testupdate-0.7-projects-20261104
-  git switch --detach 3c824c174ec6247d50219a70612ba42fed75d017
-  test "$(git rev-parse HEAD)" = 3c824c174ec6247d50219a70612ba42fed75d017
-  git config --local tar.umask 0022
-  bash deploy/hetzner/online/update-online.sh
-  systemctl is-active smartplan-online.service smartplan-https.service smartplan-plan-import.service
-  test "$(cat /opt/smartplan-online/SOURCE_COMMIT)" = 3c824c174ec6247d50219a70612ba42fed75d017
-  cat /opt/smartplan-online/SOURCE_COMMIT
-  curl --fail --silent --show-error --max-time 20 https://office.smartplan-hofmann.de/ready
-)
+printf '%s\n' 'Kandidat 3c824c1 ist zurueckgezogen. Aktuellen Lieferstand verwenden.' >&2
+exit 70
 ```
 
 Bei lokalen Änderungen stoppt der Block vor dem Wechsel. Diese Änderungen

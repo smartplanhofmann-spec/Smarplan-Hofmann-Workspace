@@ -5129,3 +5129,17 @@ bestehenden Uploadweg mit einem neuen Build bei identischem Programmcode.
 Eine Antwort liegt beim Festhalten dieses Zwischenstands nicht vor. Kein Upload
 wurde gestartet. Die notwendige ausdrückliche Freigabe darf nicht aus Zeitablauf,
 vorbelegter Auswahl oder dem zuvor abgelehnten allgemeinen Auftrag abgeleitet werden.
+
+## 11.11.2026 – ausdrückliche aktuelle TestFlight-Freigabe erhalten
+
+Der Nutzer beantwortet die konkrete Frage zu Smartplan Office,
+de.smartplanhofmann.office, Funktionsstand4bb5071 und geprüfter Vorbereitung220
+mit „Ja, diesen Funktionsstand an Apple TestFlight hochladen“. Die Frage umfasst
+ausdrücklich einen neuen Build mit identischem Programmcode über den vorhandenen
+Auslieferungsweg. Der frische Vergleich des autorisierten Testbranches zeigt
+seit4bb5071 ausschließlich Dokumentationsänderungen. App, Backend, Browser,
+Skripte, Workflow und Deploymentbaum sind identisch. Die Freigabe und Quellbindung
+stehen separat unter evidence/testflight-upload-2026-11-11/. Frühere abgelehnte
+und nicht ausgeführte Starts bleiben als historische Zustände erhalten.
+Der neue Lauf wird erst anschließend mit Uploadtrue gestartet; Erfolg und
+Verarbeitung bei Apple werden nicht aus der Freigabe abgeleitet.

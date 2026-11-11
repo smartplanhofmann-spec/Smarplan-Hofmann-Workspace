@@ -112,11 +112,12 @@ TestFlight-Start abgelehnt: Eine eindeutige Freigabe des konkreten signierten
 App-Pakets an Apple fehlte. Der abgelehnte Start wurde nicht ausgeführt.
 Die frühere Frage zu ab6b615 ist durch die neue konkrete Frage zu Smartplan
 Office, Bundle-ID `de.smartplanhofmann.office`, Funktionsstand 4bb5071 und
-geprüfter Vorbereitung 220 ersetzt. Diese Frage ist gestellt und bislang
-unbeantwortet. Der aktuelle manuelle Lauf hat ausschließlich das signierte Paket vorbereitet.
+geprüfter Vorbereitung 220 ersetzt. Diese Frage ist ausdrücklich mit „Ja, diesen Funktionsstand an Apple TestFlight
+hochladen“ beantwortet. Der freigegebene Uploadlauf wird separat dokumentiert. Der aktuelle manuelle Lauf hat ausschließlich das signierte Paket vorbereitet.
 Ein TestFlight-Upload hat nicht stattgefunden. Der vorhandene Uploadweg würde
 einen neuen Build mit identischem Programmcode erstellen; dafür ist eine
-ausdrückliche passende Freigabe des aktuellen Funktionsstands/Ziels erforderlich.
+ausdrückliche passende Freigabe des aktuellen Funktionsstands/Ziels erforderlich;
+diese liegt nun vor. Der bisherige Vorbereitungsnachweis bleibt unverändert.
 
 Die drei zusätzlichen Gerätefälle zur Originalsperre/Freigaberücknahme sind
 vorbereitet; alle bisherigen 34 Zeilen bleiben bytegleich. Alle 37 realen

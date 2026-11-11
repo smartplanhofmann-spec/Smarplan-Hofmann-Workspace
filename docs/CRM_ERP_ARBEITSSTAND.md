@@ -88,10 +88,12 @@ App-Pakets an Apple darin nicht ausdrücklich genug freigegeben ist. Der ganze
 abgelehnte Start wurde nicht ausgeführt. Die frühere Frage zu ab6b615 deckt den neuen Funktionsstand nicht ab.
 Die neue konkrete Uploadfrage zu Smartplan Office, Bundle-ID
 `de.smartplanhofmann.office`, Funktionsstand 4bb5071 und geprüfter Vorbereitung
-220 ist gestellt; eine Antwort liegt noch nicht vor. Der vorhandene
+220 ist ausdrücklich mit „Ja, diesen Funktionsstand an Apple TestFlight
+hochladen“ beantwortet. Die Freigabe ist im separaten Uploadnachweis festgehalten.
+Der vorhandene
 Auslieferungsweg erstellt für den Upload einen neuen Build mit identischem
-Programmcode. Signierte Vorbereitung ist kein Upload; Upload bleibt false.
-Nur eine passende ausdrückliche Freigabe dieses Pakets/Ziels ermöglicht Verteilung.
+Programmcode. Der bisherige Vorbereitungsnachweis bleibt bei Upload false.
+Der neue ausdrücklich freigegebene Uploadlauf wird separat gestartet und geprüft.
 
 Deutschland/EUR, Einzelunternehmen/EÜR, Regelbesteuerung/Ist, 19 %, SKR04,
 Nettopreise; reguläre Mitarbeiter und gewerbliche Minijobs. Die frühere

@@ -1,0 +1,20 @@
+{
+  "recorded_at_utc": "2026-11-11T12:23:22.888443+00:00",
+  "recorded_at_berlin": "2026-11-11T13:23:22.888443+01:00",
+  "status": "explicitly_authorized_not_dispatched",
+  "question_item_id": "[\"request_user_input_async\",\"call_f095dddad37e4a528b4e04d16073a1ff\",0]",
+  "question": "Erlaubst du ausdrücklich, die signierte iPhone-App „Smartplan Office“ (de.smartplanhofmann.office), Funktionsstand 4bb5071, an Apple TestFlight hochzuladen? Das geprüfte signierte Paket 220 ist vorbereitet (Artefakt 13834509998). Der vorhandene Auslieferungsweg erstellt für den Upload einen neuen Build mit identischem Programmcode. Diese Frage ersetzt die frühere Frage zu ab6b615.",
+  "answer": "Ja, diesen Funktionsstand an Apple TestFlight hochladen",
+  "authorized_target": "Apple TestFlight",
+  "app_name": "Smartplan Office",
+  "bundle_id": "de.smartplanhofmann.office",
+  "functional_source": "4bb5071891344a38f640d8ae43ec240c1f95e61e",
+  "reviewed_signed_build": 220,
+  "reviewed_signed_artifact": 13834509998,
+  "reviewed_signed_artifact_sha256": "f7da31a9314c1ebf702ab013d9f46414154ed75fa94387f927c77f75d566877b",
+  "authorizes_new_build_with_identical_program_code": true,
+  "authorized_ref": "refs/heads/codex/testupdate-0.7-projects-20261104",
+  "head_checked_before_authorization_record": "7cd5032a45816db3f616540f98d38203b827bba4",
+  "only_documentation_changed": true,
+  "source_comparison": "source-comparison.json"
+}

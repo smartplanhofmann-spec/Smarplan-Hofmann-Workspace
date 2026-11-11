@@ -1,8 +1,8 @@
 {
   "recorded_at": "2026-11-11T07:19:54.491620+00:00",
-  "status": "explicit_upload_answer_pending",
+  "status": "explicitly_approved",
   "question_asked": true,
-  "answer_received": false,
+  "answer_received": true,
   "upload_performed": false,
   "upload_target": "Apple TestFlight",
   "app_name": "Smartplan Office",
@@ -15,5 +15,7 @@
   "previous_broad_instruction": "Ok. Mach fertig",
   "previous_automatic_approval_review": "rejected",
   "previous_rejected_exec_started": false,
-  "previous_ab6b615_question_superseded": true
+  "previous_ab6b615_question_superseded": true,
+  "answer": "Ja, diesen Funktionsstand an Apple TestFlight hochladen",
+  "approval_record": "../testflight-upload-2026-11-11/authorization.json"
 }

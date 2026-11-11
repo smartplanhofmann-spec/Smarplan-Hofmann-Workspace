@@ -4820,8 +4820,8 @@ wurde nicht als Produktbefund gewertet. Hauptprojekt und fremde Arbeitskopien
 bleiben erhalten.63historische Lohnmodule und das Originalziel bleiben bytegleich.
 
 Featurecommitdf043c7 und Integration51c404b sind ausschließlich auf dem Testbranch
-veröffentlicht. Eigene vollständige Development42918195752, automatisches iPhone
-42918195769 und signierte Vorbereitung42918342817 sind aktiv. Letztere verwendet
+veröffentlicht. Eigene vollständige Development 42918195752, automatisches iPhone
+42918195769 und signierte Vorbereitung 42918342817 sind aktiv. Letztere verwendet
 `prepare_signed_ipa=true`, `upload_to_testflight=false`. Eigene Artefakte und
 Gesamtergebnisse stehen noch aus.34reale Gerätefälle bleiben ungeprüft; die
 vorherigen31Zeilen sind bytegleich. Keine Liveinstallation, echte Zahlung/Meldung,
@@ -4987,8 +4987,8 @@ Der ausführbare lokale Nachweisprüfer bestätigt jetzt 40 verlustfreie Rohdate
 zwölf Code-/Testdateien, Originalziel und 64 unveränderte Lohnmodule.
 
 Die konkrete Serveranleitung ist auf 3c824c1 festgelegt und mit `bash -n`
-syntaktisch geprüft, jedoch nicht am Server ausgeführt. Development42966124379,
-automatisches iPhone42966124295 und signierte Vorbereitung42966356463 laufen
+syntaktisch geprüft, jedoch nicht am Server ausgeführt. Development 42966124379,
+automatisches iPhone 42966124295 und signierte Vorbereitung 42966356463 laufen
 auf derselben Quelle. Letztere wurde mit `prepare_signed_ipa=true` und ausdrücklich
 `upload_to_testflight=false` gestartet. Vorheriger vollständiger RV-Liefernachweis
 bleibt bytegleich archiviert. Nur Dokumentation und Nachweise wurden seit dem
@@ -5006,18 +5006,35 @@ feste Regression gesichert. Der bereits über die CI-Discovery erfasste PG-Fall
 benötigt keinen zweiten identischen Einzelaufruf; dieser ist entfernt.
 
 Nach Korrektur erfolgreich: derselbe alte SQLite-Bestand samt unveränderter
-Zahlungsquittung; 48 Auslagen-/Schema-/CI-Fälle in10,107s; 81 betroffene Backend-/
-Reise-/CI-Fälle in60,654s; vier tatsächliche PostgreSQL-/MFA-/Altbestands-/
-Komplettrestorefälle in31,890s. Der wirkliche alte PostgreSQL-Bestand aus ab6b615
+Zahlungsquittung; 48 Auslagen-/Schema-/CI-Fälle in 10,107 Sekunden; 81 betroffene Backend-/
+Reise-/CI-Fälle in 60,654 Sekunden; vier tatsächliche PostgreSQL-/MFA-/Altbestands-/
+Komplettrestorefälle in 31,890 Sekunden. Der wirkliche alte PostgreSQL-Bestand aus ab6b615
 behält bei Migration seinen gesamten Datenfingerabdruck; danach sind Zahlungs-/
 Monatsquittung, Originaldatei und Monats-PDF exakt erhalten. Eigener Container
-mit vollständiger ID/Label/Loopback-Port32830 kontrolliert entfernt.
+mit vollständiger ID/Label/Loopback-Port 32830 kontrolliert entfernt.
 
-Die alte signierte Vorbereitung42966356463 wurde noch in der unsignierten
+Die alte signierte Vorbereitung 42966356463 wurde noch in der unsignierten
 Vorprüfung abgebrochen. Der Signierjob ist ohne Schritte als abgebrochen
 aufgeführt, kein Apple-Schritt wurde gestartet. Alte Prüfungen und erster roter
 Altbestandsgegenfall bleiben mit Quelle erhalten. Browser-/App-Produktcode
 bleiben bytegleich; die korrigierte Gesamtquelle erhält trotzdem einen neuen
 vollständigen gemeinsamen Plattform-/Paketnachlauf. Die alte Serveranleitung
-zu3c824c1 ist zurückgezogen und ihr Ausführungsblock gesperrt.
+zu 3c824c1 ist zurückgezogen und ihr Ausführungsblock gesperrt.
 [Nachweis und korrigierter Vertrag](CRM_ERP_AUSLAGEN_MIGRATIONSERHALT_2026-11-11.md).
+
+Der korrigierte Produktcommit 4bb5071891344a38f640d8ae43ec240c1f95e61e ist auf dem
+autorisierten Testbranch veröffentlicht. Ein Vergleich tatsächlicher alter und
+neuer Commitarchive bestätigt alle 59 registrierten Modulverträge in beiden
+Dialekten einschließlich unverändertem Kontrollchecksum. Zwei neue tatsächliche
+Commitarchiv-/MFA-/Browserdateifälle bestehen in 2,634 Sekunden, ein zusätzlicher echter
+Zwei-Firmen-Archivfall ebenfalls. Der neue ausführbare Nachweisprüfer bindet
+13 Code-/Testdateien, Originalziel und 64 unveränderte Lohnmodule und meldet den
+ersten Kandidaten ausdrücklich als nicht auslieferbar.
+
+Neue eigene Läufe exakt auf 4bb5071: Development 42968922844, automatisches
+unsigniertes iPhone 42968922850, signierte Vorbereitung 42968958373. Letztere ist
+mit `prepare_signed_ipa=true` und `upload_to_testflight=false` gestartet.
+Alle drei alten Kandidatenläufe 42966124379/42966124295/42966356463 sind tatsächlich
+als abgebrochen abgeschlossen; ihre Metadaten bleiben erhalten. Die neue konkrete
+Serveranleitung ist syntaktisch geprüft, noch nicht am Server ausgeführt.
+Seit diesem Einfrieren nur Dokumentation und Nachweise verändert.

@@ -1,69 +1,71 @@
 # Aktueller Lieferstand
 
-**3c824c1 ist zurückgezogen und darf nicht installiert werden.** Der zusätzliche
-[Altbestandscheck](CRM_ERP_AUSLAGEN_MIGRATIONSERHALT_2026-11-11.md) findet eine
-Migrationsvertragsänderung. Die Korrektur erhält die alten Verträge exakt und
-wird in einem neuen gemeinsamen Lauf geprüft. Die nachstehenden früheren
-Laufangaben und Pakete sind keine Freigabe des korrigierten Stands.
-
 Stand: 11.11.2026. Veröffentlichte Produktquelle:
-`3c824c174ec6247d50219a70612ba42fed75d017`, ausschließlich auf
+`4bb5071891344a38f640d8ae43ec240c1f95e61e`, ausschließlich auf
 `codex/testupdate-0.7-projects-20261104`. Hauptprojekt:
 `/workspace/Smarplan-Hofmann-Workspace`.
 
-## Zusätzliche Auslagenkorrektur und tatsächliche lokale Prüfung
-
 Die [Auslagenoriginalsperre](CRM_ERP_AUSLAGEN_ORIGINALSPERRE_2026-11-11.md)
-schützt identische vollständige Originale auch zwischen Mitarbeitern.
-Einreichung, Freigabe, Erstattung und neue Reiseabrechnung prüfen die Bindung.
-Die begründete Rücknahme unbezahlter Freigaben ist in Browser und App mit
-zusätzlicher Serverfähigkeit bedienbar. Alte Originale, Quittungen und Geldflüsse
-bleiben erhalten. Keine Überweisung oder Rückzahlung wird erzeugt.
+verhindert die doppelte Einreichung identischer ganzer Belege auch zwischen
+Mitarbeitern. Neue Einreichung, Freigabe, Erstattung und zusätzliche
+Reiseabrechnung prüfen die Unternehmensbindung. Browser und App ergänzen
+mit eigener Serverfähigkeit die begründete Rücknahme unbezahlter Freigaben.
+Originale, frühere Entscheidungen, Geldflüsse und angenommene Quittungen bleiben erhalten.
 
-80 betroffene Backend-/Reisefälle, drei tatsächliche PostgreSQL-/MFA-/HTTP-/
-Konkurrenz-/Komplettrestorefälle, zwölf native Personalfälle, gesamte Appanalyse,
-1.120 Browsermodulfälle und der tatsächliche Browserablauf bestehen. Der
-unveränderte ursprüngliche Gegenfall wechselt von rot auf grün. Verlustfreie
-Rohnachweise und zwölf eingefrorene Code-/Testdateien sind per SHA256 gebunden;
-das [ausführbare Nachweisprogramm](evidence/expense-originals-2026-11-11/verify-evidence.py.txt)
-bestätigt sie. Originalziel und 64 Lohnmodule bleiben bytegleich zu ab6b615.
-Zwei weitere tatsächliche Commitarchiv-/MFA-/Browserdateifälle bestehen auf
-3c824c1 in 2,900 Sekunden. Ein weiterer tatsächlicher Archivfall bestätigt nach
-MFA zwei getrennte Unternehmen: gleiches Original unabhängig zulässig, zweite
-Einreichung innerhalb der Firma gesperrt, fremder Firmentoken abgewiesen und
-exakt passende Browserdateien samt neuer Serverfähigkeit ausgeliefert.
+## Korrigierter Updatevertrag und tatsächlich geprüfter Altbestand
 
-## Eigene gemeinsame Plattformprüfung läuft
+Der erste Kandidat 3c824c1 ist zurückgezogen: Sein zusätzlicher Suchindex
+verändert einen alten Migrationsvertrag. Die [Korrektur](CRM_ERP_AUSLAGEN_MIGRATIONSERHALT_2026-11-11.md)
+erhält alle 59 Modulverträge für beide Datenbankdialekte exakt zu ab6b615.
+Weder gespeicherte Journalwerte noch Schutzprüfungen werden überschrieben.
+Der alte Serverbefehlsblock ist gesperrt. Die alte signierte Vorbereitung wurde
+noch vor dem ersten Apple-Schritt gestoppt; ihr Signierjob besitzt keine Schritte.
 
-| Lauf | Quelle | Tatsächlich beobachteter Stand |
-|---|---|---|
-| [Development 42966124379](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42966124379) | 3c824c1 | Läuft; 20 eigene Gruppen, einschließlich zusätzlichem PG-Fall |
-| [Automatisches iPhone 42966124295](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42966124295) | 3c824c1 | Läuft, unsigniert, Upload aus |
-| [Signierte Vorbereitung 42966356463](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42966356463) | 3c824c1 | Läuft; `prepare_signed_ipa=true`, `upload_to_testflight=false` |
+Korrigierte Dateien: 81 betroffene Backend-/Reise-/CI-Fälle in 60,654 Sekunden,
+48 Auslagen-/Schema-/CI-Fälle in 10,107 Sekunden und vier tatsächliche
+PostgreSQL-/MFA-/Altbestands-/Komplettrestorefälle in 31,890 Sekunden erfolgreich.
+Aus dem alten Archiv erzeugte SQLite- und PostgreSQL-Bestände behalten ihre
+Zahlungsquittungen. Bei PostgreSQL bleiben zudem der gesamte Datenfingerabdruck,
+Originaldatei, Monatsquittung und Monats-PDF exakt erhalten.
 
-Die Plattformnachweise und tatsächlichen neuen Paketkennungen werden nach
-Abschluss ergänzt. Die früheren Pakete 215/216 und Windowsdateien enthalten
-ab6b615 und werden nicht als Auslieferung der Auslagenkorrektur ausgegeben.
-Der [vollständige vorherige RV-Liefernachweis](CRM_ERP_LIEFERSTAND_RV_VOR_AUSLAGEN_2026-11-11.md)
-ist bytegleich archiviert. Er enthält sämtliche früheren Läufe, Artefaktdigests,
-Runnerfehler und erfolgreiche Nachläufe.
+Am tatsächlichen 4bb5071-Commitarchiv bestehen zwei Paket-/MFA-/Browserdateifälle
+in 2,634 Sekunden und ein weiterer Zwei-Firmen-MFA-Fall: Gleiches Original ist
+unabhängig pro Firma zulässig, innerhalb einer Firma wird die zweite Einreichung
+gesperrt. Fremder Firmentoken wird abgewiesen; Browserdateien sind bytegleich.
+Originalziel und 64 bisherige Lohnmodule sind unverändert. Browser-/App-
+Produktcode sind bytegleich zu 3c824c1; dessen eigene Komponentennachweise
+werden nicht als neuer gemeinsamer Gesamtquelllauf ausgegeben.
 
-## Server, TestFlight und Abnahme
+## Gemeinsame Plattform- und Paketprüfung läuft auf 4bb5071
 
-Die [konkrete Serveranleitung für 3c824c1](CRM_ERP_SERVERUPDATE_3C824C1_2026-11-11.md)
-ist vorbereitet und syntaktisch geprüft; sie wird erst nach erfolgreichem
-Developmentabschluss zur Ausführung verwendet. Aus dieser Cloud ist kein
-Serverupdate erfolgt. Letzte Nutzerbestätigung bleibt a93cb4d vom 05.11.;
-hier fehlen geschützter Zugang und freigegebener Serverhost.
+| Lauf | Tatsächlich beobachteter Stand |
+|---|---|
+| [Development 42968922844](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42968922844) | Neuer vollständiger Lauf mit 20 eigenen Gruppen |
+| [Automatisches iPhone 42968922850](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42968922850) | Neuer unsignierter Gerätebuild |
+| [Signierte Vorbereitung 42968958373](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/42968958373) | `prepare_signed_ipa=true`, `upload_to_testflight=false` |
+
+Endgültige Ergebnisse, Paketkennungen und Digests werden nach tatsächlichem
+Abschluss ergänzt. Frühere Auslagen- oder RV-Pakete werden nicht als Pakete der
+korrigierten Quelle ausgegeben. Der [erste Auslagenlieferstand](CRM_ERP_LIEFERSTAND_AUSLAGEN_ERSTKANDIDAT_2026-11-11.md)
+und der [vorherige RV-Lieferstand](CRM_ERP_LIEFERSTAND_RV_VOR_AUSLAGEN_2026-11-11.md)
+bleiben mit ihren damaligen Quellen und Ergebnissen archiviert.
+
+## Betrieb und notwendige Freigaben
+
+Die [konkrete Serveranleitung für 4bb5071](CRM_ERP_SERVERUPDATE_4BB5071_2026-11-11.md)
+ist vorbereitet und syntaktisch geprüft; erst nach erfolgreichem gemeinsamem
+Developmentabschluss verwenden. Aus dieser Cloud wurde kein Serverupdate
+ausgeführt. Letzte Nutzerbestätigung bleibt a93cb4d vom 05.11.; geschützter
+Serverzugang und freigegebener Host fehlen hier.
 
 Die automatische Freigabeprüfung hat den aus „Ok. Mach fertig“ abgeleiteten
-TestFlight-Start abgelehnt, weil eine ausdrückliche Freigabe des konkreten
-signierten App-Pakets an Apple fehlt. Der abgelehnte Start wurde nicht
-ausgeführt. Die neu konkret gestellte Frage zu ab6b615 ist bisher unbeantwortet
-und darf nicht auf die zusätzliche Auslagenfunktion übertragen werden.
-Der aktuelle manuelle Lauf bereitet ausschließlich das signierte Paket vor.
+TestFlight-Start abgelehnt: Eine eindeutige Freigabe des konkreten signierten
+App-Pakets an Apple fehlte. Der abgelehnte Start wurde nicht ausgeführt.
+Die neu konkrete Uploadfrage zu ab6b615 ist unbeantwortet und deckt diesen
+neuen Funktionsstand nicht ab. Der aktuelle manuelle Lauf bereitet nur das
+signierte Paket vor. Ein TestFlight-Upload hat nicht stattgefunden.
 
-Alle 34 tatsächlichen Gerätefälle, Fach-/Sicherheitsprüfung und Gesamtabnahme
-A–G bleiben offen. Lieferanten-/Bankzugänge und weitere benannte Code-/Fachfälle
-werden dadurch nicht als erledigt bewertet. Der vollständige Gesamtauftrag
-bleibt aktiv; eine produktive Gesamtfreigabe liegt noch nicht vor.
+Alle 34 realen Gerätefälle, Fach-/Sicherheitsprüfung und Gesamtabnahme A–G
+bleiben offen. Anbieterzugänge und weitere benannte Code-/Fachfälle sind damit
+nicht erledigt. Der vollständige Gesamtauftrag bleibt aktiv; eine produktive
+Gesamtfreigabe liegt noch nicht vor.

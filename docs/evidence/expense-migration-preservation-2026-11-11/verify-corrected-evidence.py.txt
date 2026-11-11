@@ -1,0 +1,69 @@
+"""Verify the corrected frozen source and retained rejected-candidate evidence."""
+import gzip
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[2]
+SOURCE = '4bb5071891344a38f640d8ae43ec240c1f95e61e'
+PREVIOUS = 'ab6b61535a35f8306bbf04ebe6557acdb2ac3f41'
+sha = lambda data: hashlib.sha256(data).hexdigest()
+
+
+def git_bytes(commit, path):
+    return subprocess.check_output(['git', 'show', commit+':'+path], cwd=ROOT)
+
+
+manifest = json.loads((HERE/'manifest.json').read_text())
+assert manifest['product_commit'] == SOURCE
+raw = {}
+for entry in manifest['evidence']:
+    path = HERE/entry['path']
+    assert path.parent == HERE
+    packed = path.read_bytes()
+    assert len(packed) == entry['bytes'] and sha(packed) == entry['sha256'], path
+    data = gzip.decompress(packed)
+    assert len(data) == entry['original_bytes'] and sha(data) == entry['original_sha256'], path
+    raw[path.name.removesuffix('.gz')] = data
+for path, digest in manifest['runtime_files_sha256'].items():
+    assert sha(git_bytes(SOURCE, path)) == digest, path
+for path, digest in manifest['corrected_file_sha256'].items():
+    assert sha(git_bytes(SOURCE, path)) == digest, path
+assert 'Nicht unterstützte Business-Migrationsänderung.' in raw['upgrade-before.txt'].decode()
+assert 'original_payment_receipt_preserved": true' in raw['upgrade-after-second.txt'].decode()
+for name, count in [('schema-and-expense-tests.txt', 48), ('backend-final-corrected.txt', 81), ('postgres-corrected.txt', 4), ('corrected-archive-runtime.txt', 2)]:
+    value = raw[name].decode()
+    assert f'Ran {count} tests' in value and value.rstrip().endswith('OK'), name
+catalog = json.loads(raw['all-schema-contracts.txt'])
+assert catalog['previous_source'] == PREVIOUS and catalog['corrected_source'] == SOURCE
+assert catalog['modules'] == len(catalog['catalog']['contracts']) == 59
+assert catalog['dialects'] == 2 and catalog['control_unchanged'] is True and catalog['all_contracts_unchanged'] is True
+company = json.loads(raw['corrected-company-archive.txt'])
+assert company['source_commit'] == SOURCE and company['companies'] == 2
+for key in ['actual_mfa', 'same_original_across_companies_accepted', 'within_company_duplicate_rejected',
+            'cross_company_token_rejected', 'exact_archive_browser_assets', 'new_personnel_feature']:
+    assert company[key] is True, key
+container = json.loads(raw['postgres-corrected-environment.json'])
+assert container['cleanup_verified'] is True and container['test_exit_code'] == 0 and container['synthetic'] is True
+assert container['container_id'] == '8ec93b99a74c44025ee891fe2fdb1704fff09c9be755586d55538d54d454ce15'
+assert container['loopback_port'] == '32830'
+old = json.loads((HERE.parent/'expense-originals-2026-11-11/manifest.json').read_text())
+assert old['delivery_eligible'] is False
+reused = 0
+for path, digest in old['runtime_files_sha256'].items():
+    if path.startswith(('app/', 'web/')):
+        assert sha(git_bytes(SOURCE, path)) == digest, path
+        reused += 1
+goal = git_bytes(SOURCE, 'CRM_ERP_Gesamtziel.txt')
+assert len(goal) == 23863 and sha(goal) == 'a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5'
+paths = subprocess.check_output(['git', 'ls-tree', '-r', '--name-only', PREVIOUS, 'backend/'], cwd=ROOT, text=True).splitlines()
+rules = [path for path in paths if path.startswith('backend/payroll_') and path.endswith('.py')]
+assert len(rules) == 64
+for path in rules:
+    assert git_bytes(SOURCE, path) == git_bytes(PREVIOUS, path), path
+print(json.dumps(dict(source=SOURCE, raw_evidence_files=len(raw), frozen_files=len(manifest['runtime_files_sha256']),
+    module_contracts_unchanged=59, dialects=2, unchanged_rules=64, identical_client_files=reused,
+    goal_unchanged=True, previous_candidate_blocked=True, corrected_evidence_verified=True,
+    shared_ci_status=manifest['shared_ci']['status'], testflight_uploaded=False), indent=2))

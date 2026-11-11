@@ -8,8 +8,10 @@ Lokale betroffene Prüfungen bestehen; eigener finaler Browser-/Remote-
 und Paketnachlauf werden ergänzt. Danach verbleibende Code- und Betriebs-
 abnahmen des vollständigen Gesamtziels weiter bearbeiten.
 
-Aktuelle veröffentlichte Quelle: `3c824c174ec6247d50219a70612ba42fed75d017`;
-eigene gemeinsame Plattformprüfung 42966124379 läuft.
+Aktuelle veröffentlichte Quelle: `4bb5071891344a38f640d8ae43ec240c1f95e61e`;
+eigene gemeinsame Plattformprüfung 42968922844 läuft.
+Der erste Auslagenkandidat 3c824c1 ist wegen seiner geänderten alten
+Migrationsprüfsumme zurückgezogen; die [Korrektur](CRM_ERP_AUSLAGEN_MIGRATIONSERHALT_2026-11-11.md) erhält alle alten Modulverträge.
 Der vorherige vollständig abgeschlossene Paketstand ist `ab6b61535a35f8306bbf04ebe6557acdb2ac3f41`.
 Alle 20 eigenen Developmentgruppen, tatsächliche Windows-Paketierung,
 automatischer iPhone-Gerätebuild 215 nach dokumentiertem Runner-Nachlauf und

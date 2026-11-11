@@ -20,6 +20,7 @@ def git_bytes(commit, path):
 
 
 manifest = json.loads((HERE/'manifest.json').read_text())
+assert manifest['delivery_eligible'] is False
 raw = {}
 for entry in manifest['evidence']:
     path = HERE/entry['path']
@@ -66,4 +67,5 @@ approval = json.loads((HERE/'testflight-approval-review.json').read_text())
 assert approval['automatic_approval_review'] == 'rejected'
 assert approval['rejected_exec_started'] is False and approval['upload_to_testflight'] is False
 print(json.dumps(dict(source=SOURCE, raw_evidence_files=len(raw), code_files=len(manifest['runtime_files_sha256']),
-    unchanged_rules=64, goal_unchanged=True, archived_failures_preserved=True, verified=True), indent=2))
+    unchanged_rules=64, goal_unchanged=True, archived_failures_preserved=True, evidence_verified=True, delivery_eligible=False,
+    superseded_by='4bb5071891344a38f640d8ae43ec240c1f95e61e'), indent=2))

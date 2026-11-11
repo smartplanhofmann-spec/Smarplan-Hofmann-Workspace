@@ -107,14 +107,103 @@
       "bytes": 384,
       "original_sha256": "461b5ca2c7f317459d7e9ad6f754cfc7be969dd600869b3ee8893edd4b047216",
       "original_bytes": 878
+    },
+    {
+      "path": "all-schema-contracts.txt.gz",
+      "sha256": "e087a621ce0acb78b4b40e0e0475b5452c1910e46dc9765225e3a0203b891ad6",
+      "bytes": 5369,
+      "original_sha256": "fc9d72064739b2821e68a02ee92ef40dc2fd90864816cff5d02c7c98dda81710",
+      "original_bytes": 14640
+    },
+    {
+      "path": "verify-schema-catalogs.py.gz",
+      "sha256": "27e80f059bdc52c62e6ebab148e0b7f59130eadd28a9f58ec5a72a28a3982bb7",
+      "bytes": 822,
+      "original_sha256": "7954c1747320e0ee980da009070e0d94149d474edb28d29ee47c96a95450657b",
+      "original_bytes": 1523
+    },
+    {
+      "path": "corrected-archive-runtime.txt.gz",
+      "sha256": "f39174d28c19f8367a55d8cf963ab6e80b1dc8c0b4ded2694ae442138f20d090",
+      "bytes": 223,
+      "original_sha256": "9f1d2b70603118cefabe30566e0a8c61338c6fc92c355ef6b1c8eab33ce5cd2a",
+      "original_bytes": 561
+    },
+    {
+      "path": "corrected-company-archive.txt.gz",
+      "sha256": "3c95f5820b384c87c16cbc756ca33363d8b7f016ba9fcadbaef37c550a86157a",
+      "bytes": 203,
+      "original_sha256": "8db8b3447c28b611a77607f4901a4d424913d882f573094df5cdd363205ba5e4",
+      "original_bytes": 297
+    },
+    {
+      "path": "verify-frozen-corrected-source.py.gz",
+      "sha256": "c154f198a37d2f8719e22bd0e79e1ec4a1a6580e401479b5e7ba3cff7382308a",
+      "bytes": 1681,
+      "original_sha256": "87dc0abc259877b6758f51c343e99e92792deccdb4317ddc29b83b444d17fbac",
+      "original_bytes": 3706
+    },
+    {
+      "path": "corrected-runs-start.json.gz",
+      "sha256": "41cf7a19d4a6ae3bfe3039d1a49142babbe3822052ea13085780ab30d60a32d8",
+      "bytes": 2312,
+      "original_sha256": "d937b141852a539740bd47f3f28323b3914da36bdbb12e9fcf7c5de22c1e932f",
+      "original_bytes": 52384
+    },
+    {
+      "path": "first-candidate-final-42966124295.json.gz",
+      "sha256": "f5cdb85ab5fd4fd7fb925e968aad4e563ea67ded9486925f7f2db16e1b074ce3",
+      "bytes": 1685,
+      "original_sha256": "a30e9934496509458c27b39a27ec2b1a5d4c59ff5043336316399b4418c7166e",
+      "original_bytes": 16570
+    },
+    {
+      "path": "first-candidate-final-42966124379.json.gz",
+      "sha256": "bea4f76636bbee423735401a3e0a52ca87008426fa2cfb60a794606f3f1208bb",
+      "bytes": 1681,
+      "original_sha256": "fb1f721fd9b187370cfee99dc7f844fab9d1166e944f12f0d20992bf43f1bed2",
+      "original_bytes": 16564
+    },
+    {
+      "path": "first-candidate-final-42966356463.json.gz",
+      "sha256": "7526fa44127c0c98b9c4e8a2f711ce4709e5a1baf389a58fd5af3d89f9fb596c",
+      "bytes": 1689,
+      "original_sha256": "fde338deae859de471814f7ab37c86ef564b2a7544a43106e112faca5c8ad801",
+      "original_bytes": 16536
     }
   ],
   "checks": {
     "targeted_expense_schema_ci": 48,
     "final_backend_travel_ci": 81,
     "actual_postgres_old_archive_and_restore": 4,
-    "actual_old_sqlite_payment_receipt_preserved": true
+    "actual_old_sqlite_payment_receipt_preserved": true,
+    "all_59_module_contracts_unchanged_for_both_dialects": true,
+    "frozen_archive_cases": 2,
+    "actual_two_company_mfa_archive_case": 1
   },
   "testflight_uploaded": false,
-  "production_updated": false
+  "production_updated": false,
+  "product_commit": "4bb5071891344a38f640d8ae43ec240c1f95e61e",
+  "runtime_files_sha256": {
+    "app/lib/business_personnel_workflow.dart": "7602c689d5312e88e92da6144268b9a54ec0d8b8f13023b12048ca4bd9e8ffbd",
+    "app/test/business_personnel_workflow_test.dart": "f64d442d4892bbc4d0c4d84534042c329abeef24b5b7d12d70a7d3c524214225",
+    "backend/business_personnel_workflow.py": "e95faa3e2d8448b38207cf0b2d28d40e506454fd297e02a470eea9a3407f8c2a",
+    "backend/business_travel_allowances.py": "6edd215e3b455792c150015f27f5302f805d73377ae2e6e04b5ea76c3c8d1ae6",
+    "backend/online/test_business_expense_originals_pg.py": "adeecc5896308412be82ffdd4b78de5e801274887b68dcc8ef67a70f2365f07c",
+    "backend/test_business_expense_originals.py": "23a9d44b07d3c18d0ec78f77f334c10b224b4868fb658e98747b03101d13a16e",
+    "backend/test_business_travel_expenses.py": "38e00b04c7e2fa4d7cefe36a0edde675993606b9605104f159f8995682d2f4f4",
+    "backend/testdata/personnel-workflow-schema-ab6b615.json": "87d6f92c7f7d4c59aef10ea1c7c33cb1278d35a42279412152dcfef9e7f173e3",
+    "scripts/ci-check-plan.json": "c62b5e3be9a12f1f641736361ef0cd5019be3d09f388a9838fff940f54b1bbcb",
+    "web/office/office.js": "246b19653f0c8e133f2542723be5577962334a689536dc1a13f57ac1f4a8889d",
+    "web/office/personnel-workflow.js": "4b9bc3950db85aa743c2e6bd95817579739eec140a677e7a83beb0401c365078",
+    "web/office/tests/personnel-workflow-flow.cjs": "52e3ad0d66370d31394d0e682cc8f1200362fb26ba0667896e491aab69f4f730",
+    "web/office/tests/personnel-workflow.test.mjs": "5e6d34d37745918d716268bb647f7b12674688feb5c73b6dfafaed80180be3c5"
+  },
+  "shared_ci": {
+    "development": 42968922844,
+    "automatic_ios": 42968922850,
+    "signed_preparation": 42968958373,
+    "status": "running",
+    "upload_to_testflight": false
+  }
 }

@@ -4,7 +4,7 @@ Für `office.smartplan-hofmann.de` ist auf Wunsch des Betreibers eine Anmeldung 
 
 ## Passwortanmeldung einschalten
 
-Den dafür freigegebenen Quellstand zuerst mit dem vorhandenen koordinierten Serverupdate installieren. Der Abschluss des Updates muss den erwarteten installierten Commit und einen bereiten Server melden. Das Anmeldeverfahren lässt sich anschließend einzeln wechseln.
+Der Funktionsstand für die Passwortanmeldung ist `6eb6a883b5f99c805fe933ec690db68a606ccbb0`. Der folgende Ablauf aktualisiert den bestätigten Serverstand `4bb5071` und aktiviert anschließend die Passwortanmeldung. Bei einer Wiederholung auf bereits installiertem Zielstand überspringt er das Datenbankupdate.
 
 1. In Windows PowerShell die bekannte SSH-Verbindung öffnen.
 
@@ -12,10 +12,27 @@ Den dafür freigegebenen Quellstand zuerst mit dem vorhandenen koordinierten Ser
    ssh -i "$env:USERPROFILE\.ssh\smartplan_hetzner" root@office.smartplan-hofmann.de
    ```
 
-2. Im verbundenen Linux-Terminal die Passwortanmeldung aktivieren. Der Befehl aktualisiert die Dienstkonfiguration, startet die Online-Anwendung neu und prüft die HTTPS-Bereitschaft samt Datenbank.
+2. Im verbundenen Linux-Terminal den folgenden Block ausführen. Das koordinierte Update prüft seine Sicherung und die Kandidatendatenbank. Der abschließende Befehl aktiviert die Passwortanmeldung und prüft die HTTPS-Bereitschaft samt Datenbank.
 
    ```bash
-   bash /opt/smartplan-test/deploy/hetzner/online/set-test-login.sh password
+   (
+     set -eu
+     cd /opt/smartplan-test
+     ziel=6eb6a883b5f99c805fe933ec690db68a606ccbb0
+     git diff --quiet
+     git diff --cached --quiet
+     git fetch origin codex/testupdate-0.7-projects-20261104
+     git merge-base --is-ancestor "$ziel" FETCH_HEAD
+     installiert=$(cat /opt/smartplan-online/SOURCE_COMMIT)
+     git merge-base --is-ancestor "$installiert" "$ziel"
+     git switch --detach "$ziel"
+     if [ "$installiert" != "$ziel" ]; then
+       git config --local tar.umask 0022
+       bash deploy/hetzner/online/update-online.sh
+     fi
+     test "$(cat /opt/smartplan-online/SOURCE_COMMIT)" = "$ziel"
+     bash deploy/hetzner/online/set-test-login.sh password
+   )
    ```
 
 3. Nach der Meldung `Testserver bereit. Anmeldeverfahren: Passwort.` Smartplan Office in einem privaten Browserfenster öffnen. Mit der persönlichen E-Mail-Adresse und dem Passwort anmelden. Die Arbeitsoberfläche soll sich sofort öffnen. Mit einem aktiven Administratorkonto wiederholen und die jeweils verfügbaren Bereiche prüfen. [Smartplan Office](https://office.smartplan-hofmann.de/office/)

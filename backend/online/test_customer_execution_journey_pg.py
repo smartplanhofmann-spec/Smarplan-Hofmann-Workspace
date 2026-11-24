@@ -110,8 +110,12 @@ class CustomerExecutionJourneyPostgres(unittest.TestCase):
             'sender_name': 'Synthetic Order Buyer', 'sender_email': 'order-buyer@example.test',
             'received_at': self.now.isoformat()}
         intake = self.call('POST', '/intake/gmail', envelope, token=connector['token'], status=201).json
-        self.assertEqual(self.call('POST', '/intake/gmail', envelope,
-                                  token=connector['token'], status=201).json, intake)
+        repeated = self.call('POST', '/intake/gmail', envelope, token=connector['token'], status=201).json
+        self.assertEqual(set(repeated), {'id', 'status', 'ingested_at'})
+        self.assertEqual((repeated['id'], repeated['status']), (intake['id'], 'received'))
+        # The connector records the latest successful delivery, including retries.
+        self.assertGreaterEqual(datetime.fromisoformat(repeated['ingested_at']),
+                                datetime.fromisoformat(intake['ingested_at']))
         self.call('GET', '/inquiries/' + intake['id'], token=connector['token'], status=401)
         inquiry = self.call('GET', '/inquiries/' + intake['id']).json
         conversion_body = request(revision=inquiry['revision'], project_name='Synthetic accepted customer order',

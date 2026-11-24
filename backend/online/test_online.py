@@ -53,25 +53,22 @@ class TotpStandardTest(unittest.TestCase):
 
 @unittest.skipUnless(DSN, 'SMARTPLAN_TEST_DSN points to a disposable PostgreSQL database')
 class OnlineApiTests(unittest.TestCase):
-    host = 'office.example.test'
-    test_server_host = 'office.smartplan-hofmann.de'
-
     def setUp(self):
         reset()
         self.office = PostgresOffice(DSN)
         self.owner_id = self.office.add_user('owner@example.test', 'Owner-password-123', 'owner')
         self.key = Fernet.generate_key()
         self.auth = Authentication(self.office, self.key)
-        self.app = create_app(office=self.office, key=self.key, host=self.host)
+        self.app = create_app(office=self.office, key=self.key, host='office.example.test')
         self.client = self.app.test_client()
         self.secrets = {}
 
     def tearDown(self):
         self.office.db.close()
 
-    def request(self, path, body=None, token=None, status=200, method=None):
+    def request(self, path, body=None, token=None, status=200, method=None, *, host='office.example.test'):
         response = self.client.open('/api/v1' + path, method=method or ('POST' if body is not None else 'GET'),
-                                    base_url='https://' + self.host, json=body,
+                                    base_url='https://' + host, json=body,
                                     headers={'Authorization': 'Bearer ' + token} if token else {})
         self.assertEqual(response.status_code, status, repr(response.data[:500]))
         return response
@@ -83,89 +80,6 @@ class OnlineApiTests(unittest.TestCase):
         self.assertNotIn('token', pending)
         return self.request('/login/verify', {'challenge': pending['challenge'],
                             'code': totp(self.secrets[email], int(time.time() // 30))}).json
-
-    def configure_login_policy(self, flag, host):
-        self.host = host
-        with patch.dict(os.environ, {'SMARTPLAN_TEST_PASSWORD_ONLY': flag}):
-            self.client = create_app(office=self.office, key=self.key, host=host).test_client()
-
-    def test_password_only_signs_in_all_roles_with_existing_permissions(self):
-        self.configure_login_policy('1', self.test_server_host)
-        for role in ('owner', 'manager', 'technician', 'accountant'):
-            with self.subTest(role=role):
-                email = role + '@example.test'
-                password = 'Owner-password-123' if role == 'owner' else 'Staff-password-123'
-                if role != 'owner':
-                    self.office.add_user(email, password, role)
-                result = self.request('/login', {'email': email, 'password': password}).json
-                self.assertIs(result['mfa_required'], False)
-                self.assertNotIn('challenge', result)
-                self.assertNotIn('enrollment', result)
-                token = result['token']
-                actor = self.request('/me', token=token).json
-                self.assertEqual((actor['email'], actor['role']), (email, role))
-                self.request('/users', token=token, status=200 if role == 'owner' else 403)
-                self.request('/logout', {}, token=token)
-                self.request('/me', token=token, status=401)
-        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM mfa').fetchone()[0], 0)
-        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM auth_challenges').fetchone()[0], 0)
-        self.assertEqual(self.office.db.execute(
-            "SELECT COUNT(*) FROM audit WHERE action='login.password'").fetchone()[0], 4)
-
-    def test_password_only_rejects_inactive_accounts_and_rate_limits_wrong_passwords(self):
-        self.configure_login_policy('1', self.test_server_host)
-        owner = self.request('/login', {'email': 'owner@example.test', 'password': 'Owner-password-123'}).json['token']
-        credentials = {'email': 'tech@example.test', 'password': 'Technician-password-123'}
-        tech_id = self.request('/users', {**credentials, 'role': 'technician'}, owner, status=201).json['id']
-        tech = self.request('/login', credentials).json['token']
-        self.request('/users/' + tech_id, {'active': False}, owner)
-        self.request('/me', token=tech, status=401)
-        self.request('/login', credentials, status=401)
-        for _ in range(5):
-            self.request('/login', {'email': 'owner@example.test', 'password': 'wrong'}, status=401)
-        self.configure_login_policy('1', self.test_server_host)
-        self.request('/login', {'email': 'owner@example.test', 'password': 'Owner-password-123'}, status=429)
-        self.office.db.execute('UPDATE sessions SET expiry=0 WHERE user_id=?', (self.owner_id,))
-        self.request('/me', token=owner, status=401)
-
-    def test_return_to_mfa_preserves_enrollment_and_revokes_password_access(self):
-        self.configure_login_policy('0', self.test_server_host)
-        established = self.login()
-        mfa_device = self.request('/offline/access', {}, established['token'], status=201).json['token']
-        enrollment = self.office.db.execute('SELECT * FROM mfa WHERE user_id=?', (self.owner_id,)).fetchone()
-        self.configure_login_policy('1', self.test_server_host)
-        credentials = {'email': 'owner@example.test', 'password': 'Owner-password-123'}
-        direct = self.request('/login', credentials).json
-        self.assertIs(direct['mfa_required'], False)
-        device = self.request('/offline/access', {}, direct['token'], status=201).json['token']
-        self.request('/projects', token=device)
-        self.configure_login_policy('0', self.test_server_host)
-        self.request('/me', token=direct['token'], status=401)
-        self.request('/projects', token=device, status=401)
-        self.request('/projects', token=mfa_device)
-        self.request('/me', token=established['token'])
-        self.assertEqual(self.office.db.execute('SELECT * FROM mfa WHERE user_id=?',
-                                                (self.owner_id,)).fetchone(), enrollment)
-        pending = self.request('/login', credentials).json
-        self.assertIs(pending['mfa_required'], True)
-        self.assertNotIn('enrollment', pending)
-        self.assertNotIn('token', pending)
-        result = self.request('/login/verify', {'challenge': pending['challenge'],
-                              'code': established['recovery_codes'][0]}).json
-        self.assertEqual(self.request('/me', token=result['token']).json['role'], 'owner')
-        self.configure_login_policy('1', self.test_server_host)
-        self.request('/me', token=direct['token'], status=401)
-        self.request('/projects', token=device, status=401)
-
-    def test_password_only_requires_exact_setting_and_configured_test_host(self):
-        for flag, host in (('1', 'office.example.test'), ('true', self.test_server_host), ('', self.test_server_host)):
-            with self.subTest(flag=flag, host=host):
-                self.configure_login_policy(flag, host)
-                pending = self.request('/login', {'email': 'owner@example.test',
-                                                  'password': 'Owner-password-123'}).json
-                self.assertIs(pending['mfa_required'], True)
-                self.assertIn('challenge', pending)
-                self.assertNotIn('token', pending)
 
     def test_enrollment_replay_recovery_logout_and_encrypted_storage(self):
         result = self.login()
@@ -315,3 +229,97 @@ class OnlineApiTests(unittest.TestCase):
         finally:
             with psycopg.connect(DSN, autocommit=True) as admin:
                 admin.execute('DROP DATABASE ' + target_name)
+
+
+@unittest.skipUnless(DSN, 'SMARTPLAN_TEST_DSN points to a disposable PostgreSQL database')
+class TestServerLoginTests(unittest.TestCase):
+    test_server_host = 'office.smartplan-hofmann.de'
+    setUp = OnlineApiTests.setUp
+    tearDown = OnlineApiTests.tearDown
+    login = OnlineApiTests.login
+
+    def request(self, *args, **kwargs):
+        return OnlineApiTests.request(self, *args, host=self.host, **kwargs)
+
+    def configure_login_policy(self, flag, host):
+        self.host = host
+        with patch.dict(os.environ, {'SMARTPLAN_TEST_PASSWORD_ONLY': flag}):
+            self.client = create_app(office=self.office, key=self.key, host=host).test_client()
+
+    def test_password_only_signs_in_all_roles_with_existing_permissions(self):
+        self.configure_login_policy('1', self.test_server_host)
+        for role in ('owner', 'manager', 'technician', 'accountant'):
+            with self.subTest(role=role):
+                email = role + '@example.test'
+                password = 'Owner-password-123' if role == 'owner' else 'Staff-password-123'
+                if role != 'owner':
+                    self.office.add_user(email, password, role)
+                result = self.request('/login', {'email': email, 'password': password}).json
+                self.assertIs(result['mfa_required'], False)
+                self.assertNotIn('challenge', result)
+                self.assertNotIn('enrollment', result)
+                token = result['token']
+                actor = self.request('/me', token=token).json
+                self.assertEqual((actor['email'], actor['role']), (email, role))
+                self.request('/users', token=token, status=200 if role == 'owner' else 403)
+                self.request('/logout', {}, token=token)
+                self.request('/me', token=token, status=401)
+        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM mfa').fetchone()[0], 0)
+        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM auth_challenges').fetchone()[0], 0)
+        self.assertEqual(self.office.db.execute(
+            "SELECT COUNT(*) FROM audit WHERE action='login.password'").fetchone()[0], 4)
+
+    def test_password_only_rejects_inactive_accounts_and_rate_limits_wrong_passwords(self):
+        self.configure_login_policy('1', self.test_server_host)
+        owner = self.request('/login', {'email': 'owner@example.test', 'password': 'Owner-password-123'}).json['token']
+        credentials = {'email': 'tech@example.test', 'password': 'Technician-password-123'}
+        tech_id = self.request('/users', {**credentials, 'role': 'technician'}, owner, status=201).json['id']
+        tech = self.request('/login', credentials).json['token']
+        self.request('/users/' + tech_id, {'active': False}, owner)
+        self.request('/me', token=tech, status=401)
+        self.request('/login', credentials, status=401)
+        for _ in range(5):
+            self.request('/login', {'email': 'owner@example.test', 'password': 'wrong'}, status=401)
+        self.configure_login_policy('1', self.test_server_host)
+        self.request('/login', {'email': 'owner@example.test', 'password': 'Owner-password-123'}, status=429)
+        self.office.db.execute('UPDATE sessions SET expiry=0 WHERE user_id=?', (self.owner_id,))
+        self.request('/me', token=owner, status=401)
+
+    def test_return_to_mfa_preserves_enrollment_and_revokes_password_access(self):
+        self.configure_login_policy('0', self.test_server_host)
+        established = self.login()
+        mfa_device = self.request('/offline/access', {}, established['token'], status=201).json['token']
+        enrollment = self.office.db.execute('SELECT * FROM mfa WHERE user_id=?', (self.owner_id,)).fetchone()
+        self.configure_login_policy('1', self.test_server_host)
+        credentials = {'email': 'owner@example.test', 'password': 'Owner-password-123'}
+        direct = self.request('/login', credentials).json
+        self.assertIs(direct['mfa_required'], False)
+        device = self.request('/offline/access', {}, direct['token'], status=201).json['token']
+        self.request('/projects', token=device)
+        self.configure_login_policy('0', self.test_server_host)
+        self.request('/me', token=direct['token'], status=401)
+        self.request('/projects', token=device, status=401)
+        self.request('/projects', token=mfa_device)
+        self.request('/me', token=established['token'])
+        self.assertEqual(self.office.db.execute('SELECT * FROM mfa WHERE user_id=?',
+                                                (self.owner_id,)).fetchone(), enrollment)
+        pending = self.request('/login', credentials).json
+        self.assertIs(pending['mfa_required'], True)
+        self.assertNotIn('enrollment', pending)
+        self.assertNotIn('token', pending)
+        result = self.request('/login/verify', {'challenge': pending['challenge'],
+                              'code': established['recovery_codes'][0]}).json
+        self.assertEqual(self.request('/me', token=result['token']).json['role'], 'owner')
+        self.configure_login_policy('1', self.test_server_host)
+        self.request('/me', token=direct['token'], status=401)
+        self.request('/projects', token=device, status=401)
+
+    def test_password_only_requires_exact_setting_and_configured_test_host(self):
+        for flag, host in (('1', 'office.example.test'), ('true', self.test_server_host), ('', self.test_server_host)):
+            with self.subTest(flag=flag, host=host):
+                self.configure_login_policy(flag, host)
+                pending = self.request('/login', {'email': 'owner@example.test',
+                                                  'password': 'Owner-password-123'}).json
+                self.assertIs(pending['mfa_required'], True)
+                self.assertIn('challenge', pending)
+                self.assertNotIn('token', pending)

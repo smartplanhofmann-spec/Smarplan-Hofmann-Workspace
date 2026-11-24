@@ -1,0 +1,2 @@
+transaction_id;booking_date;value_date;amount;currency;counterparty;reference
+TEST-001;2026-11-02;2026-11-02;119.00;EUR;Musterkunde;Musterzahlung

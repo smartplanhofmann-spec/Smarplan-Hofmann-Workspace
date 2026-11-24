@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08"><BkToCstmrStmt>
+<GrpHdr><MsgId>synthetic-message</MsgId><CreDtTm>2026-11-01T08:00:00+01:00</CreDtTm></GrpHdr>
+<Stmt><Id>synthetic-statement</Id><FrToDt><FrDtTm>2026-10-01T00:00:00+02:00</FrDtTm><ToDtTm>2026-10-31T23:59:59+01:00</ToDtTm></FrToDt>
+<Acct><Id><IBAN>DE89370400440532013000</IBAN></Id><Ccy>EUR</Ccy></Acct>
+<Bal><Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">100.00</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2026-10-01</Dt></Dt></Bal>
+<Bal><Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">200.00</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2026-10-31</Dt></Dt></Bal>
+
+<Ntry><NtryRef>reference-credit</NtryRef><Amt Ccy="EUR">125.00</Amt><CdtDbtInd>CRDT</CdtDbtInd><Sts><Cd>BOOK</Cd></Sts><BookgDt><Dt>2026-10-05</Dt></BookgDt><ValDt><Dt>2026-10-05</Dt></ValDt><AcctSvcrRef>bank-credit-01</AcctSvcrRef><BkTxCd><Prtry><Cd>synthetic-credit</Cd></Prtry></BkTxCd><NtryDtls><TxDtls><RltdPties><Dbtr><Pty><Nm>Synthetische Müller GmbH</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>Rechnung R-100</Ustrd></RmtInf></TxDtls></NtryDtls></Ntry>
+<Ntry><NtryRef>reference-debit</NtryRef><Amt Ccy="EUR">25.00</Amt><CdtDbtInd>DBIT</CdtDbtInd><Sts><Cd>BOOK</Cd></Sts><BookgDt><Dt>2026-10-06</Dt></BookgDt><ValDt><Dt>2026-10-07</Dt></ValDt><AcctSvcrRef>bank-debit-02</AcctSvcrRef><BkTxCd><Prtry><Cd>synthetic-debit</Cd></Prtry></BkTxCd><NtryDtls><TxDtls><RltdPties><Cdtr><Pty><Nm>Synthetischer Lieferant</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>Einkauf E-200</Ustrd></RmtInf></TxDtls></NtryDtls></Ntry></Stmt></BkToCstmrStmt></Document>

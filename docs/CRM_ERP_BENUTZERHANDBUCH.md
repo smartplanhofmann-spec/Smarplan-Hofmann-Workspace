@@ -1,13 +1,10 @@
 # Smartplan Office – Arbeitsabläufe der CRM-/ERP-Version
 
-Stand: 11. November 2026. Dieses Handbuch beschreibt den entwickelten Funktionsumfang.
-Welche Abläufe aktuell getestet sind und welche Freigaben fehlen, steht im
-[aktuellen Arbeitsstand](CRM_ERP_ARBEITSSTAND.md). Die vorhandene
-Installation erhält diese Erweiterungen erst durch ein kontrolliertes Update.
-Aktuelle Paketdownloads und der passende Serverstand stehen im
-[Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md). Die
-[Updateanleitung](CRM_ERP_SERVERUPDATE_AB6B615_2026-11-10.md) enthält die bekannte
-SSH-Verbindung und den geprüften kontrollierten Updateweg.
+Stand: 24. November 2026. Auf dem Testserver ist die geprüfte Produktquelle `4bb5071` installiert.
+Für das GrokBot-Team gibt es eine [Bedienungsanleitung mit 42 Übungen](grokbot/SMARTPLAN_BEDIENUNGSANLEITUNG.md)
+und das [vollständige Testpaket mit PDF, Ergebnistabelle und Musterdateien](grokbot/Smartplan-GrokBot-Testpaket.zip).
+Die [Produktgrenzen](CRM_ERP_ARBEITSSTAND.md), der [Lieferstand](CRM_ERP_LIEFERSTAND_AKTUELL.md)
+und das [bestätigte Serverupdate](CRM_ERP_SERVERUPDATE_4BB5071_2026-11-11.md) sind im Repository dokumentiert.
 
 ## Einstieg und Unternehmenseinstellungen
 

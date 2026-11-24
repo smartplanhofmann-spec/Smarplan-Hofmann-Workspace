@@ -13,10 +13,13 @@ gegenfall vom zuletzt bestätigten a93cb4d erhält Daten und Quittungen bei
 Sicherung, Kandidatenkopie, drei neuen Modulen und Runtime-Rechtevergabe.
 Diese Anleitung ist konkret vorbereitet und syntaktisch geprüft. [Aktuelle Pakete und tatsächliche Ergebnisse](CRM_ERP_LIEFERSTAND_AKTUELL.md).
 
-Diese Anleitung ist konkret vorbereitet und syntaktisch geprüft. Sie wurde
-aus dieser Cloud nicht am Server ausgeführt. Der letzte vom Nutzer bestätigte
-Serverstand bleibt `a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5` vom 05.11.
-Ein Quellcode-Push aktualisiert den installierten Server nicht automatisch.
+## Durchführung am 24.11.2026
+
+Der Nutzer führte das Update in seiner SSH-Sitzung auf `smartplan-test` aus. Sein Terminalbild zeigt den aktivierten und anschließend geprüften Commit `4bb5071891344a38f640d8ae43ec240c1f95e61e`. Vorher war `a93cb4d` zuletzt am 05.11. bestätigt.
+
+Das Skript meldete die Wiederherstellung der Sicherung in die Kandidatendatenbank, den Datenvergleich und die geprüfte Migration. Originaldatenbank, bisherige Releases und geprüfte Sicherung blieben laut Skriptausgabe erhalten. Das Updatejournal liegt auf dem Server unter `/etc/smartplan-online/updates/4bb507189134-20261124T204102-177937`.
+
+Die abschließenden Einzelprüfungen meldeten `active` für `smartplan-online`, `smartplan-https` und `smartplan-plan-import`. Die HTTPS-Abfrage von `/ready` ergab `Server: ok | Datenbank: ok`. Der vorher im selben Terminal sichtbare Verbindungsfehler auf Port 443 trat vor dieser erfolgreichen Abschlussprüfung auf.
 
 ## Zuerst die bekannte Verbindung öffnen
 
@@ -74,6 +77,6 @@ die Serverfähigkeit `personnel_expense_originals_v2`. Frühere Profile und
 Lohnoriginale bleiben erhalten; vorhandene echte Abrechnungen nicht als
 synthetische Testdaten verwenden.
 
-Die [34 Gerätefälle](CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv) bleiben bis zur
+Die [37 Gerätefälle](CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv) bleiben bis zur
 wirklichen Durchführung ungeprüft. Signiertes Paket, TestFlight-Verteilung,
 Installation und Fach-/Sicherheitsabnahme sind getrennte Nachweise.

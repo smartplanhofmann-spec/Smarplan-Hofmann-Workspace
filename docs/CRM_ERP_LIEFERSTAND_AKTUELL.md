@@ -1,6 +1,6 @@
 # Aktueller Lieferstand
 
-Stand: 11.11.2026. Veröffentlichte Produktquelle:
+Stand: 24.11.2026. Veröffentlichte Produktquelle:
 `4bb5071891344a38f640d8ae43ec240c1f95e61e`, ausschließlich auf
 `codex/testupdate-0.7-projects-20261104`. Hauptprojekt:
 `/workspace/Smarplan-Hofmann-Workspace`.
@@ -128,11 +128,9 @@ rote Altbestandsgegenfall bleibt der Grund für den Rückzug von 3c824c1.
 
 Die [konkrete Serveranleitung für 4bb5071](CRM_ERP_SERVERUPDATE_4BB5071_2026-11-11.md)
 ist auf genau diesen erfolgreich geprüften Commit festgelegt und syntaktisch
-geprüft. Ein zusätzlicher tatsächlicher Operatorgegenlauf vom letzten
+geprüft. Ein zusätzlicher tatsächlicher Operatorgegenlauf vom damals
 bestätigten a93cb4d erhält alte Daten/Quittungen bei Sicherung, Kandidatenkopie,
-Migration der drei zusätzlichen Module und Rechtevergabe. Aus dieser Cloud wurde kein Serverupdate
-ausgeführt. Letzte Nutzerbestätigung bleibt a93cb4d vom 05.11.; geschützter
-Serverzugang und freigegebener Host fehlen hier.
+Migration der drei zusätzlichen Module und Rechtevergabe. Am 24.11.2026 zeigte das SSH-Terminal des Nutzers die erfolgreiche Aktivierung von `4bb5071` auf `smartplan-test`. Alle drei Dienste waren aktiv. `/ready` bestätigte Server und Datenbank mit `ok`. [Updatejournal und Abschlusskontrolle](CRM_ERP_SERVERUPDATE_4BB5071_2026-11-11.md#durchführung-am-24112026).
 
 Die automatische Freigabeprüfung hat den aus „Ok. Mach fertig“ abgeleiteten
 TestFlight-Start abgelehnt: Eine eindeutige Freigabe des konkreten signierten

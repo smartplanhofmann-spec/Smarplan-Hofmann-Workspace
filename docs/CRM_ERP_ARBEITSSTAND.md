@@ -1,6 +1,6 @@
 # Verbindlicher aktueller Arbeitsstand
 
-Stand: 11.11.2026. Der aktive Auftrag bleibt die gesamte CRM-/ERP-Software nach
+Stand: 24.11.2026. Der aktive Auftrag bleibt die gesamte CRM-/ERP-Software nach
 Nutzerauftrag und unveränderter `CRM_ERP_Gesamtziel.txt`. Ein abgeschlossener
 Lieferabschnitt verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
 
@@ -76,10 +76,7 @@ Rohbelege liegen in den getrennten Auslagen- und Migrationsnachweisverzeichnisse
 
 ## Betrieb, Uploadfreigabe und vollständiges Gesamtziel
 
-Letzter vom Nutzer bestätigter Serverstand: a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5,
-05.11. Hier fehlen SSH-Schlüssel/Agent/Remoteidentität und freigegebener Serverhost;
-kein neuer Serverupdate wurde ausgeführt. Konkrete Windows-SSH-Verbindung und
-festgelegter Updateweg bleiben vorbereitet. Die Anleitung für 3c824c1 ist
+Am 24.11.2026 hat der Nutzer den installierten Stand `4bb5071891344a38f640d8ae43ec240c1f95e61e` auf `smartplan-test` per SSH-Terminalbild bestätigt. Online-Dienst, HTTPS und Planimport liefen. Die abschließende Abfrage von `/ready` meldete Server und Datenbank als `ok`. Die Updateausgabe bestätigt die Prüfung der Sicherung, des Datenvergleichs und der Migration. [Betriebsnachweis](CRM_ERP_SERVERUPDATE_4BB5071_2026-11-11.md#durchführung-am-24112026). Die Anleitung für 3c824c1 ist
 zurückgezogen und ihr Ausführungsblock gesperrt.
 
 Die automatische Freigabeprüfung hat den aus „Ok. Mach fertig“ abgeleiteten

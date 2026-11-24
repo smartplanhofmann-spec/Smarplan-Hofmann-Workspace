@@ -4,6 +4,10 @@ Stand: 24.11.2026. Der aktive Auftrag bleibt die gesamte CRM-/ERP-Software nach
 Nutzerauftrag und unveränderter `CRM_ERP_Gesamtziel.txt`. Ein abgeschlossener
 Lieferabschnitt verkleinert das Gesamtziel nicht und beendet den Auftrag nicht.
 
+## Anmeldung für den Kundentest
+
+Der Betreiber hat die Passwortanmeldung für alle aktiven Konten einschließlich Administratoren auf `office.smartplan-hofmann.de` freigegeben. Nach der Aktivierung meldet sich das GrokBot-Team im Browser, unter Windows und auf dem iPhone mit der persönlichen E-Mail-Adresse und dem Passwort an. Der zuletzt vom Betreiber bestätigte Serverstand ist `4bb5071`. Die [Betreiberanleitung](CRM_ERP_TESTSERVER_ANMELDUNG.md) beschreibt die Aktivierung und die Rückkehr zur Zwei-Faktor-Anmeldung.
+
 ## Projekt und tatsächlich veröffentlichte Quelle
 
 Hauptprojekt `/workspace/Smarplan-Hofmann-Workspace`, lokaler Branch

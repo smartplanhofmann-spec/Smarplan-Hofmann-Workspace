@@ -14,6 +14,17 @@ WORKSPACE_PREFIX = 'offline_workspace_'
 BUSINESS_PREFIX = 'offline_business_'
 WORKSPACE_V2_PREFIX = 'offline_workspace_v2_'
 BUSINESS_V2_PREFIX = 'offline_business_v2_'
+TEST_PASSWORD_SUFFIX = '_test_password'
+
+
+def is_test_password_token(token):
+    """Identify the test-session format. Authorization still requires the full token hash."""
+    secret_length = 43  # secrets.token_urlsafe(32)
+    payload_length = secret_length + len(TEST_PASSWORD_SUFFIX)
+    if len(token) < payload_length or not token.endswith(TEST_PASSWORD_SUFFIX):
+        return False
+    namespace = token[:-payload_length]
+    return namespace in ('', PREFIX, WORKSPACE_PREFIX, BUSINESS_PREFIX, WORKSPACE_V2_PREFIX, BUSINESS_V2_PREFIX)
 
 
 def allows_workspace(token):
@@ -37,7 +48,8 @@ def credential(row, *, instance_id=None):
     return digest(canonical(value))
 
 
-def issue(office, user, *, workspace=False, business=False, business_capabilities=None, protocol_version=1):
+def issue(office, user, *, workspace=False, business=False, business_capabilities=None,
+          protocol_version=1, test_password_session=False):
     if type(protocol_version) is not int or protocol_version not in (1, 2) or protocol_version == 2 and not workspace:
         raise Problem(400, 'Ungültige Offline-Protokollversion')
     if type(workspace) is not bool or type(business) is not bool or (business and not workspace):
@@ -68,6 +80,9 @@ def issue(office, user, *, workspace=False, business=False, business_capabilitie
     if protocol_version == 2:
         prefix = BUSINESS_V2_PREFIX if business else WORKSPACE_V2_PREFIX
     token = prefix + secrets.token_urlsafe(32)
+    if test_password_session:
+        token += TEST_PASSWORD_SUFFIX
+        office.audit(user, 'offline.login.password', digest(token))
     office.db.execute('DELETE FROM plan_sessions WHERE expiry<?', (issued,))
     office.db.execute('INSERT INTO plan_sessions(token,user_id,expiry,credential) VALUES(?,?,?,?)',
                       (digest(token), row['id'], expires, credential(row, instance_id=origin['instance_id'] if origin else None)))

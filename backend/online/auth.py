@@ -11,6 +11,7 @@ from urllib.parse import quote
 
 from cryptography.fernet import Fernet
 from core import Problem, canonical, digest, password_hash, text_field
+from plan_access import TEST_PASSWORD_SUFFIX
 
 
 def totp(secret, step, digits=6):
@@ -26,9 +27,35 @@ def fingerprint(user):
 
 
 class Authentication:
-    def __init__(self, office, key):
+    def __init__(self, office, key, *, test_password_only=False):
         self.office = office
         self.vault = Fernet(key)
+        self.test_password_only = test_password_only
+
+    def revoke_test_sessions(self):
+        # Audit entries name the issued hashes, so MFA sessions (including
+        # device sessions for the same account) survive a change of policy.
+        # Deleting plan_sessions cascades to business device and binding grants.
+        with self.office.lock, self.office.db as db:
+            db.execute("DELETE FROM sessions WHERE token IN "
+                       "(SELECT object_id FROM audit WHERE action='login.password')")
+            db.execute("DELETE FROM plan_sessions WHERE token IN "
+                       "(SELECT object_id FROM audit WHERE action='offline.login.password')")
+
+    def _session(self, user, timestamp, *, password_only=False):
+        token = secrets.token_urlsafe(32)
+        if password_only:
+            token += TEST_PASSWORD_SUFFIX
+        token_hash = digest(token)
+        db = self.office.db
+        db.execute('DELETE FROM auth_challenges WHERE user_id=?', (user['id'],))
+        db.execute('DELETE FROM login_limits WHERE key=?', ('account:' + digest(user['email']),))
+        db.execute('INSERT INTO sessions VALUES(?,?,?)', (token_hash, user['id'], timestamp + 8 * 3600))
+        if password_only:
+            self.office.audit(user, 'login.password', token_hash)
+        else:
+            self.office.audit(user, 'login.mfa', user['id'])
+        return token
 
     def limit(self, key, maximum, timestamp, increment=False):
         db = self.office.db
@@ -61,6 +88,8 @@ class Authentication:
                 if not user or not hmac.compare_digest(calculated, user['password']):
                     self.limit(account, 5, timestamp, increment=True)
                     error = Problem(401, 'Anmeldung fehlgeschlagen')
+                elif self.test_password_only:
+                    result = {'mfa_required': False, 'token': self._session(user, timestamp, password_only=True)}
                 else:
                     mfa = db.execute('SELECT secret FROM mfa WHERE user_id=?', (user['id'],)).fetchone()
                     secret = self.vault.decrypt(mfa['secret'].encode()).decode() if mfa else base64.b32encode(secrets.token_bytes(20)).decode()
@@ -119,12 +148,7 @@ class Authentication:
                         db.execute('INSERT INTO mfa VALUES(?,?,?,?) ON CONFLICT(user_id) DO UPDATE '
                                    'SET last_step=excluded.last_step,recovery=excluded.recovery',
                                    (user['id'], pending['secret'], step if step is not None else mfa['last_step'], canonical(recovery)))
-                        token = secrets.token_urlsafe(32)
-                        db.execute('DELETE FROM auth_challenges WHERE user_id=?', (user['id'],))
-                        db.execute('DELETE FROM login_limits WHERE key=?', ('account:' + digest(user['email']),))
-                        db.execute('INSERT INTO sessions VALUES(?,?,?)', (digest(token), user['id'], timestamp + 8 * 3600))
-                        self.office.audit(user, 'login.mfa', user['id'])
-                        result = {'token': token}
+                        result = {'token': self._session(user, timestamp)}
                         if codes:
                             result['recovery_codes'] = codes
         if error:

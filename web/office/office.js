@@ -899,6 +899,18 @@ export class OfficeApi {
     if(!operation)throw new ApiError('Vorgang ist nicht mehr offen.');
     return this.mutate(key,operation.path,JSON.parse(operation.fingerprint),options);
   }
+  acceptPasswordLogin(result) {
+    if (result?.mfa_required === false && result.challenge === undefined &&
+        result.enrollment === undefined && result.recovery_codes === undefined) {
+      this.setToken(result.token);
+      return null;
+    }
+    if (result?.mfa_required === true && typeof result.challenge === 'string' &&
+        result.challenge.trim() && result.token === undefined && result.recovery_codes === undefined) {
+      return {challenge: result.challenge, enrollment: result.enrollment};
+    }
+    throw new ApiError('Die Serverantwort zur Anmeldung ist ungültig.', 502);
+  }
   setToken(token) {
     if (typeof token !== 'string' || token.length < 20 || token.length > 200) throw new Error('Ungültige Sitzung.');
     this.clear(); this.#token = token;
@@ -1371,8 +1383,10 @@ function loginScreen(challenge = null, enrollment = null) {
     if(!challenge) {
       const result=await api.request('/login',{method:'POST',body:data,publicRequest:true});
       card.querySelector('input[type=password]').value='';
-      if(!result.mfa_required||typeof result.challenge!=='string') throw new ApiError('Der Server hat keine sichere MFA-Anmeldung bestätigt.',502);
-      loginScreen(result.challenge,result.enrollment); return undefined;
+      const next = api.acceptPasswordLogin(result);
+      if (next) loginScreen(next.challenge, next.enrollment);
+      else await startSession();
+      return undefined;
     }
     const result=await api.request('/login/verify',{method:'POST',body:{challenge,code:data.code},publicRequest:true});
     api.setToken(result.token);

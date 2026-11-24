@@ -69,7 +69,8 @@ def dispatch(office, user, path, method, data, token):
     if path in ('/offline/access', '/offline/access/v2'):
         if data:
             raise Problem(400, 'Keine Zugangsdaten im Anfrageinhalt erwartet')
-        return {**plan_access.issue(office, user, workspace=True, protocol_version=2 if path.endswith('/v2') else 1),
+        return {**plan_access.issue(office, user, workspace=True, protocol_version=2 if path.endswith('/v2') else 1,
+                                    test_password_session=plan_access.is_test_password_token(token)),
                 'capabilities': ['project_plans', 'offline_plan_access', 'plan_imports', 'plan_deletion',
                                  'project_workspace', 'offline_workspace']}, 201
     if path == '/offline/logout':
@@ -150,11 +151,15 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         key = Path(os.environ['SMARTPLAN_VAULT_KEY_FILE']).read_bytes().strip()
     office = office or PostgresOffice(os.environ['SMARTPLAN_DATABASE_DSN'])
     ensure_sqlite_schema(office)
-    authentication = Authentication(office, key)
     storage = storage or Storage(office, key, host, config=storage_config, onedrive=onedrive)
     from online.instance import verify as verify_instance
     instance = verify_instance(office, instance_id if instance_id is not None else
                                os.environ.get('SMARTPLAN_INSTANCE_ID'), host, key, storage)
+    test_server = host == 'office.smartplan-hofmann.de'
+    test_password_only = test_server and os.environ.get('SMARTPLAN_TEST_PASSWORD_ONLY') == '1'
+    authentication = Authentication(office, key, test_password_only=test_password_only)
+    if test_server and not test_password_only:
+        authentication.revoke_test_sessions()
     office.client_original_key_instance = instance['instance_id'] if instance else None
     from online.integrations_service import OnlineIntegrations, methods as integration_methods
     integrations = integrations or OnlineIntegrations(office, key, host)
@@ -478,6 +483,9 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         if not authorization.startswith('Bearer ') or len(authorization) > 200:
             raise Problem(401, 'Bitte anmelden')
         token = authorization[7:]
+        test_password_session = plan_access.is_test_password_token(token)
+        if test_password_session and not test_password_only:
+            raise Problem(401, 'Bitte anmelden')
         plan_token = token.startswith(plan_access.PREFIX)
         if plan_token and not (path == '/offline/logout' or
                 (plan_access.allows_business(token) and business_api.offline_path(path, request.method)) or
@@ -507,7 +515,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                 if plan_token:
                     plan_access.require_request_binding(office, user, token, request.headers.get('X-Smartplan-Offline-Binding'))
             result, status, mimetype = business_api.dispatch(
-                office, user, path, request.method, data, offline=plan_token,
+                office, user, path, request.method, data, offline=plan_token, test_password_session=test_password_session,
                 offline_capabilities=plan_access.business_capabilities(office, token) if plan_token else ())
             if path == '/business/capabilities' and not plan_token and isinstance(result, dict):
                 result['features'] = sorted(set(result.get('features', [])) | {'installation_context', 'qonto_read_only'})

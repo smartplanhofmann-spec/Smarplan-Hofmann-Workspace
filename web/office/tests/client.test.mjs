@@ -36,6 +36,37 @@ test('login has no stale bearer and logout erases memory authorization',async()=
   assert.equal(headers[0].Authorization,undefined);api.clear();
   await assert.rejects(api.get('/me'),error=>error.status===401);
 });
+test('a confirmed password login opens an authenticated session with the server token', async () => {
+  const calls = [];
+  const api = new OfficeApi({fetcher: async (path, options) => {
+    calls.push([path, options.headers.Authorization]);
+    return json(path.endsWith('/login') ? {mfa_required: false, token} : {id: 'test-user'});
+  }});
+  const result = await api.request('/login', {
+    method: 'POST', body: {email: 'test@example.test', password: 'test-password'}, publicRequest: true
+  });
+  assert.equal(api.acceptPasswordLogin(result), null);
+  assert.deepEqual(await api.get('/me'), {id: 'test-user'});
+  assert.deepEqual(calls, [['/api/v1/login', undefined], ['/api/v1/me', 'Bearer ' + token]]);
+});
+
+test('an MFA challenge waits for verification and malformed password responses never establish a session', async () => {
+  const api = new OfficeApi({fetcher: () => assert.fail('unexpected authenticated request')});
+  const challenge = 'synthetic-challenge';
+  const enrollment = {secret: 'TEST-ENROLLMENT'};
+  assert.deepEqual(api.acceptPasswordLogin({mfa_required: true, challenge, enrollment}), {challenge, enrollment});
+  await assert.rejects(api.get('/me'), error => error.status === 401);
+  for (const response of [
+    null, {token}, {mfa_required: 'false', token}, {mfa_required: false},
+    {mfa_required: false, token: 'short'}, {mfa_required: false, token, challenge},
+    {mfa_required: false, token, enrollment}, {mfa_required: false, token, recovery_codes: ['code']},
+    {mfa_required: true, challenge, token}, {mfa_required: true, challenge: '  '}
+  ]) {
+    assert.throws(() => api.acceptPasswordLogin(response));
+    await assert.rejects(api.get('/me'), error => error.status === 401);
+  }
+});
+
 test('clear aborts outstanding requests and refuses a response from the previous session',async()=>{
   let resolve,options;const api=new OfficeApi({fetcher:async(_,passed)=>{options=passed;return new Promise(done=>{resolve=done;});}});api.setToken(token);
   const pending=api.get('/me');api.clear();assert.equal(options.signal.aborted,true);resolve(json({id:'old-user'}));

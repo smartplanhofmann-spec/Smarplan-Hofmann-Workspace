@@ -93,6 +93,45 @@ class ReleaseGuards(unittest.TestCase):
             line = next(line for line in result.splitlines() if line.startswith('SMARTPLAN_DATABASE_DSN='))
             self.assertEqual(conninfo_to_dict(shlex.split(line.split('=', 1)[1])[0]), conninfo_to_dict(TEST_CANDIDATE))
 
+    def test_testserver_login_switch_preserves_configuration_and_survives_update(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'service.env'
+            original = ('SMARTPLAN_DATABASE_DSN=' + shlex.quote(TEST_SOURCE) + '\n'
+                        'SMARTPLAN_PUBLIC_HOST=office.smartplan-hofmann.de\n'
+                        'CUSTOM=unchanged')
+            path.write_text(original)
+            path.chmod(0o640)
+            before = path.stat()
+            release.configure_test_login(path, 'mfa', test_mode=True)
+            self.assertEqual(path.read_text(), original)
+            release.configure_test_login(path, 'password', test_mode=True)
+            release.configure_test_login(path, 'password', test_mode=True)
+            self.assertEqual(path.read_text(), original + '\nSMARTPLAN_TEST_PASSWORD_ONLY=1\n')
+            release.update_environment(path, 'smartplan_release_check', test_mode=True)
+            self.assertIn('SMARTPLAN_TEST_PASSWORD_ONLY=1\n', path.read_text())
+            release.configure_test_login(path, 'mfa', test_mode=True)
+            self.assertTrue(path.read_text().endswith('CUSTOM=unchanged\nSMARTPLAN_TEST_PASSWORD_ONLY=0\n'))
+            after = path.stat()
+            self.assertEqual((before.st_uid, before.st_gid, before.st_mode),
+                             (after.st_uid, after.st_gid, after.st_mode))
+
+    def test_testserver_login_rejects_other_instances_and_conflicting_configuration(self):
+        base = 'SMARTPLAN_DATABASE_DSN=' + shlex.quote(TEST_SOURCE) + '\n'
+        host = 'SMARTPLAN_PUBLIC_HOST=office.smartplan-hofmann.de\n'
+        configs = ('', 'SMARTPLAN_PUBLIC_HOST=office.example.test\n', host + host,
+                   host + 'export SMARTPLAN_TEST_PASSWORD_ONLY=1\n',
+                   host + 'SMARTPLAN_TEST_PASSWORD_ONLY=0\nSMARTPLAN_TEST_PASSWORD_ONLY=1\n')
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'service.env'
+            for config in configs:
+                with self.subTest(config=config):
+                    original = base + config
+                    path.write_text(original)
+                    path.chmod(0o640)
+                    with self.assertRaises(ValueError):
+                        release.configure_test_login(path, 'password', test_mode=True)
+                    self.assertEqual(path.read_text(), original)
+
     def test_ambiguous_or_unsafe_environment_is_never_partly_rewritten(self):
         canonical = 'SMARTPLAN_DATABASE_DSN=' + shlex.quote(TEST_SOURCE) + '\n'
         cases = (

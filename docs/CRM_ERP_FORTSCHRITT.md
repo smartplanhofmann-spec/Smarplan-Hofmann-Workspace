@@ -5185,3 +5185,10 @@ Eigenständiger Uploadnachweisprüfer tatsächlich erfolgreich: 16 archivierte
 Dateien mit komprimierten/entpackten Hashes, Freigabe, sechs identischen
 Quellbäumen, beiden Jobs, echten Testzählern, Apple-Annahme und Artefaktkennungen.
 Ergebnis in `evidence/testflight-upload-2026-11-11/final-verification.json`.
+
+
+## 24.11.2026 – Anmeldung auf dem Smartplan-Testserver
+
+Der Betreiber hat die Passwortanmeldung für alle aktiven Konten einschließlich Administratoren auf `office.smartplan-hofmann.de` ausdrücklich freigegeben. Der Testbranch enthält dafür eine Servereinstellung, den angepassten Browserdialog und einen Betreiberbefehl. Windows und iPhone unterstützen die direkte Sitzung im bestehenden Anmeldecode. [Anleitung und Rückkehr zur Zwei-Faktor-Anmeldung](CRM_ERP_TESTSERVER_ANMELDUNG.md).
+
+Zwei Browser-Regressionsfälle wurden mit den geänderten JavaScript-Funktionen und simulierten Web-APIs ausgeführt. Sie bestanden für Passwortanmeldung, MFA-Abfrage und zehn ungültige Antworten. Das PostgreSQL-Testmodul prüft alle vier Rollen, Passwortfehler, Sperren, die Lebensdauer der Sitzungen und den Rückwechsel zu MFA. Das Betreibertestmodul prüft den Erhalt der Dienstkonfiguration und die Bindung an den Testserver. Die Laufnachweise für PostgreSQL und den Betreiberbefehl sowie die Aktivierung auf dem Server sind gesondert zu erfassen.

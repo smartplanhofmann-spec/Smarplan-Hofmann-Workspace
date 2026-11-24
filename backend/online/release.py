@@ -356,6 +356,39 @@ def update_environment(path, new_database, *, test_mode=False):
     atomic_write(path, ''.join(lines).encode('utf-8'), mode=stat.S_IMODE(info.st_mode), uid=info.st_uid, gid=info.st_gid)
 
 
+def configure_test_login(path, mode, *, test_mode=False):
+    """Select the login policy in the test server's managed environment."""
+    if mode not in ('password', 'mfa'):
+        raise ValueError('Anmeldeverfahren muss password oder mfa sein.')
+    if not test_mode and (os.geteuid() != 0 or str(path) != '/etc/smartplan-online/service.env'):
+        raise ValueError('Anmeldeverfahren nur in der Dienstkonfiguration des Testservers ändern.')
+    info, lines, _, _ = read_environment(path, test_mode=test_mode)
+
+    def assignments(key):
+        return [index for index, line in enumerate(lines)
+                if re.match(r'^\s*(?:export\s+)?' + key + r'\s*=', line)]
+
+    host = assignments('SMARTPLAN_PUBLIC_HOST')
+    if len(host) != 1 or lines[host[0]].rstrip('\r\n') != 'SMARTPLAN_PUBLIC_HOST=office.smartplan-hofmann.de':
+        raise ValueError('Die konfigurierte Domain gehört nicht zum Smartplan-Testserver.')
+    name = 'SMARTPLAN_TEST_PASSWORD_ONLY'
+    indexes = assignments(name)
+    if len(indexes) > 1 or (indexes and lines[indexes[0]].rstrip('\r\n') not in {name + '=0', name + '=1'}):
+        raise ValueError('Die bestehende Einstellung zur Testanmeldung ist nicht eindeutig.')
+    selected = name + ('=1' if mode == 'password' else '=0')
+    if indexes:
+        if lines[indexes[0]].rstrip('\r\n') == selected:
+            return
+        lines[indexes[0]] = selected + '\n'
+    elif mode == 'password':
+        if lines and not lines[-1].endswith('\n'):
+            lines[-1] += '\n'
+        lines.append(selected + '\n')
+    else:
+        return
+    atomic_write(path, ''.join(lines).encode(), mode=stat.S_IMODE(info.st_mode), uid=info.st_uid, gid=info.st_gid)
+
+
 def configure_privacy_environment(path, *, directory='/var/lib/smartplan-online/privacy', test_mode=False):
     """Root setup only: retain existing bindings, never replace a private key.
 
@@ -479,7 +512,7 @@ def maintenance_config(config):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['validate', 'prepare', 'configure', 'maintenance', 'phase', 'size', 'capacity', 'security', 'privacy-configure', 'privacy-init', 'privacy-check', 'reconcile-finance'])
+    parser.add_argument('action', choices=['validate', 'prepare', 'configure', 'maintenance', 'phase', 'size', 'capacity', 'security', 'privacy-configure', 'privacy-init', 'privacy-check', 'reconcile-finance', 'test-login'])
     parser.add_argument('--candidate')
     parser.add_argument('--path')
     parser.add_argument('--output')
@@ -488,7 +521,9 @@ def main():
     parser.add_argument('--privileged-operator', action='store_true')
     parser.add_argument('--compatibility-mode', choices=['legacy', 'business'])
     args = parser.parse_args()
-    if args.action == 'privacy-configure':
+    if args.action == 'test-login':
+        configure_test_login(args.path, args.value)
+    elif args.action == 'privacy-configure':
         print(json.dumps(configure_privacy_environment(args.path), sort_keys=True))
     elif args.action == 'privacy-init':
         active = os.environ['SMARTPLAN_DATABASE_DSN']

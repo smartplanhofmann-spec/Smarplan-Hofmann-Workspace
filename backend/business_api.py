@@ -212,7 +212,7 @@ def capabilities(office, actor, project_id=None):
                 'project_id': project_id}
 
 
-def _dispatch(office, actor, path, method, data, *, offline=False, offline_capabilities=()):
+def _dispatch(office, actor, path, method, data, *, offline=False, offline_capabilities=(), test_password_session=False):
     relative = _relative(path)
     if relative is None:
         return None
@@ -262,7 +262,8 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
             if not caps:
                 raise Problem(403, 'Keine freigegebenen Baustellenfunktionen verfügbar.')
             return {**plan_access.issue(office, actor, workspace=True, business=True, business_capabilities=caps,
-                                        protocol_version=2 if relative.endswith('/v2') else 1),
+                                        protocol_version=2 if relative.endswith('/v2') else 1,
+                                        test_password_session=test_password_session),
                     **reports,
                     'capabilities': ['project_plans', 'offline_plan_access', 'plan_imports',
                                      'plan_deletion', 'project_workspace', 'offline_workspace', *caps]}, 201, 'application/json'
@@ -313,9 +314,9 @@ def _time_payload(value):
     return result
 
 
-def dispatch(office, actor, path, method, data, *, offline=False, offline_capabilities=()):
+def dispatch(office, actor, path, method, data, *, offline=False, offline_capabilities=(), test_password_session=False):
     if not offline:
-        return _dispatch(office, actor, path, method, data)
+        return _dispatch(office, actor, path, method, data, test_password_session=test_password_session)
     if not offline_path(path, method, offline_capabilities):
         raise Problem(403, 'Dieser Gerätezugang erlaubt nur ausdrücklich freigegebene Baustellenfunktionen.')
     if path.startswith('/business/service-reports/'):
